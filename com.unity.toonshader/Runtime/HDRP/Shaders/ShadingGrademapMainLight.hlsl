@@ -11,7 +11,7 @@
 # endif
 #endif
 
-float3 UTS_MainLightShadingGrademap(LightLoopContext lightLoopContext, FragInputs input, int mainLightIndex, out float inverseClipping, out float channelOutAlpha, out float3 viewDirection, out float3 normalDirection, out fixed _Camera_Dir, , out float _Camera_Roll, out fixed _sign_Mirror)
+float3 UTS_MainLightShadingGrademap(LightLoopContext lightLoopContext, FragInputs input, int mainLightIndex, out float inverseClipping, out float channelOutAlpha, out UTSData utsData)
 {
     channelOutAlpha = 1.0f;
 
@@ -42,7 +42,8 @@ float3 UTS_MainLightShadingGrademap(LightLoopContext lightLoopContext, FragInput
 //    float3 _NormalMap_var = UnpackNormalScale(tex2D(_NormalMap, TRANSFORM_TEX(Set_UV0, _NormalMap)), _BumpScale);
     float3 _NormalMap_var = UnpackNormalScale(n, _BumpScale);
     float3 normalLocal = _NormalMap_var.rgb;
-    normalDirection = normalize(mul(normalLocal, tangentTransform)); // Perturbed normals
+    utsData.normalDirection = normalize(mul(normalLocal, tangentTransform)); // Perturbed normals
+
 
 #ifdef _SYNTHESIZED_TEXTURE
     float4 _MainTex_var = float4(tex2D(_MainTexSynthesized, TRANSFORM_TEX(Set_UV0, _MainTexSynthesized)).rgb, 1.0f);
@@ -50,7 +51,9 @@ float3 UTS_MainLightShadingGrademap(LightLoopContext lightLoopContext, FragInput
     float4 _MainTex_var = tex2D(_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex));
 #endif
     float3 i_normalDir = surfaceData.normalWS;
-    viewDirection = V;
+    utsData.viewDirection = V;
+
+
     /* to here todo. these should be put int a struct */
     //v.2.0.4
 #ifdef _IS_TRANSCLIPPING_OFF
@@ -95,7 +98,7 @@ float3 UTS_MainLightShadingGrademap(LightLoopContext lightLoopContext, FragInput
 
 
     ////// Lighting:
-    float3 halfDirection = normalize(viewDirection + lightDirection);
+    float3 halfDirection = normalize(utsData.viewDirection + lightDirection);
     //v.2.0.5
     _Color = _BaseColor;
 
@@ -124,7 +127,7 @@ float3 UTS_MainLightShadingGrademap(LightLoopContext lightLoopContext, FragInput
     //v.2.0.5
     float4 _1st_ShadeMap_var = lerp(tex2D(_1st_ShadeMap, TRANSFORM_TEX(Set_UV0, _1st_ShadeMap)), _MainTex_var, _Use_BaseAs1st);
     float3 _Is_LightColor_1st_Shade_var = lerp((_1st_ShadeMap_var.rgb * _1st_ShadeColor.rgb), ((_1st_ShadeMap_var.rgb * _1st_ShadeColor.rgb) * Set_LightColor), _Is_LightColor_1st_Shade);
-    float _HalfLambert_var = 0.5 * dot(lerp(i_normalDir, normalDirection, _Is_NormalMapToBase), lightDirection) + 0.5; // Half Lambert
+    float _HalfLambert_var = 0.5 * dot(lerp(i_normalDir, utsData.normalDirection, _Is_NormalMapToBase), lightDirection) + 0.5; // Half Lambert
      //v.2.0.6
 #ifdef _SYNTHESIZED_TEXTURE
     float4 _ShadingGradeMap_var = tex2Dlod(_ShadowControlSynthesized, float4(TRANSFORM_TEX(Set_UV0, _ShadowControlSynthesized), 0.0, _BlurLevelSGM)).b;
@@ -217,7 +220,7 @@ float3 UTS_MainLightShadingGrademap(LightLoopContext lightLoopContext, FragInput
 #else
     float4 _Set_HighColorMask_var = tex2D(_Set_HighColorMask, TRANSFORM_TEX(Set_UV0, _Set_HighColorMask));
 #endif
-    float _Specular_var = 0.5 * dot(halfDirection, lerp(i_normalDir, normalDirection, _Is_NormalMapToHighColor)) + 0.5; // Specular
+    float _Specular_var = 0.5 * dot(halfDirection, lerp(i_normalDir, utsData.normalDirection, _Is_NormalMapToHighColor)) + 0.5; // Specular
     float _TweakHighColorMask_var = (saturate((_Set_HighColorMask_var.g + _Tweak_HighColorMaskLevel)) * lerp((1.0 - step(_Specular_var, (1.0 - pow(_HighColor_Power, 5)))), pow(_Specular_var, exp2(lerp(11, 1, _HighColor_Power))), _Is_SpecularToHighColor));
 #ifdef _SYNTHESIZED_TEXTURE
     float4 _HighColor_Tex_var = float4(tex2D(_HighColor_TexSynthesized, TRANSFORM_TEX(Set_UV0, _HighColor_TexSynthesized)).rgb, 1.0f);
@@ -265,7 +268,7 @@ float3 UTS_MainLightShadingGrademap(LightLoopContext lightLoopContext, FragInput
     float4 _Set_RimLightMask_var = tex2D(_Set_RimLightMask, TRANSFORM_TEX(Set_UV0, _Set_RimLightMask));
 #endif
     float3 _Is_LightColor_RimLight_var = lerp(_RimLightColor.rgb, (_RimLightColor.rgb * Set_LightColor), _Is_LightColor_RimLight);
-    float _RimArea_var = (1.0 - dot(lerp(i_normalDir, normalDirection, _Is_NormalMapToRimLight), viewDirection));
+    float _RimArea_var = (1.0 - dot(lerp(i_normalDir, utsData.normalDirection, _Is_NormalMapToRimLight), utsData.viewDirection));
     float _RimLightPower_var = pow(_RimArea_var, exp2(lerp(3, 0, _RimLight_Power)));
     float _Rimlight_InsideMask_var = saturate(lerp((0.0 + ((_RimLightPower_var - _RimLight_InsideMask) * (1.0 - 0.0)) / (1.0 - _RimLight_InsideMask)), step(_RimLight_InsideMask, _RimLightPower_var), _RimLight_FeatherOff));
     float _VertHalfLambert_var = 0.5 * dot(i_normalDir, lightDirection) + 0.5;
@@ -296,14 +299,15 @@ float3 UTS_MainLightShadingGrademap(LightLoopContext lightLoopContext, FragInput
     //v.2.0.6 : CameraRolling Stabilizer
     //Mirror Script Determination: if sign_Mirror = -1, determine "Inside the mirror".
     //v.2.0.7
-    _sign_Mirror = 0.0; // i.mirrorFlag; todo.
+    utsData.signMirror= 0.0; // i.mirrorFlag; todo.
+
     //
     float3 _Camera_Right = UNITY_MATRIX_V[0].xyz;
     float3 _Camera_Front = UNITY_MATRIX_V[2].xyz;
     float3 _Up_Unit = float3(0, 1, 0);
     float3 _Right_Axis = cross(_Camera_Front, _Up_Unit);
     //Invert if it's "inside the mirror".
-    if (_sign_Mirror < 0) {
+    if (utsData.signMirror < 0) {
         _Right_Axis = -1 * _Right_Axis;
         _Rotate_MatCapUV = -1 * _Rotate_MatCapUV;
     }
@@ -313,9 +317,9 @@ float3 UTS_MainLightShadingGrademap(LightLoopContext lightLoopContext, FragInput
     float _Camera_Right_Magnitude = sqrt(_Camera_Right.x * _Camera_Right.x + _Camera_Right.y * _Camera_Right.y + _Camera_Right.z * _Camera_Right.z);
     float _Right_Axis_Magnitude = sqrt(_Right_Axis.x * _Right_Axis.x + _Right_Axis.y * _Right_Axis.y + _Right_Axis.z * _Right_Axis.z);
     float _Camera_Roll_Cos = dot(_Right_Axis, _Camera_Right) / (_Right_Axis_Magnitude * _Camera_Right_Magnitude);
-    _Camera_Roll = acos(clamp(_Camera_Roll_Cos, -1, 1));
-    _Camera_Dir = _Camera_Right.y < 0 ? -1 : 1;
-    float _Rot_MatCapUV_var_ang = (_Rotate_MatCapUV * 3.141592654) - _Camera_Dir * _Camera_Roll * _CameraRolling_Stabilizer;
+    utsData.cameraRoll = acos(clamp(_Camera_Roll_Cos, -1, 1));
+    utsData.cameraDir = _Camera_Right.y < 0 ? -1 : 1;
+    float _Rot_MatCapUV_var_ang = (_Rotate_MatCapUV * 3.141592654) - utsData.cameraDir * utsData.cameraRoll * _CameraRolling_Stabilizer;
     //v.2.0.7
     float2 _Rot_MatCapNmUV_var = RotateUV(Set_UV0, (_Rotate_NormalMapForMatCapUV * 3.141592654), float2(0.5, 0.5), 1.0);
     //V.2.0.6
@@ -325,14 +329,14 @@ float3 UTS_MainLightShadingGrademap(LightLoopContext lightLoopContext, FragInput
     //v.2.0.5: MatCap with camera skew correction
     float3 viewNormal = (mul(UNITY_MATRIX_V, float4(lerp(i_normalDir, mul(_NormalMapForMatCap_var.rgb, tangentTransform).rgb, _Is_NormalMapForMatCap), 0))).rgb;
     float3 NormalBlend_MatcapUV_Detail = viewNormal.rgb * float3(-1, -1, 1);
-    float3 NormalBlend_MatcapUV_Base = (mul(UNITY_MATRIX_V, float4(viewDirection, 0)).rgb * float3(-1, -1, 1)) + float3(0, 0, 1);
+    float3 NormalBlend_MatcapUV_Base = (mul(UNITY_MATRIX_V, float4(utsData.viewDirection, 0)).rgb * float3(-1, -1, 1)) + float3(0, 0, 1);
     float3 noSknewViewNormal = NormalBlend_MatcapUV_Base * dot(NormalBlend_MatcapUV_Base, NormalBlend_MatcapUV_Detail) / NormalBlend_MatcapUV_Base.b - NormalBlend_MatcapUV_Detail;
     float2 _ViewNormalAsMatCapUV = (lerp(noSknewViewNormal, viewNormal, _Is_Ortho).rg * 0.5) + 0.5;
     //
     //v.2.0.7
     float2 _Rot_MatCapUV_var = RotateUV((0.0 + ((_ViewNormalAsMatCapUV - (0.0 + _Tweak_MatCapUV)) * (1.0 - 0.0)) / ((1.0 - _Tweak_MatCapUV) - (0.0 + _Tweak_MatCapUV))), _Rot_MatCapUV_var_ang, float2(0.5, 0.5), 1.0);
     //Invert if it's "inside the mirror".
-    if (_sign_Mirror < 0) {
+    if (utsData.signMirror < 0) {
         _Rot_MatCapUV_var.x = 1 - _Rot_MatCapUV_var.x;
     }
     else {
@@ -379,7 +383,7 @@ float3 UTS_MainLightShadingGrademap(LightLoopContext lightLoopContext, FragInput
     //v.2.0.7 AR Camera Rolling Stabilizer
     float3 _AR_OffsetU_var = lerp(mul(UNITY_MATRIX_V, float4(i_normalDir, 0)).xyz, float3(0, 0, 1), _AR_OffsetU);
     float2 AR_VN = _AR_OffsetU_var.xy * 0.5 + float2(0.5, 0.5);
-    float2 AR_VN_Rotate = RotateUV(AR_VN, -(_Camera_Dir * _Camera_Roll), float2(0.5, 0.5), 1.0);
+    float2 AR_VN_Rotate = RotateUV(AR_VN, -(utsData.cameraDir * utsData.cameraRoll), float2(0.5, 0.5), 1.0);
     float2 _AR_OffsetV_var = float2(AR_VN_Rotate.x, lerp(input.texCoord1.y, AR_VN_Rotate.y, _AR_OffsetV));
     float4 _AngelRing_Sampler_var = tex2D(_AngelRing_Sampler, TRANSFORM_TEX(_AR_OffsetV_var, _AngelRing_Sampler));
     float3 _Is_LightColor_AR_var = lerp((_AngelRing_Sampler_var.rgb * _AngelRing_Color.rgb), ((_AngelRing_Sampler_var.rgb * _AngelRing_Color.rgb) * Set_LightColor), _Is_LightColor_AR);

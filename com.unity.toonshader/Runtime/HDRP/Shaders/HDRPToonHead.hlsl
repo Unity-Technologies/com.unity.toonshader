@@ -23,7 +23,14 @@
   #define SATURATE_IF_SDR(x) saturate(x)
 #endif
 
-
+struct UTSData
+{
+	float3 viewDirection;
+	float3 normalDirection;
+	fixed  cameraDir;
+    float  cameraRoll;
+	fixed  signMirror;
+};
 
 
 
