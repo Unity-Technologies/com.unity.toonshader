@@ -17,7 +17,11 @@
 # define DIRECTIONAL
 #endif
 
-
+#if UCTS_HDRP
+  #define SATURATE_IF_SDR(x) (x)
+#else
+  #define SATURATE_IF_SDR(x) saturate(x)
+#endif
 
 
 
