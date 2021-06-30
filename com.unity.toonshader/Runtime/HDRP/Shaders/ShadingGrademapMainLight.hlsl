@@ -11,7 +11,7 @@
 # endif
 #endif
 
-float3 UTS_MainLightShadingGrademap(LightLoopContext lightLoopContext, FragInputs input, int mainLightIndex, out float inverseClipping, out float channelOutAlpha)
+float3 UTS_MainLightShadingGrademap(LightLoopContext lightLoopContext, FragInputs input, int mainLightIndex, out float inverseClipping, out float channelOutAlpha, out float3 viewDirection, out float3 normalDirection, out fixed _Camera_Dir, , out float _Camera_Roll, out fixed _sign_Mirror)
 {
     channelOutAlpha = 1.0f;
 
@@ -42,7 +42,7 @@ float3 UTS_MainLightShadingGrademap(LightLoopContext lightLoopContext, FragInput
 //    float3 _NormalMap_var = UnpackNormalScale(tex2D(_NormalMap, TRANSFORM_TEX(Set_UV0, _NormalMap)), _BumpScale);
     float3 _NormalMap_var = UnpackNormalScale(n, _BumpScale);
     float3 normalLocal = _NormalMap_var.rgb;
-    float3 normalDirection = normalize(mul(normalLocal, tangentTransform)); // Perturbed normals
+    normalDirection = normalize(mul(normalLocal, tangentTransform)); // Perturbed normals
 
 #ifdef _SYNTHESIZED_TEXTURE
     float4 _MainTex_var = float4(tex2D(_MainTexSynthesized, TRANSFORM_TEX(Set_UV0, _MainTexSynthesized)).rgb, 1.0f);
@@ -50,7 +50,7 @@ float3 UTS_MainLightShadingGrademap(LightLoopContext lightLoopContext, FragInput
     float4 _MainTex_var = tex2D(_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex));
 #endif
     float3 i_normalDir = surfaceData.normalWS;
-    float3 viewDirection = V;
+    viewDirection = V;
     /* to here todo. these should be put int a struct */
     //v.2.0.4
 #ifdef _IS_TRANSCLIPPING_OFF
@@ -296,7 +296,7 @@ float3 UTS_MainLightShadingGrademap(LightLoopContext lightLoopContext, FragInput
     //v.2.0.6 : CameraRolling Stabilizer
     //Mirror Script Determination: if sign_Mirror = -1, determine "Inside the mirror".
     //v.2.0.7
-    fixed _sign_Mirror = 0.0; // i.mirrorFlag; todo.
+    _sign_Mirror = 0.0; // i.mirrorFlag; todo.
     //
     float3 _Camera_Right = UNITY_MATRIX_V[0].xyz;
     float3 _Camera_Front = UNITY_MATRIX_V[2].xyz;
@@ -313,8 +313,8 @@ float3 UTS_MainLightShadingGrademap(LightLoopContext lightLoopContext, FragInput
     float _Camera_Right_Magnitude = sqrt(_Camera_Right.x * _Camera_Right.x + _Camera_Right.y * _Camera_Right.y + _Camera_Right.z * _Camera_Right.z);
     float _Right_Axis_Magnitude = sqrt(_Right_Axis.x * _Right_Axis.x + _Right_Axis.y * _Right_Axis.y + _Right_Axis.z * _Right_Axis.z);
     float _Camera_Roll_Cos = dot(_Right_Axis, _Camera_Right) / (_Right_Axis_Magnitude * _Camera_Right_Magnitude);
-    float _Camera_Roll = acos(clamp(_Camera_Roll_Cos, -1, 1));
-    fixed _Camera_Dir = _Camera_Right.y < 0 ? -1 : 1;
+    _Camera_Roll = acos(clamp(_Camera_Roll_Cos, -1, 1));
+    _Camera_Dir = _Camera_Right.y < 0 ? -1 : 1;
     float _Rot_MatCapUV_var_ang = (_Rotate_MatCapUV * 3.141592654) - _Camera_Dir * _Camera_Roll * _CameraRolling_Stabilizer;
     //v.2.0.7
     float2 _Rot_MatCapNmUV_var = RotateUV(Set_UV0, (_Rotate_NormalMapForMatCapUV * 3.141592654), float2(0.5, 0.5), 1.0);

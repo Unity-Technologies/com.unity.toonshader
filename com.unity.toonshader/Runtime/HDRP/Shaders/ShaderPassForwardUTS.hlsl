@@ -173,6 +173,11 @@ void Frag(PackedVaryingsToPS packedInput,
     FragInputs input = UnpackVaryingsMeshToFragInputs(packedInput.vmesh);
 
     float4 Set_UV0 = input.texCoord0;
+    float3 viewDirection;
+    float3 normalDirection;
+    fixed _Camera_Dir;
+    float _Camera_Roll;
+    fixed _sign_Mirror;
     // We need to readapt the SS position as our screen space positions are for a low res buffer, but we try to access a full res buffer.
     input.positionSS.xy = _OffScreenRendering > 0 ? (input.positionSS.xy * _OffScreenDownsampleFactor) : input.positionSS.xy;
 
@@ -294,9 +299,9 @@ void Frag(PackedVaryingsToPS packedInput,
         if ( mainLightIndex >= 0)
         {
 #if defined(_SHADINGGRADEMAP)
-			finalColor = UTS_MainLightShadingGrademap(context, input, mainLightIndex, inverseClipping, channelAlpha);
+			finalColor = UTS_MainLightShadingGrademap(context, input, mainLightIndex, inverseClipping, channelAlpha, viewDirection, normalDirection, _Camera_Dir, _Camera_Roll, _sign_Mirror);
 #else
-			finalColor = UTS_MainLight(context, input, mainLightIndex, inverseClipping, channelAlpha);
+			finalColor = UTS_MainLight(context, input, mainLightIndex, inverseClipping, channelAlpha, viewDirection, normalDirection, _Camera_Dir, _Camera_Roll, _sign_Mirror);
 #endif
         }
 
