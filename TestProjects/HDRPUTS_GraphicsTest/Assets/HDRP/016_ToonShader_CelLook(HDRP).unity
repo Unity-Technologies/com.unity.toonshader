@@ -765,7 +765,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ImageComparisonSettings:
     TargetWidth: 960
-    TargetHeight: 512
+    TargetHeight: 540
     PerPixelCorrectnessThreshold: 0.001
     PerPixelGammaThreshold: 0.003921569
     PerPixelAlphaThreshold: 0.003921569
@@ -776,7 +776,7 @@ MonoBehaviour:
     ImageResolution: 3
     ActiveImageTests: 1
     ActivePixelTests: 7
-  WaitFrames: 120
+  WaitFrames: 60
 --- !u!20 &794565945
 Camera:
   m_ObjectHideFlags: 0
