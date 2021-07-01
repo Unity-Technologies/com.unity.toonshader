@@ -207,7 +207,7 @@ float3 UTS_MainLight(LightLoopContext lightLoopContext, FragInputs input, int ma
 
         _HighColor_var *= _HighlightVisible;
         Set_HighColor =
-            lerp(saturate(Set_FinalBaseColor - _TweakHighColorMask_var), Set_FinalBaseColor,
+            lerp(SATURATE_IF_SDR(Set_FinalBaseColor - _TweakHighColorMask_var), Set_FinalBaseColor,
                 lerp(_Is_BlendAddToHiColor, 1.0
                     , _Is_SpecularToHighColor));
         float3 addColor =
@@ -222,7 +222,7 @@ float3 UTS_MainLight(LightLoopContext lightLoopContext, FragInputs input, int ma
     }
 
 #else
-    float3 Set_HighColor = (lerp(saturate((Set_FinalBaseColor - _TweakHighColorMask_var)), Set_FinalBaseColor, lerp(_Is_BlendAddToHiColor, 1.0, _Is_SpecularToHighColor)) + lerp(_HighColor_var, (_HighColor_var * ((1.0 - Set_FinalShadowMask) + (Set_FinalShadowMask * _TweakHighColorOnShadow))), _Is_UseTweakHighColorOnShadow));
+    float3 Set_HighColor = (lerp(SATURATE_IF_SDR((Set_FinalBaseColor - _TweakHighColorMask_var)), Set_FinalBaseColor, lerp(_Is_BlendAddToHiColor, 1.0, _Is_SpecularToHighColor)) + lerp(_HighColor_var, (_HighColor_var * ((1.0 - Set_FinalShadowMask) + (Set_FinalShadowMask * _TweakHighColorOnShadow))), _Is_UseTweakHighColorOnShadow));
 #endif
 #ifdef _SYNTHESIZED_TEXTURE
     float4 _Set_RimLightMask_var = tex2D(_ShadowControlSynthesized, TRANSFORM_TEX(Set_UV0, _ShadowControlSynthesized)).a;
