@@ -583,7 +583,7 @@ void Frag(PackedVaryingsToPS packedInput,
     float3 envLightColor = envColor;
     float3 envLightIntensity = 0.299*envLightColor.r + 0.587*envLightColor.g + 0.114*envLightColor.b < 1 ? (0.299*envLightColor.r + 0.587*envLightColor.g + 0.114*envLightColor.b) : 1;
 
-    finalColor = saturate(finalColor) + (envLightColor*envLightIntensity*_GI_Intensity*smoothstep(1, 0, envLightIntensity / 2)) + emissive;
+    finalColor = SATURATE_IF_SDR(finalColor) + (envLightColor*envLightIntensity*_GI_Intensity*smoothstep(1, 0, envLightIntensity / 2)) + emissive;
     //    finalColor = float3(context.shadowValue, 0, 0);
 #if defined(_SHADINGGRADEMAP)
     //v.2.0.4
@@ -592,7 +592,7 @@ void Frag(PackedVaryingsToPS packedInput,
     outColor = float4(finalColor, 1 * ApplyChannelAlpha(channelAlpha));
 
   #elif _IS_TRANSCLIPPING_ON
-    float Set_Opacity = saturate((inverseClipping + _Tweak_transparency));
+    float Set_Opacity = SATURATE_IF_SDR((inverseClipping + _Tweak_transparency));
 
     outColor = float4(finalColor, Set_Opacity * ApplyChannelAlpha(channelAlpha));
 
@@ -612,7 +612,7 @@ void Frag(PackedVaryingsToPS packedInput,
 
   #elif _IS_CLIPPING_TRANSMODE
     //DoubleShadeWithFeather_TransClipping
-    float Set_Opacity = saturate((inverseClipping + _Tweak_transparency));
+    float Set_Opacity = SATURATE_IF_SDR((inverseClipping + _Tweak_transparency));
     outColor = float4(finalColor, Set_Opacity * ApplyChannelAlpha(channelAlpha));
   #endif
 
