@@ -8,23 +8,97 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 12004, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PixelRect:
+    serializedVersion: 2
+    x: 763
+    y: 183
+    width: 722
+    height: 711
+  m_ShowMode: 0
+  m_Title: Test Runner
+  m_RootView: {fileID: 4}
+  m_MinSize: {x: 100, y: 121}
+  m_MaxSize: {x: 4000, y: 4021}
+  m_Maximized: 0
+--- !u!114 &2
+MonoBehaviour:
+  m_ObjectHideFlags: 52
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12004, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: 
   m_EditorClassIdentifier: 
   m_PixelRect:
     serializedVersion: 2
-    x: 7.3333335
-    y: 50
-    width: 2545.3335
-    height: 1342.6667
+    x: 0
+    y: 53
+    width: 1680
+    height: 936
   m_ShowMode: 4
   m_Title: Project
-  m_RootView: {fileID: 6}
+  m_RootView: {fileID: 9}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
-  m_Maximized: 0
---- !u!114 &2
+  m_Maximized: 1
+--- !u!114 &3
+MonoBehaviour:
+  m_ObjectHideFlags: 52
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: TestRunnerWindow
+  m_EditorClassIdentifier: 
+  m_Children: []
+  m_Position:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 722
+    height: 711
+  m_MinSize: {x: 100, y: 100}
+  m_MaxSize: {x: 4000, y: 4000}
+  m_ActualView: {fileID: 15}
+  m_Panes:
+  - {fileID: 15}
+  m_Selected: 0
+  m_LastSelected: 0
+--- !u!114 &4
+MonoBehaviour:
+  m_ObjectHideFlags: 52
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 12010, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Children:
+  - {fileID: 3}
+  m_Position:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 722
+    height: 711
+  m_MinSize: {x: 100, y: 121}
+  m_MaxSize: {x: 4000, y: 4021}
+  vertical: 0
+  controlID: 108
+--- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -37,19 +111,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Children:
-  - {fileID: 9}
-  - {fileID: 3}
+  - {fileID: 12}
+  - {fileID: 6}
   m_Position:
     serializedVersion: 2
     x: 0
     y: 30
-    width: 2545
-    height: 1293
+    width: 1680
+    height: 886
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 32
---- !u!114 &3
+  controlID: 49
+--- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -64,18 +138,18 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 2029
+    x: 1339
     y: 0
-    width: 516
-    height: 1293
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
-  m_ActualView: {fileID: 14}
+    width: 341
+    height: 886
+  m_MinSize: {x: 276, y: 71}
+  m_MaxSize: {x: 4001, y: 4021}
+  m_ActualView: {fileID: 18}
   m_Panes:
-  - {fileID: 14}
+  - {fileID: 18}
   m_Selected: 0
   m_LastSelected: 0
---- !u!114 &4
+--- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,16 +166,16 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 502
-    height: 782
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
-  m_ActualView: {fileID: 15}
+    width: 331
+    height: 536.5
+  m_MinSize: {x: 201, y: 221}
+  m_MaxSize: {x: 4001, y: 4021}
+  m_ActualView: {fileID: 19}
   m_Panes:
-  - {fileID: 15}
+  - {fileID: 19}
   m_Selected: 0
   m_LastSelected: 0
---- !u!114 &5
+--- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -117,18 +191,18 @@ MonoBehaviour:
   m_Position:
     serializedVersion: 2
     x: 0
-    y: 782
-    width: 2029
-    height: 511
+    y: 536.5
+    width: 1339
+    height: 349.5
   m_MinSize: {x: 231, y: 271}
   m_MaxSize: {x: 10001, y: 10021}
-  m_ActualView: {fileID: 13}
+  m_ActualView: {fileID: 17}
   m_Panes:
-  - {fileID: 13}
-  - {fileID: 18}
+  - {fileID: 17}
+  - {fileID: 22}
   m_Selected: 0
   m_LastSelected: 1
---- !u!114 &6
+--- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -141,22 +215,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Children:
-  - {fileID: 7}
-  - {fileID: 2}
-  - {fileID: 8}
+  - {fileID: 10}
+  - {fileID: 5}
+  - {fileID: 11}
   m_Position:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 2545
-    height: 1343
+    width: 1680
+    height: 936
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
   m_UseTopView: 1
   m_TopViewHeight: 30
   m_UseBottomView: 1
   m_BottomViewHeight: 20
---- !u!114 &7
+--- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -173,12 +247,12 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 2545
+    width: 1680
     height: 30
   m_MinSize: {x: 0, y: 0}
   m_MaxSize: {x: 0, y: 0}
   m_LastLoadedLayoutName: 
---- !u!114 &8
+--- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -194,12 +268,12 @@ MonoBehaviour:
   m_Position:
     serializedVersion: 2
     x: 0
-    y: 1323
-    width: 2545
+    y: 916
+    width: 1680
     height: 20
   m_MinSize: {x: 0, y: 0}
   m_MaxSize: {x: 0, y: 0}
---- !u!114 &9
+--- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -212,19 +286,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Children:
-  - {fileID: 10}
-  - {fileID: 5}
+  - {fileID: 13}
+  - {fileID: 8}
   m_Position:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 2029
-    height: 1293
+    width: 1339
+    height: 886
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 18
---- !u!114 &10
+  controlID: 55
+--- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -237,19 +311,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Children:
-  - {fileID: 4}
-  - {fileID: 11}
+  - {fileID: 7}
+  - {fileID: 14}
   m_Position:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 2029
-    height: 782
+    width: 1339
+    height: 536.5
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
   controlID: 19
---- !u!114 &11
+--- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -259,25 +333,1296 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: SceneView
+  m_Name: GameView
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 502
+    x: 331
     y: 0
-    width: 1527
-    height: 782
+    width: 1008
+    height: 536.5
   m_MinSize: {x: 202, y: 221}
   m_MaxSize: {x: 4002, y: 4021}
-  m_ActualView: {fileID: 16}
+  m_ActualView: {fileID: 21}
   m_Panes:
+  - {fileID: 20}
+  - {fileID: 21}
   - {fileID: 16}
-  - {fileID: 17}
-  - {fileID: 12}
-  m_Selected: 0
-  m_LastSelected: 1
---- !u!114 &12
+  m_Selected: 1
+  m_LastSelected: 0
+--- !u!114 &15
+MonoBehaviour:
+  m_ObjectHideFlags: 52
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 13401, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MinSize: {x: 100, y: 100}
+  m_MaxSize: {x: 4000, y: 4000}
+  m_TitleContent:
+    m_Text: Test Runner
+    m_Image: {fileID: 0}
+    m_Tooltip: 
+  m_Pos:
+    serializedVersion: 2
+    x: 763
+    y: 183
+    width: 722
+    height: 690
+  m_ViewDataDictionary: {fileID: 0}
+  m_OverlayCanvas:
+    m_SaveData: []
+    m_FirstInit: 1
+  m_LastOverlayPresetName: 
+  m_Spl:
+    ID: 174
+    splitterInitialOffset: 0
+    currentActiveSplitter: -1
+    realSizes:
+    - 465
+    - 155
+    relativeSizes:
+    - 0.75
+    - 0.25
+    minSizes:
+    - 32
+    - 32
+    maxSizes:
+    - 0
+    - 0
+    lastTotalSize: 620
+    splitSize: 6
+    xOffset: 0
+    m_Version: 1
+    oldRealSizes: 
+    oldMinSizes: 
+    oldMaxSizes: 
+    oldSplitSize: 0
+  m_TestTypeToolbarIndex: 0
+  m_PlayModeTestListGUI:
+    m_Window: {fileID: 15}
+    m_NewResultList:
+    - id: 1006
+      uniqueId: '[New Unity Project][suite]'
+      name: New Unity Project
+      fullName: New Unity Project
+      resultStatus: 2
+      duration: 13.104032
+      messages: One or more child tests had errors
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 
+      parentUniqueId: 
+    - id: 1014
+      uniqueId: '[HDRPUTS_GraphicsTests.dll][suite]'
+      name: HDRPUTS_GraphicsTests.dll
+      fullName: /Users/toshiyuki/devel/MyProject/UnityToonShader/TestProjects/HDRPUTS_GraphicsTest-2021.2/Library/ScriptAssemblies/HDRPUTS_GraphicsTests.dll
+      resultStatus: 2
+      duration: 12.960815
+      messages: One or more child tests had errors
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1006
+      parentUniqueId: '[New Unity Project][suite]'
+    - id: 1015
+      uniqueId: HDRPUTS_GraphicsTests.dll/[HDRPUTS_GraphicsTests][Tests][suite]
+      name: Tests
+      fullName: Tests
+      resultStatus: 2
+      duration: 12.95002
+      messages: One or more child tests had errors
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1014
+      parentUniqueId: '[HDRPUTS_GraphicsTests.dll][suite]'
+    - id: 1007
+      uniqueId: HDRPUTS_GraphicsTests.dll/Tests/[HDRPUTS_GraphicsTests][suite]
+      name: HDRPUTS_GraphicsTests
+      fullName: Tests.HDRPUTS_GraphicsTests
+      resultStatus: 2
+      duration: 12.94436
+      messages: One or more child tests had errors
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1015
+      parentUniqueId: HDRPUTS_GraphicsTests.dll/[HDRPUTS_GraphicsTests][Tests][suite]
+    - id: 1013
+      uniqueId: HDRPUTS_GraphicsTests.dll/Tests/HDRPUTS_GraphicsTests/[HDRPUTS_GraphicsTests][Tests.HDRPUTS_GraphicsTests.Run][suite]
+      name: Run
+      fullName: Tests.HDRPUTS_GraphicsTests.Run
+      resultStatus: 2
+      duration: 12.935237
+      messages: One or more child tests had errors
+      output: 'Class type not found: SetupGraphicsTestCases
+
+        Class type not
+        found: SetupGraphicsTestCases
+
+        Class type not found: SetupGraphicsTestCases
+
+        Class
+        type not found: SetupGraphicsTestCases
+
+        Class type not found: SetupGraphicsTestCases
+
+        Class
+        type not found: SetupGraphicsTestCases
+
+        Class type not found: SetupGraphicsTestCases
+
+        Class
+        type not found: SetupGraphicsTestCases
+
+        Class type not found: SetupGraphicsTestCases
+
+        Class
+        type not found: SetupGraphicsTestCases
+
+'
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories:
+      - HDRP
+      parentId: 1007
+      parentUniqueId: HDRPUTS_GraphicsTests.dll/Tests/[HDRPUTS_GraphicsTests][suite]
+    - id: 1008
+      uniqueId: HDRPUTS_GraphicsTests.dll/Tests/HDRPUTS_GraphicsTests/Run/[HDRPUTS_GraphicsTests][Tests.HDRPUTS_GraphicsTests.001_AngelRing(HDRP)]
+      name: 001_AngelRing(HDRP)
+      fullName: Tests.HDRPUTS_GraphicsTests.001_AngelRing(HDRP)
+      resultStatus: 2
+      duration: 3.70035
+      messages: "System.Exception : Memory allocation test failed, 1 allocations
+        detected. Steps to find where your allocation is:\r\n                       
+        - Open the profiler window (ctrl-7) and enable deep profiling.\r\n                       
+        - Run your the test that fails and wait (it can take much longer because
+        deep profiling is enabled).\r\n                        - In the CPU section
+        of the profiler, select on Hierarchy and search for the 'GraphicTests_GC_Alloc_Check'
+        marker.\r\n                        - This should give you one result, click
+        on it and press f to go to the frame where it hapended.\r\n                       
+        - Click on the GC Alloc column to sort by allocation and unfold the hierarchy
+        under the 'GraphicTests_GC_Alloc_Check' marker."
+      output: 
+      stacktrace: "  at UnityEngine.TestTools.Graphics.ImageAssert.AllocatesMemory
+        (UnityEngine.Camera camera, UnityEngine.TestTools.Graphics.ImageComparisonSettings
+        settings, System.Int32 gcAllocThreshold) [0x000d8] in /Users/toshiyuki/devel/MyProject/UnityToonShader/TestProjects/HDRPUTS_GraphicsTest-2021.2/Library/PackageCache/com.unity.testframework.graphics@7.8.8-preview/Runtime/ImageAssert.cs:327
+        \n  at Tests.HDRPUTS_GraphicsTests+<Run>d__1.MoveNext () [0x001cb] in /Users/toshiyuki/devel/MyProject/UnityToonShader/TestProjects/HDRPUTS_GraphicsTest-2021.2/Assets/Tests/HDRPUTS_GraphicsTests/HDRPUTS_GraphicsTests.cs:88
+        \n  at UnityEngine.TestTools.TestEnumerator+<Execute>d__6.MoveNext () [0x00038]
+        in /Users/toshiyuki/devel/MyProject/UnityToonShader/TestProjects/HDRPUTS_GraphicsTest-2021.2/Library/PackageCache/com.unity.test-framework@1.1.26/UnityEngine.TestRunner/NUnitExtensions/Attributes/TestEnumerator.cs:36 "
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - HDRP
+      parentId: 1013
+      parentUniqueId: HDRPUTS_GraphicsTests.dll/Tests/HDRPUTS_GraphicsTests/[HDRPUTS_GraphicsTests][Tests.HDRPUTS_GraphicsTests.Run][suite]
+    - id: 1009
+      uniqueId: HDRPUTS_GraphicsTests.dll/Tests/HDRPUTS_GraphicsTests/Run/[HDRPUTS_GraphicsTests][Tests.HDRPUTS_GraphicsTests.005_LightAndShadows(HDRP)]
+      name: 005_LightAndShadows(HDRP)
+      fullName: Tests.HDRPUTS_GraphicsTests.005_LightAndShadows(HDRP)
+      resultStatus: 2
+      duration: 2.5320814
+      messages: "System.Exception : Memory allocation test failed, 1 allocations
+        detected. Steps to find where your allocation is:\r\n                       
+        - Open the profiler window (ctrl-7) and enable deep profiling.\r\n                       
+        - Run your the test that fails and wait (it can take much longer because
+        deep profiling is enabled).\r\n                        - In the CPU section
+        of the profiler, select on Hierarchy and search for the 'GraphicTests_GC_Alloc_Check'
+        marker.\r\n                        - This should give you one result, click
+        on it and press f to go to the frame where it hapended.\r\n                       
+        - Click on the GC Alloc column to sort by allocation and unfold the hierarchy
+        under the 'GraphicTests_GC_Alloc_Check' marker."
+      output: 'The referenced script (Unknown) on this Behaviour is missing!
+
+        The
+        referenced script on this Behaviour (Game Object ''Main Camera'') is missing!
+
+        There
+        can be only one active Event System.
+
+        There are 2 event systems in
+        the scene. Please ensure there is always exactly one event system in the
+        scene
+
+        There are 2 event systems in the scene. Please ensure there
+        is always exactly one event system in the scene
+
+        There are 2 event
+        systems in the scene. Please ensure there is always exactly one event system
+        in the scene
+
+        There are 2 event systems in the scene. Please ensure
+        there is always exactly one event system in the scene
+
+        There are
+        2 event systems in the scene. Please ensure there is always exactly one event
+        system in the scene
+
+        There are 2 event systems in the scene. Please
+        ensure there is always exactly one event system in the scene
+
+        There
+        are 2 event systems in the scene. Please ensure there is always exactly one
+        event system in the scene
+
+        There are 2 event systems in the scene.
+        Please ensure there is always exactly one event system in the scene
+
+        There
+        are 2 event systems in the scene. Please ensure there is always exactly one
+        event system in the scene
+
+        There are 2 event systems in the scene.
+        Please ensure there is always exactly one event system in the scene
+
+        There
+        are 2 event systems in the scene. Please ensure there is always exactly one
+        event system in the scene
+
+        There are 2 event systems in the scene.
+        Please ensure there is always exactly one event system in the scene
+
+        There
+        are 2 event systems in the scene. Please ensure there is always exactly one
+        event system in the scene
+
+        There are 2 event systems in the scene.
+        Please ensure there is always exactly one event system in the scene
+
+        There
+        are 2 event systems in the scene. Please ensure there is always exactly one
+        event system in the scene
+
+        There are 2 event systems in the scene.
+        Please ensure there is always exactly one event system in the scene
+
+        There
+        are 2 event systems in the scene. Please ensure there is always exactly one
+        event system in the scene
+
+        There are 2 event systems in the scene.
+        Please ensure there is always exactly one event system in the scene
+
+        There
+        are 2 event systems in the scene. Please ensure there is always exactly one
+        event system in the scene
+
+        There are 2 event systems in the scene.
+        Please ensure there is always exactly one event system in the scene
+
+        There
+        are 2 event systems in the scene. Please ensure there is always exactly one
+        event system in the scene
+
+        There are 2 event systems in the scene.
+        Please ensure there is always exactly one event system in the scene
+
+        There
+        are 2 event systems in the scene. Please ensure there is always exactly one
+        event system in the scene
+
+        There are 2 event systems in the scene.
+        Please ensure there is always exactly one event system in the scene
+
+        There
+        are 2 event systems in the scene. Please ensure there is always exactly one
+        event system in the scene
+
+        There are 2 event systems in the scene.
+        Please ensure there is always exactly one event system in the scene
+
+        There
+        are 2 event systems in the scene. Please ensure there is always exactly one
+        event system in the scene
+
+        There are 2 event systems in the scene.
+        Please ensure there is always exactly one event system in the scene
+
+        There
+        are 2 event systems in the scene. Please ensure there is always exactly one
+        event system in the scene
+
+        There are 2 event systems in the scene.
+        Please ensure there is always exactly one event system in the scene
+
+        There
+        are 2 event systems in the scene. Please ensure there is always exactly one
+        event system in the scene
+
+        There are 2 event systems in the scene.
+        Please ensure there is always exactly one event system in the scene
+
+        There
+        are 2 event systems in the scene. Please ensure there is always exactly one
+        event system in the scene
+
+        There are 2 event systems in the scene.
+        Please ensure there is always exactly one event system in the scene
+
+        There
+        are 2 event systems in the scene. Please ensure there is always exactly one
+        event system in the scene
+
+        There are 2 event systems in the scene.
+        Please ensure there is always exactly one event system in the scene
+
+        There
+        are 2 event systems in the scene. Please ensure there is always exactly one
+        event system in the scene
+
+        There are 2 event systems in the scene.
+        Please ensure there is always exactly one event system in the scene
+
+        There
+        are 2 event systems in the scene. Please ensure there is always exactly one
+        event system in the scene
+
+        There are 2 event systems in the scene.
+        Please ensure there is always exactly one event system in the scene
+
+        There
+        are 2 event systems in the scene. Please ensure there is always exactly one
+        event system in the scene
+
+        There are 2 event systems in the scene.
+        Please ensure there is always exactly one event system in the scene
+
+        There
+        are 2 event systems in the scene. Please ensure there is always exactly one
+        event system in the scene
+
+        There are 2 event systems in the scene.
+        Please ensure there is always exactly one event system in the scene
+
+        There
+        are 2 event systems in the scene. Please ensure there is always exactly one
+        event system in the scene
+
+        There are 2 event systems in the scene.
+        Please ensure there is always exactly one event system in the scene
+
+        There
+        are 2 event systems in the scene. Please ensure there is always exactly one
+        event system in the scene
+
+        There are 2 event systems in the scene.
+        Please ensure there is always exactly one event system in the scene
+
+        There
+        are 2 event systems in the scene. Please ensure there is always exactly one
+        event system in the scene
+
+        There are 2 event systems in the scene.
+        Please ensure there is always exactly one event system in the scene
+
+        There
+        are 2 event systems in the scene. Please ensure there is always exactly one
+        event system in the scene
+
+        There are 2 event systems in the scene.
+        Please ensure there is always exactly one event system in the scene
+
+        There
+        are 2 event systems in the scene. Please ensure there is always exactly one
+        event system in the scene
+
+        There are 2 event systems in the scene.
+        Please ensure there is always exactly one event system in the scene
+
+        There
+        are 2 event systems in the scene. Please ensure there is always exactly one
+        event system in the scene
+
+        There are 2 event systems in the scene.
+        Please ensure there is always exactly one event system in the scene
+
+        There
+        are 2 event systems in the scene. Please ensure there is always exactly one
+        event system in the scene
+
+        There are 2 event systems in the scene.
+        Please ensure there is always exactly one event system in the scene
+
+        There
+        are 2 event systems in the scene. Please ensure there is always exactly one
+        event system in the scene
+
+        There are 2 event systems in the scene.
+        Please ensure there is always exactly one event system in the scene
+
+        There
+        are 2 event systems in the scene. Please ensure there is always exactly one
+        event system in the scene
+
+        There are 2 event systems in the scene.
+        Please ensure there is always exactly one event system in the scene
+
+'
+      stacktrace: "  at UnityEngine.TestTools.Graphics.ImageAssert.AllocatesMemory
+        (UnityEngine.Camera camera, UnityEngine.TestTools.Graphics.ImageComparisonSettings
+        settings, System.Int32 gcAllocThreshold) [0x000d8] in /Users/toshiyuki/devel/MyProject/UnityToonShader/TestProjects/HDRPUTS_GraphicsTest-2021.2/Library/PackageCache/com.unity.testframework.graphics@7.8.8-preview/Runtime/ImageAssert.cs:327
+        \n  at Tests.HDRPUTS_GraphicsTests+<Run>d__1.MoveNext () [0x001cb] in /Users/toshiyuki/devel/MyProject/UnityToonShader/TestProjects/HDRPUTS_GraphicsTest-2021.2/Assets/Tests/HDRPUTS_GraphicsTests/HDRPUTS_GraphicsTests.cs:88
+        \n  at UnityEngine.TestTools.TestEnumerator+<Execute>d__6.MoveNext () [0x00038]
+        in /Users/toshiyuki/devel/MyProject/UnityToonShader/TestProjects/HDRPUTS_GraphicsTest-2021.2/Library/PackageCache/com.unity.test-framework@1.1.26/UnityEngine.TestRunner/NUnitExtensions/Attributes/TestEnumerator.cs:36 "
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - HDRP
+      parentId: 1013
+      parentUniqueId: HDRPUTS_GraphicsTests.dll/Tests/HDRPUTS_GraphicsTests/[HDRPUTS_GraphicsTests][Tests.HDRPUTS_GraphicsTests.Run][suite]
+    - id: 1010
+      uniqueId: HDRPUTS_GraphicsTests.dll/Tests/HDRPUTS_GraphicsTests/Run/[HDRPUTS_GraphicsTests][Tests.HDRPUTS_GraphicsTests.010_PointLightTest(HDRP)]
+      name: 010_PointLightTest(HDRP)
+      fullName: Tests.HDRPUTS_GraphicsTests.010_PointLightTest(HDRP)
+      resultStatus: 2
+      duration: 2.3967886
+      messages: "System.Exception : Memory allocation test failed, 1 allocations
+        detected. Steps to find where your allocation is:\r\n                       
+        - Open the profiler window (ctrl-7) and enable deep profiling.\r\n                       
+        - Run your the test that fails and wait (it can take much longer because
+        deep profiling is enabled).\r\n                        - In the CPU section
+        of the profiler, select on Hierarchy and search for the 'GraphicTests_GC_Alloc_Check'
+        marker.\r\n                        - This should give you one result, click
+        on it and press f to go to the frame where it hapended.\r\n                       
+        - Click on the GC Alloc column to sort by allocation and unfold the hierarchy
+        under the 'GraphicTests_GC_Alloc_Check' marker."
+      output: 'There are 2 event systems in the scene. Please ensure there is always
+        exactly one event system in the scene
+
+        There are 2 event systems
+        in the scene. Please ensure there is always exactly one event system in the
+        scene
+
+        The referenced script (Unknown) on this Behaviour is missing!
+
+        The
+        referenced script on this Behaviour (Game Object ''Main Camera (1)'') is
+        missing!
+
+'
+      stacktrace: "  at UnityEngine.TestTools.Graphics.ImageAssert.AllocatesMemory
+        (UnityEngine.Camera camera, UnityEngine.TestTools.Graphics.ImageComparisonSettings
+        settings, System.Int32 gcAllocThreshold) [0x000d8] in /Users/toshiyuki/devel/MyProject/UnityToonShader/TestProjects/HDRPUTS_GraphicsTest-2021.2/Library/PackageCache/com.unity.testframework.graphics@7.8.8-preview/Runtime/ImageAssert.cs:327
+        \n  at Tests.HDRPUTS_GraphicsTests+<Run>d__1.MoveNext () [0x001cb] in /Users/toshiyuki/devel/MyProject/UnityToonShader/TestProjects/HDRPUTS_GraphicsTest-2021.2/Assets/Tests/HDRPUTS_GraphicsTests/HDRPUTS_GraphicsTests.cs:88
+        \n  at UnityEngine.TestTools.TestEnumerator+<Execute>d__6.MoveNext () [0x00038]
+        in /Users/toshiyuki/devel/MyProject/UnityToonShader/TestProjects/HDRPUTS_GraphicsTest-2021.2/Library/PackageCache/com.unity.test-framework@1.1.26/UnityEngine.TestRunner/NUnitExtensions/Attributes/TestEnumerator.cs:36 "
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - HDRP
+      parentId: 1013
+      parentUniqueId: HDRPUTS_GraphicsTests.dll/Tests/HDRPUTS_GraphicsTests/[HDRPUTS_GraphicsTests][Tests.HDRPUTS_GraphicsTests.Run][suite]
+    - id: 1011
+      uniqueId: HDRPUTS_GraphicsTests.dll/Tests/HDRPUTS_GraphicsTests/Run/[HDRPUTS_GraphicsTests][Tests.HDRPUTS_GraphicsTests.011_Sample(HDRP)]
+      name: 011_Sample(HDRP)
+      fullName: Tests.HDRPUTS_GraphicsTests.011_Sample(HDRP)
+      resultStatus: 2
+      duration: 1.9996763
+      messages: "System.Exception : Memory allocation test failed, 1 allocations
+        detected. Steps to find where your allocation is:\r\n                       
+        - Open the profiler window (ctrl-7) and enable deep profiling.\r\n                       
+        - Run your the test that fails and wait (it can take much longer because
+        deep profiling is enabled).\r\n                        - In the CPU section
+        of the profiler, select on Hierarchy and search for the 'GraphicTests_GC_Alloc_Check'
+        marker.\r\n                        - This should give you one result, click
+        on it and press f to go to the frame where it hapended.\r\n                       
+        - Click on the GC Alloc column to sort by allocation and unfold the hierarchy
+        under the 'GraphicTests_GC_Alloc_Check' marker."
+      output: 
+      stacktrace: "  at UnityEngine.TestTools.Graphics.ImageAssert.AllocatesMemory
+        (UnityEngine.Camera camera, UnityEngine.TestTools.Graphics.ImageComparisonSettings
+        settings, System.Int32 gcAllocThreshold) [0x000d8] in /Users/toshiyuki/devel/MyProject/UnityToonShader/TestProjects/HDRPUTS_GraphicsTest-2021.2/Library/PackageCache/com.unity.testframework.graphics@7.8.8-preview/Runtime/ImageAssert.cs:327
+        \n  at Tests.HDRPUTS_GraphicsTests+<Run>d__1.MoveNext () [0x001cb] in /Users/toshiyuki/devel/MyProject/UnityToonShader/TestProjects/HDRPUTS_GraphicsTest-2021.2/Assets/Tests/HDRPUTS_GraphicsTests/HDRPUTS_GraphicsTests.cs:88
+        \n  at UnityEngine.TestTools.TestEnumerator+<Execute>d__6.MoveNext () [0x00038]
+        in /Users/toshiyuki/devel/MyProject/UnityToonShader/TestProjects/HDRPUTS_GraphicsTest-2021.2/Library/PackageCache/com.unity.test-framework@1.1.26/UnityEngine.TestRunner/NUnitExtensions/Attributes/TestEnumerator.cs:36 "
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - HDRP
+      parentId: 1013
+      parentUniqueId: HDRPUTS_GraphicsTests.dll/Tests/HDRPUTS_GraphicsTests/[HDRPUTS_GraphicsTests][Tests.HDRPUTS_GraphicsTests.Run][suite]
+    - id: 1012
+      uniqueId: HDRPUTS_GraphicsTests.dll/Tests/HDRPUTS_GraphicsTests/Run/[HDRPUTS_GraphicsTests][Tests.HDRPUTS_GraphicsTests.016_ToonShader_CelLook(HDRP)]
+      name: 016_ToonShader_CelLook(HDRP)
+      fullName: Tests.HDRPUTS_GraphicsTests.016_ToonShader_CelLook(HDRP)
+      resultStatus: 2
+      duration: 2.2409697
+      messages: "System.Exception : Memory allocation test failed, 1 allocations
+        detected. Steps to find where your allocation is:\r\n                       
+        - Open the profiler window (ctrl-7) and enable deep profiling.\r\n                       
+        - Run your the test that fails and wait (it can take much longer because
+        deep profiling is enabled).\r\n                        - In the CPU section
+        of the profiler, select on Hierarchy and search for the 'GraphicTests_GC_Alloc_Check'
+        marker.\r\n                        - This should give you one result, click
+        on it and press f to go to the frame where it hapended.\r\n                       
+        - Click on the GC Alloc column to sort by allocation and unfold the hierarchy
+        under the 'GraphicTests_GC_Alloc_Check' marker."
+      output: 'The referenced script (Unknown) on this Behaviour is missing!
+
+        The
+        referenced script on this Behaviour (Game Object ''Directional light_Body'')
+        is missing!
+
+        The referenced script (Unknown) on this Behaviour is
+        missing!
+
+        The referenced script on this Behaviour (Game Object ''Main
+        Camera (1)'') is missing!
+
+        The referenced script (Unknown) on this
+        Behaviour is missing!
+
+        The referenced script on this Behaviour (Game
+        Object ''Directional light_Face'') is missing!
+
+        The referenced script
+        (Unknown) on this Behaviour is missing!
+
+        The referenced script on
+        this Behaviour (Game Object ''<null>'') is missing!
+
+'
+      stacktrace: "  at UnityEngine.TestTools.Graphics.ImageAssert.AllocatesMemory
+        (UnityEngine.Camera camera, UnityEngine.TestTools.Graphics.ImageComparisonSettings
+        settings, System.Int32 gcAllocThreshold) [0x000d8] in /Users/toshiyuki/devel/MyProject/UnityToonShader/TestProjects/HDRPUTS_GraphicsTest-2021.2/Library/PackageCache/com.unity.testframework.graphics@7.8.8-preview/Runtime/ImageAssert.cs:327
+        \n  at Tests.HDRPUTS_GraphicsTests+<Run>d__1.MoveNext () [0x001cb] in /Users/toshiyuki/devel/MyProject/UnityToonShader/TestProjects/HDRPUTS_GraphicsTest-2021.2/Assets/Tests/HDRPUTS_GraphicsTests/HDRPUTS_GraphicsTests.cs:88
+        \n  at UnityEngine.TestTools.TestEnumerator+<Execute>d__6.MoveNext () [0x00038]
+        in /Users/toshiyuki/devel/MyProject/UnityToonShader/TestProjects/HDRPUTS_GraphicsTest-2021.2/Library/PackageCache/com.unity.test-framework@1.1.26/UnityEngine.TestRunner/NUnitExtensions/Attributes/TestEnumerator.cs:36 "
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - HDRP
+      parentId: 1013
+      parentUniqueId: HDRPUTS_GraphicsTests.dll/Tests/HDRPUTS_GraphicsTests/[HDRPUTS_GraphicsTests][Tests.HDRPUTS_GraphicsTests.Run][suite]
+    - id: 1049
+      uniqueId: '[UnityEngine.TestTools.Graphics.Tests.dll][suite]'
+      name: UnityEngine.TestTools.Graphics.Tests.dll
+      fullName: /Users/toshiyuki/devel/MyProject/UnityToonShader/TestProjects/HDRPUTS_GraphicsTest-2021.2/Library/ScriptAssemblies/UnityEngine.TestTools.Graphics.Tests.dll
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1006
+      parentUniqueId: '[New Unity Project][suite]'
+    - id: 1050
+      uniqueId: UnityEngine.TestTools.Graphics.Tests.dll/[UnityEngine][suite]
+      name: UnityEngine
+      fullName: UnityEngine
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1049
+      parentUniqueId: '[UnityEngine.TestTools.Graphics.Tests.dll][suite]'
+    - id: 1051
+      uniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/[TestTools][suite]
+      name: TestTools
+      fullName: UnityEngine.TestTools
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1050
+      parentUniqueId: UnityEngine.TestTools.Graphics.Tests.dll/[UnityEngine][suite]
+    - id: 1052
+      uniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/[Graphics][suite]
+      name: Graphics
+      fullName: UnityEngine.TestTools.Graphics
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1051
+      parentUniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/[TestTools][suite]
+    - id: 1053
+      uniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests][suite]
+      name: Tests
+      fullName: UnityEngine.TestTools.Graphics.Tests
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1052
+      parentUniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/[Graphics][suite]
+    - id: 1019
+      uniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.FailedImageMessageTests][suite]
+      name: FailedImageMessageTests
+      fullName: UnityEngine.TestTools.Graphics.Tests.FailedImageMessageTests
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1053
+      parentUniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests][suite]
+    - id: 1020
+      uniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/FailedImageMessageTests/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.FailedImageMessageTests.SerializationRoundtrip_DefaultInstance]
+      name: SerializationRoundtrip_DefaultInstance
+      fullName: UnityEngine.TestTools.Graphics.Tests.FailedImageMessageTests.SerializationRoundtrip_DefaultInstance
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1019
+      parentUniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.FailedImageMessageTests][suite]
+    - id: 1021
+      uniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests][suite]
+      name: ImageAssertTests
+      fullName: UnityEngine.TestTools.Graphics.Tests.ImageAssertTests
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1053
+      parentUniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests][suite]
+    - id: 1029
+      uniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/ImageAssertTests/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.AreEqual_DestinationTextureResolution]
+      name: AreEqual_DestinationTextureResolution
+      fullName: UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.AreEqual_DestinationTextureResolution
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1021
+      parentUniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests][suite]
+    - id: 1030
+      uniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/ImageAssertTests/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.AreEqual_TexturesAfterResize]
+      name: AreEqual_TexturesAfterResize
+      fullName: UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.AreEqual_TexturesAfterResize
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1021
+      parentUniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests][suite]
+    - id: 1028
+      uniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/ImageAssertTests/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.AreEqual_WidthDifferentSizeImages_ThrowsAssertionException]
+      name: AreEqual_WidthDifferentSizeImages_ThrowsAssertionException
+      fullName: UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.AreEqual_WidthDifferentSizeImages_ThrowsAssertionException
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1021
+      parentUniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests][suite]
+    - id: 1025
+      uniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/ImageAssertTests/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.AreEqual_WithIdenticalImage_Succeeds]
+      name: AreEqual_WithIdenticalImage_Succeeds
+      fullName: UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.AreEqual_WithIdenticalImage_Succeeds
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1021
+      parentUniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests][suite]
+    - id: 1024
+      uniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/ImageAssertTests/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.AreEqual_WithNullActualImage_ThrowsArgumentNullException]
+      name: AreEqual_WithNullActualImage_ThrowsArgumentNullException
+      fullName: UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.AreEqual_WithNullActualImage_ThrowsArgumentNullException
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1021
+      parentUniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests][suite]
+    - id: 1022
+      uniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/ImageAssertTests/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.AreEqual_WithNullCamera_ThrowsArgumentNullException]
+      name: AreEqual_WithNullCamera_ThrowsArgumentNullException
+      fullName: UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.AreEqual_WithNullCamera_ThrowsArgumentNullException
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1021
+      parentUniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests][suite]
+    - id: 1023
+      uniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/ImageAssertTests/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.AreEqual_WithNullCameras_ThrowsArgumentNullException]
+      name: AreEqual_WithNullCameras_ThrowsArgumentNullException
+      fullName: UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.AreEqual_WithNullCameras_ThrowsArgumentNullException
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1021
+      parentUniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests][suite]
+    - id: 1027
+      uniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/ImageAssertTests/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.AreEqual_WithSlightlyDifferentImages_SucceedsWithAppropriateTolerance]
+      name: AreEqual_WithSlightlyDifferentImages_SucceedsWithAppropriateTolerance
+      fullName: UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.AreEqual_WithSlightlyDifferentImages_SucceedsWithAppropriateTolerance
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1021
+      parentUniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests][suite]
+    - id: 1026
+      uniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/ImageAssertTests/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.AreEqual_WithTotallyDifferentImages_ThrowsAssertionException]
+      name: AreEqual_WithTotallyDifferentImages_ThrowsAssertionException
+      fullName: UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.AreEqual_WithTotallyDifferentImages_ThrowsAssertionException
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1021
+      parentUniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests][suite]
+    - id: 1048
+      uniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/ImageAssertTests/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixelTest][suite]
+      name: PerPixelTest
+      fullName: UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixelTest
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1021
+      parentUniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests][suite]
+    - id: 1031
+      uniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/ImageAssertTests/PerPixelTest/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixel_Identical_Succeeds]
+      name: PerPixel_Identical_Succeeds
+      fullName: UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixel_Identical_Succeeds
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1048
+      parentUniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/ImageAssertTests/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixelTest][suite]
+    - id: 1032
+      uniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/ImageAssertTests/PerPixelTest/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixel_DisabledCount_Succeeds]
+      name: PerPixel_DisabledCount_Succeeds
+      fullName: UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixel_DisabledCount_Succeeds
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1048
+      parentUniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/ImageAssertTests/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixelTest][suite]
+    - id: 1033
+      uniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/ImageAssertTests/PerPixelTest/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixel_DisabledGammaAlpha_Succeeds]
+      name: PerPixel_DisabledGammaAlpha_Succeeds
+      fullName: UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixel_DisabledGammaAlpha_Succeeds
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1048
+      parentUniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/ImageAssertTests/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixelTest][suite]
+    - id: 1034
+      uniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/ImageAssertTests/PerPixelTest/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixel_BadColor_TestAlpha_Succeeds]
+      name: PerPixel_BadColor_TestAlpha_Succeeds
+      fullName: UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixel_BadColor_TestAlpha_Succeeds
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1048
+      parentUniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/ImageAssertTests/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixelTest][suite]
+    - id: 1035
+      uniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/ImageAssertTests/PerPixelTest/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixel_BadAlpha_TestColor_Succeeds]
+      name: PerPixel_BadAlpha_TestColor_Succeeds
+      fullName: UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixel_BadAlpha_TestColor_Succeeds
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1048
+      parentUniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/ImageAssertTests/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixelTest][suite]
+    - id: 1036
+      uniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/ImageAssertTests/PerPixelTest/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixel_31BadColor_Max32Bad_Succeeds]
+      name: PerPixel_31BadColor_Max32Bad_Succeeds
+      fullName: UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixel_31BadColor_Max32Bad_Succeeds
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1048
+      parentUniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/ImageAssertTests/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixelTest][suite]
+    - id: 1037
+      uniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/ImageAssertTests/PerPixelTest/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixel_32BadColor_Max32Bad_Succeeds]
+      name: PerPixel_32BadColor_Max32Bad_Succeeds
+      fullName: UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixel_32BadColor_Max32Bad_Succeeds
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1048
+      parentUniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/ImageAssertTests/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixelTest][suite]
+    - id: 1038
+      uniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/ImageAssertTests/PerPixelTest/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixel_33BadColor_Max32Bad_Throws]
+      name: PerPixel_33BadColor_Max32Bad_Throws
+      fullName: UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixel_33BadColor_Max32Bad_Throws
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1048
+      parentUniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/ImageAssertTests/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixelTest][suite]
+    - id: 1039
+      uniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/ImageAssertTests/PerPixelTest/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixel_31BadAlpha_Max32Bad_Succeeds]
+      name: PerPixel_31BadAlpha_Max32Bad_Succeeds
+      fullName: UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixel_31BadAlpha_Max32Bad_Succeeds
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1048
+      parentUniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/ImageAssertTests/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixelTest][suite]
+    - id: 1040
+      uniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/ImageAssertTests/PerPixelTest/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixel_32BadAlpha_Max32Bad_Succeeds]
+      name: PerPixel_32BadAlpha_Max32Bad_Succeeds
+      fullName: UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixel_32BadAlpha_Max32Bad_Succeeds
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1048
+      parentUniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/ImageAssertTests/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixelTest][suite]
+    - id: 1041
+      uniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/ImageAssertTests/PerPixelTest/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixel_33BadAlpha_Max32Bad_Throws]
+      name: PerPixel_33BadAlpha_Max32Bad_Throws
+      fullName: UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixel_33BadAlpha_Max32Bad_Throws
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1048
+      parentUniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/ImageAssertTests/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixelTest][suite]
+    - id: 1042
+      uniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/ImageAssertTests/PerPixelTest/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixel_MultipleFailCountOnce_Succeeds]
+      name: PerPixel_MultipleFailCountOnce_Succeeds
+      fullName: UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixel_MultipleFailCountOnce_Succeeds
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1048
+      parentUniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/ImageAssertTests/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixelTest][suite]
+    - id: 1043
+      uniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/ImageAssertTests/PerPixelTest/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixel_GoodColor_TestColor_Succeeds]
+      name: PerPixel_GoodColor_TestColor_Succeeds
+      fullName: UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixel_GoodColor_TestColor_Succeeds
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1048
+      parentUniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/ImageAssertTests/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixelTest][suite]
+    - id: 1044
+      uniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/ImageAssertTests/PerPixelTest/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixel_GoodAlpha_TestAlpha_Succeeds]
+      name: PerPixel_GoodAlpha_TestAlpha_Succeeds
+      fullName: UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixel_GoodAlpha_TestAlpha_Succeeds
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1048
+      parentUniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/ImageAssertTests/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixelTest][suite]
+    - id: 1045
+      uniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/ImageAssertTests/PerPixelTest/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixel_BadR_Throws]
+      name: PerPixel_BadR_Throws
+      fullName: UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixel_BadR_Throws
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1048
+      parentUniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/ImageAssertTests/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixelTest][suite]
+    - id: 1046
+      uniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/ImageAssertTests/PerPixelTest/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixel_BadG_Throws]
+      name: PerPixel_BadG_Throws
+      fullName: UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixel_BadG_Throws
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1048
+      parentUniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/ImageAssertTests/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixelTest][suite]
+    - id: 1047
+      uniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/ImageAssertTests/PerPixelTest/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixel_BadB_Throws]
+      name: PerPixel_BadB_Throws
+      fullName: UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixel_BadB_Throws
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1048
+      parentUniqueId: UnityEngine.TestTools.Graphics.Tests.dll/UnityEngine/TestTools/Graphics/Tests/ImageAssertTests/[UnityEngine.TestTools.Graphics.Tests][UnityEngine.TestTools.Graphics.Tests.ImageAssertTests.PerPixelTest][suite]
+    m_ResultText: "001_AngelRing(HDRP) (3.700s)\n---\nSystem.Exception : Memory allocation
+      test failed, 1 allocations detected. Steps to find where your allocation is:\r\n                       
+      - Open the profiler window (ctrl-7) and enable deep profiling.\r\n                       
+      - Run your the test that fails and wait (it can take much longer because deep
+      profiling is enabled).\r\n                        - In the CPU section of the
+      profiler, select on Hierarchy and search for the 'GraphicTests_GC_Alloc_Check'
+      marker.\r\n                        - This should give you one result, click
+      on it and press f to go to the frame where it hapended.\r\n                       
+      - Click on the GC Alloc column to sort by allocation and unfold the hierarchy
+      under the 'GraphicTests_GC_Alloc_Check' marker.\n---\nat UnityEngine.TestTools.Graphics.ImageAssert.AllocatesMemory
+      (UnityEngine.Camera camera, UnityEngine.TestTools.Graphics.ImageComparisonSettings
+      settings, System.Int32 gcAllocThreshold) [0x000d8] in /Users/toshiyuki/devel/MyProject/UnityToonShader/TestProjects/HDRPUTS_GraphicsTest-2021.2/Library/PackageCache/com.unity.testframework.graphics@7.8.8-preview/Runtime/ImageAssert.cs:327
+      \n  at Tests.HDRPUTS_GraphicsTests+<Run>d__1.MoveNext () [0x001cb] in /Users/toshiyuki/devel/MyProject/UnityToonShader/TestProjects/HDRPUTS_GraphicsTest-2021.2/Assets/Tests/HDRPUTS_GraphicsTests/HDRPUTS_GraphicsTests.cs:88
+      \n  at UnityEngine.TestTools.TestEnumerator+<Execute>d__6.MoveNext () [0x00038]
+      in /Users/toshiyuki/devel/MyProject/UnityToonShader/TestProjects/HDRPUTS_GraphicsTest-2021.2/Library/PackageCache/com.unity.test-framework@1.1.26/UnityEngine.TestRunner/NUnitExtensions/Attributes/TestEnumerator.cs:36"
+    m_ResultStacktrace: "  at UnityEngine.TestTools.Graphics.ImageAssert.AllocatesMemory
+      (UnityEngine.Camera camera, UnityEngine.TestTools.Graphics.ImageComparisonSettings
+      settings, System.Int32 gcAllocThreshold) [0x000d8] in /Users/toshiyuki/devel/MyProject/UnityToonShader/TestProjects/HDRPUTS_GraphicsTest-2021.2/Library/PackageCache/com.unity.testframework.graphics@7.8.8-preview/Runtime/ImageAssert.cs:327
+      \n  at Tests.HDRPUTS_GraphicsTests+<Run>d__1.MoveNext () [0x001cb] in /Users/toshiyuki/devel/MyProject/UnityToonShader/TestProjects/HDRPUTS_GraphicsTest-2021.2/Assets/Tests/HDRPUTS_GraphicsTests/HDRPUTS_GraphicsTests.cs:88
+      \n  at UnityEngine.TestTools.TestEnumerator+<Execute>d__6.MoveNext () [0x00038]
+      in /Users/toshiyuki/devel/MyProject/UnityToonShader/TestProjects/HDRPUTS_GraphicsTest-2021.2/Library/PackageCache/com.unity.test-framework@1.1.26/UnityEngine.TestRunner/NUnitExtensions/Attributes/TestEnumerator.cs:36 "
+    m_TestListState:
+      scrollPos: {x: 0, y: 0}
+      m_SelectedIDs: 2e749475
+      m_LastClickedID: 1972663342
+      m_ExpandedIDs: 65e26c81f09dfb858a2d07864b612c8c99d58398f0f5299e76958aa0ae46a6a6927372aea5a29531a8ecfb546a6cc556e55e4579ffffff7f
+      m_RenameOverlay:
+        m_UserAcceptedRename: 0
+        m_Name: 
+        m_OriginalName: 
+        m_EditFieldRect:
+          serializedVersion: 2
+          x: 0
+          y: 0
+          width: 0
+          height: 0
+        m_UserData: 0
+        m_IsWaitingForDelay: 0
+        m_IsRenaming: 0
+        m_OriginalEventType: 11
+        m_IsRenamingFilename: 0
+        m_ClientGUIView: {fileID: 0}
+      m_SearchString: 
+    m_TestRunnerUIFilter:
+      PassedHidden: 0
+      FailedHidden: 0
+      NotRunHidden: 0
+      m_SearchString: 
+      selectedCategoryMask: 0
+      availableCategories:
+      - HDRP
+      - Uncategorized
+    m_SelectedOption: 0
+  m_EditModeTestListGUI:
+    m_Window: {fileID: 15}
+    m_NewResultList:
+    - id: 1000
+      uniqueId: '[New Unity Project][suite]'
+      name: New Unity Project
+      fullName: New Unity Project
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 
+      parentUniqueId: 
+    m_ResultText: 
+    m_ResultStacktrace: 
+    m_TestListState:
+      scrollPos: {x: 0, y: 0}
+      m_SelectedIDs: 
+      m_LastClickedID: 0
+      m_ExpandedIDs: e55e4579ffffff7f
+      m_RenameOverlay:
+        m_UserAcceptedRename: 0
+        m_Name: 
+        m_OriginalName: 
+        m_EditFieldRect:
+          serializedVersion: 2
+          x: 0
+          y: 0
+          width: 0
+          height: 0
+        m_UserData: 0
+        m_IsWaitingForDelay: 0
+        m_IsRenaming: 0
+        m_OriginalEventType: 11
+        m_IsRenamingFilename: 0
+        m_ClientGUIView: {fileID: 0}
+      m_SearchString: 
+    m_TestRunnerUIFilter:
+      PassedHidden: 0
+      FailedHidden: 0
+      NotRunHidden: 0
+      m_SearchString: 
+      selectedCategoryMask: 0
+      availableCategories:
+      - Uncategorized
+--- !u!114 &16
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -307,7 +1652,7 @@ MonoBehaviour:
     m_SaveData: []
     m_FirstInit: 1
   m_LastOverlayPresetName: 
---- !u!114 &13
+--- !u!114 &17
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -328,10 +1673,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 7.3333335
-    y: 862
-    width: 2028
-    height: 490
+    x: 0
+    y: 619.5
+    width: 1338
+    height: 328.5
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_SaveData: []
@@ -351,22 +1696,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets
+    - Assets/ReferenceImages/Linear/OSXEditor/Metal/None
     m_Globs: []
     m_OriginalText: t:scene
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets
+  - Assets/ReferenceImages/Linear/OSXEditor/Metal/None
   m_LastFoldersGridSize: -1
-  m_LastProjectPath: D:\devel\MyProject\UnityToonShader\TestProjects\HDRPUTS_GraphicsTest-2021.2
+  m_LastProjectPath: /Users/toshiyuki/devel/MyProject/UnityToonShader/TestProjects/HDRPUTS_GraphicsTest-2021.2
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: c86b0000
-    m_LastClickedID: 27592
-    m_ExpandedIDs: 00000000c86b000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 122.00012}
+    m_SelectedIDs: 04c70000
+    m_LastClickedID: 50948
+    m_ExpandedIDs: 000000005ac000005cc0000064c00000aec60000b0c60000b2c60000fcc60000fec6000002c7000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -394,7 +1739,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000c86b0000
+    m_ExpandedIDs: 
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -425,20 +1770,20 @@ MonoBehaviour:
     m_ExpandedInstanceIDs: c6230000aac00000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: ToonShader_LightCulling(HDRP)
+      m_OriginalName: ToonShader_LightCulling(HDRP)
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: 50938
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 1
-      m_ClientGUIView: {fileID: 5}
+      m_ClientGUIView: {fileID: 8}
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
       m_InstanceID: 0
@@ -446,11 +1791,11 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 0}
+    m_ScrollPosition: {x: 0, y: 102.5}
     m_GridSize: 16
   m_SkipHiddenPackages: 0
-  m_DirectoriesAreaWidth: 115
---- !u!114 &14
+  m_DirectoriesAreaWidth: 173
+--- !u!114 &18
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -471,10 +1816,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 2036.6667
-    y: 80
-    width: 514
-    height: 1272
+    x: 1339
+    y: 83
+    width: 340
+    height: 865
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_SaveData: []
@@ -493,7 +1838,7 @@ MonoBehaviour:
   m_LockTracker:
     m_IsLocked: 0
   m_PreviewWindow: {fileID: 0}
---- !u!114 &15
+--- !u!114 &19
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -514,10 +1859,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 7.3333335
-    y: 80
-    width: 501
-    height: 761
+    x: 0
+    y: 83
+    width: 330
+    height: 515.5
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_SaveData: []
@@ -526,9 +1871,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 906d0000
+      m_SelectedIDs: fac60000
       m_LastClickedID: 0
-      m_ExpandedIDs: c0e2ffffe8e3ffff06f5ffff2efbffff
+      m_ExpandedIDs: a81fffff6423ffff2a27fffff62affff482dffff5a2effffce30ffff7434ffff2639ffffce3cffff7e40ffff6842ffffd844ffff8248ffff404cffff5c4dffff0e51ffffb052ffffcc53ffff5e55ffff4e59ffff6a5affff965bffff3e5fffffb260ffff526fffff7c78ffff247cffff407dffff4884ffffde85ffffec8effff8e92ffffb693ffff9295ffff5297ffff84a8ffff32aaffff50bbffff0abfffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -552,7 +1897,7 @@ MonoBehaviour:
       m_IsLocked: 0
     m_CurrentSortingName: TransformSorting
   m_WindowGUID: b0c7d3fe8140cd64dadf50c55bf21456
---- !u!114 &16
+--- !u!114 &20
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -573,10 +1918,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 509.33334
-    y: 80
-    width: 1525
-    height: 761
+    x: 331
+    y: 83
+    width: 1006
+    height: 515.5
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_SaveData:
@@ -855,9 +2200,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: -0.08717229, y: 0.89959055, z: -0.21045254, w: -0.3726226}
   m_Size:
-    m_Target: 10
+    m_Target: 10.06
     speed: 2
-    m_Value: 10
+    m_Value: 10.06
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -882,7 +2227,7 @@ MonoBehaviour:
   m_SceneVisActive: 1
   m_LastLockedObject: {fileID: 0}
   m_ViewIsLockedToObject: 0
---- !u!114 &17
+--- !u!114 &21
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -903,10 +2248,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 509.33334
-    y: 80
-    width: 1525
-    height: 761
+    x: 331
+    y: 83
+    width: 1006
+    height: 515.5
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_SaveData: []
@@ -918,7 +2263,7 @@ MonoBehaviour:
   m_ShowGizmos: 0
   m_TargetDisplay: 0
   m_ClearColor: {r: 0, g: 0, b: 0, a: 0}
-  m_TargetSize: {x: 1525, y: 740}
+  m_TargetSize: {x: 1006, y: 494.5}
   m_TextureFilterMode: 0
   m_TextureHideFlags: 61
   m_RenderIMGUI: 1
@@ -933,10 +2278,10 @@ MonoBehaviour:
     m_VRangeLocked: 0
     hZoomLockedByDefault: 0
     vZoomLockedByDefault: 0
-    m_HBaseRangeMin: -508.33334
-    m_HBaseRangeMax: 508.33334
-    m_VBaseRangeMin: -246.66667
-    m_VBaseRangeMax: 246.66667
+    m_HBaseRangeMin: -251.5
+    m_HBaseRangeMax: 251.5
+    m_VBaseRangeMin: -123.625
+    m_VBaseRangeMax: 123.625
     m_HAllowExceedBaseRangeMin: 1
     m_HAllowExceedBaseRangeMax: 1
     m_VAllowExceedBaseRangeMin: 1
@@ -945,7 +2290,7 @@ MonoBehaviour:
     m_HSlider: 0
     m_VSlider: 0
     m_IgnoreScrollWheelUntilClicked: 0
-    m_EnableMouseInput: 0
+    m_EnableMouseInput: 1
     m_EnableSliderZoomHorizontal: 0
     m_EnableSliderZoomVertical: 0
     m_UniformScale: 1
@@ -954,29 +2299,29 @@ MonoBehaviour:
       serializedVersion: 2
       x: 0
       y: 21
-      width: 1525
-      height: 740
-    m_Scale: {x: 1, y: 1}
-    m_Translation: {x: 762.5, y: 370}
+      width: 1006
+      height: 494.5
+    m_Scale: {x: 2, y: 2}
+    m_Translation: {x: 503, y: 247.25}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -762.5
-      y: -370
-      width: 1525
-      height: 740
+      x: -251.5
+      y: -123.625
+      width: 503
+      height: 247.25
     m_MinimalGUI: 1
-  m_defaultScale: 1
-  m_LastWindowPixelSize: {x: 2287.5, y: 1141.5}
+  m_defaultScale: 2
+  m_LastWindowPixelSize: {x: 2012, y: 1031}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
   m_LowResolutionForAspectRatios: 01000000000000000000
   m_XRRenderMode: 0
   m_RenderTexture: {fileID: 0}
---- !u!114 &18
+--- !u!114 &22
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
