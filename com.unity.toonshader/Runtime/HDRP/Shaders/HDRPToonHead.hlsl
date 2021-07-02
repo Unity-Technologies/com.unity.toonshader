@@ -18,6 +18,12 @@
 #endif
 
 #if UCTS_HDRP
+  #define SATURATE_BASE_COLOR_IF_SDR(x) (x)
+#else
+  #define SATURATE_BASE_COLOR_IF_SDR(x) saturate(x)
+#endif
+
+#if UCTS_HDRP
   #define SATURATE_IF_SDR(x) (x)
 #else
   #define SATURATE_IF_SDR(x) saturate(x)
