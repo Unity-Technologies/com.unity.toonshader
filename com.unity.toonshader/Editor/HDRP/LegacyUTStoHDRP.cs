@@ -118,16 +118,21 @@ namespace UnityEditor.Rendering.HighDefinition.Toon
         const string ShaderPropUtsTechniqe = "_utsTechnique";
 
 
-        Vector2 m_scrollPos;
-        bool m_initialzed;
-        string[] guides;
 
         public int _autoRenderQueue = 1;
         public int _renderQueue = (int)UnityEngine.Rendering.RenderQueue.Geometry;
         static _UTS_Transparent _Transparent_Setting;
         static int _StencilNo_Setting;
-//        static bool _OriginalInspector = false;
-//        static bool _SimpleUI = false;
+        //        static bool _OriginalInspector = false;
+        //        static bool _SimpleUI = false;
+
+        // for converter
+        Vector2 m_scrollPos;
+        bool m_initialzed;
+        string[] guids;
+        const string legacyShaderPrefix = "UnityChanToonShader/";
+
+
         [MenuItem("Assets/Toon Shader/Convert Legacy materials to HDRP materials", false, 9999)]
         static private void OpenWindow()
         {
@@ -140,7 +145,7 @@ namespace UnityEditor.Rendering.HighDefinition.Toon
 
             if (!m_initialzed)
             {
-                guides = AssetDatabase.FindAssets("t:Material", null);
+                guids = AssetDatabase.FindAssets("t:Material", null);
             }
             m_initialzed = true;
             int buttonHeight = 20;
@@ -153,6 +158,28 @@ namespace UnityEditor.Rendering.HighDefinition.Toon
             m_scrollPos =
                  EditorGUILayout.BeginScrollView(m_scrollPos, GUILayout.Width(position.width - 4));
             EditorGUILayout.BeginVertical();
+            for (int ii = 0; ii < guids.Length; ii++)
+            {
+                var guid = guids[ii];
+                string path = AssetDatabase.GUIDToAssetPath(guid);
+                Material material = AssetDatabase.LoadAssetAtPath<Material>(path);
+                var shaderName = material.shader.ToString();
+                if (!shaderName.StartsWith(legacyShaderPrefix))
+                {
+                    continue;
+
+                }
+                Debug.Log(shaderName);
+
+                EditorGUILayout.BeginHorizontal();
+                GUILayout.Space(16);
+                string str = "" + ii + ":";
+
+                EditorGUILayout.LabelField(str, GUILayout.Width(40));
+                EditorGUILayout.LabelField(path, GUILayout.Width(Screen.width - 130));
+                GUILayout.Space(1);
+                EditorGUILayout.EndHorizontal();
+            }
             EditorGUILayout.EndVertical();
             EditorGUILayout.EndScrollView();
 
@@ -161,7 +188,7 @@ namespace UnityEditor.Rendering.HighDefinition.Toon
             EditorGUILayout.BeginHorizontal();
             if ( GUILayout.Button(new GUIContent("Convert")) )
             {
-                ConvertMaterials(guides);
+                ConvertMaterials(guids);
             }
             if ( GUILayout.Button(new GUIContent("Close")) )
             {
@@ -176,7 +203,7 @@ namespace UnityEditor.Rendering.HighDefinition.Toon
         void ConvertMaterials(string[] guids)
         {
 
-            const string legacyShaderPrefix = "UnityChanToonShader/";
+
  
 
 
