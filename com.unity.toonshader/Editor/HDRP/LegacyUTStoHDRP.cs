@@ -118,7 +118,9 @@ namespace UnityEditor.Rendering.HighDefinition.Toon
         const string ShaderPropUtsTechniqe = "_utsTechnique";
 
 
-
+        Vector2 m_scrollPos;
+        bool m_initialzed;
+        string[] guides;
 
         public int _autoRenderQueue = 1;
         public int _renderQueue = (int)UnityEngine.Rendering.RenderQueue.Geometry;
@@ -135,11 +137,31 @@ namespace UnityEditor.Rendering.HighDefinition.Toon
 
         private void OnGUI()
         {
+
+            if (!m_initialzed)
+            {
+                guides = AssetDatabase.FindAssets("t:Material", null);
+            }
+            m_initialzed = true;
+            int buttonHeight = 20;
+            Rect rect =  new Rect(0, 0, position.width, position.height - buttonHeight); // GUILayoutUtility.GetRect(position.width, position.height - buttonHeight);
+            Rect rect2 = new Rect(2, 2, position.width - 4, position.height - 4 - buttonHeight);
+            // scroll view background
+            EditorGUI.DrawRect(rect, Color.gray);
+            EditorGUI.DrawRect(rect2, new Color(0.3f, 0.3f, 0.3f));
+            // scroll view 
+            m_scrollPos =
+                 EditorGUILayout.BeginScrollView(m_scrollPos, GUILayout.Width(position.width - 4));
+            EditorGUILayout.BeginVertical();
+            EditorGUILayout.EndVertical();
+            EditorGUILayout.EndScrollView();
+
+            // buttons 
             EditorGUILayout.BeginVertical();
             EditorGUILayout.BeginHorizontal();
             if ( GUILayout.Button(new GUIContent("Convert")) )
             {
-                ConvertMaterials();
+                ConvertMaterials(guides);
             }
             if ( GUILayout.Button(new GUIContent("Close")) )
             {
@@ -147,15 +169,17 @@ namespace UnityEditor.Rendering.HighDefinition.Toon
             }
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.EndVertical();
+
+
         }
 
-        void ConvertMaterials()
+        void ConvertMaterials(string[] guids)
         {
 
             const string legacyShaderPrefix = "UnityChanToonShader/";
  
 
-            var guids = AssetDatabase.FindAssets("t:Material", null);
+
             foreach (var guid in guids)
             {
                 string path = AssetDatabase.GUIDToAssetPath(guid);
