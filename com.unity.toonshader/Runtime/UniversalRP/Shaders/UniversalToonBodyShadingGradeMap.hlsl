@@ -449,7 +449,7 @@
                         finalColor = finalColor + lerp(lerp(_HighColor_var, (_HighColor_var*((1.0 - Set_FinalShadowMask) + (Set_FinalShadowMask*_TweakHighColorOnShadow))), _Is_UseTweakHighColorOnShadow), float3(0, 0, 0), _Is_Filter_HiCutPointLightColor);
                         //
 
-                        finalColor = saturate(finalColor);
+                        finalColor = SATURATE_IF_SDR(finalColor);
 
                         pointLightColor += finalColor;
                         //	pointLightColor += lightColor;
