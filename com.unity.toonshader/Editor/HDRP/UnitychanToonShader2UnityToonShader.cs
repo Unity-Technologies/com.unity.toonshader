@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.IO;
-namespace UnityEditor.Rendering.HighDefinition.Toon
+namespace UnityEditor.Rendering.Toon
 {
-    public class LegacyUTStoHDRP : EditorWindow
+    public class UnitychanToonShader2UnityToonShader : EditorWindow
     {
         public enum _UTS_Technique
         {
@@ -131,12 +131,12 @@ namespace UnityEditor.Rendering.HighDefinition.Toon
         bool m_initialzed;
         string[] guids;
         const string legacyShaderPrefix = "UnityChanToonShader/";
-
-
-        [MenuItem("Assets/Toon Shader/Convert Legacy materials to HDRP materials", false, 9999)]
+        readonly string[] m_RendderPipelineNames = { "Legacy", "Universal", "HDRP" };
+        int m_selectedIndex;
+        [MenuItem("Assets/Toon Shader/Unitychan Toon Shader Material Converter", false, 9999)]
         static private void OpenWindow()
         {
-            var window = GetWindow<LegacyUTStoHDRP>(true, "LegacyUTStoHDRP");
+            var window = GetWindow<UnitychanToonShader2UnityToonShader>(true, "Unitychan Toon Shader Material Converter");
             window.Show();
         }
 
@@ -154,10 +154,20 @@ namespace UnityEditor.Rendering.HighDefinition.Toon
             // scroll view background
             EditorGUI.DrawRect(rect, Color.gray);
             EditorGUI.DrawRect(rect2, new Color(0.3f, 0.3f, 0.3f));
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("Convert to ");
+            m_selectedIndex = EditorGUILayout.Popup(m_selectedIndex, m_RendderPipelineNames);
+            EditorGUILayout.EndHorizontal();
+
+
+
             // scroll view 
             m_scrollPos =
                  EditorGUILayout.BeginScrollView(m_scrollPos, GUILayout.Width(position.width - 4));
             EditorGUILayout.BeginVertical();
+
+            int materialCount = 0;
+
             for (int ii = 0; ii < guids.Length; ii++)
             {
                 var guid = guids[ii];
@@ -169,6 +179,7 @@ namespace UnityEditor.Rendering.HighDefinition.Toon
                     continue;
 
                 }
+                materialCount++;
                 Debug.Log(shaderName);
 
                 EditorGUILayout.BeginHorizontal();
@@ -180,9 +191,14 @@ namespace UnityEditor.Rendering.HighDefinition.Toon
                 GUILayout.Space(1);
                 EditorGUILayout.EndHorizontal();
             }
+
             EditorGUILayout.EndVertical();
             EditorGUILayout.EndScrollView();
 
+            if (materialCount == 0)
+            {
+                EditorGUILayout.LabelField("No Unitychan Toon Shader material was found.");
+            }
             // buttons 
             EditorGUILayout.BeginVertical();
             EditorGUILayout.BeginHorizontal();
