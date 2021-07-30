@@ -172,6 +172,7 @@ namespace UnityEditor.Rendering.Toon
 
 
             int materialCount = 0;
+            int versionErrorCount = 0;
             for (int ii = 0; ii < guids.Length; ii++)
             {
                 var guid = guids[ii];
@@ -182,6 +183,21 @@ namespace UnityEditor.Rendering.Toon
                 {
                     continue;
 
+                }
+                const string utsVersionProp = "_utsVersion";
+                if (material.HasProperty(utsVersionProp))
+                {
+                    float utsVersion = material.GetFloat(utsVersionProp);
+                    if (utsVersion < 2.07)
+                    {
+                        versionErrorCount++;
+                        continue;
+                    }
+                }
+                else
+                {
+                    versionErrorCount++;
+                    continue;
                 }
                 materialCount++;
                 Debug.Log(shaderName);
@@ -199,7 +215,14 @@ namespace UnityEditor.Rendering.Toon
             if (m_materialCount == 0)
             {
                 GUILayout.Space(16);
-                EditorGUILayout.LabelField("   No Unitychan Toon Shader material was found.");
+                if (versionErrorCount > 0 )
+                {
+                    EditorGUILayout.LabelField("   Error: Unitychan Toon Shader version must be newer than 2.0.7");
+                }
+                else
+                {
+                    EditorGUILayout.LabelField("   No Unitychan Toon Shader material was found.");
+                }
             }
             EditorGUILayout.EndVertical();
             EditorGUILayout.EndScrollView();
