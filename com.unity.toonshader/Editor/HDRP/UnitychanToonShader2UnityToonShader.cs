@@ -134,7 +134,7 @@ namespace UnityEditor.Rendering.Toon
         readonly string[] m_RendderPipelineNames = { "Legacy", "Universal", "HDRP" };
         int m_selectedRenderPipeline;
         int m_materialCount = 0;
-        [MenuItem("Assets/Toon Shader/Unitychan Toon Shader Material Converter", false, 9999)]
+        [MenuItem("Window/Toon Shader/Unitychan Toon Shader Material Converter", false, 9999)]
         static private void OpenWindow()
         {
             var window = GetWindow<UnitychanToonShader2UnityToonShader>(true, "Unitychan Toon Shader Material Converter");
@@ -188,7 +188,7 @@ namespace UnityEditor.Rendering.Toon
 
                 EditorGUILayout.BeginHorizontal();
                 GUILayout.Space(16);
-                string str = "" + ii + ":";
+                string str = "" + materialCount + ":";
 
                 EditorGUILayout.LabelField(str, GUILayout.Width(40));
                 EditorGUILayout.LabelField(path, GUILayout.Width(Screen.width - 130));
@@ -246,13 +246,13 @@ namespace UnityEditor.Rendering.Toon
                 switch (renderPipelineIndex)
                 {
                     case 0: // built in
-                        material.shader = Shader.Find("HDRP/Toon");
+                        material.shader = Shader.Find("Toon (Built-in)"); 
                         break;
                     case 1: // Universal
-                        material.shader = Shader.Find("Universal/Toon");
+                        material.shader = Shader.Find("Universal Render Pipeline/Toon");
                         break;
                     case 2: // HDRP
-                        material.shader = Shader.Find("Toon(Built -in)");
+                        material.shader = Shader.Find("HDRP/Toon");
                         break;
                 }
 
