@@ -132,7 +132,8 @@ namespace UnityEditor.Rendering.Toon
         string[] guids;
         const string legacyShaderPrefix = "UnityChanToonShader/";
         readonly string[] m_RendderPipelineNames = { "Legacy", "Universal", "HDRP" };
-        int m_selectedIndex;
+        int m_selectedRenderPipeline;
+        int m_materialCount = 0;
         [MenuItem("Assets/Toon Shader/Unitychan Toon Shader Material Converter", false, 9999)]
         static private void OpenWindow()
         {
@@ -154,11 +155,14 @@ namespace UnityEditor.Rendering.Toon
             // scroll view background
             EditorGUI.DrawRect(rect, Color.gray);
             EditorGUI.DrawRect(rect2, new Color(0.3f, 0.3f, 0.3f));
-            EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField("Convert to ");
-            m_selectedIndex = EditorGUILayout.Popup(m_selectedIndex, m_RendderPipelineNames);
-            EditorGUILayout.EndHorizontal();
+            using (new EditorGUI.DisabledScope(m_materialCount == 0))
+            {
+                EditorGUILayout.BeginHorizontal();
 
+                EditorGUILayout.LabelField("Convert to ");
+                m_selectedRenderPipeline = EditorGUILayout.Popup(m_selectedRenderPipeline, m_RendderPipelineNames);
+                EditorGUILayout.EndHorizontal();
+            }
 
 
             // scroll view 
@@ -166,8 +170,8 @@ namespace UnityEditor.Rendering.Toon
                  EditorGUILayout.BeginScrollView(m_scrollPos, GUILayout.Width(position.width - 4));
             EditorGUILayout.BeginVertical();
 
-            int materialCount = 0;
 
+            int materialCount = 0;
             for (int ii = 0; ii < guids.Length; ii++)
             {
                 var guid = guids[ii];
@@ -191,20 +195,25 @@ namespace UnityEditor.Rendering.Toon
                 GUILayout.Space(1);
                 EditorGUILayout.EndHorizontal();
             }
-
+            m_materialCount = materialCount;
+            if (m_materialCount == 0)
+            {
+                GUILayout.Space(16);
+                EditorGUILayout.LabelField("   No Unitychan Toon Shader material was found.");
+            }
             EditorGUILayout.EndVertical();
             EditorGUILayout.EndScrollView();
 
-            if (materialCount == 0)
-            {
-                EditorGUILayout.LabelField("No Unitychan Toon Shader material was found.");
-            }
+
             // buttons 
             EditorGUILayout.BeginVertical();
             EditorGUILayout.BeginHorizontal();
-            if ( GUILayout.Button(new GUIContent("Convert")) )
+            using (new EditorGUI.DisabledScope(m_materialCount == 0))
             {
-                ConvertMaterials(guids);
+                if (GUILayout.Button(new GUIContent("Convert")))
+                {
+                    ConvertMaterials(m_selectedRenderPipeline, guids);
+                }
             }
             if ( GUILayout.Button(new GUIContent("Close")) )
             {
@@ -216,7 +225,7 @@ namespace UnityEditor.Rendering.Toon
 
         }
 
-        void ConvertMaterials(string[] guids)
+        void ConvertMaterials(int renderPipelineIndex, string[] guids)
         {
 
 
@@ -234,7 +243,20 @@ namespace UnityEditor.Rendering.Toon
 
                 }
                 Debug.Log(shaderName);
-                material.shader = Shader.Find("HDRP/Toon");
+                switch (renderPipelineIndex)
+                {
+                    case 0: // built in
+                        material.shader = Shader.Find("HDRP/Toon");
+                        break;
+                    case 1: // Universal
+                        material.shader = Shader.Find("Universal/Toon");
+                        break;
+                    case 2: // HDRP
+                        material.shader = Shader.Find("Toon(Built -in)");
+                        break;
+                }
+
+               
                 _Transparent_Setting = (_UTS_Transparent)material.GetInt(ShaderPropTransparentEnabled);
                 _StencilNo_Setting = material.GetInt(ShaderPropStencilNo);
                 _autoRenderQueue = material.GetInt(ShaderPropAutoRenderQueue);
