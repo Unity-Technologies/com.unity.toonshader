@@ -21,6 +21,14 @@ Shader "Universal Render Pipeline/Toon" {
         _StencilOpFail("Stencil Operation", Float) = 0
         [Enum(OFF,0,ON,1)] _TransparentEnabled("Transparent Mode", int) = 0
 
+        // Used to Lit.
+        // inoorder to make the shaders compatible with SRP Batcher 
+        // The following decralation is indespensable.
+        // 
+        [HideInInspector] _Metallic("_Metallic", Range(0.0, 1.0)) = 0
+        [HideInInspector] _Smoothness("Smoothness", Range(0.0, 1.0)) = 0.5
+
+
         // DoubleShadeWithFeather
         // 0:_IS_CLIPPING_OFF      1:_IS_CLIPPING_MODE    2:_IS_CLIPPING_TRANSMODE
         // ShadingGradeMap

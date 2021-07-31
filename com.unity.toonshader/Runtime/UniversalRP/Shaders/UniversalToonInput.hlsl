@@ -151,7 +151,7 @@ float _AR_OffsetV;
 fixed _ARSampler_AlphaOn;
 
 // OUTLINE 
-float4 _LightColor0;
+
 
 fixed _Is_LightColor_Outline;
 
