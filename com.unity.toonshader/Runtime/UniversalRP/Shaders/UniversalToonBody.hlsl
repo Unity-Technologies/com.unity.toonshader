@@ -27,58 +27,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-            uniform float _1st_ShadeColor_Step;
-            uniform float _1st_ShadeColor_Feather;
-            uniform float _2nd_ShadeColor_Step;
-            uniform float _2nd_ShadeColor_Feather;
-// ShadingGradeMap
-
-            uniform float4 _HighColor;
-            uniform sampler2D _HighColor_Tex; uniform float4 _HighColor_Tex_ST;
-            uniform fixed _Is_LightColor_HighColor;
-            uniform fixed _Is_NormalMapToHighColor;
-            uniform float _HighColor_Power;
-            uniform fixed _Is_SpecularToHighColor;
-            uniform fixed _Is_BlendAddToHiColor;
-            uniform fixed _Is_UseTweakHighColorOnShadow;
-            uniform float _TweakHighColorOnShadow;
-            uniform sampler2D _Set_HighColorMask; uniform float4 _Set_HighColorMask_ST;
-            uniform float _Tweak_HighColorMaskLevel;
-            uniform fixed _RimLight;
-            uniform float4 _RimLightColor;
-            uniform fixed _Is_LightColor_RimLight;
-            uniform fixed _Is_NormalMapToRimLight;
-            uniform float _RimLight_Power;
-            uniform float _RimLight_InsideMask;
-            uniform fixed _RimLight_FeatherOff;
-            uniform fixed _LightDirection_MaskOn;
-            uniform float _Tweak_LightDirection_MaskLevel;
-            uniform fixed _Add_Antipodean_RimLight;
-            uniform float4 _Ap_RimLightColor;
-            uniform fixed _Is_LightColor_Ap_RimLight;
-            uniform float _Ap_RimLight_Power;
-            uniform fixed _Ap_RimLight_FeatherOff;
-            uniform sampler2D _Set_RimLightMask; uniform float4 _Set_RimLightMask_ST;
-            uniform float _Tweak_RimLightMaskLevel;
-            uniform fixed _MatCap;
-
-            uniform sampler2D _MatCap_Sampler; uniform float4 _MatCap_Sampler_ST;
-
-            uniform float4 _MatCapColor;
-            uniform fixed _Is_LightColor_MatCap;
-            uniform fixed _Is_BlendAddToMatCap;
-            uniform float _Tweak_MatCapUV;
-            uniform float _Rotate_MatCapUV;
-            uniform fixed _Is_NormalMapForMatCap;
             uniform sampler2D _NormalMapForMatCap; uniform float4 _NormalMapForMatCap_ST;
             uniform float _Rotate_NormalMapForMatCapUV;
             uniform fixed _Is_UseTweakMatCapOnShadow;

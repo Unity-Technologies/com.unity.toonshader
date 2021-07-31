@@ -43,6 +43,53 @@ float4 _ShadingGradeMap_ST;
 //v.2.0.6
 float _Tweak_ShadingGradeMapLevel;
 fixed _BlurLevelSGM;
+
+float _1st_ShadeColor_Step;
+float _1st_ShadeColor_Feather;
+float _2nd_ShadeColor_Step;
+float _2nd_ShadeColor_Feather;
+
+float4 _HighColor;
+float4 _HighColor_Tex_ST;
+fixed _Is_LightColor_HighColor;
+fixed _Is_NormalMapToHighColor;
+float _HighColor_Power;
+
+fixed _Is_SpecularToHighColor;
+fixed _Is_BlendAddToHiColor;
+fixed _Is_UseTweakHighColorOnShadow;
+float _TweakHighColorOnShadow;
+
+float4 _Set_HighColorMask_ST;
+
+float _Tweak_HighColorMaskLevel;
+fixed _RimLight;
+float4 _RimLightColor;
+fixed _Is_LightColor_RimLight;
+fixed _Is_NormalMapToRimLight;
+float _RimLight_Power;
+float _RimLight_InsideMask;
+fixed _RimLight_FeatherOff;
+fixed _LightDirection_MaskOn;
+float _Tweak_LightDirection_MaskLevel;
+fixed _Add_Antipodean_RimLight;
+float4 _Ap_RimLightColor;
+fixed _Is_LightColor_Ap_RimLight;
+float _Ap_RimLight_Power;
+fixed _Ap_RimLight_FeatherOff;
+float4 _Set_RimLightMask_ST;
+float _Tweak_RimLightMaskLevel;
+fixed _MatCap;
+
+float4 _MatCap_Sampler_ST;
+
+float4 _MatCapColor;
+fixed _Is_LightColor_MatCap;
+fixed _Is_BlendAddToMatCap;
+float _Tweak_MatCapUV;
+float _Rotate_MatCapUV;
+fixed _Is_NormalMapForMatCap;
+
 //
 // 
 //
@@ -64,7 +111,10 @@ sampler2D _NormalMap;
 sampler2D _Set_1st_ShadePosition; 
 sampler2D _Set_2nd_ShadePosition;
 sampler2D _ShadingGradeMap;
-
+sampler2D _HighColor_Tex;
+sampler2D _Set_HighColorMask;
+sampler2D _Set_RimLightMask;
+sampler2D _MatCap_Sampler;
 
 TEXTURE2D(_OcclusionMap);       SAMPLER(sampler_OcclusionMap);
 TEXTURE2D(_MetallicGlossMap);   SAMPLER(sampler_MetallicGlossMap);
