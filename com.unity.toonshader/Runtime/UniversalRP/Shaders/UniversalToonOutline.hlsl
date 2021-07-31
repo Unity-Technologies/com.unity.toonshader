@@ -5,8 +5,7 @@
             uniform float4 _LightColor0;
 
             //v.2.0.7.5
-            uniform float _Unlit_Intensity;
-            uniform fixed _Is_Filter_LightColor;
+
             uniform fixed _Is_LightColor_Outline;
             //v.2.0.5
             uniform float _Outline_Width;
@@ -25,12 +24,7 @@
 
             uniform float _ZOverDrawMode;
             //
-//v.2.0.4
 
-            uniform sampler2D _ClippingMask; uniform float4 _ClippingMask_ST;
-            uniform float _Clipping_Level;
-            uniform fixed _Inverse_Clipping;
-            uniform fixed _IsBaseMapAlphaAsClippingMask;
 
             struct VertexInput {
                 float4 vertex : POSITION;

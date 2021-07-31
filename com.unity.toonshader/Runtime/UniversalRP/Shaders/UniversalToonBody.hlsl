@@ -27,57 +27,8 @@
 
 
 
-            uniform sampler2D _NormalMapForMatCap; uniform float4 _NormalMapForMatCap_ST;
-            uniform float _Rotate_NormalMapForMatCapUV;
-            uniform fixed _Is_UseTweakMatCapOnShadow;
-            uniform float _TweakMatCapOnShadow;
-            //MatcapMask
-            uniform sampler2D _Set_MatcapMask; uniform float4 _Set_MatcapMask_ST;
-            uniform float _Tweak_MatcapMaskLevel;
-            //v.2.0.5
-            uniform fixed _Is_Ortho;
-            //v.2.0.6
-            uniform float _CameraRolling_Stabilizer;
-            uniform fixed _BlurLevelMatcap;
-            uniform fixed _Inverse_MatcapMask;
-#if UCTS_LWRP
-#else
-            uniform float _BumpScale;
-#endif
-            uniform float _BumpScaleMatcap;
-            //Emissive
-            uniform sampler2D _Emissive_Tex; uniform float4 _Emissive_Tex_ST;
-            uniform float4 _Emissive_Color;
-            //v.2.0.7
-            uniform fixed _Is_ViewCoord_Scroll;
-            uniform float _Rotate_EmissiveUV;
-            uniform float _Base_Speed;
-            uniform float _Scroll_EmissiveU;
-            uniform float _Scroll_EmissiveV;
-            uniform fixed _Is_PingPong_Base;
-            uniform float4 _ColorShift;
-            uniform float4 _ViewShift;
-            uniform float _ColorShift_Speed;
-            uniform fixed _Is_ColorShift;
-            uniform fixed _Is_ViewShift;
-            uniform float3 emissive;
-            // 
-            uniform float _Unlit_Intensity;
-            //v.2.0.5
-            uniform fixed _Is_Filter_HiCutPointLightColor;
-            uniform fixed _Is_Filter_LightColor;
-            //v.2.0.4.4
-            uniform float _StepOffset;
-            uniform fixed _Is_BLD;
-            uniform float _Offset_X_Axis_BLD;
-            uniform float _Offset_Y_Axis_BLD;
-            uniform fixed _Inverse_Z_Axis_BLD;
-//v.2.0.4
-            uniform sampler2D _ClippingMask; uniform float4 _ClippingMask_ST;
-            uniform fixed _IsBaseMapAlphaAsClippingMask;
-            uniform float _Clipping_Level;
-            uniform fixed _Inverse_Clipping;
-            uniform float _Tweak_transparency;
+             
+
 
 
             // RaytracedHardShadow

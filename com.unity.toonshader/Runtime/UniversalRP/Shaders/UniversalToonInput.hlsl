@@ -90,6 +90,58 @@ float _Tweak_MatCapUV;
 float _Rotate_MatCapUV;
 fixed _Is_NormalMapForMatCap;
 
+float4 _NormalMapForMatCap_ST;
+float _Rotate_NormalMapForMatCapUV;
+fixed _Is_UseTweakMatCapOnShadow;
+float _TweakMatCapOnShadow;
+//MatcapMask
+// 
+float4 _Set_MatcapMask_ST;
+float _Tweak_MatcapMaskLevel;
+//v.2.0.5
+fixed _Is_Ortho;
+//v.2.0.6
+float _CameraRolling_Stabilizer;
+fixed _BlurLevelMatcap;
+fixed _Inverse_MatcapMask;
+
+float _BumpScaleMatcap;
+
+float4 _Emissive_Tex_ST;
+float4 _Emissive_Color;
+//v.2.0.7
+uniform fixed _Is_ViewCoord_Scroll;
+float _Rotate_EmissiveUV;
+float _Base_Speed;
+float _Scroll_EmissiveU;
+float _Scroll_EmissiveV;
+fixed _Is_PingPong_Base;
+float4 _ColorShift;
+float4 _ViewShift;
+float _ColorShift_Speed;
+fixed _Is_ColorShift;
+fixed _Is_ViewShift;
+float3 emissive;
+// 
+
+float _Unlit_Intensity;
+//v.2.0.5
+fixed _Is_Filter_HiCutPointLightColor;
+fixed _Is_Filter_LightColor;
+//v.2.0.4.4
+float _StepOffset;
+fixed _Is_BLD;
+float _Offset_X_Axis_BLD;
+float _Offset_Y_Axis_BLD;
+fixed _Inverse_Z_Axis_BLD;
+
+float4 _ClippingMask_ST;
+
+fixed _IsBaseMapAlphaAsClippingMask;
+float _Clipping_Level;
+fixed _Inverse_Clipping;
+float _Tweak_transparency;
+// 
 //
 // 
 //
@@ -115,6 +167,11 @@ sampler2D _HighColor_Tex;
 sampler2D _Set_HighColorMask;
 sampler2D _Set_RimLightMask;
 sampler2D _MatCap_Sampler;
+sampler2D _NormalMapForMatCap;
+sampler2D _Set_MatcapMask;
+sampler2D _Emissive_Tex;
+//v.2.0.4
+sampler2D _ClippingMask;
 
 TEXTURE2D(_OcclusionMap);       SAMPLER(sampler_OcclusionMap);
 TEXTURE2D(_MetallicGlossMap);   SAMPLER(sampler_MetallicGlossMap);
