@@ -25,43 +25,17 @@
 # endif
 #endif
 
-            uniform float _utsTechnique;
-            uniform sampler2D _MainTex; uniform float4 _MainTex_ST;
-#if UCTS_LWRP
-#else
-            uniform float4 _BaseColor;
-#endif
-            //v.2.0.5
-            uniform float4 _Color;
-            uniform fixed _Use_BaseAs1st;
-            uniform fixed _Use_1stAs2nd;
-            //
-            uniform fixed _Is_LightColor_Base;
-            uniform sampler2D _1st_ShadeMap; uniform float4 _1st_ShadeMap_ST;
-            uniform float4 _1st_ShadeColor;
-            uniform fixed _Is_LightColor_1st_Shade;
-            uniform sampler2D _2nd_ShadeMap; uniform float4 _2nd_ShadeMap_ST;
-            uniform float4 _2nd_ShadeColor;
-            uniform fixed _Is_LightColor_2nd_Shade;
-            uniform sampler2D _NormalMap; uniform float4 _NormalMap_ST;
-            uniform fixed _Is_NormalMapToBase;
-            uniform fixed _Set_SystemShadowsToBase;
-            uniform float _Tweak_SystemShadowsLevel;
-            uniform float _BaseColor_Step;
-            uniform float _BaseShade_Feather;
-            uniform sampler2D _Set_1st_ShadePosition; uniform float4 _Set_1st_ShadePosition_ST;
-            uniform float _ShadeColor_Step;
-            uniform float _1st2nd_Shades_Feather;
-            uniform sampler2D _Set_2nd_ShadePosition; uniform float4 _Set_2nd_ShadePosition_ST;
 
-// ShadingGradeMap
-#if defined(_SHADINGGRADEMAP)
-            uniform sampler2D _ShadingGradeMap; uniform float4 _ShadingGradeMap_ST;
-#endif
-            //v.2.0.6
-            uniform float _Tweak_ShadingGradeMapLevel;
-            uniform fixed _BlurLevelSGM;
-            //
+
+
+
+
+
+
+
+
+
+
             uniform float _1st_ShadeColor_Step;
             uniform float _1st_ShadeColor_Feather;
             uniform float _2nd_ShadeColor_Step;

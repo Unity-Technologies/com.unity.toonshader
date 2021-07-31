@@ -237,8 +237,10 @@ Shader "Universal Render Pipeline/Toon" {
             //V.2.0.4
             #pragma multi_compile _IS_OUTLINE_CLIPPING_NO _IS_OUTLINE_CLIPPING_YES
             #pragma multi_compile _OUTLINE_NML _OUTLINE_POS
-            // Outline is implemented in UniversalToonOutline.hlslへ.
+            // Outline is implemented in UniversalToonOutline.hlsl.
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+            #include "UniversalToonInput.hlsl"
             #include "UniversalToonHead.hlsl"
             #include "UniversalToonOutline.hlsl"
             ENDHLSL

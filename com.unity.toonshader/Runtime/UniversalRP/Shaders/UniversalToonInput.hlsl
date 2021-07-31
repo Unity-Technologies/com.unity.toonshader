@@ -5,8 +5,47 @@
 #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/CommonMaterial.hlsl"
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/SurfaceInput.hlsl"
 
+#define fixed  half
+#define fixed3 half3
+#define fixed4 half4
+
 CBUFFER_START(UnityPerMaterial)
+float _utsTechnique;
+float4 _MainTex_ST;
 float4 _BaseMap_ST;
+//v.2.0.5
+float4 _Color;
+fixed _Use_BaseAs1st;
+fixed _Use_1stAs2nd;
+fixed _Is_LightColor_Base;
+//
+float4 _1st_ShadeMap_ST;
+float4 _1st_ShadeColor;
+fixed _Is_LightColor_1st_Shade;
+float4 _2nd_ShadeMap_ST;
+float4 _2nd_ShadeColor;
+fixed _Is_LightColor_2nd_Shade;
+float4 _NormalMap_ST;
+
+fixed _Is_NormalMapToBase;
+fixed _Set_SystemShadowsToBase;
+float _Tweak_SystemShadowsLevel;
+float _BaseColor_Step;
+float _BaseShade_Feather;
+
+float4 _Set_1st_ShadePosition_ST;
+float _ShadeColor_Step;
+float _1st2nd_Shades_Feather;
+float4 _Set_2nd_ShadePosition_ST;
+
+float4 _ShadingGradeMap_ST;
+
+//v.2.0.6
+float _Tweak_ShadingGradeMapLevel;
+fixed _BlurLevelSGM;
+//
+// 
+//
 half4 _BaseColor;
 half4 _SpecColor;
 half4 _EmissionColor;
@@ -18,9 +57,19 @@ half _OcclusionStrength;
 half _Surface;
 CBUFFER_END
 
+sampler2D _MainTex;
+sampler2D _1st_ShadeMap;
+sampler2D _2nd_ShadeMap;
+sampler2D _NormalMap;
+sampler2D _Set_1st_ShadePosition; 
+sampler2D _Set_2nd_ShadePosition;
+sampler2D _ShadingGradeMap;
+
+
 TEXTURE2D(_OcclusionMap);       SAMPLER(sampler_OcclusionMap);
 TEXTURE2D(_MetallicGlossMap);   SAMPLER(sampler_MetallicGlossMap);
 TEXTURE2D(_SpecGlossMap);       SAMPLER(sampler_SpecGlossMap);
+
 
 #ifdef _SPECULAR_SETUP
 #define SAMPLE_METALLICSPECULAR(uv) SAMPLE_TEXTURE2D(_SpecGlossMap, sampler_SpecGlossMap, uv)
