@@ -34,13 +34,12 @@
             // RaytracedHardShadow
 #define UNITY_PROJ_COORD(a) a
 #define UNITY_SAMPLE_SCREEN_SHADOW(tex, uv) tex2Dproj( tex, UNITY_PROJ_COORD(uv) ).r
-//            TEXTURE2D_SHADOW(_RaytracedHardShadow);
-//            SAMPLER_CMP(sampler__RaytracedHardShadow);
+
 #define TEXTURE2D_SAMPLER2D(textureName, samplerName) Texture2D textureName; SamplerState samplerName
             TEXTURE2D_SAMPLER2D(_RaytracedHardShadow, sampler_RaytracedHardShadow);
-//            uniform sampler2D _RaytracedHardShadow;
             float4 _RaytracedHardShadow_TexelSize;
             uniform int UtsUseRaytracingShadow;
+
 #ifdef _SYNTHESIZED_TEXTURE
             uniform sampler2D _MainTexSynthesized; uniform float4 _MainTexSynthesized_ST;
             uniform sampler2D _ShadowControlSynthesized; uniform float4 _ShadowControlSynthesized_ST;
@@ -96,25 +95,7 @@
 
                 return EnvironmentBRDF(brdfData, indirectDiffuse, indirectSpecular, fresnelTerm);
             }
-            uniform float _GI_Intensity;
 
-//v.2.0.4
-#if defined(_SHADINGGRADEMAP)
-
-#ifdef _IS_ANGELRING_OFF
-//
-#elif _IS_ANGELRING_ON
-            uniform fixed _AngelRing;
-
-            uniform sampler2D _AngelRing_Sampler; uniform float4 _AngelRing_Sampler_ST;
-            uniform float4 _AngelRing_Color;
-            uniform fixed _Is_LightColor_AR;
-            uniform float _AR_OffsetU;
-            uniform float _AR_OffsetV;
-            uniform fixed _ARSampler_AlphaOn;
-
-#endif
-#endif     //#if defined(_SHADINGGRADEMP)
             struct VertexInput {
                 float4 vertex : POSITION;
                 float3 normal : NORMAL;
@@ -129,7 +110,6 @@
 				float2 lightmapUV   : TEXCOORD2;
 #endif
 				UNITY_VERTEX_INPUT_INSTANCE_ID
-
             };
             struct VertexOutput {
                 float4 pos : SV_POSITION;

@@ -141,6 +141,16 @@ fixed _IsBaseMapAlphaAsClippingMask;
 float _Clipping_Level;
 fixed _Inverse_Clipping;
 float _Tweak_transparency;
+
+float _GI_Intensity;
+
+float4 _AngelRing_Sampler_ST;
+float4 _AngelRing_Color;
+fixed _Is_LightColor_AR;
+float _AR_OffsetU;
+float _AR_OffsetV;
+fixed _ARSampler_AlphaOn;
+
 // 
 //
 // 
@@ -172,6 +182,8 @@ sampler2D _Set_MatcapMask;
 sampler2D _Emissive_Tex;
 //v.2.0.4
 sampler2D _ClippingMask;
+
+sampler2D _AngelRing_Sampler;
 
 TEXTURE2D(_OcclusionMap);       SAMPLER(sampler_OcclusionMap);
 TEXTURE2D(_MetallicGlossMap);   SAMPLER(sampler_MetallicGlossMap);
