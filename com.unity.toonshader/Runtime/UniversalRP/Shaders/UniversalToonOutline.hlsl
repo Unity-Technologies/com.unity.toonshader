@@ -2,28 +2,7 @@
 //nobuyuki@unity3d.com
 //toshiyuki@unity3d.com (Universal RP/HDRP) 
 
-            uniform float4 _LightColor0;
 
-            //v.2.0.7.5
-
-            uniform fixed _Is_LightColor_Outline;
-            //v.2.0.5
-            uniform float _Outline_Width;
-            uniform float _Farthest_Distance;
-            uniform float _Nearest_Distance;
-            uniform sampler2D _Outline_Sampler; uniform float4 _Outline_Sampler_ST;
-            uniform float4 _Outline_Color;
-            uniform fixed _Is_BlendBaseColor;
-            uniform float _Offset_Z;
-            //v2.0.4
-            uniform sampler2D _OutlineTex; uniform float4 _OutlineTex_ST;
-            uniform fixed _Is_OutlineTex;
-            //Baked Normal Texture for Outline
-            uniform sampler2D _BakedNormal; uniform float4 _BakedNormal_ST;
-            uniform fixed _Is_BakedNormal;
-
-            uniform float _ZOverDrawMode;
-            //
 
 
             struct VertexInput {

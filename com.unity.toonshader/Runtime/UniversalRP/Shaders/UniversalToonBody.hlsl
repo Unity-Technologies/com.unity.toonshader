@@ -30,8 +30,8 @@
              
 
 
-
-            // RaytracedHardShadow
+// RaytracedHardShadow
+// This is global texture.  what to do with SRP Batcher.
 #define UNITY_PROJ_COORD(a) a
 #define UNITY_SAMPLE_SCREEN_SHADOW(tex, uv) tex2Dproj( tex, UNITY_PROJ_COORD(uv) ).r
 

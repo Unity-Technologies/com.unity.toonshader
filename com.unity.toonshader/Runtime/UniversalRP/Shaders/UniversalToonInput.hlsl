@@ -13,7 +13,7 @@ CBUFFER_START(UnityPerMaterial)
 float _utsTechnique;
 float4 _MainTex_ST;
 float4 _BaseMap_ST;
-//v.2.0.5
+
 float4 _Color;
 fixed _Use_BaseAs1st;
 fixed _Use_1stAs2nd;
@@ -40,7 +40,6 @@ float4 _Set_2nd_ShadePosition_ST;
 
 float4 _ShadingGradeMap_ST;
 
-//v.2.0.6
 float _Tweak_ShadingGradeMapLevel;
 fixed _BlurLevelSGM;
 
@@ -98,9 +97,9 @@ float _TweakMatCapOnShadow;
 // 
 float4 _Set_MatcapMask_ST;
 float _Tweak_MatcapMaskLevel;
-//v.2.0.5
+
 fixed _Is_Ortho;
-//v.2.0.6
+
 float _CameraRolling_Stabilizer;
 fixed _BlurLevelMatcap;
 fixed _Inverse_MatcapMask;
@@ -109,7 +108,7 @@ float _BumpScaleMatcap;
 
 float4 _Emissive_Tex_ST;
 float4 _Emissive_Color;
-//v.2.0.7
+
 uniform fixed _Is_ViewCoord_Scroll;
 float _Rotate_EmissiveUV;
 float _Base_Speed;
@@ -125,10 +124,10 @@ float3 emissive;
 // 
 
 float _Unlit_Intensity;
-//v.2.0.5
+
 fixed _Is_Filter_HiCutPointLightColor;
 fixed _Is_Filter_LightColor;
-//v.2.0.4.4
+
 float _StepOffset;
 fixed _Is_BLD;
 float _Offset_X_Axis_BLD;
@@ -151,7 +150,27 @@ float _AR_OffsetU;
 float _AR_OffsetV;
 fixed _ARSampler_AlphaOn;
 
-// 
+// OUTLINE 
+float4 _LightColor0;
+
+fixed _Is_LightColor_Outline;
+
+float _Outline_Width;
+float _Farthest_Distance;
+float _Nearest_Distance;
+float4 _Outline_Sampler_ST;
+float4 _Outline_Color;
+fixed _Is_BlendBaseColor;
+float _Offset_Z;
+
+float4 _OutlineTex_ST;
+fixed _Is_OutlineTex;
+
+float4 _BakedNormal_ST;
+fixed _Is_BakedNormal;
+
+float _ZOverDrawMode;
+
 //
 // 
 //
@@ -180,10 +199,12 @@ sampler2D _MatCap_Sampler;
 sampler2D _NormalMapForMatCap;
 sampler2D _Set_MatcapMask;
 sampler2D _Emissive_Tex;
-//v.2.0.4
 sampler2D _ClippingMask;
-
 sampler2D _AngelRing_Sampler;
+sampler2D _Outline_Sampler;
+sampler2D _OutlineTex;
+sampler2D _BakedNormal;
+
 
 TEXTURE2D(_OcclusionMap);       SAMPLER(sampler_OcclusionMap);
 TEXTURE2D(_MetallicGlossMap);   SAMPLER(sampler_MetallicGlossMap);
