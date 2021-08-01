@@ -4,6 +4,13 @@
 // Otherwise those parameters are not bound correctly at runtime.
 // ===========================================================================
 
+#define fixed  half
+
+// Unity Toon Shader
+sampler2D _MainTex;
+sampler2D _1st_ShadeMap;
+
+// Lit
 TEXTURE2D(_DistortionVectorMap);
 SAMPLER(sampler_DistortionVectorMap);
 
@@ -98,6 +105,15 @@ SAMPLER(sampler_LayerInfluenceMaskMap);
 #endif
 
 CBUFFER_START(UnityPerMaterial)
+// cosntant in Unity Toon Shader
+float _utsTechnique;
+
+float4 _Color;
+fixed _Use_BaseAs1st;
+fixed _Use_1stAs2nd;
+fixed _Is_LightColor_Base;
+float4 _MainTex_ST;
+float4 _1st_ShadeMap_ST;
 
 // shared constant between lit and layered lit
 float _AlphaCutoff;

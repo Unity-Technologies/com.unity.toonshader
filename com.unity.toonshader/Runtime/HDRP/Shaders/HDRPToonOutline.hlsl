@@ -9,8 +9,7 @@
             uniform fixed _Is_Filter_LightColor;
             uniform fixed _Is_LightColor_Outline;
             //v.2.0.5
-            uniform float4 _Color;
-            uniform sampler2D _MainTex; uniform float4 _MainTex_ST;
+
             uniform float _Outline_Width;
             uniform float _Farthest_Distance;
             uniform float _Nearest_Distance;

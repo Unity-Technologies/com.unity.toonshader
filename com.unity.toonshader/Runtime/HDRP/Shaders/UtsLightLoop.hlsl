@@ -18,21 +18,10 @@ int eRimLight = 5;
 int eOutline = 6;
 
 
-uniform float _utsTechnique;
 
 
-//uniform sampler2D _MainTex; uniform float4 _MainTex_ST;
-#if UCTS_LWRP
-#else
-//uniform float4 _BaseColor;
-#endif
-//v.2.0.5
-uniform float4 _Color;
-uniform fixed _Use_BaseAs1st;
-uniform fixed _Use_1stAs2nd;
+
 //
-uniform fixed _Is_LightColor_Base;
-uniform sampler2D _1st_ShadeMap; uniform float4 _1st_ShadeMap_ST;
 uniform float4 _1st_ShadeColor;
 uniform fixed _Is_LightColor_1st_Shade;
 uniform sampler2D _2nd_ShadeMap; uniform float4 _2nd_ShadeMap_ST;
@@ -156,7 +145,7 @@ uniform float _Tweak_transparency;
 
 
 
-uniform sampler2D _MainTex; uniform float4 _MainTex_ST;
+
 uniform float _GI_Intensity;
 #if defined(_SHADINGGRADEMAP)
 

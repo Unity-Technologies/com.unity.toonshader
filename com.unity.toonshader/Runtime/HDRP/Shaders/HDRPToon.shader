@@ -572,7 +572,6 @@ Shader "HDRP/Toon"
     // variable declaration
     //-------------------------------------------------------------------------------------
 
-    // #include "Packages/com.unity.render-pipelines.high-definition/Runtime/Material/Lit/Lit.cs.hlsl"
     #include "UtsProperties.hlsl"
 
     // TODO:
