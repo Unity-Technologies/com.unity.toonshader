@@ -142,7 +142,7 @@ fixed _Inverse_Clipping;
 float _Tweak_transparency;
 
 float _GI_Intensity;
-
+fixed  _AngelRing;
 float4 _AngelRing_Sampler_ST;
 float4 _AngelRing_Color;
 fixed _Is_LightColor_AR;
