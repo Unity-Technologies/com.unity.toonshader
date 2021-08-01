@@ -18,49 +18,6 @@ int eRimLight = 5;
 int eOutline = 6;
 
 
-
-
-
-//
-uniform float4 _1st_ShadeColor;
-uniform fixed _Is_LightColor_1st_Shade;
-uniform sampler2D _2nd_ShadeMap; uniform float4 _2nd_ShadeMap_ST;
-uniform float4 _2nd_ShadeColor;
-uniform fixed _Is_LightColor_2nd_Shade;
-//uniform sampler2D _NormalMap; uniform float4 _NormalMap_ST;
-uniform fixed _Is_NormalMapToBase;
-uniform fixed _Set_SystemShadowsToBase;
-uniform float _Tweak_SystemShadowsLevel;
-uniform float _BaseColor_Step;
-uniform float _BaseShade_Feather;
-uniform sampler2D _Set_1st_ShadePosition; uniform float4 _Set_1st_ShadePosition_ST;
-uniform float _ShadeColor_Step;
-uniform float _1st2nd_Shades_Feather;
-uniform sampler2D _Set_2nd_ShadePosition; uniform float4 _Set_2nd_ShadePosition_ST;
-
-// ShadingGradeMap
-#if defined(_SHADINGGRADEMAP)
-uniform sampler2D _ShadingGradeMap; uniform float4 _ShadingGradeMap_ST;
-#endif
-//v.2.0.6
-uniform float _Tweak_ShadingGradeMapLevel;
-uniform fixed _BlurLevelSGM;
-//
-uniform float _1st_ShadeColor_Step;
-uniform float _1st_ShadeColor_Feather;
-uniform float _2nd_ShadeColor_Step;
-uniform float _2nd_ShadeColor_Feather;
-// ShadingGradeMap
-
-uniform float4 _HighColor;
-uniform sampler2D _HighColor_Tex; uniform float4 _HighColor_Tex_ST;
-uniform fixed _Is_LightColor_HighColor;
-uniform fixed _Is_NormalMapToHighColor;
-uniform float _HighColor_Power;
-uniform fixed _Is_SpecularToHighColor;
-uniform fixed _Is_BlendAddToHiColor;
-uniform fixed _Is_UseTweakHighColorOnShadow;
-uniform float _TweakHighColorOnShadow;
 uniform sampler2D _Set_HighColorMask; uniform float4 _Set_HighColorMask_ST;
 uniform float _Tweak_HighColorMaskLevel;
 uniform fixed _RimLight;

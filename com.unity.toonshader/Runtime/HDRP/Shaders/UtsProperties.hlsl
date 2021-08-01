@@ -9,6 +9,11 @@
 // Unity Toon Shader
 sampler2D _MainTex;
 sampler2D _1st_ShadeMap;
+sampler2D _2nd_ShadeMap;
+sampler2D _Set_1st_ShadePosition;
+sampler2D _Set_2nd_ShadePosition;
+sampler2D _ShadingGradeMap;
+sampler2D _HighColor_Tex;
 
 // Lit
 TEXTURE2D(_DistortionVectorMap);
@@ -107,13 +112,49 @@ SAMPLER(sampler_LayerInfluenceMaskMap);
 CBUFFER_START(UnityPerMaterial)
 // cosntant in Unity Toon Shader
 float _utsTechnique;
-
 float4 _Color;
 fixed _Use_BaseAs1st;
 fixed _Use_1stAs2nd;
 fixed _Is_LightColor_Base;
 float4 _MainTex_ST;
 float4 _1st_ShadeMap_ST;
+float4 _1st_ShadeColor;
+fixed _Is_LightColor_1st_Shade;
+float4 _2nd_ShadeMap_ST;
+float4 _2nd_ShadeColor;
+fixed _Is_LightColor_2nd_Shade;
+fixed _Is_NormalMapToBase;
+fixed _Set_SystemShadowsToBase;
+
+float _Tweak_SystemShadowsLevel;
+float _BaseColor_Step;
+float _BaseShade_Feather;
+float4 _Set_1st_ShadePosition_ST;
+
+float _ShadeColor_Step;
+float _1st2nd_Shades_Feather;
+float4 _Set_2nd_ShadePosition_ST;
+float4 _ShadingGradeMap_ST;
+
+float _Tweak_ShadingGradeMapLevel;
+fixed _BlurLevelSGM;
+//
+float _1st_ShadeColor_Step;
+float _1st_ShadeColor_Feather;
+float _2nd_ShadeColor_Step;
+float _2nd_ShadeColor_Feather;
+
+float4 _HighColor;
+float4 _HighColor_Tex_ST;
+fixed _Is_LightColor_HighColor;
+
+fixed _Is_NormalMapToHighColor;
+float _HighColor_Power;
+fixed _Is_SpecularToHighColor;
+fixed _Is_BlendAddToHiColor;
+fixed _Is_UseTweakHighColorOnShadow;
+float _TweakHighColorOnShadow;
+
 
 // shared constant between lit and layered lit
 float _AlphaCutoff;
