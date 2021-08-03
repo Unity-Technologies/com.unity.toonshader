@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Runtime/AngelRing/001_AngelRing(HDRP).unity
+    guid: 7322b3e7d62c46eb9cac67ecf8a3be6d
   m_configObjects: {}
