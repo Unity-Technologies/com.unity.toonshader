@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: EmissiveAnimation
   m_Shader: {fileID: 4800000, guid: 873188af6a7b5ca49aa69929a5d863c1, type: 3}
-  m_ShaderKeywords: _ _EMISSIVE_ANIMATION _IS_ANGELRING_OFF _IS_CLIPPING_OFF _IS_OUTLINE_CLIPPING_NO
+  m_ShaderKeywords: _ _EMISSIVE_SIMPLE _IS_ANGELRING_OFF _IS_CLIPPING_OFF _IS_OUTLINE_CLIPPING_NO
     _OUTLINE_NML
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -273,7 +273,7 @@ Material:
     - _DoubleSidedEnable: 0
     - _DoubleSidedNormalMode: 1
     - _DstBlend: 0
-    - _EMISSIVE: 1
+    - _EMISSIVE: 0
     - _EmissiveColorMode: 1
     - _EmissiveExposureWeight: 1
     - _EmissiveIntensity: 1
@@ -442,8 +442,8 @@ Material:
     - _utsTechnique: 0
     - _utsVersion: 2.075
     - _utsVersionX: 0
-    - _utsVersionY: 0
-    - _utsVersionZ: 2
+    - _utsVersionY: 2
+    - _utsVersionZ: 0
     m_Colors:
     - _1st_ShadeColor: {r: 0, g: 0, b: 0, a: 1}
     - _2nd_ShadeColor: {r: 0, g: 0, b: 0, a: 1}
