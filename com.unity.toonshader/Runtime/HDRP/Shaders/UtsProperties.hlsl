@@ -105,9 +105,9 @@ SAMPLER(sampler_LayerInfluenceMaskMap);
 
 CBUFFER_START(UnityPerMaterial)
 
-#if (SHADER_LIBRARY_VERSION_MAJOR >= 10 )
+//#if (SHADER_LIBRARY_VERSION_MAJOR >= 10 )
 #include "UtsUnityPerMaterial.hlsl"
-#endif //
+//#endif //
 
 // shared constant between lit and layered lit
 float _AlphaCutoff;
@@ -279,9 +279,9 @@ PROP_DECL(float, _LinkDetailsWithBase);
 
 #endif // LAYERED_LIT_SHADER
 
-#if (SHADER_LIBRARY_VERSION_MAJOR < 10 )
-#include "UtsUnityPerMaterial.hlsl"
-#endif //
+//#if (SHADER_LIBRARY_VERSION_MAJOR < 10 )
+//#include "UtsUnityPerMaterial.hlsl"
+//#endif //
 
 // Tessellation specific
 
