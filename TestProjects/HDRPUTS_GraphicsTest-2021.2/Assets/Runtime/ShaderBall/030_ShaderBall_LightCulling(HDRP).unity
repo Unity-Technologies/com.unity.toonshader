@@ -994,7 +994,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: 4fb3ae2d8df64d55903f4379ede7013a, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: 0e85f94b784793f44b1d7f61473bdc01, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
