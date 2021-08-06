@@ -1,4 +1,9 @@
-﻿// CBUFFER_START(UnityPerMaterial)
+﻿
+#ifndef SAMPLE_TEXTURE2D
+#define SAMPLE_TEXTURE2D(textureName, samplerName, coord2)                          	textureName.SampleLevel(samplerName, coord2, 0)
+#endif
+
+// CBUFFER_START(UnityPerMaterial)
 float _utsTechnique;
 float4 _MainTex_ST;
 
@@ -174,15 +179,15 @@ half _OcclusionStrength;
 half _Surface;
 // CBUFFER_END
 
-sampler2D _MainTex;
-sampler2D _1st_ShadeMap;
-sampler2D _2nd_ShadeMap;
-sampler2D _NormalMap;
+// sampler2D _MainTex;
+// sampler2D _1st_ShadeMap;
+// sampler2D _2nd_ShadeMap;
+// sampler2D _NormalMap;
 
-//TEXTURE2D(_MainTex); SAMPLER(sampler_MainTex);
-//TEXTURE2D(_1st_ShadeMap);
-//TEXTURE2D(_2nd_ShadeMap);
-//TEXTURE2D(_NormalMap);
+Texture2D _MainTex; SamplerState sampler_MainTex;
+Texture2D _1st_ShadeMap;
+Texture2D _2nd_ShadeMap;
+Texture2D _NormalMap;
 
 sampler2D _Set_1st_ShadePosition;
 sampler2D _Set_2nd_ShadePosition;
