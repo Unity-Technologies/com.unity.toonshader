@@ -459,63 +459,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7463582231431991560, guid: 4f699647e46f5b941b976d9a1beba4cc, type: 3}
   m_PrefabInstance: {fileID: 42509408}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &51246592
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1734017152238352, guid: e091197c8d86407495b32ecaabe46563, type: 3}
-      propertyPath: m_Name
-      value: ToonShader_SD_unitychan_humanoid_ABN
-      objectReference: {fileID: 0}
-    - target: {fileID: 4862957803986366, guid: e091197c8d86407495b32ecaabe46563, type: 3}
-      propertyPath: m_RootOrder
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 4862957803986366, guid: e091197c8d86407495b32ecaabe46563, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4862957803986366, guid: e091197c8d86407495b32ecaabe46563, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.21
-      objectReference: {fileID: 0}
-    - target: {fileID: 4862957803986366, guid: e091197c8d86407495b32ecaabe46563, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -1.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 4862957803986366, guid: e091197c8d86407495b32ecaabe46563, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4862957803986366, guid: e091197c8d86407495b32ecaabe46563, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4862957803986366, guid: e091197c8d86407495b32ecaabe46563, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4862957803986366, guid: e091197c8d86407495b32ecaabe46563, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4862957803986366, guid: e091197c8d86407495b32ecaabe46563, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4862957803986366, guid: e091197c8d86407495b32ecaabe46563, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -90
-      objectReference: {fileID: 0}
-    - target: {fileID: 4862957803986366, guid: e091197c8d86407495b32ecaabe46563, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: e091197c8d86407495b32ecaabe46563, type: 3}
 --- !u!1 &78737993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1488,63 +1431,6 @@ MonoBehaviour:
   m_Offset: {x: 0, y: 0, z: 1.5}
   m_Size: {x: 8, y: 8, z: 3}
   m_FadeFactor: 0.18
---- !u!1001 &138113589
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1505896528405314, guid: ab1817cbe76d4b28b724f2b18f43242a, type: 3}
-      propertyPath: m_Name
-      value: ToonShader_SD_unitychan_humanoid_Illust
-      objectReference: {fileID: 0}
-    - target: {fileID: 4485053995679290, guid: ab1817cbe76d4b28b724f2b18f43242a, type: 3}
-      propertyPath: m_RootOrder
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 4485053995679290, guid: ab1817cbe76d4b28b724f2b18f43242a, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.73
-      objectReference: {fileID: 0}
-    - target: {fileID: 4485053995679290, guid: ab1817cbe76d4b28b724f2b18f43242a, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.21
-      objectReference: {fileID: 0}
-    - target: {fileID: 4485053995679290, guid: ab1817cbe76d4b28b724f2b18f43242a, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -2.38
-      objectReference: {fileID: 0}
-    - target: {fileID: 4485053995679290, guid: ab1817cbe76d4b28b724f2b18f43242a, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4485053995679290, guid: ab1817cbe76d4b28b724f2b18f43242a, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4485053995679290, guid: ab1817cbe76d4b28b724f2b18f43242a, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4485053995679290, guid: ab1817cbe76d4b28b724f2b18f43242a, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4485053995679290, guid: ab1817cbe76d4b28b724f2b18f43242a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4485053995679290, guid: ab1817cbe76d4b28b724f2b18f43242a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -90
-      objectReference: {fileID: 0}
-    - target: {fileID: 4485053995679290, guid: ab1817cbe76d4b28b724f2b18f43242a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: ab1817cbe76d4b28b724f2b18f43242a, type: 3}
 --- !u!115 &170549850
 MonoScript:
   m_ObjectHideFlags: 0
@@ -10451,63 +10337,6 @@ MonoBehaviour:
   m_Offset: {x: 0, y: 0, z: 0.25}
   m_Size: {x: 8, y: 5, z: 0.5}
   m_FadeFactor: 0.298
---- !u!1001 &901709071
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 5594835989873423675, guid: 2a61f6f8c9864619a71bad897fb71e9b, type: 3}
-      propertyPath: m_Name
-      value: ToonShader_SD_unitychan_humanoid_Emissive
-      objectReference: {fileID: 0}
-    - target: {fileID: 5598104094224656607, guid: 2a61f6f8c9864619a71bad897fb71e9b, type: 3}
-      propertyPath: m_RootOrder
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 5598104094224656607, guid: 2a61f6f8c9864619a71bad897fb71e9b, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5598104094224656607, guid: 2a61f6f8c9864619a71bad897fb71e9b, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.21
-      objectReference: {fileID: 0}
-    - target: {fileID: 5598104094224656607, guid: 2a61f6f8c9864619a71bad897fb71e9b, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 2.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5598104094224656607, guid: 2a61f6f8c9864619a71bad897fb71e9b, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 5598104094224656607, guid: 2a61f6f8c9864619a71bad897fb71e9b, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5598104094224656607, guid: 2a61f6f8c9864619a71bad897fb71e9b, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 5598104094224656607, guid: 2a61f6f8c9864619a71bad897fb71e9b, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5598104094224656607, guid: 2a61f6f8c9864619a71bad897fb71e9b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5598104094224656607, guid: 2a61f6f8c9864619a71bad897fb71e9b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -90
-      objectReference: {fileID: 0}
-    - target: {fileID: 5598104094224656607, guid: 2a61f6f8c9864619a71bad897fb71e9b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 2a61f6f8c9864619a71bad897fb71e9b, type: 3}
 --- !u!1 &906649023
 GameObject:
   m_ObjectHideFlags: 0
@@ -25246,63 +25075,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 241953713371403933, guid: d3c98eda0dc408d43a20cce4541da78f, type: 3}
   m_PrefabInstance: {fileID: 1950019448}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &1967934938
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1348741524522182, guid: 5b6c739b928a4adaa6818fa57c8c14bf, type: 3}
-      propertyPath: m_Name
-      value: ToonShader_SD_unitychan_humanoid_CelLook
-      objectReference: {fileID: 0}
-    - target: {fileID: 4800381845215172, guid: 5b6c739b928a4adaa6818fa57c8c14bf, type: 3}
-      propertyPath: m_RootOrder
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 4800381845215172, guid: 5b6c739b928a4adaa6818fa57c8c14bf, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4800381845215172, guid: 5b6c739b928a4adaa6818fa57c8c14bf, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.21
-      objectReference: {fileID: 0}
-    - target: {fileID: 4800381845215172, guid: 5b6c739b928a4adaa6818fa57c8c14bf, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4800381845215172, guid: 5b6c739b928a4adaa6818fa57c8c14bf, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4800381845215172, guid: 5b6c739b928a4adaa6818fa57c8c14bf, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4800381845215172, guid: 5b6c739b928a4adaa6818fa57c8c14bf, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4800381845215172, guid: 5b6c739b928a4adaa6818fa57c8c14bf, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4800381845215172, guid: 5b6c739b928a4adaa6818fa57c8c14bf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4800381845215172, guid: 5b6c739b928a4adaa6818fa57c8c14bf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -90
-      objectReference: {fileID: 0}
-    - target: {fileID: 4800381845215172, guid: 5b6c739b928a4adaa6818fa57c8c14bf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 5b6c739b928a4adaa6818fa57c8c14bf, type: 3}
 --- !u!1 &1968878831
 GameObject:
   m_ObjectHideFlags: 0
@@ -26567,157 +26339,157 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: -10
-      value: -10
-      inSlope: 0
-      outSlope: 1
-      tangentMode: 0
+      time: -11.920764
+      value: -9.620428
+      inSlope: 0.73847175
+      outSlope: 0.73847175
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.33333334
     - serializedVersion: 3
-      time: -1.32
-      value: -1.32
-      inSlope: 1
-      outSlope: 0
-      tangentMode: 0
+      time: -0.11631012
+      value: -0.90317285
+      inSlope: 0.73847175
+      outSlope: 0.73847175
+      tangentMode: 34
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.33333334
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
   m_ExposureArray:
-  - -10
-  - -9.931654
-  - -9.863307
-  - -9.794961
-  - -9.726614
-  - -9.658268
-  - -9.589921
-  - -9.521575
-  - -9.453228
-  - -9.384882
-  - -9.316535
-  - -9.248189
-  - -9.179843
-  - -9.111496
-  - -9.04315
-  - -8.974803
-  - -8.906457
-  - -8.83811
-  - -8.769764
-  - -8.701417
-  - -8.633071
-  - -8.564724
-  - -8.496378
-  - -8.428032
-  - -8.359685
-  - -8.291339
-  - -8.222992
-  - -8.154646
-  - -8.086299
-  - -8.017953
-  - -7.9496064
-  - -7.88126
-  - -7.8129134
-  - -7.744567
-  - -7.6762204
-  - -7.607874
-  - -7.5395274
-  - -7.471181
-  - -7.402835
-  - -7.3344884
-  - -7.266142
-  - -7.1977954
-  - -7.129449
-  - -7.0611024
-  - -6.992756
-  - -6.9244094
-  - -6.856063
-  - -6.7877164
-  - -6.71937
-  - -6.651024
-  - -6.5826774
-  - -6.514331
-  - -6.4459844
-  - -6.377638
-  - -6.3092914
-  - -6.240945
-  - -6.1725984
-  - -6.104252
-  - -6.0359054
-  - -5.9675593
-  - -5.899213
-  - -5.8308663
-  - -5.76252
-  - -5.6941733
-  - -5.625827
-  - -5.5574803
-  - -5.489134
-  - -5.4207873
-  - -5.352441
-  - -5.2840943
-  - -5.2157483
-  - -5.147402
-  - -5.0790553
-  - -5.010709
-  - -4.9423623
-  - -4.874016
-  - -4.8056693
-  - -4.737323
-  - -4.6689763
-  - -4.60063
-  - -4.532284
-  - -4.4639373
-  - -4.395591
-  - -4.3272443
-  - -4.258898
-  - -4.1905513
-  - -4.122205
-  - -4.0538583
-  - -3.9855118
-  - -3.9171658
-  - -3.8488188
-  - -3.7804728
-  - -3.7121258
-  - -3.6437798
-  - -3.5754333
-  - -3.5070868
-  - -3.4387403
-  - -3.3703938
-  - -3.3020473
-  - -3.2337008
-  - -3.1653547
-  - -3.0970078
-  - -3.0286617
-  - -2.9603148
-  - -2.8919687
-  - -2.8236222
-  - -2.7552757
-  - -2.6869292
-  - -2.6185827
-  - -2.5502362
-  - -2.4818897
-  - -2.4135437
-  - -2.3451967
-  - -2.2768507
-  - -2.2085037
-  - -2.1401577
-  - -2.0718112
-  - -2.0034647
-  - -1.9351177
-  - -1.8667717
-  - -1.7984257
-  - -1.7300787
-  - -1.6617327
-  - -1.5933857
-  - -1.5250397
-  - -1.4566927
-  - -1.3883467
-  - -1.3199997
-  m_Max: -1.32
-  m_Min: -10
+  - -9.620428
+  - -9.551788
+  - -9.483149
+  - -9.414509
+  - -9.345869
+  - -9.277228
+  - -9.20859
+  - -9.139949
+  - -9.07131
+  - -9.002669
+  - -8.934031
+  - -8.86539
+  - -8.796751
+  - -8.72811
+  - -8.659471
+  - -8.590831
+  - -8.522191
+  - -8.453551
+  - -8.384912
+  - -8.316272
+  - -8.247632
+  - -8.178992
+  - -8.110352
+  - -8.041713
+  - -7.973072
+  - -7.904433
+  - -7.8357925
+  - -7.7671533
+  - -7.698513
+  - -7.6298733
+  - -7.5612335
+  - -7.492594
+  - -7.423954
+  - -7.3553143
+  - -7.2866745
+  - -7.2180347
+  - -7.1493945
+  - -7.080755
+  - -7.012115
+  - -6.9434757
+  - -6.8748355
+  - -6.806196
+  - -6.7375555
+  - -6.6689157
+  - -6.600276
+  - -6.531636
+  - -6.4629965
+  - -6.3943567
+  - -6.325717
+  - -6.257077
+  - -6.1884375
+  - -6.1197977
+  - -6.051158
+  - -5.982518
+  - -5.9138775
+  - -5.8452377
+  - -5.776598
+  - -5.707958
+  - -5.6393185
+  - -5.5706787
+  - -5.502039
+  - -5.433399
+  - -5.3647594
+  - -5.2961197
+  - -5.22748
+  - -5.15884
+  - -5.0902004
+  - -5.0215607
+  - -4.9529204
+  - -4.8842807
+  - -4.815641
+  - -4.7470007
+  - -4.678361
+  - -4.609721
+  - -4.5410814
+  - -4.472441
+  - -4.4038014
+  - -4.3351617
+  - -4.266522
+  - -4.197882
+  - -4.1292424
+  - -4.0606027
+  - -3.9919624
+  - -3.9233227
+  - -3.854683
+  - -3.7860432
+  - -3.7174034
+  - -3.6487641
+  - -3.580124
+  - -3.5114837
+  - -3.4428444
+  - -3.3742042
+  - -3.3055644
+  - -3.2369246
+  - -3.168285
+  - -3.0996447
+  - -3.0310054
+  - -2.9623652
+  - -2.8937259
+  - -2.8250856
+  - -2.7564464
+  - -2.6878061
+  - -2.619166
+  - -2.5505261
+  - -2.4818869
+  - -2.4132466
+  - -2.3446064
+  - -2.2759671
+  - -2.2073278
+  - -2.1386876
+  - -2.0700474
+  - -2.001408
+  - -1.9327679
+  - -1.8641281
+  - -1.7954884
+  - -1.7268486
+  - -1.6582084
+  - -1.5895691
+  - -1.5209284
+  - -1.4522886
+  - -1.3836489
+  - -1.3150091
+  - -1.2463694
+  - -1.1777296
+  - -1.1090899
+  - -1.0404501
+  - -0.9718094
+  - -0.90317285
+  m_Max: -0.11631012
+  m_Min: -11.920764
   m_DebugUI: 0
 --- !u!114 &2035111237
 MonoBehaviour:
