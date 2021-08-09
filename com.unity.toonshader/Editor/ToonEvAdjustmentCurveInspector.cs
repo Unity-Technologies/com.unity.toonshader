@@ -17,6 +17,7 @@ namespace UnityEditor.Rendering.Toon
         {
             const string labelLightAdjustment = "Toon EV Adjustment";
             const string labelLightAdjustmentCurve = "Curve";
+            const string labelSchenHighCutFilter = "Scene Hi-Cut Filter";
 #if ADJUSTMENT_CURVE_DEBUG_UI
             const string labelExposureMin = "Min:";
             const string labelExposureMax = "Max:";
@@ -46,10 +47,21 @@ namespace UnityEditor.Rendering.Toon
                     obj.m_AnimationCurve = curve;
                     isChanged = true;
                 }
+
+
+
                 EditorGUI.indentLevel--;
             }
             EditorGUI.EndDisabledGroup();
 
+            EditorGUI.BeginChangeCheck();
+            var filter = EditorGUILayout.Toggle(labelSchenHighCutFilter, obj.m_HighCutFilter);
+            if (EditorGUI.EndChangeCheck())
+            {
+                Undo.RecordObject(target, "Scne Hi-Cut Filter");
+                obj.m_HighCutFilter = filter;
+                isChanged = true;
+            }
             //Rect rect = GUILayoutUtility.GetRect(Screen.width, 300.0f);
 #if false
             EditorGUI.BeginChangeCheck();
