@@ -247,7 +247,7 @@ Shader "Toon (Built-in)" {
             }
             ZWrite[_ZWriteMode]
             Cull[_CullMode]
-            Blend SrcAlpha OneMinusSrcAlpha
+            Blend One Zero
             Stencil {
 
                 Ref[_StencilNo]
