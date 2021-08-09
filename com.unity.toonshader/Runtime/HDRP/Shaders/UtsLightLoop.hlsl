@@ -27,7 +27,7 @@ uniform int _ToonEvAdjustmentCurve;
 uniform float _ToonEvAdjustmentValueArray[128];
 uniform float _ToonEvAdjustmentValueMin;
 uniform float _ToonEvAdjustmentValueMax;
-uniform int _ToonHighCutFilter;
+
 
 // function to rotate the UV: RotateUV()
 //float2 rotatedUV = RotateUV(i.uv0, (_angular_Verocity*3.141592654), float2(0.5, 0.5), _Time.g);

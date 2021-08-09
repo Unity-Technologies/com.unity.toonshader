@@ -19,7 +19,7 @@ namespace Unity.Rendering.Toon
 
         const int kAdjustmentCurvePrecision = 128;
 
-        const string kSceneHighCutFilterPropName = "_ToonHighCutFilter";
+  
         const string kExposureAdjustmentPorpName = "_ToonEvAdjustmentCurve";
         const string kExposureArrayPropName = "_ToonEvAdjustmentValueArray";
         const string kExposureMinPropName   = "_ToonEvAdjustmentValueMin";
@@ -33,7 +33,7 @@ namespace Unity.Rendering.Toon
         [SerializeField]
         public int m_HighCutFilter = 1000000;
         [SerializeField]
-        internal AnimationCurve m_AnimationCurve = AnimationCurve.Linear(-10f, -10f, 16f, 16f);
+        internal AnimationCurve m_AnimationCurve = AnimationCurve.Linear(-10f, -10f, -1.32f, -1.32f);
         [SerializeField]
         internal float[] m_ExposureArray;
         [SerializeField]
@@ -95,7 +95,7 @@ namespace Unity.Rendering.Toon
             Shader.SetGlobalFloat(kExposureMinPropName, m_Min);
             Shader.SetGlobalFloat(kExposureMaxPropName, m_Max);
             Shader.SetGlobalInt(kExposureAdjustmentPorpName, m_ExposureAdjustmnt ? 1 : 0);
-            Shader.SetGlobalInt(kSceneHighCutFilterPropName, m_HighCutFilter );
+
 
 
         }
