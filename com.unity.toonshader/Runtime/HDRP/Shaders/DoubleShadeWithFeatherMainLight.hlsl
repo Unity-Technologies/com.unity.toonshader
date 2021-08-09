@@ -74,7 +74,7 @@ float3 UTS_MainLight(LightLoopContext lightLoopContext, FragInputs input, int ma
     lightDirection = lerp(lightDirection, customLightDirection, _Is_BLD);
     float3 originalLightColor = mainLightColor;
 
-    float3 lightColor = lerp(max(defaultLightColor, originalLightColor), max(defaultLightColor, saturate(originalLightColor)), _Is_Filter_LightColor);
+    float3 lightColor = lerp(max(defaultLightColor, originalLightColor), max(defaultLightColor, saturate(originalLightColor)),max(_ToonHighCutFilter,_Is_Filter_LightColor));
 
 
     ////// Lighting:

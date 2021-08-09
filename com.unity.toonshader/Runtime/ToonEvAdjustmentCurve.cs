@@ -31,7 +31,7 @@ namespace Unity.Rendering.Toon
         [SerializeField]
         internal bool m_ExposureAdjustmnt = false;
         [SerializeField]
-        public bool m_HighCutFilter = false;
+        public int m_HighCutFilter = 1000000;
         [SerializeField]
         internal AnimationCurve m_AnimationCurve = AnimationCurve.Linear(-10f, -10f, 16f, 16f);
         [SerializeField]
@@ -95,7 +95,7 @@ namespace Unity.Rendering.Toon
             Shader.SetGlobalFloat(kExposureMinPropName, m_Min);
             Shader.SetGlobalFloat(kExposureMaxPropName, m_Max);
             Shader.SetGlobalInt(kExposureAdjustmentPorpName, m_ExposureAdjustmnt ? 1 : 0);
-            Shader.SetGlobalInt(kSceneHighCutFilterPropName, m_HighCutFilter ? 1 : 0);
+            Shader.SetGlobalInt(kSceneHighCutFilterPropName, m_HighCutFilter );
 
 
         }

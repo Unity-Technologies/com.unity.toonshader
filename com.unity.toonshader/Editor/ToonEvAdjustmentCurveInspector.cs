@@ -55,7 +55,7 @@ namespace UnityEditor.Rendering.Toon
             EditorGUI.EndDisabledGroup();
 
             EditorGUI.BeginChangeCheck();
-            var filter = EditorGUILayout.Toggle(labelSchenHighCutFilter, obj.m_HighCutFilter);
+            var filter = EditorGUILayout.IntField( labelSchenHighCutFilter, obj.m_HighCutFilter);
             if (EditorGUI.EndChangeCheck())
             {
                 Undo.RecordObject(target, "Scne Hi-Cut Filter");
