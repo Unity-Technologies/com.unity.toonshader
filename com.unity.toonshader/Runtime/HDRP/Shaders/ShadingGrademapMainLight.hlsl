@@ -390,7 +390,11 @@ float3 UTS_MainLightShadingGrademap(LightLoopContext lightLoopContext, FragInput
 
 
 
-    // without gi yet.
+    //v.2.0.6: GI_Intensity with Intensity Multiplier Filter
+    float3 envLightColor = DecodeLightProbe(utsData.normalDirection) < float3(1, 1, 1) ? DecodeLightProbe(utsData.normalDirection) : float3(1, 1, 1);
+    float envLightIntensity = 0.299 * envLightColor.r + 0.587 * envLightColor.g + 0.114 * envLightColor.b < 1 ? (0.299 * envLightColor.r + 0.587 * envLightColor.g + 0.114 * envLightColor.b) : 1;
+
+    finalColor = SATURATE_IF_SDR(finalColor) + (envLightColor * envLightIntensity * _GI_Intensity * smoothstep(1, 0, envLightIntensity / 2)) + emissive;
 
     return finalColor;
 }
