@@ -33,7 +33,7 @@ namespace Unity.Rendering.Toon
         [SerializeField]
         public int m_HighCutFilter = 1000000;
         [SerializeField]
-        internal AnimationCurve m_AnimationCurve = AnimationCurve.Linear(-10f, -10f, -1.32f, -1.32f);
+        internal AnimationCurve m_AnimationCurve = DefaultAnimationCurve();
         [SerializeField]
         internal float[] m_ExposureArray;
         [SerializeField]
@@ -46,7 +46,17 @@ namespace Unity.Rendering.Toon
         bool m_isCompiling = false;
 #endif
 
+        void Reset()
+        {
+            OnDisable();
+            OnEnable();
+            DefaultAnimationCurve();
+        }   
 
+        static AnimationCurve DefaultAnimationCurve()
+        {
+            return AnimationCurve.Linear(-10f, -10f, -1.32f, -1.32f);
+        }
         void Update()
         {
 
