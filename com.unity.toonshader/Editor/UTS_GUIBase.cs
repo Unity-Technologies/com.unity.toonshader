@@ -935,8 +935,8 @@ namespace UnityEditor.Rendering.Toon
 
             // select UTS technique here.
             DoPopup(workflowModeText, utsTechnique, System.Enum.GetNames(typeof(_UTS_Technique)));
-            _autoRenderQueue = material.GetInt(ShaderPropAutoRenderQueue);
-            _renderQueue = material.renderQueue;
+
+
 
             _UTS_Technique technique = (_UTS_Technique)material.GetInt(ShaderPropUtsTechniqe);
             switch (technique)
