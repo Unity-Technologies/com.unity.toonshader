@@ -50,16 +50,15 @@ namespace Unity.Rendering.Toon
 #pragma warning restore CS0414
         bool m_isCompiling = false;
 #endif
-        /// <summary>
-        /// Specifies the method that Toon Shader uses to adjust the EV.
-        /// This parameter is only used when <see cref="ToonEvAdjustmentCurve.adjustmentMode"/> is set.
-        /// </summary>
-        [Tooltip("Specifies the method that Toon Shader uses to adjust the EV.")]
-        public ToonEVAdjustmentModeParamater adjustmentMode = new ToonEVAdjustmentModeParamater(ToonEVAdjustmentMode.NoAdjustment);
 
         /// <summary>
+        /// Curve Remapping mode
+        /// </summary>
+        [Tooltip("Curve Remapping mode.")]
+        public BoolParameter curveRemapping = new BoolParameter(false);
+        /// <summary>
         /// Specifies a curve that remaps the Toon exposure on the x-axis to the EV you want on the y-axis.
-        /// This parameter is only used when <see cref="ToonEvAdjustmentCurve.adjustmentMode"/> is set.
+        /// This parameter is only used when <see cref="curveRemapping"/> is set.
         /// </summary>
         [Tooltip("Specifies a curve that remaps the Toon EV on the x-axis to the EV you want on the y-axis.")]
         public AnimationCurveParameter curveMap = new AnimationCurveParameter(AnimationCurve.Linear(-10f, -10f, -1.32f, -1.32f)); // TODO: Use TextureCurve instead?
@@ -120,7 +119,7 @@ namespace Unity.Rendering.Toon
             Shader.SetGlobalFloatArray(kExposureArrayPropName, m_ExposureArray);
             Shader.SetGlobalFloat(kExposureMinPropName, m_Min);
             Shader.SetGlobalFloat(kExposureMaxPropName, m_Max);
-            Shader.SetGlobalInt(kExposureAdjustmentPorpName, m_ExposureAdjustmnt ? 1 : 0);
+            Shader.SetGlobalInt(kExposureAdjustmentPorpName, curveRemapping.value ? 1 : 0);
             Shader.SetGlobalInt(kToonLightFilterPropName, m_ToonLightHiCutFilter ? 1 : 0);
 
 
