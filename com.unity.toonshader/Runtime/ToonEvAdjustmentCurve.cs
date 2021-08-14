@@ -31,13 +31,11 @@ namespace Unity.Rendering.Toon
         const string kExposureMaxPropName   = "_ToonEvAdjustmentValueMax";
         const string kToonLightFilterPropName = "_ToonLightHiCutFilter";
 
-        [SerializeField]
-        internal bool m_ToonLightHiCutFilter= false;
+
 
         [SerializeField]
         internal bool m_ExposureAdjustmnt = false;
-        [SerializeField]
-        public int m_HighCutFilter = 1000000;
+
 
         [SerializeField]
         internal float[] m_ExposureArray;
@@ -52,10 +50,12 @@ namespace Unity.Rendering.Toon
 #endif
 
         /// <summary>
-        /// Curve Remapping mode
+        /// Specifies the method that Toon Shader uses hiCutFilter.
+        /// This parameter is only used when <see cref="hiCutFilter"/> is set.
         /// </summary>
-        [Tooltip("Curve Remapping mode.")]
-        public BoolParameter curveRemapping = new BoolParameter(false);
+        [Tooltip("Specifies the method that Toon Shader uses hiCutFilter.")]
+        public BoolParameter hiCutFilter = new BoolParameter(false);
+
         /// <summary>
         /// Specifies a curve that remaps the Toon exposure on the x-axis to the EV you want on the y-axis.
         /// This parameter is only used when <see cref="curveRemapping"/> is set.
@@ -64,18 +64,15 @@ namespace Unity.Rendering.Toon
         public AnimationCurveParameter curveMap = new AnimationCurveParameter(AnimationCurve.Linear(-10f, -10f, -1.32f, -1.32f)); // TODO: Use TextureCurve instead?
 
 
-        /// <summary>
-        /// Specifies the method that Toon Shader uses hiCutFilter.
-        /// This parameter is only used when <see cref="ToonEvAdjustmentCurve.hiCutFilter"/> is set.
-        /// </summary>
-        [Tooltip("Specifies the method that Toon Shader uses hiCutFilter.")]
-        public ToonEVAdjustmentModeParamater hiCutFilter = new ToonEVAdjustmentModeParamater(ToonEVAdjustmentMode.NoAdjustment);
 
+ 
 
         void Update()
         {
-
-            Initialize();
+            if (!m_initialized)
+            {
+                return;
+            }
 
 
 
@@ -116,11 +113,12 @@ namespace Unity.Rendering.Toon
                 m_isCompiling = false;
             }
 #endif
+
             Shader.SetGlobalFloatArray(kExposureArrayPropName, m_ExposureArray);
             Shader.SetGlobalFloat(kExposureMinPropName, m_Min);
             Shader.SetGlobalFloat(kExposureMaxPropName, m_Max);
-            Shader.SetGlobalInt(kExposureAdjustmentPorpName, curveRemapping.value ? 1 : 0);
-            Shader.SetGlobalInt(kToonLightFilterPropName, m_ToonLightHiCutFilter ? 1 : 0);
+            Shader.SetGlobalInt(kExposureAdjustmentPorpName, curveMap.overrideState ? 1 : 0);
+            Shader.SetGlobalInt(kToonLightFilterPropName, hiCutFilter.overrideState && hiCutFilter.value ? 1 : 0);
 
 
         }
@@ -187,16 +185,17 @@ namespace Unity.Rendering.Toon
 
         void ReleaseToonEvAdjustmentCurve()
         {
-            base.Release();
+
             if (m_initialized)
             {
                 m_ExposureArray = null;
                 Shader.SetGlobalInt(kExposureAdjustmentPorpName, 0);
                 Shader.SetGlobalInt(kToonLightFilterPropName, 0);
+
             }
 
             m_initialized = false;
-
+            base.Release();
         }
 
         void OnBeginCameraRendering(ScriptableRenderContext context, Camera camera)
