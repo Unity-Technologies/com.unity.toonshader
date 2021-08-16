@@ -18,15 +18,15 @@ public class PlayerMovement : MonoBehaviour
     public Transform groundCheck;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
-    
 
+    public LookWithMouse m_lockWithMouse;
     Vector3 velocity;
     bool isGrounded;
 
 #if ENABLE_INPUT_SYSTEM
     InputAction movement;
     InputAction jump;
-
+    InputAction locker;
     void Start()
     {
         movement = new InputAction("PlayerMovement", binding: "<Gamepad>/leftStick");
@@ -43,14 +43,38 @@ public class PlayerMovement : MonoBehaviour
         jump = new InputAction("PlayerJump", binding: "<Gamepad>/a");
         jump.AddBinding("<Keyboard>/space");
 
+        locker = new InputAction("Lock Screen", binding: "<Gamepad>/b");
+        locker.AddBinding("<Keyboard>/enter");
         movement.Enable();
         jump.Enable();
+        locker.Enable();
     }
 #endif
 
     // Update is called once per frame
     void Update()
     {
+        bool lockPressed = false;
+#if ENABLE_INPUT_SYSTEM
+        if ( locker.triggered )
+        {
+            lockPressed = Mathf.Approximately(locker.ReadValue<float>(), 1);
+            if (lockPressed)
+            {
+                if (m_lockWithMouse != null)
+                {
+                    if (m_lockWithMouse.Locked == CursorLockMode.Locked)
+                    {
+                        m_lockWithMouse.Locked = CursorLockMode.None;
+                    }
+                    else
+                    {
+                        m_lockWithMouse.Locked = CursorLockMode.Locked;
+                    }
+                }
+            }
+        }
+#endif
         float x;
         float z;
         bool jumpPressed = false;

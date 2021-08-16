@@ -20,10 +20,31 @@ public class LookWithMouse : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
+    public CursorLockMode Locked
+    {
+        get {
+            return Cursor.lockState;
+        }
+
+        set
+        {
+            Cursor.lockState = value;
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(" Cursor.lockState: " + Cursor.lockState);
+        if (Cursor.lockState == CursorLockMode.None )
+        {
+            return;
+        }
+
+
+
 #if ENABLE_INPUT_SYSTEM
+
         float mouseX = 0, mouseY = 0;
 
         if (Mouse.current != null)
