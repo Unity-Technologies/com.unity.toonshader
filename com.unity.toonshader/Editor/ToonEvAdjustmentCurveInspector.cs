@@ -25,6 +25,26 @@ namespace UnityEditor.Rendering.Toon
             bool isChanged = false;
 
             var obj = target as ToonEvAdjustmentCurve;
+            // hi cut filter
+            EditorGUI.BeginChangeCheck();
+
+            bool lightFilterr = EditorGUILayout.Toggle(labelLightHighCutFilter, obj.m_ToonLightHiCutFilter);
+            if (EditorGUI.EndChangeCheck())
+            {
+                Undo.RecordObject(target, "Changed Light Hi Cut Filter");
+                obj.m_ToonLightHiCutFilter = lightFilterr;
+                isChanged = true;
+            }
+
+
+            if (isChanged)
+            {
+                // at leaset 2020.3.12f1, not neccessary. but, from which version??
+                EditorApplication.QueuePlayerLoopUpdate();
+            }
+
+
+            // curve
             EditorGUI.BeginChangeCheck();
             bool exposureAdjustment = EditorGUILayout.Toggle(labelLightAdjustment, obj.m_ExposureAdjustmnt);
             if (EditorGUI.EndChangeCheck())
@@ -59,24 +79,9 @@ namespace UnityEditor.Rendering.Toon
             }
             EditorGUI.EndDisabledGroup();
 
-            //Rect rect = GUILayoutUtility.GetRect(Screen.width, 300.0f);
-
-            EditorGUI.BeginChangeCheck();
-
-            bool lightFilterr = EditorGUILayout.Toggle(labelLightHighCutFilter, obj.m_ToonLightHiCutFilter);
-            if (EditorGUI.EndChangeCheck())
-            {
-                Undo.RecordObject(target, "Changed Light Hi Cut Filter");
-                obj.m_ToonLightHiCutFilter = lightFilterr;
-                isChanged = true;
-            }
 
 
-            if (isChanged)
-            {
-                // at leaset 2020.3.12f1, not neccessary. but, from which version??
-                EditorApplication.QueuePlayerLoopUpdate();
-            }
+
 
         }
 
