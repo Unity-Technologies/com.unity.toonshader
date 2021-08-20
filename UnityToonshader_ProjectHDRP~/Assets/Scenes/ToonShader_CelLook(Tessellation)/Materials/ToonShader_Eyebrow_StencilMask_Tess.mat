@@ -219,6 +219,7 @@ Material:
     - _BumpScale: 1
     - _BumpScaleMatcap: 1
     - _CameraRolling_Stabilizer: 0
+    - _ClippingMaskMode: 0
     - _ClippingMode: 1
     - _Clipping_Level: 0
     - _CoatMask: 0
@@ -430,9 +431,9 @@ Material:
     - _simpleUI: 0
     - _utsTechnique: 0
     - _utsVersion: 2.075
-    - _utsVersionX: 2
-    - _utsVersionY: 9
-    - _utsVersionZ: 9
+    - _utsVersionX: 0
+    - _utsVersionY: 2
+    - _utsVersionZ: 1
     m_Colors:
     - _1st_ShadeColor: {r: 1, g: 1, b: 1, a: 1}
     - _2nd_ShadeColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
