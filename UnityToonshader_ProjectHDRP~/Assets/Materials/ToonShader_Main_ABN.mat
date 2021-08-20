@@ -442,8 +442,8 @@ Material:
     - _utsTechnique: 0
     - _utsVersion: 2.075
     - _utsVersionX: 0
-    - _utsVersionY: 0
-    - _utsVersionZ: 2
+    - _utsVersionY: 2
+    - _utsVersionZ: 1
     m_Colors:
     - _1st_ShadeColor: {r: 0.15294118, g: 0.15294118, b: 0.15294118, a: 1}
     - _2nd_ShadeColor: {r: 0.1544118, g: 0.15214103, b: 0.15214103, a: 1}
