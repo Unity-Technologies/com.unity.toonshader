@@ -33,7 +33,7 @@ namespace Tests
             Scene scene = SceneManager.GetActiveScene();
 
 
-            if (scene.name.Substring(3, 4).Equals("_xr_"))
+            if (scene.name.Length > (3+ 4) && scene.name.Substring(3, 4).Equals("_xr_"))
             {
 #if ENABLE_VR && ENABLE_VR_MODULE
             Assume.That((Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.OSXPlayer), "Stereo Universal tests do not run on MacOSX.");
