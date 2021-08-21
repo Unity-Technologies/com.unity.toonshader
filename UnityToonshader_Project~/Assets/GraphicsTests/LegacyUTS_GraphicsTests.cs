@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.XR;
 using UnityEngine.TestTools.Graphics;
+using UnityEditor.TestTools.Graphics;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.IO;
@@ -13,10 +14,10 @@ namespace Tests
 {
     public class LegacyUTS_GraphicsTests
     {
-        public const string legacyReferenceImagePath = "Assets/ReferenceImages";
+        public const string ReferenceImagePath = "Assets/ReferenceImages";
         [UnityTest, Category("LegacyRP")]
         [PrebuildSetup("SetupGraphicsTestCases")]
-        [UseGraphicsTestCases(legacyReferenceImagePath)]
+        [UseGraphicsTestCases(ReferenceImagePath)]
         public IEnumerator Run(GraphicsTestCase testCase)
         {
 
@@ -27,7 +28,7 @@ namespace Tests
 
             var cameras = GameObject.FindGameObjectsWithTag("MainCamera").Select(x => x.GetComponent<Camera>());
             var settings = Object.FindObjectOfType<LegacyUTS_GraphicsTestSettings>();
-            Assert.IsNotNull(settings, "Invalid test scene, couldn't find LegacyGraphicsTestSettings");
+            Assert.IsNotNull(settings, "Invalid test scene, couldn't find UTS_GraphicsTestSettings");
 
             Scene scene = SceneManager.GetActiveScene();
 
@@ -77,11 +78,7 @@ namespace Tests
             bool allocatesMemory = false;
             var mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
 
-            // 2D Renderer is currently allocating memory, skip it as it will always fail GC alloc tests.
-            //var additionalCameraData = mainCamera.GetUniversalAdditionalCameraData();
-            bool is2DRenderer = false; // additionalCameraData.scriptableRenderer is Renderer2D;
-
-            if (!is2DRenderer)
+            if (settings == null || settings.CheckMemoryAllocation)
             {
                 try
                 {

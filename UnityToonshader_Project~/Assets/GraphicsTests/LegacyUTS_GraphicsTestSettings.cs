@@ -18,7 +18,7 @@ namespace Tests
             ImageComparisonSettings.TargetHeight = 540;
             ImageComparisonSettings.AverageCorrectnessThreshold = 0.005f;
             ImageComparisonSettings.PerPixelCorrectnessThreshold = 0.001f;
-            ImageComparisonSettings.UseBackBuffer = false;
+            ImageComparisonSettings.UseHDR = false;
             ImageComparisonSettings.UseBackBuffer = false;
         }
     }
