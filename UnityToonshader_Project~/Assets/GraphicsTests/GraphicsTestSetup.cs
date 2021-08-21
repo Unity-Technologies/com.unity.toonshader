@@ -32,7 +32,7 @@ namespace UnityEditor.Rendering.Toon
             "Animator"
         };
 
-        [MenuItem("Window/Toon Shader/Graphics Test Component Attacher", false, 9999)]
+        [MenuItem("Window/Toon Shader/Graphics Test Setup", false, 9999)]
         static private void OpenWindow()
         {
             var window = GetWindow<GraphicsTestSetup>(true, "Graphics Test Setup");
@@ -129,18 +129,21 @@ namespace UnityEditor.Rendering.Toon
                     mb.enabled = false;
                 }
                 var renderer = obj.GetComponent<Renderer>();
-
-                for ( int kk = 0; kk < renderer.materials.Length; kk++)
+                if (renderer != null)
                 {
-                    if (renderer.materials[kk] == null )
+                    for (int kk = 0; kk < renderer.sharedMaterials.Length; kk++)
                     {
-                        continue;
-                    }
-                    if (renderer.materials[kk].HasProperty("_EMISSIVE_ANIMATION"))
-                    {
-                        renderer.materials[kk].SetFloat("_EMISSIVE", 0);
-                        renderer.materials[kk].EnableKeyword("_EMISSIVE_SIMPLE");
-                        renderer.materials[kk].DisableKeyword("_EMISSIVE_ANIMATION");
+                        var mat = renderer.sharedMaterials[kk];
+                        if (mat == null)
+                        {
+                            continue;
+                        }
+                        if (mat.IsKeywordEnabled("_EMISSIVE_ANIMATION"))
+                        {
+                            mat.SetFloat("_EMISSIVE", 0);
+                            mat.EnableKeyword("_EMISSIVE_SIMPLE");
+                            mat.DisableKeyword("_EMISSIVE_ANIMATION");
+                        }
                     }
                 }
             }
