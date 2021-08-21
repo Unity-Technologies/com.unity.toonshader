@@ -2,7 +2,7 @@
 
 namespace Tests
 {
-    public class LegacylUTS_GraphicsTestSettings : GraphicsTestSettings
+    public class LegacyUTS_GraphicsTestSettings : GraphicsTestSettings
     {
         public int WaitFrames = 0;
         public bool XRCompatible = true;
@@ -12,7 +12,7 @@ namespace Tests
         public bool CheckMemoryAllocation = true;
 #endif //#if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
 
-        public LegacylUTS_GraphicsTestSettings()
+        public LegacyUTS_GraphicsTestSettings()
         {
             ImageComparisonSettings.TargetWidth = 960;
             ImageComparisonSettings.TargetHeight = 540;

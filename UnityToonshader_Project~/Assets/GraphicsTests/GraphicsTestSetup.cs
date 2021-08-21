@@ -91,24 +91,27 @@ namespace UnityEditor.Rendering.Toon
                 EditorGUILayout.BeginHorizontal();
                 if ( GUILayout.Button("Set up scenes above.") )
                 {
-                    SetupScenes();
+                    for ( int sceneIndex = 0; sceneIndex < EditorBuildSettings.scenes.Length; sceneIndex++)
+                    {
+                        SetupScenes(sceneIndex);
+                    }
                 }
 
                 EditorGUILayout.EndHorizontal();
             }
         }
-        void SetupScenes()
+        void SetupScenes(int scneneIndex)
         {
-            var scene = EditorSceneManager.OpenScene(EditorBuildSettings.scenes[3].path);
+            var scene = EditorSceneManager.OpenScene(EditorBuildSettings.scenes[scneneIndex].path);
             var cameras = GameObject.FindGameObjectsWithTag("MainCamera").Select(x => x.GetComponent<Camera>());
             var cameraList = cameras.ToList<Camera>();
 
-            LegacylUTS_GraphicsTestSettings settings = cameraList[0].gameObject.GetComponent<LegacylUTS_GraphicsTestSettings>();
+            LegacyUTS_GraphicsTestSettings settings = cameraList[0].gameObject.GetComponent<LegacyUTS_GraphicsTestSettings>();
 
 
             if ( settings == null )
             {
-                settings = cameraList[0].gameObject.AddComponent<LegacylUTS_GraphicsTestSettings>();
+                settings = cameraList[0].gameObject.AddComponent<LegacyUTS_GraphicsTestSettings>();
             }
             settings.ImageComparisonSettings.ImageResolution = UnityEngine.TestTools.Graphics.ImageComparisonSettings.Resolution.w960h540;
             settings.CheckMemoryAllocation = false;
