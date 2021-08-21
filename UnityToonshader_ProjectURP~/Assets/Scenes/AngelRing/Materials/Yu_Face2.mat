@@ -23,7 +23,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _1st_ShadeMap:
-        m_Texture: {fileID: 2800000, guid: 788752906e0c4b019449bce8a11e1417, type: 3}
+        m_Texture: {fileID: 2800000, guid: f6d63642fcfd46b8af959af85290b993, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _2nd_ShadeMap:
@@ -59,7 +59,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: f1ff4b4174ca4c49b37ca3c13e19e7e5, type: 3}
+        m_Texture: {fileID: 2800000, guid: 6749471271cd480d86c2cc2804b61eeb, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTexSynthesized:
@@ -115,7 +115,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ShadingGradeMap:
-        m_Texture: {fileID: 2800000, guid: 124fd6577f0c46fa80cf92d73bbda6f3, type: 3}
+        m_Texture: {fileID: 2800000, guid: e1ce7bd03b024770bcde99788f61f9f3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ShadowControlSynthesized:

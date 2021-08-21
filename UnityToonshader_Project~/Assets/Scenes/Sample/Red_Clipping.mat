@@ -43,7 +43,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ClippingMask:
-        m_Texture: {fileID: 2800000, guid: b2b68622164a40b9b94bedff795c4dcb, type: 3}
+        m_Texture: {fileID: 2800000, guid: 17cbd512e5394ddd989066f31a034426, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Emissive_Tex:
@@ -67,7 +67,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MatCap_Sampler:
-        m_Texture: {fileID: 2800000, guid: 3d1b8a2b79e448c38aea8518bef2d4aa, type: 3}
+        m_Texture: {fileID: 2800000, guid: 7ff4ade7173442c78ef1007d2175deab, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MatCap_SamplerSynthesized:
@@ -79,7 +79,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMapForMatCap:
-        m_Texture: {fileID: 2800000, guid: 3f8138e7f99f427cac5741c613ddb52d, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8ade2c2f78194920a882540c29f43333, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OutlineTex:

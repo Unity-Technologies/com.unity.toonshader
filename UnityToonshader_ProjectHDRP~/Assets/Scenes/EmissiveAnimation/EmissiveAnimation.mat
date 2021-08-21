@@ -79,7 +79,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Emissive_Tex:
-        m_Texture: {fileID: 2800000, guid: a75cf70712c9433ba3f2304df98d5b31, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9055d0f643e84e759a748ad371e2b0c6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _HeightMap:

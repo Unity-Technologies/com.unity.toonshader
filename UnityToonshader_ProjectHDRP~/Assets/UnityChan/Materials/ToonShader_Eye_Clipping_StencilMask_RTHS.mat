@@ -23,7 +23,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _1st_ShadeMap:
-        m_Texture: {fileID: 2800000, guid: cb0fa595ea694cab9fd234e2a7980daf, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1af6ae313b88431e82c6eafcbfd8fcda, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _2nd_ShadeMap:
@@ -59,7 +59,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ClippingMask:
-        m_Texture: {fileID: 2800000, guid: cb1002ff00044486a31178ea462fc71b, type: 3}
+        m_Texture: {fileID: 2800000, guid: c24a3af5f4e44e6d879fb0962f4a7d98, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _CoatMaskMap:
@@ -103,7 +103,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: a1d3805043f84a8c9bc04a05bfbd0de4, type: 3}
+        m_Texture: {fileID: 2800000, guid: fee7d52da61f435ca2c1f5686d73f6ae, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTexSynthesized:
@@ -123,7 +123,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
-        m_Texture: {fileID: 2800000, guid: 39019414e7f74d4d9c2e82e2cb8138be, type: 3}
+        m_Texture: {fileID: 2800000, guid: 7acdf6c9c81044299b84750ca63496e0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMapForMatCap:

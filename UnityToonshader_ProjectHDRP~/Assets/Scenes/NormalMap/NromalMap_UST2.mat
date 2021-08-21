@@ -136,7 +136,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
-        m_Texture: {fileID: 2800000, guid: a862e6cdf28b48408817caa7d6cfdd2e, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3ba3af6f31c044b280927fb98d4fd179, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMapForMatCap:

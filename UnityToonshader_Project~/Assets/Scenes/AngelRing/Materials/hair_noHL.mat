@@ -23,7 +23,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _1st_ShadeMap:
-        m_Texture: {fileID: 2800000, guid: cc90f0dc587d46528df02f852aced9e8, type: 3}
+        m_Texture: {fileID: 2800000, guid: 5d2eafc7ecc44df9bc1c0b8abc26e172, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _2nd_ShadeMap:
@@ -35,7 +35,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AngelRing_Sampler:
-        m_Texture: {fileID: 2800000, guid: 860de5d2724e46b1bdabca992cce827b, type: 3}
+        m_Texture: {fileID: 2800000, guid: d180c26471724819a6704907314f8969, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BakedNormal:
@@ -63,7 +63,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 97c65dbc524e415594157aff9dc47cc0, type: 3}
+        m_Texture: {fileID: 2800000, guid: 93e8e472bd064b7bbf27a8f4c36e7877, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTexSynthesized:
@@ -119,7 +119,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ShadingGradeMap:
-        m_Texture: {fileID: 2800000, guid: 618c49a447c045d0ad3362776954d22b, type: 3}
+        m_Texture: {fileID: 2800000, guid: 7c52bc7f116e488e995d2d3c9d6c7d76, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ShadowControlSynthesized:

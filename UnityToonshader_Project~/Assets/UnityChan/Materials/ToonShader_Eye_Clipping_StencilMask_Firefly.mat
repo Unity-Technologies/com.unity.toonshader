@@ -20,7 +20,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _1st_ShadeMap:
-        m_Texture: {fileID: 2800000, guid: afa30d3bd4884c99b690e8e7194edba5, type: 3}
+        m_Texture: {fileID: 2800000, guid: 62e193c9b68a41c184348f5b16d028d5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _2nd_ShadeMap:
@@ -48,11 +48,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _HighColor_Tex:
-        m_Texture: {fileID: 2800000, guid: d0d5df2c9d014a8a84f421130995cc2e, type: 3}
+        m_Texture: {fileID: 2800000, guid: 260969ba425f4113957805452b42cbee, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: d0d5df2c9d014a8a84f421130995cc2e, type: 3}
+        m_Texture: {fileID: 2800000, guid: 260969ba425f4113957805452b42cbee, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MatCap_Sampler:
@@ -84,7 +84,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Set_HighColorMask:
-        m_Texture: {fileID: 2800000, guid: 7570850534524145bd7c269aa5bd188e, type: 3}
+        m_Texture: {fileID: 2800000, guid: 51270e3b6c55430facf281405715f475, type: 3}
         m_Scale: {x: 12.25, y: 10}
         m_Offset: {x: 0, y: 0}
     - _Set_MatcapMask:

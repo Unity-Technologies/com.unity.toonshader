@@ -23,7 +23,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _1st_ShadeMap:
-        m_Texture: {fileID: 2800000, guid: cb0fa595ea694cab9fd234e2a7980daf, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1af6ae313b88431e82c6eafcbfd8fcda, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _2nd_ShadeMap:
@@ -103,7 +103,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: a1d3805043f84a8c9bc04a05bfbd0de4, type: 3}
+        m_Texture: {fileID: 2800000, guid: fee7d52da61f435ca2c1f5686d73f6ae, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTexSynthesized:
@@ -115,7 +115,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MatCap_Sampler:
-        m_Texture: {fileID: 2800000, guid: c94d730c9ba6420698c40994fcb89989, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9f3719a17ed14a73bae57858c8095028, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MatCap_SamplerSynthesized:
@@ -123,11 +123,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
-        m_Texture: {fileID: 2800000, guid: 39019414e7f74d4d9c2e82e2cb8138be, type: 3}
+        m_Texture: {fileID: 2800000, guid: 7acdf6c9c81044299b84750ca63496e0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMapForMatCap:
-        m_Texture: {fileID: 2800000, guid: cc66f9548a21455a87ff92c88224e7d3, type: 3}
+        m_Texture: {fileID: 2800000, guid: 94ddc316d5e1462e86a10c6673395846, type: 3}
         m_Scale: {x: 50, y: 0.001}
         m_Offset: {x: 0, y: 0.5}
     - _NormalMapOS:
@@ -139,7 +139,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Outline_Sampler:
-        m_Texture: {fileID: 2800000, guid: fa00cfac5cd5486fafcc977acdd68cd7, type: 3}
+        m_Texture: {fileID: 2800000, guid: bd6bb037ce9a4db08ac92695799c14aa, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Outline_SamplerSynthesized:
@@ -159,7 +159,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Set_MatcapMask:
-        m_Texture: {fileID: 2800000, guid: f037cd2016d2468dbce869874d309d9e, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3773deea617347fbbd10348022026d97, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Set_RimLightMask:

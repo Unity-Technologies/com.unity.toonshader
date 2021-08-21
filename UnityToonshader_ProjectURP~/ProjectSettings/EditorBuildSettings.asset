@@ -5,61 +5,61 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/AngelRing.unity
-    guid: 69c1c3ce61f83ab4f810642764e75c57
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/BoxProjection.unity
-    guid: 7b9f774e8a6709148add357da1017ede
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/Cube_HardEdge.unity
-    guid: 845333a6a7430f742b8d6fe053411cd9
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/EmissiveAnimation.unity
-    guid: 1bf56caf35494e4ebc454f24f60c3fb2
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/LightAndShadows.unity
-    guid: 0794107444564c61bc153dcbdbfa5b27
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/LightAndShadows_BakedLight.unity
-    guid: 2e9e785f0687471abd5c674bfec8f460
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/MatCapMask.unity
-    guid: 08c5a8fd83c04d21ba76cbcfb2182a30
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/MirrorTest.unity
-    guid: 498fc62acb08465185f88a5d9450243c
-  - enabled: 1
-    path: Assets/Scenes/NormalMap/NormalMap.unity
-    guid: ea7f437209e043a7a3603326405240cb
-  - enabled: 1
-    path: Assets/Scenes/PointLightTest.unity
-    guid: 13a44ae23cd848f49abbfe973605f091
-  - enabled: 1
-    path: Assets/Scenes/Sample.unity
-    guid: 3b587a6987d94abbadcfc8648996c60f
-  - enabled: 1
-    path: Assets/Scenes/SceneLights Hi-Cut_Filter Test.unity
-    guid: d42a1c787fc040be88ac34842b8d547f
-  - enabled: 1
-    path: Assets/Scenes/ShaderBall.unity
-    guid: a5fb7d6114eb4687b6b9a0a80dbee966
-  - enabled: 1
-    path: Assets/Scenes/ToonShader.unity
-    guid: 42f2052b3d674dd28fa5e0ca19f0203a
-  - enabled: 1
-    path: Assets/Scenes/ToonShader_CelLook.unity
-    guid: b01b6d405ac54ee3b4a8b1d6cc92c79c
-  - enabled: 1
-    path: Assets/Scenes/ToonShader_CelLook(RTHS).unity
-    guid: 6ac1ba5766dc4bd49305322ccadd33e7
-  - enabled: 1
-    path: Assets/Scenes/ToonShader_Emissive.unity
-    guid: f16dc5746dfd4637b31f1cbe69e3a580
-  - enabled: 1
-    path: Assets/Scenes/ToonShader_Firefly.unity
-    guid: 85f11e1f69674b34b1d638825a1472e2
-  - enabled: 1
-    path: Assets/Scenes/ToonShader_LightCulling.unity
-    guid: 65744cc81ebb444ba9b45d141089cd7e
+    path: 
+    guid: 00000000000000000000000000000000
   m_configObjects: {}

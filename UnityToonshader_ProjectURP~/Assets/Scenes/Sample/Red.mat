@@ -67,7 +67,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MatCap_Sampler:
-        m_Texture: {fileID: 2800000, guid: c2fc09a7f49b46fe952f42dab202495e, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3b42f7c9d35a4b88a533f72baf2a89ce, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MatCap_SamplerSynthesized:
@@ -79,7 +79,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMapForMatCap:
-        m_Texture: {fileID: 2800000, guid: 7c228c6d6f5343639f1a3c6fd7f85ec4, type: 3}
+        m_Texture: {fileID: 2800000, guid: c2eb826453b648c698d0384a91182469, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OutlineTex:
@@ -107,7 +107,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Set_MatcapMask:
-        m_Texture: {fileID: 2800000, guid: b99a7125da9a43de812052300f43f404, type: 3}
+        m_Texture: {fileID: 2800000, guid: cb0e0d5b757c49ab9ec1d9aa2843d249, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Set_RimLightMask:
