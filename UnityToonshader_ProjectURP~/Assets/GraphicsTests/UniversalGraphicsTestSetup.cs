@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace UnityEditor.Rendering.Toon
 {
-    public class GraphicsTestSetup : EditorWindow
+    public class UniversalGraphicsTestSetup : EditorWindow
     {
         // https://docs.unity3d.com/ScriptReference/EditorBuildSettings-scenes.html
         Vector2 m_scrollPos;
@@ -32,10 +32,10 @@ namespace UnityEditor.Rendering.Toon
             "Animator"
         };
 
-        [MenuItem("Window/Toon Shader/Graphics Test Setup", false, 9999)]
+        [MenuItem("Window/Toon Shader/Universal/Graphics Test Setup", false, 9999)]
         static private void OpenWindow()
         {
-            var window = GetWindow<GraphicsTestSetup>(true, "Graphics Test Setup");
+            var window = GetWindow<UniversalGraphicsTestSetup>(true, "Graphics Test Setup");
             window.Show();
         }
         private void OnGUI()
@@ -109,12 +109,12 @@ namespace UnityEditor.Rendering.Toon
             {
                 Debug.LogError("Unable to Find MainCamera in " + EditorBuildSettings.scenes[scneneIndex].path );
             }
-            LegacyUTS_GraphicsTestSettings settings = cameraList[0].gameObject.GetComponent<LegacyUTS_GraphicsTestSettings>();
+            UniversalUTS_GraphicsTestSettings settings = cameraList[0].gameObject.GetComponent<UniversalUTS_GraphicsTestSettings>();
 
 
             if ( settings == null )
             {
-                settings = cameraList[0].gameObject.AddComponent<LegacyUTS_GraphicsTestSettings>();
+                settings = cameraList[0].gameObject.AddComponent<UniversalUTS_GraphicsTestSettings>();
             }
             settings.ImageComparisonSettings.ImageResolution = UnityEngine.TestTools.Graphics.ImageComparisonSettings.Resolution.w960h540;
             settings.CheckMemoryAllocation = false;

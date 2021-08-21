@@ -5,18 +5,19 @@ using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.XR;
 using UnityEngine.TestTools.Graphics;
+using UnityEditor.TestTools.Graphics;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.IO;
 
 namespace Tests
 {
-    public class LegacyUTS_GraphicsTests
+    public class HDRPlUTS_GraphicsTests
     {
-        public const string legacyReferenceImagePath = "Assets/ReferenceImages";
-        [UnityTest, Category("LegacyRP")]
+        public const string ReferenceImagePath = "Assets/ReferenceImages";
+        [UnityTest, Category("HDRP")]
         [PrebuildSetup("SetupGraphicsTestCases")]
-        [UseGraphicsTestCases(legacyReferenceImagePath)]
+        [UseGraphicsTestCases(ReferenceImagePath)]
         public IEnumerator Run(GraphicsTestCase testCase)
         {
 
@@ -26,13 +27,13 @@ namespace Tests
             yield return null;
 
             var cameras = GameObject.FindGameObjectsWithTag("MainCamera").Select(x => x.GetComponent<Camera>());
-            var settings = Object.FindObjectOfType<LegacyUTS_GraphicsTestSettings>();
-            Assert.IsNotNull(settings, "Invalid test scene, couldn't find LegacyGraphicsTestSettings");
+            var settings = Object.FindObjectOfType<HDRPUTS_GraphicsTestSettings>();
+            Assert.IsNotNull(settings, "Invalid test scene, couldn't find UTS_GraphicsTestSettings");
 
             Scene scene = SceneManager.GetActiveScene();
 
 
-            if (scene.name.Substring(3, 4).Equals("_xr_"))
+            if (scene.name.Length > (3+ 4) && scene.name.Substring(3, 4).Equals("_xr_"))
             {
 #if ENABLE_VR && ENABLE_VR_MODULE
             Assume.That((Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.OSXPlayer), "Stereo Universal tests do not run on MacOSX.");
@@ -77,11 +78,7 @@ namespace Tests
             bool allocatesMemory = false;
             var mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
 
-            // 2D Renderer is currently allocating memory, skip it as it will always fail GC alloc tests.
-            //var additionalCameraData = mainCamera.GetUniversalAdditionalCameraData();
-            bool is2DRenderer = false; // additionalCameraData.scriptableRenderer is Renderer2D;
-
-            if (!is2DRenderer)
+            if (settings == null || settings.CheckMemoryAllocation)
             {
                 try
                 {

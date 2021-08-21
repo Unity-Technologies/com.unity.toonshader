@@ -2,7 +2,7 @@
 
 namespace Tests
 {
-    public class LegacyUTS_GraphicsTestSettings : GraphicsTestSettings
+    public class UniversalUTS_GraphicsTestSettings : GraphicsTestSettings
     {
         public int WaitFrames = 0;
         public bool XRCompatible = true;
@@ -12,12 +12,13 @@ namespace Tests
         public bool CheckMemoryAllocation = true;
 #endif //#if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
 
-        public LegacyUTS_GraphicsTestSettings()
+        public UniversalUTS_GraphicsTestSettings()
         {
             ImageComparisonSettings.TargetWidth = 960;
             ImageComparisonSettings.TargetHeight = 540;
             ImageComparisonSettings.AverageCorrectnessThreshold = 0.005f;
             ImageComparisonSettings.PerPixelCorrectnessThreshold = 0.001f;
+            ImageComparisonSettings.UseHDR = false;
             ImageComparisonSettings.UseBackBuffer = false;
         }
     }

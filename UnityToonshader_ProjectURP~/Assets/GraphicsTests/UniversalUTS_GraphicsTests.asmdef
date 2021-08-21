@@ -1,5 +1,5 @@
 {
-    "name": "LegacyUTS_GraphicsTests",
+    "name": "UniversalUTS_GraphicsTests",
     "references": [
         "UnityEngine.TestTools.Graphics",
         "UnityEngine.TestRunner",

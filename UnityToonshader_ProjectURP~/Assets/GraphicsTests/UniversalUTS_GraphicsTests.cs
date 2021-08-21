@@ -12,30 +12,31 @@ using System.IO;
 
 namespace Tests
 {
-    public class HDRPUTS_GraphicsTests
+    public class UniversalUTS_GraphicsTests
     {
-        public const string HDRPReferenceImagePath = "Assets/ReferenceImages";
-        [UnityTest, Category("HDRP")]
+        public const string ReferenceImagePath = "Assets/ReferenceImages";
+        [UnityTest, Category("URP")]
         [PrebuildSetup("SetupGraphicsTestCases")]
-        [UseGraphicsTestCases(HDRPReferenceImagePath)]
+        [UseGraphicsTestCases(ReferenceImagePath)]
         public IEnumerator Run(GraphicsTestCase testCase)
         {
+
             SceneManager.LoadScene(testCase.ScenePath);
 
             // Always wait one frame for scene load
             yield return null;
 
             var cameras = GameObject.FindGameObjectsWithTag("MainCamera").Select(x => x.GetComponent<Camera>());
-            var settings = Object.FindObjectOfType<HDRPUTS_GraphicsTestSettings>();
-            Assert.IsNotNull(settings, "Invalid test scene, couldn't find HDRP UTS_GraphicsTestSettings");
+            var settings = Object.FindObjectOfType<UniversalUTS_GraphicsTestSettings>();
+            Assert.IsNotNull(settings, "Invalid test scene, couldn't find UTS_GraphicsTestSettings");
 
             Scene scene = SceneManager.GetActiveScene();
 
 
-            if (scene.name.Substring(3, 4).Equals("_xr_"))
+            if (scene.name.Length > (3+ 4) && scene.name.Substring(3, 4).Equals("_xr_"))
             {
 #if ENABLE_VR && ENABLE_VR_MODULE
-            Assume.That((Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.OSXPlayer), "Stereo HDRP tests do not run on MacOSX.");
+            Assume.That((Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.OSXPlayer), "Stereo Universal tests do not run on MacOSX.");
 
             XRSettings.LoadDeviceByName("MockHMD");
             yield return null;
