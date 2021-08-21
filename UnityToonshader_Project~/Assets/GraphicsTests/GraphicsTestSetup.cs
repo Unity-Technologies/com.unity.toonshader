@@ -105,7 +105,10 @@ namespace UnityEditor.Rendering.Toon
             var scene = EditorSceneManager.OpenScene(EditorBuildSettings.scenes[scneneIndex].path);
             var cameras = GameObject.FindGameObjectsWithTag("MainCamera").Select(x => x.GetComponent<Camera>());
             var cameraList = cameras.ToList<Camera>();
-
+            if ( cameraList == null || cameraList.Count == 0 )
+            {
+                Debug.LogError("Unable to Find MainCamera in " + EditorBuildSettings.scenes[scneneIndex].path );
+            }
             LegacyUTS_GraphicsTestSettings settings = cameraList[0].gameObject.GetComponent<LegacyUTS_GraphicsTestSettings>();
 
 
