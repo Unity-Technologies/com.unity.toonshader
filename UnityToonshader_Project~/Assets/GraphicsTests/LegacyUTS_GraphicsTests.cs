@@ -12,12 +12,12 @@ using System.IO;
 
 namespace Tests
 {
-    public class UniversalUTS_GraphicsTests
+    public class LegacyUTS_GraphicsTests
     {
-        public const string universalReferenceImagePath = "Assets/ReferenceImages";
-        [UnityTest, Category("UniversalRP")]
+        public const string referenceImagePath = "Assets/ReferenceImages";
+        [UnityTest, Category("LegacyRP")]
         [PrebuildSetup("SetupGraphicsTestCases")]
-        [UseGraphicsTestCases(universalReferenceImagePath)]
+        [UseGraphicsTestCases(referenceImagePath)]
         public IEnumerator Run(GraphicsTestCase testCase)
         {
 
@@ -27,8 +27,8 @@ namespace Tests
             yield return null;
 
             var cameras = GameObject.FindGameObjectsWithTag("MainCamera").Select(x => x.GetComponent<Camera>());
-            var settings = Object.FindObjectOfType<UniversalUTS_GraphicsTestSettings>();
-            Assert.IsNotNull(settings, "Invalid test scene, couldn't find UniversalyUTS_GraphicsTestSettings");
+            var settings = Object.FindObjectOfType<LegacylUTS_GraphicsTestSettings>();
+            Assert.IsNotNull(settings, "Invalid test scene, couldn't find LegacyUTS_GraphicsTestSettings");
 
             Scene scene = SceneManager.GetActiveScene();
 

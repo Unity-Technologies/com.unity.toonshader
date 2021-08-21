@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Cube_HardEdge.unity
     guid: 8027293845a4413984018ca9061db7f3
   - enabled: 1
+    path: Assets/Scenes/EmissiveAnimation.unity
+    guid: 5804dedbf3894d2eadeff8a362cadd40
+  - enabled: 1
     path: Assets/Scenes/LightAndShadows.unity
     guid: 2ea8be28e0954509bcc77335130735a6
   - enabled: 1
