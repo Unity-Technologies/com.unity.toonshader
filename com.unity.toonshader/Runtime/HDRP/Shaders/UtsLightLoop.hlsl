@@ -70,6 +70,10 @@ float WeightSample(PositionInputs positionInput)
     return 1.0 - saturate(weight);
 }
 
+float3 ApplyCurrentExposureMultiplier(float3 color)
+{
+    return color * GetCurrentExposureMultiplier();
+}
 
 float3 GetExposureAdjustedColor(float3 originalColor)
 {
