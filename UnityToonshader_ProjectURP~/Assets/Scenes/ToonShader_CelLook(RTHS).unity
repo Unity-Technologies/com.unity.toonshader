@@ -38,13 +38,13 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.08079448, g: 0.115334414, b: 0.21634787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 0
+  m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -428,12 +428,12 @@ PrefabInstance:
       value: ToonShader_SD_unitychan_humanoid_CelLook
       objectReference: {fileID: 0}
     - target: {fileID: 1590974229819140, guid: bf9ef6fae1d74bfa93daab42d75ec8d4, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1590974229819140, guid: bf9ef6fae1d74bfa93daab42d75ec8d4, type: 3}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1590974229819140, guid: bf9ef6fae1d74bfa93daab42d75ec8d4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1673285163430804, guid: bf9ef6fae1d74bfa93daab42d75ec8d4, type: 3}
       propertyPath: m_Layer
@@ -452,6 +452,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4800381845215172, guid: bf9ef6fae1d74bfa93daab42d75ec8d4, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4800381845215172, guid: bf9ef6fae1d74bfa93daab42d75ec8d4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -464,6 +468,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4800381845215172, guid: bf9ef6fae1d74bfa93daab42d75ec8d4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4800381845215172, guid: bf9ef6fae1d74bfa93daab42d75ec8d4, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -474,14 +482,6 @@ PrefabInstance:
     - target: {fileID: 4800381845215172, guid: bf9ef6fae1d74bfa93daab42d75ec8d4, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4800381845215172, guid: bf9ef6fae1d74bfa93daab42d75ec8d4, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4800381845215172, guid: bf9ef6fae1d74bfa93daab42d75ec8d4, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4800381845215172, guid: bf9ef6fae1d74bfa93daab42d75ec8d4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -497,14 +497,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 137086489294773550, guid: bf9ef6fae1d74bfa93daab42d75ec8d4,
         type: 3}
-      propertyPath: m_Materials.Array.data[1]
-      value: 
-      objectReference: {fileID: 2100000, guid: ab0d49693b7444d7846976efe1b538a8, type: 2}
-    - target: {fileID: 137086489294773550, guid: bf9ef6fae1d74bfa93daab42d75ec8d4,
-        type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: b675c005a43245889c4b701f94f89a80, type: 2}
+    - target: {fileID: 137086489294773550, guid: bf9ef6fae1d74bfa93daab42d75ec8d4,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: ab0d49693b7444d7846976efe1b538a8, type: 2}
     - target: {fileID: 137665887834554748, guid: bf9ef6fae1d74bfa93daab42d75ec8d4,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -756,7 +756,7 @@ MonoBehaviour:
   m_GPUSkinning: 1
   m_adaptiveSampling: 0
   m_antialiasing: 0
-  m_clampBlendshapeWeights: 1
+  m_clampBlendshapeWeights: 0
   m_dbgVerboseLog: 0
   m_foldDebug: 0
 --- !u!20 &794565945
