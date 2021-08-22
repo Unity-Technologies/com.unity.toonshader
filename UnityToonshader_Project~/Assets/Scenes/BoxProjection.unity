@@ -44,7 +44,7 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 0
+  m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -1621,6 +1621,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4862957803986366, guid: c711b75b829b41ab92a260f162d87277, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4862957803986366, guid: c711b75b829b41ab92a260f162d87277, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -1633,6 +1637,10 @@ PrefabInstance:
       value: 0.61
       objectReference: {fileID: 0}
     - target: {fileID: 4862957803986366, guid: c711b75b829b41ab92a260f162d87277, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.00000016292068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4862957803986366, guid: c711b75b829b41ab92a260f162d87277, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -1643,14 +1651,6 @@ PrefabInstance:
     - target: {fileID: 4862957803986366, guid: c711b75b829b41ab92a260f162d87277, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4862957803986366, guid: c711b75b829b41ab92a260f162d87277, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: -0.00000016292068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4862957803986366, guid: c711b75b829b41ab92a260f162d87277, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114225651361079594, guid: c711b75b829b41ab92a260f162d87277,
         type: 3}

@@ -44,7 +44,7 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 0
+  m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -1690,16 +1690,16 @@ PrefabInstance:
       value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1348741524522182, guid: 1b5314dcbdfe4ef38224c8671da30243, type: 3}
+      propertyPath: m_Name
+      value: ToonShader_SD_unitychan_humanoid_CelLook_Firefly
+      objectReference: {fileID: 0}
+    - target: {fileID: 1348741524522182, guid: 1b5314dcbdfe4ef38224c8671da30243, type: 3}
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1348741524522182, guid: 1b5314dcbdfe4ef38224c8671da30243, type: 3}
       propertyPath: m_IsActive
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1348741524522182, guid: 1b5314dcbdfe4ef38224c8671da30243, type: 3}
-      propertyPath: m_Name
-      value: ToonShader_SD_unitychan_humanoid_CelLook_Firefly
       objectReference: {fileID: 0}
     - target: {fileID: 1350773046567250, guid: 1b5314dcbdfe4ef38224c8671da30243, type: 3}
       propertyPath: m_Layer
@@ -2038,6 +2038,10 @@ PrefabInstance:
       value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 4800381845215172, guid: 1b5314dcbdfe4ef38224c8671da30243, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4800381845215172, guid: 1b5314dcbdfe4ef38224c8671da30243, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -2050,6 +2054,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4800381845215172, guid: 1b5314dcbdfe4ef38224c8671da30243, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4800381845215172, guid: 1b5314dcbdfe4ef38224c8671da30243, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -2060,14 +2068,6 @@ PrefabInstance:
     - target: {fileID: 4800381845215172, guid: 1b5314dcbdfe4ef38224c8671da30243, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4800381845215172, guid: 1b5314dcbdfe4ef38224c8671da30243, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4800381845215172, guid: 1b5314dcbdfe4ef38224c8671da30243, type: 3}
-      propertyPath: m_RootOrder
-      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 137086489294773550, guid: 1b5314dcbdfe4ef38224c8671da30243,
         type: 3}

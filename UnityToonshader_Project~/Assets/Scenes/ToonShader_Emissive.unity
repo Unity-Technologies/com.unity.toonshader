@@ -44,7 +44,7 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 0
+  m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -1212,6 +1212,10 @@ PrefabInstance:
       value: ToonShader_SD_unitychan_humanoid_Emissive
       objectReference: {fileID: 0}
     - target: {fileID: 4690491684004222, guid: 3b25f2302c264b398fb5dfd7abe26234, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4690491684004222, guid: 3b25f2302c264b398fb5dfd7abe26234, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -1224,6 +1228,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4690491684004222, guid: 3b25f2302c264b398fb5dfd7abe26234, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4690491684004222, guid: 3b25f2302c264b398fb5dfd7abe26234, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -1234,14 +1242,6 @@ PrefabInstance:
     - target: {fileID: 4690491684004222, guid: 3b25f2302c264b398fb5dfd7abe26234, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4690491684004222, guid: 3b25f2302c264b398fb5dfd7abe26234, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4690491684004222, guid: 3b25f2302c264b398fb5dfd7abe26234, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4690491684004222, guid: 3b25f2302c264b398fb5dfd7abe26234, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
