@@ -1016,20 +1016,7 @@ Each option follows [Tessellation Option](https://docs.unity3d.com/Packages/com.
 Unity Toon Shader only supports Phong Tessellation.  
 
 ---
-## 13. "Toon EV adjustment curve" Mono behavior
-HDRP, in combination with post-effects such as the Exposure Volume Profile, is designed to render optically correct images without collapsing even in bright environments as intense as 130,000 lux. However, the Toon Shader ignores this optical correctness in order to render a toon, so automatic correction alone will not produce the image the artist wants.
-The Toon EV adjustment curve is created to help artists make this correction. It has three functions.
-
-
-| `Functions` | Description |
-|:-------------------|:-------------------|
-| `Ignore Volume Exposure` | Ignore the automatic corrections built into HDRP. If this checkbox is On, lights brighter than 1 will result in more blown whites and a much more exaggerated Bloom. However, this method is suitable if you are using Light Culling or similar to shine independent lights of 1lux or less on your character.| 
-| `Light High Cut  Filter` | Clips up to 1 lux of light hitting objects with Toon Shader materials.| 
-| `Toon EV adjustment curve` | The correction is done with an editable curve; since it would be impossible for an artist to draw a curve that controls from 0 lux to 130000 lux, EV is used as the brightness unit in this screen. By default, the curve is set to linearly complement the range from -10 EV to -1.32 EV.| 
-
-
----
-## 14. "Mask Rendering Settings" Menu
+## 13. "Mask Rendering Settings" Menu
 
 This function is used in animation and video production when outputting a solid image material and its clipping mask image material for each color element.  
 Currently, only HDRP/Toon is supported.  
@@ -1047,3 +1034,16 @@ When using this function via Visual Compositor, there is no need to do any parti
 | `Check box for each color area` | When checked, it will fill the corresponding color area with the color specified in the color palette beside it. |
 | `Color palette for each color area` | Specify the color to be filled in. When outputting a mask image for clipping from Visual Compositor, be sure to set the value of the alpha channel (`A`) to 255. |
 ---
+
+## 14. "Toon EV Adjustment Curve" Mono Behavior
+HDRP, in combination with post-effects such as the Exposure Volume Profile, is designed to render optically correct images without collapsing, even in bright environments as intense as 130,000 lux. However, because the Toon Shader uses a completely different logic to render toons apart from this optical correctness, the automatic correction built into HDRP is not enough to get the picture the artist wants. This feature supports artists' corrections in three ways.
+
+
+You can use this feature by creating a GameObject to control it by selecting `GameObject/Toon Shader/Create Toon EV Adjustment Curve**` from the Unity Editor menu. Only one `Toon EV Adjustment Curve Mono Behavior` can be placed in a scene.
+
+
+| `Functions` | Description |
+|:-------------------|:-------------------|
+| `Ignore Volume Exposure` | Ignore the automatic corrections built into HDRP. If this checkbox is On, lights brighter than 1 will result in more blown whites and a much more exaggerated Bloom. However, this method is suitable if you are using Light Culling or similar to shine independent lights of 1lux or less on your character.| 
+| `Light High Cut  Filter` | Clips up to 1 lux of light hitting objects with Toon Shader materials.| 
+| `Toon EV adjustment curve` | The correction is done with an editable curve; since it would be impossible for an artist to draw a curve that controls from 0 lux to 130000 lux, EV is used as the brightness unit in this screen. By default, the curve is set to linearly complement the range from -10 EV to -1.32 EV.| 
