@@ -963,7 +963,7 @@ This is a video that explains the Unlit_Intensity function and ambient blending.
 ---
 ### ● Preventing overexposure when there are multiple bright lights in a scene ：SceneLights Hi-Cut Filter  
 
-**SceneLights Hi-Cut Filter**is a very useful function for VRChat users.  
+**SceneLights Hi-Cut Filter** is a very useful function for VRChat users.  
 This is a video that explains it in detail.  
 It also explains in brief how to set the tone mapper with PPS.  
 
@@ -1016,7 +1016,20 @@ Each option follows [Tessellation Option](https://docs.unity3d.com/Packages/com.
 Unity Toon Shader only supports Phong Tessellation.  
 
 ---
-## 13. "Mask Rendering Settings" Menu
+## 13. "Toon EV adjustment curve" Mono behavior
+HDRP, in combination with post-effects such as the Exposure Volume Profile, is designed to render optically correct images without collapsing even in bright environments as intense as 130,000 lux. However, the Toon Shader ignores this optical correctness in order to render a toon, so automatic correction alone will not produce the image the artist wants.
+The Toon EV adjustment curve is created to help artists make this correction. It has three functions.
+
+
+| `Functions` | Description |
+|:-------------------|:-------------------|
+| `Ignore Volume Exposure` | Ignore the automatic corrections built into HDRP. If this checkbox is On, lights brighter than 1 will result in more blown whites and a much more exaggerated Bloom. However, this method is suitable if you are using Light Culling or similar to shine independent lights of 1lux or less on your character.| 
+| `Light High Cut  Filter` | Clips up to 1 lux of light hitting objects with Toon Shader materials.| 
+| `Toon EV adjustment curve` | The correction is done with an editable curve; since it would be impossible for an artist to draw a curve that controls from 0 lux to 130000 lux, EV is used as the brightness unit in this screen. By default, the curve is set to linearly complement the range from -10 EV to -1.32 EV.| 
+
+
+---
+## 14. "Mask Rendering Settings" Menu
 
 This function is used in animation and video production when outputting a solid image material and its clipping mask image material for each color element.  
 Currently, only HDRP/Toon is supported.  
