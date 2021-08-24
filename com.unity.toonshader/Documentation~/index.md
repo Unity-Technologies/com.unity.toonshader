@@ -1040,7 +1040,7 @@ This feature is only available for HDRP, which, when combined with post-effects 
 
 
 
-You can use this feature by creating a GameObject to control it by selecting `GameObject/Toon Shader/Create Toon EV Adjustment Curve**` from the Unity Editor menu. Only one `Toon EV Adjustment Curve Mono Behavior` can be placed in a scene.
+You can use this feature by creating a GameObject to control it by selecting `GameObject/Toon Shader/Create Toon EV Adjustment Curve` from the Unity Editor menu. Only one `Toon EV Adjustment Curve Mono Behavior` can be placed in a scene.
 
 
 | `Functions` | Description |
