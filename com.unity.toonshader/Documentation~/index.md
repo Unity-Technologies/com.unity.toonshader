@@ -1036,7 +1036,8 @@ When using this function via Visual Compositor, there is no need to do any parti
 ---
 
 ## 14. "Toon EV Adjustment Curve" Mono Behavior
-HDRP, in combination with post-effects such as the Exposure Volume Profile, is designed to render optically correct images without collapsing, even in bright environments as intense as 130,000 lux. However, because the Toon Shader uses a completely different logic to render toons apart from this optical correctness, the automatic correction built into HDRP is not enough to get the picture the artist wants. This feature supports artists' corrections in three ways.
+This feature is only available for HDRP, which, when combined with post-effects such as the Exposure Volume Profile, is designed to render optically correct images without collapsing even in bright environments as intense as 130,000 lux. However, because the Toon Shader uses a completely different logic to render toons apart from this optical correctness, the automatic correction built into HDRP is not enough to get the picture the artist wants. This feature supports artists' corrections in three ways.
+
 
 
 You can use this feature by creating a GameObject to control it by selecting `GameObject/Toon Shader/Create Toon EV Adjustment Curve**` from the Unity Editor menu. Only one `Toon EV Adjustment Curve Mono Behavior` can be placed in a scene.
