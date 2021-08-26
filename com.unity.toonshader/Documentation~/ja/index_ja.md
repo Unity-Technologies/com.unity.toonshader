@@ -223,7 +223,7 @@ Universal RP 用サンプルは`Project Setting`ダイアログで `UTS2URPPipel
 
 <img width = "400" src="../images/SelectLinearColorSpace.png">
 
-サンプルプロジェクトを開くと、`Assets\Samples\Unity Toon Shader\0.2.2-preview\Universal RP\Sample Scenes(Universal)`フォルダ以下に、次のようなサンプルシーンがあります。  
+サンプルプロジェクトを開くと、`Assets\Samples\Unity Toon Shader\0.2.2-preview\Universal render pipeline`フォルダ以下に、次のようなサンプルシーンがあります。  
 
 * ToonShader.unity			：イラストルックのシェーダー設定  
 * ToonShader_CelLook.unity	：セルルックのシェーダー設定  
@@ -246,8 +246,8 @@ Universal RP 用サンプルは`Project Setting`ダイアログで `UTS2URPPipel
 
 【**NOTE**】 
 その他のレンダーパイプライン向けのサンプルシーンは以下のフォルダに入っています。  
-* Legacy(Built-in)の場合：`Assets\Samples\Unity Toon Shader\0.2.2-preview\Legacy (built-in)\Runtime`フォルダ  
-* HDRPの場合：`Assets\Samples\Unity Toon Shader\0.2.2-preview\High definition render pipeline\Runtime`フォルダ　
+* Legacy(Built-in)の場合：`Assets\Samples\Unity Toon Shader\0.2.2-preview\Legacy render pipeline`フォルダ  
+* HDRPの場合：`Assets\Samples\Unity Toon Shader\0.2.2-preview\High definition render pipeline`フォルダ　
 
 # Unity Toon Shader 設定メニュー：Unity Toon Shaderカスタムインスペクター
 
@@ -1012,7 +1012,7 @@ Unity Toon Shader では、Phong Tessellation にのみ対応しています。
 
 ## 14. "Toon EV Adjustment Curve" Mono behavior
 
-<img width = "380" src="../images/TooEvAdjustmenEfficiency.png">
+<img width = "800" src="../images/TooEvAdjustmenEfficiency2.png">
 
 本機能はHDRP専用となります。HDRPでは Exposure Volume Profile などのポストエフェクトと組み合わせることによって、130000 lux もの強烈な明るい環境でも破綻せず、光学的に正しいレンダリングを行うように設計されています。 しかし、Toon Shaderはこう言った光学的な正しさから離れて全く異なるロジックでトゥーン表現を行うため、HDRP組み込みの自動補正を行うだけではアーティストの求める画を得ることができません。本機能は３つの方式でアーティストによる補正をサポートします。
 
