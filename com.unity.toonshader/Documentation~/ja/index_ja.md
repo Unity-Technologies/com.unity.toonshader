@@ -7,6 +7,8 @@
 <img width = "800" src="../images/HiUni01.png">
 <img width = "800" src="../images/IllustSample_UTS2.png">
 
+
+
 # Unity Toon Shader とは？
 **Unity Toon Shader (ユニティちゃんトゥーンシェーダー 3)** は、セル風3DCGアニメーションの制作現場での要望に応えるような形で設計された、トゥーンシェーダーです。他のプリレンダー向けトゥーンシェーダーとは異なり、**すべての機能がUnity上でリアルタイムで調整可能なことが、Unity Toon Shader の最大の特長です**。  
 
@@ -1010,7 +1012,8 @@ Unity Toon Shader では、Phong Tessellation にのみ対応しています。
 | `各カラー領域のカラーパレット` | 塗り潰すカラーを指定します。Visual Compositorからクリッピング用マスク画像を出力する場合は、αチャンネルの値(`A`)を必ず255に設定してください。 |
 ---
 
-## 14. "Toon EV Adjustment Curve" Mono behavior
+## 14. <span style="color: red; ">New Feature</span> "Toon EV Adjustment Curve" Mono behavior 
+
 
 <img width = "800" src="../images/TooEvAdjustmenEfficiency2.png">
 
