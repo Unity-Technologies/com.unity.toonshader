@@ -49,7 +49,7 @@
 #ifdef _IS_CLIPPING_MODE
 //_Clipping
                 float2 Set_UV0 = i.uv0;
-                float4 _ClippingMask_var = tex2D(_ClippingMask, TRANSFORM_TEX(Set_UV0, _ClippingMask));
+                float4 _ClippingMask_var = tex2D(_ClippingMask,TRANSFORM_TEX(Set_UV0, _ClippingMask));
                 float Set_Clipping = saturate((lerp( _ClippingMask_var.r, (1.0 - _ClippingMask_var.r), _Inverse_Clipping )+_Clipping_Level));
                 clip(Set_Clipping - 0.5);
 #elif _IS_CLIPPING_TRANSMODE
