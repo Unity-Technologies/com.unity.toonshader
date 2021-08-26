@@ -1035,7 +1035,7 @@ When using this function via Visual Compositor, there is no need to do any parti
 | `Color palette for each color area` | Specify the color to be filled in. When outputting a mask image for clipping from Visual Compositor, be sure to set the value of the alpha channel (`A`) to 255. |
 ---
 
-## 14. <span style="color: red; ">New Feature</span> "Toon EV Adjustment Curve" Mono behavior 
+## 14. <span style="color: red; ">NEW</span> "Toon EV Adjustment Curve" Mono behavior 
 <img width = "800" src="images/TooEvAdjustmenEfficiency2.png">
 
 
