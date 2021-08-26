@@ -1,6 +1,8 @@
 # Unity Toon Shader 0.2.2-preview マニュアル
 ***Read this document in [English](../index.md)***  
 
+<span style="font-size: 150%; color: red; "> NEW </span> [<span style="font-size: 150% ">HDRP Toon EV Adjustment Curve</span>](#ToonEvAdjustmentCurve)
+
 [![](../images/SDUnitychan_URP.png)](https://www.youtube.com/watch?v=TfZ8B409uqM)
 [![](../images/CRS_VFXJ.png)](https://www.youtube.com/watch?v=p4azFua4rJo)
 <img width = "800" src="../images/TPK_04.png">
@@ -1011,7 +1013,7 @@ Unity Toon Shader では、Phong Tessellation にのみ対応しています。
 | `各カラー領域のチェックボックス` | チェックすると、横のカラーパレットに指定されているカラーで該当するカラー領域を塗り潰します。 |
 | `各カラー領域のカラーパレット` | 塗り潰すカラーを指定します。Visual Compositorからクリッピング用マスク画像を出力する場合は、αチャンネルの値(`A`)を必ず255に設定してください。 |
 ---
-
+<a id="ToonEvAdjustmentCurve"></a>
 ## 14. <span style="color: red; ">NEW</span> "Toon EV Adjustment Curve" Mono behavior 
 
 

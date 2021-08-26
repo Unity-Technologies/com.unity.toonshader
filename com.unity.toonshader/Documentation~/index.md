@@ -1,11 +1,16 @@
 # Unity Toon Shader 0.2.2-preview Manual
 ***Read this document in [日本語版](ja/index_ja.md)***  
 
+<span style="font-size: 150%; color: red; "> NEW </span> [<span style="font-size: 150% ">HDRP Toon EV Adjustment Curve</span>](#ToonEvAdjustmentCurve)
+
 [![](images/SDUnitychan_URP.png)](https://www.youtube.com/watch?v=TfZ8B409uqM)
 [![](images/CRS_VFXJ.png)](https://www.youtube.com/watch?v=p4azFua4rJo)
 <img width = "800" src="images/TPK_04.png">
 <img width = "800" src="images/HiUni01.png">
 <img width = "800" src="images/IllustSample_UTS2.png">
+
+
+
 
 # What is Unity Toon Shader?  
 Unity Toon Shader(Unity-Chan Toon Shader 3) is a toon shader for images and video that is designed to meet the needs of creators working on cel-shaded 3DCG animations. Unlike other pre-render toon shaders, **all features can be adjusted in real time on Unity, which is the greatest feature of Unity Toon Shader**..  
@@ -1034,7 +1039,7 @@ When using this function via Visual Compositor, there is no need to do any parti
 | `Check box for each color area` | When checked, it will fill the corresponding color area with the color specified in the color palette beside it. |
 | `Color palette for each color area` | Specify the color to be filled in. When outputting a mask image for clipping from Visual Compositor, be sure to set the value of the alpha channel (`A`) to 255. |
 ---
-
+<a id="ToonEvAdjustmentCurve"></a>
 ## 14. <span style="color: red; ">NEW</span> "Toon EV Adjustment Curve" Mono behavior 
 <img width = "800" src="images/TooEvAdjustmenEfficiency2.png">
 
