@@ -521,8 +521,7 @@ void Frag(PackedVaryingsToPS packedInput,
         }
 #endif
 
-        AggregateLighting aggregateLighting;
-        ZERO_INITIALIZE(AggregateLighting, aggregateLighting); // LightLoop is in charge of initializing the struct
+
 
         // Scalarized loop. All lights that are in a tile/cluster touched by any pixel in the wave are loaded (scalar load), only the one relevant to current thread/pixel are processed.
         // For clarity, the following code will follow the convention: variables starting with s_ are meant to be wave uniform (meant for scalar register),
@@ -571,16 +570,13 @@ void Frag(PackedVaryingsToPS packedInput,
                     float3 pointLightColor = UTS_OtherLights(input, i_normalDir, additionalLightColor, L, notDirectional, channelAlpha);
 #endif
 
-                    DirectLighting lighting = EvaluateBSDF_Punctual(context, V, posInput, preLightData, s_lightData, bsdfData, builtinData);
-                    AccumulateDirectLighting(lighting, aggregateLighting);
                     
-                    //finalColor += pointLightColor;
+                    finalColor += pointLightColor;
 
                 }
 
             }
         }
-        finalColor += aggregateLighting.direct.diffuse + aggregateLighting.direct.specular;
     }
     //v.2.0.7
 
