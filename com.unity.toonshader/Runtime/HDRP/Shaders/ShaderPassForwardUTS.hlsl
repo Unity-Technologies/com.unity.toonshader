@@ -437,7 +437,7 @@ void Frag(PackedVaryingsToPS packedInput,
 
 #undef EVALUATE_BSDF_ENV
 #undef EVALUATE_BSDF_ENV_SKY
-    // ------------------- env --------------------
+
     if (featureFlags & LIGHTFEATUREFLAGS_PUNCTUAL)
     {
         uint lightCount, lightStart;
@@ -509,7 +509,7 @@ void Frag(PackedVaryingsToPS packedInput,
 #endif
 
 //#if USE_FPTL_LIGHTLIST
-//                    pointLightColor = float3(1.0f, 0.0, 0.0);
+//                    pointLightColor = float3(tileIndex.xy/30, 0.0);
 //#endif
 //#if USE_CLUSTERED_LIGHTLIST
 //                    pointLightColor = float3(0.0f, 0.0, 1.0);
