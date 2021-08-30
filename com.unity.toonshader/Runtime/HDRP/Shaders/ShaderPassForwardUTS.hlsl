@@ -296,6 +296,7 @@ void Frag(PackedVaryingsToPS packedInput,
 
     }
 
+#if 0 // --------------------------------------------------------------------
     AggregateLighting aggregateLighting;
     ZERO_INITIALIZE(AggregateLighting, aggregateLighting); // LightLoop is in charge of initializing the struct
 
@@ -309,6 +310,7 @@ void Frag(PackedVaryingsToPS packedInput,
 
 // Environment cubemap test lightlayers, sky don't test it
 #define EVALUATE_BSDF_ENV(envLightData, TYPE, type) if (IsMatchingLightLayer(envLightData.lightLayers, builtinData.renderingLayers)) { EVALUATE_BSDF_ENV_SKY(envLightData, TYPE, type) }
+
 
     // First loop iteration
     if (featureFlags & (LIGHTFEATUREFLAGS_ENV | LIGHTFEATUREFLAGS_SKY | LIGHTFEATUREFLAGS_SSREFRACTION | LIGHTFEATUREFLAGS_SSREFLECTION))
@@ -431,6 +433,8 @@ void Frag(PackedVaryingsToPS packedInput,
             }
         }
     }
+#endif //#if 0 // --------------------------------------------------------------------
+
 #undef EVALUATE_BSDF_ENV
 #undef EVALUATE_BSDF_ENV_SKY
     // ------------------- env --------------------
@@ -444,8 +448,7 @@ void Frag(PackedVaryingsToPS packedInput,
         lightCount = _PunctualLightCount;
         lightStart = 0;
 #endif
-
-        bool fastPath = false;
+         bool fastPath = false;
 #if SCALARIZE_LIGHT_LOOP
         uint lightStartLane0;
         fastPath = IsFastPath(lightStart, lightStartLane0);
@@ -505,7 +508,12 @@ void Frag(PackedVaryingsToPS packedInput,
                     float3 pointLightColor = UTS_OtherLights(input, i_normalDir, additionalLightColor, L, notDirectional, channelAlpha);
 #endif
 
-                    
+//#if USE_FPTL_LIGHTLIST
+//                    pointLightColor = float3(1.0f, 0.0, 0.0);
+//#endif
+//#if USE_CLUSTERED_LIGHTLIST
+//                    pointLightColor = float3(0.0f, 0.0, 1.0);
+//#endif
                     finalColor += pointLightColor;
 
                 }
