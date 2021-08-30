@@ -4725,7 +4725,6 @@ MonoBehaviour:
   m_ToonLightHiCutFilter: 0
   m_ExposureAdjustmnt: 1
   m_IgnorVolumeExposure: 0
-  m_HighCutFilter: 1000000
   m_AnimationCurve:
     serializedVersion: 2
     m_Curve:
@@ -13272,6 +13271,10 @@ PrefabInstance:
     - target: {fileID: 3750380391580544809, guid: 1fe8230446ff43d595294493590261fd, type: 3}
       propertyPath: m_Name
       value: ToonShader_SD_unitychan_humanoid_CelLook_Firefly
+      objectReference: {fileID: 0}
+    - target: {fileID: 3750380391580544809, guid: 1fe8230446ff43d595294493590261fd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3754243279204564011, guid: 1fe8230446ff43d595294493590261fd, type: 3}
       propertyPath: m_RootOrder
