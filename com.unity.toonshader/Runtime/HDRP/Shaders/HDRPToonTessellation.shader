@@ -465,6 +465,9 @@ Shader "HDRP/ToonTessellation"
         [Toggle(_)] _ComposerMaskMode("", Float) = 0
         [Enum(None, 0, BaseColor, 1, FirstShade, 2, SecondShade, 3, Highlight, 4, AngelRing, 5, RimLight, 6)] _ClippingMaskMode("Clipping Mask Mode", int) = 0
 
+        [HideInInspector] emissive("to avoid srp batcher error", Color) = (0, 0, 0, 1)
+
+
         // to here parameters for UTS>
     }
 
