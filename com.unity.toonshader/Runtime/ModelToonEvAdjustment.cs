@@ -198,9 +198,11 @@ namespace Unity.Rendering.Toon
             if (EditorApplication.isCompiling)
                 return;
 #endif
+            // must be put to gameObject model chain.
             if (m_Objs == null || m_Objs.Length == 0)
             {
-                return;
+                m_Objs = new GameObject[1];
+                m_Objs[0] = this.gameObject;
             }
             int objCount = m_Objs.Length;
             int rendererCount = 0;
