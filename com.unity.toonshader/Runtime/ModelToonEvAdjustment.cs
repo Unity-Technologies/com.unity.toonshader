@@ -231,13 +231,7 @@ namespace Unity.Rendering.Toon
                     var modelToonEvAdjustment = childGameObjects[jj].GetComponent<ModelToonEvAdjustment>();
                     if ( modelToonEvAdjustment != null )
                     {
-                        Debug.LogError("Child GameObject:" + childGameObjects[jj] + " already has ModelToonEvAdjustment.");
-#if UNITY_EDITOR
-                        DestroyImmediate(this);
 
-#else
-                        Destroy(this);
-#endif
                         break;
                     }
                     renderer = childGameObjects[jj].GetComponent<Renderer>();
