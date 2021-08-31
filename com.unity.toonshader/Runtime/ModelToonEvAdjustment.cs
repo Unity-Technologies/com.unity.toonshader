@@ -13,7 +13,7 @@ namespace Unity.Rendering.Toon
 {
     [ExecuteAlways]
     [DisallowMultipleComponent]
-    public class MaterialPropertyBlockController : MonoBehaviour
+    public class ModelToonEvAdjustment : MonoBehaviour
     {
         const string kExposureAdjustmentPorpName = "_ToonEvAdjustmentCurve";
         const string kExposureArrayPropName = "_ToonEvAdjustmentValueArray";
@@ -32,10 +32,10 @@ namespace Unity.Rendering.Toon
 
         [SerializeField]
         internal bool m_ToonLightHiCutFilter = false;
-
         [SerializeField]
         internal bool m_ExposureAdjustmnt = false;
-
+        [SerializeField]
+        internal bool m_IgnorVolumeExposure = false;
         [SerializeField]
         internal AnimationCurve m_AnimationCurve = DefaultAnimationCurve();
         [SerializeField]
