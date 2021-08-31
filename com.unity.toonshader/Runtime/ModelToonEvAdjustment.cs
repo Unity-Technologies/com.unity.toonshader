@@ -214,7 +214,7 @@ namespace Unity.Rendering.Toon
                 {
                     continue;
                 }
-                GameObject[] childGameObjects = m_Objs[ii].GetComponentsInChildren<Transform>().Select(t => t.gameObject).ToArray();
+
 
                 var renderer = m_Objs[ii].GetComponent<Renderer>();
                 if (renderer != null)
@@ -222,9 +222,24 @@ namespace Unity.Rendering.Toon
                     rendererCount++;
                     rendererList.Add(renderer);
                 }
+                GameObject[] childGameObjects = m_Objs[ii].GetComponentsInChildren<Transform>().Select(t => t.gameObject).ToArray();
                 int childCount = childGameObjects.Length;
                 for (int jj = 0; jj < childCount; jj++)
                 {
+                    if (m_Objs[ii] == childGameObjects[jj])
+                        continue;
+                    var modelToonEvAdjustment = childGameObjects[jj].GetComponent<ModelToonEvAdjustment>();
+                    if ( modelToonEvAdjustment != null )
+                    {
+                        Debug.LogError("Child GameObject:" + childGameObjects[jj] + " already has ModelToonEvAdjustment.");
+#if UNITY_EDITOR
+                        DestroyImmediate(this);
+
+#else
+                        Destroy(this);
+#endif
+                        break;
+                    }
                     renderer = childGameObjects[jj].GetComponent<Renderer>();
                     if ( renderer != null )
                     {

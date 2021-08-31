@@ -138,24 +138,28 @@ namespace UnityEditor.Rendering.Toon
             return Mathf.Log(val * 0.4f, 2.0f);
 
         }
-#if false
-        [MenuItem("GameObject/Toon Shader/Create Toon Ev Adjustment Curve", false, 9999)]
+
+
+        [MenuItem("GameObject/Toon Shader/Attach Model Toon Ev Adjustment", true)]
+        static bool ValidateLogSelectedTransformName()
+        {
+            if (Selection.activeGameObject == null)
+            {
+                return false;
+            }
+            return true;
+        }
+
+
+
+        [MenuItem("GameObject/Toon Shader/Attach Model Toon Ev Adjustment", false, 9999)]
         static void CreateToonEvAdjustmentCurveGameObject()
         {
-            var obj = FindObjectOfType<ToonEvAdjustmentCurve>();
-            if (obj == null)
-            {
-                var go = new GameObject();
-                go.name = "Toon Ev Adjustment Curve";
-                go.AddComponent<ToonEvAdjustmentCurve>();
-                Undo.RegisterCreatedObjectUndo(go, "Create Toon Ev Adjustment Curve");
-                Selection.activeGameObject = go;
-            }
-            else
-            {
-                Selection.activeGameObject = obj.gameObject;
-            }
+
+            var go = Selection.activeGameObject;
+            go.AddComponent<ModelToonEvAdjustment>();
+
         }
-#endif
+
     }
 }
