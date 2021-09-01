@@ -1093,7 +1093,7 @@ MonoBehaviour:
   ImageComparisonSettings:
     TargetWidth: 960
     TargetHeight: 540
-    PerPixelCorrectnessThreshold: 0.001
+    PerPixelCorrectnessThreshold: 0.005
     PerPixelGammaThreshold: 0.003921569
     PerPixelAlphaThreshold: 0.003921569
     AverageCorrectnessThreshold: 0.005
