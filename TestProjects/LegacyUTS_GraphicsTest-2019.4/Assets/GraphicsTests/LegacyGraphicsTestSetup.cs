@@ -118,6 +118,7 @@ namespace UnityEditor.Rendering.Toon
             }
             settings.ImageComparisonSettings.ImageResolution = UnityEngine.TestTools.Graphics.ImageComparisonSettings.Resolution.w960h540;
             settings.CheckMemoryAllocation = false;
+            settings.WaitFrames = 480;
             foreach (GameObject obj in FindObjectsOfType(typeof(GameObject)))
             {
                 if (! obj.activeInHierarchy )

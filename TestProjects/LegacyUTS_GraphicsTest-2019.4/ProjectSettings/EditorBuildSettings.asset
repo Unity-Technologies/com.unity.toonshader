@@ -44,7 +44,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ShaderBall.unity
     guid: e42c9e0a87c74c62a523461cdcc81492
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/SSAO.unity
     guid: 0cf246508e88432d8b9c34f2a9fa44f8
   - enabled: 1
