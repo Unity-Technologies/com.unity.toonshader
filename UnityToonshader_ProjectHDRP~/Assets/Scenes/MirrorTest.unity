@@ -130,7 +130,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1348741524522182, guid: 705cdfbbbed449efa36cdd1e2ab6ef97, type: 3}
       propertyPath: m_Name
-      value: ToonShader_SD_unitychan_humanoid_CelLook
+      value: SD_unitychan_humanoid_CelLook
       objectReference: {fileID: 0}
     - target: {fileID: 4800381845215172, guid: 705cdfbbbed449efa36cdd1e2ab6ef97, type: 3}
       propertyPath: m_RootOrder
@@ -1583,13 +1583,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1924536754}
-  m_LocalRotation: {x: -0.009000261, y: 0.43607828, z: -0.8982578, w: -0.053738166}
+  m_LocalRotation: {x: 0.009115032, y: 0.21083528, z: -0.97532314, w: -0.06488672}
   m_LocalPosition: {x: -0.66, y: 1.989, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 51.664, y: -362.837, z: -548.221}
+  m_LocalEulerAnglesHint: {x: 24.21, y: -362.837, z: -548.221}
 --- !u!114 &1924536757
 MonoBehaviour:
   m_ObjectHideFlags: 0
