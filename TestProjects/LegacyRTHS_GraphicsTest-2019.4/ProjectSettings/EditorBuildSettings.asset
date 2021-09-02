@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/RTHSScene.unity
+    guid: de8cf62a1eb44efe8d3d09e645fb1e98
   m_configObjects: {}
