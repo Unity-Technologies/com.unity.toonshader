@@ -2,9 +2,9 @@
 #
 #
 test_projects:
-  - name: LegacyUTS_GraphicsTest-2021.2
+  - name: LegacyUTS_GraphicsTest-2021.1
 unity_versions:
-  - name: 2021.2
+  - name: 2021.1
 ---
 {% for test_project in test_projects %}
 {% for unity_version in unity_versions %}
