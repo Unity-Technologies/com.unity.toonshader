@@ -424,7 +424,7 @@ Material:
     - _Tweak_MatcapMaskLevel: 0
     - _Tweak_RimLightMaskLevel: 0
     - _Tweak_ShadingGradeMapLevel: 0
-    - _Tweak_SystemShadowsLevel: 0.014
+    - _Tweak_SystemShadowsLevel: 0.058
     - _Tweak_transparency: 0
     - _UVBase: 0
     - _UVDetail: 0
@@ -484,3 +484,4 @@ Material:
     - _UVMappingMaskEmissive: {r: 1, g: 0, b: 0, a: 0}
     - _ViewShift: {r: 0, g: 0, b: 0, a: 1}
     - emissive: {r: 0, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []
