@@ -1,4 +1,4 @@
-Shader "HDRP/ShowShadowBuffer"
+Shader "HDRP/ShadowBuffer"
 {
     Properties
     {
@@ -306,12 +306,13 @@ Shader "HDRP/ShowShadowBuffer"
             #endif
 
             #define SHADERPASS SHADERPASS_FORWARD_UNLIT
-
             #include "Packages/com.unity.render-pipelines.high-definition/Runtime/Material/Material.hlsl"
             #include "Packages/com.unity.render-pipelines.high-definition/Runtime/Material/Unlit/Unlit.hlsl"
+            #include "Packages/com.unity.render-pipelines.high-definition/Runtime/Lighting/LightLoop/LightLoopDef.hlsl"
+
             #include "Packages/com.unity.render-pipelines.high-definition/Runtime/Material/Unlit/ShaderPass/UnlitSharePass.hlsl"
-			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/Material/Unlit/UnlitData.hlsl"
-			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/RenderPipeline/ShaderPass/ShaderPassForwardUnlit.hlsl"
+            #include "Packages/com.unity.render-pipelines.high-definition/Runtime/Material/Unlit/UnlitData.hlsl"
+            #include "ShaderPassForwardShadowBuffer.hlsl"
 
             #pragma vertex Vert
             #pragma fragment Frag
