@@ -607,13 +607,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 694067455}
-  m_LocalRotation: {x: 0.61185634, y: 0.6228578, z: -0.34778965, w: 0.3416467}
+  m_LocalRotation: {x: 0.65955603, y: 0.6714151, z: -0.2410626, w: 0.23680474}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1521128765}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 58.356003, y: 180, z: 88.979004}
+  m_LocalEulerAnglesHint: {x: 39.5, y: 180, z: 88.979004}
 --- !u!108 &694067458
 Light:
   m_ObjectHideFlags: 0
@@ -1026,7 +1026,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1050619371}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b21f82ee99238ee4eb21b9a59244893c, type: 3}
   m_Name: 
@@ -1780,7 +1780,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -331.9, y: -106.1}
+  m_AnchoredPosition: {x: -800, y: -106.1}
   m_SizeDelta: {x: 340.1589, y: 47.1225}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2043652365
@@ -1815,7 +1815,7 @@ MonoBehaviour:
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 1
+    m_LineSpacing: 0.89
   m_Text: 'RTHS shadow buffer
 
 '
