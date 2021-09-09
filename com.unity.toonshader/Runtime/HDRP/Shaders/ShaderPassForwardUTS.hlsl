@@ -112,7 +112,7 @@ float ApplyChannelAlpha( float alpha)
 
 uniform sampler2D _RaytracedHardShadow;
 float4 _RaytracedHardShadow_TexelSize;
-//TEXTURE2D_SAMPLER2D(_RaytracedHardShadow, sampler_RaytracedHardShadow);
+
 void Frag(PackedVaryingsToPS packedInput,
 #ifdef OUTPUT_SPLIT_LIGHTING
     out float4 outColor : SV_Target0,  // outSpecularLighting
@@ -200,7 +200,7 @@ void Frag(PackedVaryingsToPS packedInput,
         if (_DirectionalShadowIndex >= 0)
         {
             DirectionalLightData light = _DirectionalLightDatas[_DirectionalShadowIndex];
-#if defined(SCREEN_SPACE_SHADOWS_ON) && !defined(_SURFACE_TYPE_TRANSPARENT)
+#if defined(SCREEN_SPACE_SHADOWS_ON) && !defined(_SURFACE_TYPE_TRANSPARENT) && !defined(UTS_USE_RAYTRACING_SHADOW)
             if (UseScreenSpaceShadow(light, bsdfData.normalWS))
             {
                 context.shadowValue = GetScreenSpaceColorShadow(posInput, light.screenSpaceShadowIndex).SHADOW_TYPE_SWIZZLE;
