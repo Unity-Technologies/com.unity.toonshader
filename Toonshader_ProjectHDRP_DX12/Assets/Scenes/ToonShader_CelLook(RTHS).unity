@@ -567,6 +567,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 5901b69d4f1540bdbe79b955c813e9a8, type: 2}
     - target: {fileID: 137797591847690792, guid: 705cdfbbbed449efa36cdd1e2ab6ef97,
         type: 3}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 137797591847690792, guid: 705cdfbbbed449efa36cdd1e2ab6ef97,
+        type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: c88cb131d9cf4aca8ce28b1214ba7489, type: 2}
@@ -909,6 +914,42 @@ Camera:
   m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!84 &903323147
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: RaytracedHardShadow
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 3
+  m_Width: 1797
+  m_Height: 1401
+  m_AntiAliasing: 1
+  m_MipCount: -1
+  m_DepthFormat: 0
+  m_ColorFormat: 41
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_EnableCompatibleFormat: 1
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1 &1049399186
 GameObject:
   m_ObjectHideFlags: 0
@@ -1038,20 +1079,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b21f82ee99238ee4eb21b9a59244893c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_generateRenderTexture: 0
-  m_outputType: 0
-  m_outputTexture: {fileID: 8400000, guid: f74e757a8d05116408860d1c5f516f06, type: 2}
+  m_generateRenderTexture: 1
+  m_outputType: 1
+  m_outputTexture: {fileID: 903323147}
   m_assignGlobalTexture: 1
   m_globalTextureName: _RaytracedHardShadow
-  m_cullBackFaces: 1
+  m_cullBackFaces: 0
   m_flipCasterFaces: 1
-  m_ignoreSelfShadow: 0
+  m_ignoreSelfShadow: 1
   m_keepSelfDropShadow: 1
-  m_selfShadowThreshold: 0.0001
+  m_selfShadowThreshold: -0.14
   m_shadowRayOffset: 0.0001
   m_useCameraCullingMask: 1
-  m_useLightShadowSettings: 1
-  m_useLightCullingMask: 1
+  m_useLightShadowSettings: 0
+  m_useLightCullingMask: 0
   m_setLightIndexToAlpha: 1
   m_useObjectShadowSettings: 1
   m_lightScope: 0
@@ -1060,9 +1101,13 @@ MonoBehaviour:
   m_lightObjects:
   - {fileID: 79344013}
   m_geometryScope: 0
-  m_geometryScenes: []
+  m_geometryScenes:
+  - {fileID: 0}
+  - {fileID: 0}
   m_showPreviewInSceneView: 1
-  m_geometryScenePaths: []
+  m_geometryScenePaths:
+  - 
+  - 
   m_geometryObjects: []
   m_GPUSkinning: 1
   m_adaptiveSampling: 0
