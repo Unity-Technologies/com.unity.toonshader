@@ -171,8 +171,10 @@ void Frag(PackedVaryingsToPS packedInput,
     float4 Set_UV0 = input.texCoord0;
 //    if (UseScreenSpaceShadow(light, bsdfData.normalWS))
     {
-       // shadow = GetScreenSpaceColorShadow(posInput, 0).SHADOW_TYPE_SWIZZLE;
-        shadow = LOAD_TEXTURE2D_X(_ScreenSpaceShadowsTexture,Set_UV0.xy);
+        //  shadow = GetScreenSpaceColorShadow(posInput, 0).SHADOW_TYPE_SWIZZLE;
+       //shadow = LOAD_TEXTURE2D_X(_ScreenSpaceShadowsTexture,Set_UV0.xy);
+       shadow = LOAD_TEXTURE2D_ARRAY(_ScreenSpaceShadowsTexture, Set_UV0.xy,0).r;
+
     }
     outColor = outResult;
     outColor.xyz *= shadow;
