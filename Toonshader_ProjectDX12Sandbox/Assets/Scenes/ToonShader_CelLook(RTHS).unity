@@ -363,42 +363,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!84 &362839801
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: RaytracedHardShadow
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_IsAlphaChannelOptional: 0
-  serializedVersion: 3
-  m_Width: 1562
-  m_Height: 1431
-  m_AntiAliasing: 1
-  m_MipCount: -1
-  m_DepthFormat: 0
-  m_ColorFormat: 45
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_EnableCompatibleFormat: 1
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1001 &474156922
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -416,7 +380,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1229443725375378, guid: 705cdfbbbed449efa36cdd1e2ab6ef97, type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1348741524522182, guid: 705cdfbbbed449efa36cdd1e2ab6ef97, type: 3}
       propertyPath: m_Name
@@ -424,7 +388,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1590974229819140, guid: 705cdfbbbed449efa36cdd1e2ab6ef97, type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1590974229819140, guid: 705cdfbbbed449efa36cdd1e2ab6ef97, type: 3}
       propertyPath: m_IsActive
@@ -440,7 +404,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1973451554856924, guid: 705cdfbbbed449efa36cdd1e2ab6ef97, type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1973451554856924, guid: 705cdfbbbed449efa36cdd1e2ab6ef97, type: 3}
       propertyPath: m_IsActive
@@ -552,6 +516,42 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 705cdfbbbed449efa36cdd1e2ab6ef97, type: 3}
+--- !u!84 &552743565
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: RaytracedHardShadow
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 3
+  m_Width: 1561
+  m_Height: 1431
+  m_AntiAliasing: 1
+  m_MipCount: -1
+  m_DepthFormat: 0
+  m_ColorFormat: 45
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_EnableCompatibleFormat: 1
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1 &694067455
 GameObject:
   m_ObjectHideFlags: 0
@@ -641,7 +641,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 1.5687518e-28, z: 4.5904e-41, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: 0.000000022601768, z: 8.5e-43, w: 1.7578697e-16}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -1010,7 +1010,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_generateRenderTexture: 1
   m_outputType: 0
-  m_outputTexture: {fileID: 362839801}
+  m_outputTexture: {fileID: 552743565}
   m_assignGlobalTexture: 1
   m_globalTextureName: _RaytracedHardShadow
   m_cullBackFaces: 1
@@ -1233,7 +1233,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7bbfa63eb3f4054f9140fb0c238aba4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_enableDebugging: 0
+  m_enableShadowmapDebugging: 0
+  m_enableOutlineDebugging: 0
 --- !u!1 &1076450055
 GameObject:
   m_ObjectHideFlags: 0

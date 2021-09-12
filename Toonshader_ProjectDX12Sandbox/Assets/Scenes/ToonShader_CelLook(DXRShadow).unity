@@ -594,13 +594,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 694067455}
-  m_LocalRotation: {x: 0.61405927, y: 0.6213673, z: -0.34386292, w: 0.34437233}
+  m_LocalRotation: {x: 0.49321604, y: 0.7204588, z: -0.40228453, w: 0.2753984}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1521128765}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 58.24, y: 179.384, z: 88.979004}
+  m_LocalEulerAnglesHint: {x: 58.3556, y: 180, z: 68.79}
 --- !u!108 &694067458
 Light:
   m_ObjectHideFlags: 0
@@ -662,7 +662,7 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
-  m_ShadowAngle: 0
+  m_ShadowAngle: 0.09
 --- !u!114 &694067459
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -713,7 +713,7 @@ MonoBehaviour:
   m_AreaLightShadowCone: 120
   m_UseScreenSpaceShadows: 1
   m_InteractsWithSky: 1
-  m_AngularDiameter: 0
+  m_AngularDiameter: 0.09
   m_FlareSize: 2
   m_FlareTint: {r: 1, g: 1, b: 1, a: 1}
   m_FlareFalloff: 4
@@ -744,7 +744,7 @@ MonoBehaviour:
   m_MaxDepthBias: 0.001
   m_ShadowResolution:
     m_Override: 512
-    m_UseOverride: 1
+    m_UseOverride: 0
     m_Level: 0
   m_ShadowDimmer: 1
   m_VolumetricShadowDimmer: 1
@@ -836,7 +836,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_enableShadowmapDebugging: 1
-  m_enableOutlineDebugging: 1
+  m_enableOutlineDebugging: 0
 --- !u!20 &794565945
 Camera:
   m_ObjectHideFlags: 0

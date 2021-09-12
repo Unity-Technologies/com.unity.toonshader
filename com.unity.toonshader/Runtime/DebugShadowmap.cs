@@ -18,9 +18,9 @@ namespace Unity.Rendering.Toon
         bool m_initialized = false;
         bool m_srpCallbackInitialized = false;
         [SerializeField]
-        bool m_enableShadowmapDebugging = false;
+        internal bool m_enableShadowmapDebugging = false;
         [SerializeField]
-        bool m_enableOutlineDebugging = false;
+        internal bool m_enableOutlineDebugging = false;
         const int kAdjustmentCurvePrecision = 128;
 
   
