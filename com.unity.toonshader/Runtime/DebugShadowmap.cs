@@ -20,13 +20,15 @@ namespace Unity.Rendering.Toon
         [SerializeField]
         internal bool m_enableShadowmapDebugging = false;
         [SerializeField]
+        internal bool m_enableBinalization = false;
+        [SerializeField]
         internal bool m_enableOutlineDebugging = false;
-        const int kAdjustmentCurvePrecision = 128;
+
 
   
         const string kDebugDefine = "UTS_DEBUG_SHADOWMAP";
         const string kDebugDefineNoOutline = "UTS_DEBUG_SHADOWMAP_NO_OUTLINE";
-
+        const string kDebugDefineBinalization = "UTS_DEBUG_SHADOWMAP_BINALIZATION";
         private static DebugShadowmap instance;
 #if UNITY_EDITOR
 #pragma warning restore CS0414
@@ -101,6 +103,16 @@ namespace Unity.Rendering.Toon
         {
             Shader.DisableKeyword(kDebugDefineNoOutline);
         }
+
+        void EnableBinalizationKeyword()
+        {
+            Shader.EnableKeyword(kDebugDefineBinalization);
+        }
+        void DisableBinalizationKeyword()
+        {
+            Shader.DisableKeyword(kDebugDefineBinalization);
+        }
+
         void EnableSrpCallbacks()
         {
 
@@ -159,6 +171,14 @@ namespace Unity.Rendering.Toon
             else
             {
                 DisableOutlineKeyword();
+            }
+            if (m_enableBinalization)
+            {
+                EnableBinalizationKeyword();
+            }
+            else
+            {
+                DisableBinalizationKeyword();
             }
         }
         void Initialize()

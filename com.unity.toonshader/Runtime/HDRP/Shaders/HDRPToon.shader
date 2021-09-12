@@ -880,7 +880,6 @@ Shader "HDRP/Toon"
             ZTest [_ZTestTransparent]
 
             HLSLPROGRAM
-
             #pragma multi_compile _ DEBUG_DISPLAY
             #pragma multi_compile _ LIGHTMAP_ON
             #pragma multi_compile _ DIRLIGHTMAP_COMBINED
@@ -948,7 +947,7 @@ Shader "HDRP/Toon"
 
 
             HLSLPROGRAM
-
+            #pragma multi_compile _ UTS_DEBUG_SHADOWMAP_BINALIZATION
             #pragma multi_compile _ DEBUG_DISPLAY
             #pragma multi_compile _ LIGHTMAP_ON
             #pragma multi_compile _ DIRLIGHTMAP_COMBINED

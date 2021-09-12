@@ -549,7 +549,7 @@ Shader "HDRP/ToonTessellation"
 
     // enable debug shadowmap
     #pragma multi_compile _ UTS_DEBUG_SHADOWMAP
-
+    #pragma multi_compile _ UTS_DEBUG_SHADOWMAP_NO_OUTLINE
     //-------------------------------------------------------------------------------------
     // Define
     //-------------------------------------------------------------------------------------
@@ -769,7 +769,6 @@ Shader "HDRP/ToonTessellation"
             // In forward it output the normal buffer
             #pragma multi_compile _ WRITE_NORMAL_BUFFER
             #pragma multi_compile _ WRITE_MSAA_DEPTH
-
             #define SHADERPASS SHADERPASS_DEPTH_ONLY
             #include "Packages/com.unity.render-pipelines.high-definition/Runtime/Material/Lit/Lit.hlsl"
 
@@ -972,6 +971,7 @@ Shader "HDRP/ToonTessellation"
 
             HLSLPROGRAM
 
+            #pragma multi_compile _ UTS_DEBUG_SHADOWMAP_BINALIZATION
             #pragma multi_compile _ DEBUG_DISPLAY
             #pragma multi_compile _ LIGHTMAP_ON
             #pragma multi_compile _ DIRLIGHTMAP_COMBINED

@@ -13,6 +13,7 @@ namespace UnityEditor.Rendering.Toon
         public override void OnInspectorGUI()
         {
             const string labelDebugShadowmap = "Show Shadowmap";
+            const string labelBinalization = "Binalization";
             const string labelNoOutline = "No Outline";
 
 
@@ -36,9 +37,21 @@ namespace UnityEditor.Rendering.Toon
             EditorGUI.BeginDisabledGroup(!obj.m_enableShadowmapDebugging);
             {
                 EditorGUI.indentLevel++;
+
                 EditorGUILayout.BeginHorizontal();
+                EditorGUI.BeginChangeCheck();
+                bool binalization = EditorGUILayout.Toggle(labelBinalization, obj.m_enableBinalization);
+
+                if (EditorGUI.EndChangeCheck())
+                {
+                    Undo.RecordObject(target, "Changed Binalization flag");
+                    obj.m_enableBinalization = binalization;
+                    isChanged = true;
+                }
+                EditorGUILayout.EndHorizontal();
 
 
+                EditorGUILayout.BeginHorizontal();
                 EditorGUI.BeginChangeCheck();
                 bool showOutline = EditorGUILayout.Toggle(labelNoOutline, obj.m_enableOutlineDebugging);
 

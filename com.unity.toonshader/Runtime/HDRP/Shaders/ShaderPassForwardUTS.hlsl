@@ -606,7 +606,11 @@ void Frag(PackedVaryingsToPS packedInput,
 #endif //#if defined(_SHADINGGRADEMAP)
 
 #ifdef UTS_DEBUG_SHADOWMAP
+ #ifdef UTS_DEBUG_SHADOWMAP_BINALIZATION
+    outColor.rgb = context.shadowValue < 0.9f ? 0.0 : 1.0f;
+ #else
     outColor.rgb = context.shadowValue;
+ #endif
 #endif
 
 #ifdef _DEPTHOFFSET_ON
