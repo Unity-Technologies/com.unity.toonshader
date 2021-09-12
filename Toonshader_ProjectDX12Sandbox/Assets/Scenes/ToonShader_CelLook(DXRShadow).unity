@@ -720,7 +720,7 @@ MonoBehaviour:
   m_SurfaceTexture: {fileID: 0}
   m_SurfaceTint: {r: 1, g: 1, b: 1, a: 1}
   m_Distance: 1.5e+11
-  m_UseRayTracedShadows: 0
+  m_UseRayTracedShadows: 1
   m_NumRayTracingSamples: 4
   m_FilterTracedShadow: 0
   m_FilterSizeTraced: 16
@@ -836,7 +836,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_enableShadowmapDebugging: 1
-  m_enableBinalization: 1
+  m_enableBinalization: 0
   m_enableOutlineDebugging: 0
 --- !u!20 &794565945
 Camera:
