@@ -534,6 +534,9 @@ Shader "HDRP/Toon"
     //enable GPU instancing support
     #pragma multi_compile_instancing
     #pragma instancing_options renderinglayer
+    // enable debug shadowmap
+    #pragma multi_compile _ UTS_DEBUG_SHADOWMAP 
+    #pragma multi_compile _ UTS_DEBUG_SHADOWMAP_NO_OUTLINE
 
     //-------------------------------------------------------------------------------------
     // Define
@@ -1067,6 +1070,7 @@ Shader "HDRP/Toon"
             #pragma multi_compile _IS_OUTLINE_CLIPPING_NO _IS_OUTLINE_CLIPPING_YES
             #pragma multi_compile _OUTLINE_NML _OUTLINE_POS
             #pragma shader_feature _ _IS_CLIPPING_MATTE
+            #pragma multi_compile _ UTS_DEBUG_SHADOWMAP_NO_OUTLINE
             #include "Packages/com.unity.render-pipelines.high-definition/Runtime/Material/Material.hlsl"
             #include "Packages/com.unity.render-pipelines.high-definition/Runtime/Lighting/Lighting.hlsl"
 

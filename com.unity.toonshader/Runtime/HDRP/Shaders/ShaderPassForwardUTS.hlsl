@@ -113,6 +113,8 @@ float ApplyChannelAlpha( float alpha)
 uniform sampler2D _RaytracedHardShadow;
 float4 _RaytracedHardShadow_TexelSize;
 
+
+
 void Frag(PackedVaryingsToPS packedInput,
 #ifdef OUTPUT_SPLIT_LIGHTING
     out float4 outColor : SV_Target0,  // outSpecularLighting
@@ -260,7 +262,7 @@ void Frag(PackedVaryingsToPS packedInput,
         int mainLightIndex = GetUtsMainLightIndex(builtinData);
         if ( mainLightIndex >= 0)
         {
-#if defined(_SHADINGGRADEMAP)
+#if defined(_SHADINGGRADEMAP)|| defined(UTS_DEBUG_SHADOWMAP)
 			finalColor = UTS_MainLightShadingGrademap(context, input, mainLightIndex, inverseClipping, channelAlpha, utsData);
 #else
 			finalColor = UTS_MainLight(context, input, mainLightIndex, inverseClipping, channelAlpha, utsData);
@@ -282,7 +284,7 @@ void Frag(PackedVaryingsToPS packedInput,
                     float3 lightDirection = -_DirectionalLightDatas[i].forward;
                     float notDirectional = 0.0f;
 
-#if defined(_SHADINGGRADEMAP)
+#if defined(_SHADINGGRADEMAP)|| defined(UTS_DEBUG_SHADOWMAP)
                     float3 additionalLightColor = UTS_OtherLightsShadingGrademap(input, i_normalDir, lightColor, lightDirection, notDirectional, channelAlpha);
 
 #else
@@ -501,7 +503,7 @@ void Frag(PackedVaryingsToPS packedInput,
                     float3 additionalLightColor = ApplyCurrentExposureMultiplier(s_lightData.color) * attenuation;
                     const float notDirectional = 1.0f;
 
-#if defined(_SHADINGGRADEMAP)
+#if defined(_SHADINGGRADEMAP) || defined(UTS_DEBUG_SHADOWMAP)
                     float3 pointLightColor = UTS_OtherLightsShadingGrademap(input, i_normalDir, additionalLightColor, L, notDirectional, channelAlpha);
 #else
                     float3 pointLightColor = UTS_OtherLights(input, i_normalDir, additionalLightColor, L, notDirectional, channelAlpha);
@@ -570,7 +572,8 @@ void Frag(PackedVaryingsToPS packedInput,
     finalColorWoEmissive = GetExposureAdjustedColor(finalColorWoEmissive );
     finalColor = finalColorWoEmissive + emissive;
 
-#if defined(_SHADINGGRADEMAP)
+
+#if defined(_SHADINGGRADEMAP) || defined(UTS_DEBUG_SHADOWMAP)
     //v.2.0.4
   #ifdef _IS_TRANSCLIPPING_OFF
 
@@ -584,7 +587,7 @@ void Frag(PackedVaryingsToPS packedInput,
   #endif
 
 #else //#if defined(_SHADINGGRADEMAP)
-
+  
   #ifdef _IS_CLIPPING_OFF
     //DoubleShadeWithFeather
 
@@ -600,8 +603,12 @@ void Frag(PackedVaryingsToPS packedInput,
     float Set_Opacity = SATURATE_IF_SDR((inverseClipping + _Tweak_transparency));
     outColor = float4(finalColor, Set_Opacity * ApplyChannelAlpha(channelAlpha));
   #endif
-
 #endif //#if defined(_SHADINGGRADEMAP)
+
+#ifdef UTS_DEBUG_SHADOWMAP
+    outColor.rgb = context.shadowValue;
+#endif
+
 #ifdef _DEPTHOFFSET_ON
     outputDepth = posInput.deviceDepth;
 #endif
