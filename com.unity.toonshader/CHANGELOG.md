@@ -1,5 +1,5 @@
 # Changelog
-## [0.3.1-preview] - 2021-09-27	
+## [0.3.1-preview] - 2021-09-27
 * Nothing yet
 ## [0.3.0-preview] - 2021-09-16
 * HDRP: Fixed wiered steps when more than 3 point lights are in a scene.
