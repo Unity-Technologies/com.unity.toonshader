@@ -205,6 +205,7 @@ void Frag(PackedVaryingsToPS packedInput,
 #if defined(SCREEN_SPACE_SHADOWS_ON) && !defined(_SURFACE_TYPE_TRANSPARENT) && !defined(UTS_USE_RAYTRACING_SHADOW)
             if (UseScreenSpaceShadow(light, bsdfData.normalWS))
             {
+                // HDRP Contact Shadow
                 context.shadowValue = GetScreenSpaceColorShadow(posInput, light.screenSpaceShadowIndex).SHADOW_TYPE_SWIZZLE;
             }
             else
@@ -263,7 +264,8 @@ void Frag(PackedVaryingsToPS packedInput,
         if ( mainLightIndex >= 0)
         {
 #if defined(UTS_DEBUG_SELFSHADOW)
-            finalColor = UTS_SelfShdowMainLight(context, input, mainLightIndex, inverseClipping, channelAlpha, utsData);
+            if (_DirectionalShadowIndex >= 0)
+                finalColor = UTS_SelfShdowMainLight(context, input, _DirectionalShadowIndex);
 #elif defined(_SHADINGGRADEMAP)|| defined(UTS_DEBUG_SHADOWMAP) 
 			finalColor = UTS_MainLightShadingGrademap(context, input, mainLightIndex, inverseClipping, channelAlpha, utsData);
 #else

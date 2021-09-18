@@ -11,11 +11,11 @@
 # endif
 #endif
 
-float3 UTS_SelfShdowMainLight(LightLoopContext lightLoopContext, FragInputs input, int mainLightIndex, out float inverseClipping, out float channelOutAlpha, out UTSData utsData)
+float3 UTS_SelfShdowMainLight(LightLoopContext lightLoopContext, FragInputs input, int mainLightIndex)
 {
-    channelOutAlpha = 1.0f;
+
     uint2 tileIndex = uint2(input.positionSS.xy) / GetTileSize();
-    inverseClipping = 0;
+
     // input.positionSS is SV_Position
     PositionInputs posInput = GetPositionInput(input.positionSS.xy, _ScreenSize.zw, input.positionSS.z, input.positionSS.w, input.positionRWS.xyz, tileIndex);
 
@@ -42,10 +42,10 @@ float3 UTS_SelfShdowMainLight(LightLoopContext lightLoopContext, FragInputs inpu
     //    float3 _NormalMap_var = UnpackNormalScale(tex2D(_NormalMap, TRANSFORM_TEX(Set_UV0, _NormalMap)), _BumpScale);
     float3 _NormalMap_var = UnpackNormalScale(n, _BumpScale);
     float3 normalLocal = _NormalMap_var.rgb;
-    utsData.normalDirection = normalize(mul(normalLocal, tangentTransform)); // Perturbed normals
+
 
     float3 i_normalDir = surfaceData.normalWS;
-    utsData.viewDirection = V;
+
     /* to here todo. these should be put int a struct */
 
 
@@ -74,11 +74,9 @@ float3 UTS_SelfShdowMainLight(LightLoopContext lightLoopContext, FragInputs inpu
     float Set_FinalShadowMask = saturate(1.0 + (-lambert) / (baseColorStep));
 
     float3 Set_FinalBaseColor = 1 - Set_FinalShadowMask;
-    channelOutAlpha = 1-Set_FinalShadowMask;
 
-    utsData.signMirror = 0.0; // i.mirrorFlag; todo.
-    utsData.cameraRoll = 0.0;
-    utsData.cameraDir = -1;
+
+
     return Set_FinalBaseColor;
 
 
