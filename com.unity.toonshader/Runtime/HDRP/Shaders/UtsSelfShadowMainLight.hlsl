@@ -44,12 +44,9 @@ float3 UTS_SelfShdowMainLight(LightLoopContext lightLoopContext, FragInputs inpu
     float3 normalLocal = _NormalMap_var.rgb;
     utsData.normalDirection = normalize(mul(normalLocal, tangentTransform)); // Perturbed normals
 
-    float4 _MainTex_var = 1.0; //  SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex));
     float3 i_normalDir = surfaceData.normalWS;
     utsData.viewDirection = V;
     /* to here todo. these should be put int a struct */
-
-
 
 
     float shadowAttenuation = (float)lightLoopContext.shadowValue;
@@ -64,50 +61,20 @@ float3 UTS_SelfShdowMainLight(LightLoopContext lightLoopContext, FragInputs inpu
     float3 customLightDirection = normalize(mul(UNITY_MATRIX_M, float4(((float3(1.0, 0.0, 0.0) * _Offset_X_Axis_BLD * 10) + (float3(0.0, 1.0, 0.0) * _Offset_Y_Axis_BLD * 10) + (float3(0.0, 0.0, -1.0) * lerp(-1.0, 1.0, _Inverse_Z_Axis_BLD))), 0)).xyz);
     float3 lightDirection = normalize(lerp(defaultLightDirection, mainLihgtDirection.xyz, any(mainLihgtDirection.xyz)));
     lightDirection = lerp(lightDirection, customLightDirection, _Is_BLD);
-    float3 originalLightColor = mainLightColor;
-
-    originalLightColor = lerp(originalLightColor, clamp(originalLightColor, ConvertFromEV100(_ToonEvAdjustmentValueMin), ConvertFromEV100(_ToonEvAdjustmentValueMax)), _ToonEvAdjustmentCurve);
-    float3 lightColor = lerp(max(defaultLightColor, originalLightColor), max(defaultLightColor, saturate(originalLightColor)), max(_Is_Filter_LightColor, _ToonLightHiCutFilter));
-
 
     ////// Lighting:
-    float3 halfDirection = normalize(utsData.viewDirection + lightDirection);
-    //v.2.0.5
-    _Color = _BaseColor;
-    float3 Set_LightColor = lightColor.rgb;
-    float3 Set_BaseColor = lerp((_MainTex_var.rgb * _BaseColor.rgb), ((_MainTex_var.rgb * _BaseColor.rgb) * Set_LightColor), _Is_LightColor_Base);
-    float3 clippingColor = float3(1.0f, 1.0f, 1.0f);
 
 
-    //v.2.0.5
-    float4 _1st_ShadeMap_var = float4(0.0, 0.0, 0.0, 1.0);
-    Set_LightColor = 0.0;
-    float3 Set_1st_ShadeColor = lerp((_1st_ShadeColor.rgb * _1st_ShadeMap_var.rgb), ((_1st_ShadeColor.rgb * _1st_ShadeMap_var.rgb) * Set_LightColor), _Is_LightColor_1st_Shade);
 
-
-    //v.2.0.5
-    float4 _2nd_ShadeMap_var = float4(0.0, 0.0, 0.0, 1.0);
-    float3 Set_2nd_ShadeColor = lerp((_2nd_ShadeColor.rgb * _2nd_ShadeMap_var.rgb), ((_2nd_ShadeColor.rgb * _2nd_ShadeMap_var.rgb) * Set_LightColor), _Is_LightColor_2nd_Shade);
 //    float _HalfLambert_var = 0.5 * dot(lerp(i_normalDir, utsData.normalDirection, _Is_NormalMapToBase), lightDirection) + 0.5;
-    float _HalfLambert_var =dot(i_normalDir, lightDirection);
-    float4 _Set_2nd_ShadePosition_var = 1.0; // tex2D(_Set_2nd_ShadePosition, TRANSFORM_TEX(Set_UV0, _Set_2nd_ShadePosition));
-    float4 _Set_1st_ShadePosition_var = 1.0; // tex2D(_Set_1st_ShadePosition, TRANSFORM_TEX(Set_UV0, _Set_1st_ShadePosition));
+    float lambert = dot(i_normalDir, lightDirection);
 
 
-    float _2ndColorFeatherForMask = 0; // lerp(_1st2nd_Shades_Feather, 0.0f, max(_SecondShadeOverridden, _ComposerMaskMode));
-    
-    _BaseColor_Step = 0.00001;
-    _ShadeColor_Step = 0;
-    //v.2.0.6
-    //Minmimum value is same as the Minimum Feather's value with the Minimum Step's value as threshold.
-    float Set_FinalShadowMask = saturate((1.0 + (_HalfLambert_var * ( - _Set_1st_ShadePosition_var.r )) / (_BaseColor_Step )));
-    //
-    //Composition: 3 Basic Colors as Set_FinalBaseColor
-    float Set_BaseColorAlpha = 1.0;
-    float Set_1st_ShadeAlpha = 1.0;
-    float Set_2nd_ShadeAlpha = 1.0;
-    float3 Set_FinalBaseColor = lerp(Set_BaseColor, lerp(Set_1st_ShadeColor, Set_2nd_ShadeColor, saturate((1.0 + ((_HalfLambert_var - (_ShadeColor_Step - _2ndColorFeatherForMask)) * ((1.0 - _Set_2nd_ShadePosition_var.rgb).r - 1.0)) / (_ShadeColor_Step - (_ShadeColor_Step - _2ndColorFeatherForMask))))), Set_FinalShadowMask); // Final Color
-    channelOutAlpha = lerp(Set_BaseColorAlpha, lerp(Set_1st_ShadeAlpha, Set_2nd_ShadeAlpha, saturate((1.0 + ((_HalfLambert_var - (_ShadeColor_Step - _2ndColorFeatherForMask)) * ((1.0 - _Set_2nd_ShadePosition_var.rgb).r - 1.0)) / (_ShadeColor_Step - (_ShadeColor_Step - _2ndColorFeatherForMask))))), Set_FinalShadowMask);
+    float baseColorStep = 0.00001;
+    float Set_FinalShadowMask = saturate(1.0 + (-lambert) / (baseColorStep));
+
+    float3 Set_FinalBaseColor = 1 - Set_FinalShadowMask;
+    channelOutAlpha = 1-Set_FinalShadowMask;
 
     utsData.signMirror = 0.0; // i.mirrorFlag; todo.
     utsData.cameraRoll = 0.0;
