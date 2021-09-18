@@ -262,7 +262,9 @@ void Frag(PackedVaryingsToPS packedInput,
         int mainLightIndex = GetUtsMainLightIndex(builtinData);
         if ( mainLightIndex >= 0)
         {
-#if defined(_SHADINGGRADEMAP)|| defined(UTS_DEBUG_SHADOWMAP)
+#if defined(UTS_DEBUG_SELFSHADOW)
+            finalColor = UTS_SelfShdowMainLight(context, input, mainLightIndex, inverseClipping, channelAlpha, utsData);
+#elif defined(_SHADINGGRADEMAP)|| defined(UTS_DEBUG_SHADOWMAP) 
 			finalColor = UTS_MainLightShadingGrademap(context, input, mainLightIndex, inverseClipping, channelAlpha, utsData);
 #else
 			finalColor = UTS_MainLight(context, input, mainLightIndex, inverseClipping, channelAlpha, utsData);
@@ -283,14 +285,15 @@ void Frag(PackedVaryingsToPS packedInput,
                     float3 lightColor = ApplyCurrentExposureMultiplier(_DirectionalLightDatas[i].color);
                     float3 lightDirection = -_DirectionalLightDatas[i].forward;
                     float notDirectional = 0.0f;
+#if defined(UTS_DEBUG_SELFSHADOW)
 
-#if defined(_SHADINGGRADEMAP)|| defined(UTS_DEBUG_SHADOWMAP)
-                    float3 additionalLightColor = UTS_OtherLightsShadingGrademap(input, i_normalDir, lightColor, lightDirection, notDirectional, channelAlpha);
+#elif defined(_SHADINGGRADEMAP)|| defined(UTS_DEBUG_SHADOWMAP)
 
+                    finalColor += UTS_OtherLightsShadingGrademap(input, i_normalDir, lightColor, lightDirection, notDirectional, channelAlpha);
 #else
-                    float3 additionalLightColor = UTS_OtherLights(input, i_normalDir, lightColor, lightDirection, notDirectional, channelAlpha);
+                    finalColor += UTS_OtherLights(input, i_normalDir, lightColor, lightDirection, notDirectional, channelAlpha);
 #endif
-                    finalColor += additionalLightColor;
+
                 }
             }
         }
@@ -502,21 +505,13 @@ void Frag(PackedVaryingsToPS packedInput,
                         s_lightData.angleScale, s_lightData.angleOffset);
                     float3 additionalLightColor = ApplyCurrentExposureMultiplier(s_lightData.color) * attenuation;
                     const float notDirectional = 1.0f;
+#if defined(UTS_DEBUG_SELFSHADOW)
 
-#if defined(_SHADINGGRADEMAP) || defined(UTS_DEBUG_SHADOWMAP)
-                    float3 pointLightColor = UTS_OtherLightsShadingGrademap(input, i_normalDir, additionalLightColor, L, notDirectional, channelAlpha);
+#elif defined(_SHADINGGRADEMAP) || defined(UTS_DEBUG_SHADOWMAP) 
+                    finalColor += UTS_OtherLightsShadingGrademap(input, i_normalDir, additionalLightColor, L, notDirectional, channelAlpha);
 #else
-                    float3 pointLightColor = UTS_OtherLights(input, i_normalDir, additionalLightColor, L, notDirectional, channelAlpha);
+                    finalColor += UTS_OtherLights(input, i_normalDir, additionalLightColor, L, notDirectional, channelAlpha);
 #endif
-
-//#if USE_FPTL_LIGHTLIST
-//                    pointLightColor = float3(tileIndex.xy/30, 0.0);
-//#endif
-//#if USE_CLUSTERED_LIGHTLIST
-//                    pointLightColor = float3(0.0f, 0.0, 1.0);
-//#endif
-                    finalColor += pointLightColor;
-
                 }
 
             }
@@ -573,7 +568,7 @@ void Frag(PackedVaryingsToPS packedInput,
     finalColor = finalColorWoEmissive + emissive;
 
 
-#if defined(_SHADINGGRADEMAP) || defined(UTS_DEBUG_SHADOWMAP)
+#if defined(_SHADINGGRADEMAP) || defined(UTS_DEBUG_SHADOWMAP) || defined(UTS_DEBUG_SELFSHADOW)
     //v.2.0.4
   #ifdef _IS_TRANSCLIPPING_OFF
 
@@ -605,13 +600,20 @@ void Frag(PackedVaryingsToPS packedInput,
   #endif
 #endif //#if defined(_SHADINGGRADEMAP)
 
-#ifdef UTS_DEBUG_SHADOWMAP
- #ifdef UTS_DEBUG_SHADOWMAP_BINALIZATION
-    outColor.rgb = context.shadowValue < 0.9f ? clamp(context.shadowValue - 0.2,0.0, 0.9) : 1.0f;
- #else
-    outColor.rgb = context.shadowValue;
+#if defined(UTS_DEBUG_SHADOWMAP) || defined(UTS_DEBUG_SELFSHADOW)
+    outColor.rgb = 1;
+ #ifdef UTS_DEBUG_SELFSHADOW
+    outColor.rgb = min(finalColor, outColor.rgb);
  #endif
-#endif
+
+ #ifdef UTS_DEBUG_SHADOWMAP
+  #ifdef UTS_DEBUG_SHADOWMAP_BINALIZATION
+    outColor.rgb = min(context.shadowValue < 0.9f ? clamp(context.shadowValue - 0.2, 0.0, 0.9) : 1.0f, outColor.rgb);
+  #else
+    outColor.rgb = min(context.shadowValue, outColor.rgb);
+  #endif
+ #endif // ifdef UTS_DEBUG_SHADOWMAP
+#endif // defined(UTS_DEBUG_SHADOWMAP) || defined(UTS_DEBUG_SELFSHADOW)
 
 #ifdef _DEPTHOFFSET_ON
     outputDepth = posInput.deviceDepth;
