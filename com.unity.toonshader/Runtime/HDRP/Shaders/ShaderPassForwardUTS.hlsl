@@ -203,8 +203,7 @@ void Frag(PackedVaryingsToPS packedInput,
         {
             DirectionalLightData light = _DirectionalLightDatas[_DirectionalShadowIndex];
 #if defined(SCREEN_SPACE_SHADOWS_ON) && !defined(_SURFACE_TYPE_TRANSPARENT) && !defined(UTS_USE_RAYTRACING_SHADOW)
-            //if (UseScreenSpaceShadow(light, bsdfData.normalWS)) // todo. when ignore self shadow is neccessary?
-            if (1)
+            if (UseScreenSpaceShadow(light, bsdfData.normalWS))
             {
                 // HDRP Contact Shadow
                 context.shadowValue = GetScreenSpaceColorShadow(posInput, light.screenSpaceShadowIndex).SHADOW_TYPE_SWIZZLE;
