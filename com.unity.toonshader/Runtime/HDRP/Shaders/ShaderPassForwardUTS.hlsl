@@ -103,6 +103,7 @@ float ApplyChannelAlpha( float alpha)
 
 bool UtsUseScreenSpaceShadow(DirectionalLightData light, float3 normalWS)
 {
+#if defined(RAY_TRACED_SCREEN_SPACE_SHADOW_FLAG)
     // Two different options are possible here
     // - We have a ray trace shadow in which case we have no valid signal for a transmission and we need to fallback on the rasterized shadow
     // - We have a screen space shadow and it already contains the transmission shadow and we can use it straight away
@@ -110,6 +111,9 @@ bool UtsUseScreenSpaceShadow(DirectionalLightData light, float3 normalWS)
     bool validScreenSpaceShadow = (light.screenSpaceShadowIndex & SCREEN_SPACE_SHADOW_INDEX_MASK) != INVALID_SCREEN_SPACE_SHADOW;
     bool rayTracedShadow = (light.screenSpaceShadowIndex & RAY_TRACED_SCREEN_SPACE_SHADOW_FLAG) != 0;
     return (validScreenSpaceShadow && ((rayTracedShadow && visibleLight) || !rayTracedShadow));
+#else
+    return ( (light.screenSpaceShadowIndex & SCREEN_SPACE_SHADOW_INDEX_MASK) != INVALID_SCREEN_SPACE_SHADOW);
+#endif    
 }
 
 #ifdef UNITY_VIRTUAL_TEXTURING
