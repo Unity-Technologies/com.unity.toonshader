@@ -305,13 +305,17 @@ void Frag(PackedVaryingsToPS packedInput,
         if ( mainLightIndex >= 0)
         {
             DirectionalLightData lightData = _DirectionalLightDatas[mainLightIndex];
+            float3 lightColor = ApplyCurrentExposureMultiplier(lightData.color);
+            float3 lightDirection = -lightData.forward;
+
+                
 #if defined(UTS_DEBUG_SELFSHADOW)
             if (_DirectionalShadowIndex >= 0)
                 finalColor = UTS_SelfShdowMainLight(context, input, _DirectionalShadowIndex);
 #elif defined(_SHADINGGRADEMAP)|| defined(UTS_DEBUG_SHADOWMAP) 
-			finalColor = UTS_MainLightShadingGrademap(context, input, lightData, inverseClipping, channelAlpha, utsData);
+			finalColor = UTS_MainLightShadingGrademap(context, input, lightDirection, lightColor, inverseClipping, channelAlpha, utsData);
 #else
-			finalColor = UTS_MainLight(context, input, lightData, inverseClipping, channelAlpha, utsData);
+			finalColor = UTS_MainLight(context, input, lightDirection, lightColor, inverseClipping, channelAlpha, utsData);
 #endif
         }
 
@@ -409,15 +413,29 @@ void Frag(PackedVaryingsToPS packedInput,
                         s_lightData.angleScale, s_lightData.angleOffset);
                     float3 additionalLightColor = ApplyCurrentExposureMultiplier(s_lightData.color) * attenuation;
                     const float notDirectional = 1.0f;
+
+                    float3 lightColor = ApplyCurrentExposureMultiplier(s_lightData.color);
+                    float3 lightDirection = -s_lightData.forward;
+
 #if defined(UTS_DEBUG_SELFSHADOW)
 
 #elif defined(_SHADINGGRADEMAP) || defined(UTS_DEBUG_SHADOWMAP) 
+                    if (mainLightIndex == -1 && s_lightData.lightType == GPULIGHTTYPE_PROJECTOR_BOX)
+                    {
 
-                    finalColor += UTS_OtherLightsShadingGrademap(input, i_normalDir, additionalLightColor, L, notDirectional, channelAlpha);
+                        finalColor += UTS_MainLightShadingGrademap(context, input, lightDirection, lightColor, inverseClipping, channelAlpha, utsData);
+                    }
+                    else
+                    {
+                        finalColor += UTS_OtherLightsShadingGrademap(input, i_normalDir, additionalLightColor, L, notDirectional, channelAlpha);
+                    }
+
+
 #else
                     if (mainLightIndex == -1 && s_lightData.lightType == GPULIGHTTYPE_PROJECTOR_BOX)
                     {
-                        finalColor = float3(1.0f, 0.0f, 0.0f);
+
+                        finalColor += UTS_MainLight(context, input, lightDirection, lightColor, inverseClipping, channelAlpha, utsData);
                     }
                     else
                     {

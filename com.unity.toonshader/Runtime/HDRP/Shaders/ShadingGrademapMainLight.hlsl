@@ -11,7 +11,7 @@
 # endif
 #endif
 
-float3 UTS_MainLightShadingGrademap(LightLoopContext lightLoopContext, FragInputs input, DirectionalLightData lightData, out float inverseClipping, out float channelOutAlpha, out UTSData utsData)
+float3 UTS_MainLightShadingGrademap(LightLoopContext lightLoopContext, FragInputs input, float3 mainLihgtDirection, float3 mainLightColor, out float inverseClipping, out float channelOutAlpha, out UTSData utsData)
 {
     channelOutAlpha = 1.0f;
 
@@ -67,9 +67,6 @@ float3 UTS_MainLightShadingGrademap(LightLoopContext lightLoopContext, FragInput
 
     DirectionalShadowType shadowAttenuation = lightLoopContext.shadowValue;
 
-
-    float3 mainLihgtDirection = -lightData.forward;
-    float3 mainLightColor = ApplyCurrentExposureMultiplier(lightData.color);
 
 
     //v.2.0.4
