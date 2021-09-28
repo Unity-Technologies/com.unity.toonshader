@@ -422,6 +422,8 @@ void Frag(PackedVaryingsToPS packedInput,
 #elif defined(_SHADINGGRADEMAP) || defined(UTS_DEBUG_SHADOWMAP) 
                     if (mainLightIndex == -1 && s_lightData.lightType == GPULIGHTTYPE_PROJECTOR_BOX)
                     {
+                        float shadow = EvaluateShadow_Punctual(context, posInput, s_lightData, builtinData, GetNormalForShadowBias(bsdfData), L, distances);
+                        context.shadowValue = shadow; // min(context.shadowValue, shadow); // ComputeShadowColor(shadow, s_lightData.shadowTint, s_lightData.penumbraTint);
 
                         finalColor += UTS_MainLightShadingGrademap(context, input, lightDirection, lightColor, inverseClipping, channelAlpha, utsData);
                     }
@@ -434,7 +436,8 @@ void Frag(PackedVaryingsToPS packedInput,
 #else
                     if (mainLightIndex == -1 && s_lightData.lightType == GPULIGHTTYPE_PROJECTOR_BOX)
                     {
-
+                        float shadow = EvaluateShadow_Punctual(context, posInput, s_lightData, builtinData, GetNormalForShadowBias(bsdfData), L, distances);
+                        context.shadowValue = shadow; // min(context.shadowValue, shadow); // ComputeShadowColor(shadow, s_lightData.shadowTint, s_lightData.penumbraTint);
                         finalColor += UTS_MainLight(context, input, lightDirection, lightColor, inverseClipping, channelAlpha, utsData);
                     }
                     else

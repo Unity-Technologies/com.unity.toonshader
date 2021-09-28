@@ -890,7 +890,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 794565941}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0.55, z: 1.6}
+  m_LocalPosition: {x: 0, y: 0.44, z: 1.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1318,7 +1318,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 3
+  m_RenderingLayerMask: 2147483649
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 0f2abcad49054d09a04ec7df9160c51c, type: 2}
@@ -1501,13 +1501,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1840857225}
-  m_LocalRotation: {x: 0, y: 0.97255504, z: -0.23267303, w: 0}
-  m_LocalPosition: {x: 0, y: 3.11, z: 3.05}
+  m_LocalRotation: {x: 0, y: 0.91143924, z: -0.41143477, w: 0}
+  m_LocalPosition: {x: 0, y: 2.96, z: 3.05}
   m_LocalScale: {x: 1.0000002, y: 1.0000005, z: 1}
   m_Children: []
   m_Father: {fileID: 1521128765}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 26.909, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 48.59, y: 180, z: 0}
 --- !u!108 &1840857227
 Light:
   m_ObjectHideFlags: 0
@@ -1520,7 +1520,7 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 2
+  m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1590,7 +1590,7 @@ MonoBehaviour:
   m_PointlightHDType: 0
   m_SpotLightShape: 2
   m_AreaLightShape: 0
-  m_Intensity: 2
+  m_Intensity: 1
   m_EnableSpotReflector: 0
   m_LuxAtDistance: 1
   m_InnerSpotPercent: 0
@@ -1651,8 +1651,8 @@ MonoBehaviour:
   m_MaxDepthBias: 0.001
   m_ShadowResolution:
     m_Override: 512
-    m_UseOverride: 1
-    m_Level: 0
+    m_UseOverride: 0
+    m_Level: 3
   m_ShadowDimmer: 1
   m_VolumetricShadowDimmer: 1
   m_ShadowFadeDistance: 10000
