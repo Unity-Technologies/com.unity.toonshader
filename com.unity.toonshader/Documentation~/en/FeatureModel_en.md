@@ -1,21 +1,21 @@
 | Feature Description 	| Feature Model 	| Min Legacy Ver 	| Min URP Ver 	| Min HDRP Ver 	| Note 	|
 |-	|-	|-	|-	|-	|-	|
-| **UTS Feature Model 3.0** 	|  	|  	|  	|  	| 2021/03/10 Ver. 	|
+| **UTS Feature Model 3.0** 	|  	|  	|  	|  	| 0.4.0-preview	|
 | ***1. Basic shader features*** 	|  	|  	|  	|  	|  	|
-| Double Shade With Feather Workflow 	| 2.0 	| 2.0.7 	| 2.2.0 	| Internal test 	|  	|
-| Shading Grade Map Workflow 	| 2.0 	| 2.0.7 	| 2.2.0 	| Internal test 	|  	|
-| Switch Culling Mode 	| 2.0 	| 2.0.7 	| 2.2.0 	| Internal test 	|  	|
-| Stencil Mask function 	| 2.0 	| 2.0.7 	| 2.2.0 	| N.A. 	|  	|
-| Stencil Out function 	| 2.0 	| 2.0.7 	| 2.2.0 	| N.A. 	|  	|
-| Custom stencil number 	| 2.0 	| 2.0.7 	| 2.2.0 	| N.A. 	|  	|
-| Clipping mask function. Tweak Clipping level 	| 2.0 	| 2.0.7 	| 2.2.0 	| Internal test 	|  	|
-| TransClipping function. Tweak TransClipping level 	| 2.0 	| 2.0.7 	| 2.2.0 	| Internal test 	|  	|
-| Inverse Clipping Mask 	| 2.0 	| 2.0.7 	| 2.2.0 	| Internal test 	|  	|
-| Use the alpha channel of Basemap as a Clipping mask 	| 2.0 	| 2.0.7 	| 2.2.0 	| Internal test 	|  	|
-| Transparent shader function. Tweak Transparency Level 	| 2.0 	| 2.0.7 	| 2.2.0 	| Internal test 	|  	|
-| Switch Current UI type 	| 2.0 	| 2.0.7 	| 2.2.0 	| Internal test 	|  	|
-| VRChat recommendation button 	| 2.0 	| 2.0.7 	| 2.2.0 	| Internal test 	|  	|
-| Remove Unused Keyword button 	| 2.0 	| 2.0.7 	| N.A. 	| N.A. 	|  	|
+| Double Shade With Feather Workflow 	| 2.0 	| OK 	| OK 	| OK 	|  	|
+| Shading Grade Map Workflow 	| 2.0 	| OK 	| OK	| OK 	|  	|
+| Switch Culling Mode 	| 2.0 	| OK 	| OK 	| OK 	|  	|
+| Stencil Mask function 	| 2.0 	| OK 	| OK 	| N.A. 	|  	|
+| Stencil Out function 	| 2.0 	| OK 	| OK 	| N.A. 	|  	|
+| Custom stencil number 	| 2.0 	| OK 	| OK 	| N.A. 	|  	|
+| Clipping mask function. Tweak Clipping level 	| 2.0 	| OK 	| OK 	| OK	|  	|
+| TransClipping function. Tweak TransClipping level 	| 2.0 	| OK 	|OK	| OK 	|  	|
+| Inverse Clipping Mask 	| 2.0 	| OK 	| OK 	| OK 	|  	|
+| Use the alpha channel of Basemap as a Clipping mask 	| 2.0 	| OK 	|OK	| OK	|  	|
+| Transparent shader function. Tweak Transparency Level 	| 2.0 	| OK 	| OK 	| OK 	|  	|
+| Switch Current UI type 	| 2.0 	| OK 	| OK	| OK 	|  	|
+| Gme recommendation button 	| 2.0 	| OK 	| OK 	| OK 	|  	|
+| Remove Unused Keyword button 	| 2.0 	|  N.A. 	| N.A. 	| N.A. 	|  	|
 | ***2. Basic Three Colors and Shadow Control Maps features*** 	|  	|  	|  	|  	|  	|
 | Set Base Map and Color.  Sharing the map with 1st Shade Map 	| 2.0 	| 2.0.7 	| 2.2.0 	| Internal test 	|  	|
 | Set 1st Shade Map and Color.  Sharing the map with 2nd Shade Map 	| 2.0 	| 2.0.7 	| 2.2.0 	| Internal test 	|  	|
