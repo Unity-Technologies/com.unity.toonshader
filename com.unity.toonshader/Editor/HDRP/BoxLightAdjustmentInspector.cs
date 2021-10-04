@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-using Unity.Rendering.HighDefinition.Toon;
+
 
 #if HDRP_IS_INSTALLED_FOR_UTS
-
+using Unity.Rendering.HighDefinition.Toon;
+using UnityEngine.Rendering.HighDefinition;
 
 
 namespace UnityEditor.Rendering.HighDefinition.Toon

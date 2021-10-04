@@ -29,13 +29,13 @@ namespace Unity.Rendering.HighDefinition.Toon
 
 
         [SerializeField]
-        public Light m_targetBoxLight;
+        internal Light m_targetBoxLight;
 
         [SerializeField]
-        public bool  m_followGameObjectPosition = true;
+        internal bool  m_followGameObjectPosition = true;
 
         [SerializeField]
-        public bool  m_followGameObjectRotation;
+        internal bool  m_followGameObjectRotation;
 
 #if UNITY_EDITOR
 #pragma warning restore CS0414
