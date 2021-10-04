@@ -16,6 +16,8 @@ namespace UnityEditor.Rendering.HighDefinition.Toon
     public class BoxLightAdjustmentInspector : Editor
     {
         SerializedObject m_SerializedObject;
+        List<string> m_layerNames;
+        List<int> m_layerIndecies;
 
         public override void OnInspectorGUI()
         {
@@ -45,23 +47,34 @@ namespace UnityEditor.Rendering.HighDefinition.Toon
             EditorGUI.BeginDisabledGroup(targetLight == null);
             {
                 EditorGUI.indentLevel++;
-                /*
-                var layer = targetLight.gameObject.layer;
-                List<string> layerNames = new List<string>();
-                List<int> layerIndecies = new List<int>();
 
-                for (int ii = 0; ii < 32; ii++)
+
+
+
+
+
+                if (m_layerNames == null )
                 {
-                    string layerName = LayerMask.LayerToName(ii);
-                    if (!string.IsNullOrEmpty(layerName))
-                    {
-                        layerNames.Add(layerName);
-                        layerIndecies.Add(ii);
-                    }
-                }*/
+                    m_layerNames = new List<string>();
+                    m_layerNames.Add(LightLayerEnum.LightLayerDefault.ToString());
+                    m_layerNames.Add(LightLayerEnum.LightLayer1.ToString());
+                    m_layerNames.Add(LightLayerEnum.LightLayer2.ToString());
+                    m_layerNames.Add(LightLayerEnum.LightLayer3.ToString());
+                    m_layerNames.Add(LightLayerEnum.LightLayer4.ToString());
+                    m_layerNames.Add(LightLayerEnum.LightLayer5.ToString());
+                    m_layerNames.Add(LightLayerEnum.LightLayer6.ToString());
+                    m_layerNames.Add(LightLayerEnum.LightLayer7.ToString());
+                }
                 HDAdditionalLightData lightData = targetLight.GetComponent<HDAdditionalLightData>();
-                var lightLayer = lightData.lightlayersMask;
-
+                LightLayerEnum lightLayers = lightData.lightlayersMask;
+                EditorGUI.BeginChangeCheck();
+                lightLayers = (LightLayerEnum)EditorGUILayout.MaskField(labelLightLeyer, (int)lightLayers, m_layerNames.ToArray());
+                if (EditorGUI.EndChangeCheck())
+                {
+                    Undo.RecordObject(target, "Changed Light Layer");
+                    lightData.lightlayersMask = lightLayers;
+                    isChanged = true;
+                }
 
 
 
