@@ -27,6 +27,8 @@ namespace Unity.Rendering.HighDefinition.Toon
         [SerializeField]
         GameObject[] m_Objs;
 
+        [SerializeField]
+        Renderer[] m_Renderers;
 
 
         [SerializeField]
@@ -91,7 +93,15 @@ namespace Unity.Rendering.HighDefinition.Toon
                 m_isCompiling = false;
             }
 #endif
-
+            if (m_Renderers == null)
+            {
+                return;
+            }
+            for ( int ii = 0; ii < m_Renderers.Length; ii++)
+            {
+                m_Renderers[ii].renderingLayerMask &= 0xff;
+                m_Renderers[ii].renderingLayerMask |= (uint)m_targetBoxLight.lightlayersMask;
+            }
         }
         void EnableSrpCallbacks()
         {
@@ -123,6 +133,12 @@ namespace Unity.Rendering.HighDefinition.Toon
             DisableSrpCallbacks();
 
             Release();
+        }
+
+        void UpdateObjectLightLayers()
+        {
+            Initialize();
+
         }
 
         void Initialize()
@@ -180,6 +196,13 @@ namespace Unity.Rendering.HighDefinition.Toon
                         rendererCount++;
                     }
                 }
+                if (rendererCount != 0)
+                {
+
+
+                    m_Renderers = rendererList.ToArray();
+
+                }
             }
 
             m_initialized = true;
@@ -190,8 +213,7 @@ namespace Unity.Rendering.HighDefinition.Toon
         {
             if (m_initialized)
             {
-
-
+                m_Renderers = null;
             }
 
             m_initialized = false;

@@ -73,6 +73,7 @@ namespace UnityEditor.Rendering.HighDefinition.Toon
                 {
                     Undo.RecordObject(target, "Changed Light Layer");
                     lightData.lightlayersMask = lightLayers;
+
                     isChanged = true;
                 }
 
