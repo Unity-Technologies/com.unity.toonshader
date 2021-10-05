@@ -25,7 +25,7 @@ namespace Unity.Rendering.HighDefinition.Toon
         bool m_srpCallbackInitialized = false;
 
         [SerializeField]
-        GameObject[] m_Objs;
+        GameObject[] m_GameObjects;
 
         [SerializeField]
         Renderer[] m_Renderers;
@@ -154,34 +154,34 @@ namespace Unity.Rendering.HighDefinition.Toon
                 return;
 #endif
             // must be put to gameObject model chain.
-            if (m_Objs == null || m_Objs.Length == 0)
+            if (m_GameObjects == null || m_GameObjects.Length == 0)
             {
-                m_Objs = new GameObject[1];
-                m_Objs[0] = this.gameObject;
+                m_GameObjects = new GameObject[1];
+                m_GameObjects[0] = this.gameObject;
             }
-            int objCount = m_Objs.Length;
+            int objCount = m_GameObjects.Length;
             int rendererCount = 0;
 
             List<Renderer> rendererList = new List<Renderer>();
             for (int ii = 0; ii < objCount; ii++)
             {
-                if (m_Objs[ii] == null )
+                if (m_GameObjects[ii] == null )
                 {
                     continue;
                 }
 
 
-                var renderer = m_Objs[ii].GetComponent<Renderer>();
+                var renderer = m_GameObjects[ii].GetComponent<Renderer>();
                 if (renderer != null)
                 {
                     rendererCount++;
                     rendererList.Add(renderer);
                 }
-                GameObject[] childGameObjects = m_Objs[ii].GetComponentsInChildren<Transform>().Select(t => t.gameObject).ToArray();
+                GameObject[] childGameObjects = m_GameObjects[ii].GetComponentsInChildren<Transform>().Select(t => t.gameObject).ToArray();
                 int childCount = childGameObjects.Length;
                 for (int jj = 0; jj < childCount; jj++)
                 {
-                    if (m_Objs[ii] == childGameObjects[jj])
+                    if (m_GameObjects[ii] == childGameObjects[jj])
                         continue;
                     var modelToonEvAdjustment = childGameObjects[jj].GetComponent<BoxLightAdjustment>();
                     if ( modelToonEvAdjustment != null )

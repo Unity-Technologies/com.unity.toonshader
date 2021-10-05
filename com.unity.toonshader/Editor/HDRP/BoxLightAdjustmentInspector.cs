@@ -15,9 +15,14 @@ namespace UnityEditor.Rendering.HighDefinition.Toon
 
     public class BoxLightAdjustmentInspector : Editor
     {
-        SerializedObject m_SerializedObject;
+        private SerializedProperty m_GameObjectsProperties;
+
         List<string> m_layerNames;
-        List<int> m_layerIndecies;
+
+        private void OnEnable()
+        {
+            m_GameObjectsProperties = serializedObject.FindProperty("m_GameObjects");
+        }
 
         public override void OnInspectorGUI()
         {
@@ -29,7 +34,7 @@ namespace UnityEditor.Rendering.HighDefinition.Toon
             bool isChanged = false;
 
             var obj = target as BoxLightAdjustment;
-
+            serializedObject.Update();
             EditorGUILayout.BeginHorizontal();
 
             EditorGUI.BeginChangeCheck();
@@ -47,10 +52,6 @@ namespace UnityEditor.Rendering.HighDefinition.Toon
             EditorGUI.BeginDisabledGroup(targetLight == null);
             {
                 EditorGUI.indentLevel++;
-
-
-
-
 
 
                 if (m_layerNames == null )
@@ -77,8 +78,6 @@ namespace UnityEditor.Rendering.HighDefinition.Toon
                     isChanged = true;
                 }
 
-
-
                 EditorGUI.BeginChangeCheck();
 
                 bool followPosition = EditorGUILayout.Toggle(labelFollowPostion, obj.m_followGameObjectPosition);
@@ -97,8 +96,18 @@ namespace UnityEditor.Rendering.HighDefinition.Toon
                     obj.m_followGameObjectRotation = followRotation;
                     isChanged = true;
                 }
+
+                m_GameObjectsProperties.arraySize = EditorGUILayout.IntField("Size", m_GameObjectsProperties.arraySize);
+                for (int ii = 0; ii < m_GameObjectsProperties.arraySize; ii++)
+                {
+                    var dialogue = m_GameObjectsProperties.GetArrayElementAtIndex(ii);
+                    EditorGUILayout.PropertyField(dialogue, new GUIContent("GameObject " + ii + ":"), true);
+                }
                 EditorGUI.indentLevel--;
+
             }
+            serializedObject.ApplyModifiedProperties();
+
             if (isChanged)
             {
                 // at leaset 2020.3.12f1, not neccessary. but, from which version??
