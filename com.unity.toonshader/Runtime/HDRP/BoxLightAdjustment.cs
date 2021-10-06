@@ -35,10 +35,12 @@ namespace Unity.Rendering.HighDefinition.Toon
         internal HDAdditionalLightData m_targetBoxLight;
 
         [SerializeField]
-        internal bool  m_followGameObjectPosition = true;
+        internal bool  m_FollowGameObjectPosition = false;
 
         [SerializeField]
-        internal bool  m_followGameObjectRotation;
+        internal bool m_FollowGameObjectRotation = false;
+        [SerializeField]
+        internal Vector3 m_PositionOffset;
 
 #if UNITY_EDITOR
 #pragma warning restore CS0414
@@ -97,12 +99,22 @@ namespace Unity.Rendering.HighDefinition.Toon
             {
                 return;
             }
-            for ( int ii = 0; ii < m_Renderers.Length; ii++)
+            if (m_targetBoxLight == null)
+            {
+                return;
+            }
+
+            for (int ii = 0; ii < m_Renderers.Length; ii++)
             {
                 m_Renderers[ii].renderingLayerMask &= 0xff;
                 m_Renderers[ii].renderingLayerMask |= (uint)m_targetBoxLight.lightlayersMask;
             }
+            if ( /* m_targetBoxLight != null && */ m_GameObjects != null && m_GameObjects.Length > 0 && m_GameObjects[0] != null && m_FollowGameObjectPosition)
+            {
+                m_targetBoxLight.transform.position = m_GameObjects[0].transform.position + m_PositionOffset;
+            }
         }
+
         void EnableSrpCallbacks()
         {
 
@@ -128,6 +140,7 @@ namespace Unity.Rendering.HighDefinition.Toon
 
         }
 
+
         void OnDisable()
         {
             DisableSrpCallbacks();
@@ -140,6 +153,35 @@ namespace Unity.Rendering.HighDefinition.Toon
             Initialize();
 
         }
+
+        internal static void CreateBoxLight(GameObject go)
+        {
+            if (go == null)
+            {
+                Debug.LogError("Please, select a GameObject you want a Box Light to follow.");
+                return;
+            }
+            GameObject lightGameObject = new GameObject("Box Light for" + go.name);
+            HDAdditionalLightData hdLightData = lightGameObject.AddHDLight(HDLightTypeAndShape.BoxSpot);
+
+            BoxLightAdjustment boxLightAdjustment = go.GetComponent<BoxLightAdjustment>();
+            if (boxLightAdjustment == null)
+            {
+                boxLightAdjustment = go.AddComponent<BoxLightAdjustment>();
+            }
+            boxLightAdjustment.m_targetBoxLight = hdLightData;
+
+            var goPos = lightGameObject.transform.position;
+            goPos.y += 10.0f;
+            lightGameObject.transform.position = goPos;
+
+            var goRot = lightGameObject.transform.rotation;
+            goRot.eulerAngles = new Vector3(90.0f, 0.0f, 0.0f);
+            hdLightData.gameObject.transform.rotation = goRot;
+
+
+        }
+
 
         void Initialize()
         {
@@ -204,7 +246,11 @@ namespace Unity.Rendering.HighDefinition.Toon
 
                 }
             }
-
+            if (m_targetBoxLight != null  )
+            {
+                m_PositionOffset = this.gameObject.transform.position - m_targetBoxLight.transform.position;
+            }
+            
             m_initialized = true;
         }
 

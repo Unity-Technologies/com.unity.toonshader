@@ -66,34 +66,34 @@ namespace UnityEditor.Rendering.HighDefinition.Toon
                     m_layerNames.Add(LightLayerEnum.LightLayer6.ToString());
                     m_layerNames.Add(LightLayerEnum.LightLayer7.ToString());
                 }
-                HDAdditionalLightData lightData = targetLight.GetComponent<HDAdditionalLightData>();
-                LightLayerEnum lightLayers = lightData.lightlayersMask;
+
+                HDAdditionalLightData lightData = targetLight != null ? targetLight.GetComponent<HDAdditionalLightData>() : null;
+                LightLayerEnum lightLayers = lightData != null ? lightData.lightlayersMask :  LightLayerEnum.LightLayerDefault;
                 EditorGUI.BeginChangeCheck();
                 lightLayers = (LightLayerEnum)EditorGUILayout.MaskField(labelLightLeyer, (int)lightLayers, m_layerNames.ToArray());
                 if (EditorGUI.EndChangeCheck())
                 {
                     Undo.RecordObject(target, "Changed Light Layer");
                     lightData.lightlayersMask = lightLayers;
-
                     isChanged = true;
                 }
 
                 EditorGUI.BeginChangeCheck();
 
-                bool followPosition = EditorGUILayout.Toggle(labelFollowPostion, obj.m_followGameObjectPosition);
+                bool followPosition = EditorGUILayout.Toggle(labelFollowPostion, obj.m_FollowGameObjectPosition);
                 if (EditorGUI.EndChangeCheck())
                 {
                     Undo.RecordObject(target, "Changed Light Hi Cut Filter");
-                    obj.m_followGameObjectPosition = followPosition;
+                    obj.m_FollowGameObjectPosition = followPosition;
                     isChanged = true;
                 }
 
                 EditorGUI.BeginChangeCheck();
-                bool followRotation = EditorGUILayout.Toggle(labelFollowRotation, obj.m_followGameObjectRotation);
+                bool followRotation = EditorGUILayout.Toggle(labelFollowRotation, obj.m_FollowGameObjectRotation);
                 if (EditorGUI.EndChangeCheck())
                 {
                     Undo.RecordObject(target, "Changed Expsure Adjustment");
-                    obj.m_followGameObjectRotation = followRotation;
+                    obj.m_FollowGameObjectRotation = followRotation;
                     isChanged = true;
                 }
 
@@ -141,19 +141,7 @@ namespace UnityEditor.Rendering.HighDefinition.Toon
         {
 
             var go = Selection.activeGameObject;
-            if (go != null)
-            {
-                GameObject lightGameObject = new GameObject("Box Light for" + go.name);
-                HDAdditionalLightData hdLightData = lightGameObject.AddHDLight(HDLightTypeAndShape.BoxSpot);
-
-
-                var boxLightAdjustment = go.AddComponent<BoxLightAdjustment>();
-                boxLightAdjustment.m_targetBoxLight = hdLightData;
-            }
-            else
-            {
-                Debug.LogError("Please, select a GameObject you want a Box Light to follow.");
-            }
+            BoxLightAdjustment.CreateBoxLight(go);
         }
 
     }
