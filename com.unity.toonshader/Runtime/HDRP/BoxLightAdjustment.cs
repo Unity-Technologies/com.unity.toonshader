@@ -154,32 +154,45 @@ namespace Unity.Rendering.HighDefinition.Toon
 
         }
 
-        internal static void CreateBoxLight(GameObject go)
+        internal static GameObject  CreateBoxLight(GameObject go)
         {
             if (go == null)
             {
                 Debug.LogError("Please, select a GameObject you want a Box Light to follow.");
-                return;
+                return null;
             }
             GameObject lightGameObject = new GameObject("Box Light for" + go.name);
             HDAdditionalLightData hdLightData = lightGameObject.AddHDLight(HDLightTypeAndShape.BoxSpot);
-
+            // light size
+            hdLightData.SetBoxSpotSize(new Vector2(10.0f, 10.0f)); // Size should be culculated with more acculacy?
             BoxLightAdjustment boxLightAdjustment = go.GetComponent<BoxLightAdjustment>();
             if (boxLightAdjustment == null)
             {
+#if UNITY_EDITOR
+                boxLightAdjustment = Undo.AddComponent<BoxLightAdjustment>(go);
+#else
                 boxLightAdjustment = go.AddComponent<BoxLightAdjustment>();
+#endif
             }
+#if UNITY_EDITOR
+            Undo.RecordObject(boxLightAdjustment, "target " + boxLightAdjustment.name);
+#endif
             boxLightAdjustment.m_targetBoxLight = hdLightData;
-
+#if UNITY_EDITOR
+            Undo.RecordObject(lightGameObject.transform, "Position " + lightGameObject.transform.name);
+#endif
+            // position and rotation
             var goPos = lightGameObject.transform.position;
             goPos.y += 10.0f;
             lightGameObject.transform.position = goPos;
 
             var goRot = lightGameObject.transform.rotation;
             goRot.eulerAngles = new Vector3(90.0f, 0.0f, 0.0f);
+#if UNITY_EDITOR
+            Undo.RecordObject(lightGameObject.transform, "Rotation " + lightGameObject.transform.name);
+#endif
             hdLightData.gameObject.transform.rotation = goRot;
-
-
+            return lightGameObject;
         }
 
 
