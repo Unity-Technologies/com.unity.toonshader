@@ -42,7 +42,8 @@ namespace Unity.Rendering.HighDefinition.Toon
         internal bool m_FollowGameObjectRotation = false;
         [SerializeField]
         internal Vector3 m_PositionOffset;
-
+        [SerializeField]
+        internal Quaternion m_RotationOffset;
 #if UNITY_EDITOR
 #pragma warning restore CS0414
         bool m_isCompiling = false;
@@ -110,9 +111,16 @@ namespace Unity.Rendering.HighDefinition.Toon
                 m_Renderers[ii].renderingLayerMask &= 0xff;
                 m_Renderers[ii].renderingLayerMask |= (uint)m_targetBoxLight.lightlayersMask;
             }
-            if ( /* m_targetBoxLight != null && */ m_GameObjects != null && m_GameObjects.Length > 0 && m_GameObjects[0] != null && m_FollowGameObjectPosition)
+            if ( /* m_targetBoxLight != null && */ m_GameObjects != null && m_GameObjects.Length > 0 && m_GameObjects[0] != null )
             {
-                m_targetBoxLight.transform.position = m_GameObjects[0].transform.position + m_PositionOffset;
+                if (m_FollowGameObjectPosition )
+                {
+                    m_targetBoxLight.transform.position = m_GameObjects[0].transform.position + m_PositionOffset;
+                }
+                if (m_FollowGameObjectRotation )
+                {
+                    m_targetBoxLight.transform.rotation = m_GameObjects[0].transform.rotation * m_RotationOffset;
+                }
             }
         }
 
@@ -273,6 +281,7 @@ namespace Unity.Rendering.HighDefinition.Toon
             if (m_targetBoxLight != null  && objCount > 0 )
             {
                 m_PositionOffset = m_targetBoxLight.transform.position - m_GameObjects[0].transform.position;
+                m_RotationOffset = Quaternion.Inverse(m_GameObjects[0].transform.rotation) * m_targetBoxLight.transform.rotation;
             }
             
             m_initialized = true;
