@@ -162,11 +162,15 @@ namespace Unity.Rendering.HighDefinition.Toon
                 Debug.LogError("Please, select a GameObject you want a Box Light to follow.");
                 return null;
             }
-            GameObject lightGameObject = new GameObject("Box Light for" + go.name);
+            var gameObjectName = "Box Light for " + go.name;
+            GameObject lightGameObject = new GameObject(gameObjectName);
+#if UNITY_EDITOR
+            Undo.RegisterCreatedObjectUndo(lightGameObject, "Created " + go.name);
+#endif
             HDAdditionalLightData hdLightData = lightGameObject.AddHDLight(HDLightTypeAndShape.BoxSpot);
             // light size
             hdLightData.SetBoxSpotSize(new Vector2(10.0f, 10.0f)); // Size should be culculated with more acculacy?
-            BoxLightAdjustment boxLightAdjustment = go.GetComponent<BoxLightAdjustment>();
+            BoxLightAdjustment boxLightAdjustment = lightGameObject.GetComponent<BoxLightAdjustment>();
             if (boxLightAdjustment == null)
             {
 #if UNITY_EDITOR
@@ -175,6 +179,9 @@ namespace Unity.Rendering.HighDefinition.Toon
                 boxLightAdjustment = lightGameObject.AddComponent<BoxLightAdjustment>();
 #endif
             }
+
+
+
 #if UNITY_EDITOR
             Undo.RecordObject(boxLightAdjustment, "target " + boxLightAdjustment.name);
 #endif
