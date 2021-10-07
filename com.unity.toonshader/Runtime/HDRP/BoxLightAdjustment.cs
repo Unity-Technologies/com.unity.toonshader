@@ -270,9 +270,9 @@ namespace Unity.Rendering.HighDefinition.Toon
 
                 }
             }
-            if (m_targetBoxLight != null  )
+            if (m_targetBoxLight != null  && objCount > 0 )
             {
-                m_PositionOffset = this.gameObject.transform.position - m_targetBoxLight.transform.position;
+                m_PositionOffset = m_targetBoxLight.transform.position - m_GameObjects[0].transform.position;
             }
             
             m_initialized = true;
