@@ -16,6 +16,7 @@ namespace Unity.Rendering.HighDefinition.Toon
 {
     [ExecuteAlways]
     [DisallowMultipleComponent]
+    [RequireComponent(typeof(Light))]
     public class BoxLightAdjustment : MonoBehaviour
     {
 
@@ -169,9 +170,9 @@ namespace Unity.Rendering.HighDefinition.Toon
             if (boxLightAdjustment == null)
             {
 #if UNITY_EDITOR
-                boxLightAdjustment = Undo.AddComponent<BoxLightAdjustment>(go);
+                boxLightAdjustment = Undo.AddComponent<BoxLightAdjustment>(lightGameObject);
 #else
-                boxLightAdjustment = go.AddComponent<BoxLightAdjustment>();
+                boxLightAdjustment = lightGameObject.AddComponent<BoxLightAdjustment>();
 #endif
             }
 #if UNITY_EDITOR
@@ -192,6 +193,11 @@ namespace Unity.Rendering.HighDefinition.Toon
             Undo.RecordObject(lightGameObject.transform, "Rotation " + lightGameObject.transform.name);
 #endif
             hdLightData.gameObject.transform.rotation = goRot;
+
+            // must be put to gameObject model chain.
+            boxLightAdjustment.m_GameObjects = new GameObject[1];
+            boxLightAdjustment.m_GameObjects[0] = go;
+
             return lightGameObject;
         }
 
@@ -208,11 +214,9 @@ namespace Unity.Rendering.HighDefinition.Toon
             if (EditorApplication.isCompiling)
                 return;
 #endif
-            // must be put to gameObject model chain.
-            if (m_GameObjects == null || m_GameObjects.Length == 0)
+            if (m_GameObjects == null )
             {
-                m_GameObjects = new GameObject[1];
-                m_GameObjects[0] = this.gameObject;
+                return;
             }
             int objCount = m_GameObjects.Length;
             int rendererCount = 0;
