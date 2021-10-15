@@ -30,6 +30,7 @@ int _ToonEvAdjustmentCurve;
 float _ToonEvAdjustmentValueArray[128];
 float _ToonEvAdjustmentValueMin;
 float _ToonEvAdjustmentValueMax;
+float _ToonEvAdjustmentCompensation;
 float _ToonIgnoreExposureMultiplier;
 
 
