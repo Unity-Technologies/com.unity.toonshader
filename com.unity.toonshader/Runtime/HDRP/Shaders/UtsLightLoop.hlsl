@@ -74,10 +74,20 @@ float WeightSample(PositionInputs positionInput)
     return 1.0 - saturate(weight);
 }
 
+float3 ApplyCompensation(float3 originalColor)
+{
+    float3 ev100_Color = ConvertToEV100(originalColor) + _ToonEvAdjustmentCompensation;
+
+
+    float3 resultColor = max(0, ConvertFromEV100(ev100_Color));
+    return resultColor;
+}
+
 float3 ApplyCurrentExposureMultiplier(float3 color)
 {
-    return color * lerp(GetCurrentExposureMultiplier(),1, _ToonIgnoreExposureMultiplier);
+    return lerp(GetCurrentExposureMultiplier(),1, _ToonIgnoreExposureMultiplier);
 }
+
 
 float3 GetExposureAdjustedColor(float3 originalColor)
 {
