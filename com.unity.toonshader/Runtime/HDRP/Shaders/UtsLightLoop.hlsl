@@ -76,7 +76,7 @@ float WeightSample(PositionInputs positionInput)
 
 float3 ApplyCompensation(float3 originalColor)
 {
-    float3 ev100_Color = ConvertToEV100(originalColor) +_ToonEvAdjustmentCompensation; 
+    float3 ev100_Color = ConvertToEV100(originalColor) +_ToonEvAdjustmentCompensation * 0.5f; 
 
 
     float3 resultColor = max(0, ConvertFromEV100(ev100_Color));
