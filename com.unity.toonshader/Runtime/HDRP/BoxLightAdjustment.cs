@@ -108,7 +108,7 @@ namespace Unity.Rendering.HighDefinition.Toon
 
             for (int ii = 0; ii < m_Renderers.Length; ii++)
             {
-                m_Renderers[ii].renderingLayerMask &= 0xff;
+                m_Renderers[ii].renderingLayerMask &= 0xffffff00;
                 m_Renderers[ii].renderingLayerMask |= (uint)m_targetBoxLight.lightlayersMask;
             }
             if ( /* m_targetBoxLight != null && */ m_GameObjects != null && m_GameObjects.Length > 0 && m_GameObjects[0] != null )

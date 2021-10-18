@@ -140,7 +140,7 @@ namespace UnityEditor.Rendering.HighDefinition.Toon
         static void CreateBoxLight()
         {
 
-            var go = Selection.activeGameObject;
+
             var lightGo = BoxLightAdjustment.CreateBoxLight(Selection.gameObjects);
 
         }
