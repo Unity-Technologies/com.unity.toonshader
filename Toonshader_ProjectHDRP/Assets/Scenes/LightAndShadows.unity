@@ -44,7 +44,7 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 0
+  m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -1358,6 +1358,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 983421458}
   m_CullTransparentMesh: 0
+--- !u!1 &1064747489 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1239682057609624, guid: a53009b56fc44723ac972a8ce779d45e,
+    type: 3}
+  m_PrefabInstance: {fileID: 897078981}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1064747491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1064747489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ca4645f217547e3bf14603459c8ac7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 20
 --- !u!1 &1076336071
 GameObject:
   m_ObjectHideFlags: 0
