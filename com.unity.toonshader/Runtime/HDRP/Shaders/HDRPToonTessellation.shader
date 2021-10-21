@@ -548,9 +548,9 @@ Shader "HDRP/ToonTessellation"
     #pragma instancing_options renderinglayer
 
     // enable debug shado
-    #pragma multi_compile _ UTS_DEBUG_SELFSHADOW
-    #pragma multi_compile _ UTS_DEBUG_SHADOWMAP
-    #pragma multi_compile _ UTS_DEBUG_SHADOWMAP_NO_OUTLINE
+//    #pragma multi_compile _ UTS_DEBUG_SELFSHADOW
+//    #pragma multi_compile _ UTS_DEBUG_SHADOWMAP
+//    #pragma multi_compile _ UTS_DEBUG_SHADOWMAP_NO_OUTLINE
     //-------------------------------------------------------------------------------------
     // Define
     //-------------------------------------------------------------------------------------
@@ -972,7 +972,7 @@ Shader "HDRP/ToonTessellation"
 
             HLSLPROGRAM
 
-            #pragma multi_compile _ UTS_DEBUG_SHADOWMAP_BINALIZATION
+//            #pragma multi_compile _ UTS_DEBUG_SHADOWMAP_BINALIZATION
             #pragma multi_compile _ DEBUG_DISPLAY
             #pragma multi_compile _ LIGHTMAP_ON
             #pragma multi_compile _ DIRLIGHTMAP_COMBINED
