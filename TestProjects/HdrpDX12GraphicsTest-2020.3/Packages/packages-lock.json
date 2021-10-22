@@ -196,7 +196,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.toonshader": {
-      "version": "file:../../com.unity.toonshader",
+      "version": "file:../../../com.unity.toonshader",
       "depth": 0,
       "source": "local",
       "dependencies": {}
