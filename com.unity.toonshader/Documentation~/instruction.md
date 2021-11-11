@@ -1,4 +1,4 @@
-# Unity Toon Shader 0.4.1-preview Manual
+# Unity Toon Shader 0.5.0-preview Manual
 
 <span style="font-size: 150%; color: red; ">【NEW】</span> [<span style="font-size: 150% ">HDRP Scene/Model Toon EV Adjustment</span>](#ToonEvAdjustmentCurve)
 
@@ -55,7 +55,7 @@ Several techniques have been implemented to beautifully display characters in a 
 See for yourself by coloring your best character model with Unity Toon Shader.  
 You may be surprised to see your character looking better than ever before.  
 
-This manual focuses on the latest version of Unity Toon Shader: **Unity Toon Shader v.0.4.1-preview**.  
+This manual focuses on the latest version of Unity Toon Shader: **Unity Toon Shader v.0.5.0-preview**.  
 In this manual, the screen of Unity Toon Shader for Universal Render Pipeline is used as an example, but the ones for the Legacy (Built-in) and HDRP versions are alomost the same with URP, so please read it accordingly.  
 
 ## 【Start using Unity Toon Shader】
@@ -173,7 +173,7 @@ Set the `Stencil Mode` to add the stencil function. By using the stencil functio
 
 <img width = "800" src="images/URP_image036.png">
 
-<small> [Note] **This feature is solely for Legacy (Built-in), Universal RP**. UTS/HDRP version is not ready for Stencil feature as stencil buffer is used for other purpose inside HDRP. There is no plans to implement stencil feature for UTS/HDRP version. If stencil features are necessary, please consider to use legacy (Built-in) or Universal RP.  The feature difference among render pipelines are noted in  [Feature Model](./en/FeatureModel_en.md). </small>
+<small> [Note] **This feature is solely for Legacy (Built-in), Universal RP**. UTS/HDRP version is not ready for Stencil feature as stencil buffer is used for other purpose inside HDRP. There is no plans to implement stencil feature for UTS/HDRP version. If stencil features are necessary, please consider to use legacy (Built-in) or Universal RP.  The feature difference among render pipelines are noted in  [Feature Model](./FeatureModel_en.md). </small>
 
 ---
 ### Clipping Shader or TransClipping Shader
@@ -190,75 +190,11 @@ The basic shader function can have a clipping mask by activating each function f
 1. `Off` : Turn off the trans clipping function.  
 2.`On` : Activate the trans clipping function. With the Trans clipping function, you can "cut out texture" by taking into account the alpha transparency of the mask.  
 
----
-### 【Note】How to call other special function shaders
-<small>Other special function shaders from UTS2 v.2.0.7.5 for legacy pipeline can be called by following the steps below.  
-Most of them are integrated into the basic shader functionality.</small>  
-
-#### ● NoOutline shaders
-<small>Set the `Outline` button to `Off` in the Material Inspector's `Outline Settings'. </small>  
-
-#### ● AngelRing shaders
-<small>You can call the function by following the steps below.</small>  
-<small>1. Set `Workflow Mode` to `ShadingGradeMap` from the Material Inspector.</small>  
-<small>2. Set `AngelRing Projection` to `Active` in the "AngelRing Projection Settings" of the Material Inspector.</small>  
-
-#### ● Mobile shaders
-<small>In Unity Toon Shader, Mobile shaders in UTS2 v.2.0.7.5 have been abolished accordingly</small>.  
-
-#### ● Tessellation shaders
-<small>Tessellation is supported in Lagacy (Built-in) and HDRP for now</small>.  
-<small>Please use **ToonTessellation (Built-in)** and **HDRP/ToonTessellation**, respectively</small>.  
 
 #### ● Helper shaders
 <small>It was deprecated in Unity Toon Shader</small>.  
 
 ---
-# Samples
-Sample scenes are installable from the package manager.
-Please, make shure that HDRP or URP is installed and set up before installing the samples for each.
-
-<img width = "400" src="images/InstallingSamples.png">
-
-Samples for Universal RP require `UTS2URPPipelineAsset` to be set in `Project Setting` dialog.
-
-<img width = "400" src="images/URP-Asset.png">
-
-Ones for HDRP require `HDRenderPipelineAsset_UTS` asset as well.
-
-<img width = "400" src="images/HDRP-Asset.png">
-
-The Color Space must be set to `Linear`.
-
-<img width = "400" src="images/SelectLinearColorSpace.png">
-
-The following sample scenes can be found by opening the sample project and opening the `Assets\Samples\Unity Toon Shader\0.4.1-preview\Universal render pipeline` folder.  
-
-* ToonShader.unity            ：Settings for an illustration-style shader.  
-* ToonShader_CelLook.unity    ：Settings for a cel-style shader.  
-* ToonShader_Emissive.unity    ：Settings for a shader with an emissive .  
-* ToonShader_Firefly.unity    ：Multiple real-time point lights.  
-* AngelRing\AngelRing.unity：`AngelRing` and `ShadingGradeMap` sample.  
-* Baked Normal\Cube_HardEdge.unity：Baked Normal reference.  
-* BoxProjection\BoxProjection.unity        ：Lighting a dark room using Box Projection.  
-* EmissiveAnimation\EmisssiveAnimation.unity：EmissiveAnimation sample.  
-* LightAndShadows\LightAndShadows.unity：Comparison between the PBR shader and Unity Toon Shader.  
-* MatCapMask\MatCapMask.unity：MatcapMask sample.  
-* Mirror\MirrorTest.unity: Sample scene checking for a mirror object  
-* NormalMap\NormalMap.unity    ：Tricks for using the normal map with Unity Toon Shader.  
-* PointLightTest\PointLightTest.unity：Sample of  cel-style content with point lights.  
-* Sample\Sample.unity        ：Introduction to the basic Unity Toon Shader shaders.  
-* ShaderBall\ShaderBall.unity：Unity Toon Shader settings on an example shader ball.  
-
-Each scene is intended as a reference for the relevant shader and lighting settings.  
-They should come in handy as an example when creating your own scenes.  
-
-【**NOTE**】 
-Sample scenes for other render pipeline can be found in the following folder.  
-* for Legacy (Built-in)：`Assets\Samples\Unity Toon Shader\0.4.1-preview\Legacy render pipeline` folder  
-* for HDRP：`Assets\Samples\Unity Toon Shader\0.4.1-preview\High definition render pipeline` folder 
-
-
 # Unity Toon Shader Setting Menu：Unity Toon Shader Custom Inspector
 
 From here, you will know the function of the user interface **Unity Toon Shader Custom Inspector** which sets each function of Unity Toon Shader.
