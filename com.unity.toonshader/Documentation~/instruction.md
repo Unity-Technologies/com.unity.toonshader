@@ -503,8 +503,6 @@ It is used to reflect the main directional light. When the light moves the refle
 By using HighColorMask, you can dim light (on skin etc.) that reflects too much depending on the angle.  
 This is useful when highlighting skin color on the cheeks and chest.  
 
-<img width = "800" src="images/UT2018_UTS2_SuperTips_31.png">
-<img width = "800" src="images/UT2018_UTS2_SuperTips_32.png">
 
 You can also use HighColorMask as a specular lighting map for reflective surfaces. So it can also be use for metallic textures as well.  
 As seen in Akatsuki Yuki’s (@AkatsukiWorks) work, by using HighColorMask and RimLightMask, you can create art that looks like an illustration but also render the texture of each material.  
@@ -553,9 +551,6 @@ In UTS2, you can adjust RimLight’s mask to make it dimmer.
 
 In the image above, the RimLight’s color in the light source’s direction and the light reflection’s direction is changed. The rim light is also masked around the underarms to prevent unnecessary highlights.  
 
-<img width = "800" src="images/UT2018_UTS2_SuperTips_33.png">
-<img width = "800" src="images/UT2018_UTS2_SuperTips_34.png">
-<img width = "800" src="images/UT2018_UTS2_SuperTips_35.png">
 
 By masking the RimLight, you can also emphasize the metallic textures in comparison to other materials, or adjust the incidental light on clothes to create wrinkles on velvet.  
 
@@ -595,7 +590,7 @@ In Unity Toon Shader, you can enjoy MatCap with Adding mode, as well as Multipli
 | `Matcap Mask Level` | Adjusts the power of the MatcapMask. When the value is 1, MatCap is displayed 100% irrespective of whether or not there is a mask. When the value is -1, MatCap will not be displayed at all and MatCap will be the same as in the off state. The default value is 0. | _Tweak_MatcapMaskLevel |
 | `Inverse MatcapMask` | In case of `Active`, the MatcapMask is inverted. | _Inverse_MatcapMask |
 
-<img width = "800" src="images/UT2018_UTS2_SuperTips_36.png">
+
 
 In the example above, Matcap is used as **a similar environment map**.  
 By using MatCap, you can create **light reflections of smooth surfaces** while keeping the illustration style.
@@ -660,8 +655,6 @@ You can set the color of the AngelRing directly instead of adding it.
 **Emissive** means that objects emit light.  
 By defining the **HDR color** for ‘Emissive’, you can create parts that are brighter than the other colors.  
 
-<img width = "800" src="images/UT2018_UTS2_SuperTips_17.png">
-
 **By using it with post-effects that are attached to the camera, like [Bloom](https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@9.0/manual/post-processing-bloom.html) in [Post-Processing in UniversalRP](https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@9.0/manual/integration-with-post-processing.html) you can make parts emit light effectively.**  
 
 <img width = "400" src="images/URP_image028.png">
@@ -683,12 +676,6 @@ By defining the **HDR color** for ‘Emissive’, you can create parts that are 
 | `ViewShift of Color` | `Active` shifts the color relative to the camera's viewing angle to view the object. When viewed from the front of the surface of the object, the normal Emissive color is displayed, and the color changes to the shifted color as the view angle gradually inclines. | _Is_ViewShift |
 | `ViewShift Color` | This is the color to change to when shifting views. Specify in HDR. | _ViewShift |
 
-<img width = "800" src="images/UT2018_UTS2_SuperTips_42.png">
-<img width = "800" src="images/UT2018_UTS2_SuperTips_43.png">
-<img width = "800" src="images/UT2018_UTS2_SuperTips_48.png">
-
-This is an example from @einz_zwei, in which emissive parts are used very effectively.  
-By combining color maps and emissive maps, details are added according to the light’s brightness.  
 
 ---
 ### ● How to create a texture with alpha channel
