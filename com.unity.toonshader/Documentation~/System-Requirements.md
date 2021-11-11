@@ -4,9 +4,9 @@
 
 ## Render pipeline compatibility
 
-*  Unity Toon Sahder supports **Legacy**, **Universal RP** and **HDRP**. Please refer to the documentation of each rendering pipeline for supported platforms. However, HDRP uses stencil buffers internally, so UTS stencil effects cannot be used. Please check the [Feature Model documentation](./en/FeatureModel_en.md)  for the different support status of UTS in each render pipeline.
+*  Unity Toon Sahder supports **Legacy**, **Universal RP** and **HDRP**. Please refer to the documentation of each rendering pipeline for supported platforms.
 
-* The behavior of the Unity Toon Shader varies slightly depending on the render pipeline. Please see the Feateure Model for details.
+* However, The behavior of the Unity Toon Shader varies slightly depending on the render pipeline. HDRP uses stencil buffers internally, so UTS stencil effects cannot be applied. Please see the [Feature Model documentation](./FeatureModel_en.md) for the different support status of UTS in each render pipeline.
  
 * Unity Toon Shader uses **a forward rendering**. Using **a linear color space** is recommended. (A gamma color space can also be used, but this tends to strengthen shadow gradiation. For more details, see [Linear or Gamma Workflow](https://docs.unity3d.com/Manual/LinearRendering-LinearOrGammaWorkflow.html).)
 
