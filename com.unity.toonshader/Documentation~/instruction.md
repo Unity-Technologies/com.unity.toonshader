@@ -34,7 +34,7 @@ In addition to the 3 basic layers of **Base Color**, **1st Shade Color**, and **
 The level of gradation between colors can also be adjusted in Unity in real-time.  
 
 
-
+|:-------------------|
 |<img width = "800" src="images/UT2018_UTS2_SuperTips_13.png">|
 |<center><small>↑ When the shadow on the character's face falls upward, highlights appear on the hair, a unique UTS effect that can be achieved in real time without compositing by applying the Shading Grade Map.</small></center>  |
 
