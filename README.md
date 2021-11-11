@@ -6,4 +6,4 @@
 
 # Documentation
 - [English](./com.unity.toonshader/Documentation~/TableOfContents.md)
-- [日本語](./com.unity.toonshader/Documentation~/TableOfContents.md)
+- [日本語] -- in progress now.
