@@ -33,6 +33,9 @@ In addition to the 3 basic layers of **Base Color**, **1st Shade Color**, and **
 
 The level of gradation between colors can also be adjusted in Unity in real-time.  
 
+<center><small>↑ When the shadow on the character's face falls upward, highlights appear on the hair, a unique UTS effect that can be achieved in real time without compositing by applying the Shading Grade Map.</small></center>  
+
+
 <img width = "800" src="images/UT2018_UTS2_SuperTips_13.png">
 
 This shader also has 2 options for creating fixed shadows necessary to the design: the **Position Map**, which assigns a set casting point to each shadow, and the **Shading Grade Map**, which can adjust shadow intensity based on the lighting.  
