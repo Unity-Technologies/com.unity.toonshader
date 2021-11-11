@@ -681,26 +681,6 @@ By defining the **HDR color** for ‘Emissive’, you can create parts that are 
 | `ViewShift Color` | This is the color to change to when shifting views. Specify in HDR. | _ViewShift |
 
 
----
-### ● How to create a texture with alpha channel
-
-Texture with alpha channel is created with DCC tools such as Photoshop.  
-You can use it as an alpha channel by adding a new channel from the channel tab and pasting a grayscale image on the created channel. If you use an image format that has an alpha channel such as Targa format, you can save as it is.  
-
-<img width = "800" src="images/Emissive_Tex00.png">
-
-To enable the alpha channel on Unity, set `Alpha Source` to` Input Texture Alpha` in the Import Settings of each texture.  
-
-**In the case of PNG format** can not have an alpha channel directly in the image specification, so after loading an alpha channel as a selection range in Photoshop, specify “Layer mask> Mask outside selection range”, PNG Save in format.  
-
-<img width = "800" src="images/Emissive_Tex01.png">
-<img width = "800" src="images/Emissive_Tex02.png">
-
-Then import it into Unity, and in Import Settings, set `Alpha Source` to` Input Texture Alpha` and `Alpha Is Transparency` to` ON`.  
-
-<img width = "500" src="images/Emissive_Tex03.png">
-
----
 ### ● Tips for setting Destination Color
 
 When using the color shift function, set `Destination Color` as the target, but if the original color and the target color have the same hue, unexpected colors may be mixed into the frame. For example, if you shift from the color shown on the left side of the arrow to one of the two colors on the right that looks similar, the first color on the right of the arrow shifts color within the same hue range. The second color is a mixture of bluish frames.  
