@@ -97,14 +97,14 @@ Unity Toon Shader has been redesigned as an integrated shader (Uber shader), all
 
 All functions are able to be used by selecting what you need from the Material Inspector.  
 
-### ● Switch Workflow mode
+### Switch Workflow mode
 Original UTS2 v.2.0.7.5 has two workflow modes, the "DoubleShadeWithFeather" shader and its more advanced version, the "ShadingGradeMap" shader. In Unity Toon Shader, you can switch between these two shaders by selecting "Workflow Mode", which is almost at the top of the Material Inspector.  
 
 <img width = "400" src="images/URP_image004.png">
 
 The default is "DoubleShadeWithFeather" and the difference between the two workflows will be explained later.  
 
-### ● To use special features such as the "stencil function"
+### To use special features such as the "stencil function"
 
 Special functions such as stencils, various cutouts, and transparent functions, which previously required switching the Unity Toon Shader shader itself according to the combination of each function, are now all grouped together in the "Basic Shader Settings" menu as operation modes.  
 Users can freely combine the functions they want by activating each operating mode.  
@@ -113,7 +113,7 @@ Users can freely combine the functions they want by activating each operating mo
 
 Each operating mode will be explained later.  
 
-### ● Compatibility with the UTS2 v.2.0.7.5 materials for legacy pipeline
+### Compatibility with the UTS2 v.2.0.7.5 materials for legacy pipeline
 The UTS2 v.2.0.7.5 materials for Lecgacy pipeline are compatible with the Unity Toon Shader materials in terms of material property settings.  
 Therefore, if you copy the  UTS2 into the Universal Render Pipeline environment and switch the shader to "Universal Render Pipeline/Toon", the values of the workflow mode, texture name, blur stage, etc., will be reflected as they are.  
 
@@ -181,17 +181,17 @@ Set the `Stencil Mode` to add the stencil function. By using the stencil functio
 
 The basic shader function can have a clipping mask by activating each function from `Clipping Mode` or `Trans Clipping`. Clipping masks allow you to "cut out textures" (called as "cutouts" or "dissolves").  
 
-#### ● Clipping Mode (in case of "DoubleShadeWithFeather")
+#### Clipping Mode (in case of "DoubleShadeWithFeather")
 1. `Off` : Turn off the clipping function.
 2. `On`: Activate the clipping function.  
 3. `TransClippingMode`: Set the clipping function to a higher performance trans clipping. This mode allows you to "cut out textures" by taking into account the alpha transparency of the mask. The load is higher than the normal clipping function, even though it allows for cleaner clipping.  
 
-#### ● Trans Clipping (in the case of "ShadingGradeMap")
+#### Trans Clipping (in the case of "ShadingGradeMap")
 1. `Off` : Turn off the trans clipping function.  
 2.`On` : Activate the trans clipping function. With the Trans clipping function, you can "cut out texture" by taking into account the alpha transparency of the mask.  
 
 
-#### ● Helper shaders
+#### Helper shaders
 <small>It was deprecated in Unity Toon Shader</small>.  
 
 ---
@@ -250,12 +250,12 @@ At the same time, toon shaders are basically for use under directional light wit
 The "Game Recommendation" feature advises you on the best settings for each material of Unity Toon Shader.  
 If you enjoy Unity Toon Shader on VRChat, you can use the following convenient functions to enjoy the stable features of VRChat in various environments while taking advantage of Unity Toon Shader's advanced features.  
 
-#### ● When setting up materials on Unity Toon Shader
+#### When setting up materials on Unity Toon Shader
 When you set up each material in Unity Toon Shader, please execute the `Game Recommendation` in the Basic Shader Settings> Option Menu.  
 By executing this command, Unity Toon Shader will become familiar with various VRChat lighting environments.  
 If you upload your avatar on VRChat and it feels different from what you intended, you should try this command first.  
 
-#### ● If you want to brighten the appearance of characters in dark worlds
+#### If you want to brighten the appearance of characters in dark worlds
 After executing the `Game Recommendation`, you may want to adjust the appearance of the character in a dark world, which has only point lights, more brightly.  
 In that case, you can raise the brightness in dark world by adjusting the `Unlit Intensity` slider in the "Environmental Lighting Contributions Setups" menu.  
 
@@ -265,7 +265,7 @@ In that case, you can raise the brightness in dark world by adjusting the `Unlit
 
 However, in a dark world, the post effect's bloom is often set to strong as well. In such a world, if the value of **Unlit Intensity is set to over 1 (default value), it is also susceptible to bloom**, so be careful with it.</small>  
 
-#### ● When using Unity Toon Shader with other photometric lights in HDRP scene setting
+#### When using Unity Toon Shader with other photometric lights in HDRP scene setting
 Many of the photometric lights used in HDRP have intensity values set much higher than the traditional Legacy (built-in) and URP lights.  
 When using Unity Toon Shader in such HDR light environments, it is very useful to actively use the optimal settings via the `Game Recommendation`.  
 In particular, if the Unity Toon Shader is displayed in the scene view with blown white, you can suppress those blown white phenomena and bring out the color of each material.  
@@ -330,7 +330,7 @@ By using normal maps, you can enjoy various expressions.
 Specify the position map and shading grade map to adjust the shadow fall condition.  
 Depending on the workflow you use, the items in the sub menu will change.  
 
-### ● DoubleShadeWithFeather Workflow
+### DoubleShadeWithFeather Workflow
 
 <img width = "400" src="images/URP_image017.png">
 
@@ -348,7 +348,7 @@ It can be added to a material in addition to the lighting, for times when you wa
 
 **※ Hint: It might be easier to draw those shadows directly using a 3D painter like Substance Painter, etc.**  
 
-#### ● How the 1st and 2nd Shade Color Position Maps Interact
+#### How the 1st and 2nd Shade Color Position Maps Interact
 <img width = "800" src="images/PositionMap02.png">
 
 In order to **display the 2nd Shade Color** independent of lighting, make sure to **fill in the places where the 1st and 2nd Shade Color Position Maps will overlap**.  
@@ -358,7 +358,7 @@ This way, even if shadows from other lighting fall on the 2nd Shade Color area, 
 On the other hand, **for areas where the 2nd Shade Color doesn’t show** (areas designated by the 2nd Shade Color Position Map, but not the 1st Shade Color Position Map), the 2nd Shade Color will only show when covered by shadows created by the lighting.  
 
 ---
-### ● ShadingGradeMap workflow
+### ShadingGradeMap workflow
 
 <img width = "400" src="images/URP_image018.png">
 
@@ -397,7 +397,7 @@ Adjust the Step and Feather parameters to create totally different looks, withou
 <small>↑ This covers the basics of using the Step slider, which controls the color levels, and the Feather slider, which controls the gradation at the boundaries between colors.</small>  
 
 ---
-### ● DoubleShadeWithFeather Workflow
+### DoubleShadeWithFeather Workflow
 
 There are items of DoubleShadeWithFeather, the standard workflow in Unity Toon Shader.  
 This workflow can have 2 **Position Maps**, a special feature that allows the 1st and 2nd Shade Colors to be fixed to a model regardless of lighting.  
