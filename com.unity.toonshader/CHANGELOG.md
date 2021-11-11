@@ -1,5 +1,7 @@
 # Changelog
-## [0.5.0-preview] - 2021-11-02
+## [0.5.0-preview] - 2021-11-13
+### Updated
+* Updated documentation and folder structure in order to make the package structure friendly to Unith official package.	
 ### Fixed:
 * HDRP:reduced shader variants by disabling some debug pragmas.
 * URP:UTS materials don't reduce shadows.
