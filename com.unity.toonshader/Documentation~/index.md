@@ -1,8 +1,8 @@
-# 【Unity Toon Shader (Unity-Chan Toon Shader 3)】
+# Unity Toon Shader (Unity-Chan Toon Shader 3)
 ---
 <img width = "800" src="./images/SDUnitychan_URP.png?raw=true">
 
-## 【Overview : What is Unity Toon Shader?】
+## Overview : What is Unity Toon Shader?
 
 <img width = "800" src="./images/TPK_04.png?raw=true">
 
@@ -50,26 +50,7 @@ Unity Toon Shader is very useful if you want to decorate your game scene with be
 
 Finally, several techniques have been implemented to beautifully display characters in a variety of lighting environments, thanks to recent feedback from VRChat/Game users.  
 
------
-## 【Installing Unity Toon Shader】
-To install this package, follow the instructions in the [Package Manager documentation](https://docs.unity3d.com/Packages/com.unity.package-manager-ui@latest/index.html). 
 
-If you installed this package, Unity Toon Shader files are installed into **com.unity.toonshader** folder under **Packages** folder in your Unity project.  
-
-To get the sample scenes of Unity Toon Shader, Install samples via `Package Manager` for each render pipeline. The instruction to install the samples is [here](com.unity.toonshader/Documentation~/index.md#Samples).  
-
-You can learn various setting examples of Unity Toon Shader.  
-
-
-
-<a name="UsingUnitychanToonShader2"></a>
-## 【Using Unity Toon Shader】
-To learn how to use Unity Toon Shader, see [Users' Manual](./index.md).  
-Users' manual is a document with plentiful knowledge of toon style.  
-The iteration cycle between reading the manual and using Unity Toon Shader actually is the best way to learn the beautiful toon style.  
-
-You can open Users' Manual from the custom inspector **English Manual** button of Unity Toon Shader, 
-see [here](./index.md#1-basic-shader-settings-menu-for-uts3).  
 
 
 
