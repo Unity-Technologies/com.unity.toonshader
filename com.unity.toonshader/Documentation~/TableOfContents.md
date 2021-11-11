@@ -4,7 +4,6 @@
 * [What's new](whats-new.md)
   * [0.4.0-preview](whats-new-0.4.0.md)
   * [0.3.0-preview](whats-new-0.3.0.md)
-  * [0.2.0-preview](whats-new-0.3.0.md)  
   * Features
     * [Instruction](instruction.md)
     * [Samples](sample-instlation.md)
