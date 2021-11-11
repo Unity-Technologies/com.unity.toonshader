@@ -5,4 +5,4 @@ In animation and game production, there are times when you want to use lighting 
 
 |<img width = "400" src="images/BoxLight0.png">|<img width = "400" src="images/BoxLight1.png">|
 |---|---|
-|<small>Box Light applied to a character's face. Note that changing the angle of the box changes the shadows falling on the face, but not on the body and the ground.</small>|
+<small>Box Light applied to a character's face. Note that changing the angle of the box changes the shadows falling on the face, but not on the body and the ground.</small>
