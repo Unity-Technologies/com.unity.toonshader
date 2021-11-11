@@ -20,7 +20,7 @@ Unity Toon Shader(Unity-Chan Toon Shader 3) is a toon shader for images and vide
 
 <img width = "800" src="images/UT2018_UTS2_SuperTips_10.png">
 
-This Toon shader is configured to easily produce all shadows essential to character design, such as those that accentuate the form of various parts of a character model, without having to worry about the position and intensity of light sources. Shadow color settings can also be used  to make it easy for the person responsible for color design to create shadows.  
+This Toon shader is configured to easily produce all shadows essential to character designs, such as those that accentuate the form of various parts of a character model, without having to worry about the position and intensity of light sources. Shadow color settings can also be used  to make it easy for the person responsible for color design to create shadows.  
 
 One of this shader’s particularly powerful features is the ability to adjust shadows using sliders within the shader itself, eliminating the need for multiple light sources.  
 
@@ -33,9 +33,9 @@ In addition to the 3 basic layers of **Base Color**, **1st Shade Color**, and **
 
 The level of gradation between colors can also be adjusted in Unity in real-time.  
 
-|<img width = "800" src="images/UT2018_UTS2_SuperTips_13.png">|
+|a<img width = "800" src="images/UT2018_UTS2_SuperTips_13.png">|
 |---|
-|<small>↑ When the shadow on the character's face falls upward, highlights appear on the hair, a unique UTS effect that can be achieved in real time without compositing by applying the Shading Grade Map.</small>|
+|<small>When the shadow on the character's face falls upward, highlights appear on the hair, a unique UTS effect that can be achieved in real time without compositing by applying the Shading Grade Map.</small>|
 
 
 
@@ -58,10 +58,10 @@ You may be surprised to see your character looking better than ever before.
 This manual focuses on the latest version of Unity Toon Shader: **Unity Toon Shader v.0.5.0-preview**.  
 In this manual, the screen of Unity Toon Shader for Universal Render Pipeline is used as an example, but the ones for the Legacy (Built-in) and HDRP versions are alomost the same with URP, so please read it accordingly.  
 
-## 【Start using Unity Toon Shader】
+## Starting using Unity Toon Shader
 You can start using Unity Toon Shader by assigning the **Toon** shader in the **Universal Render Pipeline** group to a new material in the **Shaders** menu of the Material Inspector. Here are the steps to take.  
 
-【**NOTE**】
+**NOTE**
 * If your rendering pipeline is Legacy (Built-In), the shader to select in 3. will be "**Toon (Built-in)**".  
 * If your rendering pipeline is HDRP, the shader to select in 3. will be "**HDRP/Toon**".  
 The Toon shader should be switched to match the pipeline.  
@@ -86,7 +86,7 @@ The Toon shader should be switched to match the pipeline.
 
 
 
-## 【Unity Toon Shader as an Uber Shader】
+## Unity Toon Shader as an Uber Shader
 UTS2 v.2.0.7.5  consisted of various specialized feature shaders. Now, all the shaders are integrated into two uber shaders. The difference between two shaders is just one is ready for  tessellation but the other is not..
 
 <Img width = "480" src="images/UTS2_Standard.png">
@@ -123,7 +123,7 @@ For the special functions such as "Stencil" and "Cutoff" that were switched acco
 
 <center><small>↑ Under the environment of Universal Render Pipeline, the UTS2 v.2.0.7.5 material for the legacy pipeline is not correctly rendered as like in the left figure, but when the shader is switched to "Universal Render Pipeline/Toon", it comes to be correctly displayed.</small></center>  
 
-## 【Sellection of Workflow Mode】
+## Sellection of Workflow Mode
 
 <img width = "400" src="images/URP_image008.png">
 
@@ -138,7 +138,7 @@ Choosing which workflow to use is a matter of personal taste, but generally `Dou
 
 You can switch between the two workflow modes at any time from the "Workflow Mode" menu near the top of the Material Inspector.  
 
-## 【How to activate the each Special Feature Mode】
+## How to activate the each Special Feature Mode
 
 For the legacy UTS2 v.2.0.7.5, the shader-specific special features that were distinguished by suffix names such as `Transparent`, `StencilMask`, `StencilOut`, `Clipping`, or `TransClipping`, you can enable them from the settings of each special feature mode in the "Basic Shader Settings" for Unity Toon Shader.  
 
@@ -149,7 +149,7 @@ There are three special features that can be added to the basic shader from each
 2. StencilMask or StencilOut Shader : Add stencil function to the basic shader.  
 3. Clipping Shader or TransClipping Shader : Add clipping function to the basic shader.  
 
-<small>【**Note**】If you are using the Material Inspector in the `All Properties` view, please click the `Change CustomUI` button to return to the Unity Toon Shader Custom Inspector view after changing all modes. Returning to the Unity Toon Shader Custom Inspector view, the required shader keywords are set and each operating mode is enabled.</small>  
+<small>**Note** If you are using the Material Inspector in the `All Properties` view, please click the `Change CustomUI` button to return to the Unity Toon Shader Custom Inspector view after changing all modes. Returning to the Unity Toon Shader Custom Inspector view, the required shader keywords are set and each operating mode is enabled.</small>  
 
 ---
 ### Transparent Shader
@@ -238,11 +238,11 @@ In addition to selecting the two basic workflow modes, you can add a variety of 
 | `Game Recommendation` | Set up convenient settings for enjoying Game/VRChat, where various lighting environments are mixed together, all at once. When setting up for Game/VRChat, recommend you to start from this button first. |  |
 
 ---
-### 【Note】Game Remommendation feature : Useful functions for VRChat/Game users
+### Note: Game Remommendation feature : Useful functions for VRChat/Game users
 
 <img width = "340" src="images/GameRecommendation.png">
 
-<small>【**Caution**】As of May 2020, [VRChat](https://www.vrchat.com/) is not adopting the universal render pipeline and HDRP. For the present, please use legacy(Built-in) shader.</small>  
+<small>**Caution** As of November 2021, [VRChat](https://www.vrchat.com/) is not adopting the universal render pipeline and HDRP. For the present, please use legacy(Built-in) shader.</small>  
 
 
 Unity Toon Shader is a general purpose toon shader that can be used in various projects in Unity.  
@@ -261,7 +261,7 @@ In that case, you can raise the brightness in dark world by adjusting the `Unlit
 
 <img width = "300" src="images/Unlit_Intensity_Comp.gif">
 
-<small>【**Hint**】：`Unlit Intensity` is a function that boosts the brightness of the material in dark places while taking into consideration the brightness of the environment, so it can not be extremely bright in a world where the original environment lightings are set to be dark.  
+<small>**Hint**：`Unlit Intensity` is a function that boosts the brightness of the material in dark places while taking into consideration the brightness of the environment, so it can not be extremely bright in a world where the original environment lightings are set to be dark.  
 
 However, in a dark world, the post effect's bloom is often set to strong as well. In such a world, if the value of **Unlit Intensity is set to over 1 (default value), it is also susceptible to bloom**, so be careful with it.</small>  
 
@@ -339,7 +339,7 @@ Depending on the workflow you use, the items in the sub menu will change.
 | `1st Shade Position Map` | Uses a Position Map to force the 1st Shade Color’s position, independent of the lighting. Indicates areas that must have a shadow in black. | _Set_1st_ShadePosition |
 | `2nd Shade Position Map` | Uses a Position Map to force the 2nd Shade Color’s position, independent of the lighting. Indicate areas that must have a shadow in black (also affects the 1st Shade Color’s Position Map). | _Set_2nd_ShadePosition |
 
-#### 【What is the Position Map?】
+#### What is the Position Map?
 <img width = "800" src="images/PositionMap01.png">
 
 The Position Map designates shadows that you want to cast regardless of the lighting.  
@@ -368,7 +368,7 @@ On the other hand, **for areas where the 2nd Shade Color doesn’t show** (areas
 | `ShadingGradeMap Level` | Level correction of the gray scale value of Shading Grade Map. The default is 0, and it can be adjusted in a range of ±0.5. | _Tweak_ShadingGradeMapLevel |
 | `Blur Level of ShadingGradeMap` | Blur the Shading Grade Map using the Mip Map function. To enable Mip Map, set Advanced> `Generate Mip Maps` to` ON` in the texture import settings. The default is 0 (no blur). | _BlurLevelSGM |
 
-#### 【What is the Shading Grade Map?】
+#### What is the Shading Grade Map?
 `DoubleShadeWithFeather` is the basic workflow in Unity Toon Shader, and `ShadingGradeMap` workflow is the expansion of this basic workflow using the shading grade map, which is a grayscale map to control shadows with the UV coordinate.  
 
 <img width = "800" src="images/ShadingGradeMap01.png">
@@ -390,7 +390,7 @@ These settings can be checked repeatedly in real-time in Unity.
 There is no need to render and confirm the effects of every single property change, making it easier to deliberately design and assemble content.  
 Adjust the Step and Feather parameters to create totally different looks, without changing the direction of the light source.  
 
-### 【The Basics of Using the Step/Feather Sliders】
+### The Basics of Using the Step/Feather Sliders
 
 [![](images/YTB002.png)](https://www.youtube.com/watch?v=eM3iwE67ICM)
 
@@ -412,7 +412,7 @@ This workflow can have 2 **Position Maps**, a special feature that allows the 1s
 | `1st/2nd_Shades Feather` | Feathers the boundary between the 1st and 2nd Shade Colors.  | _1st2nd_Shades_Feather |
 
 ---
-### ● ShadingGradeMap Workflow
+### ShadingGradeMap Workflow
 
 These items are UTS’s high spec ShadingGradeMap workflow.  
 This workflow with a **Shading Grade Map** can control the sharpness and intensity of shadows in relation to the lighting.  
@@ -443,11 +443,11 @@ Use this when you want to make further fine adjustments after deciding the color
 | `System Shadows Level` | It controls Unity’s system shadow levels. The default is 0, and the levels can be adjusted to ±0.5. | _Tweak_SystemShadowsLevel |
 | `Raytraced Hard Shadow`| Enable the **Realtime raytraced Hard Shadow(RTHS) feature** for advanced users. Under the condition that DXR(DirectX Raytracing) is working properly and `ShadowRaytracer` component is attached to the main camera, the button turned in `Active` applies hard shadows with the Realtime raytracing feature as a shadow map. ||
 
-【NOTE】For more information about the RTHS feature and `ShadowRaytracer` component, see [here](https://github.com/unity3d-jp/RaytracedHardShadow/blob/dev/Documentation~/README_EN.md).  
+NOTE: For more information about the RTHS feature and `ShadowRaytracer` component, see [here](https://github.com/unity3d-jp/RaytracedHardShadow/blob/dev/Documentation~/index.md).  
 
-[![](images/YTB003.png)](https://www.youtube.com/watch?v=LXV37a1jhUE)
-
-<small>↑ When using the system shadow with Unity and adjusting the Step slider, noise may appear in the area with shadow color. These noises are troublesome in Cel-look style, so I show you how to improve them using the `System Shadows Level` slider and` Tessellation` (※Tessellation support is  available for Legacy and HDRP).</small>  
+|[![](images/YTB003.png)](https://www.youtube.com/watch?v=LXV37a1jhUE)|
+|---|
+|<small>When using the system shadow with Unity and adjusting the Step slider, noise may appear in the area with shadow color. These noises are troublesome in Cel-look style, so I show you how to improve them using the `System Shadows Level` slider and` Tessellation` (※Tessellation support is  available for Legacy and HDRP).</small> |
 
 ---
 ### “Additional Settings” Submenu
@@ -462,7 +462,7 @@ These are adjustment items mainly for the real-time point light group.
 | `PointLights Hi-CutFilter` | Cuts unnecessary highlights from the Base Color area of real-time point lights. This is particularly useful for cel-shaded styles, where there is little to no feathering. | _Is_Filter_HiCutPointLightColor |
 
 ---
-### ● Adjusting the different colors of point lights ：Step Offset、PointLights Hi-Cut Filter
+### Adjusting the different colors of point lights ：Step Offset、PointLights Hi-Cut Filter
 
 [![](images/YTB004.png)](https://www.youtube.com/watch?v=fJX8uQKzWhc)
 
@@ -632,7 +632,7 @@ Angel Ring reffers to the UV2 of the mesh that it will be projected on. So you h
 | `Offset V` | Adjusts the Angel Ring’s shape in the vertical direction. | _AR_OffsetV |
 | `Use α channel as Clipping Mask` | In case of `Active`, you can use the α channel that is included in the Angel Ring’s texture as a clipping mask. | _ARSampler_AlphaOn |
 
-### ● Making materials for Angel Ring.
+### Making materials for Angel Ring.
 
 First, set a second UV that will be applied to the Angel Ring function of the hair’s mesh.  
 
@@ -681,7 +681,7 @@ By defining the **HDR color** for ‘Emissive’, you can create parts that are 
 | `ViewShift Color` | This is the color to change to when shifting views. Specify in HDR. | _ViewShift |
 
 
-### ● Tips for setting Destination Color
+### Tips for setting Destination Color
 
 When using the color shift function, set `Destination Color` as the target, but if the original color and the target color have the same hue, unexpected colors may be mixed into the frame. For example, if you shift from the color shown on the left side of the arrow to one of the two colors on the right that looks similar, the first color on the right of the arrow shifts color within the same hue range. The second color is a mixture of bluish frames.  
 
@@ -704,7 +704,7 @@ In this way, when shifting colors with different luminance within the same hue t
 
 You can set up various outline-related settings. This menu is enabled when the `Transparent Mode` is `Off`. When the `Transparent Mode` is `On`, it will not be displayed (in this case, the outline function is also `Off`).  
 
-<small>【**Note**】Unity Toon Shader can display outlines when `Transparent Mode` is set to `Off` and `TransClipping Mode` is enabled. At this time, pre-depth processing is not performed in the translucent part, so the display may be different from `Transparent Mode`. This difference is a specification of Unity Toon Shader.</small>  
+<small>**Note** Unity Toon Shader can display outlines when `Transparent Mode` is set to `Off` and `TransClipping Mode` is enabled. At this time, pre-depth processing is not performed in the translucent part, so the display may be different from `Transparent Mode`. This difference is a specification of Unity Toon Shader.</small>  
 
 We are using the **inverted outline method for material-based objects** for the outline functions.  
 This method, to put it simply, spawns the inverted surface normal slightly bigger than the original object with a shader.  
@@ -744,7 +744,7 @@ Items in this submenu can further enhance the outline function.
 | `Baked NormalMap for Outline` | Reads normal maps that have the vertices normal from other models baked into it as “added” when setting the inverted outlines. For more, look [below](index.md#tracing-baked-vertices-normals-baked-normal-for-outline). | _BakedNormal |
 
 ---
-### ● Adjusting the strength of outlines：**Outline Sampler**
+### Adjusting the strength of outlines：**Outline Sampler**
 <img width = "800" src="images/OutlineSampler01.png">
 
 Black means “no lines” and white means that the width is at 100%.  
@@ -752,7 +752,7 @@ Black means “no lines” and white means that the width is at 100%.
 **Tips：Tips: When you are using Outline Sampler for multiple characters, by unifying the UV position of each character’s parts, you can adjust the the start and end of outlines easier. **
 
 ---
-### ● Tracing baked vertices normals ：**Baked Normal for Outline**
+### Tracing baked vertices normals ：**Baked Normal for Outline**
 
 You can now read normal maps that have vertices normals baked on to them additionally when setting the inverted outlines. By using this you can give hard-edged objects soft-edged outlines according to the baked normal maps.  
 
@@ -776,7 +776,7 @@ For more please check the assets in the Baked Normal folder of the sample projec
 **Note: This kind of vertex normal adjusting is done by the vertex shader, so it will depend on the  number of vertices that it will be applied to.** This means that it does not correct the vertex normals like pixel shader, so please be careful.  
 
 ---
-### ● Moving the outline away from the camera：**Offset Outline with Camera Z-axis**
+### Moving the outline away from the camera：**Offset Outline with Camera Z-axis**
 
 <img width = "800" src="images/OffsetZ01.png">
 
@@ -832,7 +832,7 @@ It is also possible to control ON/OFF of the white jump prevention function like
 
 ---
 
-### ● Decide the light probe’s brightness ：GI Intensity
+### Decide the light probe’s brightness ：GI Intensity
 
 <img width = "800" src="images/GI_Intensity.png">
 
@@ -854,7 +854,7 @@ Light probes that are baked in a scene with other baked lights will be added to 
 
 ---
 
-### ● Adjusting the ambient blending：Unlit Intensity  
+### Adjusting the ambient blending：Unlit Intensity  
 
 The ambient light settings are now reflected in the light colors. The minimum intensity of the directional light is the setting of the scene`s ambient light.  
 In VRChat, the brightness of ambient light can be adjusted with the Unlit_Intensity slider.  
@@ -870,7 +870,7 @@ This is a video that explains the Unlit_Intensity function and ambient blending.
 [![](images/YTB007.png)](https://www.youtube.com/watch?v=7-k6m69JQ2g)
 
 ---
-### ● Preventing overexposure when there are multiple bright lights in a scene ：SceneLights Hi-Cut Filter  
+### Preventing overexposure when there are multiple bright lights in a scene ：SceneLights Hi-Cut Filter  
 
 **SceneLights Hi-Cut Filter** is a very useful function for VRChat users.  
 This is a video that explains it in detail.  
@@ -879,7 +879,7 @@ It also explains in brief how to set the tone mapper with PPS.
 [![](images/YTB008.png)](https://www.youtube.com/watch?v=FM8TomuNwnI)
 
 ---
-### ● Built-in Light Direction as an advanced feature  
+### Built-in Light Direction as an advanced feature  
 
 As an advanced feature for experienced users, you can now set the light direction vector that is built into the shader.  
 Materials that have Built-in Light Direction activated can have their own light direction vector for shading purposes which is independent of the mesh object’s coordinates. This means that it will have the same effect as having an exclusive fixed light.  
@@ -905,7 +905,7 @@ Tessellation is not available on every platform and also requires a good PC envi
 It can be used with Windows10/DX11 machines that have powerful GPUs for visuals and VR.  
 
 ---
-### ● ToonTessellation (Built-in) 
+### ToonTessellation (Built-in) 
 
 <img width = "380" src="images/UTS3UI_10_00.png">
 
@@ -915,10 +915,10 @@ It can be used with Windows10/DX11 machines that have powerful GPUs for visuals 
 | `Phong Strengh` | Adjusts the pulling strength of the surfaces divided by tessellation. The default is 0.5. | _TessPhongStrength |
 | `Extrusion Amount` | Scale the expanded parts due to tessellation. The default is 0. | _TessExtrusionAmount |
 
-We used Nora’s https://github.com/Stereoarts/UnityChanToonShaderVer2_Tess  as reference for the code that deals with this.  
+We use Nora’s https://github.com/Stereoarts/UnityChanToonShaderVer2_Tess  as reference for the code that deals with this.  
 
 ---
-### ● HDRP/ToonTessellation 
+### ToonTessellation (HDRP)
 <img width = "380" src="images/UTS3UI_10_02.png">
 
 Each option follows [Tessellation Option](https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@12.0/manual/Lit-Tessellation-Shader.html#tessellation-options) of **HDRP/Lit Tessellation Shader**.  
@@ -928,7 +928,7 @@ Unity Toon Shader only supports Phong Tessellation.
 ## 13. "Mask Rendering Settings" Menu
 
 This function is used in animation and video production when outputting a solid image material and its clipping mask image material for each color element.  
-Currently, only HDRP/Toon is supported.  
+Currently, only HDRP/Toon supports this feature.
 You can use this function manually, but it is used primarily from ToonClipMaskRenderNode in Visual Compositor.  
 When using this function via Visual Compositor, there is no need to do any particular operation other than making sure that the alpha channel value (`A`) in every `Color palette of each color area` is set to 255.  
 
