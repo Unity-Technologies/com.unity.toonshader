@@ -468,20 +468,20 @@ These are adjustment items mainly for the real-time point light group.
 
 With Unity Toon Shader, you can create a cel-shaded look with just point lighting.  
 This is done by adjusting the Step slider of the Base Color /1st Shade Color, 1st Shade Color / 2nd Shade Color. With point lighting, the changes in shadows are more obvious when moving, compared to directional lighting.  
-To make it less obvious, use “Step_Offset” to make finer adjustments.  
+To make it less obvious, use **Step_Offset** to make finer adjustments.  
 
 [![](images/YTB005.png)](https://www.youtube.com/watch?v=WkJId-e2TKk)
 
-By using “Step Offset”, you can adjust the Realtime light steps (the level of gradation) like point lighting.  
+By using **Step Offset**, you can adjust the Realtime light steps (the level of gradation) like point lighting.  
 The adjustments on “BaseColor_Step” will determine the main light’s gradation but you can also use it to adjust the point lighting settings.  
-By using “Step Offset” at the same time, you can adjust the finer details of point lighting. In particular, this is useful when expressing highlights for machine-related art.  
+By using **Step Offset** at the same time, you can adjust the finer details of point lighting. In particular, this is useful when expressing highlights for machine-related art.  
 
 The brightness of the lighting depends on how close an object is, so the highlight might be too bright in some cases, especially for the base color (bright color).  
-When this happens, you can turn on “PointLights Hi-Cut Filter” to make the highlights dimmer, and make it blend in more with the cel-look.  
-If you want the highlights to be brighter, turn off “PointLights Hi-Cut Filter”.  
+When this happens, you can turn on **PointLights Hi-Cut Filter** to make the highlights dimmer, and make it blend in more with the cel-look.  
+If you want the highlights to be brighter, turn off **PointLights Hi-Cut Filter**.  
 
 ---
-## 4. “HighColor Settings” Menu
+## 4. **HighColor Settings** Menu
 
 **High Color** is also known as **Highlights or Speculum Lighting**.  
 It is used to reflect the main directional light. When the light moves the reflection also moves accordingly. In Unity Toon Shader, you can adjust the high color rendering.  
@@ -512,7 +512,7 @@ You can also use HighColorMask as a specular lighting map for reflective surface
 As seen in Akatsuki Yuki’s (@AkatsukiWorks) work, by using HighColorMask and RimLightMask, you can create art that looks like an illustration but also render the texture of each material.  
 
 ---
-## 5. “RimLight Settings” Menu
+## 5. **RimLight Settings** Menu
 
 In realistic styles, **RimLight**  is a technique in which light is set to shine on the rims of the object.  
 In non-photorealistic styles that includes Toon Shader, highlights are also placed on the edges of objects to make it more visible, and it is also called RimLight.  
@@ -543,7 +543,7 @@ You can use these RimLight options in Unity Toon Shader.
 
 The RimLight is generally shown around the objects edges from the camera’s perspective. In Unity Toon Shader, you can adjust where the rim light is shown in relation to where the main light is. (‘LightDirection Mask’)
 
-You can also set RimLight in the opposite direction of the light source. You can also render “light reflection” with ‘Add Antipodean_RimLight’.
+You can also set RimLight in the opposite direction of the light source. You can also render **light reflection** with ‘Add Antipodean_RimLight’.
 
 Specify the RimLight’s color of the light direction as Black (0,0,0) if you only want the rim light to be shown on the opposite direction of the light source and cut the rim light in the direction of the light source.  
 
@@ -612,7 +612,7 @@ In the example above, `MatCap`, `NormalMap for MatCap` and `MatcapMask` is used 
 You can also express light cookies like this with MatCap Mask.  
 
 ---
-## 7. “AngelRing Projection Settings” Menu
+## 7. **AngelRing Projection Settings** Menu
 
 Angel Ring is a highlight that is always shown in a fixed place from the camera’s perspective. It is used on highlights for hair. Angel Ring feature is available in the `ShadingGradeMap` workflow.  
 
@@ -654,7 +654,7 @@ You can set the color of the AngelRing directly instead of adding it.
 <img width = "800" src="images/ARSamplerAlfaOn01.png">
 
 ---
-## 8. “Emissive : Self-luminescene Setings” Menu
+## 8. **Emissive : Self-luminescene Setings** Menu
 
 **Emissive** means that objects emit light.  
 By defining the **HDR color** for ‘Emissive’, you can create parts that are brighter than the other colors.  
@@ -700,7 +700,7 @@ In this way, when shifting colors with different luminance within the same hue t
 ↑Example where frames outside the hue are mixed. The B value of the target color is higher than the original color, and the change in G value is extremely large.  
 
 ---
-## 9. “Outline Settings” Menu
+## 9. **Outline Settings** Menu
 
 You can set up various outline-related settings. This menu is enabled when the `Transparent Mode` is `Off`. When the `Transparent Mode` is `On`, it will not be displayed (in this case, the outline function is also `Off`).  
 
@@ -728,7 +728,7 @@ The type of outline used in post-process affects the speed and quality. In games
 | `Offset Outline with Camera Z-axis` | Offsets the outlines in direction Z. The outline will be less visible for the spikey parts in spikey hair if you input a positive value. For most cases, just set this to 0. | _Offset_Z |
 
 ---
-### “Advanced Outline Settings” Submenu
+### **Advanced Outline Settings** Submenu
 
 Items in this submenu can further enhance the outline function.  
 
@@ -785,7 +785,7 @@ You can use this when your model has spikey hair to adjust the outlines of the s
 In normal situations, please set this to 0.  
 
 ---
-## 10. “LightColor Contribution to Materials” Menu
+## 10. **LightColor Contribution to Materials** Menu
 
 This menu collects switches that can individually turn ON/OFF “the influence of color of real time light”(LightColor Contribution) in the scene for each color.  
 In the case of `Active`, the effect of the color of the real time light on each color is effective, and in the case of `Off`, the setting color of each color when the intensity = 1 is displayed as it is.  
@@ -925,7 +925,7 @@ Each option follows [Tessellation Option](https://docs.unity3d.com/Packages/com.
 Unity Toon Shader only supports Phong Tessellation.  
 
 ---
-## 13. "Mask Rendering Settings" Menu
+## 13. **Mask Rendering Settings** Menu
 
 This function is used in animation and video production when outputting a solid image material and its clipping mask image material for each color element.  
 Currently, only HDRP/Toon supports this feature.
