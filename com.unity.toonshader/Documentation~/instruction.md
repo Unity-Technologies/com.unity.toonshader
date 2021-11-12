@@ -121,7 +121,7 @@ For the special functions such as **Stencil** and **Cutoff** that were switched 
 
 <img width = "800" src="images/URP_image007.png">
 
-<center><small>↑ Under the environment of Universal Render Pipeline, the UTS2 v.2.0.7.5 material for the legacy pipeline is not correctly rendered as like in the left figure, but when the shader is switched to "Universal Render Pipeline/Toon", it comes to be correctly displayed.</small></center>  
+<center><small>↑ Under the environment of Universal Render Pipeline, the UTS2 v.2.0.7.5 material for the legacy pipeline is not correctly rendered as like in the left figure, but when the shader is switched to **Universal Render Pipeline/Toon**, it comes to be correctly displayed.</small></center>  
 
 ## Sellection of Workflow Mode
 
@@ -159,7 +159,7 @@ By setting `Transparent Mode` to `On`, it becomes a shader for transparent/trans
 
 If `Auto Queue` is set to `Active`, the best Render Queue will be set.  
 If you are stacking multiple translucent materials and the rendering order doesn't look correct, you should set the `Auto Queue` to `Off` to set a custom render queue. Set the value to `Render Queue` as appropriate to achieve correct drawing.  
-If you want to learn more about the values you set for the Render Queue, refer to the item "[Rendering Order - Queue tag](https://docs.unity3d.com/Manual/SL-SubShaderTags.html)" from Unity manual.  
+If you want to learn more about the values you set for the Render Queue, refer to the item [Rendering Order - Queue tag](https://docs.unity3d.com/Manual/SL-SubShaderTags.html) from Unity manual.  
 
 ---
 ### StencilMask or StencilOut Shader
@@ -228,7 +228,7 @@ In addition to selecting the two basic workflow modes, you can add a variety of 
 | `Stencil No` | Used by  `StencilMask`　/　`StencilOut` modes. Designates a stencil reference number between 0 - 255 (note that in some cases 255 carries a special significance). Matches the number for the cutting material and the material to be cut. | _StencilNo |
 | `Clipping Mode` | Set the clipping function when the workflow mode is `DoubleShadeWithFeather`. `Off` disables the clipping function and `On` enables the clipping function. When set to `TransClippingMode`, the alpha channel of the mask is taken into account in the clipping. |  |
 | `Trans Clipping` | When workflow mode is `ShadingGradeMap`, set the transclipping function to take into account the alpha channel of the mask. `Off` disables the clipping function and `On` enables the clipping function. |  |
-| `Clipping Mask` | Used by `Clipping` / `TransClipping` modes. Designates the grayscale clipping mask. White indicates “none”. If no settings are chosen, the clipping feature will be inactive. | _ClippingMask |
+| `Clipping Mask` | Used by `Clipping` / `TransClipping` modes. Designates the grayscale clipping mask. White indicates **none**. If no settings are chosen, the clipping feature will be inactive. | _ClippingMask |
 | `Inverse Clipping Mask` | Inverts the clipping mask. | _Inverse_Clipping |
 | `Clipping Level` | Designates the strength of the clipping mask. | _Clipping_Level |
 | `Transparency Level` | Used by `TransClipping` shaders. Adjusts the transparency level by treating the clipping mask grayscale level as an α value. | _Tweak_transparency |
@@ -257,7 +257,7 @@ If you upload your avatar on VRChat and it feels different from what you intende
 
 #### If you want to brighten the appearance of characters in dark worlds
 After executing the `Game Recommendation`, you may want to adjust the appearance of the character in a dark world, which has only point lights, more brightly.  
-In that case, you can raise the brightness in dark world by adjusting the `Unlit Intensity` slider in the **Environmental Lighting Contributions Setups**" menu.  
+In that case, you can raise the brightness in dark world by adjusting the `Unlit Intensity` slider in the **Environmental Lighting Contributions Setups** menu.  
 
 <img width = "300" src="images/Unlit_Intensity_Comp.gif">
 
@@ -272,7 +272,7 @@ In particular, if the Unity Toon Shader is displayed in the scene view with blow
 
 
 ---
-## 2. “Basic Three Colors and Control Maps Setups” Menu
+## 2. **Basic Three Colors and Control Maps Setups** Menu
 
 <img width = "400" src="images/URP_image014.png">
 
@@ -296,7 +296,7 @@ From the submenu, you can also set the sharing setting of texture for basic thre
 
 ---
 
-### “NormalMap Settings” Submenu
+### **NormalMap Settings** Submenu
 This block is where Normal Map settings are performed.  
 
 <img width = "600" src="images/Is_NormalToBase.png">
@@ -326,7 +326,7 @@ By using normal maps, you can enjoy various expressions.
 **※ Hint:** The Normal Map can also be used for pseudo-solid effects like bumps. However, the Normal Map will not actually make the surface of the object’s geometry bumpy and instead will cause the lighting to give the appearance of bumps. Therefore it is necessary to **set the Base Color/1st Shade Color/2nd Shade color step so that it is easier for the light to bring out this effect**. [In the example above](https://twitter.com/nyaa_toraneko/status/1051359237631164417), the Base Color step is set to 0.8, the Shade Color step is set to 0.5, and a slightly darker Hi-Color is used to emphasize the object as solid.  
 
 ---
-### “Shadow Control Maps” Submenu
+### **Shadow Control Maps** Submenu
 Specify the position map and shading grade map to adjust the shadow fall condition.  
 Depending on the workflow you use, the items in the sub menu will change.  
 
@@ -374,7 +374,7 @@ On the other hand, **for areas where the 2nd Shade Color doesn’t show** (areas
 <img width = "800" src="images/ShadingGradeMap01.png">
 
 Adding the `Shading Grade Map` to the basic toon shader allows the 1st and/or 2nd Shade Colors to be controlled at the UV point level.  
-This map’s fine level of control makes effects like “hiding the wrinkles in clothes **when the light hits them**” possible.  
+This map’s fine level of control makes effects like **hiding the wrinkles in clothes when the light hits them** possible.  
 The black portions of an image are handled by the 2nd Shade Color of the `Shading Grade Map`, and the way shadows fall changes based the gray portions, which depend on the density of the black portions.  
 The denser the gray, the more easily shadows fall, so shadows can also fall between two gray areas.  
 
@@ -429,11 +429,11 @@ Compared to Position Maps, in addition to placing shadows, Shading Grade Maps ca
 | `2nd ShadeColor Feather` | Feathers the boundary between the 1st and 2nd Shade Colors, the same as the `1st/2nd_Shades_Feather` properties. | _2nd_ShadeColor_Feather |
 
 ---
-### “System Shadows : Self Shadows Receiving” Items
+### **System Shadows : Self Shadows Receiving** Items
 
 These are adjustment items to make Unity's shadow system and toon shading familiar.  
 In the case of the toon shade, the shadow provided by the system is necessary to express the character 's self - shadow (falling shadow to himself).  
-Use this when you want to make further fine adjustments after deciding the coloring level with the “Basic Lookdevs: Shading Step and Feather Settings” submenu items and want to fine-tune the way ReceiveShadow exits, such as self shadow.  
+Use this when you want to make further fine adjustments after deciding the coloring level with the **Basic Lookdevs: Shading Step and Feather Settings** submenu items and want to fine-tune the way ReceiveShadow exits, such as self shadow.  
 
 <img width = "400" src="images/URP_image022.png">
 
@@ -450,7 +450,7 @@ NOTE: For more information about the RTHS feature and `ShadowRaytracer` componen
 |<small>When using the system shadow with Unity and adjusting the Step slider, noise may appear in the area with shadow color. These noises are troublesome in Cel-look style, so I show you how to improve them using the `System Shadows Level` slider and` Tessellation` (※Tessellation support is  available for Legacy and HDRP).</small> |
 
 ---
-### “Additional Settings” Submenu
+### **Additional Settings** Submenu
 
 These are adjustment items mainly for the real-time point light group.  
 
@@ -812,7 +812,7 @@ While actually using the character lights used in the scene, you can see in real
 **※ Hint: Turning off any color switch will cause that color’s Light Intensity to be set to 1 with a light color of white, regardless of the strength of other lights in the environment.**  
 
 ---
-## 11. “Environmental Lighting Contributions Setups” Menu
+## 11. **Environmental Lighting Contributions Setups** Menu
 
 In this menu, adjust the response of the Unity Toon Shader to “the ambient light setting”(Environment Lighting including Skybox, Gradient and Color) and the light probe in the scene, and adjust the brightness of the shader built-in light that starts up in an environment where there is no real-time directional light Items are included.  
 It is also possible to control ON/OFF of the white jump prevention function like **SceneLights Hi-Cut Filter**, which is **a useful function for VRChat users**, from this menu.  
@@ -895,7 +895,7 @@ The Unity Toon Shader has several features that support only some rendering pipe
 If you want to use these features, you need to choose a render pipeline that supports those features.  
 
 ---
-## 12. “Phong Tessellation Settings” Menu
+## 12. **Phong Tessellation Settings** Menu
 You can only use the tessellation feature on Unity Toon Shader in **rendering pipelines with Legacy (built-in) or HDRP** ,and **with Windows/DX11 running properly**.  
 
 <img width = "375" src="images/UTS3UI_10_01.png">
