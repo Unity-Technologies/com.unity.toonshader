@@ -62,21 +62,21 @@ In this manual, the screen of Unity Toon Shader for Universal Render Pipeline is
 You can start using Unity Toon Shader by assigning the **Toon** shader in the **Universal Render Pipeline** group to a new material in the **Shaders** menu of the Material Inspector. Here are the steps to take.  
 
 **NOTE**
-* If your rendering pipeline is Legacy (Built-In), the shader to select in 3. will be "**Toon (Built-in)**".  
-* If your rendering pipeline is HDRP, the shader to select in 3. will be "**HDRP/Toon**".  
+* If your rendering pipeline is Legacy (Built-In), the shader to select in 3. will be **Toon (Built-in)**.  
+* If your rendering pipeline is HDRP, the shader to select in 3. will be **HDRP/Toon**.  
 The Toon shader should be switched to match the pipeline.  
 
 
 
-1. Open the "+" menu in the Project window and select "Material" to create a new material.  
+1. Open the "+" menu in the Project window and select **Material** to create a new material.  
 
 <center><img width = "300" src="images/URP_image000.png"></center>
 
-2. Select the new material that you have created. Looking at the Inspector, it currently has the "Universal Render Pipeline/Lit" shader assigned to it.  
+2. Select the new material that you have created. Looking at the Inspector, it currently has the **Universal Render Pipeline/Lit** shader assigned to it.  
 
 <center><img width = "300" src="images/URP_image001.png"></center>
 
-3. Open the "Shaders" menu in the Inspector, select "Universal Render Pipeline" from the Shaders window, and then select "Toon".  
+3. Open the "Shaders" menu in the Inspector, select "Universal Render Pipeline" from the Shaders window, and then select **Toon**.  
 
 <center><img width = "600" src="images/URP_image002.png"></center>
 
@@ -104,7 +104,7 @@ Original UTS2 v.2.0.7.5 has two workflow modes, the **DoubleShadeWithFeather** s
 
 The default is **DoubleShadeWithFeather** and the difference between the two workflows will be explained later.  
 
-### To use special features such as the "stencil function"
+### To use special features such as the **stencil function**
 
 Special functions such as stencils, various cutouts, and transparent functions, which previously required switching the Unity Toon Shader shader itself according to the combination of each function, are now all grouped together in the **Basic Shader Settings** menu as operation modes.  
 Users can freely combine the functions they want by activating each operating mode.  
@@ -140,7 +140,7 @@ You can switch between the two workflow modes at any time from the **Workflow Mo
 
 ## How to activate the each Special Feature Mode
 
-For the legacy UTS2 v.2.0.7.5, the shader-specific special features that were distinguished by suffix names such as `Transparent`, `StencilMask`, `StencilOut`, `Clipping`, or `TransClipping`, you can enable them from the settings of each special feature mode in the "Basic Shader Settings" for Unity Toon Shader.  
+For the legacy UTS2 v.2.0.7.5, the shader-specific special features that were distinguished by suffix names such as `Transparent`, `StencilMask`, `StencilOut`, `Clipping`, or `TransClipping`, you can enable them from the settings of each special feature mode in the **Basic Shader Settings** for Unity Toon Shader.  
 
 <img width = "800" src="images/URP_image009.png">
 
@@ -165,11 +165,11 @@ If you want to learn more about the values you set for the Render Queue, refer t
 ### StencilMask or StencilOut Shader
 <img width = "400" src="images/URP_image011.png">
 
-Set the `Stencil Mode` to add the stencil function. By using the stencil function, you can create an expression such as "eyebrows that penetrate the bangs", which is often used in anime and illustration expressions.  
+Set the `Stencil Mode` to add the stencil function. By using the stencil function, you can create an expression such as **eyebrows that penetrate the bangs**, which is often used in anime and illustration expressions.  
 
 1. `Off` : Turns off the stencil function.  
-2. `StencilOut` : Assign the material to use as the transparent part. It must be paired with some `StencilMask` materials. In the below example, this is the material used for the "Bangs" part, so the "Eyebrows" part looks transparent.  
-3. `StencilMask` : Assign the material to use as the part that is drawing through the surface in front. It must be paired with a `StencilOut` material. In the below example, you can assign it to the material for the "Eyebrows" part. It will always show through the "bangs" part.  
+2. `StencilOut` : Assign the material to use as the transparent part. It must be paired with some `StencilMask` materials. In the below example, this is the material used for the **Bangs** part, so the **Eyebrows** part looks transparent.  
+3. `StencilMask` : Assign the material to use as the part that is drawing through the surface in front. It must be paired with a `StencilOut` material. In the below example, you can assign it to the material for the **Eyebrows** part. It will always show through the **bangs** part.  
 
 <img width = "800" src="images/URP_image036.png">
 
@@ -179,16 +179,16 @@ Set the `Stencil Mode` to add the stencil function. By using the stencil functio
 ### Clipping Shader or TransClipping Shader
 <img width = "800" src="images/URP_image012.png">
 
-The basic shader function can have a clipping mask by activating each function from `Clipping Mode` or `Trans Clipping`. Clipping masks allow you to "cut out textures" (called as **cutouts** or **dissolves**).  
+The basic shader function can have a clipping mask by activating each function from `Clipping Mode` or `Trans Clipping`. Clipping masks allow you to **cut out textures** (called as **cutouts** or **dissolves**).  
 
-#### Clipping Mode (in case of "DoubleShadeWithFeather")
+#### Clipping Mode (in case of **DoubleShadeWithFeather**)
 1. `Off` : Turn off the clipping function.
 2. `On`: Activate the clipping function.  
-3. `TransClippingMode`: Set the clipping function to a higher performance trans clipping. This mode allows you to "cut out textures" by taking into account the alpha transparency of the mask. The load is higher than the normal clipping function, even though it allows for cleaner clipping.  
+3. `TransClippingMode`: Set the clipping function to a higher performance trans clipping. This mode allows you to **cut out textures** by taking into account the alpha transparency of the mask. The load is higher than the normal clipping function, even though it allows for cleaner clipping.  
 
-#### Trans Clipping (in the case of "ShadingGradeMap")
+#### Trans Clipping (in the case of **ShadingGradeMap**)
 1. `Off` : Turn off the trans clipping function.  
-2.`On` : Activate the trans clipping function. With the Trans clipping function, you can "cut out texture" by taking into account the alpha transparency of the mask.  
+2.`On` : Activate the trans clipping function. With the Trans clipping function, you can **cut out texture** by taking into account the alpha transparency of the mask.  
 
 
 #### Helper shaders
@@ -199,7 +199,7 @@ The basic shader function can have a clipping mask by activating each function f
 
 From here, you will know the function of the user interface **Unity Toon Shader Custom Inspector** which sets each function of Unity Toon Shader.
 
-"Unity Toon Shader Custom Inspector"(left below) can switch to the conventional **property list type inspector**(right below)  by clicking the `Show All Properties` button.
+**Unity Toon Shader Custom Inspector**(left below) can switch to the conventional **property list type inspector**(right below)  by clicking the `Show All Properties` button.
 
 <img width = "300" src="images/URP_image033.png">
 <img width = "300" src="images/URP_image034.png">
@@ -247,7 +247,7 @@ In addition to selecting the two basic workflow modes, you can add a variety of 
 
 Unity Toon Shader is a general purpose toon shader that can be used in various projects in Unity.  
 At the same time, toon shaders are basically for use under directional light with an intensity value of about 1, so they need to be set up properly under other scene lighting environments.  
-The "Game Recommendation" feature advises you on the best settings for each material of Unity Toon Shader.  
+The **Game Recommendation** feature advises you on the best settings for each material of Unity Toon Shader.  
 If you enjoy Unity Toon Shader on VRChat, you can use the following convenient functions to enjoy the stable features of VRChat in various environments while taking advantage of Unity Toon Shader's advanced features.  
 
 #### When setting up materials on Unity Toon Shader
@@ -257,7 +257,7 @@ If you upload your avatar on VRChat and it feels different from what you intende
 
 #### If you want to brighten the appearance of characters in dark worlds
 After executing the `Game Recommendation`, you may want to adjust the appearance of the character in a dark world, which has only point lights, more brightly.  
-In that case, you can raise the brightness in dark world by adjusting the `Unlit Intensity` slider in the "Environmental Lighting Contributions Setups" menu.  
+In that case, you can raise the brightness in dark world by adjusting the `Unlit Intensity` slider in the **Environmental Lighting Contributions Setups**" menu.  
 
 <img width = "300" src="images/Unlit_Intensity_Comp.gif">
 
@@ -758,8 +758,8 @@ You can now read normal maps that have vertices normals baked on to them additio
 
 When using baked normal maps, set Unity Toon Shader's outline setting properties to.  
 
-1. Outline Mode as **"Normal Direction"**
-2. Use Baked Normal for Outline as **"Active"**
+1. Outline Mode as **Normal Direction**
+2. Use Baked Normal for Outline as **Active**
 3. Apply the map that you want to use to  Baked Normal for Outline
 
 Normal maps that can be used as Baked Normal for Outline are as follows.  
@@ -768,8 +768,8 @@ Normal maps that can be used as Baked Normal for Outline are as follows.
 2. Normal maps are based on OpenGL, as Unity is.  
 3. The texture settings of normal maps are as follows:
 
-・Set Texture Type to  **"Default"** . **Note: Do not set this to “Normal Map”**  
-・Make sure that sRGB (Color Texture) is turned **"OFF"**.  
+・Set Texture Type to  **Default** . **Note: Do not set this to Normal Map**  
+・Make sure that sRGB (Color Texture) is turned **OFF**.  
 
 For more please check the assets in the Baked Normal folder of the sample project.  
 
@@ -807,7 +807,7 @@ While actually using the character lights used in the scene, you can see in real
 | `Ap_RimLight` | Applies the light color to the Ap_RimLight Color. | _Is_LightColor_Ap_RimLight |
 | `MatCap` | Applies the light color to the MatCap Color. | _Is_LightColor_MatCap |
 | `AngelRing`  | Applies the light color to the AngelRing Color. | _Is_LightColor_AR |
-| `Outline`  | Applies the light color to the Outline Color. The contribution of the light color to the outline is: When "OFF", the color set for the outline color is displayed as it is. When "Active with 1 realtime directional light in the scene", the outline color responds to the color and brightness of the realtime directional light. When "There is no real-time directional light in the scene at the time of Active", the outline color responds to the color and brightness of Color in the Source of Environment Lighting. **At this time, please note that the value of Color is referenced even if you are using Skybox. In addition, please be careful as it does not react to ambient light other than real-time point light and color.** | _Is_LightColor_Outline |
+| `Outline`  | Applies the light color to the Outline Color. The contribution of the light color to the outline is: When **OFF**, the color set for the outline color is displayed as it is. When "Active with 1 realtime directional light in the scene", the outline color responds to the color and brightness of the realtime directional light. When "There is no real-time directional light in the scene at the time of Active", the outline color responds to the color and brightness of Color in the Source of Environment Lighting. **At this time, please note that the value of Color is referenced even if you are using Skybox. In addition, please be careful as it does not react to ambient light other than real-time point light and color.** | _Is_LightColor_Outline |
 
 **※ Hint: Turning off any color switch will cause that color’s Light Intensity to be set to 1 with a light color of white, regardless of the strength of other lights in the environment.**  
 
