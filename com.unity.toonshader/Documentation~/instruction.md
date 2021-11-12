@@ -76,11 +76,11 @@ The Toon shader should be switched to match the pipeline.
 
 <center><img width = "300" src="images/URP_image001.png"></center>
 
-3. Open the "Shaders" menu in the Inspector, select "Universal Render Pipeline" from the Shaders window, and then select **Toon**.  
+3. Open the **Shaders** menu in the Inspector, select **Universal Render Pipeline** from the Shaders window, and then select **Toon**.  
 
 <center><img width = "600" src="images/URP_image002.png"></center>
 
-4. The material shaders are changed. Make sure that "Universal Render Pipeline/Toon" is assigned by the Inspector. By default, the most basic Unity Toon Shader, the **Double Shade With Feather** workflow, is assigned.  
+4. The material shaders are changed. Make sure that **Universal Render Pipeline/Toon** is assigned by the Inspector. By default, the most basic Unity Toon Shader, the **Double Shade With Feather** workflow, is assigned.  
 
 <center><img width = "300" src="images/URP_image003.png"></center>
 
@@ -117,7 +117,7 @@ Each operating mode will be explained later.
 The UTS2 v.2.0.7.5 materials for Lecgacy pipeline are compatible with the Unity Toon Shader materials in terms of material property settings.  
 Therefore, if you copy the  UTS2 into the Universal Render Pipeline environment and switch the shader to **Universal Render Pipeline/Toon**, the values of the workflow mode, texture name, blur stage, etc., will be reflected as they are.  
 
-For the special functions such as **Stencil** and **Cutoff** that were switched according to the shader file in UTS2 v.2.0.7.5, follow the above steps to activate each operating mode from the "Basic Shader Settings" menu.  
+For the special functions such as **Stencil** and **Cutoff** that were switched according to the shader file in UTS2 v.2.0.7.5, follow the above steps to activate each operating mode from the **Basic Shader Settings** menu.  
 
 <img width = "800" src="images/URP_image007.png">
 
