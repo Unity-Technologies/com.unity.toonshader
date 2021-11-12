@@ -80,33 +80,33 @@ The Toon shader should be switched to match the pipeline.
 
 <center><img width = "600" src="images/URP_image002.png"></center>
 
-4. The material shaders are changed. Make sure that "Universal Render Pipeline/Toon" is assigned by the Inspector. By default, the most basic Unity Toon Shader, the "Double Shade With Feather" workflow, is assigned.  
+4. The material shaders are changed. Make sure that "Universal Render Pipeline/Toon" is assigned by the Inspector. By default, the most basic Unity Toon Shader, the **Double Shade With Feather** workflow, is assigned.  
 
 <center><img width = "300" src="images/URP_image003.png"></center>
 
 
 
 ## Unity Toon Shader as an Uber Shader
-UTS2 v.2.0.7.5  consisted of various specialized feature shaders. Now, all the shaders are integrated into two uber shaders. The difference between two shaders is just one is ready for  tessellation but the other is not..
+Unitychan Toon Shader v.2.0.7.5, predecessor of Unity Toon Shader, consisted of various specialized feature shaders. Now, all the shaders are integrated into two uber shaders. The difference between two shaders is just one is ready for  tessellation but the other is not..
 
 <Img width = "480" src="images/UTS2_Standard.png">
 
-Unity Toon Shader has been redesigned as an integrated shader (Uber shader), allowing you to do all the work in one Universal Render Pipeline/Toon shader.  
+Unity Toon Shader has been redesigned as an integrated shader (Uber shader), allowing you to do all the work in one or two Toon shader.  
 
 <img width = "300" src="images/URP_image006.png">
 
-All functions are able to be used by selecting what you need from the Material Inspector.  
+All functions are able to be used by selecting what you need in the Material Inspector.  
 
 ### Switch Workflow mode
-Original UTS2 v.2.0.7.5 has two workflow modes, the "DoubleShadeWithFeather" shader and its more advanced version, the "ShadingGradeMap" shader. In Unity Toon Shader, you can switch between these two shaders by selecting "Workflow Mode", which is almost at the top of the Material Inspector.  
+Original UTS2 v.2.0.7.5 has two workflow modes, the **DoubleShadeWithFeather** shader and its more advanced version, the **ShadingGradeMap** shader. In Unity Toon Shader, you can switch between these two shaders by selecting **Workflow Mode**, which is almost at the top of the Material Inspector.  
 
 <img width = "400" src="images/URP_image004.png">
 
-The default is "DoubleShadeWithFeather" and the difference between the two workflows will be explained later.  
+The default is **DoubleShadeWithFeather** and the difference between the two workflows will be explained later.  
 
 ### To use special features such as the "stencil function"
 
-Special functions such as stencils, various cutouts, and transparent functions, which previously required switching the Unity Toon Shader shader itself according to the combination of each function, are now all grouped together in the "Basic Shader Settings" menu as operation modes.  
+Special functions such as stencils, various cutouts, and transparent functions, which previously required switching the Unity Toon Shader shader itself according to the combination of each function, are now all grouped together in the **Basic Shader Settings** menu as operation modes.  
 Users can freely combine the functions they want by activating each operating mode.  
 
 <img width = "400" src="images/URP_image005.png">
@@ -115,9 +115,9 @@ Each operating mode will be explained later.
 
 ### Compatibility with the UTS2 v.2.0.7.5 materials for legacy pipeline
 The UTS2 v.2.0.7.5 materials for Lecgacy pipeline are compatible with the Unity Toon Shader materials in terms of material property settings.  
-Therefore, if you copy the  UTS2 into the Universal Render Pipeline environment and switch the shader to "Universal Render Pipeline/Toon", the values of the workflow mode, texture name, blur stage, etc., will be reflected as they are.  
+Therefore, if you copy the  UTS2 into the Universal Render Pipeline environment and switch the shader to **Universal Render Pipeline/Toon**, the values of the workflow mode, texture name, blur stage, etc., will be reflected as they are.  
 
-For the special functions such as "Stencil" and "Cutoff" that were switched according to the shader file in UTS2 v.2.0.7.5, follow the above steps to activate each operating mode from the "Basic Shader Settings" menu.  
+For the special functions such as **Stencil** and **Cutoff** that were switched according to the shader file in UTS2 v.2.0.7.5, follow the above steps to activate each operating mode from the "Basic Shader Settings" menu.  
 
 <img width = "800" src="images/URP_image007.png">
 
@@ -136,7 +136,7 @@ Unity Toon Shader has two main workflow modes.
 Both types have the same basic features, so the same look can be achieved with either type by matching the color (`_Step`) and gradation (`_Feather`) values.  
 Choosing which workflow to use is a matter of personal taste, but generally `DoubleShadeWithFeather` is more suited to cel styles that need sharp, well defined colors, while `ShadingGradeMap` may be better for illustrated styles where the colors are more blurred together.  
 
-You can switch between the two workflow modes at any time from the "Workflow Mode" menu near the top of the Material Inspector.  
+You can switch between the two workflow modes at any time from the **Workflow Mode** menu near the top of the Material Inspector.  
 
 ## How to activate the each Special Feature Mode
 
@@ -179,7 +179,7 @@ Set the `Stencil Mode` to add the stencil function. By using the stencil functio
 ### Clipping Shader or TransClipping Shader
 <img width = "800" src="images/URP_image012.png">
 
-The basic shader function can have a clipping mask by activating each function from `Clipping Mode` or `Trans Clipping`. Clipping masks allow you to "cut out textures" (called as "cutouts" or "dissolves").  
+The basic shader function can have a clipping mask by activating each function from `Clipping Mode` or `Trans Clipping`. Clipping masks allow you to "cut out textures" (called as **cutouts** or **dissolves**).  
 
 #### Clipping Mode (in case of "DoubleShadeWithFeather")
 1. `Off` : Turn off the clipping function.
@@ -199,7 +199,7 @@ The basic shader function can have a clipping mask by activating each function f
 
 From here, you will know the function of the user interface **Unity Toon Shader Custom Inspector** which sets each function of Unity Toon Shader.
 
-"Unity Toon Shader Custom Inspector"(left below) can switch to the conventional "property list type inspector"(right below)  by clicking the `Show All Properties` button.
+"Unity Toon Shader Custom Inspector"(left below) can switch to the conventional **property list type inspector**(right below)  by clicking the `Show All Properties` button.
 
 <img width = "300" src="images/URP_image033.png">
 <img width = "300" src="images/URP_image034.png">
@@ -208,7 +208,7 @@ You can restore the UI style of Inspector with the `Change CustomUI` button.
 Some of the settings in the Inspector of property list type are validated by going back to the Unity Toon Shader Custom Inspector. Therefore, it is strongly recommended that you **usually use the Unity Toon Shader Custom Inspector**.  
 
 ---
-## 1. “Basic Shader Settings” Menu
+## 1. **Basic Shader Settings** Menu
 
 <img width = "400" src="images/URP_image013.png">
 
