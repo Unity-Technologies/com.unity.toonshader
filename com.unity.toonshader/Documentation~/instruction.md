@@ -445,9 +445,7 @@ Use this when you want to make further fine adjustments after deciding the color
 
 NOTE: For more information about the RTHS feature and `ShadowRaytracer` component, see [here](https://github.com/unity3d-jp/RaytracedHardShadow/blob/dev/Documentation~/index.md).  
 
-|[![](images/YTB003.png)](https://www.youtube.com/watch?v=LXV37a1jhUE)|
-|---|
-|<small>When using the system shadow with Unity and adjusting the Step slider, noise may appear in the area with shadow color. These noises are troublesome in Cel-look style, so I show you how to improve them using the `System Shadows Level` slider and` Tessellation` (※Tessellation support is  available for Legacy and HDRP).</small> |
+<small>When using the system shadow with Unity and adjusting the Step slider, noise may appear in the area with shadow color. These noises are troublesome in Cel-look style, so I show you how to improve them using the `System Shadows Level` slider and` Tessellation` (※Tessellation support is  available for Legacy and HDRP).</small> 
 
 ---
 ### **Additional Settings** Submenu
