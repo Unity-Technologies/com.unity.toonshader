@@ -41,6 +41,7 @@ namespace UnityEngine.Rendering.Toon.HDRP.Samples
 		// Update is called once per frame
 		void  Update ()
 		{
+#if false
 			// ↑キー/スペースが押されたら、ステートを次に送る処理
 			if (Input.GetKeyDown ("up") || Input.GetButton ("Jump")) {
 				// ブーリアンNextをtrueにする
@@ -72,6 +73,7 @@ namespace UnityEngine.Rendering.Toon.HDRP.Samples
 					previousState = currentState;
 				}
 			}
+#endif
 		}
 
 		void OnGUI ()
