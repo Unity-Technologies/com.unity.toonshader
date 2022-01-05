@@ -39,10 +39,12 @@ namespace UnityEngine.Rendering.Toon.HDRP.Samples
 
 		void Update ()
 		{
-
+#if false
 			if (Input.GetMouseButton (0)) {
 				current = 1;
-			} else if (!isKeepFace) {
+			} else
+#endif
+			if (!isKeepFace) {
 				current = Mathf.Lerp (current, 0, delayWeight);
 			}
 			anim.SetLayerWeight (1, current);
