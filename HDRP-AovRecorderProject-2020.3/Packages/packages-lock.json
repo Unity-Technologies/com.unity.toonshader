@@ -1,5 +1,25 @@
 {
   "dependencies": {
+    "com.unity.barracuda": {
+      "version": "2.3.1-preview",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.burst": "1.6.0",
+        "com.unity.modules.jsonserialize": "1.0.0",
+        "com.unity.modules.imageconversion": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.burst": {
+      "version": "1.6.0",
+      "depth": 2,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.mathematics": "1.2.1"
+      },
+      "url": "https://packages.unity.com"
+    },
     "com.unity.cinemachine": {
       "version": "2.6.5",
       "depth": 0,
@@ -17,11 +37,28 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.unity.editorcoroutines": {
+      "version": "1.0.0",
+      "depth": 2,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
     "com.unity.ext.nunit": {
       "version": "1.0.6",
       "depth": 1,
       "source": "registry",
       "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.film-internal-utilities": {
+      "version": "0.12.2-preview",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.modules.uielements": "1.0.0",
+        "com.unity.timeline": "1.2.14"
+      },
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.rider": {
@@ -56,6 +93,13 @@
       "dependencies": {
         "com.unity.modules.uielements": "1.0.0"
       },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.mathematics": {
+      "version": "1.2.1",
+      "depth": 3,
+      "source": "registry",
+      "dependencies": {},
       "url": "https://packages.unity.com"
     },
     "com.unity.nuget.newtonsoft-json": {
@@ -120,6 +164,13 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
+    "com.unity.selection-groups": {
+      "version": "0.5.4-preview",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
     "com.unity.services.core": {
       "version": "1.0.1",
       "depth": 1,
@@ -136,6 +187,23 @@
       "dependencies": {
         "com.unity.render-pipelines.core": "10.8.1",
         "com.unity.searcher": "4.3.2"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.streaming-image-sequence": {
+      "version": "0.14.1-preview",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.film-internal-utilities": "0.11.1-preview",
+        "com.unity.editorcoroutines": "1.0.0",
+        "com.unity.ext.nunit": "1.0.0",
+        "com.unity.modules.animation": "1.0.0",
+        "com.unity.modules.director": "1.0.0",
+        "com.unity.modules.imageconversion": "1.0.0",
+        "com.unity.modules.particlesystem": "1.0.0",
+        "com.unity.ugui": "1.0.0",
+        "com.unity.timeline": "1.2.14"
       },
       "url": "https://packages.unity.com"
     },
@@ -184,6 +252,19 @@
       "dependencies": {
         "com.unity.modules.ui": "1.0.0",
         "com.unity.modules.imgui": "1.0.0"
+      }
+    },
+    "com.unity.visual-compositor": {
+      "version": "file:D:/devel/MyProject/VisualCompositor",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {
+        "com.unity.barracuda": "2.3.1-preview",
+        "com.unity.film-internal-utilities": "0.12.2-preview",
+        "com.unity.selection-groups": "0.5.4-preview",
+        "com.unity.streaming-image-sequence": "0.14.1-preview",
+        "com.unity.timeline": "1.4.8",
+        "com.unity.recorder": "2.5.5"
       }
     },
     "com.unity.visualeffectgraph": {

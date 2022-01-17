@@ -14,6 +14,7 @@
     "com.unity.timeline": "1.4.8",
     "com.unity.toonshader": "file:../../com.unity.toonshader",
     "com.unity.ugui": "1.0.0",
+    "com.unity.visual-compositor": "file:D:/devel/MyProject/VisualCompositor",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",
     "com.unity.modules.animation": "1.0.0",

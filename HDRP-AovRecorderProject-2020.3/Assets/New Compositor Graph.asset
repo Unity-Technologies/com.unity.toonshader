@@ -1,0 +1,112 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-2790000446404632898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c60a04a9172dea34da5cc24c941eb990, type: 3}
+  m_Name: RenderingNode
+  m_EditorClassIdentifier: 
+  guid: f180d436-3550-4d54-a519-a85e2c8446b1
+  groupGuid: 
+  position: {x: -400, y: -400}
+  renderEnabled: 1
+  title: RenderingNode
+  size: {x: 0, y: 0}
+  camera:
+    exposedName: 
+    defaultValue: {fileID: 0}
+  includeChildRenderers: 1
+  output: {fileID: 0}
+  globalVolume:
+    overrideState: 0
+    value: {fileID: 0}
+  antialiasing: 0
+  SMAAQuality: 0
+  taaSharpenStrength: 0
+  _cullingMask:
+    overrideState: 0
+    value:
+      serializedVersion: 2
+      m_Bits: 4294967295
+  clearFlags:
+    overrideState: 0
+    value: 2
+  backgroundColor:
+    overrideState: 0
+    value: {r: 0, g: 0, b: 0, a: 1}
+  enableShadows: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75a5ba7e25024bdc8c2b08d4ce788a16, type: 3}
+  m_Name: New Compositor Graph
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: -2790000446404632898}
+  edges:
+  - {fileID: 5706474606261874741}
+  layers:
+  - {fileID: 5832107837955248116}
+  groups: []
+  layerStackPosition: {x: 0, y: 0}
+  isInitialized: 0
+  _compositorGraphVersion: 1
+--- !u!114 &5706474606261874741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd54056a23d0e6e42ac3033150305e31, type: 3}
+  m_Name: RenderingNode.output -> LayerNode.input
+  m_EditorClassIdentifier: 
+  input: {fileID: 5832107837955248116}
+  output: {fileID: -2790000446404632898}
+  inputFieldName: input
+  outputFieldName: output
+  guid: 4748b47b-a424-4d29-b4e8-0a5311508658
+  useProperty: 0
+--- !u!114 &5832107837955248116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81d5921db1d18c54bbd6c8a94376a933, type: 3}
+  m_Name: LayerNode
+  m_EditorClassIdentifier: 
+  guid: 0c187e67-e3de-45d9-b79d-059ef280c7e3
+  groupGuid: 
+  position: {x: 0, y: 0}
+  renderEnabled: 1
+  title: LayerNode
+  exposeAsComponent: 0
+  settings:
+    opacity: 1
+  proxy: {fileID: 0}
+  enabled: 1
+  blendMode: 17
+  useInputAlpha: 1
+  maskChannel: 3
+  premultipliedAlpha: 0
+  input: {fileID: 0}
+  mask: {fileID: 0}
+  exportRenderTexture: {fileID: 0}
