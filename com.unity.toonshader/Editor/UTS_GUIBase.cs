@@ -884,7 +884,7 @@ namespace UnityEditor.Rendering.Toon
 
             UpdateVersionInMaterial(material);
 
-
+            _autoRenderQueue = (int)material.GetInt(ShaderPropAutoRenderQueue);
             _Transparent_Setting = (_UTS_Transparent)material.GetInt(ShaderPropTransparentEnabled);
             _StencilNo_Setting = material.GetInt(ShaderPropStencilNo);
 
@@ -1445,22 +1445,8 @@ namespace UnityEditor.Rendering.Toon
             {
                 EditorGUILayout.HelpBox("UTS : Applying Game Recommended Settings.", MessageType.Info);
             }
-#if false
-            //v.2.0.7
-            EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.PrefixLabel("Remove Unused Keywords/Properties from Material");
-            //GUILayout.Space(60);
-            if (GUILayout.Button("Execute",middleButtonStyle))
-            {
-                RemoveUnusedKeywordsUtility(material);
-                _RemovedUnusedKeywordsMessage = true;
-            }
-            EditorGUILayout.EndHorizontal();
-            if(_RemovedUnusedKeywordsMessage){
-                EditorGUILayout.HelpBox("UTS2 : Unused Material Properties and ShaderKeywords are removed.",MessageType.Info);
-            }
-#endif
-            //
+
+
         }
 
  
