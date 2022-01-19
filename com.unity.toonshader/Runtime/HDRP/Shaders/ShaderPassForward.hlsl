@@ -145,9 +145,10 @@ void Frag(PackedVaryingsToPS packedInput,
     outDiffuseLighting = 0;
     ENCODE_INTO_SSSBUFFER(surfaceData, posInput.positionSS, outSSSBuffer);
 #endif
+    float4 Set_UV0 = input.texCoord0;
+    float4 _MainTex_var = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex));
 
-
-
+    surfaceData.baseColor = _MainTex_var.xyz;
     // Same code in ShaderPassForwardUnlit.shader
     // Reminder: _DebugViewMaterialArray[i]
     //   i==0 -> the size used in the buffer
