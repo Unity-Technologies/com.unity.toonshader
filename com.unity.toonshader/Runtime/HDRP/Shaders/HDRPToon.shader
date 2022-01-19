@@ -1001,12 +1001,16 @@ Shader "HDRP/Toon"
             #include "Packages/com.unity.render-pipelines.high-definition/Runtime/Lighting/LightLoop/LightLoop.hlsl"
             #include "Packages/com.unity.render-pipelines.high-definition/Runtime/Material/Lit/ShaderPass/LitSharePass.hlsl"
             #include "Packages/com.unity.render-pipelines.high-definition/Runtime/Material/Lit/LitData.hlsl"
-#ifdef DEBUG_DISPLAY
+        #ifdef DEBUG_DISPLAY
+        # if (SHADER_LIBRARY_VERSION_MAJOR >= 10)
+            #include "ShaderPassForward.hlsl"
+        # else
             #include "Packages/com.unity.render-pipelines.high-definition/Runtime/RenderPipeline/ShaderPass/ShaderPassForward.hlsl"
-#else
+        # endif
+        #else
             #include "UtsLightLoop.hlsl"
             #include "ShaderPassForwardUTS.hlsl"
-#endif
+        #endif
 
             #pragma vertex Vert
             #pragma fragment Frag
