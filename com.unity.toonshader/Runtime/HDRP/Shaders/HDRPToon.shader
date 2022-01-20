@@ -982,7 +982,11 @@ Shader "HDRP/Toon"
             #include "Packages/com.unity.render-pipelines.high-definition/Runtime/Lighting/Lighting.hlsl"
 
         #ifdef DEBUG_DISPLAY
-            #include "Packages/com.unity.render-pipelines.high-definition/Runtime/Debug/DebugDisplay.hlsl"
+        # if (SHADER_LIBRARY_VERSION_MAJOR >= 10)
+            #include "DebugDisplay.hlsl"
+        # else
+            #include "DebugDisplayHDRP7.hlsl"
+        # endif
         #endif
 
             // The light loop (or lighting architecture) is in charge to:
@@ -1005,7 +1009,7 @@ Shader "HDRP/Toon"
         # if (SHADER_LIBRARY_VERSION_MAJOR >= 10)
             #include "ShaderPassForward.hlsl"
         # else
-            #include "Packages/com.unity.render-pipelines.high-definition/Runtime/RenderPipeline/ShaderPass/ShaderPassForward.hlsl"
+            #include "ShaderPassForwardHDRP7.hlsl"
         # endif
         #else
             #include "UtsLightLoop.hlsl"
