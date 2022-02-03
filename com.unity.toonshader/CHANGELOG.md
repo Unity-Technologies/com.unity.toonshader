@@ -3,7 +3,6 @@
 ### Updated:
 * Replaced test VM to use gtx1080
 * Updated readme.md
-* Moved file position, LICENSE.md, in the repository.
 
 
 ## [0.5.0-preview] - 2022-01-20
