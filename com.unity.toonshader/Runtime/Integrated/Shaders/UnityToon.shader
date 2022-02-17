@@ -846,11 +846,7 @@ Shader "Toon" {
             #include "Packages/com.unity.render-pipelines.high-definition/Runtime/Lighting/Lighting.hlsl"
 
         #ifdef DEBUG_DISPLAY
-        # if (SHADER_LIBRARY_VERSION_MAJOR >= 10)
-            #include "../../HDRP/Shaders/DebugDisplay.hlsl"
-        # else
-            #include "../../HDRP/Shaders/DebugDisplayHDRP7.hlsl"
-        # endif
+            #include "Packages/com.unity.render-pipelines.high-definition/Runtime/Debug/DebugDisplay.hlsl"
         #endif
 
             // The light loop (or lighting architecture) is in charge to:
