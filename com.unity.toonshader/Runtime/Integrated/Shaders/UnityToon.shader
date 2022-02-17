@@ -437,7 +437,7 @@ Shader "Toon" {
     {
         PackageRequirements
         {
-           "com.unity.render-pipelines.high-definition": "7.7.1"
+           "com.unity.render-pipelines.high-definition": "10.5.0"
         }    
         // This tags allow to use the shader replacement features
         Tags{ "RenderPipeline"="HDRenderPipeline" }
@@ -977,7 +977,7 @@ Shader "Toon" {
     {
         PackageRequirements
         {
-             "com.unity.render-pipelines.universal": "7.7.1"
+             "com.unity.render-pipelines.universal": "10.5.0"
         }    
         Tags {
             "RenderType"="Opaque"
@@ -1012,9 +1012,9 @@ Shader "Toon" {
             // Outline is implemented in UniversalToonOutline.hlsl.
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
-            #include "UniversalToonInput.hlsl"
-            #include "UniversalToonHead.hlsl"
-            #include "UniversalToonOutline.hlsl"
+            #include "../../UniversalRP/Shaders/UniversalToonInput.hlsl"
+            #include "../../UniversalRP/Shaders/UniversalToonHead.hlsl"
+            #include "../../UniversalRP/Shaders/UniversalToonOutline.hlsl"
             ENDHLSL
         }
 
@@ -1094,10 +1094,10 @@ Shader "Toon" {
             #pragma shader_feature _EMISSIVE_SIMPLE _EMISSIVE_ANIMATION
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
-            #include "UniversalToonInput.hlsl"
+            #include "../../UniversalRP/Shaders/UniversalToonInput.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/Shaders/LitForwardPass.hlsl"
-            #include "UniversalToonHead.hlsl"
-            #include "UniversalToonBody.hlsl"
+            #include "../../UniversalRP/Shaders/UniversalToonHead.hlsl"
+            #include "../../UniversalRP/Shaders/UniversalToonBody.hlsl"
 
             ENDHLSL
             
@@ -1130,7 +1130,7 @@ Shader "Toon" {
             #pragma vertex ShadowPassVertex
             #pragma fragment ShadowPassFragment
 
-            #include "UniversalToonInput.hlsl"
+            #include "../../UniversalRP/Shaders/UniversalToonInput.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/Shaders/ShadowCasterPass.hlsl"
             ENDHLSL
         }
@@ -1162,7 +1162,7 @@ Shader "Toon" {
             // GPU Instancing
             #pragma multi_compile_instancing
 
-            #include "UniversalToonInput.hlsl"
+            #include "../../UniversalRP/Shaders/UniversalToonInput.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/Shaders/DepthOnlyPass.hlsl"
             ENDHLSL
         }
@@ -1197,7 +1197,7 @@ Shader "Toon" {
             // GPU Instancing
             #pragma multi_compile_instancing
 
-            #include "UniversalToonInput.hlsl"
+            #include "../../UniversalRP/Shaders/UniversalToonInput.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/Shaders/DepthNormalsPass.hlsl"
 #endif
             ENDHLSL
