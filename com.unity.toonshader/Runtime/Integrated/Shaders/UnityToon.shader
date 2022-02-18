@@ -865,7 +865,7 @@ Shader "Toon" {
             #include "Packages/com.unity.render-pipelines.high-definition/Runtime/Lighting/LightLoop/LightLoop.hlsl"
             #include "Packages/com.unity.render-pipelines.high-definition/Runtime/Material/Lit/ShaderPass/LitSharePass.hlsl"
             #include "Packages/com.unity.render-pipelines.high-definition/Runtime/Material/Lit/LitData.hlsl"
-#ifdef HDSHADOWFILTERINGQUALITY_HIGH
+#ifdef UNITY_SHADER_VARIABLES_INCLUDED
             #include "../../HDRP/Shaders/UtsLightLoop.hlsl"
             #include "../../HDRP/Shaders/ShaderPassForwardUTS.hlsl"
 #endif
@@ -955,10 +955,10 @@ Shader "Toon" {
             #include "Packages/com.unity.render-pipelines.high-definition/Runtime/Material/Lit/ShaderPass/LitSharePass.hlsl"
             #include "Packages/com.unity.render-pipelines.high-definition/Runtime/Material/Lit/LitData.hlsl"
 
-
-
+#ifdef UNITY_SHADER_VARIABLES_INCLUDED
             #include "../../HDRP/Shaders/HDRPToonHead.hlsl"
             #include "../../HDRP/Shaders/HDRPToonOutline.hlsl"
+#endif
 
             #pragma vertex Vert
             #pragma fragment Frag
@@ -1009,9 +1009,11 @@ Shader "Toon" {
             // Outline is implemented in UniversalToonOutline.hlsl.
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+#ifdef UNIVERSAL_PIPELINE_CORE_INCLUDED
             #include "../../UniversalRP/Shaders/UniversalToonInput.hlsl"
             #include "../../UniversalRP/Shaders/UniversalToonHead.hlsl"
             #include "../../UniversalRP/Shaders/UniversalToonOutline.hlsl"
+#endif
             ENDHLSL
         }
 
@@ -1091,11 +1093,12 @@ Shader "Toon" {
             #pragma shader_feature _EMISSIVE_SIMPLE _EMISSIVE_ANIMATION
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+#ifdef UNIVERSAL_PIPELINE_CORE_INCLUDED
             #include "../../UniversalRP/Shaders/UniversalToonInput.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/Shaders/LitForwardPass.hlsl"
             #include "../../UniversalRP/Shaders/UniversalToonHead.hlsl"
             #include "../../UniversalRP/Shaders/UniversalToonBody.hlsl"
-
+#endif
             ENDHLSL
             
         }
