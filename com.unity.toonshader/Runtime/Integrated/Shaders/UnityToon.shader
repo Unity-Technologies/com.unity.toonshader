@@ -865,9 +865,10 @@ Shader "Toon" {
             #include "Packages/com.unity.render-pipelines.high-definition/Runtime/Lighting/LightLoop/LightLoop.hlsl"
             #include "Packages/com.unity.render-pipelines.high-definition/Runtime/Material/Lit/ShaderPass/LitSharePass.hlsl"
             #include "Packages/com.unity.render-pipelines.high-definition/Runtime/Material/Lit/LitData.hlsl"
+#ifdef HDSHADOWFILTERINGQUALITY_HIGH
             #include "../../HDRP/Shaders/UtsLightLoop.hlsl"
             #include "../../HDRP/Shaders/ShaderPassForwardUTS.hlsl"
-
+#endif
             #pragma vertex Vert
             #pragma fragment Frag
 
