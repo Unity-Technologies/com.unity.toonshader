@@ -1177,6 +1177,9 @@ Shader "Toon" {
 
             HLSLPROGRAM
 #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Version.hlsl"
+#ifndef VERSION_GREATER_EQUAL
+#define VERSION_GREATER_EQUAL(x, y) 1
+#endif
 #if (VERSION_GREATER_EQUAL(10, 0))
             // Required to compile gles 2.0 with standard srp library
             #pragma prefer_hlslcc gles
