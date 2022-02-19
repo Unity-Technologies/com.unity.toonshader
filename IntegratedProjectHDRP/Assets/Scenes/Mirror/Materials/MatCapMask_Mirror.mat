@@ -8,8 +8,8 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: MatCapMask_Mirror
-  m_Shader: {fileID: 4800000, guid: 873188af6a7b5ca49aa69929a5d863c1, type: 3}
-  m_ShaderKeywords: _ _ADD_ANTIPODEAN_RIMLIGHT_ON _CAMERAROLLING_STABILIZER_ON _CAMERAROTATION_STABILIZER_ON
+  m_Shader: {fileID: 4800000, guid: 7417ce4115feeee44b97f33cc3c997c8, type: 3}
+  m_ShaderKeywords: _ADD_ANTIPODEAN_RIMLIGHT_ON _CAMERAROLLING_STABILIZER_ON _CAMERAROTATION_STABILIZER_ON
     _EMISSIVE_SIMPLE _INVERSE_Z_AXIS_BLD_ON _IS_ANGELRING_OFF _IS_BLENDADDTOMATCAP_ON
     _IS_CLIPPING_OFF _IS_FILTER_HICUTPOINTLIGHTCOLOR_ON _IS_LIGHTCOLOR_1ST_SHADE_ON
     _IS_LIGHTCOLOR_2ND_SHADE_ON _IS_LIGHTCOLOR_AP_RIMLIGHT_ON _IS_LIGHTCOLOR_AR_ON
@@ -22,7 +22,6 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap:
     IgnoreProjection: False
-    RenderType: Opaque
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -473,3 +472,4 @@ Material:
     - _UVMappingMaskEmissive: {r: 1, g: 0, b: 0, a: 0}
     - _ViewShift: {r: 0, g: 0, b: 0, a: 1}
     - emissive: {r: 0, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []
