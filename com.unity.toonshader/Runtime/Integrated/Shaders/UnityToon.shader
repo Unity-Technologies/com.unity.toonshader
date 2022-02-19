@@ -204,6 +204,50 @@ Shader "Toon" {
         [Toggle(_)] _Inverse_Z_Axis_BLD (" Inverse Z-Axis (Built-in Light Direction)", Float ) = 1
 
 	//////////////////////////////////////////////////////////////////////////////
+	////////////////// Beginning of HDRP Matte. //////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////
+        [Toggle(_)] _BaseColorVisible("Channel mask", Float) = 1
+        [Toggle(_)] _BaseColorOverridden("Channel mask", Float) = 0
+        _BaseColorMaskColor("chennel mask color", Color) = (1, 1, 1, 1)
+
+        [Toggle(_)] _FirstShadeVisible("Channel mask", Float) = 1
+        [Toggle(_)] _FirstShadeOverridden("Channel mask", Float) = 0
+        _FirstShadeMaskColor("chennel mask color", Color) = (0, 1, 1, 1)
+
+        [Toggle(_)] _SecondShadeVisible("Channel mask", Float) = 1
+        [Toggle(_)] _SecondShadeOverridden("Channel mask", Float) = 0
+        _SecondShadeMaskColor("chennel mask color", Color) = (0, 0, 1, 1)
+
+        [Toggle(_)] _HighlightVisible("Channel mask", Float) = 1
+        [Toggle(_)] _HighlightOverridden("Channel mask", Float) = 0
+        _HighlightMaskColor("Channel mask color", Color) = (1, 1, 0, 1)
+
+        [Toggle(_)] _AngelRingVisible("Channel mask", Float) = 1
+        [Toggle(_)] _AngelRingOverridden("Channel mask", Float) = 0
+        _AngelRingMaskColor("Channel mask color", Color) = (0, 1, 0, 1)
+
+        [Toggle(_)] _RimLightVisible("Channel mask", Float) = 1
+        [Toggle(_)] _RimLightOverridden("Channel mask", Float) = 0
+        _RimLightMaskColor("Channel mask color", Color) = (1, 0, 1, 1)
+
+        [Toggle(_)] _OutlineVisible("Channel mask", Float) = 1
+        [Toggle(_)] _OutlineOverridden("Channel mask", Float) = 0
+        _OutlineMaskColor("Channel mask color", Color) = (0, 0, 0, 1)
+
+        [Toggle(_)] _ComposerMaskMode("", Float) = 0
+        [Enum(None, 0, BaseColor, 1, FirstShade, 2, SecondShade,3, Highlight, 4, AngelRing, 5, RimLight, 6)] _ClippingMatteMode("Clipping Matte Mode", int) = 0
+
+
+	//////////////////////////////////////////////////////////////////////////////
+	////////////////// End of HDRP Matte.       //////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////
+
+	////////////////// Avoid HDRP srp batcher error ///////////////////////////////
+        [HideInInspector] emissive("to avoid srp batcher error", Color)= (0, 0, 0, 1) //
+	////////////////// Avoid HDRP srp batcher error ///////////////////////////////
+
+
+	//////////////////////////////////////////////////////////////////////////////
 	////////////////// Beginning of HDRP material default values. ////////////////
 	//////////////////////////////////////////////////////////////////////////////
 	_BaseColorMap("BaseColorMap", 2D) = "white" {}
