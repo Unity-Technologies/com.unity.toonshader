@@ -10,6 +10,11 @@ test_platforms:
     type: Unity::VM::osx
     image: package-ci/mac:stable
     flavor: m1.mac
+promotion_test_platforms:
+  - name: win
+    type: Unity::VM
+    image: package-ci/win10:stable
+    flavor: b1.large
 ---
 pack:
   name: Pack {{ yamato_name }}
@@ -51,7 +56,7 @@ test_{{ platform.name }}_{{ editor.version }}:
 
 promote_test:
 {% for editor in test_editors %}
-{% for platform in test_platforms %}
+{% for platform in promotion_test_platforms %}
 promotion_test_{{ platform.name }}_{{ editor.version }}:
   name : {{ yamato_name }} Promotion Test {{ editor.version }} on {{ platform.name }}
   agent:
