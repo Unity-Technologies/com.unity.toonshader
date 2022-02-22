@@ -8,8 +8,10 @@
 ### Fixed:
 * Some unnecessary classes were public.
 * URP: a depth output issue later then 10.0.x. (Thanks to riina)
-* Typo in README.md
+* Typos in README.md
 * promotion test issues.
+* no .sample.json files under each render-pileline sample folder.
+
 ## [0.5.0-preview] - 2022-01-20
 ### Updated:
 * Updated documentation and folder structure in order to make the package structure friendly to Unity official package.
