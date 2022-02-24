@@ -10,6 +10,11 @@ test_platforms:
     type: Unity::VM::osx
     image: package-ci/mac:stable
     flavor: m1.mac
+promotion_test_platforms:
+  - name: win
+    type: Unity::VM
+    image: package-ci/win10:stable
+    flavor: b1.large
 ---
 pack:
   name: Pack {{ yamato_name }}
