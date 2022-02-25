@@ -1,4 +1,8 @@
 # Changelog
+## [0.7.0-preview] - 2022-02-25
+### Updated:
+* reorganized Inspector UI
+
 ## [0.6.1-preview] - 2022-02-24
 ### Fixed:
 * typo in inspector.
