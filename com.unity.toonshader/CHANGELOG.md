@@ -1,7 +1,7 @@
 # Changelog
 ## [0.7.0-preview] - 2022-02-25
 ### Updated:
-* reorganized Inspector UI
+* Shader version properties in all the render pipeline shaders.
 
 ## [0.6.1-preview] - 2022-02-24
 ### Fixed:
