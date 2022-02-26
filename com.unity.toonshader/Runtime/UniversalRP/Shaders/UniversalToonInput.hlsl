@@ -184,18 +184,6 @@ half _BumpScale;
 half _OcclusionStrength;
 half _Surface;
 
-// Tessellation specific
-
-#ifdef TESSELLATION_ON
-float _TessellationFactor;
-float _TessellationFactorMinDistance;
-float _TessellationFactorMaxDistance;
-float _TessellationFactorTriangleSize;
-float _TessellationShapeFactor;
-float _TessellationBackFaceCullEpsilon;
-float _TessellationObjectScale;
-float _TessellationTilingScale;
-#endif
 
 CBUFFER_END
 
