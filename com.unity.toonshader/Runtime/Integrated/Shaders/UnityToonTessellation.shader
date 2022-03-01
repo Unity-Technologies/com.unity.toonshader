@@ -478,7 +478,7 @@ Shader "Toon(Tessellation)" {
         [ToggleUI] _DisplacementLockTilingScale("displacement lock tiling scale", Float) = 1.0
         [ToggleUI] _DepthOffsetEnable("Depth Offset View space", Float) = 0.0
 	//////////////////////////////////////////////////////////////////////////////
-	//////////////////// Start of HDRP material tessellation values. ///////////// 
+	//////////////////// End of HDRP material tessellation values.   ///////////// 
 	//////////////////////////////////////////////////////////////////////////////
 
     } 
