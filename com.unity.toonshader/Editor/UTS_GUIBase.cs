@@ -217,12 +217,17 @@ namespace UnityEditor.Rendering.Toon
         }
         public enum _UTS_SpeculerMode
         {
-            Circle, Natural
+            Solid, Natural
         }
         public enum _UTS_SpeculerColorBlendMode
         {
             Multiply, Additive
         }
+        public enum _UTS_MatcapColorBlendMode
+        {
+            Multiply, Additive
+        }
+
         public enum _StencilOperation
         {
             //https://docs.unity3d.com/Manual/SL-Stencil.html
@@ -267,6 +272,11 @@ namespace UnityEditor.Rendering.Toon
             SimpleEmissive, EmissiveAnimation
         }
 
+        public enum _CameraProjectionType
+        {
+            Perspective,
+            Orthographic
+        }
 
         // variables which must be gotten from shader at the beggning of GUI
         internal int _autoRenderQueue = 1;
@@ -318,6 +328,9 @@ namespace UnityEditor.Rendering.Toon
         protected MaterialProperty utsTechnique = null;
         protected MaterialProperty specularMode = null;
         protected MaterialProperty specularBlendMode = null;
+        protected MaterialProperty matcapCameraMode = null;
+        protected MaterialProperty matcapBlendMode = null;
+        protected MaterialProperty matcapOrtho = null;
         protected MaterialProperty transparentMode = null;
         protected MaterialProperty clippingMode = null;
         protected MaterialProperty clippingMask = null;
@@ -679,8 +692,10 @@ namespace UnityEditor.Rendering.Toon
             }
         }
 
-        public static GUIContent specularModeText = new GUIContent("Specular Mode", "Specular light mode. Circle or Natural");
-        public static GUIContent specularBlendModeText = new GUIContent("Color Blend Mode", "Specular color blending mode. Multiply or Additive");
+        public static GUIContent specularModeText = new GUIContent("Specular Mode", "Specular light mode. Solid Color or Natural.");
+        public static GUIContent specularBlendModeText = new GUIContent("Color Blend Mode", "Specular color blending mode. Multiply or Additive.");
+        public static GUIContent matcapBlendModeText = new GUIContent("Color Blend Mode", "MatCap color blending mode. Multiply or Additive.");
+        public static GUIContent matcapOrthoText = new GUIContent("MatCap Camera Mode", "MatCap camera mode. Perspective or Orthographic.");
         public static GUIContent transparentModeText = new GUIContent("Transparent Mode",
             "Transparent  mode that fits you. ");
         public static GUIContent workflowModeText = new GUIContent("Mode",
@@ -699,6 +714,8 @@ namespace UnityEditor.Rendering.Toon
             utsTechnique = FindProperty(ShaderPropUtsTechniqe, props);
             specularMode = FindProperty(ShaderPropIs_SpecularToHighColor, props);
             specularBlendMode = FindProperty(ShaderPropIs_BlendAddToHiColor, props);
+            matcapBlendMode = FindProperty(ShaderPropIs_BlendAddToMatCap, props);
+            matcapCameraMode = FindProperty(ShaderPropIs_Ortho, props);
             transparentMode = FindProperty(ShaderPropTransparentEnabled, props);
             clippingMask = FindProperty(ShaderPropClippingMask, props);
             clippingMode = FindProperty(ShaderPropClippingMode, props);
@@ -1958,7 +1975,7 @@ namespace UnityEditor.Rendering.Toon
                     m_MaterialEditor.RegisterPropertyChangeUndo(specularModeText.text);
                     switch ((_UTS_SpeculerMode)mode)
                     {
-                    case _UTS_SpeculerMode.Circle:
+                    case _UTS_SpeculerMode.Solid:
                         break;
                     case _UTS_SpeculerMode.Natural:
                         specularBlendMode.floatValue = 1.0f;
@@ -2018,11 +2035,11 @@ namespace UnityEditor.Rendering.Toon
                     EditorGUI.indentLevel--;
                 }
 #else
-                var ret = GUI_Toggle(material, "ShadowMask on HihgColor", ShaderPropIs_UseTweakHighColorOnShadow, MaterialGetInt(material, ShaderPropIs_UseTweakHighColorOnShadow) != 0);
+                var ret = GUI_Toggle(material, "Shadow Mask on High Color", ShaderPropIs_UseTweakHighColorOnShadow, MaterialGetInt(material, ShaderPropIs_UseTweakHighColorOnShadow) != 0);
                 EditorGUI.BeginDisabledGroup(!ret);
                 {
                     EditorGUI.indentLevel++;
-                    m_MaterialEditor.RangeProperty(tweakHighColorOnShadow, "HighColor Power on Shadow");
+                    m_MaterialEditor.RangeProperty(tweakHighColorOnShadow, "High Color Power on Shadow");
                     EditorGUI.indentLevel--;
                 }
                 EditorGUI.EndDisabledGroup();
@@ -2036,10 +2053,10 @@ namespace UnityEditor.Rendering.Toon
             //Line();
             //EditorGUILayout.Space();
 
-            GUILayout.Label("    HighColor Mask", EditorStyles.boldLabel);
+            GUILayout.Label("    High Color Mask", EditorStyles.boldLabel);
             EditorGUI.indentLevel++;
             m_MaterialEditor.TexturePropertySingleLine(Styles.highColorMaskText, set_HighColorMask);
-            m_MaterialEditor.RangeProperty(tweak_HighColorMaskLevel, "HighColor Mask Level");
+            m_MaterialEditor.RangeProperty(tweak_HighColorMaskLevel, "High Color Mask Level");
             EditorGUI.indentLevel--;
 
             EditorGUILayout.Space();
@@ -2047,8 +2064,10 @@ namespace UnityEditor.Rendering.Toon
 
         void GUI_RimLight(Material material)
         {
+
+#if USE_TOGGLE_BUTTONS
             EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.PrefixLabel("RimLight");
+            EditorGUILayout.PrefixLabel("Rim Light");
             //GUILayout.Space(60);
             if (material.GetFloat(ShaderPropRimLight) == 0)
             {
@@ -2187,10 +2206,85 @@ namespace UnityEditor.Rendering.Toon
                 EditorGUI.indentLevel--;
                 EditorGUILayout.Space();
             }
+#else
+            EditorGUILayout.BeginHorizontal();
+            var rimLightEnabled = GUI_Toggle(material, "Rim Light", ShaderPropRimLight, MaterialGetInt(material, ShaderPropRimLight) != 0);
+            EditorGUILayout.EndHorizontal();
+            EditorGUI.BeginDisabledGroup(!rimLightEnabled);
+            EditorGUI.indentLevel++;
+
+            m_MaterialEditor.ColorProperty(rimLightColor, "Rim Light Color");
+            m_MaterialEditor.RangeProperty(rimLight_Power, "Rim Light Power");
+
+            if (!_SimpleUI)
+            {
+                m_MaterialEditor.RangeProperty(rimLight_InsideMask, "Rim Light Inside Mask");
+
+                EditorGUILayout.BeginHorizontal();
+                GUI_Toggle(material, "Rim Light Feather Off", ShaderPropRimLight_FeatherOff, MaterialGetInt(material, ShaderPropRimLight_FeatherOff) != 0);
+                EditorGUILayout.EndHorizontal();
+                EditorGUILayout.BeginHorizontal();
+
+                //GUILayout.Space(60);
+                var direcitonMaskEnabled = GUI_Toggle(material, "Light Direction Mask", ShaderPropLightDirection_MaskOn, MaterialGetInt(material, ShaderPropLightDirection_MaskOn) != 0);
+                EditorGUILayout.EndHorizontal();
+
+                EditorGUI.BeginDisabledGroup(!direcitonMaskEnabled);
+                {
+                    EditorGUI.indentLevel++;
+                    m_MaterialEditor.RangeProperty(tweak_LightDirection_MaskLevel, "Light Direction Mask Level");
+
+                    EditorGUILayout.BeginHorizontal();
+                    var antipodean_RimLight = GUI_Toggle(material, "Antipodean(Ap)_RimLight", ShaderPropAdd_Antipodean_RimLight, MaterialGetInt(material, ShaderPropAdd_Antipodean_RimLight )!= 0);
+                    EditorGUILayout.EndHorizontal();
+
+                    EditorGUI.BeginDisabledGroup(!antipodean_RimLight);
+                    {
+                        EditorGUI.indentLevel++;
+
+                        m_MaterialEditor.ColorProperty(ap_RimLightColor, "Ap_RimLight Color");
+                        m_MaterialEditor.RangeProperty(ap_RimLight_Power, "Ap_RimLight Power");
+
+                        EditorGUILayout.BeginHorizontal();
+                        GUI_Toggle(material, "Ap_RimLight FeatherOff", ShaderPropAp_RimLight_FeatherOff, MaterialGetInt(material, ShaderPropAp_RimLight_FeatherOff) != 0);
+
+
+                        EditorGUILayout.EndHorizontal();
+                        EditorGUI.indentLevel--;
+                    }
+                    EditorGUI.EndDisabledGroup();
+                    EditorGUI.indentLevel--;
+
+                }//Light Direction Mask ON
+                EditorGUI.EndDisabledGroup();
+            }
+
+            //EditorGUI.indentLevel++;
+
+            EditorGUILayout.Space();
+            //Line();
+            //EditorGUILayout.Space();
+
+            GUILayout.Label("    RimLight Mask", EditorStyles.boldLabel);
+            m_MaterialEditor.TexturePropertySingleLine(Styles.rimLightMaskText, set_RimLightMask);
+            m_MaterialEditor.RangeProperty(tweak_RimLightMaskLevel, "RimLight Mask Level");
+
+            //EditorGUI.indentLevel--;
+
+            EditorGUI.indentLevel--;
+            EditorGUILayout.Space();
+
+            EditorGUI.EndDisabledGroup();
+#endif
+
+
+
         }
 
         void GUI_MatCap(Material material)
         {
+#if USE_TOGGLE_BUTTONS
+
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.PrefixLabel("MatCap");
             //GUILayout.Space(60);
@@ -2366,6 +2460,78 @@ namespace UnityEditor.Rendering.Toon
 
                 EditorGUI.indentLevel--;
             } // MatCap == 1
+#else
+            EditorGUILayout.BeginHorizontal();
+            var matcapEnabled = GUI_Toggle(material, "MatCap", ShaderPropMatCap,MaterialGetInt(material, ShaderPropMatCap) != 0);
+            EditorGUILayout.EndHorizontal();
+            EditorGUI.BeginDisabledGroup(!matcapEnabled);
+
+            m_MaterialEditor.TexturePropertySingleLine(Styles.matCapSamplerText, matCap_Sampler, matCapColor);
+            EditorGUI.indentLevel++;
+            m_MaterialEditor.TextureScaleOffsetProperty(matCap_Sampler);
+
+            if (!_SimpleUI)
+            {
+
+                m_MaterialEditor.RangeProperty(blurLevelMatcap, "Blur Level of MatCap Sampler");
+
+                EditorGUILayout.BeginHorizontal();
+                DoPopup(matcapBlendModeText, matcapBlendMode, System.Enum.GetNames(typeof(_UTS_MatcapColorBlendMode)));
+                EditorGUILayout.EndHorizontal();
+
+                m_MaterialEditor.RangeProperty(tweak_MatCapUV, "Scale MatCapUV");
+                m_MaterialEditor.RangeProperty(rotate_MatCapUV, "Rotate MatCapUV");
+
+                EditorGUILayout.BeginHorizontal();
+                GUI_Toggle(material, "Camera Rolling Stabilizer", ShaderPropCameraRolling_Stabilizer, MaterialGetInt(material, ShaderPropCameraRolling_Stabilizer) != 0);
+                EditorGUILayout.EndHorizontal();
+
+                EditorGUILayout.BeginHorizontal();
+                var isNormalMapForMatCap = GUI_Toggle(material, "NormalMap Specular Mask for MatCap", ShaderPropIs_NormalMapForMatCap, MaterialGetInt(material, ShaderPropIs_NormalMapForMatCap) != 0);
+
+                //GUILayout.Space(60);
+
+                EditorGUILayout.EndHorizontal();
+                EditorGUI.BeginDisabledGroup(!isNormalMapForMatCap);
+                {
+                    EditorGUI.indentLevel++;
+                    m_MaterialEditor.TexturePropertySingleLine(Styles.normalMapText, normalMapForMatCap, bumpScaleMatcap);
+                    m_MaterialEditor.TextureScaleOffsetProperty(normalMapForMatCap);
+                    m_MaterialEditor.RangeProperty(rotate_NormalMapForMatCapUV, "Rotate NormalMapUV");
+                    EditorGUI.indentLevel--;
+                }
+                EditorGUI.EndDisabledGroup();
+
+                EditorGUILayout.BeginHorizontal();
+                var tweakMatCapOnShadows = GUI_Toggle(material, "MatCap on Shadows", ShaderPropIs_UseTweakMatCapOnShadow, MaterialGetInt(material, ShaderPropIs_UseTweakMatCapOnShadow) != 0);
+ 
+                EditorGUILayout.EndHorizontal();
+                EditorGUI.BeginDisabledGroup(!tweakMatCapOnShadows);
+                {
+                    EditorGUI.indentLevel++;
+                    m_MaterialEditor.RangeProperty(tweakMatCapOnShadow, "MatCap Power on Shadows");
+                    EditorGUI.indentLevel--;
+                }
+                EditorGUI.EndDisabledGroup();
+                DoPopup(matcapOrthoText, matcapCameraMode, System.Enum.GetNames(typeof(_CameraProjectionType)));
+            }
+
+            EditorGUILayout.Space();
+            //Line();
+            //EditorGUILayout.Space();
+
+            GUILayout.Label("    MatCap Mask", EditorStyles.boldLabel);
+            m_MaterialEditor.TexturePropertySingleLine(Styles.matCapMaskText, set_MatcapMask);
+            m_MaterialEditor.TextureScaleOffsetProperty(set_MatcapMask);
+            m_MaterialEditor.RangeProperty(tweak_MatcapMaskLevel, "MatCap Mask Level");
+
+            GUI_Toggle(material, "Inverse MatCap Mask", ShaderPropInverse_MatcapMask, MaterialGetInt(material, ShaderPropInverse_MatcapMask) != 0);
+
+
+            EditorGUI.indentLevel--;
+
+            EditorGUI.EndDisabledGroup();
+#endif
 
             //EditorGUILayout.Space();
         }
