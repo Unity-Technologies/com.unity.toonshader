@@ -215,7 +215,14 @@ namespace UnityEditor.Rendering.Toon
         {
             Off, StencilOut, StencilMask
         }
-
+        public enum _UTS_SpeculerMode
+        {
+            Circle, Natural
+        }
+        public enum _UTS_SpeculerColorBlendMode
+        {
+            Multiply, Additive
+        }
         public enum _StencilOperation
         {
             //https://docs.unity3d.com/Manual/SL-Stencil.html
@@ -309,6 +316,8 @@ namespace UnityEditor.Rendering.Toon
         //Specify only those that use the m_MaterialEditor method as their UI.
         // UTS3 materal properties -------------------------
         protected MaterialProperty utsTechnique = null;
+        protected MaterialProperty specularMode = null;
+        protected MaterialProperty specularBlendMode = null;
         protected MaterialProperty transparentMode = null;
         protected MaterialProperty clippingMode = null;
         protected MaterialProperty clippingMask = null;
@@ -670,10 +679,11 @@ namespace UnityEditor.Rendering.Toon
             }
         }
 
-
+        public static GUIContent specularModeText = new GUIContent("Specular Mode", "Specular light mode. Circle or Natural");
+        public static GUIContent specularBlendModeText = new GUIContent("Color Blend Mode", "Specular color blending mode. Multiply or Additive");
         public static GUIContent transparentModeText = new GUIContent("Transparent Mode",
             "Transparent  mode that fits you. ");
-        public static GUIContent workflowModeText = new GUIContent("Workflow Mode",
+        public static GUIContent workflowModeText = new GUIContent("Mode",
             "Select a workflow that fits your textures. Choose between DoubleShadeWithFeather or ShadingGradeMap.");
         // -----------------------------------------------------
         public static GUIContent clippingmodeModeText0 = new GUIContent("Clipping Mode",
@@ -687,6 +697,8 @@ namespace UnityEditor.Rendering.Toon
         {
             // false is added if theare are possiblities the properties are not aveialable
             utsTechnique = FindProperty(ShaderPropUtsTechniqe, props);
+            specularMode = FindProperty(ShaderPropIs_SpecularToHighColor, props);
+            specularBlendMode = FindProperty(ShaderPropIs_BlendAddToHiColor, props);
             transparentMode = FindProperty(ShaderPropTransparentEnabled, props);
             clippingMask = FindProperty(ShaderPropClippingMask, props);
             clippingMode = FindProperty(ShaderPropClippingMode, props);
@@ -1888,6 +1900,7 @@ namespace UnityEditor.Rendering.Toon
 
             if (!_SimpleUI)
             {
+#if USE_TOGGLE_BUTTONS
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.PrefixLabel("Specular Mode");
                 //GUILayout.Space(60);
@@ -1934,6 +1947,50 @@ namespace UnityEditor.Rendering.Toon
                     }
                 }
                 EditorGUILayout.EndHorizontal();
+#else
+                EditorGUI.showMixedValue = specularMode.hasMixedValue;
+
+                int mode = (int)specularMode.floatValue;
+                EditorGUI.BeginChangeCheck();
+                mode = EditorGUILayout.Popup(specularModeText, mode, System.Enum.GetNames(typeof(_UTS_SpeculerMode)));
+                if (EditorGUI.EndChangeCheck())
+                {
+                    m_MaterialEditor.RegisterPropertyChangeUndo(specularModeText.text);
+                    switch ((_UTS_SpeculerMode)mode)
+                    {
+                    case _UTS_SpeculerMode.Circle:
+                        break;
+                    case _UTS_SpeculerMode.Natural:
+                        specularBlendMode.floatValue = 1.0f;
+                        break;
+                    }
+
+
+                    specularMode.floatValue = mode;
+                }
+                EditorGUI.showMixedValue = false;
+
+
+                EditorGUILayout.BeginHorizontal();
+                EditorGUI.indentLevel++;
+
+                //GUILayout.Space(60);
+                EditorGUI.BeginDisabledGroup(mode != 0);
+                EditorGUI.showMixedValue = specularBlendMode.hasMixedValue;
+                int blendingMode = (int)specularBlendMode.floatValue;
+                EditorGUI.BeginChangeCheck();
+                blendingMode = EditorGUILayout.Popup(specularBlendModeText, blendingMode, System.Enum.GetNames(typeof(_UTS_SpeculerColorBlendMode)));
+                if (EditorGUI.EndChangeCheck())
+                {
+                    m_MaterialEditor.RegisterPropertyChangeUndo(specularModeText.text);
+                    specularBlendMode.floatValue = blendingMode;
+                }
+                EditorGUI.indentLevel--;
+                EditorGUILayout.EndHorizontal();
+                EditorGUI.showMixedValue = false;
+                EditorGUI.EndDisabledGroup();
+#endif
+
 #if USE_TOGGLE_BUTTONS
                 EditorGUILayout.BeginHorizontal();
 
