@@ -2479,8 +2479,8 @@ namespace UnityEditor.Rendering.Toon
                 DoPopup(matcapBlendModeText, matcapBlendMode, System.Enum.GetNames(typeof(_UTS_MatcapColorBlendMode)));
                 EditorGUILayout.EndHorizontal();
 
-                m_MaterialEditor.RangeProperty(tweak_MatCapUV, "Scale MatCapUV");
-                m_MaterialEditor.RangeProperty(rotate_MatCapUV, "Rotate MatCapUV");
+                m_MaterialEditor.RangeProperty(tweak_MatCapUV, "Scale MatCap UV");
+                m_MaterialEditor.RangeProperty(rotate_MatCapUV, "Rotate MatCap UV");
 
                 EditorGUILayout.BeginHorizontal();
                 GUI_Toggle(material, "Camera Rolling Stabilizer", ShaderPropCameraRolling_Stabilizer, MaterialGetInt(material, ShaderPropCameraRolling_Stabilizer) != 0);
@@ -2497,7 +2497,7 @@ namespace UnityEditor.Rendering.Toon
                     EditorGUI.indentLevel++;
                     m_MaterialEditor.TexturePropertySingleLine(Styles.normalMapText, normalMapForMatCap, bumpScaleMatcap);
                     m_MaterialEditor.TextureScaleOffsetProperty(normalMapForMatCap);
-                    m_MaterialEditor.RangeProperty(rotate_NormalMapForMatCapUV, "Rotate NormalMapUV");
+                    m_MaterialEditor.RangeProperty(rotate_NormalMapForMatCapUV, "Rotate NormalMap UV");
                     EditorGUI.indentLevel--;
                 }
                 EditorGUI.EndDisabledGroup();
@@ -2538,6 +2538,7 @@ namespace UnityEditor.Rendering.Toon
 
         void GUI_AngelRing(Material material)
         {
+#if USE_TOGGLE_BUTTONS
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.PrefixLabel("AngelRing Projection");
             //GUILayout.Space(60);
@@ -2559,8 +2560,7 @@ namespace UnityEditor.Rendering.Toon
                 }
             }
             EditorGUILayout.EndHorizontal();
-
-            if (material.GetFloat(ShaderPropAngelRing) == 1)
+                        if (material.GetFloat(ShaderPropAngelRing) == 1)
             {
                 GUILayout.Label("    AngelRing Sampler Settings", EditorStyles.boldLabel);
                 m_MaterialEditor.TexturePropertySingleLine(Styles.angelRingText, angelRing_Sampler, angelRing_Color);
@@ -2590,6 +2590,24 @@ namespace UnityEditor.Rendering.Toon
                 EditorGUI.indentLevel--;
 
             }
+
+#else
+            var angelRingEnabled = GUI_Toggle(material, "AngelRing Projection", ShaderPropAngelRing, MaterialGetInt(material, ShaderPropAngelRing) != 0);
+            EditorGUI.BeginDisabledGroup(!angelRingEnabled);
+            {
+                m_MaterialEditor.TexturePropertySingleLine(Styles.angelRingText, angelRing_Sampler, angelRing_Color);
+                EditorGUI.indentLevel++;
+                //m_MaterialEditor.TextureScaleOffsetProperty(angelRing_Sampler);
+                m_MaterialEditor.RangeProperty(ar_OffsetU, "Offset U");
+                m_MaterialEditor.RangeProperty(ar_OffsetV, "Offset V");
+
+                GUI_Toggle(material, "Alpha channel as Clipping Mask", ShaderPropARSampler_AlphaOn, MaterialGetInt(material, ShaderPropARSampler_AlphaOn) != 0);
+
+                EditorGUI.indentLevel--;
+
+            }
+            EditorGUI.EndDisabledGroup();
+#endif
 
         }
         void ApplyQueueAndRenderType(_UTS_Technique technique, Material material)
