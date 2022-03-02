@@ -2831,6 +2831,7 @@ namespace UnityEditor.Rendering.Toon
         }
         void GUI_Emissive(Material material)
         {
+#if USE_TOGGLE_BUTTONS
             GUILayout.Label("Emissive Tex × HDR Color", EditorStyles.boldLabel);
             GUILayout.Label("(Bloom Post-Processing Effect necessary)");
             EditorGUILayout.Space();
@@ -2981,6 +2982,113 @@ namespace UnityEditor.Rendering.Toon
                 }//!_SimpleUI
             }
             EditorGUILayout.Space();
+#else
+
+            m_MaterialEditor.TexturePropertySingleLine(Styles.emissiveTexText, emissive_Tex, emissive_Color);
+            m_MaterialEditor.TextureScaleOffsetProperty(emissive_Tex);
+
+            int _EmissiveMode_Setting = material.GetInt("_EMISSIVE");
+            if ((int)_EmissiveMode.SimpleEmissive == _EmissiveMode_Setting)
+            {
+                emissiveMode = _EmissiveMode.SimpleEmissive;
+            }
+            else if ((int)_EmissiveMode.EmissiveAnimation == _EmissiveMode_Setting)
+            {
+                emissiveMode = _EmissiveMode.EmissiveAnimation;
+            }
+            EditorGUILayout.Space();
+
+            EditorGUI.BeginChangeCheck();
+            var label = "Emissive Animation";
+            var ret = EditorGUILayout.Toggle("Emissive Animation", emissiveMode != _EmissiveMode.SimpleEmissive);
+            if (EditorGUI.EndChangeCheck())
+            {
+                m_MaterialEditor.RegisterPropertyChangeUndo(label);
+                if (ret )
+                {
+                    material.SetFloat("_EMISSIVE", 1);
+                    material.EnableKeyword("_EMISSIVE_ANIMATION");
+                    material.DisableKeyword("_EMISSIVE_SIMPLE");
+                }
+                else
+                {
+                    material.SetFloat("_EMISSIVE", 0);
+                    material.EnableKeyword("_EMISSIVE_SIMPLE");
+                    material.DisableKeyword("_EMISSIVE_ANIMATION");
+                }
+            }
+
+
+
+            EditorGUI.BeginDisabledGroup(emissiveMode != _EmissiveMode.EmissiveAnimation);
+            {
+                EditorGUI.indentLevel++;
+
+                EditorGUILayout.BeginHorizontal();
+                m_MaterialEditor.FloatProperty(base_Speed, "Base Speed (Time)");
+                //EditorGUILayout.PrefixLabel("Select Scroll Coord");
+                //GUILayout.Space(60);
+                if (!_SimpleUI)
+                {
+
+                    if (material.GetFloat(ShaderPropIs_ViewCoord_Scroll) == 0)
+                    {
+                        if (GUILayout.Button("UV Coord Scroll", shortButtonStyle))
+                        {
+                            material.SetFloat(ShaderPropIs_ViewCoord_Scroll, 1);
+                        }
+                    }
+                    else
+                    {
+                        if (GUILayout.Button("View Coord Scroll", shortButtonStyle))
+                        {
+                            material.SetFloat(ShaderPropIs_ViewCoord_Scroll, 0);
+                        }
+                    }
+                }
+                EditorGUILayout.EndHorizontal();
+
+                m_MaterialEditor.RangeProperty(scroll_EmissiveU, "Scroll U/X direction");
+                m_MaterialEditor.RangeProperty(scroll_EmissiveV, "Scroll V/Y direction");
+                m_MaterialEditor.FloatProperty(rotate_EmissiveUV, "Rotate around UV center");
+
+                GUI_Toggle(material, "Ping-pong moves for base", ShaderPropIs_PingPong_Base, MaterialGetInt(material, ShaderPropIs_PingPong_Base) != 0);
+
+
+                if (!_SimpleUI)
+                {
+                    EditorGUILayout.Space();
+
+                    //GUILayout.Space(60);
+                    var isColorShiftEnabled = GUI_Toggle(material, "Color shift with time", ShaderPropIs_ColorShift, MaterialGetInt(material, ShaderPropIs_ColorShift) != 0 );
+
+
+                    EditorGUI.indentLevel++;
+                    EditorGUI.BeginDisabledGroup(!isColorShiftEnabled);
+                    {
+                        m_MaterialEditor.ColorProperty(colorShift, "Destination Color");
+                        m_MaterialEditor.FloatProperty(colorShift_Speed, "ColorShift Speed (Time)");
+                    }
+                    EditorGUI.EndDisabledGroup();
+
+                    EditorGUI.indentLevel--;
+
+                    EditorGUILayout.Space();
+
+                    var isViewShiftEnabled = GUI_Toggle(material, "ViewShift of Color", ShaderPropIs_ViewShift, MaterialGetInt(material, ShaderPropIs_ViewShift) != 0);
+
+
+                    EditorGUI.indentLevel++;
+                    EditorGUI.BeginDisabledGroup(!isViewShiftEnabled);
+                    m_MaterialEditor.ColorProperty(viewShift, "ViewShift Color");
+                    EditorGUI.EndDisabledGroup();
+                    EditorGUI.indentLevel--;
+                }//!_SimpleUI
+                EditorGUI.indentLevel--;
+            }
+            EditorGUI.EndDisabledGroup();
+            EditorGUILayout.Space();
+#endif
         }
 
 
