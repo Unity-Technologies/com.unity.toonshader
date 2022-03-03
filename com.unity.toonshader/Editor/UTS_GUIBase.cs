@@ -1204,7 +1204,7 @@ namespace UnityEditor.Rendering.Toon
             return material.GetInt(prop);
 #endif
         }
-        void MaterialSetint(Material material, string prop, int value)
+        void MaterialSetInt(Material material, string prop, int value)
         {
 #if UNITY_2021_1_OR_NEWER
             material.SetInteger(prop, value);
@@ -1239,7 +1239,7 @@ namespace UnityEditor.Rendering.Toon
             if (EditorGUI.EndChangeCheck())
             {
                 m_MaterialEditor.RegisterPropertyChangeUndo(label);
-                MaterialSetint(material, prop, ret ? 1 : 0);
+                MaterialSetInt(material, prop, ret ? 1 : 0);
             }
             return ret;
         }
@@ -3938,7 +3938,7 @@ namespace UnityEditor.Rendering.Toon
         {
             m_MaterialEditor.RangeProperty(gi_Intensity, "GI Intensity");
             m_MaterialEditor.RangeProperty(unlit_Intensity, "Unlit Intensity");
-
+#if USE_TOGGLE_BUTTONS
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.PrefixLabel("SceneLights Hi-Cut Filter");
             //GUILayout.Space(60);
@@ -4010,6 +4010,40 @@ namespace UnityEditor.Rendering.Toon
                 EditorGUILayout.EndHorizontal();
                 EditorGUI.indentLevel--;
             }
+
+#else
+            EditorGUI.BeginChangeCheck();
+            var prop = ShaderPropIs_Filter_LightColor;
+            var label = "SceneLights Hi-Cut Filter";
+            var value = MaterialGetInt(material, prop);
+            var ret = EditorGUILayout.Toggle(label, value != 0);
+            if (EditorGUI.EndChangeCheck())
+            {
+                var boolValue = ret ? 1 : 0;
+                m_MaterialEditor.RegisterPropertyChangeUndo(label);
+                MaterialSetInt(material, prop, boolValue);
+
+                MaterialSetInt(material, ShaderPropIs_Filter_LightColor, boolValue);
+                MaterialSetInt(material, ShaderPropIsLightColor_Base, boolValue);
+                MaterialSetInt(material, ShaderPropIs_LightColor_1st_Shade, boolValue);
+                MaterialSetInt(material, ShaderPropIs_LightColor_2nd_Shade, boolValue);
+                if (material.HasProperty(ShaderPropOutline))//If OUTLINE is available.
+                {
+                    MaterialSetInt(material, ShaderPropIs_LightColor_Outline, boolValue);
+                }
+            }
+            var isBold = GUI_Toggle(material, "Built-in Light Direction", ShaderPropIs_BLD, MaterialGetInt(material, ShaderPropIs_BLD) != 0);
+            EditorGUI.BeginDisabledGroup(!isBold);
+
+            EditorGUI.indentLevel++;
+            m_MaterialEditor.RangeProperty(offset_X_Axis_BLD, "● Offset X-Axis Direction");
+            m_MaterialEditor.RangeProperty(offset_Y_Axis_BLD, "● Offset Y-Axis Direction");
+
+            GUI_Toggle(material, "● Inverse Z - Axis Direction", ShaderPropInverse_Z_Axis_BLD, MaterialGetInt(material,ShaderPropInverse_Z_Axis_BLD) != 0);
+
+            EditorGUI.indentLevel--;
+            EditorGUI.EndDisabledGroup();
+#endif
             EditorGUILayout.Space();
         }
 
