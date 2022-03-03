@@ -3121,6 +3121,7 @@ namespace UnityEditor.Rendering.Toon
 
             var srpDefaultLightModeTag = material.GetTag("LightMode", false, srpDefaultLightModeName);
             bool isOutlineEnabled = true;
+#if USE_TOGGLE_BUTTONS
             if (srpDefaultLightModeTag == srpDefaultLightModeName)
             {
                 EditorGUILayout.BeginHorizontal();
@@ -3271,6 +3272,152 @@ namespace UnityEditor.Rendering.Toon
                     }
                 }
             }
+#else
+            if (srpDefaultLightModeTag == srpDefaultLightModeName)
+            {
+                const string kOutline = "Outline";
+                isOutlineEnabled = material.GetShaderPassEnabled(srpDefaultLightModeName);
+                EditorGUI.BeginChangeCheck();
+                isOutlineEnabled = EditorGUILayout.Toggle(kOutline, isOutlineEnabled);
+                if (EditorGUI.EndChangeCheck())
+                {
+                    m_MaterialEditor.RegisterPropertyChangeUndo(kOutline);
+                    if (isOutlineEnabled)
+                    {
+                        if (isLegacy)
+                        {
+                            material.DisableKeyword(kDisableOutlineKeyword);
+                        }
+
+                        material.SetShaderPassEnabled(srpDefaultLightModeName, true);
+                    }
+                    else
+                    {
+                        if (isLegacy)
+                        {
+                            material.EnableKeyword(kDisableOutlineKeyword);
+                        }
+                        material.SetShaderPassEnabled(srpDefaultLightModeName, false);
+                    }
+                }
+            }
+            EditorGUI.BeginDisabledGroup(!isOutlineEnabled);
+            //
+            //Express Shader property [KeywordEnum(NML,POS)] by EumPopup.
+            //Load the outline mode settings in the material.
+            int _OutlineMode_Setting = material.GetInt(ShaderPropOutline);
+            //Convert it to Enum format and store it in the offlineMode variable.
+
+            if ((int)_OutlineMode.NormalDirection == _OutlineMode_Setting)
+            {
+                outlineMode = _OutlineMode.NormalDirection;
+            }
+            else if ((int)_OutlineMode.PositionScaling == _OutlineMode_Setting)
+            {
+                outlineMode = _OutlineMode.PositionScaling;
+            }
+            //GUI description with EnumPopup.
+            outlineMode = (_OutlineMode)EditorGUILayout.EnumPopup("Outline Mode", outlineMode);
+            //If the value changes, write to the material.
+            if (outlineMode == _OutlineMode.NormalDirection)
+            {
+                material.SetFloat(ShaderPropOutline, 0);
+                //The keywords on the UTCS_Outline.cginc side are also toggled around.
+                material.EnableKeyword("_OUTLINE_NML");
+                material.DisableKeyword("_OUTLINE_POS");
+            }
+            else if (outlineMode == _OutlineMode.PositionScaling)
+            {
+                material.SetFloat(ShaderPropOutline, 1);
+                material.EnableKeyword("_OUTLINE_POS");
+                material.DisableKeyword("_OUTLINE_NML");
+            }
+
+            m_MaterialEditor.FloatProperty(outline_Width, "Outline Width");
+            m_MaterialEditor.ColorProperty(outline_Color, "Outline Color");
+
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.PrefixLabel("Blend BaseColor to Outline");
+            //GUILayout.Space(60);
+            if (material.GetFloat(ShaderPropIs_BlendBaseColor) == 0)
+            {
+                if (GUILayout.Button(STR_OFFSTATE, shortButtonStyle))
+                {
+                    material.SetFloat(ShaderPropIs_BlendBaseColor, 1);
+                }
+            }
+            else
+            {
+                if (GUILayout.Button(STR_ONSTATE, shortButtonStyle))
+                {
+                    material.SetFloat(ShaderPropIs_BlendBaseColor, 0);
+                }
+            }
+            EditorGUILayout.EndHorizontal();
+
+            m_MaterialEditor.TexturePropertySingleLine(Styles.outlineSamplerText, outline_Sampler);
+            m_MaterialEditor.FloatProperty(offset_Z, "Offset Outline with Camera Z-axis");
+
+            if (!_SimpleUI)
+            {
+
+                _AdvancedOutline_Foldout = FoldoutSubMenu(_AdvancedOutline_Foldout, "● Advanced Outline Settings");
+                if (_AdvancedOutline_Foldout)
+                {
+                    EditorGUI.indentLevel++;
+                    GUILayout.Label("    Camera Distance for Outline Width");
+                    m_MaterialEditor.FloatProperty(farthest_Distance, "● Farthest Distance to vanish");
+                    m_MaterialEditor.FloatProperty(nearest_Distance, "● Nearest Distance to draw with Outline Width");
+                    EditorGUI.indentLevel--;
+
+                    EditorGUILayout.BeginHorizontal();
+                    EditorGUILayout.PrefixLabel("Use Outline Texture");
+                    //GUILayout.Space(60);
+                    if (material.GetFloat(ShaderPropIs_OutlineTex) == 0)
+                    {
+                        if (GUILayout.Button(STR_OFFSTATE, shortButtonStyle))
+                        {
+                            material.SetFloat(ShaderPropIs_OutlineTex, 1);
+                        }
+                        EditorGUILayout.EndHorizontal();
+                    }
+                    else
+                    {
+                        if (GUILayout.Button(STR_ONSTATE, shortButtonStyle))
+                        {
+                            material.SetFloat(ShaderPropIs_OutlineTex, 0);
+                        }
+                        EditorGUILayout.EndHorizontal();
+                        m_MaterialEditor.TexturePropertySingleLine(Styles.outlineTexText, outlineTex);
+                    }
+
+                    if (outlineMode == _OutlineMode.NormalDirection)
+                    {
+                        EditorGUILayout.BeginHorizontal();
+                        EditorGUILayout.PrefixLabel("Use Baked Normal for Outline");
+                        //GUILayout.Space(60);
+                        if (material.GetFloat(ShaderPropIs_BakedNormal) == 0)
+                        {
+                            if (GUILayout.Button(STR_OFFSTATE, shortButtonStyle))
+                            {
+                                material.SetFloat(ShaderPropIs_BakedNormal, 1);
+                            }
+                            EditorGUILayout.EndHorizontal();
+                        }
+                        else
+                        {
+                            if (GUILayout.Button(STR_ONSTATE, shortButtonStyle))
+                            {
+                                material.SetFloat(ShaderPropIs_BakedNormal, 0);
+                            }
+                            EditorGUILayout.EndHorizontal();
+                            m_MaterialEditor.TexturePropertySingleLine(Styles.bakedNormalOutlineText, bakedNormal);
+                        }
+                    }
+                }
+                EditorGUI.EndDisabledGroup();
+            }
+#endif
         }
 
         void GUI_Tessellation(Material material)
