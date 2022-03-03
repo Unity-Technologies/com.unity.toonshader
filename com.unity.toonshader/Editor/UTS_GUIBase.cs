@@ -3369,6 +3369,7 @@ namespace UnityEditor.Rendering.Toon
                 EditorGUI.EndDisabledGroup(); //!isOutlineEnabled
             }
 #endif
+            EditorGUILayout.Space();
         }
 
         void GUI_Tessellation(Material material)
@@ -3743,6 +3744,7 @@ namespace UnityEditor.Rendering.Toon
         void GUI_LightColorContribution(Material material)
         {
             GUILayout.Label("Realtime LightColor Contribution to each color", EditorStyles.boldLabel);
+#if USE_TOGGLE_BUTTONS
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.PrefixLabel("Base Color");
             //GUILayout.Space(60);
@@ -3919,6 +3921,14 @@ namespace UnityEditor.Rendering.Toon
                 }
                 EditorGUILayout.EndHorizontal();
             }
+#else
+            GUI_Toggle(material, "Base Color", ShaderPropIsLightColor_Base, MaterialGetInt(material, ShaderPropIsLightColor_Base)!= 0);
+            GUI_Toggle(material, "1st Shade Color", ShaderPropIs_LightColor_1st_Shade, MaterialGetInt(material, ShaderPropIs_LightColor_1st_Shade) != 0);
+            GUI_Toggle(material, "2nd Shade Color", ShaderPropIs_LightColor_2nd_Shade, MaterialGetInt(material, ShaderPropIs_LightColor_2nd_Shade) != 0);
+            GUI_Toggle(material, "High Color", ShaderPropIs_LightColor_HighColor, MaterialGetInt(material, ShaderPropIs_LightColor_HighColor) != 0);
+            GUI_Toggle(material, "Rim Light", ShaderPropIs_LightColor_RimLight, MaterialGetInt(material, ShaderPropIs_LightColor_RimLight) != 0);
+            GUI_Toggle(material, "Ap_RimLight", ShaderPropIs_LightColor_Ap_RimLight, MaterialGetInt(material, ShaderPropIs_LightColor_Ap_RimLight) != 0);
+#endif
             EditorGUILayout.Space();
         }
 
