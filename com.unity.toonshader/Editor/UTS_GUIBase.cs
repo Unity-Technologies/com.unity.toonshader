@@ -4022,14 +4022,16 @@ namespace UnityEditor.Rendering.Toon
                 var boolValue = ret ? 1 : 0;
                 m_MaterialEditor.RegisterPropertyChangeUndo(label);
                 MaterialSetInt(material, prop, boolValue);
-
-                MaterialSetInt(material, ShaderPropIs_Filter_LightColor, boolValue);
-                MaterialSetInt(material, ShaderPropIsLightColor_Base, boolValue);
-                MaterialSetInt(material, ShaderPropIs_LightColor_1st_Shade, boolValue);
-                MaterialSetInt(material, ShaderPropIs_LightColor_2nd_Shade, boolValue);
-                if (material.HasProperty(ShaderPropOutline))//If OUTLINE is available.
+                if ( boolValue != 0 )
                 {
-                    MaterialSetInt(material, ShaderPropIs_LightColor_Outline, boolValue);
+                    MaterialSetInt(material, ShaderPropIs_Filter_LightColor, boolValue);
+                    MaterialSetInt(material, ShaderPropIsLightColor_Base, boolValue);
+                    MaterialSetInt(material, ShaderPropIs_LightColor_1st_Shade, boolValue);
+                    MaterialSetInt(material, ShaderPropIs_LightColor_2nd_Shade, boolValue);
+                    if (material.HasProperty(ShaderPropOutline))//If OUTLINE is available.
+                    {
+                        MaterialSetInt(material, ShaderPropIs_LightColor_Outline, boolValue);
+                    }
                 }
             }
             var isBold = GUI_Toggle(material, "Built-in Light Direction", ShaderPropIs_BLD, MaterialGetInt(material, ShaderPropIs_BLD) != 0);
