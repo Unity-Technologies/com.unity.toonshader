@@ -3336,24 +3336,7 @@ namespace UnityEditor.Rendering.Toon
             m_MaterialEditor.FloatProperty(outline_Width, "Outline Width");
             m_MaterialEditor.ColorProperty(outline_Color, "Outline Color");
 
-            EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.PrefixLabel("Blend BaseColor to Outline");
-            //GUILayout.Space(60);
-            if (material.GetFloat(ShaderPropIs_BlendBaseColor) == 0)
-            {
-                if (GUILayout.Button(STR_OFFSTATE, shortButtonStyle))
-                {
-                    material.SetFloat(ShaderPropIs_BlendBaseColor, 1);
-                }
-            }
-            else
-            {
-                if (GUILayout.Button(STR_ONSTATE, shortButtonStyle))
-                {
-                    material.SetFloat(ShaderPropIs_BlendBaseColor, 0);
-                }
-            }
-            EditorGUILayout.EndHorizontal();
+            GUI_Toggle(material,"Blend BaseColor to Outline", ShaderPropIs_BlendBaseColor, MaterialGetInt(material, ShaderPropIs_BlendBaseColor) != 0);
 
             m_MaterialEditor.TexturePropertySingleLine(Styles.outlineSamplerText, outline_Sampler);
             m_MaterialEditor.FloatProperty(offset_Z, "Offset Outline with Camera Z-axis");
@@ -3366,56 +3349,24 @@ namespace UnityEditor.Rendering.Toon
                 {
                     EditorGUI.indentLevel++;
                     GUILayout.Label("    Camera Distance for Outline Width");
-                    m_MaterialEditor.FloatProperty(farthest_Distance, "● Farthest Distance to vanish");
-                    m_MaterialEditor.FloatProperty(nearest_Distance, "● Nearest Distance to draw with Outline Width");
+                    m_MaterialEditor.FloatProperty(farthest_Distance, "Farthest Distance to vanish");
+                    m_MaterialEditor.FloatProperty(nearest_Distance, "Nearest Distance to draw with Outline Width");
                     EditorGUI.indentLevel--;
 
-                    EditorGUILayout.BeginHorizontal();
-                    EditorGUILayout.PrefixLabel("Use Outline Texture");
-                    //GUILayout.Space(60);
-                    if (material.GetFloat(ShaderPropIs_OutlineTex) == 0)
+                    var useOutlineTexture =  GUI_Toggle(material, "Use Outline Texture", ShaderPropIs_OutlineTex, MaterialGetInt(material, ShaderPropIs_OutlineTex)!=0); ;
+                    EditorGUI.BeginDisabledGroup(!useOutlineTexture);
+                    m_MaterialEditor.TexturePropertySingleLine(Styles.outlineTexText, outlineTex);
+                    EditorGUI.EndDisabledGroup();
+                    EditorGUI.BeginDisabledGroup(outlineMode != _OutlineMode.NormalDirection);
                     {
-                        if (GUILayout.Button(STR_OFFSTATE, shortButtonStyle))
-                        {
-                            material.SetFloat(ShaderPropIs_OutlineTex, 1);
-                        }
-                        EditorGUILayout.EndHorizontal();
+                        var isBackedNormal = GUI_Toggle(material, "Use Baked Normal for Outline", ShaderPropIs_BakedNormal, MaterialGetInt(material, ShaderPropIs_BakedNormal) != 0);
+                        EditorGUI.BeginDisabledGroup(!isBackedNormal);
+                        m_MaterialEditor.TexturePropertySingleLine(Styles.bakedNormalOutlineText, bakedNormal);
+                        EditorGUI.EndDisabledGroup();
                     }
-                    else
-                    {
-                        if (GUILayout.Button(STR_ONSTATE, shortButtonStyle))
-                        {
-                            material.SetFloat(ShaderPropIs_OutlineTex, 0);
-                        }
-                        EditorGUILayout.EndHorizontal();
-                        m_MaterialEditor.TexturePropertySingleLine(Styles.outlineTexText, outlineTex);
-                    }
-
-                    if (outlineMode == _OutlineMode.NormalDirection)
-                    {
-                        EditorGUILayout.BeginHorizontal();
-                        EditorGUILayout.PrefixLabel("Use Baked Normal for Outline");
-                        //GUILayout.Space(60);
-                        if (material.GetFloat(ShaderPropIs_BakedNormal) == 0)
-                        {
-                            if (GUILayout.Button(STR_OFFSTATE, shortButtonStyle))
-                            {
-                                material.SetFloat(ShaderPropIs_BakedNormal, 1);
-                            }
-                            EditorGUILayout.EndHorizontal();
-                        }
-                        else
-                        {
-                            if (GUILayout.Button(STR_ONSTATE, shortButtonStyle))
-                            {
-                                material.SetFloat(ShaderPropIs_BakedNormal, 0);
-                            }
-                            EditorGUILayout.EndHorizontal();
-                            m_MaterialEditor.TexturePropertySingleLine(Styles.bakedNormalOutlineText, bakedNormal);
-                        }
-                    }
+                    EditorGUI.EndDisabledGroup();
                 }
-                EditorGUI.EndDisabledGroup();
+                EditorGUI.EndDisabledGroup(); //!isOutlineEnabled
             }
 #endif
         }
