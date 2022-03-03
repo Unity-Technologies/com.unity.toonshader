@@ -1766,13 +1766,13 @@ namespace UnityEditor.Rendering.Toon
             {
                 if (material.GetInt(ShaderPropUtsTechniqe) == (int)_UTS_Technique.DoubleShadeWithFeather)   //DWF
                 {
-                    GUILayout.Label("Technipue : Double Shade With Feather", EditorStyles.boldLabel);
+                    GUILayout.Label("Technique : Double Shade With Feather", EditorStyles.boldLabel);
                     m_MaterialEditor.TexturePropertySingleLine(Styles.firstPositionMapText, set_1st_ShadePosition);
                     m_MaterialEditor.TexturePropertySingleLine(Styles.secondPositionMapText, set_2nd_ShadePosition);
                 }
                 else if (material.GetInt(ShaderPropUtsTechniqe) == (int)_UTS_Technique.ShadingGradeMap)
                 {    //SGM
-                    GUILayout.Label("Technipue : Shading Grade Map", EditorStyles.boldLabel);
+                    GUILayout.Label("Technique : Shading Grade Map", EditorStyles.boldLabel);
                     m_MaterialEditor.TexturePropertySingleLine(Styles.shadingGradeMapText, shadingGradeMap);
                     m_MaterialEditor.RangeProperty(tweak_ShadingGradeMapLevel, "ShadingGradeMap Level");
                     m_MaterialEditor.RangeProperty(blurLevelSGM, "Blur Level of ShadingGradeMap");
@@ -1846,7 +1846,7 @@ namespace UnityEditor.Rendering.Toon
             {
                 if (material.GetInt(ShaderPropUtsTechniqe) == (int)_UTS_Technique.DoubleShadeWithFeather)   //DWF
                 {
-                    GUILayout.Label("Technipue : Double Shade With Feather", EditorStyles.boldLabel);
+                    GUILayout.Label("Technique : Double Shade With Feather", EditorStyles.boldLabel);
                     m_MaterialEditor.RangeProperty(baseColor_Step, "BaseColor Step");
                     m_MaterialEditor.RangeProperty(baseShade_Feather, "Base/Shade Feather");
                     m_MaterialEditor.RangeProperty(shadeColor_Step, "ShadeColor Step");
@@ -1860,7 +1860,7 @@ namespace UnityEditor.Rendering.Toon
                 }
                 else if (material.GetInt(ShaderPropUtsTechniqe) == (int)_UTS_Technique.ShadingGradeMap)
                 {    //SGM
-                    GUILayout.Label("Technipue : Shading Grade Map", EditorStyles.boldLabel);
+                    GUILayout.Label("Technique : Shading Grade Map", EditorStyles.boldLabel);
                     m_MaterialEditor.RangeProperty(first_ShadeColor_Step, "1st ShaderColor Step");
                     m_MaterialEditor.RangeProperty(first_ShadeColor_Feather, "1st ShadeColor Feather");
                     m_MaterialEditor.RangeProperty(second_ShadeColor_Step, "2nd ShadeColor Step");
@@ -3928,6 +3928,8 @@ namespace UnityEditor.Rendering.Toon
             GUI_Toggle(material, "High Color", ShaderPropIs_LightColor_HighColor, MaterialGetInt(material, ShaderPropIs_LightColor_HighColor) != 0);
             GUI_Toggle(material, "Rim Light", ShaderPropIs_LightColor_RimLight, MaterialGetInt(material, ShaderPropIs_LightColor_RimLight) != 0);
             GUI_Toggle(material, "Ap_RimLight", ShaderPropIs_LightColor_Ap_RimLight, MaterialGetInt(material, ShaderPropIs_LightColor_Ap_RimLight) != 0);
+            GUI_Toggle(material, "MatCap", ShaderPropIs_LightColor_MatCap, MaterialGetInt(material, ShaderPropIs_LightColor_MatCap) != 0);
+            GUI_Toggle(material, "Outline", ShaderPropIs_LightColor_Outline, MaterialGetInt(material, ShaderPropIs_LightColor_Outline) != 0);
 #endif
             EditorGUILayout.Space();
         }
