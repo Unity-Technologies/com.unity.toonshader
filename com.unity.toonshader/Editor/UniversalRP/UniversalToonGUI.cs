@@ -9,14 +9,10 @@ namespace UnityEditor.Rendering.Universal.Toon.ShaderGUI
 {
 
 
-    internal class UniversalToonGUI : UTS_GUIBase
+    internal class UniversalToonGUI 
     {
-        internal override string srpDefaultLightModeName { get { return "SRPDefaultUnlit"; } }
+       
 
-        internal override void TessellationSetting(Material materal) { }
-        internal override void RenderingPerChennelsSetting(Material materal) { }
-        internal override void ApplyTessellation(Material materal) { }
-        internal override void ApplyRenderingPerChennelsSetting(Material materal) { }
     } 
 
 }

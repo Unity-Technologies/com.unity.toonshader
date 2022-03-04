@@ -5,10 +5,10 @@
 using System.Collections.Generic;
 using UnityEditorInternal;
 using UnityEngine;
-using UnityEditor.Rendering.Toon;
-namespace UnityEditor.Rendering.HighDefinition.Toon
+
+namespace UnityEditor.Rendering.Toon
 {
-    internal partial class HDRPToonGUI : UTS_GUIBase
+    internal partial class UTS_GUIBase : UnityEditor.ShaderGUI
     {
 
         public enum _ChannelEnum
@@ -43,7 +43,7 @@ namespace UnityEditor.Rendering.HighDefinition.Toon
 
         static bool _PerChanelShaderSettings_Foldout = false;
 
-        internal override void RenderingPerChennelsSetting(Material material)
+        internal  void RenderingPerChennelsSettingHDRP(Material material)
         {
 
             _PerChanelShaderSettings_Foldout = Foldout(_PerChanelShaderSettings_Foldout, "【Mask Rendering Settings】");

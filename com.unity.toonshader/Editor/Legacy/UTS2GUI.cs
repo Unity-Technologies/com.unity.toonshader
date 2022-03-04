@@ -9,13 +9,9 @@ namespace UnityEditor.Rendering.Builtin.Toon
 {
 
 
-    internal partial class UTS2GUI : UTS_GUIBase
+    internal partial class UTS2GUI  
     {
-        internal override string srpDefaultLightModeName { get { return "Always"; } }
-        internal override void TessellationSetting(Material materal) { }
-        internal override void RenderingPerChennelsSetting(Material materal) { }
-        internal override void ApplyTessellation(Material materal) { }
-        internal override void ApplyRenderingPerChennelsSetting(Material materal) { }
+
     } 
 
 }

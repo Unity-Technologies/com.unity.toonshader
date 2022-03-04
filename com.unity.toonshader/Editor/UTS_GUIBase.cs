@@ -6,6 +6,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEditor.Rendering.HighDefinition.Toon;
+
 namespace UnityEditor.Rendering.Toon
 {
 #if USE_GAME_RECOMMENDATION
@@ -29,19 +32,99 @@ namespace UnityEditor.Rendering.Toon
         public float ShaderPropIs_Filter_LightColor;
     };
 #endif //USE_GAME_RECOMMENDATION
-    internal class UTS_GUIBase : UnityEditor.ShaderGUI
+    internal partial class UTS_GUIBase : UnityEditor.ShaderGUI
     {
+
+
         protected const float kVersionX = 0.0f;
         protected const float kVersionY = 7.0f;
         protected const float kVersionZ = 0.0f;
 
-        internal virtual string srpDefaultLightModeName { get; }
-        internal virtual void TessellationSetting(Material materal) { }
-        internal virtual void RenderingPerChennelsSetting(Material materal) { }
-        internal virtual void ApplyTessellation(Material materal) { }
-        internal virtual void ApplyRenderingPerChennelsSetting(Material materal) { }
-        internal virtual void FindTessellationProperties(MaterialProperty[] props) { }
-        internal virtual bool handleTessellation { get; }
+        // Render Pipelines UTS supports are the followings 
+        enum RenderPipeline
+        {
+            Unknown,
+            Legacy,
+            Universal,
+            HDRP,
+        }
+
+        RenderPipeline currentRenderPipeline
+        {
+            get
+            {
+                const string kHdrpShaderPrefix = "HDRP/";
+                const string kUrpShaderPrefix = "Universal Render Pipeline/";
+                var currentRenderPipeline = GraphicsSettings.currentRenderPipeline;
+                if (currentRenderPipeline == null)
+                {
+                    return RenderPipeline.Legacy; 
+                }
+                if (currentRenderPipeline.defaultMaterial.shader.name.StartsWith(kHdrpShaderPrefix))
+                {
+                    return RenderPipeline.HDRP;
+                }
+                if (currentRenderPipeline.defaultMaterial.shader.name.StartsWith(kUrpShaderPrefix))
+                {
+                    return RenderPipeline.Universal;
+                }
+                return RenderPipeline.Unknown;
+            }
+        }
+        internal string srpDefaultLightModeName 
+        {
+             get
+             {
+                const string legacyDefaultLightModeName = "Always";
+                const string srpDefaultLightModeName = "SRPDefaultUnlit";
+
+                if (currentRenderPipeline == RenderPipeline.Legacy)
+                {
+                    return legacyDefaultLightModeName; // default.
+                }
+
+                return srpDefaultLightModeName;
+             }
+        }
+
+
+        internal  void TessellationSetting(Material material) 
+        {
+            if (currentRenderPipeline == RenderPipeline.HDRP)
+            {
+
+                TessellationSettingHDRP(material);
+            }
+
+        }
+        internal  void RenderingPerChennelsSetting(Material material) 
+        {
+            if (currentRenderPipeline == RenderPipeline.HDRP)
+            {
+
+                RenderingPerChennelsSettingHDRP(material);
+            }
+        }
+        internal  void ApplyTessellation(Material materal) 
+        {
+            if (currentRenderPipeline == RenderPipeline.HDRP)
+            {
+                ApplyTessellationHDRP(materal);
+            }
+        }
+        internal  void ApplyRenderingPerChennelsSetting(Material material) 
+        {
+
+        }
+        internal  void FindTessellationProperties(MaterialProperty[] props) 
+        {
+            if (currentRenderPipeline == RenderPipeline.HDRP)
+            {
+
+                FindTessellationPropertiesHDRP(props);
+            }
+        }
+
         protected const string ShaderDefineSHADINGGRADEMAP = "_SHADINGGRADEMAP";
         protected const string ShaderDefineANGELRING_ON = "_IS_ANGELRING_ON";
         protected const string ShaderDefineANGELRING_OFF = "_IS_ANGELRING_OFF";
