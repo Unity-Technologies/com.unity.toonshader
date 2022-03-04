@@ -400,5 +400,5 @@ Shader "ToonTessellation (Built-in)" {
 //ToonCoreEnd
     }
     FallBack "Legacy Shaders/VertexLit"
-    CustomEditor "UnityEditor.Rendering.Toon.UTS_GUIBase"
+    CustomEditor "UnityEditor.Rendering.Toon.UTS3GUI"
 }

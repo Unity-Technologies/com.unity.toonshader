@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace UnityEditor.Rendering.Toon
 {
-    internal partial class UTS_GUIBase : UnityEditor.ShaderGUI
+    internal partial class UTS3GUI : UnityEditor.ShaderGUI
     {
 
         public enum _ChannelEnum
@@ -292,5 +292,5 @@ namespace UnityEditor.Rendering.Toon
             return newTexture;
 
         }
-    } // End of UTS2GUI2
+    } // End of UTS3GUI
 }

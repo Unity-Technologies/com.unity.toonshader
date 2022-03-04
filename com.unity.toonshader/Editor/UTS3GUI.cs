@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Rendering;
-using UnityEditor.Rendering.HighDefinition.Toon;
+
 
 namespace UnityEditor.Rendering.Toon
 {
@@ -32,7 +32,7 @@ namespace UnityEditor.Rendering.Toon
         public float ShaderPropIs_Filter_LightColor;
     };
 #endif //USE_GAME_RECOMMENDATION
-    internal partial class UTS_GUIBase : UnityEditor.ShaderGUI
+    internal partial class UTS3GUI : UnityEditor.ShaderGUI
     {
 
 
@@ -979,7 +979,7 @@ namespace UnityEditor.Rendering.Toon
         }
         // --------------------------------
 
-        public UTS_GUIBase()
+        public UTS3GUI()
         {
 
         }

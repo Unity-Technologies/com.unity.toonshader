@@ -9,7 +9,7 @@ using UnityEngine.Rendering;
 
 namespace UnityEditor.Rendering.Toon
 {
-    internal partial class UTS_GUIBase
+    internal partial class UTS3GUI
     {
         enum TessellationMode
         {

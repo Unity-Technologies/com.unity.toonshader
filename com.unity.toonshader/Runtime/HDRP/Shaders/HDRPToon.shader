@@ -1121,5 +1121,5 @@ Shader "HDRP/Toon"
 
 
 
-    CustomEditor "UnityEditor.Rendering.Toon.UTS_GUIBase"
+    CustomEditor "UnityEditor.Rendering.Toon.UTS3GUI"
 }
