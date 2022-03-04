@@ -1635,6 +1635,7 @@ namespace UnityEditor.Rendering.Toon
                 material.SetColor("_Color", material.GetColor("_BaseColor"));
             }
             //
+#if USE_TOGGLE_BUTTONS
             if (material.GetFloat(ShaderPropUse_BaseAs1st) == 0)
             {
                 if (GUILayout.Button("No Sharing", middleButtonStyle))
@@ -1649,11 +1650,21 @@ namespace UnityEditor.Rendering.Toon
                     material.SetFloat(ShaderPropUse_BaseAs1st, 0);
                 }
             }
+#else
+            const float labelWidth = 170;
+            var defaultLabelWidth = EditorGUIUtility.labelWidth;
+            EditorGUIUtility.labelWidth = labelWidth;
+            var applyTo1st = GUI_Toggle(material, "Apply to 1st shading map", ShaderPropUse_BaseAs1st, MaterialGetInt(material, ShaderPropUse_BaseAs1st) != 0);
+            EditorGUIUtility.labelWidth = defaultLabelWidth;
+#endif
             GUILayout.Space(60);
             EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.BeginHorizontal();
+            EditorGUI.BeginDisabledGroup(applyTo1st);
             m_MaterialEditor.TexturePropertySingleLine(Styles.firstShadeColorText, firstShadeMap, firstShadeColor);
+            EditorGUI.EndDisabledGroup();
+#if USE_TOGGLE_BUTTONS
             if (material.GetFloat(ShaderPropUse_1stAs2nd) == 0)
             {
                 if (GUILayout.Button("No Sharing", middleButtonStyle))
@@ -1668,11 +1679,17 @@ namespace UnityEditor.Rendering.Toon
                     material.SetFloat(ShaderPropUse_1stAs2nd, 0);
                 }
             }
+#else
+            EditorGUIUtility.labelWidth = labelWidth;
+            var applyTo2nd =  GUI_Toggle(material, "Apply to 2nd shading map", ShaderPropUse_1stAs2nd, MaterialGetInt(material, ShaderPropUse_1stAs2nd) != 0);
+            EditorGUIUtility.labelWidth = defaultLabelWidth;
+
+#endif
             GUILayout.Space(60);
             EditorGUILayout.EndHorizontal();
-
+            EditorGUI.BeginDisabledGroup(applyTo2nd);
             m_MaterialEditor.TexturePropertySingleLine(Styles.secondShadeColorText, secondShadeMap, secondShadeColor);
-
+            EditorGUI.EndDisabledGroup();
             EditorGUILayout.Space();
 
             _NormalMap_Foldout = FoldoutSubMenu(_NormalMap_Foldout, "● NormalMap Settings");
