@@ -191,7 +191,8 @@ namespace UnityEditor.Rendering.Toon
         protected readonly string[] OutlineTexHash128 = { "_OutlineTexHash128_0", "_OutlineTexHash128_1", "_OutlineTexHash128_2", "_OutlineTexHash128_3" };
         protected readonly string[] OutlineTexGUID = { "_OutlineTexGUID_0", "_OutlineTexGUID_1", "_OutlineTexGUID_2", "_OutlineTexGUID_3" };
 
-
+        protected readonly string[] UtsTechniqueNames = { "Double Shade With Feather", "Shading Grade Map" };
+        protected readonly string[] EmissiveScrollMode = { "UV Coordinate Scroll", "View Coordinate Scroll" };
 
         public enum _UTS_Technique
         {
@@ -971,7 +972,7 @@ namespace UnityEditor.Rendering.Toon
             EditorGUILayout.Space();
 
             // select UTS technique here.
-            DoPopup(workflowModeText, utsTechnique, System.Enum.GetNames(typeof(_UTS_Technique)));
+            DoPopup(workflowModeText, utsTechnique, UtsTechniqueNames);
 
 
 
@@ -3043,24 +3044,16 @@ namespace UnityEditor.Rendering.Toon
 
                 EditorGUILayout.BeginHorizontal();
                 m_MaterialEditor.FloatProperty(base_Speed, "Base Speed (Time)");
-                //EditorGUILayout.PrefixLabel("Select Scroll Coord");
-                //GUILayout.Space(60);
+
                 if (!_SimpleUI)
                 {
-
-                    if (material.GetFloat(ShaderPropIs_ViewCoord_Scroll) == 0)
+                    int mode = MaterialGetInt(material, ShaderPropIs_ViewCoord_Scroll);
+                    EditorGUI.BeginChangeCheck();
+                    mode = EditorGUILayout.Popup("", (int)mode, EmissiveScrollMode);
+                    if (EditorGUI.EndChangeCheck())
                     {
-                        if (GUILayout.Button("UV Coord Scroll", shortButtonStyle))
-                        {
-                            material.SetFloat(ShaderPropIs_ViewCoord_Scroll, 1);
-                        }
-                    }
-                    else
-                    {
-                        if (GUILayout.Button("View Coord Scroll", shortButtonStyle))
-                        {
-                            material.SetFloat(ShaderPropIs_ViewCoord_Scroll, 0);
-                        }
+                        m_MaterialEditor.RegisterPropertyChangeUndo("Emissive Scroll Mode");
+                        MaterialSetInt(material, ShaderPropIs_ViewCoord_Scroll, mode);
                     }
                 }
                 EditorGUILayout.EndHorizontal();
