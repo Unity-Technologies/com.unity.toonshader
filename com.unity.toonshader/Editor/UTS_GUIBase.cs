@@ -152,9 +152,10 @@ namespace UnityEditor.Rendering.Toon
         protected const string ShaderDefineIS_TRANSCLIPPING_ON = "_IS_TRANSCLIPPING_ON";
 
         protected const string ShaderDefineIS_CLIPPING_MATTE = "_IS_CLIPPING_MATTE";
+#if  USE_TOGGLE_BUTTONS
         protected const string STR_ONSTATE = "Active";
         protected const string STR_OFFSTATE = "Off";
-
+#endif
         protected readonly string[] MainTexHash128 = { "_MainTexHash128_0", "_MainTexHash128_1", "_MainTexHash128_2", "_MainTexHash128_3" };
         protected readonly string[] MainTexGUID =  { "_MainTexGUID_0", "_MainTexGUID_1", "_MainTexGUID_2", "_MainTexGUID_3" };
        //
@@ -1443,7 +1444,7 @@ namespace UnityEditor.Rendering.Toon
         {
             GUILayout.Label("Options for Clipping or TransClipping features", EditorStyles.boldLabel);
             m_MaterialEditor.TexturePropertySingleLine(Styles.clippingMaskText, clippingMask);
-
+#if USE_TOGGLE_BUTTONS
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.PrefixLabel("Inverse Clipping Mask");
             //GUILayout.Space(60);
@@ -1462,6 +1463,9 @@ namespace UnityEditor.Rendering.Toon
                 }
             }
             EditorGUILayout.EndHorizontal();
+#else
+            GUI_Toggle(material, "Inverse Clipping Mask", ShaderPropInverseClipping,MaterialGetInt(material, ShaderPropInverseClipping)!= 0 );
+#endif
 
             m_MaterialEditor.RangeProperty(clipping_Level, "Clipping Level");
         }
@@ -1471,7 +1475,7 @@ namespace UnityEditor.Rendering.Toon
 
             GUILayout.Label("Options for TransClipping or Transparent features", EditorStyles.boldLabel);
             m_MaterialEditor.RangeProperty(tweak_transparency, "Transparency Level");
-
+#if USE_TOGGLE_BUTTONS
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.PrefixLabel("Use BaseMap α as Clipping Mask");
             //GUILayout.Space(60);
@@ -1490,6 +1494,9 @@ namespace UnityEditor.Rendering.Toon
                 }
             }
             EditorGUILayout.EndHorizontal();
+#else
+            GUI_Toggle(material, "Use BaseMap Alpha as Clipping Mask", ShaderPropIsBaseMapAlphaAsClippingMask, MaterialGetInt(material, ShaderPropIsBaseMapAlphaAsClippingMask) != 0);
+#endif
         }
 
         void GUI_OptionMenu(Material material)
@@ -1903,6 +1910,7 @@ namespace UnityEditor.Rendering.Toon
             GUILayout.Label("    Settings for PointLights in ForwardAdd Pass");
             EditorGUI.indentLevel++;
             m_MaterialEditor.RangeProperty(stepOffset, "Step Offset for PointLights");
+#if USE_TOGGLE_BUTTONS
 
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.PrefixLabel("PointLights Hi-Cut Filter");
@@ -1918,11 +1926,13 @@ namespace UnityEditor.Rendering.Toon
             {
                 if (GUILayout.Button(STR_ONSTATE, shortButtonStyle))
                 {
-                    material.SetFloat("_Is_Filter_HiCutPointLightColor", 0);
+                    material.SetFloat(ShaderPropIsFilterHiCutPointLightColor, 0);
                 }
             }
             EditorGUILayout.EndHorizontal();
-
+#else
+            GUI_Toggle(material, "PointLights Hi-Cut Filter", ShaderPropIsFilterHiCutPointLightColor, MaterialGetInt(material, ShaderPropIsFilterHiCutPointLightColor) != 0);
+#endif
             EditorGUI.indentLevel--;
             EditorGUILayout.Space();
         }
@@ -3657,7 +3667,7 @@ namespace UnityEditor.Rendering.Toon
             {
                 if (GUILayout.Button(STR_ONSTATE, shortButtonStyle))
                 {
-                    material.SetFloat("_Is_Filter_HiCutPointLightColor", 0);
+                    material.SetFloat(ShaderPropIsFilterHiCutPointLightColor, 0);
                 }
             }
             RestoreGUIColor();
