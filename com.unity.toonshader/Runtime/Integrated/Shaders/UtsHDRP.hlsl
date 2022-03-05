@@ -20,12 +20,16 @@
     //-------------------------------------------------------------------------------------
 
     #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Common.hlsl"
+#ifdef TESSELLATION_ON
+    #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/GeometricTools.hlsl"
+    #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Tessellation.hlsl"
+#endif //TESSELLATION_ON
     #include "Packages/com.unity.render-pipelines.high-definition/Runtime/ShaderLibrary/ShaderVariables.hlsl"
     #include "Packages/com.unity.render-pipelines.high-definition/Runtime/RenderPipeline/ShaderPass/FragInputs.hlsl"
     #include "Packages/com.unity.render-pipelines.high-definition/Runtime/RenderPipeline/ShaderPass/ShaderPass.cs.hlsl"
-
+    #include "Packages/com.unity.render-pipelines.high-definition/Runtime/Material/Material.hlsl"
     //-------------------------------------------------------------------------------------
     // variable declaration
     //-------------------------------------------------------------------------------------
 
-    #include "../../HDRP/Shaders/UtsProperties.hlsl"
+    #include "../../HDRP/Shaders/UtsHdrpProperties.hlsl"

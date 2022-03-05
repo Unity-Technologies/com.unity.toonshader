@@ -1503,5 +1503,5 @@ Shader "Toon" {
 //ToonCoreEnd
     }
     FallBack "Legacy Shaders/VertexLit"
-    CustomEditor "UnityEditor.Rendering.Builtin.Toon.UTS2GUI"
+    CustomEditor "UnityEditor.Rendering.Toon.UTS3GUI"
 }
