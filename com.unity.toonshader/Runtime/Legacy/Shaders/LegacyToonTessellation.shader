@@ -230,7 +230,6 @@ Shader "ToonTessellation (Built-in)" {
             #pragma vertex tess_VertexInput
             #pragma hull hs_VertexInput
             #pragma domain ds_surf
-        //#pragma vertex vert
             #pragma fragment frag
             #include "UnityCG.cginc"
             //#pragma fragmentoption ARB_precision_hint_fastest

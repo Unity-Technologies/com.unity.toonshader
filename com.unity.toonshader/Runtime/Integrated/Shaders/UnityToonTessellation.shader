@@ -203,6 +203,7 @@ Shader "Toon(Tessellation)" {
         _Offset_Y_Axis_BLD (" Offset Y-Axis (Built-in Light Direction)", Range(-1, 1)) = 0.09
         [Toggle(_)] _Inverse_Z_Axis_BLD (" Inverse Z-Axis (Built-in Light Direction)", Float ) = 1
 
+
 	//////////////////////////////////////////////////////////////////////////////
 	////////////////// Beginning of HDRP Matte. //////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////
@@ -488,6 +489,18 @@ Shader "Toon(Tessellation)" {
         [ToggleUI] _DepthOffsetEnable("Depth Offset View space", Float) = 0.0
 	//////////////////////////////////////////////////////////////////////////////
 	//////////////////// End of HDRP material tessellation values.   ///////////// 
+	//////////////////////////////////////////////////////////////////////////////
+
+	//////////////////////////////////////////////////////////////////////////////
+	//////////////////// Start of Legacy material tessellation values. /////////// 
+	//////////////////////////////////////////////////////////////////////////////
+
+        //Tessellation
+        _TessEdgeLength("DX11 Tess : Edge length", Range(2, 50)) = 5
+        _TessPhongStrength("DX11 Tess : Phong Strength", Range(0, 1)) = 0.5
+        _TessExtrusionAmount("DX11 Tess : Extrusion Amount", Range(-0.005, 0.005)) = 0.0
+	//////////////////////////////////////////////////////////////////////////////
+	//////////////////// End of Legacy material tessellation values.   /////////// 
 	//////////////////////////////////////////////////////////////////////////////
 
     } 
@@ -1415,21 +1428,29 @@ Shader "Toon(Tessellation)" {
 
             }
             CGPROGRAM
-            #pragma vertex vert
+            #define TESSELLATION_ON
+            #pragma target 5.0
+            #pragma vertex tess_VertexInput
+            #pragma hull hs_VertexInput
+            #pragma domain ds_surf
             #pragma fragment frag
+	    #ifdef TESSELLATION_ON
+            #include "../../Legacy/Shaders/UCTS_Tess.cginc"
+            #endif
             #include "UnityCG.cginc"
             //#pragma fragmentoption ARB_precision_hint_fastest
             //#pragma multi_compile_shadowcaster
             //#pragma multi_compile_fog
             #pragma only_renderers d3d9 d3d11 glcore gles gles3 metal vulkan xboxone ps4 switch
-            #pragma target 3.0
-            //V.2.0.4
+
+
+	    //V.2.0.4
             #pragma multi_compile _IS_OUTLINE_CLIPPING_NO 
             #pragma multi_compile _OUTLINE_NML _OUTLINE_POS
             // Unity Toon Shader 0.5.0
             #pragma multi_compile _ _DISABLE_OUTLINE
             //The outline process goes to UTS_Outline.cginc.
-            #include "../../Legacy/Shaders/UCTS_Outline.cginc"
+            #include "../../Legacy/Shaders/UCTS_Outline_tess.cginc"
             ENDCG
         }
 //ToonCoreStart
@@ -1451,8 +1472,16 @@ Shader "Toon(Tessellation)" {
 
             }
             CGPROGRAM
-            #pragma vertex vert
+            #define TESSELLATION_ON
+            #pragma target 5.0
+            #pragma vertex tess_VertexInput
+            #pragma hull hs_VertexInput
+            #pragma domain ds_surf
             #pragma fragment frag
+
+	    #ifdef TESSELLATION_ON
+            #include "../../Legacy/Shaders/UCTS_Tess.cginc"
+            #endif
             //#define UNITY_PASS_FORWARDBASE
             #include "UnityCG.cginc"
             #include "AutoLight.cginc"
@@ -1460,7 +1489,7 @@ Shader "Toon(Tessellation)" {
             #pragma multi_compile_fwdbase_fullshadows
             #pragma multi_compile_fog
             #pragma only_renderers d3d9 d3d11 glcore gles gles3 metal vulkan xboxone ps4 switch
-            #pragma target 3.0
+            #pragma target 5.0
             // DoubleShadeWithFeather and ShadingGradeMap use different fragment shader.  
             #pragma shader_feature _ _SHADINGGRADEMAP
             // used in ShadingGradeMap
@@ -1498,8 +1527,16 @@ Shader "Toon(Tessellation)" {
             
             
             CGPROGRAM
-            #pragma vertex vert
+            #define TESSELLATION_ON
+            #pragma target 5.0
+            #pragma vertex tess_VertexInput
+            #pragma hull hs_VertexInput
+            #pragma domain ds_surf
             #pragma fragment frag
+
+	    #ifdef TESSELLATION_ON
+            #include "../../Legacy/Shaders/UCTS_Tess.cginc"
+            #endif
             //#define UNITY_PASS_FORWARDADD
             #include "UnityCG.cginc"
             #include "AutoLight.cginc"
@@ -1508,7 +1545,6 @@ Shader "Toon(Tessellation)" {
             #pragma multi_compile_fwdadd_fullshadows
             #pragma multi_compile_fog
             #pragma only_renderers d3d9 d3d11 glcore gles gles3 metal vulkan xboxone ps4 switch
-            #pragma target 3.0
             // DoubleShadeWithFeather and ShadingGradeMap use different fragment shader.  
             #pragma shader_feature _ _SHADINGGRADEMAP
             // used in ShadingGradeMap
@@ -1545,8 +1581,15 @@ Shader "Toon(Tessellation)" {
             Cull Off
             
             CGPROGRAM
-            #pragma vertex vert
+            #define TESSELLATION_ON
+            #pragma target 5.0
+            #pragma vertex tess_VertexInput
+            #pragma hull hs_VertexInput
+            #pragma domain ds_surf
             #pragma fragment frag
+            #ifdef TESSELLATION_ON
+            #include "../../Legacy/Shaders/UCTS_Tess.cginc"
+            #endif
             //#define UNITY_PASS_SHADOWCASTER
             #include "UnityCG.cginc"
             #include "Lighting.cginc"
@@ -1555,11 +1598,13 @@ Shader "Toon(Tessellation)" {
             #pragma multi_compile_fog
             #pragma only_renderers d3d9 d3d11 glcore gles gles3 metal vulkan xboxone ps4 switch
             #pragma shader_feature _ _SYNTHESIZED_TEXTURE
-            #pragma target 3.0
             //v.2.0.4
             #pragma shader_feature _IS_CLIPPING_OFF _IS_CLIPPING_MODE _IS_CLIPPING_TRANSMODE
-            #include "../../Legacy/Shaders/UCTS_ShadowCaster.cginc"
+            // Unity Toon Shader 0.5.0
+            #pragma multi_compile _ _DISABLE_OUTLINE
+            #include "../../Legacy/Shaders/UCTS_ShadowCaster_tess.cginc"
             ENDCG
+
         }
 //ToonCoreEnd
     }
