@@ -1,20 +1,24 @@
 # Changelog
-## [0.7.0-preview] - 2022-03-06
-### Added:
-* Legacy: Graphics Test 2022.2
+## [0.7.0-preview] - 2022-03-07
 ### Updated:
 * Shader version properties in all the render pipeline shaders.
 * Updated installation.md.
 * Replaced toggle buttons Off/Active UI to Unity standard toggle.
+* Renamed Basic Shader Settings to Shader Setting.
 * Replaced some toggle buttons, such as Emissive UV Coord, Specular Mode, to dropdown menus
 * Made everything in the inspector hidden when disabled to be shown but grayed out.
-* Renamed Shader GUI class and mede them itegrated before integrate all the render pipeline shaders. All the render pipeline shaders use the same UI class.
-
-
+* Replaced folder header to use Unity standard style.
+* Renamed Shader GUI class and mede them itegrated before integrate all the render pipeline shaders. All the render pipeline shaders use one Custom Editor class.
+### Added:
+* Legacy: Graphics Test 2022.2.
+* Uninversal RP: Graphics Test 2022.2.
+* HDRP: Graphics Test 2022.2.
 ### Removed:
 * Removed Game Recommendation window and changed the default values of shader variables.
 * Removed Simple UI.
 * Removed Japanese and English manual link buttons.
+### Fixed:
+* Undo/Redo was not working on some itemes in the inspector window.
 
 ## [0.6.1-preview] - 2022-02-24
 ### Fixed:

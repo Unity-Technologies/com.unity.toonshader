@@ -896,6 +896,7 @@ namespace UnityEditor.Rendering.Toon
 
         protected static bool Foldout(bool display, string title)
         {
+#if USE_TOGGLE_BUTTONS
             var style = new GUIStyle("ShurikenModuleTitle");
             style.font = new GUIStyle(EditorStyles.boldLabel).font;
             style.border = new RectOffset(15, 7, 4, 4);
@@ -920,10 +921,14 @@ namespace UnityEditor.Rendering.Toon
             }
 
             return display;
+#else
+            return EditorGUILayout.Foldout(display, title, true );
+#endif
         }
 
         static bool FoldoutSubMenu(bool display, string title)
         {
+#if USE_TOGGLE_BUTTONS
             var style = new GUIStyle("ShurikenModuleTitle");
             style.font = new GUIStyle(EditorStyles.boldLabel).font;
             style.border = new RectOffset(15, 7, 4, 4);
@@ -949,6 +954,9 @@ namespace UnityEditor.Rendering.Toon
             }
 
             return display;
+#else
+            return EditorGUILayout.Foldout(display, title, true);
+#endif
         }
 
 
@@ -1074,7 +1082,7 @@ namespace UnityEditor.Rendering.Toon
 
 
 
-            _BasicShaderSettings_Foldout = Foldout(_BasicShaderSettings_Foldout, "Basic Shader Settings");
+            _BasicShaderSettings_Foldout = Foldout(_BasicShaderSettings_Foldout, "Shader Settings");
             if (_BasicShaderSettings_Foldout)
             {
                 EditorGUI.indentLevel++;
