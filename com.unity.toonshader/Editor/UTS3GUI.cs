@@ -978,7 +978,7 @@ namespace UnityEditor.Rendering.Toon
             public static GUIContent angelRingText = new GUIContent("AngelRing", "AngelRing : Texture(sRGB) × Color(RGB) Default:Black");
             public static GUIContent emissiveTexText = new GUIContent("Emissive", "Emissive : Texture(sRGB)× EmissiveMask(alpha) × Color(HDR) Default:Black");
             public static GUIContent shadingGradeMapText = new GUIContent("Shading Grade Map", "Specify shadow-prone areas in UV coordinates. Shading Grade Map : Texture(linear)");
-            public static GUIContent firstPositionMapText = new GUIContent("Specify the position of fixed shadows that fall in 1st shade color areas in UV coordinates. 1st Position Map : Texture(linear)");
+            public static GUIContent firstPositionMapText = new GUIContent("1st Shade Position Map", "Specify the position of fixed shadows that fall in 1st shade color areas in UV coordinates. 1st Position Map : Texture(linear)");
             public static GUIContent secondPositionMapText = new GUIContent("2nd Shade Position Map", "Specify the position of fixed shadows that fall in 2nd shade color areas in UV coordinates. 2nd Position Map : Texture(linear)");
             public static GUIContent outlineSamplerText = new GUIContent("Outline Sampler", "Outline Sampler : Texture(linear)");
             public static GUIContent outlineTexText = new GUIContent("Outline tex", "Outline Tex : Texture(sRGB) Default:White");
@@ -1909,6 +1909,7 @@ namespace UnityEditor.Rendering.Toon
 
                 if (material.HasProperty("_StepOffset"))//Items not in Mobile & Light Mode.                
                 {
+#if false
                     //Line();
                     //EditorGUILayout.Space();
                     _AdditionalLookdevs_Foldout = FoldoutSubMenu(_AdditionalLookdevs_Foldout, "● Additional Settings");
@@ -1916,6 +1917,13 @@ namespace UnityEditor.Rendering.Toon
                     {
                         GUI_AdditionalLookdevs(material);
                     }
+#else
+                    _AdditionalLookdevs_Foldout = FoldoutSubMenu(_AdditionalLookdevs_Foldout, "Point Light Settings");
+                    if (_AdditionalLookdevs_Foldout)
+                    {
+                        GUI_AdditionalLookdevs(material);
+                    }
+#endif
                 }
             }
         }
@@ -1950,7 +1958,7 @@ namespace UnityEditor.Rendering.Toon
             EditorGUI.BeginDisabledGroup(!isEnabled);
             {
                 EditorGUI.indentLevel++;
-                m_MaterialEditor.RangeProperty(tweak_SystemShadowsLevel, "System Shadows Level");
+                m_MaterialEditor.RangeProperty(tweak_SystemShadowsLevel, "System Shadow Level");
                 GUI_SetRTHS(material);
                 EditorGUI.indentLevel--;
                 EditorGUILayout.Space();
@@ -1966,10 +1974,10 @@ namespace UnityEditor.Rendering.Toon
                 if (material.GetInt(ShaderPropUtsTechniqe) == (int)_UTS_Technique.DoubleShadeWithFeather)   //DWF
                 {
                     GUILayout.Label("Mode: Double Shade With Feather", EditorStyles.boldLabel);
-                    m_MaterialEditor.RangeProperty(baseColor_Step, "BaseColor Step");
+                    m_MaterialEditor.RangeProperty(baseColor_Step, "Base Color Step");
                     m_MaterialEditor.RangeProperty(baseShade_Feather, "Base/Shade Feather");
-                    m_MaterialEditor.RangeProperty(shadeColor_Step, "ShadeColor Step");
-                    m_MaterialEditor.RangeProperty(first2nd_Shades_Feather, "1st/2nd_Shades Feather");
+                    m_MaterialEditor.RangeProperty(shadeColor_Step, "Shade Color Step");
+                    m_MaterialEditor.RangeProperty(first2nd_Shades_Feather, "1st/2nd Shade Feather");
                     //Sharing variables with ShadingGradeMap method.
 
                     material.SetFloat(ShaderProp1st_ShadeColor_Step, material.GetFloat(ShaderPropBaseColor_Step));
@@ -1980,10 +1988,10 @@ namespace UnityEditor.Rendering.Toon
                 else if (material.GetInt(ShaderPropUtsTechniqe) == (int)_UTS_Technique.ShadingGradeMap)
                 {    //SGM
                     GUILayout.Label("Mode: Shading Grade Map", EditorStyles.boldLabel);
-                    m_MaterialEditor.RangeProperty(first_ShadeColor_Step, "1st ShaderColor Step");
-                    m_MaterialEditor.RangeProperty(first_ShadeColor_Feather, "1st ShadeColor Feather");
-                    m_MaterialEditor.RangeProperty(second_ShadeColor_Step, "2nd ShadeColor Step");
-                    m_MaterialEditor.RangeProperty(second_ShadeColor_Feather, "2nd ShadeColor Feather");
+                    m_MaterialEditor.RangeProperty(first_ShadeColor_Step, "1st Shade Color Step");
+                    m_MaterialEditor.RangeProperty(first_ShadeColor_Feather, "1st Shade Color Feather");
+                    m_MaterialEditor.RangeProperty(second_ShadeColor_Step, "2nd Shade Color Step");
+                    m_MaterialEditor.RangeProperty(second_ShadeColor_Feather, "2nd Shade Color Feather");
                     //Share variables with DoubleWithFeather method.
                     material.SetFloat(ShaderPropBaseColor_Step, material.GetFloat(ShaderProp1st_ShadeColor_Step));
                     material.SetFloat(ShaderPropBaseShade_Feather, material.GetFloat(ShaderProp1st_ShadeColor_Feather));
@@ -2001,9 +2009,9 @@ namespace UnityEditor.Rendering.Toon
 
         void GUI_AdditionalLookdevs(Material material)
         {
-            GUILayout.Label("    Settings for PointLights in ForwardAdd Pass");
+//            GUILayout.Label("    Point Light Settings");
             EditorGUI.indentLevel++;
-            m_MaterialEditor.RangeProperty(stepOffset, "Step Offset for PointLights");
+            m_MaterialEditor.RangeProperty(stepOffset, "Step Offset");
 #if USE_TOGGLE_BUTTONS
 
             EditorGUILayout.BeginHorizontal();
@@ -2025,7 +2033,7 @@ namespace UnityEditor.Rendering.Toon
             }
             EditorGUILayout.EndHorizontal();
 #else
-            GUI_Toggle(material, "PointLights Hi-Cut Filter", ShaderPropIsFilterHiCutPointLightColor, MaterialGetInt(material, ShaderPropIsFilterHiCutPointLightColor) != 0);
+            GUI_Toggle(material, "Point Light Hi-Cut Filter", ShaderPropIsFilterHiCutPointLightColor, MaterialGetInt(material, ShaderPropIsFilterHiCutPointLightColor) != 0);
 #endif
             EditorGUI.indentLevel--;
             EditorGUILayout.Space();
@@ -3806,7 +3814,7 @@ namespace UnityEditor.Rendering.Toon
             m_MaterialEditor.RangeProperty(unlit_Intensity, "Unlit Intensity");
             RestoreGUIColor();
             EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.PrefixLabel("SceneLights Hi-Cut Filter");
+            EditorGUILayout.PrefixLabel("Scene Light Hi-Cut Filter");
             //GUILayout.Space(60);
             if (material.GetFloat(ShaderPropIs_Filter_LightColor) == 0)
             {
@@ -4128,7 +4136,7 @@ namespace UnityEditor.Rendering.Toon
 #else
             EditorGUI.BeginChangeCheck();
             var prop = ShaderPropIs_Filter_LightColor;
-            var label = "SceneLights Hi-Cut Filter";
+            var label = "Scene Light Hi-Cut Filter";
             var value = MaterialGetInt(material, prop);
             var ret = EditorGUILayout.Toggle(label, value != 0);
             if (EditorGUI.EndChangeCheck())
