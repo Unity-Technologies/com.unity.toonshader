@@ -1186,7 +1186,7 @@ namespace UnityEditor.Rendering.Toon
 
             if (IsShadingGrademap)
             {
-                _AngelRing_Foldout = Foldout(_AngelRing_Foldout, "【AngelRing Projection Settings】");
+                _AngelRing_Foldout = Foldout(_AngelRing_Foldout, "Angel Ring Projection Settings");
                 if (_AngelRing_Foldout)
                 {
                     EditorGUI.indentLevel++;
@@ -2714,7 +2714,7 @@ namespace UnityEditor.Rendering.Toon
             }
 
 #else
-            var angelRingEnabled = GUI_Toggle(material, "AngelRing Projection", ShaderPropAngelRing, MaterialGetInt(material, ShaderPropAngelRing) != 0);
+            var angelRingEnabled = GUI_Toggle(material, "Angel Ring Projection", ShaderPropAngelRing, MaterialGetInt(material, ShaderPropAngelRing) != 0);
             EditorGUI.BeginDisabledGroup(!angelRingEnabled);
             {
                 m_MaterialEditor.TexturePropertySingleLine(Styles.angelRingText, angelRing_Sampler, angelRing_Color);
@@ -3857,7 +3857,7 @@ namespace UnityEditor.Rendering.Toon
         }
         void GUI_LightColorContribution(Material material)
         {
-            GUILayout.Label("Realtime Light Color Effectiveness to each color", EditorStyles.boldLabel);
+//            GUILayout.Label("Realtime Light Color Effectiveness to each color", EditorStyles.boldLabel);
 #if USE_TOGGLE_BUTTONS
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.PrefixLabel("Base Color");
