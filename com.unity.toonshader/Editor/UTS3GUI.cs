@@ -1801,7 +1801,7 @@ namespace UnityEditor.Rendering.Toon
 
                 EditorGUI.indentLevel++;
 
-                GUILayout.Label("NormalMap Effectiveness", EditorStyles.boldLabel);
+                GUILayout.Label("  NormalMap Effectiveness", EditorStyles.boldLabel);
 #if USE_TOGGLE_BUTTONS
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.PrefixLabel("3 Basic Colors");
