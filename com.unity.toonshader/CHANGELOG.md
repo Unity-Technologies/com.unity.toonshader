@@ -11,6 +11,7 @@
 * Replaced `【DX11 Phong Tessellation Settings】` to `Legacy Pipeline: Phong Tessellation Settings` as it works on Mac.
 * Replaced term, `Technique` to `Mode`.
 * Replaced term, `Contribution` to `Effectiveness`.
+* Replaced term, `High Color` to `High Light`.
 * Replaced "Settings for PointLights in ForwardAdd Pass" to "Point Light Settings".
 * Removed Game Recommendation window and changed the default values of shader variables.* The titles of the items in the Inspector window, which were not always consistent, such as "Setup" and "Settings," are now consistent with "Settings.* Renamed Shader GUI class and mede them integrated before integrate all the render pipeline shaders. All the render pipeline shaders use one Custom Editor class.
 * Removed 【】in the Inspector window.

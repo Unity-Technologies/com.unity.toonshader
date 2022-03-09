@@ -969,14 +969,14 @@ namespace UnityEditor.Rendering.Toon
             public static GUIContent baseColorText = new GUIContent("Base Map", "Base Color : Texture(sRGB) × Color(RGB) Default:White");
             public static GUIContent firstShadeColorText = new GUIContent("1st Shading Map", "1st ShadeColor : Texture(sRGB) × Color(RGB) Default:White");
             public static GUIContent secondShadeColorText = new GUIContent("2nd Shading Map", "2nd ShadeColor : Texture(sRGB) × Color(RGB) Default:White");
-            public static GUIContent normalMapText = new GUIContent("NormalMap", "NormalMap : Texture(bump)");
-            public static GUIContent highColorText = new GUIContent("HighColor", "High Color : Texture(sRGB) × Color(RGB) Default:Black");
-            public static GUIContent highColorMaskText = new GUIContent("HighColor Mask", "HighColor Mask : Texture(linear)");
-            public static GUIContent rimLightMaskText = new GUIContent("RimLight Mask", "RimLight Mask : Texture(linear)");
+            public static GUIContent normalMapText = new GUIContent("Normal Map", "Normal Map : Texture(bump)");
+            public static GUIContent highColorText = new GUIContent("High Light", "High Light : Texture(sRGB) × Color(RGB) Default:Black");
+            public static GUIContent highColorMaskText = new GUIContent("High Light Mask", "High Light Mask : Texture(linear)");
+            public static GUIContent rimLightMaskText = new GUIContent("Rim Light Mask", "RimLight Mask : Texture(linear)");
             public static GUIContent matCapSamplerText = new GUIContent("MatCap Sampler", "MatCap Sampler : Texture(sRGB) × Color(RGB) Default:White");
             public static GUIContent matCapMaskText = new GUIContent("MatCap Mask", "MatCap Mask : Texture(linear)");
-            public static GUIContent angelRingText = new GUIContent("AngelRing", "AngelRing : Texture(sRGB) × Color(RGB) Default:Black");
-            public static GUIContent emissiveTexText = new GUIContent("Emissive", "Emissive : Texture(sRGB)× EmissiveMask(alpha) × Color(HDR) Default:Black");
+            public static GUIContent angelRingText = new GUIContent("Angel Ring", "AngelRing : Texture(sRGB) × Color(RGB) Default:Black");
+            public static GUIContent emissiveTexText = new GUIContent("Emissive Map", "Emission : Texture(sRGB)× EmissiveMask(alpha) × Color(HDR) Default:Black");
             public static GUIContent shadingGradeMapText = new GUIContent("Shading Grade Map", "Specify shadow-prone areas in UV coordinates. Shading Grade Map : Texture(linear)");
             public static GUIContent firstPositionMapText = new GUIContent("1st Shade Position Map", "Specify the position of fixed shadows that fall in 1st shade color areas in UV coordinates. 1st Position Map : Texture(linear)");
             public static GUIContent secondPositionMapText = new GUIContent("2nd Shade Position Map", "Specify the position of fixed shadows that fall in 2nd shade color areas in UV coordinates. 2nd Position Map : Texture(linear)");
@@ -1147,7 +1147,7 @@ namespace UnityEditor.Rendering.Toon
 
             EditorGUILayout.Space();
 
-            _HighColor_Foldout = Foldout(_HighColor_Foldout, "High Color Settings");
+            _HighColor_Foldout = Foldout(_HighColor_Foldout, "High Light Settings");
             if (_HighColor_Foldout)
             {
                 EditorGUI.indentLevel++;
@@ -1861,7 +1861,7 @@ namespace UnityEditor.Rendering.Toon
                 EditorGUILayout.EndHorizontal();
 #else
                 GUI_Toggle(material, "3 Basic Colors", ShaderPropIs_NormalMapToBase, MaterialGetInt(material, ShaderPropIs_NormalMapToBase) != 0);
-                GUI_Toggle(material, "High Color", ShaderPropNormalMapToHighColor, MaterialGetInt(material, ShaderPropNormalMapToHighColor) != 0);
+                GUI_Toggle(material, "High Light", ShaderPropNormalMapToHighColor, MaterialGetInt(material, ShaderPropNormalMapToHighColor) != 0);
                 GUI_Toggle(material, "Rim Light", ShaderPropIsNormalMapToRimLight, MaterialGetInt(material, ShaderPropIsNormalMapToRimLight) != 0);
 
 #endif
@@ -2043,7 +2043,7 @@ namespace UnityEditor.Rendering.Toon
         void GUI_HighColor(Material material)
         {
             m_MaterialEditor.TexturePropertySingleLine(Styles.highColorText, highColor_Tex, highColor);
-            m_MaterialEditor.RangeProperty(highColor_Power, "HighColor Power");
+            m_MaterialEditor.RangeProperty(highColor_Power, "High Light Power");
 
             if (!_SimpleUI)
             {
@@ -2165,11 +2165,11 @@ namespace UnityEditor.Rendering.Toon
                     EditorGUI.indentLevel--;
                 }
 #else
-                var ret = GUI_Toggle(material, "Shadow Mask on High Color", ShaderPropIs_UseTweakHighColorOnShadow, MaterialGetInt(material, ShaderPropIs_UseTweakHighColorOnShadow) != 0);
+                var ret = GUI_Toggle(material, "Shadow Mask on High Lights", ShaderPropIs_UseTweakHighColorOnShadow, MaterialGetInt(material, ShaderPropIs_UseTweakHighColorOnShadow) != 0);
                 EditorGUI.BeginDisabledGroup(!ret);
                 {
                     EditorGUI.indentLevel++;
-                    m_MaterialEditor.RangeProperty(tweakHighColorOnShadow, "High Color Power on Shadow");
+                    m_MaterialEditor.RangeProperty(tweakHighColorOnShadow, "High Light Power on Shadows");
                     EditorGUI.indentLevel--;
                 }
                 EditorGUI.EndDisabledGroup();
@@ -2183,10 +2183,10 @@ namespace UnityEditor.Rendering.Toon
             //Line();
             //EditorGUILayout.Space();
 
-            GUILayout.Label("    High Color Mask", EditorStyles.boldLabel);
+            GUILayout.Label("    High Light Mask", EditorStyles.boldLabel);
             EditorGUI.indentLevel++;
             m_MaterialEditor.TexturePropertySingleLine(Styles.highColorMaskText, set_HighColorMask);
-            m_MaterialEditor.RangeProperty(tweak_HighColorMaskLevel, "High Color Mask Level");
+            m_MaterialEditor.RangeProperty(tweak_HighColorMaskLevel, "High Lgiht Mask Level");
             EditorGUI.indentLevel--;
 
             EditorGUILayout.Space();
@@ -4047,7 +4047,7 @@ namespace UnityEditor.Rendering.Toon
             GUI_Toggle(material, "Base Color", ShaderPropIsLightColor_Base, MaterialGetInt(material, ShaderPropIsLightColor_Base)!= 0);
             GUI_Toggle(material, "1st Shading Color", ShaderPropIs_LightColor_1st_Shade, MaterialGetInt(material, ShaderPropIs_LightColor_1st_Shade) != 0);
             GUI_Toggle(material, "2nd Shading Color", ShaderPropIs_LightColor_2nd_Shade, MaterialGetInt(material, ShaderPropIs_LightColor_2nd_Shade) != 0);
-            GUI_Toggle(material, "High Color", ShaderPropIs_LightColor_HighColor, MaterialGetInt(material, ShaderPropIs_LightColor_HighColor) != 0);
+            GUI_Toggle(material, "High Light", ShaderPropIs_LightColor_HighColor, MaterialGetInt(material, ShaderPropIs_LightColor_HighColor) != 0);
             GUI_Toggle(material, "Rim Light", ShaderPropIs_LightColor_RimLight, MaterialGetInt(material, ShaderPropIs_LightColor_RimLight) != 0);
             GUI_Toggle(material, "Ap_RimLight", ShaderPropIs_LightColor_Ap_RimLight, MaterialGetInt(material, ShaderPropIs_LightColor_Ap_RimLight) != 0);
             GUI_Toggle(material, "MatCap", ShaderPropIs_LightColor_MatCap, MaterialGetInt(material, ShaderPropIs_LightColor_MatCap) != 0);
