@@ -95,13 +95,13 @@ namespace UnityEditor.Rendering.Toon
             new UTS2GUID(  "345def18d0906d544b7d12b050937392", "Toon_DoubleShadeWithFeather_Clipping"),
             new UTS2GUID(  "7a735f9b121d96349b6da0a077299424", "Toon_DoubleShadeWithFeather_Clipping_StencilMask"),
             new UTS2GUID(  "ed7fba947f3bccb4cbc78f55d7a56a70", "Toon_DoubleShadeWithFeather_Clipping_StencilOut"),
-            new UTS2GUID(  "1d10c7840eb6ba74c889a27f14ba6081", "Toon_DoubleShadeWithFeather_Mobile"),
-            new UTS2GUID(  "88791c14394118d42a5e176b433af322", "Toon_DoubleShadeWithFeather_Mobile_Clipping"),
-            new UTS2GUID(  "41f4ee183cb66ad40bc74a9f8f944974", "Toon_DoubleShadeWithFeather_Mobile_Clipping_StencilMask"),
-            new UTS2GUID(  "dec01cbdbc5b8da4ca8671815cda1557", "Toon_DoubleShadeWithFeather_Mobile_StencilMask"),
-            new UTS2GUID(  "55e8b9eeaaff205469365133fe7bc744", "Toon_DoubleShadeWithFeather_Mobile_StencilOut"),
-            new UTS2GUID(  "d4c592285a93c3844aafdaafffc07ec7", "Toon_DoubleShadeWithFeather_Mobile_TransClipping"),
-            new UTS2GUID(  "100d373b596f44d49ac9bb944d671d32", "Toon_DoubleShadeWithFeather_Mobile_TransClipping_StencilMask"),
+//            new UTS2GUID(  "1d10c7840eb6ba74c889a27f14ba6081", "Toon_DoubleShadeWithFeather_Mobile"),
+//            new UTS2GUID(  "88791c14394118d42a5e176b433af322", "Toon_DoubleShadeWithFeather_Mobile_Clipping"),
+//            new UTS2GUID(  "41f4ee183cb66ad40bc74a9f8f944974", "Toon_DoubleShadeWithFeather_Mobile_Clipping_StencilMask"),
+//            new UTS2GUID(  "dec01cbdbc5b8da4ca8671815cda1557", "Toon_DoubleShadeWithFeather_Mobile_StencilMask"),
+//            new UTS2GUID(  "55e8b9eeaaff205469365133fe7bc744", "Toon_DoubleShadeWithFeather_Mobile_StencilOut"),
+//            new UTS2GUID(  "d4c592285a93c3844aafdaafffc07ec7", "Toon_DoubleShadeWithFeather_Mobile_TransClipping"),
+//            new UTS2GUID(  "100d373b596f44d49ac9bb944d671d32", "Toon_DoubleShadeWithFeather_Mobile_TransClipping_StencilMask"),
             new UTS2GUID(  "036bc90bfe3475b4c9fadb85d0520621", "Toon_DoubleShadeWithFeather_StencilMask"),
             new UTS2GUID(  "0a1e4c9dcc0e9ea4db38ae9cb5059608", "Toon_DoubleShadeWithFeather_StencilOut"),
             new UTS2GUID(  "e8e7d781c3155254b9ea8956c5bd1218", "Toon_DoubleShadeWithFeather_TransClipping"),
@@ -276,14 +276,17 @@ namespace UnityEditor.Rendering.Toon
                 guids = AssetDatabase.FindAssets("t:Material", null);
             }
             m_initialzed = true;
+            int labelHeight = 40;
             int buttonHeight = 20;
-            Rect rect =  new Rect(0, 0, position.width, position.height - buttonHeight); // GUILayoutUtility.GetRect(position.width, position.height - buttonHeight);
-            Rect rect2 = new Rect(2, 2, position.width - 4, position.height - 4 - buttonHeight);
+            Rect rect = new Rect(0, labelHeight, position.width, position.height - buttonHeight ); // GUILayoutUtility.GetRect(position.width, position.height - buttonHeight);
+            Rect rect2 = new Rect(2, labelHeight, position.width - 4, position.height - 4 - buttonHeight );
             // scroll view background
             EditorGUI.DrawRect(rect, Color.gray);
             EditorGUI.DrawRect(rect2, new Color(0.3f, 0.3f, 0.3f));
+            EditorGUILayout.LabelField("Make sure that Unity Toon Shader is not installed in the project. ");
             using (new EditorGUI.DisabledScope(m_materialCount == 0))
             {
+
                 EditorGUILayout.BeginHorizontal();
 
                 EditorGUILayout.LabelField("Convert to ");
@@ -303,8 +306,11 @@ namespace UnityEditor.Rendering.Toon
             for (int ii = 0; ii < guids.Length; ii++)
             {
                 var guid = guids[ii];
+
+
                 string path = AssetDatabase.GUIDToAssetPath(guid);
                 Material material = AssetDatabase.LoadAssetAtPath<Material>(path);
+                
                 var shaderName = material.shader.ToString();
                 if (!shaderName.StartsWith(legacyShaderPrefix))
                 {
