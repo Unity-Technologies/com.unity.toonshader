@@ -2,6 +2,8 @@
     "name": "Unity.Toonshader.Editor",
     "references": [
         "Unity.Toonshader",
+        "Unity.RenderPipelines.Core.Runtime",
+        "Unity.RenderPipelines.Core.Editor",
         "Unity.RenderPipelines.HighDefinition.Runtime"
     ],
     "includePlatforms": [

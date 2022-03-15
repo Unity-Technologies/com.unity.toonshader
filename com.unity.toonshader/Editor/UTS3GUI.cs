@@ -7,8 +7,9 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Rendering;
-
-
+#if SRPCORE_IS_INSTALLED_FOR_UTS
+using UnityEditor.Rendering;
+#endif // SRPCORE_IS_INSTALLED_FOR_UTS
 namespace UnityEditor.Rendering.Toon
 {
 #if USE_GAME_RECOMMENDATION
