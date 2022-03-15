@@ -7,9 +7,9 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Rendering;
-#if SRPCORE_IS_INSTALLED_FOR_UTS
+#if SRPCORE_NEWERTHAN12_IS_INSTALLED_FOR_UTS
 using UnityEditor.Rendering;
-#endif // SRPCORE_IS_INSTALLED_FOR_UTS
+#endif // SRPCORE_NEWERTHAN12_IS_INSTALLED_FOR_UTS
 namespace UnityEditor.Rendering.Toon
 {
 #if USE_GAME_RECOMMENDATION
@@ -376,10 +376,10 @@ namespace UnityEditor.Rendering.Toon
         internal _CullingMode cullingMode;
         internal _EmissiveMode emissiveMode;
 
-#if SRPCORE_IS_INSTALLED_FOR_UTS
+#if SRPCORE_NEWERTHAN12_IS_INSTALLED_FOR_UTS
         readonly MaterialHeaderScopeList m_MaterialScopeList = new MaterialHeaderScopeList(uint.MaxValue & ~((uint)Expandable.Advanced));
 
-#endif // SRPCORE_IS_INSTALLED_FOR_UTS
+#endif // SRPCORE_NEWERTHAN12_IS_INSTALLED_FOR_UTS
 
 
         //Button sizes
