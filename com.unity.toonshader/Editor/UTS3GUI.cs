@@ -362,7 +362,11 @@ namespace UnityEditor.Rendering.Toon
             Perspective,
             Orthographic
         }
-
+        protected enum Expandable
+        {
+            Inputs = 1 << 0,
+            Advanced = 1 << 1,
+        }
         // variables which must be gotten from shader at the beggning of GUI
         internal int _autoRenderQueue = 1;
         internal int _renderQueue = (int)UnityEngine.Rendering.RenderQueue.Geometry;
@@ -370,6 +374,12 @@ namespace UnityEditor.Rendering.Toon
         internal _OutlineMode outlineMode;
         internal _CullingMode cullingMode;
         internal _EmissiveMode emissiveMode;
+
+#if SRPCORE_IS_INSTALLED_FOR_UTS
+        readonly MaterialHeaderScopeList m_MaterialScopeList = new MaterialHeaderScopeList(uint.MaxValue & ~((uint)Expandable.Advanced));
+
+#endif // SRPCORE_IS_INSTALLED_FOR_UTS
+
 
         //Button sizes
         static internal GUILayoutOption[] longButtonStyle = new GUILayoutOption[] { GUILayout.Width(180) };
@@ -1061,7 +1071,7 @@ namespace UnityEditor.Rendering.Toon
 
             EditorGUI.BeginChangeCheck();
 
-            EditorGUILayout.Space();
+
 
             // select UTS technique here.
             DoPopup(workflowModeText, utsTechnique, UtsTechniqueNames);
@@ -1727,7 +1737,7 @@ namespace UnityEditor.Rendering.Toon
 #if USE_TOGGLE_BUTTONS
             GUILayout.Label("3 Basic Colors Settings : Textures × Colors", EditorStyles.boldLabel);
 #endif
-            EditorGUILayout.BeginHorizontal();
+
             m_MaterialEditor.TexturePropertySingleLine(Styles.baseColorText, mainTex, baseColor);
             //v.2.0.7 Synchronize _Color to _BaseColor.
             if (material.HasProperty("_Color"))
@@ -1751,16 +1761,14 @@ namespace UnityEditor.Rendering.Toon
                 }
             }
 #else
-            const float labelWidth = 170;
-            var defaultLabelWidth = EditorGUIUtility.labelWidth;
-            EditorGUIUtility.labelWidth = labelWidth;
-            var applyTo1st = GUI_Toggle(material, "Apply to 1st shading map", ShaderPropUse_BaseAs1st, MaterialGetInt(material, ShaderPropUse_BaseAs1st) != 0);
-            EditorGUIUtility.labelWidth = defaultLabelWidth;
-#endif
-            GUILayout.Space(60);
-            EditorGUILayout.EndHorizontal();
 
-            EditorGUILayout.BeginHorizontal();
+            EditorGUI.indentLevel += 2;
+            var applyTo1st = GUI_Toggle(material, "Apply to 1st shading map", ShaderPropUse_BaseAs1st, MaterialGetInt(material, ShaderPropUse_BaseAs1st) != 0);
+            EditorGUI.indentLevel -= 2;
+#endif
+
+
+
             EditorGUI.BeginDisabledGroup(applyTo1st);
             m_MaterialEditor.TexturePropertySingleLine(Styles.firstShadeColorText, firstShadeMap, firstShadeColor);
             EditorGUI.EndDisabledGroup();
@@ -1780,13 +1788,11 @@ namespace UnityEditor.Rendering.Toon
                 }
             }
 #else
-            EditorGUIUtility.labelWidth = labelWidth;
+            EditorGUI.indentLevel+=2;
             var applyTo2nd =  GUI_Toggle(material, "Apply to 2nd shading map", ShaderPropUse_1stAs2nd, MaterialGetInt(material, ShaderPropUse_1stAs2nd) != 0);
-            EditorGUIUtility.labelWidth = defaultLabelWidth;
-
+            EditorGUI.indentLevel-=2;
 #endif
-            GUILayout.Space(60);
-            EditorGUILayout.EndHorizontal();
+
             EditorGUI.BeginDisabledGroup(applyTo2nd);
             m_MaterialEditor.TexturePropertySingleLine(Styles.secondShadeColorText, secondShadeMap, secondShadeColor);
             EditorGUI.EndDisabledGroup();
