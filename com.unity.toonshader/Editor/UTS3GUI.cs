@@ -340,7 +340,7 @@ namespace UnityEditor.Rendering.Toon
         }
         protected enum Expandable
         {
-            Inputs = 1 << 0,
+            Basic = 1 << 0,
             Advanced = 1 << 1,
         }
         // variables which must be gotten from shader at the beggning of GUI
@@ -350,8 +350,11 @@ namespace UnityEditor.Rendering.Toon
         internal _OutlineMode outlineMode;
         internal _CullingMode cullingMode;
         internal _EmissiveMode emissiveMode;
+        internal bool m_FirstTimeApply = true;
+        _UTS_Technique m_technique;
 
 #if SRPCORE_NEWERTHAN12_IS_INSTALLED_FOR_UTS
+
         readonly MaterialHeaderScopeList m_MaterialScopeList = new MaterialHeaderScopeList(uint.MaxValue & ~((uint)Expandable.Advanced));
 
 #endif // SRPCORE_NEWERTHAN12_IS_INSTALLED_FOR_UTS
@@ -875,7 +878,7 @@ namespace UnityEditor.Rendering.Toon
             GUILayout.Box("", GUILayout.ExpandWidth(true), GUILayout.Height(1));
         }
 
-        protected static bool Foldout(bool display, string title)
+        protected static bool Foldout(bool display, GUIContent title)
         {
 #if USE_TOGGLE_BUTTONS
             var style = new GUIStyle("ShurikenModuleTitle");
@@ -907,7 +910,7 @@ namespace UnityEditor.Rendering.Toon
 #endif
         }
 
-        static bool FoldoutSubMenu(bool display, string title)
+        static bool FoldoutSubMenu(bool display, GUIContent title)
         {
 #if USE_TOGGLE_BUTTONS
             var style = new GUIStyle("ShurikenModuleTitle");
@@ -947,24 +950,44 @@ namespace UnityEditor.Rendering.Toon
         //Specify only those that use the m_MaterialEditor method as their UI. For specifying textures and colors on a single line.
         private static class Styles
         {
-            public static GUIContent baseColorText = new GUIContent("Base Map", "Base Color : Texture(sRGB) × Color(RGB) Default:White");
-            public static GUIContent firstShadeColorText = new GUIContent("1st Shading Map", "1st ShadeColor : Texture(sRGB) × Color(RGB) Default:White");
-            public static GUIContent secondShadeColorText = new GUIContent("2nd Shading Map", "2nd ShadeColor : Texture(sRGB) × Color(RGB) Default:White");
-            public static GUIContent normalMapText = new GUIContent("Normal Map", "Normal Map : Texture(bump)");
-            public static GUIContent highColorText = new GUIContent("High Light", "High Light : Texture(sRGB) × Color(RGB) Default:Black");
-            public static GUIContent highColorMaskText = new GUIContent("High Light Mask", "High Light Mask : Texture(linear)");
-            public static GUIContent rimLightMaskText = new GUIContent("Rim Light Mask", "Rim Light Mask : Texture(linear)");
-            public static GUIContent matCapSamplerText = new GUIContent("MatCap Sampler", "MatCap Sampler : Texture(sRGB) × Color(RGB) Default:White");
-            public static GUIContent matCapMaskText = new GUIContent("MatCap Mask", "MatCap Mask : Texture(linear)");
-            public static GUIContent angelRingText = new GUIContent("Angel Ring", "AngelRing : Texture(sRGB) × Color(RGB) Default:Black");
-            public static GUIContent emissiveTexText = new GUIContent("Emissive Map", "Emission : Texture(sRGB)× EmissiveMask(alpha) × Color(HDR) Default:Black");
-            public static GUIContent shadingGradeMapText = new GUIContent("Shading Grade Map", "Specify shadow-prone areas in UV coordinates. Shading Grade Map : Texture(linear)");
-            public static GUIContent firstPositionMapText = new GUIContent("1st Shade Position Map", "Specify the position of fixed shadows that fall in 1st shade color areas in UV coordinates. 1st Position Map : Texture(linear)");
-            public static GUIContent secondPositionMapText = new GUIContent("2nd Shade Position Map", "Specify the position of fixed shadows that fall in 2nd shade color areas in UV coordinates. 2nd Position Map : Texture(linear)");
-            public static GUIContent outlineSamplerText = new GUIContent("Outline Sampler", "Outline Sampler : Texture(linear)");
-            public static GUIContent outlineTexText = new GUIContent("Outline tex", "Outline Tex : Texture(sRGB) Default:White");
-            public static GUIContent bakedNormalOutlineText = new GUIContent("Baked NormalMap for Outline", "Unpacked Normal Map : Texture(linear) Note that this is not a standard NORMAL MAP.");
-            public static GUIContent clippingMaskText = new GUIContent("Clipping Mask", "Clipping Mask : Texture(linear)");
+
+            public static readonly GUIContent BasicColorFoldout = EditorGUIUtility.TrTextContent("3 Basic Color and Control Map Settings", "");
+            public static readonly GUIContent BasicLookDevsFoldout = EditorGUIUtility.TrTextContent("Basic Lookdevs : Shading Step and Feather Settings", "");
+            public static readonly GUIContent HighLightFoldout = EditorGUIUtility.TrTextContent("High Light Settings", "");
+            public static readonly GUIContent RimLightFoldout = EditorGUIUtility.TrTextContent("Rim Light Settings", "");
+            public static readonly GUIContent MatCapFoldout = EditorGUIUtility.TrTextContent("MatCap Settings", "");
+            public static readonly GUIContent AngelRingFoldout = EditorGUIUtility.TrTextContent("Angel Ring Projection Settings", "");
+            public static readonly GUIContent EmissionFoldout = EditorGUIUtility.TrTextContent("Emission Settings", "");
+            public static readonly GUIContent OutlineFoldout = EditorGUIUtility.TrTextContent("Outline Settings", "");
+            public static readonly GUIContent TessellationFoldout = EditorGUIUtility.TrTextContent("Tessellation Settings", "");
+            public static readonly GUIContent MaskRenderingFoldout = EditorGUIUtility.TrTextContent("Mask Rendering Settings", "");
+            public static readonly GUIContent ShaderFoldout = EditorGUIUtility.TrTextContent("Shader Settings", "");
+            public static readonly GUIContent LightColorEffectivenessFoldout = EditorGUIUtility.TrTextContent("Light Color Effectiveness to Material Settings", "");
+            public static readonly GUIContent EnvironmentalLightEffectivenessFoldout = EditorGUIUtility.TrTextContent("Environmental Lighting Effectiveness Settings", "");
+            public static readonly GUIContent NormalMapFoldout = EditorGUIUtility.TrTextContent("NormalMap Settings", "");
+            public static readonly GUIContent ShadowControlMapFoldout = EditorGUIUtility.TrTextContent("Shadow Control Maps", "");
+            public static readonly GUIContent PointLightFoldout = EditorGUIUtility.TrTextContent("Point Light Settings", "");
+            public static readonly GUIContent AdvancedOutlineFoldout = EditorGUIUtility.TrTextContent("Advanced Outline Settings", "");
+           
+
+            public static readonly GUIContent baseColorText = new GUIContent("Base Map", "Base Color : Texture(sRGB) × Color(RGB) Default:White");
+            public static readonly GUIContent firstShadeColorText = new GUIContent("1st Shading Map", "1st ShadeColor : Texture(sRGB) × Color(RGB) Default:White");
+            public static readonly GUIContent secondShadeColorText = new GUIContent("2nd Shading Map", "2nd ShadeColor : Texture(sRGB) × Color(RGB) Default:White");
+            public static readonly GUIContent normalMapText = new GUIContent("Normal Map", "Normal Map : Texture(bump)");
+            public static readonly GUIContent highColorText = new GUIContent("High Light", "High Light : Texture(sRGB) × Color(RGB) Default:Black");
+            public static readonly GUIContent highColorMaskText = new GUIContent("High Light Mask", "High Light Mask : Texture(linear)");
+            public static readonly GUIContent rimLightMaskText = new GUIContent("Rim Light Mask", "Rim Light Mask : Texture(linear)");
+            public static readonly GUIContent matCapSamplerText = new GUIContent("MatCap Sampler", "MatCap Sampler : Texture(sRGB) × Color(RGB) Default:White");
+            public static readonly GUIContent matCapMaskText = new GUIContent("MatCap Mask", "MatCap Mask : Texture(linear)");
+            public static readonly GUIContent angelRingText = new GUIContent("Angel Ring", "AngelRing : Texture(sRGB) × Color(RGB) Default:Black");
+            public static readonly GUIContent emissiveTexText = new GUIContent("Emissive Map", "Emission : Texture(sRGB)× EmissiveMask(alpha) × Color(HDR) Default:Black");
+            public static readonly GUIContent shadingGradeMapText = new GUIContent("Shading Grade Map", "Specify shadow-prone areas in UV coordinates. Shading Grade Map : Texture(linear)");
+            public static readonly GUIContent firstPositionMapText = new GUIContent("1st Shade Position Map", "Specify the position of fixed shadows that fall in 1st shade color areas in UV coordinates. 1st Position Map : Texture(linear)");
+            public static readonly GUIContent secondPositionMapText = new GUIContent("2nd Shade Position Map", "Specify the position of fixed shadows that fall in 2nd shade color areas in UV coordinates. 2nd Position Map : Texture(linear)");
+            public static readonly GUIContent outlineSamplerText = new GUIContent("Outline Sampler", "Outline Sampler : Texture(linear)");
+            public static readonly GUIContent outlineTexText = new GUIContent("Outline tex", "Outline Tex : Texture(sRGB) Default:White");
+            public static readonly GUIContent bakedNormalOutlineText = new GUIContent("Baked NormalMap for Outline", "Unpacked Normal Map : Texture(linear) Note that this is not a standard NORMAL MAP.");
+            public static readonly GUIContent clippingMaskText = new GUIContent("Clipping Mask", "Clipping Mask : Texture(linear)");
         }
         // --------------------------------
 
@@ -979,17 +1002,71 @@ namespace UnityEditor.Rendering.Toon
 
             base.OnClosed(material);
         }
-
         
+        void OnOpenGUI(Material material, MaterialEditor materialEditor, MaterialProperty[] props)
+        {
+#if SRPCORE_NEWERTHAN12_IS_INSTALLED_FOR_UTS
+            m_MaterialScopeList.RegisterHeaderScope(Styles.ShaderFoldout, (uint)Expandable.Basic, DrawShaderOptions);
+#endif
+        }
+        void ShaderPropertiesGUI(MaterialEditor materialEditor, Material material, MaterialProperty[] properties)
+        {
+#if SRPCORE_NEWERTHAN12_IS_INSTALLED_FOR_UTS
+            m_MaterialScopeList.DrawHeaders(materialEditor, material);
+#endif
+        }
+
+        void DrawShaderOptions(Material material)
+        {
+            EditorGUI.indentLevel++;
+            //EditorGUILayout.Space(); 
+            GUI_SetCullingMode(material);
+            GUI_SetRenderQueue(material);
+            GUI_Tranparent(material);
+            if (StencilShaderPropertyAvailable)
+            {
+                GUI_StencilMode(material);
+
+            }
+
+
+            switch (m_technique)
+            {
+                case _UTS_Technique.DoubleShadeWithFeather:
+                    GUILayout.Label("Clipping Shader", EditorStyles.boldLabel);
+                    DoPopup(clippingmodeModeText0, clippingMode, System.Enum.GetNames(typeof(_UTS_ClippingMode)));
+                    break;
+                case _UTS_Technique.ShadingGradeMap:
+                    GUILayout.Label("TransClipping Shader", EditorStyles.boldLabel);
+                    DoPopup(clippingmodeModeText1, clippingMode, System.Enum.GetNames(typeof(_UTS_TransClippingMode)));
+                    break;
+            }
+
+            EditorGUILayout.Space();
+            if (IsClippingMaskPropertyAvailable(m_technique))
+            {
+                GUI_SetClippingMask(material);
+                GUI_SetTransparencySetting(material);
+            }
+
+
+
+            GUI_OptionMenu(material);
+
+            EditorGUI.indentLevel--;
+        }
         public override void OnGUI(MaterialEditor materialEditor, MaterialProperty[] props)
         {
-//            base.OnGUI(materialEditor, props);
 
-
-            EditorGUIUtility.fieldWidth = 0;
-            FindProperties(props);
             m_MaterialEditor = materialEditor;
             Material material = materialEditor.target as Material;
+            EditorGUIUtility.fieldWidth = 0;
+            if (m_FirstTimeApply)
+            {
+                FindProperties(props);
+                OnOpenGUI(material, materialEditor, props);
+                m_FirstTimeApply = false;
+            }
 
             UpdateVersionInMaterial(material);
 
@@ -1046,8 +1123,8 @@ namespace UnityEditor.Rendering.Toon
 
 
 
-            _UTS_Technique technique = (_UTS_Technique)material.GetInt(ShaderPropUtsTechniqe);
-            switch (technique)
+            m_technique = (_UTS_Technique)material.GetInt(ShaderPropUtsTechniqe);
+            switch (m_technique)
             {
                 case _UTS_Technique.DoubleShadeWithFeather:
                     material.DisableKeyword(ShaderDefineSHADINGGRADEMAP);
@@ -1058,50 +1135,16 @@ namespace UnityEditor.Rendering.Toon
             }
 
 
-            _BasicShaderSettings_Foldout = Foldout(_BasicShaderSettings_Foldout, "Shader Settings");
+            _BasicShaderSettings_Foldout = Foldout(_BasicShaderSettings_Foldout, Styles.ShaderFoldout);
             if (_BasicShaderSettings_Foldout)
             {
-                EditorGUI.indentLevel++;
-                //EditorGUILayout.Space(); 
-                GUI_SetCullingMode(material);
-                GUI_SetRenderQueue(material);
-                GUI_Tranparent(material);
-                if (StencilShaderPropertyAvailable)
-                {
-                    GUI_StencilMode(material);
+                DrawShaderOptions(material);
 
-                }
-
-
-                switch (technique)
-                {
-                    case _UTS_Technique.DoubleShadeWithFeather:
-                        GUILayout.Label("Clipping Shader", EditorStyles.boldLabel);
-                        DoPopup(clippingmodeModeText0, clippingMode, System.Enum.GetNames(typeof(_UTS_ClippingMode)));
-                        break;
-                    case _UTS_Technique.ShadingGradeMap:
-                        GUILayout.Label("TransClipping Shader", EditorStyles.boldLabel);
-                        DoPopup(clippingmodeModeText1, clippingMode, System.Enum.GetNames(typeof(_UTS_TransClippingMode)));
-                        break;
-                }
-
-                EditorGUILayout.Space();
-                if (IsClippingMaskPropertyAvailable(technique))
-                {
-                    GUI_SetClippingMask(material);
-                    GUI_SetTransparencySetting(material);
-                }
-
-
-
-                GUI_OptionMenu(material);
-
-                EditorGUI.indentLevel--;
             }
 
             EditorGUILayout.Space();
 
-            _BasicThreeColors_Foldout = Foldout(_BasicThreeColors_Foldout, "3 Basic Color and Control Map Settings");
+            _BasicThreeColors_Foldout = Foldout(_BasicThreeColors_Foldout, Styles.BasicColorFoldout);
             if (_BasicThreeColors_Foldout)
             {
                 EditorGUI.indentLevel++;
@@ -1112,7 +1155,7 @@ namespace UnityEditor.Rendering.Toon
 
             EditorGUILayout.Space();
 
-            _StepAndFeather_Foldout = Foldout(_StepAndFeather_Foldout, "Basic Lookdevs : Shading Step and Feather Settings");
+            _StepAndFeather_Foldout = Foldout(_StepAndFeather_Foldout, Styles.BasicLookDevsFoldout);
             if (_StepAndFeather_Foldout)
             {
                 EditorGUI.indentLevel++;
@@ -1123,7 +1166,7 @@ namespace UnityEditor.Rendering.Toon
 
             EditorGUILayout.Space();
 
-            _HighColor_Foldout = Foldout(_HighColor_Foldout, "High Light Settings");
+            _HighColor_Foldout = Foldout(_HighColor_Foldout, Styles.HighLightFoldout);
             if (_HighColor_Foldout)
             {
                 EditorGUI.indentLevel++;
@@ -1137,7 +1180,7 @@ namespace UnityEditor.Rendering.Toon
 
             EditorGUILayout.Space();
 
-            _RimLight_Foldout = Foldout(_RimLight_Foldout, "Rim Light Settings");
+            _RimLight_Foldout = Foldout(_RimLight_Foldout, Styles.RimLightFoldout);
             if (_RimLight_Foldout)
             {
                 EditorGUI.indentLevel++;
@@ -1147,7 +1190,7 @@ namespace UnityEditor.Rendering.Toon
 
             EditorGUILayout.Space();
 
-            _MatCap_Foldout = Foldout(_MatCap_Foldout, "MatCap Settings");
+            _MatCap_Foldout = Foldout(_MatCap_Foldout, Styles.MatCapFoldout);
             if (_MatCap_Foldout)
             {
                 EditorGUI.indentLevel++;
@@ -1159,7 +1202,7 @@ namespace UnityEditor.Rendering.Toon
 
             if (IsShadingGrademap)
             {
-                _AngelRing_Foldout = Foldout(_AngelRing_Foldout, "Angel Ring Projection Settings");
+                _AngelRing_Foldout = Foldout(_AngelRing_Foldout,Styles.AngelRingFoldout);
                 if (_AngelRing_Foldout)
                 {
                     EditorGUI.indentLevel++;
@@ -1171,7 +1214,7 @@ namespace UnityEditor.Rendering.Toon
                 EditorGUILayout.Space();
             }
 
-            _Emissive_Foldout = Foldout(_Emissive_Foldout, "Emission Settings");
+            _Emissive_Foldout = Foldout(_Emissive_Foldout, Styles.EmissionFoldout);
             if (_Emissive_Foldout)
             {
                 EditorGUI.indentLevel++;
@@ -1186,7 +1229,7 @@ namespace UnityEditor.Rendering.Toon
             if (material.HasProperty(ShaderPropOutline) && _Transparent_Setting != _UTS_Transparent.On)
             {
                 SetuOutline(material);
-                _Outline_Foldout = Foldout(_Outline_Foldout, "Outline Settings");
+                _Outline_Foldout = Foldout(_Outline_Foldout, Styles.OutlineFoldout);
                 if (_Outline_Foldout)
                 {
                     EditorGUI.indentLevel++;
@@ -1202,7 +1245,7 @@ namespace UnityEditor.Rendering.Toon
             }
             if (material.HasProperty("_TessEdgeLength") && currentRenderPipeline == RenderPipeline.Legacy)
             {
-                _Tessellation_Foldout = Foldout(_Tessellation_Foldout, "Legacy Pipeline: Phong Tessellation Settings");
+                _Tessellation_Foldout = Foldout(_Tessellation_Foldout, Styles.TessellationFoldout);
                 if (_Tessellation_Foldout)
                 {
                     EditorGUI.indentLevel++;
@@ -1216,7 +1259,7 @@ namespace UnityEditor.Rendering.Toon
 
             if (!_SimpleUI)
             {
-                _LightColorContribution_Foldout = Foldout(_LightColorContribution_Foldout, "Light Color Effectiveness to Material Settings");
+                _LightColorContribution_Foldout = Foldout(_LightColorContribution_Foldout, Styles.LightColorEffectivenessFoldout);
                 if (_LightColorContribution_Foldout)
                 {
                     EditorGUI.indentLevel++;
@@ -1227,7 +1270,7 @@ namespace UnityEditor.Rendering.Toon
 
                 EditorGUILayout.Space();
 
-                _AdditionalLightingSettings_Foldout = Foldout(_AdditionalLightingSettings_Foldout, "Environmental Lighting Effectiveness Settings");
+                _AdditionalLightingSettings_Foldout = Foldout(_AdditionalLightingSettings_Foldout, Styles.EnvironmentalLightEffectivenessFoldout);
                 if (_AdditionalLightingSettings_Foldout)
                 {
                     EditorGUI.indentLevel++;
@@ -1247,7 +1290,7 @@ namespace UnityEditor.Rendering.Toon
             ApplyAngelRing(material);
             ApplyTessellation(material);
             ApplyMatCapMode(material);
-            ApplyQueueAndRenderType(technique, material);
+            ApplyQueueAndRenderType(m_technique, material);
 
 
 
@@ -1550,7 +1593,7 @@ namespace UnityEditor.Rendering.Toon
             EditorGUI.EndDisabledGroup();
             EditorGUILayout.Space();
 
-            _NormalMap_Foldout = FoldoutSubMenu(_NormalMap_Foldout, "NormalMap Settings");
+            _NormalMap_Foldout = FoldoutSubMenu(_NormalMap_Foldout, Styles.NormalMapFoldout);
             if (_NormalMap_Foldout)
             {
                 //GUILayout.Label("NormalMap Settings", EditorStyles.boldLabel);
@@ -1569,7 +1612,7 @@ namespace UnityEditor.Rendering.Toon
                 EditorGUILayout.Space();
             }
 
-            _ShadowControlMaps_Foldout = FoldoutSubMenu(_ShadowControlMaps_Foldout, "Shadow Control Maps");
+            _ShadowControlMaps_Foldout = FoldoutSubMenu(_ShadowControlMaps_Foldout, Styles.ShadowControlMapFoldout);
             if (_ShadowControlMaps_Foldout)
             {
                 EditorGUI.indentLevel++;
@@ -1610,7 +1653,7 @@ namespace UnityEditor.Rendering.Toon
                 if (material.HasProperty("_StepOffset"))//Items not in Mobile & Light Mode.                
                 {
 
-                    _AdditionalLookdevs_Foldout = FoldoutSubMenu(_AdditionalLookdevs_Foldout, "Point Light Settings");
+                    _AdditionalLookdevs_Foldout = FoldoutSubMenu(_AdditionalLookdevs_Foldout, Styles.PointLightFoldout);
                     if (_AdditionalLookdevs_Foldout)
                     {
                         GUI_AdditionalLookdevs(material);
@@ -2362,7 +2405,7 @@ namespace UnityEditor.Rendering.Toon
             if (!_SimpleUI)
             {
 
-                _AdvancedOutline_Foldout = FoldoutSubMenu(_AdvancedOutline_Foldout, "Advanced Outline Settings");
+                _AdvancedOutline_Foldout = FoldoutSubMenu(_AdvancedOutline_Foldout, Styles.AdvancedOutlineFoldout);
                 if (_AdvancedOutline_Foldout)
                 {
                     EditorGUI.indentLevel++;

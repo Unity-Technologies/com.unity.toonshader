@@ -120,7 +120,7 @@ namespace UnityEditor.Rendering.Toon
                 return;
             }
 
-            _TessellationSettings_Foldout = Foldout(_TessellationSettings_Foldout, "【Tessellation Settings】");
+            _TessellationSettings_Foldout = Foldout(_TessellationSettings_Foldout, Styles.TessellationFoldout); 
             if (!_TessellationSettings_Foldout)
             {
                 return;
