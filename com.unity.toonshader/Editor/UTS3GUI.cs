@@ -356,7 +356,8 @@ namespace UnityEditor.Rendering.Toon
 #if SRPCORE_NEWERTHAN12_IS_INSTALLED_FOR_UTS
 
         readonly MaterialHeaderScopeList m_MaterialScopeList = new MaterialHeaderScopeList(uint.MaxValue & ~((uint)Expandable.Advanced));
-
+#else
+        readonly UTS3MaterialHeaderScopeList m_MaterialScopeList = new UTS3MaterialHeaderScopeList(uint.MaxValue & ~((uint)Expandable.Advanced));
 #endif // SRPCORE_NEWERTHAN12_IS_INSTALLED_FOR_UTS
 
 
@@ -1120,7 +1121,7 @@ namespace UnityEditor.Rendering.Toon
 
             // select UTS technique here.
             DoPopup(workflowModeText, utsTechnique, UtsTechniqueNames);
-
+            ShaderPropertiesGUI(materialEditor, material, props);
 
 
             m_technique = (_UTS_Technique)material.GetInt(ShaderPropUtsTechniqe);
