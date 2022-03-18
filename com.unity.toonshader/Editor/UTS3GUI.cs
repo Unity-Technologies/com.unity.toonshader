@@ -340,8 +340,11 @@ namespace UnityEditor.Rendering.Toon
         }
         protected enum Expandable
         {
-            Basic = 1 << 0,
-            Advanced = 1 << 1,
+            ShaderFoldout = 1 << 0,
+            BasicColorFoldout = 1 << 1,
+            BasicLookDevsFoldout = 1 << 2,
+            HighLightFoldout = 1 << 3,
+            RimLightFoldout = 1 << 4,
         }
         // variables which must be gotten from shader at the beggning of GUI
         internal int _autoRenderQueue = 1;
@@ -355,9 +358,9 @@ namespace UnityEditor.Rendering.Toon
 
 #if SRPCORE_NEWERTHAN12_IS_INSTALLED_FOR_UTS
 
-        readonly MaterialHeaderScopeList m_MaterialScopeList = new MaterialHeaderScopeList(uint.MaxValue & ~((uint)Expandable.Advanced));
+        readonly MaterialHeaderScopeList m_MaterialScopeList = new MaterialHeaderScopeList(uint.MaxValue );
 #else
-        readonly UTS3MaterialHeaderScopeList m_MaterialScopeList = new UTS3MaterialHeaderScopeList(uint.MaxValue & ~((uint)Expandable.Advanced));
+        readonly UTS3MaterialHeaderScopeList m_MaterialScopeList = new UTS3MaterialHeaderScopeList(uint.MaxValue );
 #endif // SRPCORE_NEWERTHAN12_IS_INSTALLED_FOR_UTS
 
 
@@ -374,15 +377,14 @@ namespace UnityEditor.Rendering.Toon
         protected static bool _SimpleUI = false;
 
         //Initial values of Foldout.
-        protected static bool _BasicShaderSettings_Foldout = false;
-        protected static bool _BasicThreeColors_Foldout = true;
+
+
         protected static bool _NormalMap_Foldout = false;
         protected static bool _ShadowControlMaps_Foldout = false;
-        protected static bool _StepAndFeather_Foldout = true;
         protected static bool _AdditionalLookdevs_Foldout = false;
-        protected static bool _HighColor_Foldout = true;
 
-        protected static bool _RimLight_Foldout = true;
+
+
         protected static bool _MatCap_Foldout = true;
         protected static bool _AngelRing_Foldout = true;
         protected static bool _Emissive_Foldout = true;
@@ -754,9 +756,9 @@ namespace UnityEditor.Rendering.Toon
         //Specify only those that use the m_MaterialEditor method as their UI. For specifying textures and colors on a single line.
         private static class Styles
         {
-
+            public static readonly GUIContent ShaderFoldout = EditorGUIUtility.TrTextContent("Shader Settings", "");
             public static readonly GUIContent BasicColorFoldout = EditorGUIUtility.TrTextContent("3 Basic Color and Control Map Settings", "");
-            public static readonly GUIContent BasicLookDevsFoldout = EditorGUIUtility.TrTextContent("Basic Lookdevs : Shading Step and Feather Settings", "");
+            public static readonly GUIContent BasicLookDevsFoldout = EditorGUIUtility.TrTextContent("Shading Step and Feather Settings", "");
             public static readonly GUIContent HighLightFoldout = EditorGUIUtility.TrTextContent("High Light Settings", "");
             public static readonly GUIContent RimLightFoldout = EditorGUIUtility.TrTextContent("Rim Light Settings", "");
             public static readonly GUIContent MatCapFoldout = EditorGUIUtility.TrTextContent("MatCap Settings", "");
@@ -765,7 +767,6 @@ namespace UnityEditor.Rendering.Toon
             public static readonly GUIContent OutlineFoldout = EditorGUIUtility.TrTextContent("Outline Settings", "");
             public static readonly GUIContent TessellationFoldout = EditorGUIUtility.TrTextContent("Tessellation Settings", "");
             public static readonly GUIContent MaskRenderingFoldout = EditorGUIUtility.TrTextContent("Mask Rendering Settings", "");
-            public static readonly GUIContent ShaderFoldout = EditorGUIUtility.TrTextContent("Shader Settings", "");
             public static readonly GUIContent LightColorEffectivenessFoldout = EditorGUIUtility.TrTextContent("Light Color Effectiveness to Material Settings", "");
             public static readonly GUIContent EnvironmentalLightEffectivenessFoldout = EditorGUIUtility.TrTextContent("Environmental Lighting Effectiveness Settings", "");
             public static readonly GUIContent NormalMapFoldout = EditorGUIUtility.TrTextContent("NormalMap Settings", "");
@@ -809,15 +810,17 @@ namespace UnityEditor.Rendering.Toon
         
         void OnOpenGUI(Material material, MaterialEditor materialEditor, MaterialProperty[] props)
         {
-#if SRPCORE_NEWERTHAN12_IS_INSTALLED_FOR_UTS
-            m_MaterialScopeList.RegisterHeaderScope(Styles.ShaderFoldout, (uint)Expandable.Basic, DrawShaderOptions);
-#endif
+            m_MaterialScopeList.RegisterHeaderScope(Styles.ShaderFoldout, (uint)Expandable.ShaderFoldout, DrawShaderOptions);
+            m_MaterialScopeList.RegisterHeaderScope(Styles.BasicColorFoldout, (uint)Expandable.BasicColorFoldout, GUI_BasicThreeColors);
+            m_MaterialScopeList.RegisterHeaderScope(Styles.BasicLookDevsFoldout, (uint)Expandable.BasicLookDevsFoldout, GUI_StepAndFeather);
+            m_MaterialScopeList.RegisterHeaderScope(Styles.HighLightFoldout, (uint)Expandable.HighLightFoldout, GUI_HighColor);
+            m_MaterialScopeList.RegisterHeaderScope(Styles.RimLightFoldout, (uint)Expandable.RimLightFoldout, GUI_RimLight);
         }
         void ShaderPropertiesGUI(MaterialEditor materialEditor, Material material, MaterialProperty[] properties)
         {
-#if SRPCORE_NEWERTHAN12_IS_INSTALLED_FOR_UTS
+
             m_MaterialScopeList.DrawHeaders(materialEditor, material);
-#endif
+
         }
 
         void DrawShaderOptions(Material material)
@@ -924,9 +927,6 @@ namespace UnityEditor.Rendering.Toon
 
             // select UTS technique here.
             DoPopup(workflowModeText, utsTechnique, UtsTechniqueNames);
-            ShaderPropertiesGUI(materialEditor, material, props);
-
-
             m_technique = (_UTS_Technique)material.GetInt(ShaderPropUtsTechniqe);
             switch (m_technique)
             {
@@ -937,62 +937,11 @@ namespace UnityEditor.Rendering.Toon
                     material.EnableKeyword(ShaderDefineSHADINGGRADEMAP);
                     break;
             }
-
-
-            _BasicShaderSettings_Foldout = Foldout(_BasicShaderSettings_Foldout, Styles.ShaderFoldout);
-            if (_BasicShaderSettings_Foldout)
-            {
-                DrawShaderOptions(material);
-
-            }
-
-            EditorGUILayout.Space();
-
-            _BasicThreeColors_Foldout = Foldout(_BasicThreeColors_Foldout, Styles.BasicColorFoldout);
-            if (_BasicThreeColors_Foldout)
-            {
-                EditorGUI.indentLevel++;
-                //EditorGUILayout.Space(); 
-                GUI_BasicThreeColors(material);
-                EditorGUI.indentLevel--;
-            }
-
-            EditorGUILayout.Space();
-
-            _StepAndFeather_Foldout = Foldout(_StepAndFeather_Foldout, Styles.BasicLookDevsFoldout);
-            if (_StepAndFeather_Foldout)
-            {
-                EditorGUI.indentLevel++;
-                //EditorGUILayout.Space(); 
-                GUI_StepAndFeather(material);
-                EditorGUI.indentLevel--;
-            }
-
-            EditorGUILayout.Space();
-
-            _HighColor_Foldout = Foldout(_HighColor_Foldout, Styles.HighLightFoldout);
-            if (_HighColor_Foldout)
-            {
-                EditorGUI.indentLevel++;
-                GUI_HighColor(material);
-                EditorGUI.indentLevel--;
-            }
-
-            EditorGUILayout.Space();
+            ShaderPropertiesGUI(materialEditor, material, props);
 
 
 
-            EditorGUILayout.Space();
 
-            _RimLight_Foldout = Foldout(_RimLight_Foldout, Styles.RimLightFoldout);
-            if (_RimLight_Foldout)
-            {
-                EditorGUI.indentLevel++;
-                GUI_RimLight(material);
-                EditorGUI.indentLevel--;
-            }
-
-            EditorGUILayout.Space();
 
             _MatCap_Foldout = Foldout(_MatCap_Foldout, Styles.MatCapFoldout);
             if (_MatCap_Foldout)
@@ -1676,7 +1625,6 @@ namespace UnityEditor.Rendering.Toon
             //Line();
             //EditorGUILayout.Space();
 
-            GUILayout.Label("    RimLight Mask", EditorStyles.boldLabel);
             m_MaterialEditor.TexturePropertySingleLine(Styles.rimLightMaskText, set_RimLightMask);
             m_MaterialEditor.RangeProperty(tweak_RimLightMaskLevel, "Rim Light Mask Level");
 
