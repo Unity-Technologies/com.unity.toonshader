@@ -345,6 +345,7 @@ namespace UnityEditor.Rendering.Toon
             BasicLookDevsFoldout = 1 << 2,
             HighLightFoldout = 1 << 3,
             RimLightFoldout = 1 << 4,
+            MatCapFoldout = 1 << 5,
         }
         // variables which must be gotten from shader at the beggning of GUI
         internal int _autoRenderQueue = 1;
@@ -385,7 +386,7 @@ namespace UnityEditor.Rendering.Toon
 
 
 
-        protected static bool _MatCap_Foldout = true;
+
         protected static bool _AngelRing_Foldout = true;
         protected static bool _Emissive_Foldout = true;
         protected static bool _Outline_Foldout = true;
@@ -815,6 +816,8 @@ namespace UnityEditor.Rendering.Toon
             m_MaterialScopeList.RegisterHeaderScope(Styles.BasicLookDevsFoldout, (uint)Expandable.BasicLookDevsFoldout, GUI_StepAndFeather);
             m_MaterialScopeList.RegisterHeaderScope(Styles.HighLightFoldout, (uint)Expandable.HighLightFoldout, GUI_HighColor);
             m_MaterialScopeList.RegisterHeaderScope(Styles.RimLightFoldout, (uint)Expandable.RimLightFoldout, GUI_RimLight);
+            m_MaterialScopeList.RegisterHeaderScope(Styles.MatCapFoldout, (uint)Expandable.MatCapFoldout, GUI_MatCap);
+
         }
         void ShaderPropertiesGUI(MaterialEditor materialEditor, Material material, MaterialProperty[] properties)
         {
@@ -943,15 +946,7 @@ namespace UnityEditor.Rendering.Toon
 
 
 
-            _MatCap_Foldout = Foldout(_MatCap_Foldout, Styles.MatCapFoldout);
-            if (_MatCap_Foldout)
-            {
-                EditorGUI.indentLevel++;
-                GUI_MatCap(material);
-                EditorGUI.indentLevel--;
-            }
 
-            EditorGUILayout.Space();
 
             if (IsShadingGrademap)
             {
@@ -959,7 +954,7 @@ namespace UnityEditor.Rendering.Toon
                 if (_AngelRing_Foldout)
                 {
                     EditorGUI.indentLevel++;
-                    EditorGUILayout.Space();
+
                     GUI_AngelRing(material);
                     EditorGUI.indentLevel--;
                 }
@@ -1107,36 +1102,7 @@ namespace UnityEditor.Rendering.Toon
 
         // --------------------------------
 
-        void CheckUtsTechnique(Material material)
-        {
-            if (material.HasProperty(ShaderPropUtsTechniqe))//DoubleWithFeather==0 or ShadingGradeMap==1
-            {
-                if (material.GetInt(ShaderPropUtsTechniqe) == (int)_UTS_Technique.DoubleShadeWithFeather)   //DWF
-                {
-                    if (!material.HasProperty(ShaderProp_Set_1st_ShadePosition))
-                    {
-                        //Change to SGM
-                        material.SetInt(ShaderPropUtsTechniqe, (int)_UTS_Technique.ShadingGradeMap);
-                    }
-                }
-                else if (material.GetInt(ShaderPropUtsTechniqe) == (int)_UTS_Technique.ShadingGradeMap)
-                {    //SGM
-                    if (!material.HasProperty("_ShadingGradeMap"))
-                    {
-                        //Change to DWF
-                        material.SetInt(ShaderPropUtsTechniqe, (int)_UTS_Technique.DoubleShadeWithFeather);
-                    }
-                }
-                else
-                {
 
-                }
-            }
-            else
-            {
-
-            }
-        }
 
         void GUI_SetRTHS(Material material)
         {
