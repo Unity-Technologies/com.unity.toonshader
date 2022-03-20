@@ -2,6 +2,7 @@
 ## [0.7.0-preview] - 2022-03-20
 ### Updated:
 * Renamed `Double Shade with Feather` to `Three Color Toon`.
+* Renamed `Shading Grade map` to `Three Color Toon with Special Maps`.
 * Shader version properties in all the render pipeline shaders.
 * Updated installation.md.
 * Replaced toggle buttons Off/Active UI to Unity standard toggle.

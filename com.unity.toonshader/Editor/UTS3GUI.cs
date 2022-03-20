@@ -207,48 +207,13 @@ namespace UnityEditor.Rendering.Toon
 
         protected const string ShaderDefineIS_CLIPPING_MATTE = "_IS_CLIPPING_MATTE";
 
-        protected readonly string[] MainTexHash128 = { "_MainTexHash128_0", "_MainTexHash128_1", "_MainTexHash128_2", "_MainTexHash128_3" };
-        protected readonly string[] MainTexGUID =  { "_MainTexGUID_0", "_MainTexGUID_1", "_MainTexGUID_2", "_MainTexGUID_3" };
-       //
-       protected readonly string[] ClippingMaskHash128 = { "_ClippingMaskHash128_0", "_ClippingMaskHash128_1", "_ClippingMaskHash128_2", "_ClippingMaskHash128_3" };
-        protected readonly string[] ClippingMaskGUID = { "_ClippingMaskGUID_0", "_ClippingMaskGUID_1", "_ClippingMaskGUID_2", "_ClippingMaskGUID_3" };
-        //
-        protected readonly string[] Set_1st_ShadePositionHash128 = { "_Set_1st_ShadePositionHash128_0", "_Set_1st_ShadePositionHash128_1", "_Set_1st_ShadePositionHash128_2", "_Set_1st_ShadePositionHash128_3" };
-        protected readonly string[] Set_1st_ShadePositionGUID = { "_Set_1st_ShadePositionGUID_0", "_Set_1st_ShadePositionGUID_1", "_Set_1st_ShadePositionGUID_2", "_Set_1st_ShadePositionGUID_3" };
-        //
-        protected readonly string[] Set_2nd_ShadePositionHash128 = { "_Set_2nd_ShadePositionHash128_0", "_Set_2nd_ShadePositionHash128_1", "_Set_2nd_ShadePositionHash128_2", "_Set_2nd_ShadePositionHash128_3" };
-        protected readonly string[] Set_2nd_ShadePositionGUID = { "_Set_2nd_ShadePositionGUID_0", "_Set_2nd_ShadePositionGUID_1", "_Set_2nd_ShadePositionGUID_2", "_Set_2nd_ShadePositionGUID_3" };
-        //
-        protected readonly string[] ShadingGradeMapHash128 = { "_ShadingGradeMapHash128_0", "_ShadingGradeMapHash128_1", "_ShadingGradeMapHash128_2", "_ShadingGradeMapHash128_3" };
-        protected readonly string[] ShadingGradeMapGUID = { "_ShadingGradeMapGUID_0", "_ShadingGradeMapGUID_1", "_ShadingGradeMapGUID_2", "_ShadingGradeMapGUID_3" };
-        //
-        protected readonly string[] Set_RimLightMaskHash128 = { "_Set_RimLightMaskHash128_0", "_Set_RimLightMaskHash128_1", "_Set_RimLightMaskHash128_2", "_Set_RimLightMaskHash128_3" };
-        protected readonly string[] Set_RimLightMaskGUID = { "_Set_RimLightMaskGUID_0", "_Set_RimLightMaskGUID_1", "_Set_RimLightMaskGUID_2", "_Set_RimLightMaskGUID_3" };
-        //
-        protected readonly string[] HighColor_TexHash128 = { "_HighColor_TexHash128_0", "_HighColor_TexHash128_1", "_HighColor_TexHash128_2", "_HighColor_TexHash128_3" };
-        protected readonly string[] HighColor_TexGUID = { "_Set_RimLightMaskGUID_0", "_Set_RimLightMaskGUID_1", "_Set_RimLightMaskGUID_2", "_Set_RimLightMaskGUID_3" };
-        //
-        protected readonly string[] Set_HighColorMaskHash128 = { "_Set_HighColorMaskHash128_0", "_Set_HighColorMaskHash128_1", "_Set_HighColorMaskHash128_2", "_Set_HighColorMaskHash128_3" };
-        protected readonly string[] Set_HighColorMaskGUID = { "_Set_HighColorMaskGUID_0", "_Set_HighColorMaskGUID_1", "_Set_HighColorMaskGUID_2", "_Set_HighColorMaskGUID_3" };
-        //
-        protected readonly string[] MatCap_SamplerHash128 = { "_MatCap_SamplerHash128_0", "_MatCap_SamplerHash128_1", "_MatCap_SamplerHash128_2", "_MatCap_SamplerHash128_3" };
-        protected readonly string[] MatCap_SamplerGUID = { "_MatCap_SamplerGUID_0", "_MatCap_SamplerGUID_1", "_MatCap_SamplerGUID_2", "_MatCap_SamplerGUID_3" };
-        //
-        protected readonly string[] Set_MatcapMaskHash128 = { "_Set_MatcapMaskHash128_0", "_Set_MatcapMaskHash128_1", "_Set_MatcapMaskHash128_2", "_Set_MatcapMaskHash128_3" };
-        protected readonly string[] Set_MatcapMaskGUID = { "_Set_MatcapMaskGUID_0", "_Set_MatcapMaskGUID_1", "_Set_MatcapMaskGUID_2", "_Set_MatcapMaskGUID_3" };
-        //
-        protected readonly string[] Outline_SamplerHash128 = { "_Outline_SamplerHash128_0", "_Outline_SamplerHash128_1", "_Outline_SamplerHash128_2", "_Outline_SamplerHash128_3" };
-        protected readonly string[] Outline_SamplerGUID = { "_Outline_SamplerGUID_0", "_Outline_SamplerGUID_1", "_Outline_SamplerGUID_2", "_Outline_SamplerGUID_3" };
-        //
-        protected readonly string[] OutlineTexHash128 = { "_OutlineTexHash128_0", "_OutlineTexHash128_1", "_OutlineTexHash128_2", "_OutlineTexHash128_3" };
-        protected readonly string[] OutlineTexGUID = { "_OutlineTexGUID_0", "_OutlineTexGUID_1", "_OutlineTexGUID_2", "_OutlineTexGUID_3" };
 
-        protected readonly string[] UtsModeNames = { "Three Color Toon", "Shading Grade Map" };
+        protected readonly string[] UtsModeNames = { "Three Color Toon", "Three Color Toon with Spetial Maps" };
         protected readonly string[] EmissiveScrollMode = { "UV Coordinate Scroll", "View Coordinate Scroll" };
 
         public enum UTS_Mode : uint
         {
-            TreeColorToon, ShadingGradeMap
+            ThreeColorToon, ShadingGradeMap
         }
 
         public enum UTS_ClippingMode
@@ -502,7 +467,7 @@ namespace UnityEditor.Rendering.Toon
             bool bRet = false;
             switch (technique)
             {
-                case UTS_Mode.TreeColorToon:
+                case UTS_Mode.ThreeColorToon:
                     bRet = ((UTS_ClippingMode)MaterialGetInt(material,ShaderPropClippingMode) != UTS_ClippingMode.Off);
                     break;
                 case UTS_Mode.ShadingGradeMap:
@@ -726,27 +691,27 @@ namespace UnityEditor.Rendering.Toon
         
         void OnOpenGUI(Material material, MaterialEditor materialEditor, MaterialProperty[] props)
         {
-            m_MaterialScopeList.RegisterHeaderScope(Styles.ShaderFoldout, (uint)Expandable.ShaderFoldout, DrawShaderOptions, (uint)UTS_Mode.TreeColorToon, (uint)UTS_TransparentMode.Off);
-            m_MaterialScopeList.RegisterHeaderScope(Styles.BasicColorFoldout, (uint)Expandable.BasicColorFoldout, GUI_BasicThreeColors, (uint)UTS_Mode.TreeColorToon,(uint)UTS_TransparentMode.Off);
-            m_MaterialScopeList.RegisterHeaderScope(Styles.BasicLookDevsFoldout, (uint)Expandable.BasicLookDevsFoldout, GUI_StepAndFeather, (uint)UTS_Mode.TreeColorToon, (uint)UTS_TransparentMode.Off);
-            m_MaterialScopeList.RegisterHeaderScope(Styles.HighLightFoldout, (uint)Expandable.HighLightFoldout, GUI_HighColor, (uint)UTS_Mode.TreeColorToon, (uint)UTS_TransparentMode.Off);
-            m_MaterialScopeList.RegisterHeaderScope(Styles.RimLightFoldout, (uint)Expandable.RimLightFoldout, GUI_RimLight, (uint)UTS_Mode.TreeColorToon, (uint)UTS_TransparentMode.Off);
-            m_MaterialScopeList.RegisterHeaderScope(Styles.MatCapFoldout, (uint)Expandable.MatCapFoldout, GUI_MatCap, (uint)UTS_Mode.TreeColorToon, (uint)UTS_TransparentMode.Off);
+            m_MaterialScopeList.RegisterHeaderScope(Styles.ShaderFoldout, (uint)Expandable.ShaderFoldout, DrawShaderOptions, (uint)UTS_Mode.ThreeColorToon, (uint)UTS_TransparentMode.Off);
+            m_MaterialScopeList.RegisterHeaderScope(Styles.BasicColorFoldout, (uint)Expandable.BasicColorFoldout, GUI_BasicThreeColors, (uint)UTS_Mode.ThreeColorToon,(uint)UTS_TransparentMode.Off);
+            m_MaterialScopeList.RegisterHeaderScope(Styles.BasicLookDevsFoldout, (uint)Expandable.BasicLookDevsFoldout, GUI_StepAndFeather, (uint)UTS_Mode.ThreeColorToon, (uint)UTS_TransparentMode.Off);
+            m_MaterialScopeList.RegisterHeaderScope(Styles.HighLightFoldout, (uint)Expandable.HighLightFoldout, GUI_HighColor, (uint)UTS_Mode.ThreeColorToon, (uint)UTS_TransparentMode.Off);
+            m_MaterialScopeList.RegisterHeaderScope(Styles.RimLightFoldout, (uint)Expandable.RimLightFoldout, GUI_RimLight, (uint)UTS_Mode.ThreeColorToon, (uint)UTS_TransparentMode.Off);
+            m_MaterialScopeList.RegisterHeaderScope(Styles.MatCapFoldout, (uint)Expandable.MatCapFoldout, GUI_MatCap, (uint)UTS_Mode.ThreeColorToon, (uint)UTS_TransparentMode.Off);
             m_MaterialScopeList.RegisterHeaderScope(Styles.AngelRingFoldout, (uint)Expandable.AngelRingFoldout, GUI_AngelRing, (uint)UTS_Mode.ShadingGradeMap, (uint)UTS_TransparentMode.Off);
-            m_MaterialScopeList.RegisterHeaderScope(Styles.EmissionFoldout, (uint)Expandable.EmissionFoldout, GUI_Emissive, (uint)UTS_Mode.TreeColorToon, (uint)UTS_TransparentMode.Off);
-            m_MaterialScopeList.RegisterHeaderScope(Styles.OutlineFoldout, (uint)Expandable.OutlineFoldout, GUI_Outline, (uint)UTS_Mode.TreeColorToon, (uint)UTS_TransparentMode.On);
+            m_MaterialScopeList.RegisterHeaderScope(Styles.EmissionFoldout, (uint)Expandable.EmissionFoldout, GUI_Emissive, (uint)UTS_Mode.ThreeColorToon, (uint)UTS_TransparentMode.Off);
+            m_MaterialScopeList.RegisterHeaderScope(Styles.OutlineFoldout, (uint)Expandable.OutlineFoldout, GUI_Outline, (uint)UTS_Mode.ThreeColorToon, (uint)UTS_TransparentMode.On);
             if (material.HasProperty("_TessEdgeLength") && currentRenderPipeline == RenderPipeline.Legacy)
             { 
-                m_MaterialScopeList.RegisterHeaderScope(Styles.TessellationFoldout, (uint)Expandable.TessellationFoldout, GUI_Tessellation, (uint)UTS_Mode.TreeColorToon, (uint)UTS_TransparentMode.Off);
+                m_MaterialScopeList.RegisterHeaderScope(Styles.TessellationFoldout, (uint)Expandable.TessellationFoldout, GUI_Tessellation, (uint)UTS_Mode.ThreeColorToon, (uint)UTS_TransparentMode.Off);
             }
             else if (tessellationMode != null && currentRenderPipeline == RenderPipeline.HDRP)
             {
-                m_MaterialScopeList.RegisterHeaderScope(Styles.TessellationFoldout, (uint)Expandable.TessellationFoldout, GUI_TessellationHDRP, (uint)UTS_Mode.TreeColorToon, (uint)UTS_TransparentMode.Off);
+                m_MaterialScopeList.RegisterHeaderScope(Styles.TessellationFoldout, (uint)Expandable.TessellationFoldout, GUI_TessellationHDRP, (uint)UTS_Mode.ThreeColorToon, (uint)UTS_TransparentMode.Off);
 
             }
             // originally these were in simple UI
-            m_MaterialScopeList.RegisterHeaderScope(Styles.LightColorEffectivenessFoldout, (uint)Expandable.LightColorEffectivenessFoldout, GUI_LightColorEffectiveness, (uint)UTS_Mode.TreeColorToon, (uint)UTS_TransparentMode.Off);
-            m_MaterialScopeList.RegisterHeaderScope(Styles.MetaverseSettingsFoldout, (uint)Expandable.MetaverseSettingsFoldout, GUI_MetaverseSettings, (uint)UTS_Mode.TreeColorToon, (uint)UTS_TransparentMode.Off);
+            m_MaterialScopeList.RegisterHeaderScope(Styles.LightColorEffectivenessFoldout, (uint)Expandable.LightColorEffectivenessFoldout, GUI_LightColorEffectiveness, (uint)UTS_Mode.ThreeColorToon, (uint)UTS_TransparentMode.Off);
+            m_MaterialScopeList.RegisterHeaderScope(Styles.MetaverseSettingsFoldout, (uint)Expandable.MetaverseSettingsFoldout, GUI_MetaverseSettings, (uint)UTS_Mode.ThreeColorToon, (uint)UTS_TransparentMode.Off);
         }
 
         void UTS3DrawHeaders(MaterialEditor materialEditor, Material material)
@@ -801,7 +766,7 @@ namespace UnityEditor.Rendering.Toon
 
             switch (m_WorkflowMode)
             {
-                case UTS_Mode.TreeColorToon:
+                case UTS_Mode.ThreeColorToon:
                     GUILayout.Label("Clipping Shader", EditorStyles.boldLabel);
                     DoPopup(clippingmodeModeText0, clippingMode, System.Enum.GetNames(typeof(UTS_ClippingMode)));
                     break;
@@ -892,7 +857,7 @@ namespace UnityEditor.Rendering.Toon
             m_WorkflowMode = (UTS_Mode)MaterialGetInt(material, ShaderPropUtsTechniqe);
             switch (m_WorkflowMode)
             {
-                case UTS_Mode.TreeColorToon:
+                case UTS_Mode.ThreeColorToon:
                     material.DisableKeyword(ShaderDefineSHADINGGRADEMAP);
                     break;
                 case UTS_Mode.ShadingGradeMap:
@@ -933,7 +898,7 @@ namespace UnityEditor.Rendering.Toon
         int  MaterialGetInt(Material material, string prop )
         {
 #if UNITY_2021_1_OR_NEWER
-            return material.GetInteger(prop);
+            return (int)material.GetFloat(prop);
 #else
             return material.GetInt(prop);
 #endif
@@ -941,7 +906,7 @@ namespace UnityEditor.Rendering.Toon
         void MaterialSetInt(Material material, string prop, int value)
         {
 #if UNITY_2021_1_OR_NEWER
-            material.SetInteger(prop, value);
+            material.SetFloat(prop, value);
 #else
             material.SetInt(prop, value);
 #endif
@@ -1062,7 +1027,7 @@ namespace UnityEditor.Rendering.Toon
 
             if (transparencyEnabled == UTS_TransparentMode.On)
             {
-                if (MaterialGetInt(material,ShaderPropUtsTechniqe) == (int)UTS_Mode.TreeColorToon)
+                if (MaterialGetInt(material,ShaderPropUtsTechniqe) == (int)UTS_Mode.ThreeColorToon)
                 {
                     MaterialSetInt(material,ShaderPropClippingMode, (int)UTS_ClippingMode.TransClippingMode);
                 }
@@ -1223,15 +1188,15 @@ namespace UnityEditor.Rendering.Toon
         {
             if (material.HasProperty(ShaderPropUtsTechniqe))//DoubleWithFeather or ShadingGradeMap
             {
-                if (MaterialGetInt(material,ShaderPropUtsTechniqe) == (int)UTS_Mode.TreeColorToon)   //DWF
+                if (MaterialGetInt(material,ShaderPropUtsTechniqe) == (int)UTS_Mode.ThreeColorToon)   //DWF
                 {
-                    GUILayout.Label("  Mode: Tree Color Toon", EditorStyles.boldLabel);
+                    GUILayout.Label("  Mode: Three Color Toon", EditorStyles.boldLabel);
                     m_MaterialEditor.TexturePropertySingleLine(Styles.firstPositionMapText, set_1st_ShadePosition);
                     m_MaterialEditor.TexturePropertySingleLine(Styles.secondPositionMapText, set_2nd_ShadePosition);
                 }
                 else if (MaterialGetInt(material,ShaderPropUtsTechniqe) == (int)UTS_Mode.ShadingGradeMap)
                 {    //SGM
-                    GUILayout.Label("  Mode: Shading Grade Map", EditorStyles.boldLabel);
+                    GUILayout.Label("  Mode: Three Color Toon with Special Maps", EditorStyles.boldLabel);
                     m_MaterialEditor.TexturePropertySingleLine(Styles.shadingGradeMapText, shadingGradeMap);
                     m_MaterialEditor.RangeProperty(tweak_ShadingGradeMapLevel, "ShadingGradeMap Level");
                     m_MaterialEditor.RangeProperty(blurLevelSGM, "Blur Level of ShadingGradeMap");
@@ -1284,7 +1249,7 @@ namespace UnityEditor.Rendering.Toon
             if (material.HasProperty(ShaderPropUtsTechniqe))//DoubleWithFeather or ShadingGradeMap
             {
                 var mode = MaterialGetInt(material, ShaderPropUtsTechniqe);
-                if (mode == (int)UTS_Mode.TreeColorToon)   //DWF
+                if (mode == (int)UTS_Mode.ThreeColorToon)   //DWF
                 {
                     GUILayout.Label("Mode: Three Color Toon", EditorStyles.boldLabel);
                     m_MaterialEditor.RangeProperty(baseColor_Step, "Base Color Step");
@@ -1300,7 +1265,7 @@ namespace UnityEditor.Rendering.Toon
                 }
                 else if (mode == (int)UTS_Mode.ShadingGradeMap)
                 {    //SGM
-                    GUILayout.Label("Mode: Shading Grade Map", EditorStyles.boldLabel);
+                    GUILayout.Label("Mode: Three Color Toon with Special Maps", EditorStyles.boldLabel);
                     m_MaterialEditor.RangeProperty(first_ShadeColor_Step, "1st Shade Color Step");
                     m_MaterialEditor.RangeProperty(first_ShadeColor_Feather, "1st Shade Color Feather");
                     m_MaterialEditor.RangeProperty(second_ShadeColor_Step, "2nd Shade Color Step");
@@ -1606,7 +1571,7 @@ namespace UnityEditor.Rendering.Toon
             {
                 switch (technique)
                 {
-                    case UTS_Mode.TreeColorToon:
+                    case UTS_Mode.ThreeColorToon:
                         {
                             UTS_ClippingMode clippingMode = (UTS_ClippingMode)MaterialGetInt(material,ShaderPropClippingMode);
                             if (clippingMode == UTS_ClippingMode.Off)
@@ -2109,12 +2074,15 @@ namespace UnityEditor.Rendering.Toon
             EditorGUI.showMixedValue = property.hasMixedValue;
 
             var mode = property.floatValue;
+
             EditorGUI.BeginChangeCheck();
             mode = EditorGUILayout.Popup(label, (int)mode, options);
             if (EditorGUI.EndChangeCheck())
             {
                 materialEditor.RegisterPropertyChangeUndo(label.text);
+
                 property.floatValue = mode;
+
             }
 
             EditorGUI.showMixedValue = false;
