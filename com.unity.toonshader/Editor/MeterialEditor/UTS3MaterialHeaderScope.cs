@@ -57,14 +57,23 @@ namespace UnityEditor.Rendering.Toon
         /// <param name="title"> The title of the header </param>
         /// <param name="state"> The state of the header </param>
         /// <returns>return the state of the foldout header</returns>
-        internal static bool DrawHeaderFoldout(GUIContent title, bool state)
+        internal static bool DrawHeaderFoldout(GUIContent title, bool state, bool isBoxed = false, Func<bool> hasMoreOptions = null, Action toggleMoreOptions = null, string documentationURL = "", Action<Vector2> contextAction = null)
         {
-            return EditorGUILayout.Foldout(state, title);
+#if SRPCORE_NEWERTHAN12_IS_INSTALLED_FOR_UTS
+            return CoreEditorUtils.DrawHeaderFoldout(title, state, documentationURL: documentationURL);
+#else
 
+            return EditorGUILayout.Foldout(state, title);
+#endif
         }
         internal static bool DrawSubHeaderFoldout(GUIContent title, bool state, bool isBoxed = false)
         {
+#if SRPCORE_NEWERTHAN12_IS_INSTALLED_FOR_UTS
+            return CoreEditorUtils.DrawSubHeaderFoldout(title, state, isBoxed: false);
+#else
             return EditorGUILayout.Foldout(state, title);
+#endif
+
         }
 
         /// <summary>
