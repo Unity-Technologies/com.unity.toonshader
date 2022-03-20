@@ -2,8 +2,7 @@ using UnityEngine;
 
 namespace UnityEditor.Rendering
 {
-#if SRPCORE_NEWERTHAN12_IS_INSTALLED_FOR_UTS
-#else
+
     /// <summary>
     /// Set of extensions to allow storing, getting and setting the expandable states of a <see cref="MaterialEditor"/> areas
     /// </summary>
@@ -102,7 +101,7 @@ namespace UnityEditor.Rendering
         public static void IntSliderShaderProperty(this MaterialEditor editor, MaterialProperty prop, GUIContent label)
         {
             var limits = prop.rangeLimits;
-            editor.IntSliderShaderProperty(prop, (int)limits.x, (int)limits.y, label);
+            editor.IntSliderShaderPropertyUTS3(prop, (int)limits.x, (int)limits.y, label);
         }
 
         /// <summary>
@@ -113,7 +112,7 @@ namespace UnityEditor.Rendering
         /// <param name="min">The value at the left end of the slider</param>
         /// <param name="max">The value at the right end of the slider</param>
         /// <param name="label">Label for the property</param>
-        public static void IntSliderShaderProperty(this MaterialEditor editor, MaterialProperty prop, int min, int max, GUIContent label)
+        public static void IntSliderShaderPropertyUTS3(this MaterialEditor editor, MaterialProperty prop, int min, int max, GUIContent label)
         {
             EditorGUI.BeginChangeCheck();
             EditorGUI.showMixedValue = prop.hasMixedValue;
@@ -235,5 +234,5 @@ namespace UnityEditor.Rendering
                 remapProp.vectorValue = remap;
         }
     }
-#endif
+
 }

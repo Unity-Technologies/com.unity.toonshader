@@ -6,9 +6,9 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Rendering;
-#if SRPCORE_NEWERTHAN12_IS_INSTALLED_FOR_UTS
 using UnityEditor.Rendering;
-#endif // SRPCORE_NEWERTHAN12_IS_INSTALLED_FOR_UTS
+using System;
+
 namespace UnityEditor.Rendering.Toon
 {
     internal partial class UTS3GUI : UnityEditor.ShaderGUI
@@ -67,15 +67,7 @@ namespace UnityEditor.Rendering.Toon
         }
 
 
-        internal  void TessellationSetting(Material material) 
-        {
-            if (currentRenderPipeline == RenderPipeline.HDRP)
-            {
 
-                TessellationSettingHDRP(material);
-            }
-
-        }
         internal  void RenderingPerChennelsSetting(Material material) 
         {
             if (currentRenderPipeline == RenderPipeline.HDRP)
@@ -254,7 +246,7 @@ namespace UnityEditor.Rendering.Toon
         protected readonly string[] UtsTechniqueNames = { "Double Shade With Feather", "Shading Grade Map" };
         protected readonly string[] EmissiveScrollMode = { "UV Coordinate Scroll", "View Coordinate Scroll" };
 
-        public enum _UTS_Technique
+        public enum UTS_Mode : uint
         {
             DoubleShadeWithFeather, ShadingGradeMap
         }
@@ -268,7 +260,7 @@ namespace UnityEditor.Rendering.Toon
         {
             Off, On,
         }
-        public enum _UTS_Transparent
+        public enum UTS_TransparentMode : uint
         {
             Off, On,
         }
@@ -318,17 +310,17 @@ namespace UnityEditor.Rendering.Toon
 
 
 
-        public enum _OutlineMode
+        public enum OutlineMode
         {
             NormalDirection, PositionScaling
         }
 
-        public enum _CullingMode
+        public enum CullingMode
         {
             CullingOff, FrontCulling, BackCulling
         }
 
-        public enum _EmissiveMode
+        public enum EmissionMode
         {
             SimpleEmissive, EmissiveAnimation
         }
@@ -346,23 +338,27 @@ namespace UnityEditor.Rendering.Toon
             HighLightFoldout = 1 << 3,
             RimLightFoldout = 1 << 4,
             MatCapFoldout = 1 << 5,
+            AngelRingFoldout = 1 << 6,
+            EmissionFoldout = 1 << 7,
+            OutlineFoldout = 1 << 8,
+            TessellationFoldout = 1 << 9,
+            LightColorEffectivenessFoldout = 1 << 10,
+            EnvironmentalLightEffectivenessFoldout = 1 << 11,
+            MetverseSettingsFoldout = 1 << 12,
         }
         // variables which must be gotten from shader at the beggning of GUI
-        internal int _autoRenderQueue = 1;
-        internal int _renderQueue = (int)UnityEngine.Rendering.RenderQueue.Geometry;
+        internal int m_autoRenderQueue = 1;
+        internal int m_renderQueue = (int)UnityEngine.Rendering.RenderQueue.Geometry;
         // variables which just to be held.
-        internal _OutlineMode outlineMode;
-        internal _CullingMode cullingMode;
-        internal _EmissiveMode emissiveMode;
+        internal OutlineMode m_outlineMode;
+        internal CullingMode m_cullingMode;
+        internal EmissionMode m_emissionMode;
         internal bool m_FirstTimeApply = true;
-        _UTS_Technique m_technique;
+        UTS_Mode m_technique;
 
-#if SRPCORE_NEWERTHAN12_IS_INSTALLED_FOR_UTS
 
-        readonly MaterialHeaderScopeList m_MaterialScopeList = new MaterialHeaderScopeList(uint.MaxValue );
-#else
+
         readonly UTS3MaterialHeaderScopeList m_MaterialScopeList = new UTS3MaterialHeaderScopeList(uint.MaxValue );
-#endif // SRPCORE_NEWERTHAN12_IS_INSTALLED_FOR_UTS
 
 
         //Button sizes
@@ -372,28 +368,20 @@ namespace UnityEditor.Rendering.Toon
         static internal GUILayoutOption[] toggleStyle = new GUILayoutOption[] { GUILayout.Width(130) };
 
         //
-        protected static _UTS_Transparent _Transparent_Setting;
-        protected static int _StencilNo_Setting;
-        protected static bool _OriginalInspector = false;
+        protected UTS_TransparentMode transparencyEnabled;
+        protected int stencilNumberSetting;
+
         protected static bool _SimpleUI = false;
 
         //Initial values of Foldout.
 
 
-        protected static bool _NormalMap_Foldout = false;
-        protected static bool _ShadowControlMaps_Foldout = false;
-        protected static bool _AdditionalLookdevs_Foldout = false;
+        protected  bool _NormalMap_Foldout = false;
+        protected  bool _ShadowControlMaps_Foldout = false;
+        protected  bool _AdditionalLookdevs_Foldout = false;
+        protected  bool _AdvancedOutline_Foldout = false;
 
 
-
-
-        protected static bool _AngelRing_Foldout = true;
-        protected static bool _Emissive_Foldout = true;
-        protected static bool _Outline_Foldout = true;
-        protected static bool _AdvancedOutline_Foldout = false;
-        protected static bool _Tessellation_Foldout = false;
-        protected static bool _LightColorContribution_Foldout = false;
-        protected static bool _AdditionalLightingSettings_Foldout = false;
 
         // -----------------------------------------------------
         //Specify only those that use the m_MaterialEditor method as their UI.
@@ -508,7 +496,7 @@ namespace UnityEditor.Rendering.Toon
         const int HDRPGeometryMin = 2650; // UnityEngine.Rendering.RenderQueue.Geometry;
         private void UpdateVersionInMaterial(Material material)
         {
-            material.SetInt(ShaderPropIsUnityToonShader, 1);
+            MaterialSetInt(material,ShaderPropIsUnityToonShader, 1);
             material.SetFloat(ShaderPropUtsVersionX,  kVersionX);
             material.SetFloat(ShaderPropUtsVersionY,  kVersionY);
             material.SetFloat(ShaderPropUtsVersionZ,  kVersionZ);
@@ -518,18 +506,18 @@ namespace UnityEditor.Rendering.Toon
 
 
 
-        private bool IsClippingMaskPropertyAvailable(_UTS_Technique technique)
+        private bool IsClippingMaskPropertyAvailable(UTS_Mode technique)
         {
 
             Material material = m_MaterialEditor.target as Material;
             bool bRet = false;
             switch (technique)
             {
-                case _UTS_Technique.DoubleShadeWithFeather:
-                    bRet = ((_UTS_ClippingMode)material.GetInt(ShaderPropClippingMode) != _UTS_ClippingMode.Off);
+                case UTS_Mode.DoubleShadeWithFeather:
+                    bRet = ((_UTS_ClippingMode)MaterialGetInt(material,ShaderPropClippingMode) != _UTS_ClippingMode.Off);
                     break;
-                case _UTS_Technique.ShadingGradeMap:
-                    bRet = (_UTS_TransClippingMode)material.GetInt(ShaderPropClippingMode) != _UTS_TransClippingMode.Off;
+                case UTS_Mode.ShadingGradeMap:
+                    bRet = (_UTS_TransClippingMode)MaterialGetInt(material,ShaderPropClippingMode) != _UTS_TransClippingMode.Off;
                     break;
 
 
@@ -544,7 +532,7 @@ namespace UnityEditor.Rendering.Toon
             get
             {
                 Material material = m_MaterialEditor.target as Material;
-                return material.GetInt(ShaderPropClippingMode) != 0;
+                return MaterialGetInt(material,ShaderPropClippingMode) != 0;
             }
         }
 
@@ -557,13 +545,13 @@ namespace UnityEditor.Rendering.Toon
                 return true;
             }
         }
-        private bool IsShadingGrademap
+        private bool isShadingGrademap
         {
             get
             {
 
                 Material material = m_MaterialEditor.target as Material;
-                return material.GetInt(ShaderPropUtsTechniqe) == (int)_UTS_Technique.ShadingGradeMap;
+                return MaterialGetInt(material,ShaderPropUtsTechniqe) == (int)UTS_Mode.ShadingGradeMap;
 
             }
         }
@@ -768,8 +756,9 @@ namespace UnityEditor.Rendering.Toon
             public static readonly GUIContent OutlineFoldout = EditorGUIUtility.TrTextContent("Outline Settings", "");
             public static readonly GUIContent TessellationFoldout = EditorGUIUtility.TrTextContent("Tessellation Settings", "");
             public static readonly GUIContent MaskRenderingFoldout = EditorGUIUtility.TrTextContent("Mask Rendering Settings", "");
-            public static readonly GUIContent LightColorEffectivenessFoldout = EditorGUIUtility.TrTextContent("Light Color Effectiveness to Material Settings", "");
-            public static readonly GUIContent EnvironmentalLightEffectivenessFoldout = EditorGUIUtility.TrTextContent("Environmental Lighting Effectiveness Settings", "");
+            public static readonly GUIContent LightColorEffectivenessFoldout = EditorGUIUtility.TrTextContent("Scene Light Effectiveness Settings", "");
+ //           public static readonly GUIContent EnvironmentalLightEffectivenessFoldout = EditorGUIUtility.TrTextContent("Environmental Lighting Effectiveness Settings", "");
+            public static readonly GUIContent MetverseSettingsFoldout = EditorGUIUtility.TrTextContent("Metaverse Settings (Experimental)", "");
             public static readonly GUIContent NormalMapFoldout = EditorGUIUtility.TrTextContent("NormalMap Settings", "");
             public static readonly GUIContent ShadowControlMapFoldout = EditorGUIUtility.TrTextContent("Shadow Control Maps", "");
             public static readonly GUIContent PointLightFoldout = EditorGUIUtility.TrTextContent("Point Light Settings", "");
@@ -811,19 +800,69 @@ namespace UnityEditor.Rendering.Toon
         
         void OnOpenGUI(Material material, MaterialEditor materialEditor, MaterialProperty[] props)
         {
-            m_MaterialScopeList.RegisterHeaderScope(Styles.ShaderFoldout, (uint)Expandable.ShaderFoldout, DrawShaderOptions);
-            m_MaterialScopeList.RegisterHeaderScope(Styles.BasicColorFoldout, (uint)Expandable.BasicColorFoldout, GUI_BasicThreeColors);
-            m_MaterialScopeList.RegisterHeaderScope(Styles.BasicLookDevsFoldout, (uint)Expandable.BasicLookDevsFoldout, GUI_StepAndFeather);
-            m_MaterialScopeList.RegisterHeaderScope(Styles.HighLightFoldout, (uint)Expandable.HighLightFoldout, GUI_HighColor);
-            m_MaterialScopeList.RegisterHeaderScope(Styles.RimLightFoldout, (uint)Expandable.RimLightFoldout, GUI_RimLight);
-            m_MaterialScopeList.RegisterHeaderScope(Styles.MatCapFoldout, (uint)Expandable.MatCapFoldout, GUI_MatCap);
+            m_MaterialScopeList.RegisterHeaderScope(Styles.ShaderFoldout, (uint)Expandable.ShaderFoldout, DrawShaderOptions, (uint)UTS_Mode.DoubleShadeWithFeather, (uint)UTS_TransparentMode.Off);
+            m_MaterialScopeList.RegisterHeaderScope(Styles.BasicColorFoldout, (uint)Expandable.BasicColorFoldout, GUI_BasicThreeColors, (uint)UTS_Mode.DoubleShadeWithFeather,(uint)UTS_TransparentMode.Off);
+            m_MaterialScopeList.RegisterHeaderScope(Styles.BasicLookDevsFoldout, (uint)Expandable.BasicLookDevsFoldout, GUI_StepAndFeather, (uint)UTS_Mode.DoubleShadeWithFeather, (uint)UTS_TransparentMode.Off);
+            m_MaterialScopeList.RegisterHeaderScope(Styles.HighLightFoldout, (uint)Expandable.HighLightFoldout, GUI_HighColor, (uint)UTS_Mode.DoubleShadeWithFeather, (uint)UTS_TransparentMode.Off);
+            m_MaterialScopeList.RegisterHeaderScope(Styles.RimLightFoldout, (uint)Expandable.RimLightFoldout, GUI_RimLight, (uint)UTS_Mode.DoubleShadeWithFeather, (uint)UTS_TransparentMode.Off);
+            m_MaterialScopeList.RegisterHeaderScope(Styles.MatCapFoldout, (uint)Expandable.MatCapFoldout, GUI_MatCap, (uint)UTS_Mode.DoubleShadeWithFeather, (uint)UTS_TransparentMode.Off);
+            m_MaterialScopeList.RegisterHeaderScope(Styles.AngelRingFoldout, (uint)Expandable.AngelRingFoldout, GUI_AngelRing, (uint)UTS_Mode.ShadingGradeMap, (uint)UTS_TransparentMode.Off);
+            m_MaterialScopeList.RegisterHeaderScope(Styles.EmissionFoldout, (uint)Expandable.EmissionFoldout, GUI_Emissive, (uint)UTS_Mode.DoubleShadeWithFeather, (uint)UTS_TransparentMode.Off);
+            m_MaterialScopeList.RegisterHeaderScope(Styles.OutlineFoldout, (uint)Expandable.OutlineFoldout, GUI_Outline, (uint)UTS_Mode.DoubleShadeWithFeather, (uint)UTS_TransparentMode.On);
+            if (material.HasProperty("_TessEdgeLength") && currentRenderPipeline == RenderPipeline.Legacy)
+            { 
+                m_MaterialScopeList.RegisterHeaderScope(Styles.TessellationFoldout, (uint)Expandable.TessellationFoldout, GUI_Tessellation, (uint)UTS_Mode.DoubleShadeWithFeather, (uint)UTS_TransparentMode.Off);
+            }
+            else if (tessellationMode != null && currentRenderPipeline == RenderPipeline.HDRP)
+            {
+                m_MaterialScopeList.RegisterHeaderScope(Styles.TessellationFoldout, (uint)Expandable.TessellationFoldout, GUI_TessellationHDRP, (uint)UTS_Mode.DoubleShadeWithFeather, (uint)UTS_TransparentMode.Off);
+
+            }
+            // originally these were in simple UI
+            m_MaterialScopeList.RegisterHeaderScope(Styles.LightColorEffectivenessFoldout, (uint)Expandable.LightColorEffectivenessFoldout, GUI_LightColorEffectiveness, (uint)UTS_Mode.DoubleShadeWithFeather, (uint)UTS_TransparentMode.Off);
+//            m_MaterialScopeList.RegisterHeaderScope(Styles.EnvironmentalLightEffectivenessFoldout, (uint)Expandable.EnvironmentalLightEffectivenessFoldout, GUI_EnvironmetalLightingSettings, (uint)UTS_Mode.DoubleShadeWithFeather, (uint)UTS_TransparentMode.Off);
+            m_MaterialScopeList.RegisterHeaderScope(Styles.MetverseSettingsFoldout, (uint)Expandable.MetverseSettingsFoldout, GUI_MetaverseSettings, (uint)UTS_Mode.DoubleShadeWithFeather, (uint)UTS_TransparentMode.Off);
+        }
+
+        void UTS3DrawHeaders(MaterialEditor materialEditor, Material material)
+        {
+            if (material == null)
+                throw new ArgumentNullException(nameof(material));
+
+            if (materialEditor == null)
+                throw new ArgumentNullException(nameof(materialEditor));
+
+            foreach (var item in m_MaterialScopeList.m_Items)
+            {
+                if ( !isShadingGrademap && item.workflowMode == (uint)UTS_Mode.ShadingGradeMap)
+                {
+                    continue;
+                }
+                if ( transparencyEnabled == UTS_TransparentMode.On && item.transparentEnabled == (uint)UTS_TransparentMode.On)
+                {
+                    continue;
+                }
+                using (var header = new UTS3MaterialHeaderScope(
+                    item.headerTitle,
+                    item.expandable,
+                    materialEditor,
+                    defaultExpandedState: m_MaterialScopeList.m_DefaultExpandedState,
+                    documentationURL: item.url))
+                {
+                    if (!header.expanded)
+                        continue;
+
+                    item.drawMaterialScope(material);
+
+                    EditorGUILayout.Space();
+                }
+            }
+
 
         }
         void ShaderPropertiesGUI(MaterialEditor materialEditor, Material material, MaterialProperty[] properties)
         {
-
-            m_MaterialScopeList.DrawHeaders(materialEditor, material);
-
+            UTS3DrawHeaders(materialEditor, material);
         }
 
         void DrawShaderOptions(Material material)
@@ -842,11 +881,11 @@ namespace UnityEditor.Rendering.Toon
 
             switch (m_technique)
             {
-                case _UTS_Technique.DoubleShadeWithFeather:
+                case UTS_Mode.DoubleShadeWithFeather:
                     GUILayout.Label("Clipping Shader", EditorStyles.boldLabel);
                     DoPopup(clippingmodeModeText0, clippingMode, System.Enum.GetNames(typeof(_UTS_ClippingMode)));
                     break;
-                case _UTS_Technique.ShadingGradeMap:
+                case UTS_Mode.ShadingGradeMap:
                     GUILayout.Label("TransClipping Shader", EditorStyles.boldLabel);
                     DoPopup(clippingmodeModeText1, clippingMode, System.Enum.GetNames(typeof(_UTS_TransClippingMode)));
                     break;
@@ -880,9 +919,9 @@ namespace UnityEditor.Rendering.Toon
 
             UpdateVersionInMaterial(material);
 
-            _autoRenderQueue = (int)material.GetInt(ShaderPropAutoRenderQueue);
-            _Transparent_Setting = (_UTS_Transparent)material.GetInt(ShaderPropTransparentEnabled);
-            _StencilNo_Setting = material.GetInt(ShaderPropStencilNo);
+            m_autoRenderQueue = MaterialGetInt(material,ShaderPropAutoRenderQueue);
+            transparencyEnabled = (UTS_TransparentMode)MaterialGetInt(material,ShaderPropTransparentEnabled);
+            stencilNumberSetting = MaterialGetInt(material,ShaderPropStencilNo);
 
             //Line 1 horizontal 3 buttons.
             EditorGUILayout.BeginHorizontal();
@@ -905,7 +944,7 @@ namespace UnityEditor.Rendering.Toon
                     if (GUILayout.Button("Change CustomUI", middleButtonStyle))
                     {
                         _OriginalInspector = false;
-                        material.SetInt(ShaderPropSimpleUI, 0); //UTS2 Pro GUI
+                        MaterialSetInt(material,ShaderPropSimpleUI, 0); //UTS2 Pro GUI
                     }
                     OpenManualLink();
                     //Clear inherited layouts.
@@ -917,7 +956,7 @@ namespace UnityEditor.Rendering.Toon
                 if (GUILayout.Button("Show All properties", middleButtonStyle))
                 {
                     _OriginalInspector = true;
-                    material.SetInt(ShaderPropSimpleUI, 2); //Original GUI
+                    MaterialSetInt(material,ShaderPropSimpleUI, 2); //Original GUI
                 }
             }
 #endif
@@ -930,107 +969,26 @@ namespace UnityEditor.Rendering.Toon
 
             // select UTS technique here.
             DoPopup(workflowModeText, utsTechnique, UtsTechniqueNames);
-            m_technique = (_UTS_Technique)material.GetInt(ShaderPropUtsTechniqe);
+            m_technique = (UTS_Mode)MaterialGetInt(material, ShaderPropUtsTechniqe);
             switch (m_technique)
             {
-                case _UTS_Technique.DoubleShadeWithFeather:
+                case UTS_Mode.DoubleShadeWithFeather:
                     material.DisableKeyword(ShaderDefineSHADINGGRADEMAP);
                     break;
-                case _UTS_Technique.ShadingGradeMap:
+                case UTS_Mode.ShadingGradeMap:
                     material.EnableKeyword(ShaderDefineSHADINGGRADEMAP);
                     break;
             }
-            ShaderPropertiesGUI(materialEditor, material, props);
 
-
-
-
-
-
-
-            if (IsShadingGrademap)
+            if (transparencyEnabled != UTS_TransparentMode.On)
             {
-                _AngelRing_Foldout = Foldout(_AngelRing_Foldout,Styles.AngelRingFoldout);
-                if (_AngelRing_Foldout)
-                {
-                    EditorGUI.indentLevel++;
-
-                    GUI_AngelRing(material);
-                    EditorGUI.indentLevel--;
-                }
-
-                EditorGUILayout.Space();
-            }
-
-            _Emissive_Foldout = Foldout(_Emissive_Foldout, Styles.EmissionFoldout);
-            if (_Emissive_Foldout)
-            {
-                EditorGUI.indentLevel++;
-                //EditorGUILayout.Space();
-                GUI_Emissive(material);
-                EditorGUI.indentLevel--;
-            }
-
-            EditorGUILayout.Space();
-
-
-            if (material.HasProperty(ShaderPropOutline) && _Transparent_Setting != _UTS_Transparent.On)
-            {
-                SetuOutline(material);
-                _Outline_Foldout = Foldout(_Outline_Foldout, Styles.OutlineFoldout);
-                if (_Outline_Foldout)
-                {
-                    EditorGUI.indentLevel++;
-                    EditorGUILayout.Space();
-                    GUI_Outline(material);
-                    EditorGUI.indentLevel--;
-                }
-                EditorGUILayout.Space();
+                SetupOutline(material);
             }
             else
             {
                 SetupOverDrawTransparentObject(material);
             }
-            if (material.HasProperty("_TessEdgeLength") && currentRenderPipeline == RenderPipeline.Legacy)
-            {
-                _Tessellation_Foldout = Foldout(_Tessellation_Foldout, Styles.TessellationFoldout);
-                if (_Tessellation_Foldout)
-                {
-                    EditorGUI.indentLevel++;
-                    EditorGUILayout.Space();
-                    GUI_Tessellation(material);
-                    EditorGUI.indentLevel--;
-                }
-
-                EditorGUILayout.Space();
-            }
-
-            if (!_SimpleUI)
-            {
-                _LightColorContribution_Foldout = Foldout(_LightColorContribution_Foldout, Styles.LightColorEffectivenessFoldout);
-                if (_LightColorContribution_Foldout)
-                {
-                    EditorGUI.indentLevel++;
-                    //EditorGUILayout.Space();
-                    GUI_LightColorContribution(material);
-                    EditorGUI.indentLevel--;
-                }
-
-                EditorGUILayout.Space();
-
-                _AdditionalLightingSettings_Foldout = Foldout(_AdditionalLightingSettings_Foldout, Styles.EnvironmentalLightEffectivenessFoldout);
-                if (_AdditionalLightingSettings_Foldout)
-                {
-                    EditorGUI.indentLevel++;
-                    GUI_AdditionalLightingSettings(material);
-                    EditorGUI.indentLevel--;
-                }
-                EditorGUILayout.Space();
-                TessellationSetting(material);
-                EditorGUILayout.Space();
-
-                RenderingPerChennelsSetting(material);
-            }
+            ShaderPropertiesGUI(materialEditor, material, props);
 
             ApplyRenderingPerChennelsSetting(material);
             ApplyClippingMode(material);
@@ -1124,12 +1082,12 @@ namespace UnityEditor.Rendering.Toon
 
             EditorGUILayout.BeginHorizontal();
 
-            _autoRenderQueue = GUI_Toggle(material, "Auto Render Queue", ShaderPropAutoRenderQueue, _autoRenderQueue == 1) ? 1 : 0;
+            m_autoRenderQueue = GUI_Toggle(material, "Auto Render Queue", ShaderPropAutoRenderQueue, m_autoRenderQueue == 1) ? 1 : 0;
 
             EditorGUILayout.EndHorizontal();
             EditorGUI.indentLevel++;
-            EditorGUI.BeginDisabledGroup(_autoRenderQueue == 1);
-            _renderQueue = (int)EditorGUILayout.IntField("Render Queue", material.renderQueue);
+            EditorGUI.BeginDisabledGroup(m_autoRenderQueue == 1);
+            m_renderQueue = (int)EditorGUILayout.IntField("Render Queue", material.renderQueue);
             EditorGUI.EndDisabledGroup();
             EditorGUI.indentLevel--;
         }
@@ -1138,35 +1096,35 @@ namespace UnityEditor.Rendering.Toon
         void GUI_SetCullingMode(Material material)
         {
             const string _CullMode = "_CullMode";
-            int _CullMode_Setting = material.GetInt(_CullMode);
+            int _CullMode_Setting = MaterialGetInt(material,_CullMode);
             //Convert it to Enum format and store it in the offlineMode variable.
-            if ((int)_CullingMode.CullingOff == _CullMode_Setting)
+            if ((int)CullingMode.CullingOff == _CullMode_Setting)
             {
-                cullingMode = _CullingMode.CullingOff;
+                m_cullingMode = CullingMode.CullingOff;
             }
-            else if ((int)_CullingMode.FrontCulling == _CullMode_Setting)
+            else if ((int)CullingMode.FrontCulling == _CullMode_Setting)
             {
-                cullingMode = _CullingMode.FrontCulling;
+                m_cullingMode = CullingMode.FrontCulling;
             }
             else
             {
-                cullingMode = _CullingMode.BackCulling;
+                m_cullingMode = CullingMode.BackCulling;
             }
             //GUI description with EnumPopup.
-            cullingMode = (_CullingMode)EditorGUILayout.EnumPopup("Culling Mode", cullingMode);
+            m_cullingMode = (CullingMode)EditorGUILayout.EnumPopup("Culling Mode", m_cullingMode);
             //If the value changes, write to the material.
-            if (_CullMode_Setting != (int)cullingMode)
+            if (_CullMode_Setting != (int)m_cullingMode)
             {
-                switch (cullingMode)
+                switch (m_cullingMode)
                 {
-                    case _CullingMode.CullingOff:
-                        material.SetInt(_CullMode, 0);
+                    case CullingMode.CullingOff:
+                        MaterialSetInt(material,_CullMode, 0);
                         break;
-                    case _CullingMode.FrontCulling:
-                        material.SetInt(_CullMode, 1);
+                    case CullingMode.FrontCulling:
+                        MaterialSetInt(material,_CullMode, 1);
                         break;
                     default:
-                        material.SetInt(_CullMode, 2);
+                        MaterialSetInt(material,_CullMode, 2);
                         break;
                 }
 
@@ -1179,26 +1137,26 @@ namespace UnityEditor.Rendering.Toon
             GUILayout.Label("Transparent Shader", EditorStyles.boldLabel);
             const string _ZWriteMode = "_ZWriteMode";
             const string _ZOverDrawMode = "_ZOverDrawMode";
-            DoPopup(transparentModeText, transparentMode, System.Enum.GetNames(typeof(_UTS_Transparent)));
+            DoPopup(transparentModeText, transparentMode, System.Enum.GetNames(typeof(UTS_TransparentMode)));
 
 
-            if (_Transparent_Setting == _UTS_Transparent.On)
+            if (transparencyEnabled == UTS_TransparentMode.On)
             {
-                if (material.GetInt(ShaderPropUtsTechniqe) == (int)_UTS_Technique.DoubleShadeWithFeather)
+                if (MaterialGetInt(material,ShaderPropUtsTechniqe) == (int)UTS_Mode.DoubleShadeWithFeather)
                 {
-                    material.SetInt(ShaderPropClippingMode, (int)_UTS_ClippingMode.TransClippingMode);
+                    MaterialSetInt(material,ShaderPropClippingMode, (int)_UTS_ClippingMode.TransClippingMode);
                 }
                 else
                 {
                     // ShadingGradeMap
-                    material.SetInt(ShaderPropClippingMode, (int)_UTS_TransClippingMode.On);
+                    MaterialSetInt(material,ShaderPropClippingMode, (int)_UTS_TransClippingMode.On);
                 }
-                material.SetInt(_ZWriteMode, 0);
+                MaterialSetInt(material,_ZWriteMode, 0);
                 material.SetFloat(_ZOverDrawMode, 1);
             }
             else
             {
-                material.SetInt(_ZWriteMode, 1);
+                MaterialSetInt(material,_ZWriteMode, 1);
                 material.SetFloat(_ZOverDrawMode, 0);
             }
 
@@ -1210,11 +1168,11 @@ namespace UnityEditor.Rendering.Toon
             DoPopup(stencilmodeModeText, stencilMode, System.Enum.GetNames(typeof(_UTS_StencilMode)));
 
 
-            int _Current_StencilNo = _StencilNo_Setting;
+            int _Current_StencilNo = stencilNumberSetting;
             _Current_StencilNo = (int)EditorGUILayout.IntField("Stencil Number", _Current_StencilNo);
-            if (_StencilNo_Setting != _Current_StencilNo)
+            if (stencilNumberSetting != _Current_StencilNo)
             {
-                material.SetInt(ShaderPropStencilNo, _Current_StencilNo);
+                MaterialSetInt(material,ShaderPropStencilNo, _Current_StencilNo);
             }
 
         }
@@ -1262,14 +1220,14 @@ namespace UnityEditor.Rendering.Toon
             {
                 if (GUILayout.Button("Pro / Full Control", middleButtonStyle))
                 {
-                    material.SetInt(ShaderPropSimpleUI, 1); //UTS2 Custom GUI Beginner
+                    MaterialSetInt(material,ShaderPropSimpleUI, 1); //UTS2 Custom GUI Beginner
                 }
             }
             else
             {
                 if (GUILayout.Button("Beginner", middleButtonStyle))
                 {
-                    material.SetInt(ShaderPropSimpleUI, 0); //UTS2 Custom GUI Pro
+                    MaterialSetInt(material,ShaderPropSimpleUI, 0); //UTS2 Custom GUI Pro
                 }
             }
             EditorGUILayout.EndHorizontal();
@@ -1345,13 +1303,13 @@ namespace UnityEditor.Rendering.Toon
         {
             if (material.HasProperty(ShaderPropUtsTechniqe))//DoubleWithFeather or ShadingGradeMap
             {
-                if (material.GetInt(ShaderPropUtsTechniqe) == (int)_UTS_Technique.DoubleShadeWithFeather)   //DWF
+                if (MaterialGetInt(material,ShaderPropUtsTechniqe) == (int)UTS_Mode.DoubleShadeWithFeather)   //DWF
                 {
                     GUILayout.Label("  Mode: Double Shade With Feather", EditorStyles.boldLabel);
                     m_MaterialEditor.TexturePropertySingleLine(Styles.firstPositionMapText, set_1st_ShadePosition);
                     m_MaterialEditor.TexturePropertySingleLine(Styles.secondPositionMapText, set_2nd_ShadePosition);
                 }
-                else if (material.GetInt(ShaderPropUtsTechniqe) == (int)_UTS_Technique.ShadingGradeMap)
+                else if (MaterialGetInt(material,ShaderPropUtsTechniqe) == (int)UTS_Mode.ShadingGradeMap)
                 {    //SGM
                     GUILayout.Label("  Mode: Shading Grade Map", EditorStyles.boldLabel);
                     m_MaterialEditor.TexturePropertySingleLine(Styles.shadingGradeMapText, shadingGradeMap);
@@ -1406,7 +1364,8 @@ namespace UnityEditor.Rendering.Toon
         {
             if (material.HasProperty(ShaderPropUtsTechniqe))//DoubleWithFeather or ShadingGradeMap
             {
-                if (material.GetInt(ShaderPropUtsTechniqe) == (int)_UTS_Technique.DoubleShadeWithFeather)   //DWF
+                var mode = MaterialGetInt(material, ShaderPropUtsTechniqe);
+                if (mode == (int)UTS_Mode.DoubleShadeWithFeather)   //DWF
                 {
                     GUILayout.Label("Mode: Double Shade With Feather", EditorStyles.boldLabel);
                     m_MaterialEditor.RangeProperty(baseColor_Step, "Base Color Step");
@@ -1420,7 +1379,7 @@ namespace UnityEditor.Rendering.Toon
                     material.SetFloat(ShaderProp2nd_ShadeColor_Step, material.GetFloat(ShaderPropShadeColor_Step));
                     material.SetFloat(ShaderProp2nd_ShadeColor_Feather, material.GetFloat(ShaderProp1st2nd_Shades_Feather));
                 }
-                else if (material.GetInt(ShaderPropUtsTechniqe) == (int)_UTS_Technique.ShadingGradeMap)
+                else if (mode == (int)UTS_Mode.ShadingGradeMap)
                 {    //SGM
                     GUILayout.Label("Mode: Shading Grade Map", EditorStyles.boldLabel);
                     m_MaterialEditor.RangeProperty(first_ShadeColor_Step, "1st Shade Color Step");
@@ -1701,10 +1660,10 @@ namespace UnityEditor.Rendering.Toon
             }
             EditorGUI.EndDisabledGroup();
         }
-        void ApplyQueueAndRenderType(_UTS_Technique technique, Material material)
+        void ApplyQueueAndRenderType(UTS_Mode technique, Material material)
         {
 
-            if (_autoRenderQueue == 1)
+            if (m_autoRenderQueue == 1)
             {
                  material.renderQueue = -1; //  (int)UnityEngine.Rendering.RenderQueue.Geometry;
             }
@@ -1719,7 +1678,7 @@ namespace UnityEditor.Rendering.Toon
             var renderType = OPAQUE;
             var ignoreProjection = DONT_IGNOREPROJECTION;
 
-            if (_Transparent_Setting == _UTS_Transparent.On)
+            if (transparencyEnabled == UTS_TransparentMode.On)
             {
                 renderType = TRANSPARENT;
                 ignoreProjection = DO_IGNOREPROJECTION;
@@ -1728,9 +1687,9 @@ namespace UnityEditor.Rendering.Toon
             {
                 switch (technique)
                 {
-                    case _UTS_Technique.DoubleShadeWithFeather:
+                    case UTS_Mode.DoubleShadeWithFeather:
                         {
-                            _UTS_ClippingMode clippingMode = (_UTS_ClippingMode)material.GetInt(ShaderPropClippingMode);
+                            _UTS_ClippingMode clippingMode = (_UTS_ClippingMode)MaterialGetInt(material,ShaderPropClippingMode);
                             if (clippingMode == _UTS_ClippingMode.Off)
                             {
 
@@ -1743,9 +1702,9 @@ namespace UnityEditor.Rendering.Toon
 
                             break;
                         }
-                    case _UTS_Technique.ShadingGradeMap:
+                    case UTS_Mode.ShadingGradeMap:
                         {
-                            _UTS_TransClippingMode transClippingMode = (_UTS_TransClippingMode)material.GetInt(ShaderPropClippingMode);
+                            _UTS_TransClippingMode transClippingMode = (_UTS_TransClippingMode)MaterialGetInt(material,ShaderPropClippingMode);
                             if (transClippingMode == _UTS_TransClippingMode.Off)
                             {
                             }
@@ -1760,13 +1719,13 @@ namespace UnityEditor.Rendering.Toon
                 }
 
             }
-            if (_autoRenderQueue == 1)
+            if (m_autoRenderQueue == 1)
             {
                 SetReqnderQueueAuto(material);
             }
             else
             {
-                material.renderQueue = _renderQueue;
+                material.renderQueue = m_renderQueue;
             }
 
             material.SetOverrideTag(RENDERTYPE, renderType);
@@ -1775,8 +1734,8 @@ namespace UnityEditor.Rendering.Toon
 
         void SetReqnderQueueAuto(Material material)
         {
-            var stencilMode = (_UTS_StencilMode)material.GetInt(ShaderPropStencilMode);
-            if (_Transparent_Setting == _UTS_Transparent.On)
+            var stencilMode = (_UTS_StencilMode)MaterialGetInt(material,ShaderPropStencilMode);
+            if (transparencyEnabled == UTS_TransparentMode.On)
             {
                 material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
             }
@@ -1788,7 +1747,7 @@ namespace UnityEditor.Rendering.Toon
             {
                 material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.AlphaTest;
             }
-            if (_Transparent_Setting == _UTS_Transparent.On)
+            if (transparencyEnabled == UTS_TransparentMode.On)
             {
                 material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
             }
@@ -1803,7 +1762,7 @@ namespace UnityEditor.Rendering.Toon
         }
         void ApplyMatCapMode(Material material)
         {
-            if (material.GetInt(ShaderPropClippingMode) == 0)
+            if (MaterialGetInt(material,ShaderPropClippingMode) == 0)
             {
                 if (material.GetFloat(ShaderPropMatCap) == 1)
                     material.EnableKeyword(ShaderPropMatCap);
@@ -1819,7 +1778,7 @@ namespace UnityEditor.Rendering.Toon
 
         void ApplyAngelRing(Material material)
         {
-            int angelRingEnabled = material.GetInt(ShaderPropAngelRing);
+            int angelRingEnabled = MaterialGetInt(material,ShaderPropAngelRing);
             if (angelRingEnabled == 0)
             {
                 material.DisableKeyword(ShaderDefineANGELRING_ON);
@@ -1835,26 +1794,26 @@ namespace UnityEditor.Rendering.Toon
 
         void ApplyStencilMode(Material material)
         {
-            _UTS_StencilMode mode = (_UTS_StencilMode)(material.GetInt(ShaderPropStencilMode));
+            _UTS_StencilMode mode = (_UTS_StencilMode)(MaterialGetInt(material,ShaderPropStencilMode));
             switch (mode)
             {
                 case _UTS_StencilMode.Off:
-                    //    material.SetInt(ShaderPropStencilNo,0);
-                    material.SetInt(ShaderPropStencilComp, (int)_StencilCompFunction.Disabled);
-                    material.SetInt(ShaderPropStencilOpPass, (int)_StencilOperation.Keep);
-                    material.SetInt(ShaderPropStencilOpFail, (int)_StencilOperation.Keep);
+                    //    MaterialSetInt(material,ShaderPropStencilNo,0);
+                    MaterialSetInt(material,ShaderPropStencilComp, (int)_StencilCompFunction.Disabled);
+                    MaterialSetInt(material, ShaderPropStencilOpPass, (int)_StencilOperation.Keep);
+                    MaterialSetInt(material, ShaderPropStencilOpFail, (int)_StencilOperation.Keep);
                     break;
                 case _UTS_StencilMode.StencilMask:
-                    //    material.SetInt(ShaderPropStencilNo,0);
-                    material.SetInt(ShaderPropStencilComp, (int)_StencilCompFunction.Always);
-                    material.SetInt(ShaderPropStencilOpPass, (int)_StencilOperation.Replace);
-                    material.SetInt(ShaderPropStencilOpFail, (int)_StencilOperation.Replace);
+                    //    MaterialSetInt(material,ShaderPropStencilNo,0);
+                    MaterialSetInt(material, ShaderPropStencilComp, (int)_StencilCompFunction.Always);
+                    MaterialSetInt(material, ShaderPropStencilOpPass, (int)_StencilOperation.Replace);
+                    MaterialSetInt(material, ShaderPropStencilOpFail, (int)_StencilOperation.Replace);
                     break;
                 case _UTS_StencilMode.StencilOut:
-                    //    material.SetInt(ShaderPropStencilNo,0);
-                    material.SetInt(ShaderPropStencilComp, (int)_StencilCompFunction.NotEqual);
-                    material.SetInt(ShaderPropStencilOpPass, (int)_StencilOperation.Keep);
-                    material.SetInt(ShaderPropStencilOpFail, (int)_StencilOperation.Keep);
+                    //    MaterialSetInt(material,ShaderPropStencilNo,0);
+                    MaterialSetInt(material, ShaderPropStencilComp, (int)_StencilCompFunction.NotEqual);
+                    MaterialSetInt(material, ShaderPropStencilOpPass, (int)_StencilOperation.Keep);
+                    MaterialSetInt(material, ShaderPropStencilOpFail, (int)_StencilOperation.Keep);
 
                     break;
             }
@@ -1865,14 +1824,14 @@ namespace UnityEditor.Rendering.Toon
         void ApplyClippingMode(Material material)
         {
 
-            if (!IsShadingGrademap)
+            if (!isShadingGrademap)
             {
 
 
                 material.DisableKeyword(ShaderDefineIS_TRANSCLIPPING_OFF);
                 material.DisableKeyword(ShaderDefineIS_TRANSCLIPPING_ON);
 
-                switch (material.GetInt(ShaderPropClippingMode))
+                switch (MaterialGetInt(material,ShaderPropClippingMode))
                 {
                     case 0:
                         material.EnableKeyword(ShaderDefineIS_CLIPPING_OFF);
@@ -1904,7 +1863,7 @@ namespace UnityEditor.Rendering.Toon
                 material.DisableKeyword(ShaderDefineIS_CLIPPING_OFF);
                 material.DisableKeyword(ShaderDefineIS_CLIPPING_MODE);
                 material.DisableKeyword(ShaderDefineIS_CLIPPING_TRANSMODE);
-                switch (material.GetInt(ShaderPropClippingMode))
+                switch (MaterialGetInt(material,ShaderPropClippingMode))
                 {
                     case 0:
                         material.EnableKeyword(ShaderDefineIS_TRANSCLIPPING_OFF);
@@ -1926,20 +1885,20 @@ namespace UnityEditor.Rendering.Toon
             m_MaterialEditor.TexturePropertySingleLine(Styles.emissiveTexText, emissive_Tex, emissive_Color);
             m_MaterialEditor.TextureScaleOffsetProperty(emissive_Tex);
 
-            int _EmissiveMode_Setting = material.GetInt("_EMISSIVE");
-            if ((int)_EmissiveMode.SimpleEmissive == _EmissiveMode_Setting)
+            int _EmissiveMode_Setting = MaterialGetInt(material,"_EMISSIVE");
+            if ((int)EmissionMode.SimpleEmissive == _EmissiveMode_Setting)
             {
-                emissiveMode = _EmissiveMode.SimpleEmissive;
+                m_emissionMode = EmissionMode.SimpleEmissive;
             }
-            else if ((int)_EmissiveMode.EmissiveAnimation == _EmissiveMode_Setting)
+            else if ((int)EmissionMode.EmissiveAnimation == _EmissiveMode_Setting)
             {
-                emissiveMode = _EmissiveMode.EmissiveAnimation;
+                m_emissionMode = EmissionMode.EmissiveAnimation;
             }
             EditorGUILayout.Space();
 
             EditorGUI.BeginChangeCheck();
             var label = "Emissive Animation";
-            var ret = EditorGUILayout.Toggle("Emissive Animation", emissiveMode != _EmissiveMode.SimpleEmissive);
+            var ret = EditorGUILayout.Toggle("Emissive Animation", m_emissionMode != EmissionMode.SimpleEmissive);
             if (EditorGUI.EndChangeCheck())
             {
                 m_MaterialEditor.RegisterPropertyChangeUndo(label);
@@ -1959,7 +1918,7 @@ namespace UnityEditor.Rendering.Toon
 
 
 
-            EditorGUI.BeginDisabledGroup(emissiveMode != _EmissiveMode.EmissiveAnimation);
+            EditorGUI.BeginDisabledGroup(m_emissionMode != EmissionMode.EmissiveAnimation);
             {
                 EditorGUI.indentLevel++;
 
@@ -2032,17 +1991,17 @@ namespace UnityEditor.Rendering.Toon
             if (srpDefaultLightModeTag == srpDefaultLightModeName)
             {
                 material.SetShaderPassEnabled(srpDefaultLightModeName, true);
-                material.SetInt(srpDefaultColorMask, 0);
-                material.SetInt(srpDefaultCullMode, (int)_CullingMode.BackCulling);
+                MaterialSetInt(material, srpDefaultColorMask, 0);
+                MaterialSetInt(material, srpDefaultCullMode, (int)CullingMode.BackCulling);
             }
         }
-        void SetuOutline(Material material)
+        void SetupOutline(Material material)
         {
             var srpDefaultLightModeTag = material.GetTag("LightMode", false, srpDefaultLightModeName);
             if (srpDefaultLightModeTag == srpDefaultLightModeName)
             {
-                material.SetInt(srpDefaultColorMask, 15);
-                material.SetInt(srpDefaultCullMode, (int)_CullingMode.FrontCulling);
+                MaterialSetInt(material, srpDefaultColorMask, 15);
+                MaterialSetInt(material,srpDefaultCullMode, (int)CullingMode.FrontCulling);
             }
         }
         void GUI_Outline(Material material)
@@ -2084,28 +2043,28 @@ namespace UnityEditor.Rendering.Toon
             //
             //Express Shader property [KeywordEnum(NML,POS)] by EumPopup.
             //Load the outline mode settings in the material.
-            int _OutlineMode_Setting = material.GetInt(ShaderPropOutline);
+            int _OutlineMode_Setting = MaterialGetInt(material,ShaderPropOutline);
             //Convert it to Enum format and store it in the offlineMode variable.
 
-            if ((int)_OutlineMode.NormalDirection == _OutlineMode_Setting)
+            if ((int)OutlineMode.NormalDirection == _OutlineMode_Setting)
             {
-                outlineMode = _OutlineMode.NormalDirection;
+                m_outlineMode = OutlineMode.NormalDirection;
             }
-            else if ((int)_OutlineMode.PositionScaling == _OutlineMode_Setting)
+            else if ((int)OutlineMode.PositionScaling == _OutlineMode_Setting)
             {
-                outlineMode = _OutlineMode.PositionScaling;
+                m_outlineMode = OutlineMode.PositionScaling;
             }
             //GUI description with EnumPopup.
-            outlineMode = (_OutlineMode)EditorGUILayout.EnumPopup("Outline Mode", outlineMode);
+            m_outlineMode = (OutlineMode)EditorGUILayout.EnumPopup("Outline Mode", m_outlineMode);
             //If the value changes, write to the material.
-            if (outlineMode == _OutlineMode.NormalDirection)
+            if (m_outlineMode == OutlineMode.NormalDirection)
             {
                 material.SetFloat(ShaderPropOutline, 0);
                 //The keywords on the UTCS_Outline.cginc side are also toggled around.
                 material.EnableKeyword("_OUTLINE_NML");
                 material.DisableKeyword("_OUTLINE_POS");
             }
-            else if (outlineMode == _OutlineMode.PositionScaling)
+            else if (m_outlineMode == OutlineMode.PositionScaling)
             {
                 material.SetFloat(ShaderPropOutline, 1);
                 material.EnableKeyword("_OUTLINE_POS");
@@ -2122,9 +2081,9 @@ namespace UnityEditor.Rendering.Toon
 
             if (!_SimpleUI)
             {
-
-                _AdvancedOutline_Foldout = FoldoutSubMenu(_AdvancedOutline_Foldout, Styles.AdvancedOutlineFoldout);
-                if (_AdvancedOutline_Foldout)
+                EditorGUILayout.Space();
+                //                _AdvancedOutline_Foldout = FoldoutSubMenu(_AdvancedOutline_Foldout, Styles.AdvancedOutlineFoldout);
+                //                if (_AdvancedOutline_Foldout)
                 {
                     EditorGUI.indentLevel++;
                     GUILayout.Label("    Camera Distance for Outline Width");
@@ -2136,7 +2095,7 @@ namespace UnityEditor.Rendering.Toon
                     EditorGUI.BeginDisabledGroup(!useOutlineTexture);
                     m_MaterialEditor.TexturePropertySingleLine(Styles.outlineTexText, outlineTex);
                     EditorGUI.EndDisabledGroup();
-                    EditorGUI.BeginDisabledGroup(outlineMode != _OutlineMode.NormalDirection);
+                    EditorGUI.BeginDisabledGroup(m_outlineMode != OutlineMode.NormalDirection);
                     {
                         var isBackedNormal = GUI_Toggle(material, "Use Baked Normal for Outline", ShaderPropIs_BakedNormal, MaterialGetInt(material, ShaderPropIs_BakedNormal) != 0);
                         EditorGUI.BeginDisabledGroup(!isBackedNormal);
@@ -2162,9 +2121,8 @@ namespace UnityEditor.Rendering.Toon
 
 
 
-        void GUI_LightColorContribution(Material material)
+        void GUI_LightColorEffectiveness(Material material)
         {
-//            GUILayout.Label("Realtime Light Color Effectiveness to each color", EditorStyles.boldLabel);
             GUI_Toggle(material, "Base Color", ShaderPropIsLightColor_Base, MaterialGetInt(material, ShaderPropIsLightColor_Base)!= 0);
             GUI_Toggle(material, "1st Shading Color", ShaderPropIs_LightColor_1st_Shade, MaterialGetInt(material, ShaderPropIs_LightColor_1st_Shade) != 0);
             GUI_Toggle(material, "2nd Shading Color", ShaderPropIs_LightColor_2nd_Shade, MaterialGetInt(material, ShaderPropIs_LightColor_2nd_Shade) != 0);
@@ -2175,10 +2133,6 @@ namespace UnityEditor.Rendering.Toon
             GUI_Toggle(material, "Outline", ShaderPropIs_LightColor_Outline, MaterialGetInt(material, ShaderPropIs_LightColor_Outline) != 0);
 
             EditorGUILayout.Space();
-        }
-
-        void GUI_AdditionalLightingSettings(Material material)
-        {
             m_MaterialEditor.RangeProperty(gi_Intensity, "GI Intensity");
 
             EditorGUI.BeginChangeCheck();
@@ -2191,7 +2145,7 @@ namespace UnityEditor.Rendering.Toon
                 var boolValue = ret ? 1 : 0;
                 m_MaterialEditor.RegisterPropertyChangeUndo(label);
                 MaterialSetInt(material, prop, boolValue);
-                if ( boolValue != 0 )
+                if (boolValue != 0)
                 {
                     MaterialSetInt(material, ShaderPropIs_Filter_LightColor, boolValue);
                     MaterialSetInt(material, ShaderPropIsLightColor_Base, boolValue);
@@ -2203,6 +2157,11 @@ namespace UnityEditor.Rendering.Toon
                     }
                 }
             }
+            EditorGUILayout.Space();
+        }
+
+        void GUI_MetaverseSettings(Material material)
+        {
             m_MaterialEditor.RangeProperty(unlit_Intensity, "Built-in Light Intensity");
             var isBold = GUI_Toggle(material, "Built-in Light Direction", ShaderPropIs_BLD, MaterialGetInt(material, ShaderPropIs_BLD) != 0);
             EditorGUI.BeginDisabledGroup(!isBold);
@@ -2211,11 +2170,11 @@ namespace UnityEditor.Rendering.Toon
             m_MaterialEditor.RangeProperty(offset_X_Axis_BLD, "Offset X-Axis Direction");
             m_MaterialEditor.RangeProperty(offset_Y_Axis_BLD, "Offset Y-Axis Direction");
 
-            GUI_Toggle(material, "Invert Z - Axis Direction", ShaderPropInverse_Z_Axis_BLD, MaterialGetInt(material,ShaderPropInverse_Z_Axis_BLD) != 0);
+            GUI_Toggle(material, "Invert Z - Axis Direction", ShaderPropInverse_Z_Axis_BLD, MaterialGetInt(material, ShaderPropInverse_Z_Axis_BLD) != 0);
 
             EditorGUI.indentLevel--;
             EditorGUI.EndDisabledGroup();
-            EditorGUILayout.Space();
+
         }
 
         public void DoPopup(GUIContent label, MaterialProperty property, string[] options)

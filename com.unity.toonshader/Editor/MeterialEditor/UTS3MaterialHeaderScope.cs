@@ -7,8 +7,7 @@ using UnityEngine.Rendering;
 
 namespace UnityEditor.Rendering.Toon
 {
-#if SRPCORE_NEWERTHAN12_IS_INSTALLED_FOR_UTS
-#else
+
     /// <summary>
     /// Create a toggleable header for material UI, must be used within a scope.
     /// <example>Example:
@@ -140,5 +139,4 @@ namespace UnityEditor.Rendering.Toon
         }
     }
 
-#endif // SRPCORE_NEWERTHAN12_IS_INSTALLED_FOR_UTS
 }

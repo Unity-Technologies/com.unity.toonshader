@@ -7,8 +7,6 @@ using UnityEngine.Rendering;
 
 namespace UnityEditor.Rendering.Toon
 {
-#if SRPCORE_NEWERTHAN12_IS_INSTALLED_FOR_UTS
-#else
     internal struct UTS3MaterialHeaderScopeItem
     {
         /// <summary><see cref="GUIContent"></see> that will be rendered on the <see cref="MaterialHeaderScope"></see></summary>
@@ -19,7 +17,12 @@ namespace UnityEditor.Rendering.Toon
         public Action<Material> drawMaterialScope { get; set; }
         /// <summary>The url of the scope</summary>
         public string url { get; set; }
+        /// <summary>The mode of UTS rendering mode</summary>
+        public uint workflowMode { get; set; }
+        /// <summary>The flag wheter UTS material is in transparent mode</summary>
+        public uint transparentEnabled { get; set; }
+        /// <summary>The action that will draw the controls for this scope</summary>
     }
 
-#endif // SRPCORE_NEWERTHAN12_IS_INSTALLED_FOR_UTS
+
 }

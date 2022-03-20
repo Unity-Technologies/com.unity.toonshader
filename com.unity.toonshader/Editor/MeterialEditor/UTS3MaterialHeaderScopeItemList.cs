@@ -7,14 +7,13 @@ using UnityEngine.Rendering;
 
 namespace UnityEditor.Rendering.Toon
 {
-#if SRPCORE_NEWERTHAN12_IS_INSTALLED_FOR_UTS
-#else
+
     /// <summary>
     /// Collection to store <see cref="UTS3MaterialHeaderScopeItem"></see>
     /// </summary>
     public class UTS3MaterialHeaderScopeList
     {
-        readonly uint m_DefaultExpandedState;
+        internal readonly uint m_DefaultExpandedState;
         internal readonly List<UTS3MaterialHeaderScopeItem> m_Items = new List<UTS3MaterialHeaderScopeItem>();
 
         /// <summary>
@@ -32,7 +31,10 @@ namespace UnityEditor.Rendering.Toon
         /// <param name="title"><see cref="GUIContent"/> The title of the scope</param>
         /// <param name="expandable">The mask identifying the scope</param>
         /// <param name="action">The action that will be drawn if the scope is expanded</param>
-        public void RegisterHeaderScope<TEnum>(GUIContent title, TEnum expandable, Action<Material> action)
+        /// <param name="workflowMode">UTS workflow mode </param>        /// 
+        /// <param name="isTransparent">Flag transparent material header should be drawn</param>        /// 
+
+        public void RegisterHeaderScope<TEnum>(GUIContent title, TEnum expandable, Action<Material> action, uint workflowMode, uint isTransparent)
             where TEnum : struct, IConvertible
         {
             m_Items.Add(new UTS3MaterialHeaderScopeItem()
@@ -40,8 +42,10 @@ namespace UnityEditor.Rendering.Toon
                 headerTitle = title,
                 expandable = Convert.ToUInt32(expandable),
                 drawMaterialScope = action,
-                url = ""// DocumentationUtils.GetHelpURL<TEnum>(expandable)
-            });
+                url = "",// DocumentationUtils.GetHelpURL<TEnum>(expandable)
+                workflowMode = workflowMode,
+                transparentEnabled = isTransparent
+            }); 
         }
 
         /// <summary>
@@ -77,5 +81,4 @@ namespace UnityEditor.Rendering.Toon
         }
     }
 
-#endif // SRPCORE_NEWERTHAN12_IS_INSTALLED_FOR_UTS
 }
