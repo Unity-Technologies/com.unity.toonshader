@@ -254,8 +254,7 @@ namespace UnityEditor.Rendering.Toon
         public int _renderQueue = (int)UnityEngine.Rendering.RenderQueue.Geometry;
         static _UTS_Transparent _Transparent_Setting;
         static int _StencilNo_Setting;
-        //        static bool _OriginalInspector = false;
-        //        static bool _SimpleUI = false;
+
 
         // for converter
         static int s_materialCount = 0;
@@ -269,8 +268,9 @@ namespace UnityEditor.Rendering.Toon
         const string legacyShaderPrefix = "UnityChanToonShader/";
         readonly string[] m_RendderPipelineNames = { "Legacy", "Universal", "HDRP" };
         int m_selectedRenderPipeline;
-
-
+        List<Material> m_ConvertingMaterials = new List<Material>();
+        Dictionary<Material, string> m_Material2GUID_Dictionary = new Dictionary<Material, string>();
+        Dictionary<string, UTS2GUID> m_GuidToUTSID_Dictionary = new Dictionary<string, UTS2GUID>();
         static   UnitychanToonShader2UnityToonShader()
         {
             bool isUtsInstalled = CheckUTS2isInstalled();
@@ -349,7 +349,7 @@ namespace UnityEditor.Rendering.Toon
             }
             return false;
         }
-        static UTS2GUID FindShaderGUID(string guid)
+        static UTS2GUID FindUTS2GUID(string guid)
         {
             var ret = Array.Find<UTS2GUID>(stdShaders, element => element.m_Guid == guid);
             foreach( var shader in stdShaders)
@@ -380,11 +380,17 @@ namespace UnityEditor.Rendering.Toon
                 s_guids = AssetDatabase.FindAssets("t:Material", null);
             }
             m_initialzed = true;
-            if (!m_errorIsChecked)
+            //if (!m_errorIsChecked)
             {
+                s_versionErrorCount = 0;
+                CheckUTS2VersionError();
                 m_uts2isInstalled = CheckUTS2isInstalled();
             }
-            m_errorIsChecked = true;
+//            m_errorIsChecked = true;
+            m_ConvertingMaterials.Clear();
+            m_Material2GUID_Dictionary.Clear();
+            m_GuidToUTSID_Dictionary.Clear();
+
             int labelHeight = 40;
             int buttonHeight = 20;
             Rect rect = new Rect(0, labelHeight, position.width, position.height - buttonHeight ); // GUILayoutUtility.GetRect(position.width, position.height - buttonHeight);
@@ -392,22 +398,21 @@ namespace UnityEditor.Rendering.Toon
             // scroll view background
             EditorGUI.DrawRect(rect, Color.gray);
             EditorGUI.DrawRect(rect2, new Color(0.3f, 0.3f, 0.3f));
-            if (s_versionErrorCount > 0)
+            if (m_uts2isInstalled)
+            {
+                var colorStore = GUI.color;
+                GUI.color = Color.red;
+                EditorGUILayout.LabelField("Error:Unitychan Toon Shader is installed.");
+                EditorGUILayout.LabelField("Please Remove them before using Unity Toon Shader and run this converter.");
+                GUI.color = colorStore;
+            }
+            else if (s_versionErrorCount > 0)
             {
                 var colorStore = GUI.color;
                 GUI.color = Color.red;
                 EditorGUILayout.LabelField("Error: UTS version in the project is too old.");
                 EditorGUILayout.LabelField("This conver is compatible with UTS2 newer than 2.0.7.");
                 GUI.color = colorStore;
-            }
-            else if (m_uts2isInstalled)
-            {
-                var colorStore = GUI.color;
-                GUI.color = Color.red;
-                EditorGUILayout.LabelField("Error:Detected Unitychan Toon Shader.");
-                EditorGUILayout.LabelField("Please Remove them before using Unity Toon Shader.");
-                GUI.color = colorStore;
-
             }
             else
             {
@@ -460,12 +465,12 @@ namespace UnityEditor.Rendering.Toon
                 {
                     shaderGUID = shaderGUID.TrimStart(' ');
                 }
-                var foundGUID = FindShaderGUID(shaderGUID);
-                if ( foundGUID == null )
+                var foundUTS2GUID = FindUTS2GUID(shaderGUID);
+                if ( foundUTS2GUID == null )
                 {
                     continue;
                 }
-                const string utsVersionProp = "_utsVersion";
+
                 var targetLine2 = Array.Find<string>(lines, line => line.StartsWith("    - _utsVersion"));
                 if (targetLine2 == null )
                 {
@@ -489,6 +494,15 @@ namespace UnityEditor.Rendering.Toon
                 {
                     s_versionErrorCount++;
                     continue;
+                }
+                m_ConvertingMaterials.Add(material);
+                if (!m_Material2GUID_Dictionary.ContainsKey(material))
+                {
+                    m_Material2GUID_Dictionary.Add(material, shaderGUID);
+                }
+                if (!m_GuidToUTSID_Dictionary.ContainsKey(shaderGUID))
+                {
+                    m_GuidToUTSID_Dictionary.Add(shaderGUID, foundUTS2GUID);
                 }
                 materialCount++;
                 s_materialCount = materialCount;
@@ -539,17 +553,8 @@ namespace UnityEditor.Rendering.Toon
 
         void ConvertMaterials(int renderPipelineIndex, string[] guids)
         {
-            foreach (var guid in guids)
+            foreach (var material in m_ConvertingMaterials)
             {
-                string path = AssetDatabase.GUIDToAssetPath(guid);
-                Material material  = AssetDatabase.LoadAssetAtPath<Material>(path) ;
-                var shaderName = material.shader.ToString();
-                if (!shaderName.StartsWith(legacyShaderPrefix))
-                {
-                    continue;
-
-                }
-                Debug.Log(shaderName);
                 switch (renderPipelineIndex)
                 {
                     case 0: // built in
@@ -562,9 +567,15 @@ namespace UnityEditor.Rendering.Toon
                         material.shader = Shader.Find("HDRP/Toon");
                         break;
                 }
+                var shaderGUID = m_Material2GUID_Dictionary[material];
+                var UTS2GUID = m_GuidToUTSID_Dictionary[shaderGUID];
 
-               
-                _Transparent_Setting = (_UTS_Transparent)material.GetInt(ShaderPropTransparentEnabled);
+                //                _Transparent_Setting = (_UTS_Transparent)material.GetInt(ShaderPropTransparentEnabled);
+                _Transparent_Setting = _UTS_Transparent.Off;
+                if ( UTS2GUID.m_ShaderName.Contains("Trans") || UTS2GUID.m_ShaderName.Contains("trans"))
+                {
+                    _Transparent_Setting = _UTS_Transparent.On;
+                }
                 _StencilNo_Setting = material.GetInt(ShaderPropStencilNo);
                 _autoRenderQueue = material.GetInt(ShaderPropAutoRenderQueue);
                 _renderQueue = material.renderQueue;
@@ -773,7 +784,10 @@ namespace UnityEditor.Rendering.Toon
         }
         void ApplyClippingMode(Material material)
         {
-
+            if (_Transparent_Setting == _UTS_Transparent.On)
+            {
+                material.SetInt(ShaderPropTransparentEnabled,1);
+            }
             if (!IsShadingGrademap(material))
             {
 
