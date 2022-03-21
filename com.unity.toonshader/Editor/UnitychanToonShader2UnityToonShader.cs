@@ -284,7 +284,7 @@ namespace UnityEditor.Rendering.Toon
                                             }
                         */
                         return true;
-                        break;
+
                     }
                 }
                 foreach (var shader in tessShaders)
@@ -300,7 +300,7 @@ namespace UnityEditor.Rendering.Toon
                                             }
                         */
                         return true;
-                        break;
+
                     }
                 }
             }
