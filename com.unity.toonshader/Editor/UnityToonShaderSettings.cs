@@ -11,32 +11,38 @@ namespace UnityEditor.Rendering.Toon
 {
     [System.Serializable]
     [ExcludeFromPresetAttribute]
-    internal class UnityToonShaderSettings : ScriptableObject
+    internal class UnityToonShaderSettings : ScriptableSingleton<UnityToonShaderSettings>
     {
-        private const string kPrefabPath = "Assets/ToonShader/Prefabs/";
-        private const string kSettingFilePath = "Assets/ToonShader/StoryboardSetting.asset";
         private static UnityToonShaderSettings s_Instance;
-        static public string settingFileInstalledPath
-        {
-            get => kSettingFilePath;
-        }
 
-        [SerializeField]
+
         bool m_ConverterWindowOnStartup;
-        public static UnityToonShaderSettings instance
+        public bool converterWindowOnStartup
         {
-            get
-            {
-                if (s_Instance == null)
-                {
-                    var settings = AssetDatabase.LoadAssetAtPath<UnityToonShaderSettings>(kSettingFilePath);
-                    s_Instance = settings;
-
-                }
-
-                return s_Instance;
-            }
+            get => m_ConverterWindowOnStartup;
+            set => m_ConverterWindowOnStartup = value;
         }
+
+        void OnDisable()
+        {
+            Save();
+        }
+
+        public void Save()
+        {
+            Save(true);
+        }
+
+        internal SerializedObject GetSerializedObject()
+        {
+            return new SerializedObject(this);
+        }
+
+        private void OnValidate()
+        {
+
+        }
+
 
     }
 }
