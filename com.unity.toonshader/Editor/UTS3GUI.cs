@@ -20,15 +20,16 @@ namespace UnityEditor.Rendering.Toon
         protected const float kVersionZ = 0.0f;
 
         // Render Pipelines UTS supports are the followings 
-        enum RenderPipeline
+        internal enum RenderPipeline
         {
-            Unknown,
+
             Legacy,
             Universal,
             HDRP,
+            Unknown,
         }
 
-        RenderPipeline currentRenderPipeline
+        internal static RenderPipeline currentRenderPipeline
         {
             get
             {
@@ -50,7 +51,7 @@ namespace UnityEditor.Rendering.Toon
                 return RenderPipeline.Unknown;
             }
         }
-        internal string srpDefaultLightModeName 
+        internal static string srpDefaultLightModeName 
         {
              get
              {
@@ -895,7 +896,7 @@ namespace UnityEditor.Rendering.Toon
 
 
 
-        int  MaterialGetInt(Material material, string prop )
+        internal static int  MaterialGetInt(Material material, string prop )
         {
 #if UNITY_2021_1_OR_NEWER
             return (int)material.GetFloat(prop);
@@ -903,7 +904,7 @@ namespace UnityEditor.Rendering.Toon
             return material.GetInt(prop);
 #endif
         }
-        void MaterialSetInt(Material material, string prop, int value)
+        internal static void MaterialSetInt(Material material, string prop, int value)
         {
 #if UNITY_2021_1_OR_NEWER
             material.SetFloat(prop, value);
@@ -1869,7 +1870,7 @@ namespace UnityEditor.Rendering.Toon
         const string srpDefaultColorMask = "_SPRDefaultUnlitColorMask";
         const string srpDefaultCullMode = "_SRPDefaultUnlitColMode";
 
-        void SetupOverDrawTransparentObject(Material material)
+        internal static void SetupOverDrawTransparentObject(Material material)
         {
             var srpDefaultLightModeTag = material.GetTag("LightMode", false, srpDefaultLightModeName);
             if (srpDefaultLightModeTag == srpDefaultLightModeName)
@@ -1879,7 +1880,7 @@ namespace UnityEditor.Rendering.Toon
                 MaterialSetInt(material, srpDefaultCullMode, (int)CullingMode.BackCulling);
             }
         }
-        void SetupOutline(Material material)
+        internal static void SetupOutline(Material material)
         {
             var srpDefaultLightModeTag = material.GetTag("LightMode", false, srpDefaultLightModeName);
             if (srpDefaultLightModeTag == srpDefaultLightModeName)
