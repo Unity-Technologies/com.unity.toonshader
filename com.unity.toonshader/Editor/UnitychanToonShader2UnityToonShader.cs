@@ -189,8 +189,11 @@ namespace UnityEditor.Rendering.Toon
                 //Application.isPlaying cannot be called in constructor. Do it here
                 if (Application.isPlaying)
                     return;
+                if (UnityToonShaderSettings.instance.m_ShowConverter == true)
+                {
+                    OpenWindow();
 
-                OpenWindow();
+                }
 
 
             }

@@ -6,6 +6,7 @@ namespace UnityEditor.Rendering.Toon
 {
     internal class UnityToonShaderSettings : ScriptableSingleton<UnityToonShaderSettings>
     {
+        [SerializeField]
         internal bool m_ShowConverter = true;
     }
 }
