@@ -162,7 +162,7 @@ namespace UnityEditor.Rendering.Toon
         static string[] s_guids;
         static int s_versionErrorCount = 0;
         const string legacyShaderPrefix = "UnityChanToonShader/";
-        readonly string[] m_RendderPipelineNames = { "Legacy", "Universal", "HDRP" };
+        readonly string[] m_RendderPipelineNames = { "Built-in", "Universal RP", "HDRP" };
         readonly string[] lineSeparators = new[] { "\r\n", "\r", "\n" };
         readonly string[] targetSepeartors = new[] { ":", "," };
         readonly string[] targetSepeartors2 = new[] { ":" };
@@ -216,7 +216,7 @@ namespace UnityEditor.Rendering.Toon
             bool isUtsInstalled = CheckUTS2isInstalled();
             bool isUtsSupportedVersion = CheckUTS2VersionError();
         }
-        [MenuItem("Asset/Toon Shader/Unitychan Toon Shader Material Converter", false, 9999)]
+        [MenuItem("Window/Rendering/Unity Toon Shader/Material Converter", false, 9999)]
         static private UnitychanToonShader2UnityToonShader OpenWindow()
         {
             var window = GetWindow<UnitychanToonShader2UnityToonShader>(true, "Unitychan Toon Shader Material Converter");
@@ -503,6 +503,11 @@ namespace UnityEditor.Rendering.Toon
             {
                 Close();
             }
+            EditorGUILayout.EndHorizontal();
+            EditorGUILayout.BeginHorizontal();
+
+            UnityToonShaderSettings.instance.m_ShowConverter = 
+                EditorGUILayout.Toggle("Show on start", UnityToonShaderSettings.instance.m_ShowConverter);
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.EndVertical();
 

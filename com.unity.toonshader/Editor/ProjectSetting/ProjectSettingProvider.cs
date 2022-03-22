@@ -12,19 +12,10 @@ namespace UnityEditor.Rendering.Toon
     internal  class ProjectSettingProvider : SettingsProvider
     {
         #region fields
-        internal int m_ContentWidth = 1920;
-        internal int m_ContentHeight = 1080;
-
-        internal float m_CanvasScaleX = 1.5f;
-        internal float m_CanvasScaleY = 1.5f;
-
-        GUIContent guiContentWidth = new GUIContent("Content Width");
-        GUIContent guiContentHeight = new GUIContent("Content Height");
-        GUIContent guiCanvasScaleX = new GUIContent("Canvas Scale X");
-        GUIContent guiCanvasScaleY = new GUIContent("Canvas Scale Y");
 
 
 
+        GUIContent guiContentShowConverterStartup = new GUIContent("Show converter on start up");
         #endregion
 
         [SettingsProvider]
@@ -68,27 +59,15 @@ namespace UnityEditor.Rendering.Toon
             {
  
                 EditorGUILayout.BeginVertical();
-                var strContentWidth = m_ContentWidth.ToString();
-                var strContentHeight = m_ContentHeight.ToString();
 
-                var strCanvasWidth = m_CanvasScaleX.ToString();
-                var strCanvasHeight = m_CanvasScaleY.ToString();
 
-                strContentWidth = EditorGUILayout.TextField(guiContentWidth, strContentWidth);
-                strContentHeight = EditorGUILayout.TextField(guiContentHeight, strContentHeight);
-                EditorGUILayout.Space();
-                strCanvasWidth = EditorGUILayout.TextField(guiContentWidth, strCanvasWidth);
-                strCanvasHeight = EditorGUILayout.TextField(guiContentHeight, strCanvasHeight);
-                EditorGUILayout.Space();
-                EditorGUILayout.Space();
+                UnityToonShaderSettings.instance.m_ShowConverter = EditorGUILayout.Toggle(guiContentShowConverterStartup, UnityToonShaderSettings.instance.m_ShowConverter);
+
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.Space();
 
 
-                if (GUILayout.Button("Revert"))
-                {
 
-                }
                 if (GUILayout.Button("Apply"))
                 {
                     AssetDatabase.SaveAssets();
