@@ -509,8 +509,12 @@ namespace UnityEditor.Rendering.Toon
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.BeginHorizontal();
 
-            UnityToonShaderSettings.instance.m_ShowConverter = 
-                EditorGUILayout.Toggle("Show on start", UnityToonShaderSettings.instance.m_ShowConverter);
+            EditorGUI.BeginChangeCheck();
+            UnityToonShaderSettings.instance.m_ShowConverter = EditorGUILayout.Toggle("Show on start", UnityToonShaderSettings.instance.m_ShowConverter);
+            if (EditorGUI.EndChangeCheck())
+            {
+                UnityToonShaderSettings.Save();
+            }
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.EndVertical();
 
