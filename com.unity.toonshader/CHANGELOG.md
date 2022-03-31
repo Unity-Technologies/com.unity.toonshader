@@ -1,8 +1,8 @@
 # Changelog
 ## [0.7.0-preview] - 2022-03-23
 ### Updated:
-* Renamed `Double Shade with Feather` to `Three Color Toon`.
-* Renamed `Shading Grade map` to `Three Color Toon with Special Maps`.
+* Renamed `Double Shade with Feather` to `Standard`.
+* Renamed `Shading Grade map` to `With Additional Control Maps`.
 * Shader version properties in all the render pipeline shaders.
 * Updated installation.md.
 * Replaced toggle buttons Off/Active UI to Unity standard toggle.
@@ -17,7 +17,7 @@
 * Renamed term, `Contribution` to `Effectiveness`.
 * Renamed foldout name `Light Color Contribution` to `Scene Light Effectiveness Settings`
 * Moved `Gi Intensity` and `Scene Light hi cut filter` to under it.
-* Renamed `Scene  Hi-cut filter` to  `Light Intensity Limitter` .
+* Renamed `Scene  Hi-cut filter` to  `Limit Light Intensity` .
 * Renamed term, `High Color` to `Highlight`.
 * Renamed `Settings for PointLights in ForwardAdd Pass` to `Point Light Settings`.
 * Renamed `Stencil No.` to `Stencil Number`.

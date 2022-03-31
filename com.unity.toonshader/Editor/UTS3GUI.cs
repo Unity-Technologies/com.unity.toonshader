@@ -209,7 +209,7 @@ namespace UnityEditor.Rendering.Toon
         internal const string ShaderDefineIS_CLIPPING_MATTE = "_IS_CLIPPING_MATTE";
 
 
-        protected readonly string[] UtsModeNames = { "Three Color Toon", "Three Color Toon with Special Maps" };
+        protected readonly string[] UtsModeNames = { "Standard", "With Additional Control Maps" };
         protected readonly string[] EmissiveScrollMode = { "UV Coordinate Scroll", "View Coordinate Scroll" };
         protected readonly string[] ClippingModeNames = { "Off", "On", "Trans Clipping Mode" };
         protected readonly string[] StencilModeNames = { "Off", "Stencil Out", "Stencil Mask" };
@@ -507,16 +507,16 @@ namespace UnityEditor.Rendering.Toon
         public static GUIContent specularBlendModeText = new GUIContent("Color Blend Mode", "Specular color blending mode. Multiply or Additive.");
         public static GUIContent matcapBlendModeText = new GUIContent("Color Blend Mode", "MatCap color blending mode. Multiply or Additive.");
         public static GUIContent matcapOrthoText = new GUIContent("MatCap Camera Mode", "MatCap camera mode. Perspective or Orthographic.");
-        public static GUIContent transparentModeText = new GUIContent("Transparent Mode",
-            "Transparent  mode that fits you. ");
+        public static GUIContent transparentModeText = new GUIContent("Transparency",
+            "Transparency  mode that fits you. ");
         public static GUIContent workflowModeText = new GUIContent("Mode",
-            "Select a workflow that fits your textures. Choose between Three Color Toon or Three Color Toon with Special Maps.");
+            "Select a workflow that fits your textures. Choose between Standard or With Additional Control Maps.");
         // -----------------------------------------------------
-        public static GUIContent clippingmodeModeText0 = new GUIContent("Clipping Mode",
+        public static GUIContent clippingmodeModeText0 = new GUIContent("Clipping",
             "Select clipping mode that fits you. ");
         public static GUIContent clippingmodeModeText1 = new GUIContent("Trans Clipping",
             "Select clipping mode that fits you. ");
-        public static GUIContent stencilmodeModeText = new GUIContent("Stencil Mode",
+        public static GUIContent stencilmodeModeText = new GUIContent("Stencil",
             "Select stencil mode that fits you. ");
         //Specify only those that use the m_MaterialEditor method as their UI.
         public void FindProperties(MaterialProperty[] props)
@@ -759,7 +759,7 @@ namespace UnityEditor.Rendering.Toon
 
         void DrawShaderOptions(Material material)
         {
-            EditorGUI.indentLevel++;
+         //   EditorGUI.indentLevel++;
             //EditorGUILayout.Space(); 
             GUI_SetCullingMode(material);
             GUI_SetRenderQueue(material);
@@ -769,11 +769,11 @@ namespace UnityEditor.Rendering.Toon
             switch (m_WorkflowMode)
             {
                 case UTS_Mode.ThreeColorToon:
-                    GUILayout.Label("Clipping Shader", EditorStyles.boldLabel);
+
                     DoPopup(clippingmodeModeText0, clippingMode, ClippingModeNames);
                     break;
                 case UTS_Mode.ShadingGradeMap:
-                    GUILayout.Label("TransClipping Shader", EditorStyles.boldLabel);
+
                     DoPopup(clippingmodeModeText1, clippingMode, System.Enum.GetNames(typeof(UTS_TransClippingMode)));
                     break;
             }
@@ -789,7 +789,7 @@ namespace UnityEditor.Rendering.Toon
 
             GUI_OptionMenu(material);
 
-            EditorGUI.indentLevel--;
+         //   EditorGUI.indentLevel--;
         }
         public override void OnGUI(MaterialEditor materialEditor, MaterialProperty[] props)
         {
@@ -1021,7 +1021,7 @@ namespace UnityEditor.Rendering.Toon
         }
         void GUI_Tranparent(Material material)
         {
-            GUILayout.Label("Transparent Shader", EditorStyles.boldLabel);
+
             const string _ZWriteMode = "_ZWriteMode";
             const string _ZOverDrawMode = "_ZOverDrawMode";
             DoPopup(transparentModeText, transparentMode, System.Enum.GetNames(typeof(UTS_TransparentMode)));
@@ -1051,17 +1051,20 @@ namespace UnityEditor.Rendering.Toon
 
         void GUI_StencilMode(Material material)
         {
-            GUILayout.Label("StencilMask or StencilOut Shader", EditorStyles.boldLabel);
+
             DoPopup(stencilmodeModeText, stencilMode, StencilModeNames );
 
-
+            EditorGUI.indentLevel++;
             int _Current_StencilNo = stencilNumberSetting;
-            _Current_StencilNo = (int)EditorGUILayout.IntField("Stencil Number", _Current_StencilNo);
+            EditorGUI.BeginDisabledGroup((UTS_StencilMode)MaterialGetInt(material, ShaderPropStencilMode) == UTS_StencilMode.Off);
+            _Current_StencilNo = (int)EditorGUILayout.IntField("Stencil Value", _Current_StencilNo);
             if (stencilNumberSetting != _Current_StencilNo)
             {
                 MaterialSetInt(material,ShaderPropStencilNo, _Current_StencilNo);
             }
+            EditorGUI.EndDisabledGroup();
 
+            EditorGUI.indentLevel--;
         }
 
         void GUI_SetClippingMask(Material material)
@@ -1192,13 +1195,13 @@ namespace UnityEditor.Rendering.Toon
             {
                 if (MaterialGetInt(material,ShaderPropUtsTechniqe) == (int)UTS_Mode.ThreeColorToon)   //DWF
                 {
-                    GUILayout.Label("  Mode: Three Color Toon", EditorStyles.boldLabel);
+                    GUILayout.Label("  Mode: Standard", EditorStyles.boldLabel);
                     m_MaterialEditor.TexturePropertySingleLine(Styles.firstPositionMapText, set_1st_ShadePosition);
                     m_MaterialEditor.TexturePropertySingleLine(Styles.secondPositionMapText, set_2nd_ShadePosition);
                 }
                 else if (MaterialGetInt(material,ShaderPropUtsTechniqe) == (int)UTS_Mode.ShadingGradeMap)
                 {    //SGM
-                    GUILayout.Label("  Mode: Three Color Toon with Special Maps", EditorStyles.boldLabel);
+                    GUILayout.Label("  Mode: With Additional Control Maps", EditorStyles.boldLabel);
                     m_MaterialEditor.TexturePropertySingleLine(Styles.shadingGradeMapText, shadingGradeMap);
                     m_MaterialEditor.RangeProperty(tweak_ShadingGradeMapLevel, "ShadingGradeMap Level");
                     m_MaterialEditor.RangeProperty(blurLevelSGM, "Blur Level of ShadingGradeMap");
@@ -1253,7 +1256,7 @@ namespace UnityEditor.Rendering.Toon
                 var mode = MaterialGetInt(material, ShaderPropUtsTechniqe);
                 if (mode == (int)UTS_Mode.ThreeColorToon)   //DWF
                 {
-                    GUILayout.Label("Mode: Three Color Toon", EditorStyles.boldLabel);
+                    GUILayout.Label("Mode: Standard", EditorStyles.boldLabel);
                     m_MaterialEditor.RangeProperty(baseColor_Step, "Base Color Step");
                     m_MaterialEditor.RangeProperty(baseShade_Feather, "Base Shading Feather");
                     m_MaterialEditor.RangeProperty(shadeColor_Step, "Shading Color Step");
@@ -1267,7 +1270,7 @@ namespace UnityEditor.Rendering.Toon
                 }
                 else if (mode == (int)UTS_Mode.ShadingGradeMap)
                 {    //SGM
-                    GUILayout.Label("Mode: Three Color Toon with Special Maps", EditorStyles.boldLabel);
+                    GUILayout.Label("Mode: With Additional Control Maps", EditorStyles.boldLabel);
                     m_MaterialEditor.RangeProperty(first_ShadeColor_Step, "1st Shade Color Step");
                     m_MaterialEditor.RangeProperty(first_ShadeColor_Feather, "1st Shade Color Feather");
                     m_MaterialEditor.RangeProperty(second_ShadeColor_Step, "2nd Shade Color Step");
@@ -2023,7 +2026,7 @@ namespace UnityEditor.Rendering.Toon
 
             EditorGUI.BeginChangeCheck();
             var prop = ShaderPropIs_Filter_LightColor;
-            var label = "Light Intensity Limitter";
+            var label = "Limit Light Intensity";
             var value = MaterialGetInt(material, prop);
             var ret = EditorGUILayout.Toggle(label, value != 0);
             if (EditorGUI.EndChangeCheck())
