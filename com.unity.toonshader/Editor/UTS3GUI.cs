@@ -211,7 +211,7 @@ namespace UnityEditor.Rendering.Toon
 
         protected readonly string[] UtsModeNames = { "Standard", "With Additional Control Maps" };
         protected readonly string[] EmissiveScrollMode = { "UV Coordinate Scroll", "View Coordinate Scroll" };
-        protected readonly string[] ClippingModeNames = { "Off", "On", "Trans Clipping Mode" };
+        protected readonly string[] ClippingModeNames = { "Off", "On", "Clip Transparency" };
         protected readonly string[] StencilModeNames = { "Off", "Draw If Not Equal to", "Replace Stencil Buffer with" };
         public enum UTS_Mode : uint
         {
@@ -462,35 +462,9 @@ namespace UnityEditor.Rendering.Toon
 
 
 
-        private bool IsClippingMaskPropertyAvailable(UTS_Mode technique)
-        {
-
-            Material material = m_MaterialEditor.target as Material;
-            bool bRet = false;
-            switch (technique)
-            {
-                case UTS_Mode.ThreeColorToon:
-                    bRet = ((UTS_ClippingMode)MaterialGetInt(material,ShaderPropClippingMode) != UTS_ClippingMode.Off);
-                    break;
-                case UTS_Mode.ShadingGradeMap:
-                    bRet = (UTS_TransClippingMode)MaterialGetInt(material,ShaderPropClippingMode) != UTS_TransClippingMode.Off;
-                    break;
 
 
-            }
 
-            return bRet;
-
-        }
-
-        private bool clippingModePropertyAvailable
-        {
-            get
-            {
-                Material material = m_MaterialEditor.target as Material;
-                return MaterialGetInt(material,ShaderPropClippingMode) != 0;
-            }
-        }
 
         private bool isShadingGrademap
         {
@@ -643,7 +617,7 @@ namespace UnityEditor.Rendering.Toon
             public static readonly GUIContent BasicLookDevsFoldout = EditorGUIUtility.TrTextContent("Shading Step and Feather Settings", "");
             public static readonly GUIContent HighLightFoldout = EditorGUIUtility.TrTextContent("Highlight Settings", "");
             public static readonly GUIContent RimLightFoldout = EditorGUIUtility.TrTextContent("Rim Light Settings", "");
-            public static readonly GUIContent MatCapFoldout = EditorGUIUtility.TrTextContent("MatCap Settings", "");
+            public static readonly GUIContent MatCapFoldout = EditorGUIUtility.TrTextContent("Material capture (MatCap) Settings", "");
             public static readonly GUIContent AngelRingFoldout = EditorGUIUtility.TrTextContent("Angel Ring Projection Settings", "");
             public static readonly GUIContent EmissionFoldout = EditorGUIUtility.TrTextContent("Emission Settings", "");
             public static readonly GUIContent OutlineFoldout = EditorGUIUtility.TrTextContent("Outline Settings", "");
@@ -759,8 +733,8 @@ namespace UnityEditor.Rendering.Toon
 
         void DrawShaderOptions(Material material)
         {
-         //   EditorGUI.indentLevel++;
-            //EditorGUILayout.Space(); 
+
+
             GUI_SetCullingMode(material);
             GUI_SetRenderQueue(material);
             GUI_Tranparent(material);
@@ -771,25 +745,43 @@ namespace UnityEditor.Rendering.Toon
                 case UTS_Mode.ThreeColorToon:
 
                     DoPopup(clippingmodeModeText0, clippingMode, ClippingModeNames);
+                    UTS_ClippingMode mode0 = (UTS_ClippingMode)MaterialGetInt(material, ShaderPropClippingMode);
+                    EditorGUI.indentLevel++;
+                    EditorGUI.BeginDisabledGroup(mode0 == UTS_ClippingMode.Off);
+                    {
+                        GUI_SetClippingMask(material);
+                    }
+                    EditorGUI.EndDisabledGroup();
+                    EditorGUI.BeginDisabledGroup(mode0 != UTS_ClippingMode.TransClippingMode);
+                    {
+                        GUI_SetTransparencySetting(material);
+                    }
+                    EditorGUI.EndDisabledGroup();
+                    EditorGUI.indentLevel--;
                     break;
                 case UTS_Mode.ShadingGradeMap:
 
                     DoPopup(clippingmodeModeText1, clippingMode, System.Enum.GetNames(typeof(UTS_TransClippingMode)));
+                    UTS_TransClippingMode mode1 = (UTS_TransClippingMode)MaterialGetInt(material, ShaderPropClippingMode);
+                    EditorGUI.indentLevel++;
+                    EditorGUI.BeginDisabledGroup(mode1 != UTS_TransClippingMode.On);
+                    {
+                        GUI_SetClippingMask(material);
+                        GUI_SetTransparencySetting(material);
+
+                    }
+                    EditorGUI.indentLevel--;
                     break;
             }
 
             EditorGUILayout.Space();
-            if (IsClippingMaskPropertyAvailable(m_WorkflowMode))
-            {
-                GUI_SetClippingMask(material);
-                GUI_SetTransparencySetting(material);
-            }
 
 
 
-            GUI_OptionMenu(material);
 
-         //   EditorGUI.indentLevel--;
+
+
+
         }
         public override void OnGUI(MaterialEditor materialEditor, MaterialProperty[] props)
         {
@@ -1069,7 +1061,6 @@ namespace UnityEditor.Rendering.Toon
 
         void GUI_SetClippingMask(Material material)
         {
-            GUILayout.Label("Options for Clipping or TransClipping features", EditorStyles.boldLabel);
             m_MaterialEditor.TexturePropertySingleLine(Styles.clippingMaskText, clippingMask);
 
             GUI_Toggle(material, "Inverse Clipping Mask", ShaderPropInverseClipping,MaterialGetInt(material, ShaderPropInverseClipping)!= 0 );
@@ -1079,52 +1070,13 @@ namespace UnityEditor.Rendering.Toon
 
         void GUI_SetTransparencySetting(Material material)
         {
-
-            GUILayout.Label("Options for TransClipping or Transparent features", EditorStyles.boldLabel);
             m_MaterialEditor.RangeProperty(tweak_transparency, "Transparency Level");
 
             GUI_Toggle(material, "Use BaseMap Alpha as Clipping Mask", ShaderPropIsBaseMapAlphaAsClippingMask, MaterialGetInt(material, ShaderPropIsBaseMapAlphaAsClippingMask) != 0);
 
         }
 
-        void GUI_OptionMenu(Material material)
-        {
-#if USE_SIMPLE_UI // we remove SIMPLE UI feature.
-            GUILayout.Label("Option Menu", EditorStyles.boldLabel);
-            if (material.HasProperty(ShaderPropSimpleUI))
-            {
-                if (material.GetInt(ShaderPropSimpleUI) == 1)
-                {
-                    _SimpleUI = true; //UTS2 Custom GUI Beginner
-                }
-                else
-                {
-                    _SimpleUI = false; //UTS2 Custom GUI Pro
-                }
-            }
 
-            EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.PrefixLabel("Current UI Type");
-            //GUILayout.Space(60);
-            if (_SimpleUI == false)
-            {
-                if (GUILayout.Button("Pro / Full Control", middleButtonStyle))
-                {
-                    MaterialSetInt(material,ShaderPropSimpleUI, 1); //UTS2 Custom GUI Beginner
-                }
-            }
-            else
-            {
-                if (GUILayout.Button("Beginner", middleButtonStyle))
-                {
-                    MaterialSetInt(material,ShaderPropSimpleUI, 0); //UTS2 Custom GUI Pro
-                }
-            }
-            EditorGUILayout.EndHorizontal();
-#endif
-
-
-        }
 
 
         void GUI_BasicThreeColors(Material material)
@@ -1372,7 +1324,7 @@ namespace UnityEditor.Rendering.Toon
             GUILayout.Label("    Highlight Mask", EditorStyles.boldLabel);
             EditorGUI.indentLevel++;
             m_MaterialEditor.TexturePropertySingleLine(Styles.highColorMaskText, set_HighColorMask);
-            m_MaterialEditor.RangeProperty(tweak_HighColorMaskLevel, "High Lgiht Mask Level");
+            m_MaterialEditor.RangeProperty(tweak_HighColorMaskLevel, "Highlight Mask Level");
             EditorGUI.indentLevel--;
 
             EditorGUILayout.Space();
@@ -1717,23 +1669,23 @@ namespace UnityEditor.Rendering.Toon
                 material.DisableKeyword(ShaderDefineIS_TRANSCLIPPING_OFF);
                 material.DisableKeyword(ShaderDefineIS_TRANSCLIPPING_ON);
 
-                switch (MaterialGetInt(material,ShaderPropClippingMode))
+                switch ((UTS_ClippingMode)MaterialGetInt(material,ShaderPropClippingMode))
                 {
-                    case 0:
+                    case UTS_ClippingMode.Off:
                         material.EnableKeyword(ShaderDefineIS_CLIPPING_OFF);
                         material.DisableKeyword(ShaderDefineIS_CLIPPING_MODE);
                         material.DisableKeyword(ShaderDefineIS_CLIPPING_TRANSMODE);
                         material.EnableKeyword(ShaderDefineIS_OUTLINE_CLIPPING_NO);
                         material.DisableKeyword(ShaderDefineIS_OUTLINE_CLIPPING_YES);
                         break;
-                    case 1:
+                    case UTS_ClippingMode.On:
                         material.DisableKeyword(ShaderDefineIS_CLIPPING_OFF);
                         material.EnableKeyword(ShaderDefineIS_CLIPPING_MODE);
                         material.DisableKeyword(ShaderDefineIS_CLIPPING_TRANSMODE);
                         material.DisableKeyword(ShaderDefineIS_OUTLINE_CLIPPING_NO);
                         material.EnableKeyword(ShaderDefineIS_OUTLINE_CLIPPING_YES);
                         break;
-                    default:
+                    default: // UTS_ClippingMode.TransClippingMode
                         material.DisableKeyword(ShaderDefineIS_CLIPPING_OFF);
                         material.DisableKeyword(ShaderDefineIS_CLIPPING_MODE);
                         material.EnableKeyword(ShaderDefineIS_CLIPPING_TRANSMODE);
@@ -1749,9 +1701,9 @@ namespace UnityEditor.Rendering.Toon
                 material.DisableKeyword(ShaderDefineIS_CLIPPING_OFF);
                 material.DisableKeyword(ShaderDefineIS_CLIPPING_MODE);
                 material.DisableKeyword(ShaderDefineIS_CLIPPING_TRANSMODE);
-                switch (MaterialGetInt(material,ShaderPropClippingMode))
+                switch ((UTS_TransClippingMode)MaterialGetInt(material,ShaderPropClippingMode))
                 {
-                    case 0:
+                    case UTS_TransClippingMode.Off:
                         material.EnableKeyword(ShaderDefineIS_TRANSCLIPPING_OFF);
                         material.DisableKeyword(ShaderDefineIS_TRANSCLIPPING_ON);
                         break;
