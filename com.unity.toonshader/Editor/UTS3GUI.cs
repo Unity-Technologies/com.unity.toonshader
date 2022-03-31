@@ -212,7 +212,7 @@ namespace UnityEditor.Rendering.Toon
         protected readonly string[] UtsModeNames = { "Standard", "With Additional Control Maps" };
         protected readonly string[] EmissiveScrollMode = { "UV Coordinate Scroll", "View Coordinate Scroll" };
         protected readonly string[] ClippingModeNames = { "Off", "On", "Trans Clipping Mode" };
-        protected readonly string[] StencilModeNames = { "Off", "Stencil Out", "Stencil Mask" };
+        protected readonly string[] StencilModeNames = { "Off", "Draw If Not Equal to", "Replace Stencil Buffer with" };
         public enum UTS_Mode : uint
         {
             ThreeColorToon, ShadingGradeMap
@@ -1687,19 +1687,16 @@ namespace UnityEditor.Rendering.Toon
             switch (mode)
             {
                 case UTS_StencilMode.Off:
-                    //    MaterialSetInt(material,ShaderPropStencilNo,0);
                     MaterialSetInt(material,ShaderPropStencilComp, (int)StencilCompFunction.Disabled);
                     MaterialSetInt(material, ShaderPropStencilOpPass, (int)StencilOperation.Keep);
                     MaterialSetInt(material, ShaderPropStencilOpFail, (int)StencilOperation.Keep);
                     break;
                 case UTS_StencilMode.StencilMask:
-                    //    MaterialSetInt(material,ShaderPropStencilNo,0);
-                    MaterialSetInt(material, ShaderPropStencilComp, (int)StencilCompFunction.Always);
+                     MaterialSetInt(material, ShaderPropStencilComp, (int)StencilCompFunction.Always);
                     MaterialSetInt(material, ShaderPropStencilOpPass, (int)StencilOperation.Replace);
                     MaterialSetInt(material, ShaderPropStencilOpFail, (int)StencilOperation.Replace);
                     break;
                 case UTS_StencilMode.StencilOut:
-                    //    MaterialSetInt(material,ShaderPropStencilNo,0);
                     MaterialSetInt(material, ShaderPropStencilComp, (int)StencilCompFunction.NotEqual);
                     MaterialSetInt(material, ShaderPropStencilOpPass, (int)StencilOperation.Keep);
                     MaterialSetInt(material, ShaderPropStencilOpFail, (int)StencilOperation.Keep);

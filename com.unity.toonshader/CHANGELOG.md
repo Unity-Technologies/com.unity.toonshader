@@ -1,5 +1,5 @@
 # Changelog
-## [0.7.0-preview] - 2022-03-23
+## [0.7.0-preview] - 2022-03-31
 ### Updated:
 * Renamed `Double Shade with Feather` to `Standard`.
 * Renamed `Shading Grade map` to `With Additional Control Maps`.
@@ -20,7 +20,9 @@
 * Renamed `Scene  Hi-cut filter` to  `Limit Light Intensity` .
 * Renamed term, `High Color` to `Highlight`.
 * Renamed `Settings for PointLights in ForwardAdd Pass` to `Point Light Settings`.
-* Renamed `Stencil No.` to `Stencil Number`.
+* Renamed `Stencil Out` to `Draw If Not Equal to`.
+* Renamed `Stencil Mask` to `Replace Stencil Buffer with`.
+* Renamed `Stencil No.` to `Stencil Value`.
 * Renamed `Unlit Intensity` to `Metaverse Light Intensity` and `Buiilt-in light settings` are moved into `Metaverse Settings` folder in the inspector so that users can understand  setting them is not necessary for usual uses.The setting works only when no directional lights are on the scenes like some VRChat scenes.
 * Changed built-in light default brightness from 1 to 0.
 * Renamed 'Basic Look Dev' to 'Shading Step and Feather Settings'
