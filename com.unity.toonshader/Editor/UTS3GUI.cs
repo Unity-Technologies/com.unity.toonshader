@@ -768,8 +768,8 @@ namespace UnityEditor.Rendering.Toon
                     {
                         GUI_SetClippingMask(material);
                         GUI_SetTransparencySetting(material);
-
                     }
+                    EditorGUI.EndDisabledGroup();
                     EditorGUI.indentLevel--;
                     break;
             }
