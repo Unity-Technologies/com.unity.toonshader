@@ -28,7 +28,7 @@ namespace UnityEditor.Rendering.Toon
         /// </summary>
         /// <param name="pageName"></param>
         /// <param name="packageName"></param>
-        public UTS3HelpURLAttribute(string pageName, string packageName = "com.unity.render-pipelines.core")
+        public UTS3HelpURLAttribute(string pageName, string packageName = "com.unity.toonshader")
             : base(UTS3DocumentationInfo.GetPageLink(packageName, pageName))
         {
         }
