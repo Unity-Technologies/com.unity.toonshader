@@ -363,6 +363,7 @@ namespace UnityEditor.Rendering.Toon
         protected MaterialProperty clippingMode = null;
         protected MaterialProperty clippingMask = null;
         protected MaterialProperty clipping_Level = null;
+        protected MaterialProperty stencilValue = null;
         protected MaterialProperty tweak_transparency = null;
         protected MaterialProperty stencilMode = null;
         protected MaterialProperty mainTex = null;
@@ -505,6 +506,7 @@ namespace UnityEditor.Rendering.Toon
             clippingMask = FindProperty(ShaderPropClippingMask, props);
             clippingMode = FindProperty(ShaderPropClippingMode, props);
             clipping_Level = FindProperty("_Clipping_Level", props, false);
+            stencilValue = FindProperty(ShaderPropStencilNo, props);
             tweak_transparency = FindProperty("_Tweak_transparency", props, false);
             stencilMode = FindProperty(ShaderPropStencilMode, props);
             mainTex = FindProperty(ShaderPropMainTex, props);
@@ -617,7 +619,7 @@ namespace UnityEditor.Rendering.Toon
             public static readonly GUIContent BasicLookDevsFoldout = EditorGUIUtility.TrTextContent("Shading Step and Feather Settings", "");
             public static readonly GUIContent HighLightFoldout = EditorGUIUtility.TrTextContent("Highlight Settings", "");
             public static readonly GUIContent RimLightFoldout = EditorGUIUtility.TrTextContent("Rim Light Settings", "");
-            public static readonly GUIContent MatCapFoldout = EditorGUIUtility.TrTextContent("Material capture (MatCap) Settings", "");
+            public static readonly GUIContent MatCapFoldout = EditorGUIUtility.TrTextContent("Material Capture (MatCap) Settings", "");
             public static readonly GUIContent AngelRingFoldout = EditorGUIUtility.TrTextContent("Angel Ring Projection Settings", "");
             public static readonly GUIContent EmissionFoldout = EditorGUIUtility.TrTextContent("Emission Settings", "");
             public static readonly GUIContent OutlineFoldout = EditorGUIUtility.TrTextContent("Outline Settings", "");
@@ -1042,17 +1044,22 @@ namespace UnityEditor.Rendering.Toon
 
         void GUI_StencilMode(Material material)
         {
+            const string kStencilValue = "Stencil Value";
 
             DoPopup(stencilmodeModeText, stencilMode, StencilModeNames );
 
+
             EditorGUI.indentLevel++;
-            int _Current_StencilNo = stencilNumberSetting;
+            int currentStencilValue = stencilNumberSetting;
             EditorGUI.BeginDisabledGroup((UTS_StencilMode)MaterialGetInt(material, ShaderPropStencilMode) == UTS_StencilMode.Off);
-            _Current_StencilNo = (int)EditorGUILayout.IntField("Stencil Value", _Current_StencilNo);
-            if (stencilNumberSetting != _Current_StencilNo)
+            EditorGUI.BeginChangeCheck();
+            currentStencilValue = EditorGUILayout.IntSlider(kStencilValue, stencilNumberSetting, 0, 255);
+            if (EditorGUI.EndChangeCheck())
             {
-                MaterialSetInt(material,ShaderPropStencilNo, _Current_StencilNo);
+                Undo.RecordObject(material, "Changed " + kStencilValue);
+                MaterialSetInt(material, ShaderPropStencilNo, currentStencilValue);
             }
+
             EditorGUI.EndDisabledGroup();
 
             EditorGUI.indentLevel--;
@@ -1062,7 +1069,7 @@ namespace UnityEditor.Rendering.Toon
         {
             m_MaterialEditor.TexturePropertySingleLine(Styles.clippingMaskText, clippingMask);
 
-            GUI_Toggle(material, "Inverse Clipping Mask", ShaderPropInverseClipping,MaterialGetInt(material, ShaderPropInverseClipping)!= 0 );
+            GUI_Toggle(material, "Invert Clipping Mask", ShaderPropInverseClipping,MaterialGetInt(material, ShaderPropInverseClipping)!= 0 );
 
             m_MaterialEditor.RangeProperty(clipping_Level, "Clipping Level");
         }
@@ -2044,9 +2051,7 @@ namespace UnityEditor.Rendering.Toon
             if (EditorGUI.EndChangeCheck())
             {
                 materialEditor.RegisterPropertyChangeUndo(label.text);
-
                 property.floatValue = mode;
-
             }
 
             EditorGUI.showMixedValue = false;

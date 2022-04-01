@@ -26,6 +26,7 @@
 * Renamed `Stencil Out` to `Draw If Not Equal to`.
 * Renamed `Stencil Mask` to `Replace Stencil Buffer with`.
 * Renamed `Stencil No.` to `Stencil Value`.
+* That used to be a number field. Now it is editable with IntSlider.
 * Renamed `Trans Clipping Mode` to `Clip Transparency`.
 * Renamed `Unlit Intensity` to `Metaverse Light Intensity` and `Buiilt-in light settings` are moved into `Metaverse Settings` folder in the inspector so that users can understand  setting them is not necessary for usual uses.The setting works only when no directional lights are on the scenes like some VRChat ones.
 * _Unlit_Intensity ranges defined in all the shaders are from 0 to 4. originally they were from 0.001 to 4.

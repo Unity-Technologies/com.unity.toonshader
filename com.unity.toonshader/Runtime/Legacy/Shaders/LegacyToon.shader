@@ -15,7 +15,7 @@ Shader "Toon (Built-in)" {
         [Enum(OFF, 0, StencilOut, 1, StencilMask, 2)] _StencilMode("StencilMode", int) = 0
         // these are set in UniversalToonGUI.cs in accordance with _StencilMode
         _StencilComp("Stencil Comparison", Float) = 8
-        _StencilNo("Stencil No", Float) = 1
+        _StencilNo("Stencil No", Range(0, 255)) = 1
         _StencilOpPass("Stencil Operation", Float) = 0
         _StencilOpFail("Stencil Operation", Float) = 0
         [Enum(OFF, 0, ON, 1,] _TransparentEnabled("Transparent Mode", int) = 0
