@@ -20,12 +20,14 @@
 * Renamed `Scene  Hi-cut filter` to  `Limit Light Intensity` .
 * Renamed term, `High Color` to `Highlight`.
 * Renamed `Settings for PointLights in ForwardAdd Pass` to `Point Light Settings`.
+* Renamed `Antipodean(Ap)_RimLight` to `Inversed Rim Light`
 * Re-organized Stencil and Clipping settings in the inspector window.
 * Renamed `Stencil Out` to `Draw If Not Equal to`.
 * Renamed `Stencil Mask` to `Replace Stencil Buffer with`.
 * Renamed `Stencil No.` to `Stencil Value`.
 * Renamed `Trans Clipping Mode` to `Clip Transparency`.
-* Renamed `Unlit Intensity` to `Metaverse Light Intensity` and `Buiilt-in light settings` are moved into `Metaverse Settings` folder in the inspector so that users can understand  setting them is not necessary for usual uses.The setting works only when no directional lights are on the scenes like some VRChat scenes.
+* Renamed `Unlit Intensity` to `Metaverse Light Intensity` and `Buiilt-in light settings` are moved into `Metaverse Settings` folder in the inspector so that users can understand  setting them is not necessary for usual uses.The setting works only when no directional lights are on the scenes like some VRChat ones.
+* _Unlit_Intensity ranges defined in all the shaders are from 0 to 4. originally they were from 0.001 to 4.
 * Changed built-in light default brightness from 1 to 0.
 * Renamed 'Basic Look Dev' to 'Shading Step and Feather Settings'
 * `Advanced settings` in Outline folder are always shown.
@@ -37,7 +39,7 @@
 * HDRP: Graphics Test 2022.2.
 * Project Settings, but quite simple yet.
 ### Removed:
-* removed   `● Additional Settings` in the Inspector.
+* Removed   `● Additional Settings` in the Inspector.
 * Removed Simple UI.
 * Removed Japanese and English manual link buttons.
 * Removed Game Recommendation window and changed the default values of shader variables.

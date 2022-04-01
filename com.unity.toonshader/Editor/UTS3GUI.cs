@@ -625,7 +625,7 @@ namespace UnityEditor.Rendering.Toon
             public static readonly GUIContent MaskRenderingFoldout = EditorGUIUtility.TrTextContent("Mask Rendering Settings", "");
             public static readonly GUIContent LightColorEffectivenessFoldout = EditorGUIUtility.TrTextContent("Scene Light Effectiveness Settings", "");
  //           public static readonly GUIContent EnvironmentalLightEffectivenessFoldout = EditorGUIUtility.TrTextContent("Environmental Lighting Effectiveness Settings", "");
-            public static readonly GUIContent MetaverseSettingsFoldout = EditorGUIUtility.TrTextContent("Metaverse Settings (Experimental)", "");
+            public static readonly GUIContent MetaverseSettingsFoldout = EditorGUIUtility.TrTextContent("Metaverse Settings (Experimental)", "When no directional lights are in the scene.");
             public static readonly GUIContent NormalMapFoldout = EditorGUIUtility.TrTextContent("NormalMap Settings", "");
             public static readonly GUIContent ShadowControlMapFoldout = EditorGUIUtility.TrTextContent("Shadow Control Maps", "");
             public static readonly GUIContent PointLightFoldout = EditorGUIUtility.TrTextContent("Point Light Settings", "");
@@ -885,7 +885,6 @@ namespace UnityEditor.Rendering.Toon
             }
 
         }// End of OnGUI()
-
 
 
 
@@ -1361,18 +1360,18 @@ namespace UnityEditor.Rendering.Toon
                     m_MaterialEditor.RangeProperty(tweak_LightDirection_MaskLevel, "Light Direction Mask Level");
 
                     EditorGUILayout.BeginHorizontal();
-                    var antipodean_RimLight = GUI_Toggle(material, "Antipodean(Ap)_RimLight", ShaderPropAdd_Antipodean_RimLight, MaterialGetInt(material, ShaderPropAdd_Antipodean_RimLight )!= 0);
+                    var antipodean_RimLight = GUI_Toggle(material, "Inversed Rim Light", ShaderPropAdd_Antipodean_RimLight, MaterialGetInt(material, ShaderPropAdd_Antipodean_RimLight )!= 0);
                     EditorGUILayout.EndHorizontal();
 
                     EditorGUI.BeginDisabledGroup(!antipodean_RimLight);
                     {
                         EditorGUI.indentLevel++;
 
-                        m_MaterialEditor.ColorProperty(ap_RimLightColor, "Ap_RimLight Color");
-                        m_MaterialEditor.RangeProperty(ap_RimLight_Power, "Ap_RimLight Power");
+                        m_MaterialEditor.ColorProperty(ap_RimLightColor, "Inversed Rim Light Color");
+                        m_MaterialEditor.RangeProperty(ap_RimLight_Power, "Inversed Rim Light Power");
 
                         EditorGUILayout.BeginHorizontal();
-                        GUI_Toggle(material, "Ap_RimLight FeatherOff", ShaderPropAp_RimLight_FeatherOff, MaterialGetInt(material, ShaderPropAp_RimLight_FeatherOff) != 0);
+                        GUI_Toggle(material, "Inversed Rim Light Feather Off", ShaderPropAp_RimLight_FeatherOff, MaterialGetInt(material, ShaderPropAp_RimLight_FeatherOff) != 0);
 
 
                         EditorGUILayout.EndHorizontal();
@@ -1966,7 +1965,7 @@ namespace UnityEditor.Rendering.Toon
             GUI_Toggle(material, "2nd Shading Color", ShaderPropIs_LightColor_2nd_Shade, MaterialGetInt(material, ShaderPropIs_LightColor_2nd_Shade) != 0);
             GUI_Toggle(material, "Highlight", ShaderPropIs_LightColor_HighColor, MaterialGetInt(material, ShaderPropIs_LightColor_HighColor) != 0);
             GUI_Toggle(material, "Rim Light", ShaderPropIs_LightColor_RimLight, MaterialGetInt(material, ShaderPropIs_LightColor_RimLight) != 0);
-            GUI_Toggle(material, "Ap_RimLight", ShaderPropIs_LightColor_Ap_RimLight, MaterialGetInt(material, ShaderPropIs_LightColor_Ap_RimLight) != 0);
+            GUI_Toggle(material, "Inversed Rim Light", ShaderPropIs_LightColor_Ap_RimLight, MaterialGetInt(material, ShaderPropIs_LightColor_Ap_RimLight) != 0);
             GUI_Toggle(material, "MatCap", ShaderPropIs_LightColor_MatCap, MaterialGetInt(material, ShaderPropIs_LightColor_MatCap) != 0);
             GUI_Toggle(material, "Outline", ShaderPropIs_LightColor_Outline, MaterialGetInt(material, ShaderPropIs_LightColor_Outline) != 0);
 
@@ -2000,17 +1999,25 @@ namespace UnityEditor.Rendering.Toon
 
         void GUI_MetaverseSettings(Material material)
         {
-            m_MaterialEditor.RangeProperty(unlit_Intensity, "Metaverse Light Intensity");
-            var isBold = GUI_Toggle(material, "Metaverse Light Direction", ShaderPropIs_BLD, MaterialGetInt(material, ShaderPropIs_BLD) != 0);
-            EditorGUI.BeginDisabledGroup(!isBold);
+            float isMetaverseLightEnabled = material.GetFloat(ShaderPropUnlit_Intensity);
+            isMetaverseLightEnabled = GUI_Toggle(material, "Metaverse Light", ShaderPropUnlit_Intensity, isMetaverseLightEnabled != 0) ? 1: 0;
+            EditorGUI.BeginDisabledGroup(isMetaverseLightEnabled == 0);
+            {
+                EditorGUI.indentLevel++;
+                m_MaterialEditor.RangeProperty(unlit_Intensity, "Metaverse Light Intensity");
+                var isBold = GUI_Toggle(material, "Metaverse Light Direction", ShaderPropIs_BLD, MaterialGetInt(material, ShaderPropIs_BLD) != 0);
+                EditorGUI.BeginDisabledGroup(!isBold);
 
-            EditorGUI.indentLevel++;
-            m_MaterialEditor.RangeProperty(offset_X_Axis_BLD, "Offset X-Axis Direction");
-            m_MaterialEditor.RangeProperty(offset_Y_Axis_BLD, "Offset Y-Axis Direction");
+                EditorGUI.indentLevel++;
+                m_MaterialEditor.RangeProperty(offset_X_Axis_BLD, "Offset X-Axis Direction");
+                m_MaterialEditor.RangeProperty(offset_Y_Axis_BLD, "Offset Y-Axis Direction");
 
-            GUI_Toggle(material, "Invert Z - Axis Direction", ShaderPropInverse_Z_Axis_BLD, MaterialGetInt(material, ShaderPropInverse_Z_Axis_BLD) != 0);
+                GUI_Toggle(material, "Invert Z - Axis Direction", ShaderPropInverse_Z_Axis_BLD, MaterialGetInt(material, ShaderPropInverse_Z_Axis_BLD) != 0);
 
-            EditorGUI.indentLevel--;
+                EditorGUI.indentLevel--;
+                EditorGUI.EndDisabledGroup();
+                EditorGUI.indentLevel--;
+            }
             EditorGUI.EndDisabledGroup();
 
         }
