@@ -1192,7 +1192,10 @@ namespace UnityEditor.Rendering.Toon
             {
                 EditorGUI.indentLevel++;
                 m_MaterialEditor.RangeProperty(tweak_SystemShadowsLevel, "System Shadow Level");
-                GUI_SetRTHS(material);
+                if (UnityToonShaderSettings.instance.m_ShowDepracated)
+                {
+                    GUI_SetRTHS(material);
+                }
                 EditorGUI.indentLevel--;
                 EditorGUILayout.Space();
             }
@@ -1247,7 +1250,7 @@ namespace UnityEditor.Rendering.Toon
             EditorGUI.indentLevel++;
             m_MaterialEditor.RangeProperty(stepOffset, "Step Offset");
 
-            GUI_Toggle(material, "Point Light Highlight Filter", ShaderPropIsFilterHiCutPointLightColor, MaterialGetInt(material, ShaderPropIsFilterHiCutPointLightColor) != 0);
+            GUI_Toggle(material, "Filter Point Light Highlights", ShaderPropIsFilterHiCutPointLightColor, MaterialGetInt(material, ShaderPropIsFilterHiCutPointLightColor) != 0);
 
             EditorGUI.indentLevel--;
             EditorGUILayout.Space();
