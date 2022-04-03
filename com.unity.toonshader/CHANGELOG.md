@@ -26,7 +26,8 @@
 * Renamed `Stencil Out` to `Draw If Not Equal to`.
 * Renamed `Stencil Mask` to `Replace Stencil Buffer with`.
 * Renamed `Stencil No.` to `Stencil Value`.
-* That used to be a number field. Now it is editable with IntSlider.
+* The above used to be a number field. Now it is editable with IntSlider.
+* Renamed `Inverse MatCap Mask` to `Invert MatCap Mask`.
 * Renamed `Trans Clipping Mode` to `Clip Transparency`.
 * Renamed `Unlit Intensity` to `Metaverse Light Intensity` and `Buiilt-in light settings` are moved into `Metaverse Settings` folder in the inspector so that users can understand  setting them is not necessary for usual uses.The setting works only when no directional lights are on the scenes like some VRChat ones.
 * _Unlit_Intensity ranges defined in all the shaders are from 0 to 4. originally they were from 0.001 to 4.
@@ -41,6 +42,7 @@
 * Project Settings, but quite simple yet.
 * Help buttons to foldout headers in the inspector window, which work newer than Unity 2021.1.
 * Unity-Chan Toon Shader 2 Converter window opens when old shaders are in projects on start up or right after the package is installed.
+* Dependency to srp core take advantege of its help system.
 ### Removed:
 * Removed   `● Additional Settings` in the Inspector.
 * Removed Simple UI.
@@ -53,10 +55,10 @@
 * RTHS is not shown unless `Show deprecated features in the inspector` is checked in the `Project Settings Window`.
 ### Fixed:
 * Undo/Redo was not working on some items in the inspector window.
+* Fixed Indent in NoramMap Settings in the inspector window.
 * `Point Light High Cut Filter` Side Effects. It just shows or hides the point lights' highlight.
 * Unify the notation in the converter with Unity-Chan Toon Shader 2.
 * Fixed some popups in the inspector window not to use connected names without spaces. Each name is separated by a space.
-
 ## [0.6.1-preview] - 2022-02-24
 ### Fixed:
 * typo in inspector.
