@@ -484,23 +484,23 @@ namespace UnityEditor.Rendering.Toon
             }
         }
 
-       public static GUIContent specularModeText = new GUIContent("Specular Mode", "Specular light mode. Hard  or Soft.");
-        public static GUIContent specularBlendModeText = new GUIContent("Color Blend Mode", "Specular color blending mode. Multiply or Additive.");
-        public static GUIContent matcapBlendModeText = new GUIContent("Color Blend Mode", "MatCap color blending mode. Multiply or Additive.");
-        public static GUIContent matcapOrthoText = new GUIContent("MatCap Camera Mode", "MatCap camera mode. Perspective or Orthographic.");
-        public static GUIContent transparentModeText = new GUIContent("Transparency",
+        static readonly GUIContent specularModeText = new GUIContent("Specular Mode", "Specular light mode. Hard or Soft.");
+        static readonly GUIContent specularBlendModeText = new GUIContent("Color Blend Mode", "Specular color blending mode. Multiply or Additive.");
+        static readonly GUIContent matcapBlendModeText = new GUIContent("Color Blend Mode", "MatCap color blending mode. Multiply or Additive.");
+        static readonly GUIContent matcapOrthoText = new GUIContent("MatCap Camera Mode", "MatCap camera mode. Perspective or Orthographic.");
+        static readonly GUIContent transparentModeText = new GUIContent("Transparency",
             "Transparency  mode that fits you. ");
-        public static GUIContent workflowModeText = new GUIContent("Mode",
-            "Select a workflow that fits your textures. Choose between Standard or With Additional Control Maps.");
+        static readonly GUIContent workflowModeText = new GUIContent("Mode",
+            "Select the mode that fits your purpose. Choose between Standard or With Additional Control Maps.");
         // -----------------------------------------------------
-        public static GUIContent clippingmodeModeText0 = new GUIContent("Clipping",
-            "Select clipping mode that fits you. ");
-        public static GUIContent clippingmodeModeText1 = new GUIContent("Trans Clipping",
-            "Select clipping mode that fits you. ");
-        public static GUIContent stencilmodeModeText = new GUIContent("Stencil",
-            "Select stencil mode that fits you. ");
+        static readonly GUIContent clippingmodeModeText0 = new GUIContent("Clipping",
+            "Select clipping mode that fits your purpose. ");
+        static readonly GUIContent clippingmodeModeText1 = new GUIContent("Trans Clipping",
+            "Select trans clipping mode that fits you purpose. ");
+        static readonly GUIContent stencilmodeModeText = new GUIContent("Stencil",
+            "Select stencil mode that fits your purpose. ");
         //Specify only those that use the m_MaterialEditor method as their UI.
-        public void FindProperties(MaterialProperty[] props)
+        void FindProperties(MaterialProperty[] props)
         {
             // false is added if theare are possiblities the properties are not aveialable
             utsTechnique = FindProperty(ShaderPropUtsTechniqe, props);
@@ -620,43 +620,42 @@ namespace UnityEditor.Rendering.Toon
         //Specify only those that use the m_MaterialEditor method as their UI. For specifying textures and colors on a single line.
         private static class Styles
         {
-            public static readonly GUIContent ShaderFoldout = EditorGUIUtility.TrTextContent("Shader Settings", "Basic Shader Settings");
-            public static readonly GUIContent BasicColorFoldout = EditorGUIUtility.TrTextContent("Three Color and Control Map Settings", "");
-            public static readonly GUIContent BasicLookDevsFoldout = EditorGUIUtility.TrTextContent("Shading Step and Feather Settings", "");
-            public static readonly GUIContent HighLightFoldout = EditorGUIUtility.TrTextContent("Highlight Settings", "");
-            public static readonly GUIContent RimLightFoldout = EditorGUIUtility.TrTextContent("Rim Light Settings", "");
-            public static readonly GUIContent MatCapFoldout = EditorGUIUtility.TrTextContent("Material Capture (MatCap) Settings", "");
-            public static readonly GUIContent AngelRingFoldout = EditorGUIUtility.TrTextContent("Angel Ring Projection Settings", "");
-            public static readonly GUIContent EmissionFoldout = EditorGUIUtility.TrTextContent("Emission Settings", "");
-            public static readonly GUIContent OutlineFoldout = EditorGUIUtility.TrTextContent("Outline Settings", "");
-            public static readonly GUIContent TessellationFoldout = EditorGUIUtility.TrTextContent("Tessellation Settings", "");
-            public static readonly GUIContent MaskRenderingFoldout = EditorGUIUtility.TrTextContent("Mask Rendering Settings", "");
-            public static readonly GUIContent LightColorEffectivenessFoldout = EditorGUIUtility.TrTextContent("Scene Light Effectiveness Settings", "");
+            public static readonly GUIContent ShaderFoldout = EditorGUIUtility.TrTextContent("Shader Settings", "Basic shader settings");
+            public static readonly GUIContent BasicColorFoldout = EditorGUIUtility.TrTextContent("Three Color and Control Map Settings", "Basic 3 color and controlling map Settings");
+            public static readonly GUIContent BasicLookDevsFoldout = EditorGUIUtility.TrTextContent("Shading Step and Feather Settings", "Basic 3 color step and feather settings.");
+            public static readonly GUIContent HighLightFoldout = EditorGUIUtility.TrTextContent("Highlight Settings", "Highlight  settings. Such as power, show or hide, light shape and so on.");
+            public static readonly GUIContent RimLightFoldout = EditorGUIUtility.TrTextContent("Rim Light Settings", "Rim Light Settings. Such as color, direction, inversed rim light and so on.");
+            public static readonly GUIContent MatCapFoldout = EditorGUIUtility.TrTextContent("Material Capture (MatCap) Settings", "MatCap settings. Sphere maps for metallic or unusual expressions.");
+            public static readonly GUIContent AngelRingFoldout = EditorGUIUtility.TrTextContent("Angel Ring Projection Settings", "Angel ring projection settings. A kind of specular specialized for hairs.");
+            public static readonly GUIContent EmissionFoldout = EditorGUIUtility.TrTextContent("Emission Settings", "Emission settings. Textures, animations and so on.");
+            public static readonly GUIContent OutlineFoldout = EditorGUIUtility.TrTextContent("Outline Settings", "Outline settings. Such as width, colors and so on.");
+            public static readonly GUIContent TessellationFoldout = EditorGUIUtility.TrTextContent("Tessellation Settings", "Tessellation settings for DX11, DX12 and Mac  Metal.");
+            public static readonly GUIContent MaskRenderingFoldout = EditorGUIUtility.TrTextContent("Mask Rendering Settings", "Mask rendering setting, controlled by Visual Compositor.");
+            public static readonly GUIContent LightColorEffectivenessFoldout = EditorGUIUtility.TrTextContent("Scene Light Effectiveness Settings", "Scene light effectiveness to each parameter.");
 
-            public static readonly GUIContent MetaverseSettingsFoldout = EditorGUIUtility.TrTextContent("Metaverse Settings (Experimental)", "When no directional lights are in the scene.");
-            public static readonly GUIContent NormalMapFoldout = EditorGUIUtility.TrTextContent("NormalMap Settings", "");
-            public static readonly GUIContent ShadowControlMapFoldout = EditorGUIUtility.TrTextContent("Shadow Control Maps", "");
-            public static readonly GUIContent PointLightFoldout = EditorGUIUtility.TrTextContent("Point Light Settings", "");
-            public static readonly GUIContent AdvancedOutlineFoldout = EditorGUIUtility.TrTextContent("Advanced Outline Settings", "");
-           
+            public static readonly GUIContent MetaverseSettingsFoldout = EditorGUIUtility.TrTextContent("Metaverse Settings (Experimental)", "Default directional light when no directional lights are in the scene.");
+            public static readonly GUIContent NormalMapFoldout = EditorGUIUtility.TrTextContent("NormalMap Settings", "NormalMap settings.");
+            public static readonly GUIContent ShadowControlMapFoldout = EditorGUIUtility.TrTextContent("Shadow Control Maps", "Shadow control map settings. Such as positions and highlight filtering.");
+            public static readonly GUIContent PointLightFoldout = EditorGUIUtility.TrTextContent("Point Light Settings", "Point light settings. Such as filtering and step offset.");
+            
 
             public static readonly GUIContent baseColorText = new GUIContent("Base Map", "Base Color : Texture(sRGB) × Color(RGB) Default:White");
-            public static readonly GUIContent firstShadeColorText = new GUIContent("1st Shading Map", "1st ShadeColor : Texture(sRGB) × Color(RGB) Default:White");
-            public static readonly GUIContent secondShadeColorText = new GUIContent("2nd Shading Map", "2nd ShadeColor : Texture(sRGB) × Color(RGB) Default:White");
+            public static readonly GUIContent firstShadeColorText = new GUIContent("1st Shading Map", "1st Shading color : Texture(sRGB) × Color(RGB) Default:White");
+            public static readonly GUIContent secondShadeColorText = new GUIContent("2nd Shading Map", "2nd Shading color : Texture(sRGB) × Color(RGB) Default:White");
             public static readonly GUIContent normalMapText = new GUIContent("Normal Map", "Normal Map : Texture(bump)");
             public static readonly GUIContent highColorText = new GUIContent("Highlight", "Highlight : Texture(sRGB) × Color(RGB) Default:Black");
             public static readonly GUIContent highColorMaskText = new GUIContent("Highlight Mask", "Highlight Mask : Texture(linear)");
             public static readonly GUIContent rimLightMaskText = new GUIContent("Rim Light Mask", "Rim Light Mask : Texture(linear)");
             public static readonly GUIContent matCapSamplerText = new GUIContent("MatCap Sampler", "MatCap Sampler : Texture(sRGB) × Color(RGB) Default:White");
             public static readonly GUIContent matCapMaskText = new GUIContent("MatCap Mask", "MatCap Mask : Texture(linear)");
-            public static readonly GUIContent angelRingText = new GUIContent("Angel Ring", "AngelRing : Texture(sRGB) × Color(RGB) Default:Black");
-            public static readonly GUIContent emissiveTexText = new GUIContent("Emissive Map", "Emission : Texture(sRGB)× EmissiveMask(alpha) × Color(HDR) Default:Black");
+            public static readonly GUIContent angelRingText = new GUIContent("Angel Ring", "Angel Ring : Texture(sRGB) × Color(RGB) Default:Black");
+            public static readonly GUIContent emissiveTexText = new GUIContent("Emission Map", "Emission : Texture(sRGB)× Emission mask(alpha) × Color(HDR) Default:Black");
             public static readonly GUIContent shadingGradeMapText = new GUIContent("Shading Grade Map", "Specify shadow-prone areas in UV coordinates. Shading Grade Map : Texture(linear)");
-            public static readonly GUIContent firstPositionMapText = new GUIContent("1st Shading Position Map", "Specify the position of fixed shadows that fall in 1st shade color areas in UV coordinates. 1st Position Map : Texture(linear)");
-            public static readonly GUIContent secondPositionMapText = new GUIContent("2nd Shading Position Map", "Specify the position of fixed shadows that fall in 2nd shade color areas in UV coordinates. 2nd Position Map : Texture(linear)");
-            public static readonly GUIContent outlineSamplerText = new GUIContent("Outline Sampler", "Outline Sampler : Texture(linear)");
-            public static readonly GUIContent outlineTexText = new GUIContent("Outline tex", "Outline Tex : Texture(sRGB) Default:White");
-            public static readonly GUIContent bakedNormalOutlineText = new GUIContent("Baked NormalMap for Outline", "Unpacked Normal Map : Texture(linear) Note that this is not a standard NORMAL MAP.");
+            public static readonly GUIContent firstPositionMapText = new GUIContent("1st Shading Position Map", "Specify the position of fixed shadows that falls in 1st shade color areas in UV coordinates. 1st Position Map : Texture(linear)");
+            public static readonly GUIContent secondPositionMapText = new GUIContent("2nd Shading Position Map", "Specify the position of fixed shadows that falls in 2nd shade color areas in UV coordinates. 2nd Position Map : Texture(linear)");
+            public static readonly GUIContent outlineSamplerText = new GUIContent("Outline texture", "Outline texture : Texture(linear)");
+            public static readonly GUIContent outlineTexText = new GUIContent("Outline texture", "Outline texture : Texture(sRGB) Default:White");
+            public static readonly GUIContent bakedNormalOutlineText = new GUIContent("Baked NormalMap for Outline", "Unpacked Normal Map : Texture(linear) .Note that this is not a standard NORMAL MAP.");
             public static readonly GUIContent clippingMaskText = new GUIContent("Clipping Mask", "Clipping Mask : Texture(linear)");
         }
         // --------------------------------
@@ -741,8 +740,6 @@ namespace UnityEditor.Rendering.Toon
 
         void DrawShaderOptions(Material material)
         {
-
-
             GUI_SetCullingMode(material);
             GUI_SetRenderQueue(material);
             GUI_Tranparent(material);
@@ -783,12 +780,6 @@ namespace UnityEditor.Rendering.Toon
             }
 
             EditorGUILayout.Space();
-
-
-
-
-
-
 
         }
         public override void OnGUI(MaterialEditor materialEditor, MaterialProperty[] props)
@@ -1084,7 +1075,7 @@ namespace UnityEditor.Rendering.Toon
         {
             m_MaterialEditor.RangeProperty(tweak_transparency, "Transparency Level");
 
-            GUI_Toggle(material, "Use BaseMap Alpha as Clipping Mask", ShaderPropIsBaseMapAlphaAsClippingMask, MaterialGetInt(material, ShaderPropIsBaseMapAlphaAsClippingMask) != 0);
+            GUI_Toggle(material, "Use Base Map Alpha as Clipping Mask", ShaderPropIsBaseMapAlphaAsClippingMask, MaterialGetInt(material, ShaderPropIsBaseMapAlphaAsClippingMask) != 0);
 
         }
 
