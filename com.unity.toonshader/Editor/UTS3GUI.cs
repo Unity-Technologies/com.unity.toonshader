@@ -496,7 +496,7 @@ namespace UnityEditor.Rendering.Toon
         static readonly GUIContent clippingmodeModeText0 = new GUIContent("Clipping",
             "Select clipping mode that fits your purpose. ");
         static readonly GUIContent clippingmodeModeText1 = new GUIContent("Trans Clipping",
-            "Select trans clipping mode that fits you purpose. ");
+            "Select trans clipping mode that fits your purpose. ");
         static readonly GUIContent stencilmodeModeText = new GUIContent("Stencil",
             "Select stencil mode that fits your purpose. ");
         //Specify only those that use the m_MaterialEditor method as their UI.
