@@ -653,8 +653,8 @@ namespace UnityEditor.Rendering.Toon
             public static readonly GUIContent shadingGradeMapText = new GUIContent("Shading Grade Map", "Specify shadow-prone areas in UV coordinates. Shading Grade Map : Texture(linear)");
             public static readonly GUIContent firstPositionMapText = new GUIContent("1st Shading Position Map", "Specify the position of fixed shadows that falls in 1st shade color areas in UV coordinates. 1st Position Map : Texture(linear)");
             public static readonly GUIContent secondPositionMapText = new GUIContent("2nd Shading Position Map", "Specify the position of fixed shadows that falls in 2nd shade color areas in UV coordinates. 2nd Position Map : Texture(linear)");
-            public static readonly GUIContent outlineSamplerText = new GUIContent("Outline texture", "Outline texture : Texture(linear)");
-            public static readonly GUIContent outlineTexText = new GUIContent("Outline texture", "Outline texture : Texture(sRGB) Default:White");
+            public static readonly GUIContent outlineSamplerText = new GUIContent("Outline Width Map", "Outline Width Map as Grayscale Texture : Texture(linear)");
+            public static readonly GUIContent outlineTexText = new GUIContent("Outline Color Map", "Outline texture : Texture(sRGB) Default:White");
             public static readonly GUIContent bakedNormalOutlineText = new GUIContent("Baked NormalMap for Outline", "Unpacked Normal Map : Texture(linear) .Note that this is not a standard NORMAL MAP.");
             public static readonly GUIContent clippingMaskText = new GUIContent("Clipping Mask", "Clipping Mask : Texture(linear)");
         }
@@ -1937,7 +1937,7 @@ namespace UnityEditor.Rendering.Toon
                     m_MaterialEditor.FloatProperty(nearest_Distance, "Nearest Distance to draw with Outline Width");
                     EditorGUI.indentLevel--;
 
-                    var useOutlineTexture =  GUI_Toggle(material, "Use Outline Texture", ShaderPropIs_OutlineTex, MaterialGetInt(material, ShaderPropIs_OutlineTex)!=0); ;
+                    var useOutlineTexture =  GUI_Toggle(material, "Use Outline Color Map", ShaderPropIs_OutlineTex, MaterialGetInt(material, ShaderPropIs_OutlineTex)!=0); ;
                     EditorGUI.BeginDisabledGroup(!useOutlineTexture);
                     m_MaterialEditor.TexturePropertySingleLine(Styles.outlineTexText, outlineTex);
                     EditorGUI.EndDisabledGroup();
