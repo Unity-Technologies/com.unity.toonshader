@@ -141,6 +141,8 @@ namespace UnityEditor.Rendering.Toon
         internal const string ShaderPropIs_Ortho = "_Is_Ortho";
         internal const string ShaderPropGI_Intensity = "_GI_Intensity";
         internal const string ShaderPropUnlit_Intensity = "_Unlit_Intensity";
+
+
         internal const string ShaderPropIs_Filter_LightColor = "_Is_Filter_LightColor";
         internal const string ShaderPropIs_LightColor_1st_Shade = "_Is_LightColor_1st_Shade";
         internal const string ShaderPropIs_LightColor_2nd_Shade = "_Is_LightColor_2nd_Shade";
@@ -187,7 +189,7 @@ namespace UnityEditor.Rendering.Toon
         internal const string ShaderPropIs_BakedNormal = "_Is_BakedNormal";
         internal const string ShaderPropIs_BLD = "_Is_BLD";
         internal const string ShaderPropInverse_Z_Axis_BLD = "_Inverse_Z_Axis_BLD";
-       
+
 
         internal const string ShaderDefineIS_OUTLINE_CLIPPING_NO = "_IS_OUTLINE_CLIPPING_NO";
         internal const string ShaderDefineIS_OUTLINE_CLIPPING_YES = "_IS_OUTLINE_CLIPPING_YES";
@@ -363,7 +365,7 @@ namespace UnityEditor.Rendering.Toon
         protected MaterialProperty clippingMask = null;
         protected MaterialProperty clipping_Level = null;
         protected MaterialProperty stencilValue = null;
-        protected MaterialProperty tweak_transparency = null;
+
         protected MaterialProperty stencilMode = null;
         protected MaterialProperty mainTex = null;
         protected MaterialProperty baseColor = null;
@@ -438,9 +440,7 @@ namespace UnityEditor.Rendering.Toon
         protected MaterialProperty tessPhongStrength = null;
         protected MaterialProperty tessExtrusionAmount = null;
         protected MaterialProperty gi_Intensity = null;
-        protected MaterialProperty unlit_Intensity = null;
-        protected MaterialProperty offset_X_Axis_BLD = null;
-        protected MaterialProperty offset_Y_Axis_BLD = null;
+
         //------------------------------------------------------
 
         protected MaterialEditor m_MaterialEditor;
@@ -492,7 +492,7 @@ namespace UnityEditor.Rendering.Toon
             clippingMode = FindProperty(ShaderPropClippingMode, props);
             clipping_Level = FindProperty("_Clipping_Level", props, false);
             stencilValue = FindProperty(ShaderPropStencilNo, props);
-            tweak_transparency = FindProperty("_Tweak_transparency", props, false);
+
             stencilMode = FindProperty(ShaderPropStencilMode, props);
             mainTex = FindProperty(ShaderPropMainTex, props);
             baseColor = FindProperty("_BaseColor", props);
@@ -567,9 +567,8 @@ namespace UnityEditor.Rendering.Toon
             tessPhongStrength = FindProperty("_TessPhongStrength", props, false);
             tessExtrusionAmount = FindProperty("_TessExtrusionAmount", props, false);
             gi_Intensity = FindProperty(ShaderPropGI_Intensity, props);
-            unlit_Intensity = FindProperty(ShaderPropUnlit_Intensity, props);
-            offset_X_Axis_BLD = FindProperty("_Offset_X_Axis_BLD", props);
-            offset_Y_Axis_BLD = FindProperty("_Offset_Y_Axis_BLD", props);
+
+
 
             FindTessellationProperties(props);
         }
@@ -593,11 +592,20 @@ namespace UnityEditor.Rendering.Toon
         }
 
 
-        struct RangeProperty
+        class RangeProperty
         {
-            public  GUIContent m_GuiContent;
-            public  float min;
-            public  float max;
+            internal GUIContent m_GuiContent;
+            internal string m_propertyName;
+            internal float m_Min;
+            internal float m_Max;
+
+            internal RangeProperty(GUIContent guiContent, string propName, float min, float max)
+            {
+                m_GuiContent = guiContent;
+                m_propertyName = propName;
+                m_Min = min;
+                m_Max = max;
+            }
         };
 
 
@@ -702,7 +710,18 @@ namespace UnityEditor.Rendering.Toon
             public static readonly GUIContent invertZaxisDirection = new GUIContent("Invert Z-Axis Direction", "Invert Metaverse light Z-Axis Direction.");
 
             // range property
-            public static readonly RangeProperty metaverseRangePropText = new RangeProperty() { m_GuiContent = new GUIContent("Metaverse Light Intensity","Light intensity when no directional lights in the scene. min:0 max:4" ), min =0.0f, max = 4.0f} ;
+            public static readonly RangeProperty metaverseRangePropText = new RangeProperty(
+                new GUIContent("Metaverse Light Intensity", "Light intensity when no directional lights in the scene. The range is from 0 to 4."),
+                ShaderPropUnlit_Intensity,  0.0f, 4.0f);
+            public static readonly RangeProperty metaverseOffsettXaxisText = new RangeProperty(
+                new GUIContent("Offset X-Axis Direction", "TBD. The range is from -1 to 1."),
+                "_Offset_X_Axis_BLD", -1.0f,1.0f);
+            public static readonly RangeProperty metaverseOffsettYaxisText = new RangeProperty(
+                new GUIContent("Offset Y-Axis Direction", "TBD. The range is from -1 to 1."),
+                "_Offset_Y_Axis_BLD", -1.0f, 1.0f);
+            public static readonly RangeProperty tweakTransParencyText = new RangeProperty(
+                new GUIContent("Transparency Level", "TBD. The range is from -1 to 1."),
+                "_Tweak_transparency", -1.0f, 1.0f);
 
         }
         // --------------------------------
@@ -971,9 +990,9 @@ namespace UnityEditor.Rendering.Toon
             return ret;
         }
 
-        float GUI_RangeProperty(Material material, string propName, RangeProperty rangeProp)
+        float GUI_RangeProperty(Material material, RangeProperty rangeProp)
         {
-            return GUI_RangeProperty(material, rangeProp.m_GuiContent, propName, rangeProp.min, rangeProp.max);
+            return GUI_RangeProperty(material, rangeProp.m_GuiContent, rangeProp.m_propertyName, rangeProp.m_Min, rangeProp.m_Max);
         }
         float GUI_RangeProperty(Material material, GUIContent guiContent, string propName,  float min, float max )
         {
@@ -1139,10 +1158,8 @@ namespace UnityEditor.Rendering.Toon
 
         void GUI_SetTransparencySetting(Material material)
         {
-            m_MaterialEditor.RangeProperty(tweak_transparency, "Transparency Level");
-
+            GUI_RangeProperty(material, Styles.tweakTransParencyText );
             GUI_Toggle(material, Styles.baseMapAlphaAsClippingMask, ShaderPropIsBaseMapAlphaAsClippingMask, MaterialGetInt(material, ShaderPropIsBaseMapAlphaAsClippingMask) != 0);
-
         }
 
 
@@ -2081,14 +2098,15 @@ namespace UnityEditor.Rendering.Toon
             EditorGUI.BeginDisabledGroup(isMetaverseLightEnabled == 0);
             {
                 EditorGUI.indentLevel++;
-                GUI_RangeProperty(material, ShaderPropUnlit_Intensity, Styles.metaverseRangePropText);
+                GUI_RangeProperty(material, Styles.metaverseRangePropText);
 
                 var isBold = GUI_Toggle(material, Styles.metaverseLightDirectionText, ShaderPropIs_BLD, MaterialGetInt(material, ShaderPropIs_BLD) != 0);
                 EditorGUI.BeginDisabledGroup(!isBold);
 
                 EditorGUI.indentLevel++;
-                m_MaterialEditor.RangeProperty(offset_X_Axis_BLD, "Offset X-Axis Direction");
-                m_MaterialEditor.RangeProperty(offset_Y_Axis_BLD, "Offset Y-Axis Direction");
+                GUI_RangeProperty(material, Styles.metaverseOffsettXaxisText);
+                GUI_RangeProperty(material, Styles.metaverseOffsettYaxisText);
+
 
                 GUI_Toggle(material, Styles.invertZaxisDirection, ShaderPropInverse_Z_Axis_BLD, MaterialGetInt(material, ShaderPropInverse_Z_Axis_BLD) != 0);
 
