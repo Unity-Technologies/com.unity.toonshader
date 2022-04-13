@@ -595,13 +595,13 @@ namespace UnityEditor.Rendering.Toon
         class RangeProperty
         {
             internal GUIContent m_GuiContent;
-            internal string m_propertyName;
+            internal readonly string m_propertyName;
             internal float m_Min;
             internal float m_Max;
 
-            internal RangeProperty(GUIContent guiContent, string propName, float min, float max)
+            internal RangeProperty(string label, string tooltip, string propName, float min, float max)
             {
-                m_GuiContent = guiContent;
+                m_GuiContent = new GUIContent(label,tooltip + " The rage is from " +  min + " to " + max + ".");
                 m_propertyName = propName;
                 m_Min = min;
                 m_Max = max;
@@ -711,16 +711,17 @@ namespace UnityEditor.Rendering.Toon
 
             // range property
             public static readonly RangeProperty metaverseRangePropText = new RangeProperty(
-                new GUIContent("Metaverse Light Intensity", "Light intensity when no directional lights in the scene. The range is from 0 to 4."),
+                "Metaverse Light Intensity", 
+                "Light intensity when no directional lights in the scene.",
                 ShaderPropUnlit_Intensity,  0.0f, 4.0f);
             public static readonly RangeProperty metaverseOffsettXaxisText = new RangeProperty(
-                new GUIContent("Offset X-Axis Direction", "TBD. The range is from -1 to 1."),
+                "Offset X-Axis Direction", "TBD.",
                 "_Offset_X_Axis_BLD", -1.0f,1.0f);
             public static readonly RangeProperty metaverseOffsettYaxisText = new RangeProperty(
-                new GUIContent("Offset Y-Axis Direction", "TBD. The range is from -1 to 1."),
+                "Offset Y-Axis Direction", "TBD.",
                 "_Offset_Y_Axis_BLD", -1.0f, 1.0f);
             public static readonly RangeProperty tweakTransParencyText = new RangeProperty(
-                new GUIContent("Transparency Level", "TBD. The range is from -1 to 1."),
+                "Transparency Level", "TBD.",
                 "_Tweak_transparency", -1.0f, 1.0f);
 
         }
