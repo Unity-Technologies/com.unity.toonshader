@@ -593,6 +593,13 @@ namespace UnityEditor.Rendering.Toon
         }
 
 
+        struct RangeProperty
+        {
+            public  GUIContent m_GuiContent;
+            public  float min;
+            public  float max;
+        };
+
 
 
         // --------------------------------
@@ -650,7 +657,7 @@ namespace UnityEditor.Rendering.Toon
             public static readonly GUIContent cullingModeText = new GUIContent("Culling Mode", "Culling mode that fits your purpose. ");
 
             // ----------------------------------------------------- for GUI Toggles
-            public static readonly GUIContent autoRenderQueueText = new GUIContent("Auto Render Queue", "Reqndering orderis determined by system automatically.");
+            public static readonly GUIContent autoRenderQueueText = new GUIContent("Auto Render Queue", "When enabled, reqndering order is determined by system automatically.");
             public static readonly GUIContent invertClippingMaskText = new GUIContent("Invert Clipping Mask", "Invert clipping mask results.");
             public static readonly GUIContent baseMapAlphaAsClippingMask = new GUIContent("Use Base Map Alpha as Clipping Mask", "Use Base Map Alpha as Clipping Mask instead of Clipping mask texture.");
             public static readonly GUIContent applyTo1stShademapText = new GUIContent("Apply to 1st shading map", "Apply Base map to the 1st shading map.");
@@ -693,6 +700,10 @@ namespace UnityEditor.Rendering.Toon
             public static readonly GUIContent metaverseLightText = new GUIContent("Metaverse Light","UTS requires at least one directional light, Some Metaverse scenes,however does not. In such case this feature is helpful.");
             public static readonly GUIContent metaverseLightDirectionText = new GUIContent("Metaverse Light Direction", "Drection of above.");
             public static readonly GUIContent invertZaxisDirection = new GUIContent("Invert Z-Axis Direction", "Invert Metaverse light Z-Axis Direction.");
+
+            // range property
+            public static readonly RangeProperty metaverseRangePropText = new RangeProperty() { m_GuiContent = new GUIContent("Metaverse Light Intensity","Light intensity when no directional lights in the scene. min:0 max:4" ), min =0.0f, max = 4.0f} ;
+
         }
         // --------------------------------
 
@@ -959,6 +970,25 @@ namespace UnityEditor.Rendering.Toon
             }
             return ret;
         }
+
+        float GUI_RangeProperty(Material material, string propName, RangeProperty rangeProp)
+        {
+            return GUI_RangeProperty(material, rangeProp.m_GuiContent, propName, rangeProp.min, rangeProp.max);
+        }
+        float GUI_RangeProperty(Material material, GUIContent guiContent, string propName,  float min, float max )
+        {
+            float ret = material.GetFloat(propName);
+            EditorGUI.BeginChangeCheck();
+            ret = EditorGUILayout.Slider(guiContent, ret, min, max );
+
+            if (EditorGUI.EndChangeCheck())
+            {
+                m_MaterialEditor.RegisterPropertyChangeUndo(guiContent.text);
+                material.SetFloat( propName, ret);
+            }
+            return ret;
+        }
+
         bool GUI_Toggle(Material material, GUIContent guiContent, string prop, bool value)
         {
             EditorGUI.BeginChangeCheck();
@@ -2051,7 +2081,8 @@ namespace UnityEditor.Rendering.Toon
             EditorGUI.BeginDisabledGroup(isMetaverseLightEnabled == 0);
             {
                 EditorGUI.indentLevel++;
-                m_MaterialEditor.RangeProperty(unlit_Intensity, "Metaverse Light Intensity");
+                GUI_RangeProperty(material, ShaderPropUnlit_Intensity, Styles.metaverseRangePropText);
+
                 var isBold = GUI_Toggle(material, Styles.metaverseLightDirectionText, ShaderPropIs_BLD, MaterialGetInt(material, ShaderPropIs_BLD) != 0);
                 EditorGUI.BeginDisabledGroup(!isBold);
 

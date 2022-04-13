@@ -57,6 +57,7 @@
 * Dependency to srp core take advantege of its help system.
 * Added Tips to Culling Mode popup menu in the inspector window.
 * Added Tips to GUI Toggles in the inspector window.
+* Added Tips to Range Properties in the inspector window.
 ### Removed:
 * Removed   `● Additional Settings` in the Inspector window.
 * Removed Simple UI.
