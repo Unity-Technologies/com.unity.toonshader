@@ -381,14 +381,6 @@ namespace UnityEditor.Rendering.Toon
         protected MaterialProperty tweak_ShadingGradeMapLevel = null;
         protected MaterialProperty blurLevelSGM = null;
 
-
-
-
-
-        protected MaterialProperty first_ShadeColor_Step = null;
-        protected MaterialProperty first_ShadeColor_Feather = null;
-        protected MaterialProperty second_ShadeColor_Step = null;
-        protected MaterialProperty second_ShadeColor_Feather = null;
         protected MaterialProperty stepOffset = null;
         protected MaterialProperty highColor_Tex = null;
         protected MaterialProperty highColor = null;
@@ -507,11 +499,6 @@ namespace UnityEditor.Rendering.Toon
             tweak_ShadingGradeMapLevel = FindProperty("_Tweak_ShadingGradeMapLevel", props, false);
             blurLevelSGM = FindProperty("_BlurLevelSGM", props, false);
 
-
-            first_ShadeColor_Step = FindProperty(ShaderProp1st_ShadeColor_Step, props);
-            first_ShadeColor_Feather = FindProperty(ShaderProp1st_ShadeColor_Feather, props);
-            second_ShadeColor_Step = FindProperty(ShaderProp2nd_ShadeColor_Step, props);
-            second_ShadeColor_Feather = FindProperty(ShaderProp2nd_ShadeColor_Feather, props);
             stepOffset = FindProperty("_StepOffset", props, false);
             highColor_Tex = FindProperty(ShaderProp_HighColor_Tex, props);
             highColor = FindProperty("_HighColor", props);
@@ -736,6 +723,8 @@ namespace UnityEditor.Rendering.Toon
             public static readonly RangeProperty tweakSystemShadowLevelText = new RangeProperty(
                 "System Shadow Level", "TBD.",
                 "_Tweak_SystemShadowsLevel",-0.5f, 0.5f);
+
+
             public static readonly RangeProperty shaderPropBaseColorText = new RangeProperty(
                 "Base Color Step", "TBD.",
                 ShaderPropBaseColor_Step, 0, 1 );
@@ -748,6 +737,19 @@ namespace UnityEditor.Rendering.Toon
             public static readonly RangeProperty shaderProp1st2nd_Shades_FeatherText = new RangeProperty(
                 "1st/2nd Shading Feather", "TBD.",
                 ShaderProp1st2nd_Shades_Feather, 0.0001f, 1);
+
+            public static readonly RangeProperty shaderProp1st_ShadeColor_StepText = new RangeProperty(
+                "1st Shade Color Step", "TBD.",
+                ShaderProp1st_ShadeColor_Step, 0, 1);
+            public static readonly RangeProperty shaderProp1st_ShadeColor_FeatherText = new RangeProperty(
+                "1st Shade Color Feather", "TBD.",
+                ShaderProp1st_ShadeColor_Feather, 0.0001f, 1);
+            public static readonly RangeProperty shaderProp2nd_ShadeColor_StepText = new RangeProperty(
+                "2nd Shade Color Step", "TBD.",
+                ShaderProp2nd_ShadeColor_Step, 0, 1);
+            public static readonly RangeProperty shaderProp2nd_ShadeColor_FeatherText = new RangeProperty(
+                "2nd Shade Color Feather", "TBD.",
+                ShaderProp2nd_ShadeColor_Feather, 0.0001f, 1);
         }
         // --------------------------------
 
@@ -1336,10 +1338,12 @@ namespace UnityEditor.Rendering.Toon
                 else if (mode == (int)UTS_Mode.ShadingGradeMap)
                 {    //SGM
                     EditorGUILayout.LabelField("Mode: With Additional Control Maps", EditorStyles.boldLabel);
-                    m_MaterialEditor.RangeProperty(first_ShadeColor_Step, "1st Shade Color Step");
-                    m_MaterialEditor.RangeProperty(first_ShadeColor_Feather, "1st Shade Color Feather");
-                    m_MaterialEditor.RangeProperty(second_ShadeColor_Step, "2nd Shade Color Step");
-                    m_MaterialEditor.RangeProperty(second_ShadeColor_Feather, "2nd Shade Color Feather");
+
+                    GUI_RangeProperty(material, Styles.shaderProp1st_ShadeColor_StepText);
+                    GUI_RangeProperty(material, Styles.shaderProp1st_ShadeColor_FeatherText);
+                    GUI_RangeProperty(material, Styles.shaderProp2nd_ShadeColor_StepText);
+                    GUI_RangeProperty(material, Styles.shaderProp2nd_ShadeColor_FeatherText);
+
                     //Share variables with DoubleWithFeather method.
                     material.SetFloat(ShaderPropBaseColor_Step, material.GetFloat(ShaderProp1st_ShadeColor_Step));
                     material.SetFloat(ShaderPropBaseShade_Feather, material.GetFloat(ShaderProp1st_ShadeColor_Feather));
