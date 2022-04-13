@@ -37,6 +37,15 @@
 * `Advanced settings` in Outline foldout header are always shown.
 * Renamed `Outline Sampler` in Ontline foldout header to `Outline Width Map`.
 * Renamed `Outline-tex` in Ontline foldout header to `Outline Color Map`.
+* Renamed Culling mode itemes from `CullingOff`, `FrontCulling` and `BackCulling` to `Off`, `Frontface` and `Backface`.
+* Renamed `Receive System Shadows` to `Receive Shadows`.
+* Renamed `Shadow Mask on Highlights` to `Dim Highlights in Shadow Area`.
+* Renamed `Highlight Power on Shadows` to `Highlight Power in Shadow area`.
+* Renamed `Camera Rolling Stabilizer` to `Stabilize Camera Rolling`.
+* Renamed `ViewShift of Color` to `Color Shifting with View Angle`.
+* Renamed `ViewShift` to `Shifting Target Color`.
+* Renamed `Use Outline Texture` to `Outline Color Map`.
+* Renamed `Use Baked Normal for Outline` to `Baked Normalmap`.
 ### Added:
 * Legacy: Compatibility with Single Pass Stereo Rendering.
 * Legacy: Graphics Test 2022.2.
@@ -46,8 +55,10 @@
 * Help buttons to foldout headers in the inspector window, which work newer than Unity 2021.1.
 * Unity-Chan Toon Shader 2 Converter window opens when old shaders are in projects on start up or right after the package is installed.
 * Dependency to srp core take advantege of its help system.
+* Added Tips to Culling Mode popup menu in the inspector window.
+* Added Tips to GUI Toggles in the inspector window.
 ### Removed:
-* Removed   `● Additional Settings` in the Inspector.
+* Removed   `● Additional Settings` in the Inspector window.
 * Removed Simple UI.
 * Removed Japanese and English manual link buttons.
 * Removed Game Recommendation window and changed the default values of shader variables.
