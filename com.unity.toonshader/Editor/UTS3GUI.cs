@@ -378,13 +378,11 @@ namespace UnityEditor.Rendering.Toon
         protected MaterialProperty set_1st_ShadePosition = null;
         protected MaterialProperty set_2nd_ShadePosition = null;
         protected MaterialProperty shadingGradeMap = null;
-        protected MaterialProperty tweak_ShadingGradeMapLevel = null;
-        protected MaterialProperty blurLevelSGM = null;
 
-        protected MaterialProperty stepOffset = null;
+
+
         protected MaterialProperty highColor_Tex = null;
         protected MaterialProperty highColor = null;
-        protected MaterialProperty highColor_Power = null;
 
         protected MaterialProperty set_HighColorMask = null;
         protected MaterialProperty tweak_HighColorMaskLevel = null;
@@ -496,13 +494,10 @@ namespace UnityEditor.Rendering.Toon
             set_1st_ShadePosition = FindProperty(ShaderProp_Set_1st_ShadePosition, props, false);
             set_2nd_ShadePosition = FindProperty(ShaderProp_Set_2nd_ShadePosition, props, false);
             shadingGradeMap = FindProperty(ShaderProp_ShadingGradeMap, props, false);
-            tweak_ShadingGradeMapLevel = FindProperty("_Tweak_ShadingGradeMapLevel", props, false);
-            blurLevelSGM = FindProperty("_BlurLevelSGM", props, false);
 
-            stepOffset = FindProperty("_StepOffset", props, false);
+
             highColor_Tex = FindProperty(ShaderProp_HighColor_Tex, props);
             highColor = FindProperty("_HighColor", props);
-            highColor_Power = FindProperty("_HighColor_Power", props);
 
             set_HighColorMask = FindProperty(ShaderProp_Set_HighColorMask, props);
             tweak_HighColorMaskLevel = FindProperty("_Tweak_HighColorMaskLevel", props);
@@ -618,7 +613,7 @@ namespace UnityEditor.Rendering.Toon
             public static readonly GUIContent firstShadeColorText = new GUIContent("1st Shading Map", "1st Shading color : Texture(sRGB) × Color(RGB) Default:White");
             public static readonly GUIContent secondShadeColorText = new GUIContent("2nd Shading Map", "2nd Shading color : Texture(sRGB) × Color(RGB) Default:White");
             public static readonly GUIContent normalMapText = new GUIContent("Normal Map", "Normal Map : Texture(bump)");
-            public static readonly GUIContent highColorText = new GUIContent("Highlight", "Highlight : Texture(sRGB) × Color(RGB) Default:Black");
+            public static readonly GUIContent highColorText = new GUIContent("Highlight", "Highlight : Texture(sRGB) × Color(RGB) Default:White");
             public static readonly GUIContent highColorMaskText = new GUIContent("Highlight Mask", "Highlight Mask : Texture(linear)");
             public static readonly GUIContent rimLightMaskText = new GUIContent("Rim Light Mask", "Rim Light Mask : Texture(linear)");
             public static readonly GUIContent matCapSamplerText = new GUIContent("MatCap Sampler", "MatCap Sampler : Texture(sRGB) × Color(RGB) Default:White");
@@ -750,6 +745,25 @@ namespace UnityEditor.Rendering.Toon
             public static readonly RangeProperty shaderProp2nd_ShadeColor_FeatherText = new RangeProperty(
                 "2nd Shade Color Feather", "TBD.",
                 ShaderProp2nd_ShadeColor_Feather, 0.0001f, 1);
+
+            public static readonly RangeProperty shaderPropStepOffsetText = new RangeProperty(
+                "Step Offset", "TBD.",
+                "_StepOffset", -0.5f, 0.5f);
+            public static readonly RangeProperty shaderPropHilightPowerText = new RangeProperty(
+                "Highlight Power", "Highlight power factor, pow(x,5) is used inside the shader.",
+                "_HighColor_Power", 0, 1);
+
+            public static readonly RangeProperty hilightMaskLevelText = new RangeProperty(
+                "Highlight Mask Level", "Highlight mask texture blending level to highlights.",
+                "_Tweak_HighColorMaskLevel", -1, 1);
+
+            public static readonly RangeProperty shadingGradeMapLevelText = new RangeProperty(
+                "ShadingGradeMap Level", "Level-corrects the grayscale values in the Shading Grade Map.",
+                "_Tweak_ShadingGradeMapLevel", -0.5f, 0.5f);
+
+            public static readonly RangeProperty blureLevelSGMText = new RangeProperty(
+                "ShadingGradeMap Blur Level", "The Mip Map feature is used to blur the Shading Grade Map; to enable Mip Map, turn on Advanced > Generate Mip Maps in the Texture Import Settings. The default is 0 (no blur).",
+                "_BlurLevelSGM", 0, 10);
         }
         // --------------------------------
 
@@ -1266,8 +1280,8 @@ namespace UnityEditor.Rendering.Toon
                 {    
                     EditorGUILayout.LabelField("Mode: With Additional Control Maps", EditorStyles.boldLabel);
                     m_MaterialEditor.TexturePropertySingleLine(Styles.shadingGradeMapText, shadingGradeMap);
-                    m_MaterialEditor.RangeProperty(tweak_ShadingGradeMapLevel, "ShadingGradeMap Level");
-                    m_MaterialEditor.RangeProperty(blurLevelSGM, "Blur Level of ShadingGradeMap");
+                    GUI_RangeProperty(material, Styles.shadingGradeMapLevelText);
+                    GUI_RangeProperty(material, Styles.blureLevelSGMText);
                 }
             }
         }
@@ -1280,16 +1294,12 @@ namespace UnityEditor.Rendering.Toon
             {
                 GUI_SystemShadows(material);
 
-                if (material.HasProperty("_StepOffset"))//Items not in Mobile & Light Mode.                
+                _AdditionalLookdevs_Foldout = FoldoutSubMenu(_AdditionalLookdevs_Foldout, Styles.pointLightFoldout);
+                if (_AdditionalLookdevs_Foldout)
                 {
-
-                    _AdditionalLookdevs_Foldout = FoldoutSubMenu(_AdditionalLookdevs_Foldout, Styles.pointLightFoldout);
-                    if (_AdditionalLookdevs_Foldout)
-                    {
-                        GUI_AdditionalLookdevs(material);
-                    }
-
+                    GUI_AdditionalLookdevs(material);
                 }
+
             }
         }
 
@@ -1363,8 +1373,7 @@ namespace UnityEditor.Rendering.Toon
         {
 
             EditorGUI.indentLevel++;
-            m_MaterialEditor.RangeProperty(stepOffset, "Step Offset");
-
+            GUI_RangeProperty(material, Styles.shaderPropStepOffsetText);
             GUI_Toggle(material, Styles.filterPointLightText, ShaderPropIsFilterHiCutPointLightColor, MaterialGetInt(material, ShaderPropIsFilterHiCutPointLightColor) != 0);
 
             EditorGUI.indentLevel--;
@@ -1375,7 +1384,7 @@ namespace UnityEditor.Rendering.Toon
         void GUI_HighlightSettings(Material material)
         {
             m_MaterialEditor.TexturePropertySingleLine(Styles.highColorText, highColor_Tex, highColor);
-            m_MaterialEditor.RangeProperty(highColor_Power, "Highlight Power");
+            GUI_RangeProperty(material, Styles.shaderPropHilightPowerText);
 
             if (!_SimpleUI)
             {
@@ -1441,7 +1450,8 @@ namespace UnityEditor.Rendering.Toon
             EditorGUILayout.LabelField("Highlight Mask", EditorStyles.boldLabel);
             EditorGUI.indentLevel++;
             m_MaterialEditor.TexturePropertySingleLine(Styles.highColorMaskText, set_HighColorMask);
-            m_MaterialEditor.RangeProperty(tweak_HighColorMaskLevel, "Highlight Mask Level");
+            GUI_RangeProperty(material, Styles.hilightMaskLevelText);
+            
             EditorGUI.indentLevel--;
 
             EditorGUILayout.Space();

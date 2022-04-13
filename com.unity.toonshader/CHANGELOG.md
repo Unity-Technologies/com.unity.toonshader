@@ -49,6 +49,7 @@
 * Renamed `HighColor Power on Shadow` to `Brightness on Shadows`.
 * Renamed `MatCap Power on Shadow` to `MatCap Blending on Shadows`.
 * Renamed `Color Shift Speed` to `Color Shifting Speed`.
+* Renamed `Blur Level of ShadingGradeMap` to `ShadingGradeMap Blur Level`.
 ### Added:
 * Legacy: Compatibility with Single Pass Stereo Rendering.
 * Legacy: Graphics Test 2022.2.
