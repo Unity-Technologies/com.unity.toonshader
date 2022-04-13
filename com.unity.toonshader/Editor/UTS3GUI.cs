@@ -389,16 +389,15 @@ namespace UnityEditor.Rendering.Toon
         protected MaterialProperty rimLightColor = null;
         protected MaterialProperty rimLight_Power = null;
         protected MaterialProperty rimLight_InsideMask = null;
-        protected MaterialProperty tweak_LightDirection_MaskLevel = null;
+
         protected MaterialProperty ap_RimLightColor = null;
         protected MaterialProperty ap_RimLight_Power = null;
         protected MaterialProperty set_RimLightMask = null;
-        protected MaterialProperty tweak_RimLightMaskLevel = null;
+
         protected MaterialProperty matCap_Sampler = null;
         protected MaterialProperty matCapColor = null;
-        protected MaterialProperty blurLevelMatcap = null;
-        protected MaterialProperty tweak_MatCapUV = null;
-        protected MaterialProperty rotate_MatCapUV = null;
+
+
         protected MaterialProperty normalMapForMatCap = null;
         protected MaterialProperty bumpScaleMatcap = null;
         protected MaterialProperty rotate_NormalMapForMatCapUV = null;
@@ -504,16 +503,14 @@ namespace UnityEditor.Rendering.Toon
             rimLightColor = FindProperty("_RimLightColor", props);
             rimLight_Power = FindProperty("_RimLight_Power", props);
             rimLight_InsideMask = FindProperty("_RimLight_InsideMask", props);
-            tweak_LightDirection_MaskLevel = FindProperty("_Tweak_LightDirection_MaskLevel", props);
+
             ap_RimLightColor = FindProperty("_Ap_RimLightColor", props);
             ap_RimLight_Power = FindProperty("_Ap_RimLight_Power", props);
             set_RimLightMask = FindProperty(ShaderProp_Set_RimLightMask, props);
-            tweak_RimLightMaskLevel = FindProperty("_Tweak_RimLightMaskLevel", props);
+
             matCap_Sampler = FindProperty(ShaderProp_MatCap_Sampler, props);
             matCapColor = FindProperty("_MatCapColor", props);
-            blurLevelMatcap = FindProperty("_BlurLevelMatcap", props);
-            tweak_MatCapUV = FindProperty("_Tweak_MatCapUV", props);
-            rotate_MatCapUV = FindProperty("_Rotate_MatCapUV", props);
+
             normalMapForMatCap = FindProperty("_NormalMapForMatCap", props);
             bumpScaleMatcap = FindProperty("_BumpScaleMatcap", props);
             rotate_NormalMapForMatCapUV = FindProperty("_Rotate_NormalMapForMatCapUV", props);
@@ -544,8 +541,6 @@ namespace UnityEditor.Rendering.Toon
             tessPhongStrength = FindProperty("_TessPhongStrength", props, false);
             tessExtrusionAmount = FindProperty("_TessExtrusionAmount", props, false);
             gi_Intensity = FindProperty(ShaderPropGI_Intensity, props);
-
-
 
             FindTessellationProperties(props);
         }
@@ -616,7 +611,7 @@ namespace UnityEditor.Rendering.Toon
             public static readonly GUIContent highColorText = new GUIContent("Highlight", "Highlight : Texture(sRGB) × Color(RGB) Default:White");
             public static readonly GUIContent highColorMaskText = new GUIContent("Highlight Mask", "Highlight Mask : Texture(linear)");
             public static readonly GUIContent rimLightMaskText = new GUIContent("Rim Light Mask", "Rim Light Mask : Texture(linear)");
-            public static readonly GUIContent matCapSamplerText = new GUIContent("MatCap Sampler", "MatCap Sampler : Texture(sRGB) × Color(RGB) Default:White");
+            public static readonly GUIContent matCapSamplerText = new GUIContent("MatCap Map", "MatCap Color : Texture(sRGB) × Color(RGB) Default:White");
             public static readonly GUIContent matCapMaskText = new GUIContent("MatCap Mask", "MatCap Mask : Texture(linear)");
             public static readonly GUIContent angelRingText = new GUIContent("Angel Ring", "Angel Ring : Texture(sRGB) × Color(RGB) Default:Black");
             public static readonly GUIContent emissiveTexText = new GUIContent("Emission Map", "Emission : Texture(sRGB)× Emission mask(alpha) × Color(HDR) Default:Black");
@@ -764,6 +759,26 @@ namespace UnityEditor.Rendering.Toon
             public static readonly RangeProperty blureLevelSGMText = new RangeProperty(
                 "ShadingGradeMap Blur Level", "The Mip Map feature is used to blur the Shading Grade Map; to enable Mip Map, turn on Advanced > Generate Mip Maps in the Texture Import Settings. The default is 0 (no blur).",
                 "_BlurLevelSGM", 0, 10);
+
+            public static readonly RangeProperty rimLightMaskLevelText = new RangeProperty(
+                "Rim Light Mask Level", "TBD.",
+                "_Tweak_RimLightMaskLevel", -1, 1);
+
+            public static readonly RangeProperty lightDirectionMaskLevelText = new RangeProperty(
+                "Light Direction Mask Level", "The Level of above.",
+                "_Tweak_LightDirection_MaskLevel", 0f, 0.5f);
+
+            public static readonly RangeProperty tweakMatCapUVText = new RangeProperty(
+                "Scale MatCap UV", "Scaling UV of MatCap Color Map",
+                "_Tweak_MatCapUV", -0.5f, 0.5f);
+
+            public static readonly RangeProperty rotateMatCapUVText = new RangeProperty(
+                "Rotate MatCap UV", "Rotating UV of MatCap Color Map.",
+                "_Rotate_MatCapUV", -1, 1);
+
+            public static readonly RangeProperty matcapBlurLevelText = new RangeProperty(
+                "MatCap Blur Level", "Blur MatCap_Sampler using the Mip Map feature; to enable Mip Map, turn on Advanced > Generate Mip Maps in the Texture Import Settings. Default is 0 (no blur).",
+                "_BlurLevelMatcap", 0, 10);
         }
         // --------------------------------
 
@@ -1485,7 +1500,7 @@ namespace UnityEditor.Rendering.Toon
                 EditorGUI.BeginDisabledGroup(!direcitonMaskEnabled);
                 {
                     EditorGUI.indentLevel++;
-                    m_MaterialEditor.RangeProperty(tweak_LightDirection_MaskLevel, "Light Direction Mask Level");
+                    GUI_RangeProperty(material, Styles.lightDirectionMaskLevelText);
 
                     EditorGUILayout.BeginHorizontal();
                     var antipodean_RimLight = GUI_Toggle(material, Styles.inversedRimlightText, ShaderPropAdd_Antipodean_RimLight, MaterialGetInt(material, ShaderPropAdd_Antipodean_RimLight )!= 0);
@@ -1519,7 +1534,7 @@ namespace UnityEditor.Rendering.Toon
             //EditorGUILayout.Space();
 
             m_MaterialEditor.TexturePropertySingleLine(Styles.rimLightMaskText, set_RimLightMask);
-            m_MaterialEditor.RangeProperty(tweak_RimLightMaskLevel, "Rim Light Mask Level");
+            GUI_RangeProperty(material, Styles.rimLightMaskLevelText);
 
             //EditorGUI.indentLevel--;
 
@@ -1547,14 +1562,13 @@ namespace UnityEditor.Rendering.Toon
             if (!_SimpleUI)
             {
 
-                m_MaterialEditor.RangeProperty(blurLevelMatcap, "Blur Level of MatCap Sampler");
-
+                GUI_RangeProperty(material, Styles.matcapBlurLevelText);
                 EditorGUILayout.BeginHorizontal();
                 DoPopup(Styles.matcapBlendModeText, matcapBlendMode, System.Enum.GetNames(typeof(UTS_MatcapColorBlendMode)));
                 EditorGUILayout.EndHorizontal();
 
-                m_MaterialEditor.RangeProperty(tweak_MatCapUV, "Scale MatCap UV");
-                m_MaterialEditor.RangeProperty(rotate_MatCapUV, "Rotate MatCap UV");
+                GUI_RangeProperty(material, Styles.tweakMatCapUVText);
+                GUI_RangeProperty(material, Styles.rotateMatCapUVText);
 
                 EditorGUILayout.BeginHorizontal();
                 GUI_Toggle(material, Styles.camearRollingStabilizerText, ShaderPropCameraRolling_Stabilizer, MaterialGetInt(material, ShaderPropCameraRolling_Stabilizer) != 0);
