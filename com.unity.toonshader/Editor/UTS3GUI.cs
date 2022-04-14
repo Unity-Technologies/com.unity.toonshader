@@ -419,8 +419,7 @@ namespace UnityEditor.Rendering.Toon
         protected MaterialProperty outline_Color = null;
         protected MaterialProperty outline_Sampler = null;
         protected MaterialProperty offset_Z = null;
-        protected MaterialProperty farthest_Distance = null;
-        protected MaterialProperty nearest_Distance = null;
+
         protected MaterialProperty outlineTex = null;
         protected MaterialProperty bakedNormal = null;
 
@@ -526,8 +525,7 @@ namespace UnityEditor.Rendering.Toon
             outline_Color = FindProperty("_Outline_Color", props, false);
             outline_Sampler = FindProperty(ShaderProp_Outline_Sampler, props, false);
             offset_Z = FindProperty("_Offset_Z", props, false);
-            farthest_Distance = FindProperty("_Farthest_Distance", props, false);
-            nearest_Distance = FindProperty("_Nearest_Distance", props, false);
+
             outlineTex = FindProperty(ShaderProp_OutlineTex, props, false);
             bakedNormal = FindProperty("_BakedNormal", props, false);
 
@@ -578,7 +576,7 @@ namespace UnityEditor.Rendering.Toon
             internal float m_defaultValue;
             internal FloatProperty(string label, string tooltip, string propName, float defaultValue)
             {
-                m_GuiContent = new GUIContent(label, tooltip );
+                m_GuiContent = new GUIContent(label, tooltip + " The default value is " + defaultValue + ".");
                 m_propertyName = propName;
                 m_defaultValue = defaultValue;
             }
@@ -836,6 +834,14 @@ namespace UnityEditor.Rendering.Toon
             public static readonly FloatProperty outlineWidthText = new FloatProperty(label: "Outline Width",
                 tooltip: "Specifies the width of the outline. NOTICE: This value relies on the scale when the model was imported to Unity which means that you have to be careful if the scale is not 1.",
                 propName: "_Outline_Width", defaultValue: 0);
+
+            public static readonly FloatProperty farthestDistanceText = new FloatProperty(label: "Farthest Distance to vanish",
+                tooltip: "Specify the furthest distance, where the outline width changes with the distance between the camera and the object. The outline will be zero at this distance.",
+                propName: "_Farthest_Distance", defaultValue: 100);
+
+            public static readonly FloatProperty nearestDistanceText = new FloatProperty(label: "Nearest Distance to draw with Outline Width",
+                tooltip: "Specify the closest distance, where the outline width changes with the distance between the camera and the object. At this distance, the outline will be the maximum width set by Outline_Width.",
+                propName: "_Nearest_Distance", defaultValue: 0.5f);
         }
         // --------------------------------
 
@@ -2141,8 +2147,8 @@ namespace UnityEditor.Rendering.Toon
 
                     EditorGUILayout .LabelField("Camera Distance for Outline Width");
                     EditorGUI.indentLevel++;
-                    m_MaterialEditor.FloatProperty(farthest_Distance, "Farthest Distance to vanish");
-                    m_MaterialEditor.FloatProperty(nearest_Distance, "Nearest Distance to draw with Outline Width");
+                    GUI_FloatProperty(material, Styles.farthestDistanceText);
+                    GUI_FloatProperty(material, Styles.nearestDistanceText);
                     EditorGUI.indentLevel--;
 
                     var useOutlineTexture =  GUI_Toggle(material, Styles.outlineColorMapText, ShaderPropIs_OutlineTex, MaterialGetInt(material, ShaderPropIs_OutlineTex)!=0); ;
