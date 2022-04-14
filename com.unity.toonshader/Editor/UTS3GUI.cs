@@ -388,7 +388,7 @@ namespace UnityEditor.Rendering.Toon
         protected MaterialProperty tweak_HighColorMaskLevel = null;
         protected MaterialProperty rimLightColor = null;
         protected MaterialProperty rimLight_Power = null;
-        protected MaterialProperty rimLight_InsideMask = null;
+
 
         protected MaterialProperty ap_RimLightColor = null;
         protected MaterialProperty ap_RimLight_Power = null;
@@ -400,10 +400,10 @@ namespace UnityEditor.Rendering.Toon
 
         protected MaterialProperty normalMapForMatCap = null;
         protected MaterialProperty bumpScaleMatcap = null;
-        protected MaterialProperty rotate_NormalMapForMatCapUV = null;
+
 
         protected MaterialProperty set_MatcapMask = null;
-        protected MaterialProperty tweak_MatcapMaskLevel = null;
+
         protected MaterialProperty angelRing_Sampler = null;
         protected MaterialProperty angelRing_Color = null;
 
@@ -497,7 +497,7 @@ namespace UnityEditor.Rendering.Toon
             set_HighColorMask = FindProperty(ShaderProp_Set_HighColorMask, props);
             tweak_HighColorMaskLevel = FindProperty("_Tweak_HighColorMaskLevel", props);
             rimLightColor = FindProperty("_RimLightColor", props);
-            rimLight_InsideMask = FindProperty("_RimLight_InsideMask", props);
+
 
             ap_RimLightColor = FindProperty("_Ap_RimLightColor", props);
             set_RimLightMask = FindProperty(ShaderProp_Set_RimLightMask, props);
@@ -507,10 +507,10 @@ namespace UnityEditor.Rendering.Toon
 
             normalMapForMatCap = FindProperty("_NormalMapForMatCap", props);
             bumpScaleMatcap = FindProperty("_BumpScaleMatcap", props);
-            rotate_NormalMapForMatCapUV = FindProperty("_Rotate_NormalMapForMatCapUV", props);
+
 
             set_MatcapMask = FindProperty(ShaderProp_Set_MatcapMask, props);
-            tweak_MatcapMaskLevel = FindProperty("_Tweak_MatcapMaskLevel", props);
+
             angelRing_Sampler = FindProperty("_AngelRing_Sampler", props, false);
             angelRing_Color = FindProperty("_AngelRing_Color", props, false);
 
@@ -800,8 +800,20 @@ namespace UnityEditor.Rendering.Toon
                 "_Ap_RimLight_Power", 0, 1);
 
             public static readonly RangeProperty giIntensityText = new RangeProperty(
-                "GI Intensity", "When GI Intensity is higher than 0, it will deal with the GI system within Unity Lighting window, especially light Probe.",
+                "GI Intensity", "TBD.",
                 ShaderPropGI_Intensity, 0, 1);
+
+            public static readonly RangeProperty tweakMatCapMaskLevelText = new RangeProperty(
+                "MatCap Mask Level", "Adjusts the power of the MatcapMask. When the value is 1, MatCap is displayed 100% irrespective of whether or not there is a mask. When the value is -1, MatCap will not be displayed at all and MatCap will be the same as in the off state.",
+                "_Tweak_MatcapMaskLevel", -1, 1);
+
+            public static readonly RangeProperty rotate_NormalMapForMatCapUVText = new RangeProperty(
+                "Rotate NormalMap UV", "Rotates the MatCap normal map UV based on its center.",
+                "_Rotate_NormalMapForMatCapUV", -1, 1);
+
+            public static readonly RangeProperty rimLight_InsideMaskText = new RangeProperty(
+                "Adjust Rim Light Area.", "Increasing this value narrows the area of influence of Rim Light.",
+                "_RimLight_InsideMask", 0.0001f, 1);
         }
         // --------------------------------
 
@@ -1509,7 +1521,7 @@ namespace UnityEditor.Rendering.Toon
 
             if (!_SimpleUI)
             {
-                m_MaterialEditor.RangeProperty(rimLight_InsideMask, "Rim Light Inside Mask");
+                GUI_RangeProperty(material, Styles.rimLight_InsideMaskText);
 
                 EditorGUILayout.BeginHorizontal();
                 GUI_Toggle(material, Styles.rimlightFeatherText, ShaderPropRimLight_FeatherOff, MaterialGetInt(material, ShaderPropRimLight_FeatherOff) != 0);
@@ -1608,7 +1620,7 @@ namespace UnityEditor.Rendering.Toon
                     EditorGUI.indentLevel++;
                     m_MaterialEditor.TexturePropertySingleLine(Styles.normalMapText, normalMapForMatCap, bumpScaleMatcap);
                     m_MaterialEditor.TextureScaleOffsetProperty(normalMapForMatCap);
-                    m_MaterialEditor.RangeProperty(rotate_NormalMapForMatCapUV, "Rotate NormalMap UV");
+                    GUI_RangeProperty(material, Styles.rotate_NormalMapForMatCapUVText);
                     EditorGUI.indentLevel--;
                 }
                 EditorGUI.EndDisabledGroup();
@@ -1634,7 +1646,7 @@ namespace UnityEditor.Rendering.Toon
             EditorGUILayout.LabelField("MatCap Mask", EditorStyles.boldLabel);
             m_MaterialEditor.TexturePropertySingleLine(Styles.matCapMaskText, set_MatcapMask);
             m_MaterialEditor.TextureScaleOffsetProperty(set_MatcapMask);
-            m_MaterialEditor.RangeProperty(tweak_MatcapMaskLevel, "MatCap Mask Level");
+            GUI_RangeProperty(material, Styles.tweakMatCapMaskLevelText);
 
             GUI_Toggle(material, Styles.invertMatCapMaskText, ShaderPropInvert_MatcapMask, MaterialGetInt(material, ShaderPropInvert_MatcapMask) != 0);
 

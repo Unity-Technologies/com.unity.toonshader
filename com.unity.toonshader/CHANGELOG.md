@@ -52,6 +52,7 @@
 * Renamed `Blur Level of ShadingGradeMap` to `ShadingGradeMap Blur Level`.
 * Renamed `MatCap Sampler` to `MatCap Map`.
 * Renamed `Blur Level of MatCap Sampler` to `MatCap Blur Level`.
+* Renamed `RimLight Inside Mask` to `Adjust Rim Light Area`.
 ### Added:
 * Legacy: Compatibility with Single Pass Stereo Rendering.
 * Legacy: Graphics Test 2022.2.
