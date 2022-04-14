@@ -50,7 +50,7 @@
 * Renamed `MatCap Power on Shadow` to `MatCap Blending on Shadows`.
 * Renamed `Color Shift Speed` to `Color Shifting Speed`.
 * Renamed `Blur Level of ShadingGradeMap` to `ShadingGradeMap Blur Level`.
-* Renamed `MatCap Sampler` to `MatCap  Map`.
+* Renamed `MatCap Sampler` to `MatCap Map`.
 * Renamed `Blur Level of MatCap Sampler` to `MatCap Blur Level`.
 ### Added:
 * Legacy: Compatibility with Single Pass Stereo Rendering.

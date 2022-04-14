@@ -406,8 +406,7 @@ namespace UnityEditor.Rendering.Toon
         protected MaterialProperty tweak_MatcapMaskLevel = null;
         protected MaterialProperty angelRing_Sampler = null;
         protected MaterialProperty angelRing_Color = null;
-        protected MaterialProperty ar_OffsetU = null;
-        protected MaterialProperty ar_OffsetV = null;
+
         protected MaterialProperty emissive_Tex = null;
         protected MaterialProperty emissive_Color = null;
         protected MaterialProperty base_Speed = null;
@@ -424,10 +423,7 @@ namespace UnityEditor.Rendering.Toon
         protected MaterialProperty nearest_Distance = null;
         protected MaterialProperty outlineTex = null;
         protected MaterialProperty bakedNormal = null;
-        protected MaterialProperty tessEdgeLength = null;
-        protected MaterialProperty tessPhongStrength = null;
-        protected MaterialProperty tessExtrusionAmount = null;
-        protected MaterialProperty gi_Intensity = null;
+
 
         //------------------------------------------------------
 
@@ -501,11 +497,9 @@ namespace UnityEditor.Rendering.Toon
             set_HighColorMask = FindProperty(ShaderProp_Set_HighColorMask, props);
             tweak_HighColorMaskLevel = FindProperty("_Tweak_HighColorMaskLevel", props);
             rimLightColor = FindProperty("_RimLightColor", props);
-            rimLight_Power = FindProperty("_RimLight_Power", props);
             rimLight_InsideMask = FindProperty("_RimLight_InsideMask", props);
 
             ap_RimLightColor = FindProperty("_Ap_RimLightColor", props);
-            ap_RimLight_Power = FindProperty("_Ap_RimLight_Power", props);
             set_RimLightMask = FindProperty(ShaderProp_Set_RimLightMask, props);
 
             matCap_Sampler = FindProperty(ShaderProp_MatCap_Sampler, props);
@@ -519,8 +513,7 @@ namespace UnityEditor.Rendering.Toon
             tweak_MatcapMaskLevel = FindProperty("_Tweak_MatcapMaskLevel", props);
             angelRing_Sampler = FindProperty("_AngelRing_Sampler", props, false);
             angelRing_Color = FindProperty("_AngelRing_Color", props, false);
-            ar_OffsetU = FindProperty("_AR_OffsetU", props, false);
-            ar_OffsetV = FindProperty("_AR_OffsetV", props, false);
+
             emissive_Tex = FindProperty("_Emissive_Tex", props);
             emissive_Color = FindProperty("_Emissive_Color", props);
             base_Speed = FindProperty("_Base_Speed", props);
@@ -537,10 +530,8 @@ namespace UnityEditor.Rendering.Toon
             nearest_Distance = FindProperty("_Nearest_Distance", props, false);
             outlineTex = FindProperty(ShaderProp_OutlineTex, props, false);
             bakedNormal = FindProperty("_BakedNormal", props, false);
-            tessEdgeLength = FindProperty("_TessEdgeLength", props, false);
-            tessPhongStrength = FindProperty("_TessPhongStrength", props, false);
-            tessExtrusionAmount = FindProperty("_TessExtrusionAmount", props, false);
-            gi_Intensity = FindProperty(ShaderPropGI_Intensity, props);
+
+
 
             FindTessellationProperties(props);
         }
@@ -660,7 +651,7 @@ namespace UnityEditor.Rendering.Toon
             public static readonly GUIContent rimlightText = new GUIContent("Rim Light", "Enable/Disable Rim Light.");
             public static readonly GUIContent rimlightFeatherText = new GUIContent("Rim Light Feather Off", "Disable Rim light feather.");
             public static readonly GUIContent rimlightDirectionMaskText = new GUIContent("Light Direction Mask", "TBD");
-            public static readonly GUIContent inversedRimlightText = new GUIContent("Inversed Rim Light", "Rim light from inversed direction.");
+            public static readonly GUIContent inversedRimlightText = new GUIContent("Inversed Rim Light", "Rim light from inversed/antipodean direction.");
             public static readonly GUIContent camearRollingStabilizerText = new GUIContent("Stabilize Camera rolling", "Stablize Camera rolling when capturing materials with camera.");
             public static readonly GUIContent inversedRimlightFeatherText = new GUIContent("Inversed Rim Light Feather Off", "Disable Inversed Rim light feather.");
             public static readonly GUIContent matCapText = new GUIContent("MatCap", "Enable/Disable MatCap (Material Capture)");
@@ -779,6 +770,38 @@ namespace UnityEditor.Rendering.Toon
             public static readonly RangeProperty matcapBlurLevelText = new RangeProperty(
                 "MatCap Blur Level", "Blur MatCap_Sampler using the Mip Map feature; to enable Mip Map, turn on Advanced > Generate Mip Maps in the Texture Import Settings. Default is 0 (no blur).",
                 "_BlurLevelMatcap", 0, 10);
+
+            public static readonly RangeProperty arOffsetU_Text = new RangeProperty(
+                "Offset U", "Adjusts the Angel Ring’s shape in the horizontal direction.",
+                "_AR_OffsetU", 0, 0.5f);
+
+            public static readonly RangeProperty arOffsetV_Text = new RangeProperty(
+                "Offset V", "Adjusts the Angel Ring’s shape in the vertical direction.",
+                "_AR_OffsetV", 0, 1);
+
+            public static readonly RangeProperty legacyTessEdgeLengthText = new RangeProperty(
+                "Edge Length", "Divides the tessellation according to the camera’s distance. The smaller the value, the smaller the tiles become. ",
+                "_TessEdgeLength", 2, 50);
+
+            public static readonly RangeProperty legacyTessPhongStrengthText = new RangeProperty(
+                "Phong Strength", "Adjusts the pulling strength of the surfaces divided by tessellation.",
+                "_TessPhongStrength", 0, 1);
+
+            public static readonly RangeProperty legacyTessExtrusionAmountText = new RangeProperty(
+                "Extrusion Amount", "Scale the expanded parts due to tessellation. .",
+                "_TessExtrusionAmount", -0.005f, 0.005f);
+
+            public static readonly RangeProperty rimLightPowerText = new RangeProperty(
+                "Rim Light Power", "Specifies Rim Light power.",
+                "_RimLight_Power", 0, 1);
+
+            public static readonly RangeProperty inversedRimLightPowerText = new RangeProperty(
+                "Inversed Rim Light Power", "Specifies Inversed/Antipodean Rim Light power.",
+                "_Ap_RimLight_Power", 0, 1);
+
+            public static readonly RangeProperty giIntensityText = new RangeProperty(
+                "GI Intensity", "When GI Intensity is higher than 0, it will deal with the GI system within Unity Lighting window, especially light Probe.",
+                ShaderPropGI_Intensity, 0, 1);
         }
         // --------------------------------
 
@@ -1482,7 +1505,7 @@ namespace UnityEditor.Rendering.Toon
             EditorGUI.indentLevel++;
 
             m_MaterialEditor.ColorProperty(rimLightColor, "Rim Light Color");
-            m_MaterialEditor.RangeProperty(rimLight_Power, "Rim Light Power");
+            GUI_RangeProperty(material, Styles.rimLightPowerText);
 
             if (!_SimpleUI)
             {
@@ -1511,7 +1534,7 @@ namespace UnityEditor.Rendering.Toon
                         EditorGUI.indentLevel++;
 
                         m_MaterialEditor.ColorProperty(ap_RimLightColor, "Inversed Rim Light Color");
-                        m_MaterialEditor.RangeProperty(ap_RimLight_Power, "Inversed Rim Light Power");
+                        GUI_RangeProperty(material, Styles.inversedRimLightPowerText);
 
                         EditorGUILayout.BeginHorizontal();
                         GUI_Toggle(material, Styles.inversedRimlightFeatherText, ShaderPropAp_RimLight_FeatherOff, MaterialGetInt(material, ShaderPropAp_RimLight_FeatherOff) != 0);
@@ -1632,8 +1655,8 @@ namespace UnityEditor.Rendering.Toon
                 m_MaterialEditor.TexturePropertySingleLine(Styles.angelRingText, angelRing_Sampler, angelRing_Color);
                 EditorGUI.indentLevel++;
                 //m_MaterialEditor.TextureScaleOffsetProperty(angelRing_Sampler);
-                m_MaterialEditor.RangeProperty(ar_OffsetU, "Offset U");
-                m_MaterialEditor.RangeProperty(ar_OffsetV, "Offset V");
+                GUI_RangeProperty(material, Styles.arOffsetU_Text);
+                GUI_RangeProperty(material, Styles.arOffsetV_Text);
 
                 GUI_Toggle(material, Styles.angelRingAlphaAdClippingMaskText, ShaderPropARSampler_AlphaOn, MaterialGetInt(material, ShaderPropARSampler_AlphaOn) != 0);
 
@@ -2095,10 +2118,9 @@ namespace UnityEditor.Rendering.Toon
 
         void GUI_Tessellation(Material material)
         {
-
-            m_MaterialEditor.RangeProperty(tessEdgeLength, "Edge Length");
-            m_MaterialEditor.RangeProperty(tessPhongStrength, "Phong Strength");
-            m_MaterialEditor.RangeProperty(tessExtrusionAmount, "Extrusion Amount");
+            GUI_RangeProperty(material, Styles.legacyTessEdgeLengthText);
+            GUI_RangeProperty(material, Styles.legacyTessPhongStrengthText);
+            GUI_RangeProperty(material, Styles.legacyTessExtrusionAmountText);
 
             EditorGUILayout.Space();
         }
@@ -2117,7 +2139,7 @@ namespace UnityEditor.Rendering.Toon
             GUI_Toggle(material, Styles.lightColorEffectivinessToOutlineText, ShaderPropIs_LightColor_Outline, MaterialGetInt(material, ShaderPropIs_LightColor_Outline) != 0);
 
             EditorGUILayout.Space();
-            m_MaterialEditor.RangeProperty(gi_Intensity, "GI Intensity");
+            GUI_RangeProperty(material, Styles.giIntensityText);
 
             EditorGUI.BeginChangeCheck();
             var prop = ShaderPropIs_Filter_LightColor;
@@ -2159,7 +2181,6 @@ namespace UnityEditor.Rendering.Toon
                 EditorGUI.indentLevel++;
                 GUI_RangeProperty(material, Styles.metaverseOffsettXaxisText);
                 GUI_RangeProperty(material, Styles.metaverseOffsettYaxisText);
-
 
                 GUI_Toggle(material, Styles.invertZaxisDirection, ShaderPropInverse_Z_Axis_BLD, MaterialGetInt(material, ShaderPropInverse_Z_Axis_BLD) != 0);
 
