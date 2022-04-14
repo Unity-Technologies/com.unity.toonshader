@@ -414,7 +414,7 @@ namespace UnityEditor.Rendering.Toon
         protected MaterialProperty rotate_EmissiveUV = null;
         protected MaterialProperty colorShift = null;
 
-        protected MaterialProperty viewShift = null;
+
 
         protected MaterialProperty outline_Color = null;
         protected MaterialProperty outline_Sampler = null;
@@ -516,7 +516,7 @@ namespace UnityEditor.Rendering.Toon
             emissive_Tex = FindProperty("_Emissive_Tex", props);
             emissive_Color = FindProperty("_Emissive_Color", props);
             colorShift = FindProperty("_ColorShift", props);
-            viewShift = FindProperty("_ViewShift", props);
+
             outline_Color = FindProperty("_Outline_Color", props, false);
             outline_Sampler = FindProperty(ShaderProp_Outline_Sampler, props, false);
             outlineTex = FindProperty(ShaderProp_OutlineTex, props, false);
@@ -575,6 +575,19 @@ namespace UnityEditor.Rendering.Toon
             }
         }
 
+        class ColorProperty
+        {
+            internal GUIContent m_GuiContent;
+            internal readonly string m_propertyName;
+            internal bool m_isHDR;
+
+            internal ColorProperty(string label, string tooltip, string propName, bool isHDR)
+            {
+                m_GuiContent = new GUIContent(label, tooltip );
+                m_propertyName = propName;
+                m_isHDR = isHDR;
+            }
+        }
 
 
 
@@ -847,6 +860,10 @@ namespace UnityEditor.Rendering.Toon
             public static readonly FloatProperty colorShiftSpeedText = new FloatProperty(label: "Color Shifting Speed (Time)",
                 tooltip: "Sets the reference speed for color shift. When the value is 1, one cycle should take approximately 6 seconds.",
                 propName: "_ColorShift_Speed", defaultValue: 0);
+
+            public static readonly ColorProperty viewShiftText = new ColorProperty(label: "Shifting Target Color",
+                tooltip: "Target color above, must be specified in HDR.",
+                propName: "_ViewShift", isHDR: true );
         }
         // --------------------------------
 
@@ -1129,7 +1146,20 @@ namespace UnityEditor.Rendering.Toon
             return ret;
         }
 
+        Color GUI_ColorProperty(Material material, ColorProperty colorProp)
+        {
+            Color ret = material.GetColor(colorProp.m_propertyName);
+            EditorGUI.BeginChangeCheck();
 
+            ret = EditorGUILayout.ColorField(colorProp.m_GuiContent, ret, showEyedropper: true, showAlpha: true, hdr: colorProp.m_isHDR);
+
+            if (EditorGUI.EndChangeCheck())
+            {
+                m_MaterialEditor.RegisterPropertyChangeUndo(colorProp.m_GuiContent.text);
+                material.SetColor(colorProp.m_propertyName, ret);
+            }
+            return ret;
+        }
         float GUI_RangeProperty(Material material, RangeProperty rangeProp)
         {
             return GUI_RangeProperty(material, rangeProp.m_GuiContent, rangeProp.m_propertyName, rangeProp.m_Min, rangeProp.m_Max);
@@ -2032,7 +2062,7 @@ namespace UnityEditor.Rendering.Toon
 
                     EditorGUI.indentLevel++;
                     EditorGUI.BeginDisabledGroup(!isViewShiftEnabled);
-                    m_MaterialEditor.ColorProperty(viewShift, "Shifting Target Color");
+                    GUI_ColorProperty(material, Styles.viewShiftText);
                     EditorGUI.EndDisabledGroup();
                     EditorGUI.indentLevel--;
                 }//!_SimpleUI
