@@ -415,7 +415,7 @@ namespace UnityEditor.Rendering.Toon
         protected MaterialProperty colorShift = null;
         protected MaterialProperty colorShift_Speed = null;
         protected MaterialProperty viewShift = null;
-        protected MaterialProperty outline_Width = null;
+
         protected MaterialProperty outline_Color = null;
         protected MaterialProperty outline_Sampler = null;
         protected MaterialProperty offset_Z = null;
@@ -522,7 +522,7 @@ namespace UnityEditor.Rendering.Toon
             colorShift = FindProperty("_ColorShift", props);
             colorShift_Speed = FindProperty("_ColorShift_Speed", props);
             viewShift = FindProperty("_ViewShift", props);
-            outline_Width = FindProperty("_Outline_Width", props, false);
+
             outline_Color = FindProperty("_Outline_Color", props, false);
             outline_Sampler = FindProperty(ShaderProp_Outline_Sampler, props, false);
             offset_Z = FindProperty("_Offset_Z", props, false);
@@ -575,11 +575,12 @@ namespace UnityEditor.Rendering.Toon
         {
             internal GUIContent m_GuiContent;
             internal readonly string m_propertyName;
-
-            internal FloatProperty(string label, string tooltip, string propName)
+            internal float m_defaultValue;
+            internal FloatProperty(string label, string tooltip, string propName, float defaultValue)
             {
                 m_GuiContent = new GUIContent(label, tooltip );
                 m_propertyName = propName;
+                m_defaultValue = defaultValue;
             }
         }
 
@@ -830,7 +831,11 @@ namespace UnityEditor.Rendering.Toon
             // Float properties
             public static readonly FloatProperty baseSpeedText = new FloatProperty(label: "Base Speed (Time)", 
                 tooltip: "Specifies the base update speed of scroll animation. If the value is 1, it will be updated in 1 second. Specifying a value of 2 results in twice the speed of a value of 1, so it will be updated in 0.5 seconds.", 
-                propName: "_Base_Speed");
+                propName: "_Base_Speed", defaultValue: 0);
+
+            public static readonly FloatProperty outlineWidthText = new FloatProperty(label: "Outline Width",
+                tooltip: "Specifies the width of the outline. NOTICE: This value relies on the scale when the model was imported to Unity which means that you have to be careful if the scale is not 1.",
+                propName: "_Outline_Width", defaultValue: 0);
         }
         // --------------------------------
 
@@ -2119,7 +2124,7 @@ namespace UnityEditor.Rendering.Toon
                 material.DisableKeyword("_OUTLINE_NML");
             }
 
-            m_MaterialEditor.FloatProperty(outline_Width, "Outline Width");
+            GUI_FloatProperty(material, Styles.outlineWidthText);
             m_MaterialEditor.ColorProperty(outline_Color, "Outline Color");
 
             GUI_Toggle(material, Styles.colorShiftWithViewAngle, ShaderPropIs_BlendBaseColor, MaterialGetInt(material, ShaderPropIs_BlendBaseColor) != 0);
