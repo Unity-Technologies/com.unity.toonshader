@@ -409,7 +409,7 @@ namespace UnityEditor.Rendering.Toon
 
         protected MaterialProperty emissive_Tex = null;
         protected MaterialProperty emissive_Color = null;
-        protected MaterialProperty base_Speed = null;
+
 
         protected MaterialProperty rotate_EmissiveUV = null;
         protected MaterialProperty colorShift = null;
@@ -516,7 +516,7 @@ namespace UnityEditor.Rendering.Toon
 
             emissive_Tex = FindProperty("_Emissive_Tex", props);
             emissive_Color = FindProperty("_Emissive_Color", props);
-            base_Speed = FindProperty("_Base_Speed", props);
+
 
             rotate_EmissiveUV = FindProperty("_Rotate_EmissiveUV", props);
             colorShift = FindProperty("_ColorShift", props);
@@ -570,6 +570,19 @@ namespace UnityEditor.Rendering.Toon
                 m_Max = max;
             }
         };
+
+        class FloatProperty
+        {
+            internal GUIContent m_GuiContent;
+            internal readonly string m_propertyName;
+
+            internal FloatProperty(string label, string tooltip, string propName)
+            {
+                m_GuiContent = new GUIContent(label, tooltip );
+                m_propertyName = propName;
+            }
+        }
+
 
 
 
@@ -672,7 +685,7 @@ namespace UnityEditor.Rendering.Toon
             public static readonly GUIContent metaverseLightDirectionText = new GUIContent("Metaverse Light Direction", "Drection of above.");
             public static readonly GUIContent invertZaxisDirection = new GUIContent("Invert Z-Axis Direction", "Invert Metaverse light Z-Axis Direction.");
 
-            // range property
+            // Range properties
             public static readonly RangeProperty metaverseRangePropText = new RangeProperty(
                 "Metaverse Light Intensity", 
                 "Light intensity when no directional lights in the scene.",
@@ -704,7 +717,6 @@ namespace UnityEditor.Rendering.Toon
             public static readonly RangeProperty tweakSystemShadowLevelText = new RangeProperty(
                 "System Shadow Level", "TBD.",
                 "_Tweak_SystemShadowsLevel",-0.5f, 0.5f);
-
 
             public static readonly RangeProperty shaderPropBaseColorText = new RangeProperty(
                 "Base Color Step", "TBD.",
@@ -814,6 +826,11 @@ namespace UnityEditor.Rendering.Toon
             public static readonly RangeProperty rimLight_InsideMaskText = new RangeProperty(
                 "Adjust Rim Light Area.", "Increasing this value narrows the area of influence of Rim Light.",
                 "_RimLight_InsideMask", 0.0001f, 1);
+
+            // Float properties
+            public static readonly FloatProperty baseSpeedText = new FloatProperty(label: "Base Speed (Time)", 
+                tooltip: "Specifies the base update speed of scroll animation. If the value is 1, it will be updated in 1 second. Specifying a value of 2 results in twice the speed of a value of 1, so it will be updated in 0.5 seconds.", 
+                propName: "_Base_Speed");
         }
         // --------------------------------
 
@@ -1080,6 +1097,22 @@ namespace UnityEditor.Rendering.Toon
             }
             return ret;
         }
+
+
+        float GUI_FloatProperty(Material material, FloatProperty floatProp)
+        {
+            float ret = material.GetFloat(floatProp.m_propertyName);
+            EditorGUI.BeginChangeCheck();
+            ret = EditorGUILayout.FloatField(floatProp.m_GuiContent, ret );
+
+            if (EditorGUI.EndChangeCheck())
+            {
+                m_MaterialEditor.RegisterPropertyChangeUndo(floatProp.m_GuiContent.text);
+                material.SetFloat(floatProp.m_propertyName, ret);
+            }
+            return ret;
+        }
+
 
         float GUI_RangeProperty(Material material, RangeProperty rangeProp)
         {
@@ -1937,8 +1970,7 @@ namespace UnityEditor.Rendering.Toon
                 EditorGUI.indentLevel++;
 
 
-                m_MaterialEditor.FloatProperty(base_Speed, "Base Speed (Time)");
-
+                GUI_FloatProperty(material, Styles.baseSpeedText);
                 if (!_SimpleUI)
                 {
                     int mode = MaterialGetInt(material, ShaderPropIs_ViewCoord_Scroll);
