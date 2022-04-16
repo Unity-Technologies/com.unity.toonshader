@@ -608,7 +608,7 @@ namespace UnityEditor.Rendering.Toon
             public static readonly GUIContent shadingGradeMapText = new GUIContent("Shading Grade Map", "Specify shadow-prone areas in UV coordinates. Shading Grade Map : Texture(linear)");
             public static readonly GUIContent firstPositionMapText = new GUIContent("1st Shading Position Map", "Specify the position of fixed shadows that falls in 1st shade color areas in UV coordinates. 1st Position Map : Texture(linear)");
             public static readonly GUIContent secondPositionMapText = new GUIContent("2nd Shading Position Map", "Specify the position of fixed shadows that falls in 2nd shade color areas in UV coordinates. 2nd Position Map : Texture(linear)");
-            public static readonly GUIContent outlineSamplerText = new GUIContent("Outline Width Map", "Outline Width Map as Grayscale Texture : Texture(linear)");
+            public static readonly GUIContent outlineSamplerText = new GUIContent("Outline Width Map", "Outline Width Map as a Grayscale Texture : Texture(linear).");
             public static readonly GUIContent outlineTexText = new GUIContent("Outline Color Map", "Outline texture : Texture(sRGB) Default:White");
             public static readonly GUIContent bakedNormalOutlineText = new GUIContent("Baked NormalMap for Outline", "Unpacked Normal Map : Texture(linear) .Note that this is not a standard NORMAL MAP.");
             public static readonly GUIContent clippingMaskText = new GUIContent("Clipping Mask", "Clipping Mask : Texture(linear)");
@@ -667,12 +667,14 @@ namespace UnityEditor.Rendering.Toon
             public static readonly GUIContent colorShiftWithViewAngle = new GUIContent("Color Shifting with View Angle", "Emissive color shifts in accordance with view angle.");
 
             public static readonly GUIContent baseColorToOtulineText = new GUIContent("Blend Base Color to Outline","Base Color is blended into outline color.");
-            public static readonly GUIContent outlineColorMapText = new GUIContent("Outline Color Map", "Apply a texture as outline color map");
-            public static readonly GUIContent bakedNormalForOutlineText = new GUIContent("Baked Normalmap", "Apply a Normalmap texture for Outline");
+            public static readonly GUIContent outlineColorMapText = new GUIContent("Outline Color Map", "Apply a texture as outline color map.");
+            public static readonly GUIContent bakedNormalForOutlineText = new GUIContent("Baked Normalmap", "Apply a Normalmap texture for Outline.");
             public static readonly GUIContent metaverseLightText = new GUIContent("Metaverse Light","UTS requires at least one directional light, Some Metaverse scenes,however does not. In such case this feature is helpful.");
             public static readonly GUIContent metaverseLightDirectionText = new GUIContent("Metaverse Light Direction", "Drection of above.");
             public static readonly GUIContent invertZaxisDirection = new GUIContent("Invert Z-Axis Direction", "Invert Metaverse light Z-Axis Direction.");
+            public static readonly GUIContent emissiveScrollAnimationModeText = new GUIContent("Animation Mode", "Emissive Animation Mode.");
 
+            public static readonly GUIContent outlineModeText = new GUIContent("Outline Mode", "Specifies how the inverted-outline object will be spawned. You can choose between Normal Direction（normal inverted method） / Position Scalling（position scaling method). In most cases, Normal Direction is used but if it is a mesh that is only made of hard edges (such as cubes), Position Scalling will prevent the outline from being disconnected.");
             // Range properties
             public static readonly RangeProperty metaverseRangePropText = new RangeProperty(
                 "Metaverse Light Intensity", 
@@ -691,10 +693,10 @@ namespace UnityEditor.Rendering.Toon
                 "Clipping Level", "Specifies the strength of the clipping mask.",
                 "_Clipping_Level", 0.0f, 1.0f);
             public static readonly RangeProperty scrollEmissiveUText = new RangeProperty(
-                "Scroll U/X direction", "Specifies how much the Emissive texture should scroll in the u-direction (x-axis direction) when updating the animation. The range is -1 to 1, defaulting to 0. The scrolling animation is ultimately determined by Base Speed (Time) x Scroll U Direction x Scroll V Direction..",
+                "Scroll U/X direction", "Specifies how much the Emissive texture should scroll in the u-direction (x-axis direction) when updating the animation. The range is -1 to 1, defaulting to 0. The scrolling animation is ultimately determined by Base Speed (Time) x Scroll U Direction x Scroll V Direction.",
                 "_Scroll_EmissiveU", -1.0f, 1.0f);
             public static readonly RangeProperty scrollEmissiveVText = new RangeProperty(
-                "Scroll V/Y direction", "Specifies how much the Emissive texture should scroll in the u-direction (y-axis direction) when updating the animation. The range is -1 to 1, defaulting to 0. The scrolling animation is ultimately determined by Base Speed (Time) x Scroll U Direction x Scroll V Direction..",
+                "Scroll V/Y direction", "Specifies how much the Emissive texture should scroll in the u-direction (y-axis direction) when updating the animation. The range is -1 to 1, defaulting to 0. The scrolling animation is ultimately determined by Base Speed (Time) x Scroll U Direction x Scroll V Direction.",
                 "_Scroll_EmissiveV", -1.0f, 1.0f);
             public static readonly RangeProperty tweakHighColorOnShadowText = new RangeProperty(
                 "Blending Level", "Adjusts the intensity of highlight applied to shadow areas.",
@@ -2020,7 +2022,7 @@ namespace UnityEditor.Rendering.Toon
                 {
                     int mode = MaterialGetInt(material, ShaderPropIs_ViewCoord_Scroll);
                     EditorGUI.BeginChangeCheck();
-                    mode = EditorGUILayout.Popup("Animation Mode", (int)mode, EmissiveScrollMode);
+                    mode = EditorGUILayout.Popup(Styles.emissiveScrollAnimationModeText, (int)mode, EmissiveScrollMode);
                     if (EditorGUI.EndChangeCheck())
                     {
                         m_MaterialEditor.RegisterPropertyChangeUndo("Emissive Scroll Mode");
@@ -2148,7 +2150,7 @@ namespace UnityEditor.Rendering.Toon
                 m_outlineMode = OutlineMode.PositionScaling;
             }
             //GUI description with EnumPopup.
-            m_outlineMode = (OutlineMode)EditorGUILayout.EnumPopup("Outline Mode", m_outlineMode);
+            m_outlineMode = (OutlineMode)EditorGUILayout.EnumPopup(Styles.outlineModeText, m_outlineMode);
             //If the value changes, write to the material.
             if (m_outlineMode == OutlineMode.NormalDirection)
             {
