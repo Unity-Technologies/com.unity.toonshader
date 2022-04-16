@@ -649,18 +649,18 @@ namespace UnityEditor.Rendering.Toon
             public static readonly GUIContent lightColorEffectivinessToOutlineText = new GUIContent("Outline", "Light color effectiveness to outlines.");
             public static readonly GUIContent rimlightText = new GUIContent("Rim Light", "Enable/Disable Rim Light.");
             public static readonly GUIContent rimlightFeatherText = new GUIContent("Rim Light Feather Off", "Disable Rim light feather.");
-            public static readonly GUIContent rimlightDirectionMaskText = new GUIContent("Light Direction", "TBD");
+            public static readonly GUIContent rimlightDirectionMaskText = new GUIContent("Light Direction", "When Enabled, rim light is generated only in the direction of the light source.");
             public static readonly GUIContent inversedRimlightText = new GUIContent("Inversed Direciton Rim Light", "Rim light from inversed/antipodean direction.");
             public static readonly GUIContent camearRollingStabilizerText = new GUIContent("Stabilize Camera rolling", "Stablize Camera rolling when capturing materials with camera.");
             public static readonly GUIContent inversedRimlightFeatherText = new GUIContent("Inversed Rim Light Feather Off", "Disable Inversed Rim light feather.");
             public static readonly GUIContent matCapText = new GUIContent("MatCap", "Enable/Disable MatCap (Material Capture)");
-            public static readonly GUIContent matCapNormalmapSpecularaMask = new GUIContent("NormalMap Specular Mask for MatCap","TBD");
-            public static readonly GUIContent matCapOnShadow = new GUIContent("MatCap Blending on Shadows", "TBD");
+            public static readonly GUIContent matCapNormalmapSpecularaMask = new GUIContent("NormalMap Specular Mask for MatCap", "If Enabled,  gives a normal map specifically for MatCap. If you are using MatCap as speculum lighting, you can use this to mask it.");
+            public static readonly GUIContent matCapOnShadow = new GUIContent("MatCap Blending on Shadows", "Adjusts the blending rate of the MatCap range in shadows.");
             public static readonly GUIContent invertMatCapMaskText = new GUIContent("Invert MatCap Mask","When enabled, MatCap Mask Texture is inversed.");
 
             public static readonly GUIContent angelRingProjectionText = new GUIContent("Angel Ring Projection", "Enable/Disable Angel Ring Projection.");
             public static readonly GUIContent angelRingAlphaAdClippingMaskText = new GUIContent("Alpha Channel as Clipping Mask", "Texture alpha channel is used for clipping mask. If disabled, alpha does not affect at all.");
-            public static readonly GUIContent pingpongMoveText = new GUIContent("Ping-pong moves for base","TBD");
+            public static readonly GUIContent pingpongMoveText = new GUIContent("Ping-pong moves for base", "When enabled, you can set PingPong (back and forth) in the direction of the animation.");
             public static readonly GUIContent colorShitWithTimeText = new GUIContent("Color Shifting with Time", "The color that is multiplied by the Emissive texture is changed by linear interpolation (Lerp) toward the Destination Color.");
             public static readonly GUIContent colorShiftWithViewAngle = new GUIContent("Color Shifting with View Angle", "Emissive color shifts in accordance with view angle.");
 
@@ -677,61 +677,61 @@ namespace UnityEditor.Rendering.Toon
                 "Light intensity when no directional lights in the scene.",
                 ShaderPropUnlit_Intensity,  0.0f, 4.0f);
             public static readonly RangeProperty metaverseOffsettXaxisText = new RangeProperty(
-                "Offset X-Axis Direction", "TBD.",
+                "Offset X-Axis Direction", "Moves  Metaverse light direction horizontally.",
                 "_Offset_X_Axis_BLD", -1.0f,1.0f);
             public static readonly RangeProperty metaverseOffsettYaxisText = new RangeProperty(
-                "Offset Y-Axis Direction", "TBD.",
+                "Offset Y-Axis Direction", "Moves  Metaverse light direction vertically.",
                 "_Offset_Y_Axis_BLD", -1.0f, 1.0f);
             public static readonly RangeProperty tweakTransParencyText = new RangeProperty(
-                "Transparency Level", "TBD.",
+                "Transparency Level", "Adjusts the transparency by considering the grayscale level of the clipping mask as an alpha value.",
                 "_Tweak_transparency", -1.0f, 1.0f);
             public static readonly RangeProperty clippingLevelText = new RangeProperty(
-                "Clipping Level", "TBD.",
+                "Clipping Level", "Specifies the strength of the clipping mask..",
                 "_Clipping_Level", 0.0f, 1.0f);
             public static readonly RangeProperty scrollEmissiveUText = new RangeProperty(
-                "Scroll U/X direction", "TBD.",
+                "Scroll U/X direction", "Specifies how much the Emissive texture should scroll in the u-direction (x-axis direction) when updating the animation. The range is -1 to 1, defaulting to 0. The scrolling animation is ultimately determined by Base Speed (Time) x Scroll U Direction x Scroll V Direction..",
                 "_Scroll_EmissiveU", -1.0f, 1.0f);
             public static readonly RangeProperty scrollEmissiveVText = new RangeProperty(
-                "Scroll V/Y direction", "TBD.",
+                "Scroll V/Y direction", "Specifies how much the Emissive texture should scroll in the u-direction (y-axis direction) when updating the animation. The range is -1 to 1, defaulting to 0. The scrolling animation is ultimately determined by Base Speed (Time) x Scroll U Direction x Scroll V Direction..",
                 "_Scroll_EmissiveV", -1.0f, 1.0f);
             public static readonly RangeProperty tweakHighColorOnShadowText = new RangeProperty(
-                "Blend Rate", "TBD.",
+                "Blend Rate", "Adjusts the intensity of highlight applied to shadow areas.",
                 "_TweakHighColorOnShadow", 0, 1);
             public static readonly RangeProperty tweakMatCapOnShadowText = new RangeProperty(
-                "Blend Rate", "TBD.",
+                "Blend Rate", "Adjusts the intensity of MatCap applied to shadow areas.",
                 "_TweakMatCapOnShadow", 0, 1);
             public static readonly RangeProperty tweakSystemShadowLevelText = new RangeProperty(
-                "System Shadow Level", "TBD.",
+                "System Shadow Level", "Adjsuts System Shadows.",
                 "_Tweak_SystemShadowsLevel",-0.5f, 0.5f);
 
             public static readonly RangeProperty shaderPropBaseColorText = new RangeProperty(
-                "Base Color Step", "TBD.",
+                "Base Color Step", "Sets the boundary between the Base Color and the Shade Colors.",
                 ShaderPropBaseColor_Step, 0, 1 );
             public static readonly RangeProperty shaderPropBaseFeatherText = new RangeProperty(
-                "Base Shading Feather", "TBD.",
+                "Base Shading Feather", "Feathers the boundary between the Base Color and the Shade Colors..",
                 ShaderPropBaseShade_Feather, 0.0001f, 1);
             public static readonly RangeProperty shaderPropShadeColorStepText = new RangeProperty(
-                "Shading Color Step", "TBD.",
+                "Shading Color Step", "Sets the boundary between the 1st and 2nd Shade Colors. Set this to 0 if no 2nd Shade Color is used.",
                 ShaderPropShadeColor_Step, 0, 1);
             public static readonly RangeProperty shaderProp1st2nd_Shades_FeatherText = new RangeProperty(
-                "1st/2nd Shading Feather", "TBD.",
+                "1st/2nd Shading Feather", "Feathers the boundary between the 1st and 2nd Shade Colors.",
                 ShaderProp1st2nd_Shades_Feather, 0.0001f, 1);
 
             public static readonly RangeProperty shaderProp1st_ShadeColor_StepText = new RangeProperty(
-                "1st Shade Color Step", "TBD.",
+                "1st Shade Color Step", "Sets the step between the Base color and 1st Shade Color, the same as the BaseColor_Step property..",
                 ShaderProp1st_ShadeColor_Step, 0, 1);
             public static readonly RangeProperty shaderProp1st_ShadeColor_FeatherText = new RangeProperty(
-                "1st Shade Color Feather", "TBD.",
+                "1st Shade Color Feather", "Feathers the boundary between the Base Color and the 1st Shade Color, the same as the Base/Shade_Feather property.",
                 ShaderProp1st_ShadeColor_Feather, 0.0001f, 1);
             public static readonly RangeProperty shaderProp2nd_ShadeColor_StepText = new RangeProperty(
-                "2nd Shade Color Step", "TBD.",
+                "2nd Shade Color Step", "Sets the step between the 1st and 2nd Shade Colors, the same as the ShadeColor_Step property.",
                 ShaderProp2nd_ShadeColor_Step, 0, 1);
             public static readonly RangeProperty shaderProp2nd_ShadeColor_FeatherText = new RangeProperty(
-                "2nd Shade Color Feather", "TBD.",
+                "2nd Shade Color Feather", "Feathers the boundary between the 1st and 2nd Shade Colors, the same as the 1st/2nd_Shades_Feather properties.",
                 ShaderProp2nd_ShadeColor_Feather, 0.0001f, 1);
 
             public static readonly RangeProperty shaderPropStepOffsetText = new RangeProperty(
-                "Step Offset", "TBD.",
+                "Step Offset", "Fine tunes light steps (boundaries) added in the ForwardAdd pass, such as real-time point lights.",
                 "_StepOffset", -0.5f, 0.5f);
             public static readonly RangeProperty shaderPropHilightPowerText = new RangeProperty(
                 "Highlight Power", "Highlight power factor, pow(x,5) is used inside the shader.",
@@ -754,7 +754,7 @@ namespace UnityEditor.Rendering.Toon
                 "_Tweak_RimLightMaskLevel", -1, 1);
 
             public static readonly RangeProperty lightDirectionMaskLevelText = new RangeProperty(
-                "Light Direction Rim Light Level", "The Level of Rim Light toward light direction.",
+                "Light Direction Rim Light Level", "The Level of Rim Light toward a light direction.",
                 "_Tweak_LightDirection_MaskLevel", 0f, 0.5f);
 
             public static readonly RangeProperty tweakMatCapUVText = new RangeProperty(
