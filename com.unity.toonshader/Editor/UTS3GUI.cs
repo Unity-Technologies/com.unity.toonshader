@@ -656,7 +656,7 @@ namespace UnityEditor.Rendering.Toon
             public static readonly GUIContent camearRollingStabilizerText = new GUIContent("Stabilize Camera rolling", "Stablize Camera rolling when capturing materials with camera.");
             public static readonly GUIContent inversedRimlightFeatherText = new GUIContent("Inversed Rim Light Feather Off", "Disable Inversed Rim light feather.");
             public static readonly GUIContent matCapText = new GUIContent("MatCap", "Enable/Disable MatCap (Material Capture)");
-            public static readonly GUIContent matCapNormalmapSpecularaMask = new GUIContent("NormalMap Specular Mask for MatCap", "If Enabled,  gives a normal map specifically for MatCap. If you are using MatCap as speculum lighting, you can use this to mask it.");
+            public static readonly GUIContent matCapNormalmapSpecularaMask = new GUIContent("NormalMap Specular Mask for MatCap", "If Enabled, gives a normal map specifically for MatCap.If you are using MatCap as speculum lighting, you can use this to mask it.");
             public static readonly GUIContent matCapOnShadow = new GUIContent("MatCap Blending on Shadows", "Adjusts the blending rate of the MatCap range in shadows.");
             public static readonly GUIContent invertMatCapMaskText = new GUIContent("Invert MatCap Mask","When enabled, MatCap Mask Texture is inversed.");
 
@@ -760,11 +760,11 @@ namespace UnityEditor.Rendering.Toon
                 "_Tweak_LightDirection_MaskLevel", 0f, 0.5f);
 
             public static readonly RangeProperty tweakMatCapUVText = new RangeProperty(
-                "Scale MatCap UV", "Scaling UV of MatCap Color Map",
+                "Scale MatCap UV", "Scaling UV of MatCap Map.",
                 "_Tweak_MatCapUV", -0.5f, 0.5f);
 
             public static readonly RangeProperty rotateMatCapUVText = new RangeProperty(
-                "Rotate MatCap UV", "Rotating UV of MatCap Color Map.",
+                "Rotate MatCap UV", "Rotating UV of MatCap Map.",
                 "_Rotate_MatCapUV", -1, 1);
 
             public static readonly RangeProperty matcapBlurLevelText = new RangeProperty(
@@ -804,7 +804,7 @@ namespace UnityEditor.Rendering.Toon
                 ShaderPropGI_Intensity, 0, 1);
 
             public static readonly RangeProperty tweakMatCapMaskLevelText = new RangeProperty(
-                "MatCap Mask Level", "Adjusts the power of the MatcapMask. When the value is 1, MatCap is displayed 100% irrespective of whether or not there is a mask. When the value is -1, MatCap will not be displayed at all and MatCap will be the same as in the off state.",
+                "MatCap Mask Level", "Adjusts the level of the MatcapMask. When the value is 1, MatCap is displayed 100% irrespective of whether or not there is a mask. When the value is -1, MatCap will not be displayed at all and MatCap will be the same as in the off state.",
                 "_Tweak_MatcapMaskLevel", -1, 1);
 
             public static readonly RangeProperty rotate_NormalMapForMatCapUVText = new RangeProperty(
