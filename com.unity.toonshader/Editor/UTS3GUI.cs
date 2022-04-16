@@ -792,7 +792,7 @@ namespace UnityEditor.Rendering.Toon
                 "_TessExtrusionAmount", -0.005f, 0.005f);
 
             public static readonly RangeProperty rimLightPowerText = new RangeProperty(
-                "Rim Light Power", "Specifies Rim Light power.",
+                "Rim Light Level", "Specifies Rim Light level.",
                 "_RimLight_Power", 0, 1);
 
             public static readonly RangeProperty inversedRimLightPowerText = new RangeProperty(
