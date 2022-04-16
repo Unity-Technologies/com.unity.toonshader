@@ -618,10 +618,11 @@ namespace UnityEditor.Rendering.Toon
             public static readonly GUIContent matcapBlendModeText = new GUIContent("Color Blend Mode", "MatCap color blending mode. Multiply or Additive.");
             public static readonly GUIContent matcapOrthoText = new GUIContent("MatCap Camera Mode", "MatCap camera mode. Perspective or Orthographic.");
             public static readonly GUIContent transparentModeText = new GUIContent("Transparency",   "Transparency  mode that fits you. ");
+            public static readonly GUIContent stencilVauleText = new GUIContent("Stencil Value","Stencil value that should be written to the stencil buffer.");
             public static readonly GUIContent workflowModeText = new GUIContent("Mode", "Select the mode that fits your purpose. Choose between Standard or With Additional Control Maps.");
 
             // -----------------------------------------------------
-            public static readonly GUIContent clippingmodeModeText0 = new GUIContent("Clipping", "Select clipping mode that fits your purpose. ");
+            public static readonly GUIContent clippingmodeModeText0 = new GUIContent("Clipping", "Select clipping mode that fits your purpose.");
             public static readonly GUIContent clippingmodeModeText1 = new GUIContent("Trans Clipping", "Select trans clipping mode that fits your purpose. ");
             public static readonly GUIContent stencilmodeModeText = new GUIContent("Stencil", "Select stencil mode that fits your purpose. ");
             public static readonly GUIContent cullingModeText = new GUIContent("Culling Mode", "Culling mode that fits your purpose. ");
@@ -687,7 +688,7 @@ namespace UnityEditor.Rendering.Toon
                 "Transparency Level", "Adjusts the transparency by considering the grayscale level of the clipping mask as an alpha value.",
                 "_Tweak_transparency", -1.0f, 1.0f);
             public static readonly RangeProperty clippingLevelText = new RangeProperty(
-                "Clipping Level", "Specifies the strength of the clipping mask..",
+                "Clipping Level", "Specifies the strength of the clipping mask.",
                 "_Clipping_Level", 0.0f, 1.0f);
             public static readonly RangeProperty scrollEmissiveUText = new RangeProperty(
                 "Scroll U/X direction", "Specifies how much the Emissive texture should scroll in the u-direction (x-axis direction) when updating the animation. The range is -1 to 1, defaulting to 0. The scrolling animation is ultimately determined by Base Speed (Time) x Scroll U Direction x Scroll V Direction..",
@@ -1304,7 +1305,7 @@ namespace UnityEditor.Rendering.Toon
             int currentStencilValue = stencilNumberSetting;
             EditorGUI.BeginDisabledGroup((UTS_StencilMode)MaterialGetInt(material, ShaderPropStencilMode) == UTS_StencilMode.Off);
             EditorGUI.BeginChangeCheck();
-            currentStencilValue = EditorGUILayout.IntSlider(kStencilValue, stencilNumberSetting, 0, 255);
+            currentStencilValue = EditorGUILayout.IntSlider(Styles.stencilVauleText, stencilNumberSetting, 0, 255);
             if (EditorGUI.EndChangeCheck())
             {
                 Undo.RecordObject(material, "Changed " + kStencilValue);
