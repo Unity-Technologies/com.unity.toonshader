@@ -603,7 +603,7 @@ namespace UnityEditor.Rendering.Toon
             public static readonly GUIContent rimLightMaskText = new GUIContent("Rim Light Mask", "Rim Light Mask : Texture(linear)");
             public static readonly GUIContent matCapSamplerText = new GUIContent("MatCap Map", "MatCap Color : Texture(sRGB) × Color(RGB) Default:White");
             public static readonly GUIContent matCapMaskText = new GUIContent("MatCap Mask", "MatCap Mask : Texture(linear)");
-            public static readonly GUIContent angelRingText = new GUIContent("Angel Ring", "Angel Ring : Texture(sRGB) × Color(RGB) Default:Black");
+            public static readonly GUIContent angelRingText = new GUIContent("Angel Ring", "Angel Ring : Texture(sRGB) × Color(RGB) Default:Black.");
             public static readonly GUIContent emissiveTexText = new GUIContent("Emission Map", "Emission : Texture(sRGB)× Emission mask(alpha) × Color(HDR) Default:Black");
             public static readonly GUIContent shadingGradeMapText = new GUIContent("Shading Grade Map", "Specify shadow-prone areas in UV coordinates. Shading Grade Map : Texture(linear)");
             public static readonly GUIContent firstPositionMapText = new GUIContent("1st Shading Position Map", "Specify the position of fixed shadows that falls in 1st shade color areas in UV coordinates. 1st Position Map : Texture(linear)");
@@ -782,7 +782,7 @@ namespace UnityEditor.Rendering.Toon
                 "_AR_OffsetV", 0, 1);
 
             public static readonly RangeProperty legacyTessEdgeLengthText = new RangeProperty(
-                "Edge Length", "Divides the tessellation according to the camera’s distance. The smaller the value, the smaller the tiles become. ",
+                "Edge Length", "Divides the tessellation according to the camera’s distance. The smaller the value, the smaller the tiles become.",
                 "_TessEdgeLength", 2, 50);
 
             public static readonly RangeProperty legacyTessPhongStrengthText = new RangeProperty(
@@ -790,7 +790,7 @@ namespace UnityEditor.Rendering.Toon
                 "_TessPhongStrength", 0, 1);
 
             public static readonly RangeProperty legacyTessExtrusionAmountText = new RangeProperty(
-                "Extrusion Amount", "Scale the expanded parts due to tessellation. .",
+                "Extrusion Amount", "Scale the expanded parts due to tessellation.",
                 "_TessExtrusionAmount", -0.005f, 0.005f);
 
             public static readonly RangeProperty rimLightPowerText = new RangeProperty(
