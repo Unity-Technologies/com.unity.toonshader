@@ -628,6 +628,7 @@ namespace UnityEditor.Rendering.Toon
 
             // ----------------------------------------------------- for GUI Toggles
             public static readonly GUIContent autoRenderQueueText = new GUIContent("Auto Render Queue", "When enabled, reqndering order is determined by system automatically.");
+            public static readonly GUIContent renderQueueText = new GUIContent("Render Queue", "Rendering order in the scene.");
             public static readonly GUIContent invertClippingMaskText = new GUIContent("Invert Clipping Mask", "Invert clipping mask results.");
             public static readonly GUIContent baseMapAlphaAsClippingMask = new GUIContent("Use Base Map Alpha as Clipping Mask", "Use Base Map Alpha as Clipping Mask instead of Clipping mask texture.");
             public static readonly GUIContent applyTo1stShademapText = new GUIContent("Apply to 1st shading map", "Apply Base map to the 1st shading map.");
@@ -1217,7 +1218,7 @@ namespace UnityEditor.Rendering.Toon
             EditorGUILayout.EndHorizontal();
             EditorGUI.indentLevel++;
             EditorGUI.BeginDisabledGroup(m_autoRenderQueue == 1);
-            m_renderQueue = (int)EditorGUILayout.IntField("Render Queue", material.renderQueue);
+            m_renderQueue = (int)EditorGUILayout.IntField(Styles.renderQueueText, material.renderQueue);
             EditorGUI.EndDisabledGroup();
             EditorGUI.indentLevel--;
         }
