@@ -644,13 +644,13 @@ namespace UnityEditor.Rendering.Toon
             public static readonly GUIContent lightColorEffectivinessTo2ndShadingText = new GUIContent("2nd Shading Color", "Light color effectiveness to the 2nd shading color areas.");
             public static readonly GUIContent lightColorEffectivinessToHighlitText    = new GUIContent("Highlight", "Light color effectiveness to high lit areas.");
             public static readonly GUIContent lightColorEffectivinessToRimlitText     = new GUIContent("Rim Light", "Light color effectiveness to rim lit areas.");
-            public static readonly GUIContent lightColorEffectivinessToInvRimlitText  = new GUIContent("Inversed Rim Light", "Light color effectiveness to inverted rim lit areas.");
+            public static readonly GUIContent lightColorEffectivinessToInvRimlitText  = new GUIContent("Inversed Light Direciton Rim Light", "Light color effectiveness to inverted direction rim lit areas.");
             public static readonly GUIContent lightColorEffectivinessToMatCapText = new GUIContent("MatCap", "Light color effectiveness to MatCap areas.");
             public static readonly GUIContent lightColorEffectivinessToOutlineText = new GUIContent("Outline", "Light color effectiveness to outlines.");
             public static readonly GUIContent rimlightText = new GUIContent("Rim Light", "Enable/Disable Rim Light.");
             public static readonly GUIContent rimlightFeatherText = new GUIContent("Rim Light Feather Off", "Disable Rim light feather.");
-            public static readonly GUIContent rimlightDirectionMaskText = new GUIContent("Light Direction Mask", "TBD");
-            public static readonly GUIContent inversedRimlightText = new GUIContent("Inversed Rim Light", "Rim light from inversed/antipodean direction.");
+            public static readonly GUIContent rimlightDirectionMaskText = new GUIContent("Light Direction", "TBD");
+            public static readonly GUIContent inversedRimlightText = new GUIContent("Inversed Direciton Rim Light", "Rim light from inversed/antipodean direction.");
             public static readonly GUIContent camearRollingStabilizerText = new GUIContent("Stabilize Camera rolling", "Stablize Camera rolling when capturing materials with camera.");
             public static readonly GUIContent inversedRimlightFeatherText = new GUIContent("Inversed Rim Light Feather Off", "Disable Inversed Rim light feather.");
             public static readonly GUIContent matCapText = new GUIContent("MatCap", "Enable/Disable MatCap (Material Capture)");
@@ -754,7 +754,7 @@ namespace UnityEditor.Rendering.Toon
                 "_Tweak_RimLightMaskLevel", -1, 1);
 
             public static readonly RangeProperty lightDirectionMaskLevelText = new RangeProperty(
-                "Light Direction Mask Level", "The Level of above.",
+                "Light Direction Rim Light Level", "The Level of Rim Light toward light direction.",
                 "_Tweak_LightDirection_MaskLevel", 0f, 0.5f);
 
             public static readonly RangeProperty tweakMatCapUVText = new RangeProperty(
@@ -794,7 +794,7 @@ namespace UnityEditor.Rendering.Toon
                 "_RimLight_Power", 0, 1);
 
             public static readonly RangeProperty inversedRimLightPowerText = new RangeProperty(
-                "Inversed Rim Light Power", "Specifies Inversed/Antipodean Rim Light power.",
+                "Inversed Rim Light Level", "Specifies Inversed/Antipodean Rim Light Level.",
                 "_Ap_RimLight_Power", 0, 1);
 
             public static readonly RangeProperty giIntensityText = new RangeProperty(
@@ -810,7 +810,7 @@ namespace UnityEditor.Rendering.Toon
                 "_Rotate_NormalMapForMatCapUV", -1, 1);
 
             public static readonly RangeProperty rimLight_InsideMaskText = new RangeProperty(
-                "Adjust Rim Light Area.", "Increasing this value narrows the area of influence of Rim Light.",
+                "Adjust Rim Light Area", "Increasing this value narrows the area of influence of Rim Light.",
                 "_RimLight_InsideMask", 0.0001f, 1);
 
             // Float properties

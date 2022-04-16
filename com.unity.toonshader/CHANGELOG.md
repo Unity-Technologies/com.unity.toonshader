@@ -22,7 +22,6 @@
 * Renamed term, `High Color`, to `Highlight`.
 * Renamed `Settings for PointLights in ForwardAdd Pass` to `Point Light Settings`.
 * Renamed `Point Light High Cut Filter` to `Filter Point Light Hight Light`.
-* Renamed `Antipodean(Ap)_RimLight` to `Inversed Rim Light`
 * Re-organized Stencil and Clipping settings in the inspector window.
 * Renamed `Stencil Out` to `Draw If Not Equal to`.
 * Renamed `Stencil Mask` to `Replace Stencil Buffer with`.
@@ -53,6 +52,10 @@
 * Renamed `MatCap Sampler` to `MatCap Map`.
 * Renamed `Blur Level of MatCap Sampler` to `MatCap Blur Level`.
 * Renamed `RimLight Inside Mask` to `Adjust Rim Light Area`.
+* Renamed `Light Direction Mask` under Rim Light Settings to `Light Dreiction Mode`.
+* Renamed `Light Direction Mask Level` to `Light Direction Rim Light Level`.
+* Renamed `Antipodean(Ap)_RimLight` to `Inversed Direciton Rim Light`.
+* Renamed `AP_RimLgiht Power` to `Inversed Rim Light Level`.
 ### Added:
 * Legacy: Compatibility with Single Pass Stereo Rendering.
 * Legacy: Graphics Test 2022.2.
