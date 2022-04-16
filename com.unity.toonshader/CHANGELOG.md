@@ -39,7 +39,7 @@
 * Renamed Culling mode itemes from `CullingOff`, `FrontCulling` and `BackCulling` to `Off`, `Frontface` and `Backface`.
 * Renamed `Receive System Shadows` to `Receive Shadows`.
 * Renamed `Shadow Mask on High Color` to `Highlight Blending on Shadows`.
-* Renamed `Highlight Power on Shadows` to `Blend Rate`.
+* Renamed `Highlight Power on Shadows` to `Blending Level`.
 * Renamed `Camera Rolling Stabilizer` to `Stabilize Camera Rolling`.
 * Renamed `ViewShift of Color` to `Color Shifting with View Angle`.
 * Renamed `ViewShift` to `Shifting Target Color`.
@@ -56,6 +56,7 @@
 * Renamed `Light Direction Mask Level` to `Light Direction Rim Light Level`.
 * Renamed `Antipodean(Ap)_RimLight` to `Inversed Direciton Rim Light`.
 * Renamed `AP_RimLgiht Power` to `Inversed Rim Light Level`.
+* Renamed `Color Blend Mode` to `Color Bleinding Mode`.
 ### Added:
 * Legacy: Compatibility with Single Pass Stereo Rendering.
 * Legacy: Graphics Test 2022.2.

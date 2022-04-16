@@ -614,8 +614,8 @@ namespace UnityEditor.Rendering.Toon
             public static readonly GUIContent clippingMaskText = new GUIContent("Clipping Mask", "Clipping Mask : Texture(linear)");
 
             public static readonly GUIContent specularModeText = new GUIContent("Specular Mode", "Specular light mode. Hard or Soft.");
-            public static readonly GUIContent specularBlendModeText = new GUIContent("Color Blend Mode", "Specular color blending mode. Multiply or Additive.");
-            public static readonly GUIContent matcapBlendModeText = new GUIContent("Color Blend Mode", "MatCap color blending mode. Multiply or Additive.");
+            public static readonly GUIContent specularBlendModeText = new GUIContent("Color Blending Mode", "Specular color blending mode. Multiply or Additive.");
+            public static readonly GUIContent matcapBlendModeText = new GUIContent("Color Blending Mode", "MatCap color blending mode. Multiply or Additive.");
             public static readonly GUIContent matcapOrthoText = new GUIContent("MatCap Camera Mode", "MatCap camera mode. Perspective or Orthographic.");
             public static readonly GUIContent transparentModeText = new GUIContent("Transparency",   "Transparency  mode that fits you. ");
             public static readonly GUIContent stencilVauleText = new GUIContent("Stencil Value","Stencil value that should be written to the stencil buffer.");
@@ -634,7 +634,7 @@ namespace UnityEditor.Rendering.Toon
             public static readonly GUIContent baseMapAlphaAsClippingMask = new GUIContent("Use Base Map Alpha as Clipping Mask", "Use Base Map Alpha as Clipping Mask instead of Clipping mask texture.");
             public static readonly GUIContent applyTo1stShademapText = new GUIContent("Apply to 1st shading map", "Apply Base map to the 1st shading map.");
             public static readonly GUIContent applyTo2ndShademapText = new GUIContent("Apply to 2nd shading map", "Apply Base map or the 1st shading map to the 2st shading map.");
-            public static readonly GUIContent threeBasicColorToNormalmapText = new GUIContent("3 Basic Colors", "Normal map effectiveness to 3 Basic color areas, lit, the 1st shading and the 2nd");
+            public static readonly GUIContent threeBasicColorToNormalmapText = new GUIContent("3 Basic Colors", "Normal map effectiveness to 3 Basic color areas, lit, the 1st shading and the 2nd.");
             public static readonly GUIContent highLightToNormalmapText = new GUIContent("Highlight", "Normal map effectiveness to high lit areas.");
             public static readonly GUIContent rimlightToNormalmapText = new GUIContent("Rim Light", "Normal map effectiveness to rim lit areas.");
             public static readonly GUIContent receiveShadowText = new GUIContent("Receive Shadows", "Receive shadows on the material.");
@@ -697,10 +697,10 @@ namespace UnityEditor.Rendering.Toon
                 "Scroll V/Y direction", "Specifies how much the Emissive texture should scroll in the u-direction (y-axis direction) when updating the animation. The range is -1 to 1, defaulting to 0. The scrolling animation is ultimately determined by Base Speed (Time) x Scroll U Direction x Scroll V Direction..",
                 "_Scroll_EmissiveV", -1.0f, 1.0f);
             public static readonly RangeProperty tweakHighColorOnShadowText = new RangeProperty(
-                "Blend Rate", "Adjusts the intensity of highlight applied to shadow areas.",
+                "Blending Level", "Adjusts the intensity of highlight applied to shadow areas.",
                 "_TweakHighColorOnShadow", 0, 1);
             public static readonly RangeProperty tweakMatCapOnShadowText = new RangeProperty(
-                "Blend Rate", "Adjusts the intensity of MatCap applied to shadow areas.",
+                "Blending Level", "Adjusts the intensity of MatCap applied to shadow areas.",
                 "_TweakMatCapOnShadow", 0, 1);
             public static readonly RangeProperty tweakSystemShadowLevelText = new RangeProperty(
                 "System Shadow Level", "Adjsuts System Shadows.",
