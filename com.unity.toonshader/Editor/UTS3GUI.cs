@@ -628,7 +628,7 @@ namespace UnityEditor.Rendering.Toon
             public static readonly GUIContent cullingModeText = new GUIContent("Culling Mode", "Culling mode that fits your purpose. ");
 
             // ----------------------------------------------------- for GUI Toggles
-            public static readonly GUIContent autoRenderQueueText = new GUIContent("Auto Render Queue", "When enabled, reqndering order is determined by system automatically.");
+            public static readonly GUIContent autoRenderQueueText = new GUIContent("Auto Render Queue", "When enabled, rendering order is determined by system automatically.");
             public static readonly GUIContent renderQueueText = new GUIContent("Render Queue", "Rendering order in the scene.");
             public static readonly GUIContent invertClippingMaskText = new GUIContent("Invert Clipping Mask", "Invert clipping mask results.");
             public static readonly GUIContent baseMapAlphaAsClippingMask = new GUIContent("Use Base Map Alpha as Clipping Mask", "Use Base Map Alpha as Clipping Mask instead of Clipping mask texture.");
@@ -653,10 +653,10 @@ namespace UnityEditor.Rendering.Toon
             public static readonly GUIContent rimlightFeatherText = new GUIContent("Rim Light Feather Off", "Disable Rim light feather.");
             public static readonly GUIContent rimlightDirectionMaskText = new GUIContent("Light Direction", "When Enabled, rim light is generated only in the direction of the light source.");
             public static readonly GUIContent inversedRimlightText = new GUIContent("Inversed Direciton Rim Light", "Rim light from inversed/antipodean direction.");
-            public static readonly GUIContent camearRollingStabilizerText = new GUIContent("Stabilize Camera rolling", "Stablize Camera rolling when capturing materials with camera.");
+            public static readonly GUIContent camearRollingStabilizerText = new GUIContent("Stabilize Camera rolling", "Stabilize Camera rolling when capturing materials with camera.");
             public static readonly GUIContent inversedRimlightFeatherText = new GUIContent("Inversed Rim Light Feather Off", "Disable Inversed Rim light feather.");
             public static readonly GUIContent matCapText = new GUIContent("MatCap", "Enable/Disable MatCap (Material Capture)");
-            public static readonly GUIContent matCapNormalmapSpecularaMask = new GUIContent("NormalMap Specular Mask for MatCap", "If Enabled, gives a normal map specifically for MatCap.If you are using MatCap as speculum lighting, you can use this to mask it.");
+            public static readonly GUIContent matCapNormalmapSpecularaMask = new GUIContent("Normal Map Specular Mask for MatCap", "If Enabled, gives a normal map specifically for MatCap.If you are using MatCap as speculum lighting, you can use this to mask it.");
             public static readonly GUIContent matCapOnShadow = new GUIContent("MatCap Blending on Shadows", "Adjusts the blending rate of the MatCap range in shadows.");
             public static readonly GUIContent invertMatCapMaskText = new GUIContent("Invert MatCap Mask","When enabled, MatCap Mask Texture is inversed.");
 
@@ -705,7 +705,7 @@ namespace UnityEditor.Rendering.Toon
                 "Blending Level", "Adjusts the intensity of MatCap applied to shadow areas.",
                 "_TweakMatCapOnShadow", 0, 1);
             public static readonly RangeProperty tweakSystemShadowLevelText = new RangeProperty(
-                "System Shadow Level", "Adjsuts System Shadows.",
+                "System Shadow Level", "Adjusts System Shadows.",
                 "_Tweak_SystemShadowsLevel",-0.5f, 0.5f);
 
             public static readonly RangeProperty shaderPropBaseColorText = new RangeProperty(
@@ -754,7 +754,7 @@ namespace UnityEditor.Rendering.Toon
                 "_BlurLevelSGM", 0, 10);
 
             public static readonly RangeProperty rimLightMaskLevelText = new RangeProperty(
-                "Rim Light Mask Level", "-1 gives 0% for the Rim Light effect, 0 gives 100% for the Rim Ligh and Mask effect, 1 gives 100% for the Rim Light and 0% for the Mask effect. Default is 0.",
+                "Rim Light Mask Level", "-1 gives 0% for the Rim Light effect, 0 gives 100% for the Rim Light and Mask effect, 1 gives 100% for the Rim Light and 0% for the Mask effect.Default is 0.",
                 "_Tweak_RimLightMaskLevel", -1, 1);
 
             public static readonly RangeProperty lightDirectionMaskLevelText = new RangeProperty(
