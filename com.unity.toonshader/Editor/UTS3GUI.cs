@@ -648,6 +648,7 @@ namespace UnityEditor.Rendering.Toon
             public static readonly GUIContent lightColorEffectivinessToRimlitText     = new GUIContent("Rim Light", "Light color effectiveness to rim lit areas.");
             public static readonly GUIContent lightColorEffectivinessToInvRimlitText  = new GUIContent("Inversed Light Direciton Rim Light", "Light color effectiveness to inverted direction rim lit areas.");
             public static readonly GUIContent lightColorEffectivinessToMatCapText = new GUIContent("MatCap", "Light color effectiveness to MatCap areas.");
+            public static readonly GUIContent lightColorEffectivenessToAngelRingText = new GUIContent("Angel Ring","Light Color effectiveness to Angel Ring areas.");
             public static readonly GUIContent lightColorEffectivinessToOutlineText = new GUIContent("Outline", "Light color effectiveness to outlines.");
             public static readonly GUIContent rimlightText = new GUIContent("Rim Light", "Enable/Disable Rim Light.");
             public static readonly GUIContent rimlightFeatherText = new GUIContent("Rim Light Feather Off", "Disable Rim light feather.");
@@ -664,11 +665,11 @@ namespace UnityEditor.Rendering.Toon
             public static readonly GUIContent angelRingAlphaAdClippingMaskText = new GUIContent("Alpha Channel as Clipping Mask", "Texture alpha channel is used for clipping mask. If disabled, alpha does not affect at all.");
             public static readonly GUIContent pingpongMoveText = new GUIContent("Ping-pong moves for base", "When enabled, you can set PingPong (back and forth) in the direction of the animation.");
             public static readonly GUIContent colorShitWithTimeText = new GUIContent("Color Shifting with Time", "The color that is multiplied by the Emissive texture is changed by linear interpolation (Lerp) toward the Destination Color.");
+            public static readonly GUIContent blendBaseColorToOutlineText = new GUIContent("Color Shifting with View Angle", "Emissive color shifts in accordance with view angle.");
             public static readonly GUIContent colorShiftWithViewAngle = new GUIContent("Color Shifting with View Angle", "Emissive color shifts in accordance with view angle.");
-
             public static readonly GUIContent baseColorToOtulineText = new GUIContent("Blend Base Color to Outline","Base Color is blended into outline color.");
             public static readonly GUIContent outlineColorMapText = new GUIContent("Outline Color Map", "Apply a texture as outline color map.");
-            public static readonly GUIContent bakedNormalForOutlineText = new GUIContent("Baked Normalmap", "Apply a Normalmap texture for Outline.");
+            public static readonly GUIContent bakedNormalForOutlineText = new GUIContent("Baked Normal Map", "Apply a Normal Map texture for Outline.");
             public static readonly GUIContent metaverseLightText = new GUIContent("Metaverse Light","UTS requires at least one directional light, Some Metaverse scenes,however does not. In such case this feature is helpful.");
             public static readonly GUIContent metaverseLightDirectionText = new GUIContent("Metaverse Light Direction", "Drection of above.");
             public static readonly GUIContent invertZaxisDirection = new GUIContent("Invert Z-Axis Direction", "Invert Metaverse light Z-Axis Direction.");
@@ -770,7 +771,7 @@ namespace UnityEditor.Rendering.Toon
                 "_Rotate_MatCapUV", -1, 1);
 
             public static readonly RangeProperty matcapBlurLevelText = new RangeProperty(
-                "MatCap Blur Level", "Blur MatCap_Sampler using the Mip Map feature; to enable Mip Map, turn on Advanced > Generate Mip Maps in the Texture Import Settings. Default is 0 (no blur).",
+                "MatCap Blur Level", "Blur MatCap Map using the Mip Map feature; to enable Mip Map, turn on Advanced > Generate Mip Maps in the Texture Import Settings. Default is 0 (no blur).",
                 "_BlurLevelMatcap", 0, 10);
 
             public static readonly RangeProperty arOffsetU_Text = new RangeProperty(
@@ -806,11 +807,11 @@ namespace UnityEditor.Rendering.Toon
                 ShaderPropGI_Intensity, 0, 1);
 
             public static readonly RangeProperty tweakMatCapMaskLevelText = new RangeProperty(
-                "MatCap Mask Level", "Adjusts the level of the MatcapMask. When the value is 1, MatCap is displayed 100% irrespective of whether or not there is a mask. When the value is -1, MatCap will not be displayed at all and MatCap will be the same as in the off state.",
+                "MatCap Mask Level", "Adjusts the level of the MatCap Mask. When the value is 1, MatCap is displayed 100% irrespective of whether or not there is a mask. When the value is -1, MatCap will not be displayed at all and MatCap will be the same as in the off state.",
                 "_Tweak_MatcapMaskLevel", -1, 1);
 
             public static readonly RangeProperty rotate_NormalMapForMatCapUVText = new RangeProperty(
-                "Rotate NormalMap UV", "Rotates the MatCap normal map UV based on its center.",
+                "Rotate Normal Map UV", "Rotates the MatCap normal map UV based on its center.",
                 "_Rotate_NormalMapForMatCapUV", -1, 1);
 
             public static readonly RangeProperty rimLight_InsideMaskText = new RangeProperty(
@@ -1376,7 +1377,7 @@ namespace UnityEditor.Rendering.Toon
                 m_MaterialEditor.TexturePropertySingleLine(Styles.normalMapText, normalMap, bumpScale);
                 m_MaterialEditor.TextureScaleOffsetProperty(normalMap);
 
-                EditorGUILayout.LabelField("NormalMap Effectiveness", EditorStyles.boldLabel);
+                EditorGUILayout.LabelField("Normal Map Effectiveness", EditorStyles.boldLabel);
                 EditorGUI.indentLevel++;
 
                 GUI_Toggle(material, Styles.threeBasicColorToNormalmapText, ShaderPropIs_NormalMapToBase, MaterialGetInt(material, ShaderPropIs_NormalMapToBase) != 0);
@@ -2169,7 +2170,7 @@ namespace UnityEditor.Rendering.Toon
             GUI_FloatProperty(material, Styles.outlineWidthText);
             GUI_ColorProperty(material, Styles.outlineColorText);
 
-            GUI_Toggle(material, Styles.colorShiftWithViewAngle, ShaderPropIs_BlendBaseColor, MaterialGetInt(material, ShaderPropIs_BlendBaseColor) != 0);
+            GUI_Toggle(material, Styles.baseColorToOtulineText, ShaderPropIs_BlendBaseColor, MaterialGetInt(material, ShaderPropIs_BlendBaseColor) != 0);
 
             m_MaterialEditor.TexturePropertySingleLine(Styles.outlineSamplerText, outline_Sampler);
             GUI_FloatProperty(material, Styles.offsetZText);
@@ -2226,6 +2227,13 @@ namespace UnityEditor.Rendering.Toon
             GUI_Toggle(material, Styles.lightColorEffectivinessToHighlitText, ShaderPropIs_LightColor_HighColor, MaterialGetInt(material, ShaderPropIs_LightColor_HighColor) != 0);
             GUI_Toggle(material, Styles.lightColorEffectivinessToRimlitText, ShaderPropIs_LightColor_RimLight, MaterialGetInt(material, ShaderPropIs_LightColor_RimLight) != 0);
             GUI_Toggle(material, Styles.lightColorEffectivinessToInvRimlitText, ShaderPropIs_LightColor_Ap_RimLight, MaterialGetInt(material, ShaderPropIs_LightColor_Ap_RimLight) != 0);
+
+            EditorGUI.BeginDisabledGroup(m_WorkflowMode != UTS_Mode.ShadingGradeMap);
+            {
+                GUI_Toggle(material, Styles.lightColorEffectivenessToAngelRingText, ShaderPropIs_LightColor_AR, MaterialGetInt(material, ShaderPropIs_LightColor_AR) != 0);
+            }
+            EditorGUI.EndDisabledGroup();
+
             GUI_Toggle(material, Styles.lightColorEffectivinessToMatCapText, ShaderPropIs_LightColor_MatCap, MaterialGetInt(material, ShaderPropIs_LightColor_MatCap) != 0);
             GUI_Toggle(material, Styles.lightColorEffectivinessToOutlineText, ShaderPropIs_LightColor_Outline, MaterialGetInt(material, ShaderPropIs_LightColor_Outline) != 0);
 
