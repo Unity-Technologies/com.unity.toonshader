@@ -651,7 +651,7 @@ namespace UnityEditor.Rendering.Toon
             public static readonly GUIContent lightColorEffectivinessToRimlitText     = new GUIContent("Rim Light", "Light color effect in rim lit areas.");
             public static readonly GUIContent lightColorEffectivinessToInvRimlitText  = new GUIContent("Inversed Light Direciton Rim Light", "Light color effect in inverted direction rim lit areas.");
             public static readonly GUIContent lightColorEffectivinessToMatCapText = new GUIContent("MatCap", "Light color effect in MatCap areas.");
-            public static readonly GUIContent lightColorEffectivenessToAngelRingText = new GUIContent("Angel Ring", "Light color effect in Angel Ring areas. Angel Ring is ready fonly for With Additional Control Maps mode.");
+            public static readonly GUIContent lightColorEffectivenessToAngelRingText = new GUIContent("Angel Ring", "Light color effect in angel ring area. Angel Ring is only available in With Additional Control Maps mode.");
             public static readonly GUIContent lightColorEffectivinessToOutlineText = new GUIContent("Outline", "Light color effect in outlines.");
             public static readonly GUIContent rimlightText = new GUIContent("Rim Light", "Enable/Disable Rim Light.");
             public static readonly GUIContent rimlightFeatherText = new GUIContent("Rim Light Feather Off", "Disable Rim light feather.");
