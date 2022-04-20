@@ -697,10 +697,10 @@ namespace UnityEditor.Rendering.Toon
                 label: "Clipping Level", tooltip: "Specifies the strength of the clipping mask.",
                 propName: "_Clipping_Level", defaultValue: 0.0f,min: 0.0f, max: 1.0f);
             public static readonly RangeProperty scrollEmissiveUText = new RangeProperty(
-                label: "Scroll U/X direction", tooltip: "Specifies how much the Emissive texture should scroll in the u-direction (x-axis direction) when updating the animation. The range is -1 to 1, defaulting to 0. The scrolling animation is ultimately determined by Base Speed (Time) x Scroll U Direction x Scroll V Direction.",
+                label: "Scroll U/X direction", tooltip: "Specifies how much the Emissive texture should scroll in the u-direction (x-axis direction) when updating the animation. The scrolling animation is ultimately determined by Base Speed (Time) x Scroll U Direction x Scroll V Direction.",
                 propName: "_Scroll_EmissiveU", defaultValue: 0.0f, min: -1.0f, max: 1.0f);
             public static readonly RangeProperty scrollEmissiveVText = new RangeProperty(
-                label: "Scroll V/Y direction", tooltip: "Specifies how much the Emissive texture should scroll in the u-direction (y-axis direction) when updating the animation. The range is -1 to 1, defaulting to 0. The scrolling animation is ultimately determined by Base Speed (Time) x Scroll U Direction x Scroll V Direction.",
+                label: "Scroll V/Y direction", tooltip: "Specifies how much the Emissive texture should scroll in the u-direction (y-axis direction) when updating the animation. The scrolling animation is ultimately determined by Base Speed (Time) x Scroll U Direction x Scroll V Direction.",
                 propName: "_Scroll_EmissiveV", defaultValue: 0.0f, min: -1.0f, max: 1.0f);
             public static readonly RangeProperty tweakHighColorOnShadowText = new RangeProperty(
                 label: "Blending Level", tooltip: "Adjusts the intensity of highlight applied to shadow areas.",
