@@ -923,26 +923,33 @@ namespace UnityEditor.Rendering.Toon
                 {
                     continue;
                 }
-                if (currentRenderPipeline == RenderPipeline.HDRP && item.tessellationEnabled == 1)
+                if (item.tessellationEnabled == 1)
                 {
-                    if (item.expandable == (uint)Expandable.TessellationHDRP)
+                    if (currentRenderPipeline == RenderPipeline.HDRP)
                     {
-                        if (!material.shader.name.Contains(kTessellation))
+                        if (item.expandable == (uint)Expandable.TessellationHDRP)
+                        {
+                            if (!material.shader.name.Contains(kTessellation))
+                                continue;
+                        }
+                        else
+                        {
                             continue;
+                        }
                     }
-                    else
+                    else if (currentRenderPipeline == RenderPipeline.Legacy)
                     {
-                        continue;
-                    }
-                }
-                if (currentRenderPipeline == RenderPipeline.Legacy && item.tessellationEnabled == 1)
-                {
-                    if (item.expandable == (uint)Expandable.TessellationLegacy)
-                    {
-                        if (!material.shader.name.Contains(kTessellation))
+                        if (item.expandable == (uint)Expandable.TessellationLegacy)
+                        {
+                            if (!material.shader.name.Contains(kTessellation))
+                                continue;
+                        }
+                        else
+                        {
                             continue;
+                        }
                     }
-                    else
+                    else if (currentRenderPipeline == RenderPipeline.Universal)
                     {
                         continue;
                     }
