@@ -614,21 +614,21 @@ namespace UnityEditor.Rendering.Toon
             public static readonly GUIContent outlineSamplerText = new GUIContent("Outline Width Map", "Outline Width Map as Grayscale Texture : Texture(linear). In the case of white, the Outline Width is displayed as it is. In black, the width is 0.");
             public static readonly GUIContent outlineTexText = new GUIContent("Outline Color Map", "Outline texture : Texture(sRGB) Default:White");
             public static readonly GUIContent bakedNormalOutlineText = new GUIContent("Baked Normal Map for Outline", "Unpacked Normal Map : Texture(linear) .Note that this is not a standard NORMAL MAP.");
-            public static readonly GUIContent clippingMaskText = new GUIContent("Clipping Mask", "Clipping Mask : Texture(linear)");
+            public static readonly GUIContent clippingMaskText = new GUIContent("Clipping Mask", "A grayscale texture which utilises its brightness to control transparency.");
 
             public static readonly GUIContent specularModeText = new GUIContent("Specular Mode", "Specular light mode. Hard or Soft.");
             public static readonly GUIContent specularBlendModeText = new GUIContent("Color Blending Mode", "Specular color blending mode. Multiply or Additive.");
             public static readonly GUIContent matcapBlendModeText = new GUIContent("Color Blending Mode", "MatCap color blending mode. Multiply or Additive.");
             public static readonly GUIContent matcapOrthoText = new GUIContent("MatCap Camera Mode", "MatCap camera mode. Perspective or Orthographic. The default value is Perspective.");
-            public static readonly GUIContent transparentModeText = new GUIContent("Transparency",   "Transparency  mode that fits you. ");
-            public static readonly GUIContent stencilVauleText = new GUIContent("Stencil Value","Stencil value that should be written to the stencil buffer.");
-            public static readonly GUIContent workflowModeText = new GUIContent("Mode", "Select the mode that fits your purpose. Choose between Standard or With Additional Control Maps.");
+            public static readonly GUIContent transparentModeText = new GUIContent("Transparency", "Enable different modes that allow the simulation of a variety of transparent objects. ");
+            public static readonly GUIContent stencilVauleText = new GUIContent("Stencil Value", "Stencil value that is submitted to the stencil buffer for controlling the per-pixel drawing.");
+            public static readonly GUIContent workflowModeText = new GUIContent("Mode", "The UTS mode that controls what settings are exposed in the shader.");
 
             // -----------------------------------------------------
-            public static readonly GUIContent clippingmodeModeText0 = new GUIContent("Clipping", "Select clipping mode that fits your purpose.");
+            public static readonly GUIContent clippingmodeModeText0 = new GUIContent("Clipping","Allow for the use of a texture to control the transparency of the shader.");
             public static readonly GUIContent clippingmodeModeText1 = new GUIContent("Trans Clipping", "Select trans clipping mode that fits your purpose. ");
-            public static readonly GUIContent stencilmodeModeText = new GUIContent("Stencil", "Select stencil mode that fits your purpose. ");
-            public static readonly GUIContent cullingModeText = new GUIContent("Culling Mode", "Culling mode that fits your purpose. ");
+            public static readonly GUIContent stencilmodeModeText = new GUIContent("Stencil", "Control the stencil buffer which manipulates pixel drawing.");
+            public static readonly GUIContent cullingModeText = new GUIContent("Culling Mode", "Controls the sides of polygons that should not be drawn (culled).");
 
             // ----------------------------------------------------- for GUI Toggles
             public static readonly GUIContent autoRenderQueueText = new GUIContent("Auto Render Queue", "When enabled, rendering order is determined by system automatically.");
