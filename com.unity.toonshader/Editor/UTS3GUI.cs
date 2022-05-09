@@ -598,11 +598,11 @@ namespace UnityEditor.Rendering.Toon
             public static readonly GUIContent pointLightFoldout = EditorGUIUtility.TrTextContent("Point Light Settings", "Point light settings. Such as filtering and step offset.");
 
             public static readonly GUIContent baseColorText = new GUIContent("Base Map", "Base Color : Texture(sRGB) × Color(RGB) Default:White");
-            public static readonly GUIContent firstShadeColorText = new GUIContent("1st Shading Map", "1st Shading color : Texture(sRGB) × Color(RGB) Default:White");
-            public static readonly GUIContent secondShadeColorText = new GUIContent("2nd Shading Map", "2nd Shading color : Texture(sRGB) × Color(RGB) Default:White");
-            public static readonly GUIContent normalMapText = new GUIContent("Normal Map", "Normal Map : Texture(bump)");
+            public static readonly GUIContent firstShadeColorText = new GUIContent("1st Shading Map", "The map used for the brighter portions of the shadow.");
+            public static readonly GUIContent secondShadeColorText = new GUIContent("2nd Shading Map", "The map used for the darker portions of the shadow.");
+            public static readonly GUIContent normalMapText = new GUIContent("Normal Map", "A texture that dictates the bumpiness of the material.");
             public static readonly GUIContent highColorText = new GUIContent("Highlight", "Highlight : Texture(sRGB) × Color(RGB) Default:White");
-            public static readonly GUIContent highColorMaskText = new GUIContent("Highlight Mask", "Highlight Mask : Texture(linear)");
+            public static readonly GUIContent highColorMaskText = new GUIContent("Highlight Mask", "A grayscale texture which utilises its brightness to control transparency.");
             public static readonly GUIContent rimLightMaskText = new GUIContent("Rim Light Mask", "Rim Light Mask : Texture(linear). The white part of the texture is displayed as Rim Light, and the black part is masked and not displayed.");
             public static readonly GUIContent matCapSamplerText = new GUIContent("MatCap Map", "MatCap Color : Texture(sRGB) × Color(RGB) Default:White");
             public static readonly GUIContent matCapMaskText = new GUIContent("MatCap Mask", "MatCap Mask : Texture(linear)");
@@ -642,7 +642,7 @@ namespace UnityEditor.Rendering.Toon
             public static readonly GUIContent rimlightToNormalmapText = new GUIContent("Rim Light", "Normal map effectiveness to rim lit areas.");
             public static readonly GUIContent receiveShadowText = new GUIContent("Receive Shadows", "Receive shadows on the material.");
             public static readonly GUIContent filterPointLightText = new GUIContent("Filter Point Light Highlights", "Show or hide highlight of point lights.");
-            public static readonly GUIContent highlightOnShadowText = new GUIContent("Highlight Blending on Shadows", "Highlights in shadow areas are blend by bellow.");
+            public static readonly GUIContent highlightOnShadowText = new GUIContent("Highlight Blending on Shadows", "Control the blending for the highlights in shadows.");
 
             public static readonly GUIContent lightColorEffectivinessToBaseColorText  = new GUIContent("Base Color", "Light color effect the base color areas.");
             public static readonly GUIContent lightColorEffectivinessTo1stShadingText = new GUIContent("1st Shading Color", "Light color effect in the 1st shading color areas.");
@@ -709,7 +709,7 @@ namespace UnityEditor.Rendering.Toon
                 label: "Blending Level", tooltip: "Adjusts the intensity of MatCap applied to shadow areas.",
                 propName: "_TweakMatCapOnShadow", defaultValue: 0.0f, min: 0, max: 1);
             public static readonly RangeProperty tweakSystemShadowLevelText = new RangeProperty(
-                label: "System Shadow Level", tooltip: "Adjusts System Shadows.",
+                label: "System Shadow Level", tooltip: "Define the appearance of self-shadows and other received shadows that blend with the toon shader.",
                 propName: "_Tweak_SystemShadowsLevel", defaultValue: 0.0f, min: -0.5f, max: 0.5f);
 
             public static readonly RangeProperty shaderPropBaseColorText = new RangeProperty(
