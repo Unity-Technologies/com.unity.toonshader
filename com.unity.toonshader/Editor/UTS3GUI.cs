@@ -653,7 +653,7 @@ namespace UnityEditor.Rendering.Toon
             public static readonly GUIContent lightColorEffectivinessToMatCapText = new GUIContent("MatCap", "Light color effect in MatCap areas.");
             public static readonly GUIContent lightColorEffectivenessToAngelRingText = new GUIContent("Angel Ring", "Light color effect in angel ring area. Angel Ring is only available in With Additional Control Maps mode.");
             public static readonly GUIContent lightColorEffectivinessToOutlineText = new GUIContent("Outline", "Light color effect in outlines.");
-            public static readonly GUIContent rimlightText = new GUIContent("Rim Light", "Enable/Disable Rim Light.");
+            public static readonly GUIContent rimlightText = new GUIContent("Rim Light", "A light that hits the 3D model from behind and emphasizes the contours of the model from the front.");
             public static readonly GUIContent rimlightFeatherText = new GUIContent("Rim Light Feather Off", "Disable Rim light feather.");
             public static readonly GUIContent rimlightDirectionMaskText = new GUIContent("Light Direction", "When Enabled, rim light is generated only in the direction of the light source.");
             public static readonly GUIContent inversedRimlightText = new GUIContent("Inversed Direciton Rim Light", "Rim light from inversed/antipodean direction.");
@@ -798,7 +798,7 @@ namespace UnityEditor.Rendering.Toon
                 propName: "_TessExtrusionAmount", defaultValue: 0.0f, min: -0.005f, max: 0.005f);
 
             public static readonly RangeProperty rimLightPowerText = new RangeProperty(
-                label: "Rim Light Level", tooltip: "Specifies Rim Light level.",
+                label: "Rim Light Level", tooltip: "Specifies Rim Light Intensity.",
                 propName: "_RimLight_Power", defaultValue:0.1f, min: 0, max: 1);
 
             public static readonly RangeProperty inversedRimLightPowerText = new RangeProperty(
