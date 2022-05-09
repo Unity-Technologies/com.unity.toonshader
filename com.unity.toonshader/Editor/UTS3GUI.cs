@@ -664,7 +664,7 @@ namespace UnityEditor.Rendering.Toon
             public static readonly GUIContent matCapOnShadow = new GUIContent("MatCap Blending on Shadows", "Adjusts the blending rate of the MatCap range in shadows.");
             public static readonly GUIContent invertMatCapMaskText = new GUIContent("Invert MatCap Mask","When enabled, MatCap Mask Texture is inversed.");
 
-            public static readonly GUIContent angelRingProjectionText = new GUIContent("Angel Ring Projection", "Enable/Disable Angel Ring Projection.");
+            public static readonly GUIContent angelRingProjectionText = new GUIContent("Angel Ring Projection", "Enable the Angel Ring effect for UTS, which is used to express shine or luster in hair.");
             public static readonly GUIContent angelRingAlphaAdClippingMaskText = new GUIContent("Alpha Channel as Clipping Mask", "Texture alpha channel is used for clipping mask. If disabled, alpha does not affect at all.");
             public static readonly GUIContent pingpongMoveText = new GUIContent("Ping-pong moves for base", "When enabled, you can set PingPong (back and forth) in the direction of the animation.");
             public static readonly GUIContent colorShitWithTimeText = new GUIContent("Color Shifting with Time", "The color that is multiplied by the Emissive texture is changed by linear interpolation (Lerp) toward the Destination Color.");
@@ -672,23 +672,23 @@ namespace UnityEditor.Rendering.Toon
             public static readonly GUIContent colorShiftWithViewAngle = new GUIContent("Color Shifting with View Angle", "Emissive color shifts in accordance with view angle.");
             public static readonly GUIContent baseColorToOtulineText = new GUIContent("Blend Base Color to Outline","Base Color is blended into outline color.");
             public static readonly GUIContent outlineColorMapText = new GUIContent("Outline Color Map", "Apply a texture as outline color map.");
-            public static readonly GUIContent bakedNormalForOutlineText = new GUIContent("Baked Normal Map", "Normal maps with vertex normals previously baked in from other models can be loaded as an addition when setting up normal inversion outlines. See the documents in detail.");
-            public static readonly GUIContent metaverseLightText = new GUIContent("Metaverse Light","UTS requires at least one directional light, Some Metaverse scenes,however does not. In such case this feature is helpful.");
-            public static readonly GUIContent metaverseLightDirectionText = new GUIContent("Metaverse Light Direction", "Drection of above.");
+            public static readonly GUIContent bakedNormalForOutlineText = new GUIContent("Baked Normal Map", "Normal maps with vertex normals previously baked in from other models can be loaded as an addition when setting up normal inversion outlines.");
+            public static readonly GUIContent metaverseLightText = new GUIContent("Metaverse Light", "Enables the use of UTS to work appropriately without any directional lights in the scene.");
+            public static readonly GUIContent metaverseLightDirectionText = new GUIContent("Metaverse Light Direction", "Control the direction of the supplementary lighting for UTS in the scene.");
             public static readonly GUIContent invertZaxisDirection = new GUIContent("Invert Z-Axis Direction", "Invert Metaverse light Z-Axis Direction.");
             public static readonly GUIContent emissiveScrollAnimationModeText = new GUIContent("Animation Mode", "Controls the animated scrolling of the emissive texture.");
 
-            public static readonly GUIContent outlineModeText = new GUIContent("Outline Mode", "Specifies how the inverted-outline object will be spawned. You can choose between Normal Direction（normal inverted method） / Position Scalling（position scaling method). In most cases, Normal Direction is used but if it is a mesh that is only made of hard edges (such as cubes), Position Scalling will prevent the outline from being disconnected.");
+            public static readonly GUIContent outlineModeText = new GUIContent("Outline Mode", "Specifies how the inverted-outline object is spawned.");
             // Range properties
             public static readonly RangeProperty metaverseRangePropText = new RangeProperty(
                 label: "Metaverse Light Intensity", 
-                tooltip: "Light intensity when no directional lights in the scene.",
+                tooltip: "Control the intensity of the supplementary lighting for UTS in the scene.",
                 propName: ShaderPropUnlit_Intensity,  defaultValue: 0, min: 0.0f, max: 4.0f);
             public static readonly RangeProperty metaverseOffsettXaxisText = new RangeProperty(
-                label: "Offset X-Axis Direction", tooltip: "Moves  Metaverse light direction horizontally.",
+                label: "Offset X-Axis Direction", tooltip: "Moves  Metaverse light horizontally.",
                 propName: "_Offset_X_Axis_BLD", defaultValue: -0.05f, min: -1.0f,max:1.0f);
             public static readonly RangeProperty metaverseOffsettYaxisText = new RangeProperty(
-                label: "Offset Y-Axis Direction", tooltip: "Moves  Metaverse light direction vertically.",
+                label: "Offset Y-Axis Direction", tooltip: "Moves  Metaverse light vertically.",
                 propName: "_Offset_Y_Axis_BLD", defaultValue: -0.05f, min: -1.0f, max: 1.0f);
             public static readonly RangeProperty tweakTransParencyText = new RangeProperty(
                 label: "Transparency Level", tooltip: "Adjusts the transparency by considering the grayscale level of the clipping mask as an alpha value.",
@@ -778,15 +778,15 @@ namespace UnityEditor.Rendering.Toon
                 propName: "_BlurLevelMatcap", defaultValue: 0, min: 0, max: 10);
 
             public static readonly RangeProperty arOffsetU_Text = new RangeProperty(
-                label: "Offset U", tooltip: "Adjusts the Angel Ring’s shape in the horizontal direction.",
+                label: "Offset U", tooltip: "Adjusts the Angel Ring's shape in the horizontal direction.",
                 propName: "_AR_OffsetU", defaultValue: 0, min: 0, max: 0.5f);
 
             public static readonly RangeProperty arOffsetV_Text = new RangeProperty(
-                label: "Offset V", tooltip: "Adjusts the Angel Ring’s shape in the vertical direction.",
+                label: "Offset V", tooltip: "Adjusts the Angel Ring's shape in the vertical direction.",
                 propName: "_AR_OffsetV", defaultValue: 0, min: 0, max: 1);
 
             public static readonly RangeProperty legacyTessEdgeLengthText = new RangeProperty(
-                label: "Edge Length", tooltip: "Divides the tessellation according to the camera’s distance. The smaller the value, the smaller the tiles become.",
+                label: "Edge Length", tooltip: "Divides the tessellation according to the camera's distance. The smaller the value, the smaller the tiles become.",
                 propName: "_TessEdgeLength", defaultValue: 5, min: 2, max: 50);
 
             public static readonly RangeProperty legacyTessPhongStrengthText = new RangeProperty(
@@ -827,7 +827,7 @@ namespace UnityEditor.Rendering.Toon
                 propName: "_Base_Speed", defaultValue: 0);
 
             public static readonly FloatProperty outlineWidthText = new FloatProperty(label: "Outline Width",
-                tooltip: "Specifies the width of the outline. NOTICE: This value relies on the scale when the model was imported to Unity which means that you have to be careful if the scale is not 1.",
+                tooltip: "SSpecifies the width of the outline. This value relies on the scale when the model was imported to Unity.",
                 propName: "_Outline_Width", defaultValue: 0);
 
             public static readonly FloatProperty farthestDistanceText = new FloatProperty(label: "Farthest Distance to vanish",
@@ -843,7 +843,7 @@ namespace UnityEditor.Rendering.Toon
                 propName: "_Rotate_EmissiveUV", defaultValue: 0);
 
             public static readonly FloatProperty offsetZText = new FloatProperty(label: "Offset Outline with Camera Z-axis",
-                tooltip: "Offsets the outline in the depth (Z) direction of the camera. In the case of a spike-shaped hairdo, etc., adding a positive value makes the outline less likely to be applied to the spike area. Normally, leave the value at 0.",
+                tooltip: "Offsets the outline in the depth (Z) direction of the camera.",
                 propName: "_Offset_Z", defaultValue: 0);
 
             public static readonly FloatProperty colorShiftSpeedText = new FloatProperty(label: "Color Shifting Speed (Time)",
