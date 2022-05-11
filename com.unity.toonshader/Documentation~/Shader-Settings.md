@@ -32,9 +32,9 @@ Control the stencil buffer which manipulates pixel drawing.
 
 |  Value   |  Description  | 
 | ---- | ---- | 
-|  Replace Stencil Buffer with  | Replaces a pixel value in stencil buffer when drawing. The value is specified by [Stencil Value](#stencil-value)|
-|  Draw If Not Equal to  | Draw a pixel when the vaule in stencil buffer is not equal to specifed value. The value is specified vy [Stencil Value](#stencil-value)|
-|  Off  |  Nothing is written to stencil buffer and the stencil value doesn't affect at all when drawing.|
+|  Replace Stencil Buffer with  | Replaces a pixel value in stencil buffer with [Stencil Value](#stencil-value) when drawing.|
+|  Draw If Not Equal to  | Draw a pixel when the vaule in stencil buffer is not equal to [Stencil Value](#stencil-value).|
+|  Off  |  Nothing is written to stencil buffer and [Stencil Value](#stencil-value) doesn't affect at all when drawing.|
 
 ### Stencil Value
 Stencil value that is submitted to the stencil buffer for controlling the per-pixel drawing. Min is 0. Max is 255. The dafualt is 0.
