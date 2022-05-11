@@ -1,11 +1,11 @@
 # Shader Settings
 
+The Shader Settings provides basic settings that are not specific to  cel-shading but are needed for general CG.
 
 - [Culling Mode](#culling-Mode)
 - [Auto Render Queue](#auto-render-queue)
 - [Render Queue](#render-queue)
-
-The Shader Settings provides basic settings that are not specific to  cel-shading but are needed for general CG.
+- [Transparency](#transparency)
 
 ### Culling Mode
 Controls which sides of polygons should be culled (not drawn).
@@ -17,10 +17,13 @@ Controls which sides of polygons should be culled (not drawn).
 |  Off  |  Disables culling - all faces are drawn. Used for special effects. |
 
 ### Auto Render Queue
-When Auto Render Queue is enabled, rendering order is determined by system automatically.
+When enabled, rendering order is determined by system automatically.
 
 ### Render Queue
 Rendering order in the scene.
+
+### Transparency
+Enables different modes that allow the simulation of a variety of transparent objects.
 
 
 
