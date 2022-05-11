@@ -6,7 +6,7 @@ This is a high level overview of all the settings you can use in Unity Toon Shad
 - [Shader Settings](Shader-Settings.md)
 - [Three Color Map and Control Map Settings](Basic-Settings.md)
 - [Shading Step and Feather Settings](Shading-Step-and-Feather-Setting.md)
-- [Highlight Settings](Highlight-Settingsmd)
+- [Highlight Settings](Highlight-Settings.md)
 - [Rim Light Settings](Rim-Light-Settingss.md)
 - [Material Capture (MatCap) Setting](MatCap-Settings.md)
 - [Emission Settings](Emission-Settings.md)
