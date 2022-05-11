@@ -11,5 +11,5 @@ This is a high level overview of all the settings you can use in Unity Toon Shad
 - [Material Capture (MatCap) Setting](MatCap-Settings.md)
 - [Emission Settings](Emission-Settings.md)
 - [Outline Settings](Outline-Settings.md)
-- [Scene Light Effectiveness Settings](ShaScene-Light.md)
+- [Scene Light Effectiveness Settings](Scene-Light.md)
 - [Metaverse Settings](Metaverse-Settings.md)
