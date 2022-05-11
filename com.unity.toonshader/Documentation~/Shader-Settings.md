@@ -6,7 +6,7 @@ The Shader Settings provides basic settings that are not specific to  cel-shadin
 - [Auto Render Queue](#auto-render-queue)
 - [Render Queue](#render-queue)
 - [Transparency](#transparency)
-- [Stencil](#Stencil)
+- [Stencil](#stencil)
 - [Stencil Value](#stencil-value)
 
 ### Culling Mode
@@ -32,8 +32,8 @@ Control the stencil buffer which manipulates pixel drawing.
 
 |  Value   |  Description  | 
 | ---- | ---- | 
-|  Replace Stencil Buffer with  | Replaces a pixel value in stencil buffer when drawing. The value is specified by [Stencil Value](＃stencil-value)|
-|  Draw If Not Equal to  | Draw a pixel when the vaule in stencil buffer is not equal to specifed value. The value is specified vy [Stencil Value](＃stencil-value)|
+|  Replace Stencil Buffer with  | Replaces a pixel value in stencil buffer when drawing. The value is specified by [Stencil Value](#stencil-value)|
+|  Draw If Not Equal to  | Draw a pixel when the vaule in stencil buffer is not equal to specifed value. The value is specified vy [Stencil Value](#stencil-value)|
 |  Off  |  Nothing is written to stencil buffer and the stencil value doesn't affect at all when drawing.|
 
 ### Stencil Value
