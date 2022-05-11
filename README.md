@@ -19,7 +19,7 @@
   * [Emission Settings](com.unity.toonshader/Documentation~/Emission-Settings.md)
   * [Outline Settings](com.unity.toonshader/Documentation~/Outline-Settings.md)
   * [Scene Light Effectiveness Settings](com.unity.toonshader/Documentation~/Scene-Light.md)
-  * [Metaverse Settings](com.unity.toonshader/Documentation~/Metaverse-Settings.md)
+  * [Metaverse Settings(Experimental)](com.unity.toonshader/Documentation~/Metaverse-Settings.md)
 * [Samples](com.unity.toonshader/Documentation~/sample-instlation.md)
 * [Feature Model](com.unity.toonshader/Documentation~/FeatureModel_en.md)
 
