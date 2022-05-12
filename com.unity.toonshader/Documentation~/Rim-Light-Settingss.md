@@ -6,14 +6,14 @@
 * [Adjust Rim Light Area](#adjust-rim-light-area)
 * [Rim Light Feather Off](#rim-light-feather-off)
 * [Light Direction](#light-direction)
-* [Light Direction Rim LIght Level](#light-direction-rim-light-level)
+* [Light Direction Rim Light Level](#light-direction-rim-light-level)
 * [Inversed Light Direction Rim Light](#inversed-light-direction-rim-light)
 * [Inversed Rim Light Color](#inversed-light-direction-rim-light)
 * [Inversed Rim Light Level](#inversed-rim-light-level)
 * [Inversed Rim Light Feather Off](#inversed-rim-light-level)
 
 * [Rim Light Mask](#rim-light-mask)
-* [Rim Light Mask Level]((#rim-light-mask-level)
+* [Rim Light Mask Level](#rim-light-mask-level)
 
 ### Rim Light
 A light that hits the 3D model from behind and emphasizes the contours of the model from the front.
@@ -28,8 +28,8 @@ Increasing this value narrows the area of influence of Rim Light.
 Disable Rim light feather.
 ### Light Direction
 When Enabled, rim light is generated only in the direction of the light source.
-### Light Direction Rim LIght Level
-Specifies intensity of Rim Light in the direction of the light source.
+### Light Direction Rim Light Level
+Specifies intensity of Rim Light in the light source direction,
 ### Inversed Light Direction Rim Light
 Light color effectiveness to inverted direction rim lit areas.
 ### Inversed Rim Light Color

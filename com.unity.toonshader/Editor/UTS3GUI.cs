@@ -762,7 +762,7 @@ namespace UnityEditor.Rendering.Toon
                 propName: "_Tweak_RimLightMaskLevel", defaultValue: 0, min: -1, max: 1);
 
             public static readonly RangeProperty lightDirectionMaskLevelText = new RangeProperty(
-                label: "Light Direction Rim Light Level", tooltip: "The Level of Rim Light toward a light direction.",
+                label: "Light Direction Rim Light Level", tooltip: "Specifies intensity of Rim Light in the light source direction,",
                 propName: "_Tweak_LightDirection_MaskLevel", defaultValue: 0, min: 0f, max: 0.5f);
 
             public static readonly RangeProperty tweakMatCapUVText = new RangeProperty(
