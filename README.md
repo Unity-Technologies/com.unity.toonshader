@@ -1,5 +1,5 @@
 ﻿
-# Unity Toon Shader (Unity-Chan Toon Shader 3)
+# Unity Toon Shader
 ---
 * [Unity Toon Shader](com.unity.toonshader/Documentation~/index.md)
 * [Requirements](com.unity.toonshader/Documentation~/System-Requirements.md)

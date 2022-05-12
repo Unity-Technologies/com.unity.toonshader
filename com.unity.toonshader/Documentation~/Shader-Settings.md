@@ -17,8 +17,8 @@ The Shader Settings provides basic settings that are not specific to  cel-shadin
 
 |  Value   |  Description  | 
 | ---- | ---- | 
-|  Back   |  Don’t render polygons that are facing away from the viewer (default) i.e. back-facing polygons are culled.  |
-|  Front  | Don’t render polygons that are facing towards the viewer. Used for turning objects inside-out. |
+|  Back   |  Don't render polygons that are facing away from the viewer (default) i.e. back-facing polygons are culled.  |
+|  Front  | Don't render polygons that are facing towards the viewer. Used for turning objects inside-out. |
 |  Off  |  Disables culling - all faces are drawn. Used for special effects. |
 
 ### Auto Render Queue
@@ -49,7 +49,7 @@ Allow for the use of a texture to control the transparency of the shader.
 | ---- | ---- | 
 |  Off | Disable clipping. |
 |  On  | Enable clipping. |
-|  Clip Transparency  | Enable clipping.[Transparency Level](#transparency-level) is also enabled. |
+|  Clip Transparency  | Enable clipping with Transparency Level](#transparency-level). |
 
 #### Clipping Mask
 A grayscale texture which utilises its brightness to control transparency.

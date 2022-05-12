@@ -4,7 +4,7 @@ Because Unity Toon Shader is ready for all the render pipelines, please referrer
 
 ## Unity Editor compatibility
 
-* Unity Toon Shader  0.7.0-preview works for from SRP 7.x to 14.x, Unity 2019.4 to 2022.2.
+Unity Toon Shader  0.7.x-preview works for SRP 7.x to 14.x, Unity 2019.4 to 2022.2.
 
 |  Package Version  |  Minimum Unity Version  | Maximum Unity Version  |
 | ---- | ---- | ---- |
