@@ -1,7 +1,5 @@
 # Three Color Map and Control Map Settings
 
-![](images/UTS3_TopImage04.png)
-
 - [Base Map](#base-map)
 - [Apply to 1st Shading map](#apply-to-1st-shading-map)
 - [1st Shading map](#1st-shading-map)
