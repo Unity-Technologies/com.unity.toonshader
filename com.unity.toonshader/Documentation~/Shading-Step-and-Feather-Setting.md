@@ -11,6 +11,7 @@
 ### Base Color Step
 Sets the boundary between the Base Color and the Shade Colors.
 
+
 ### Base Shading Feather
 Feathers the boundary between the Base Color and the Shade Colors.
 

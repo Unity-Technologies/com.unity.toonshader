@@ -17,11 +17,19 @@
 ### Base Map
 Base Color : Texture(sRGB) × Color(RGB) Default:White
 
+|  Base Color Map(Face) | Base Color Map(Hair) | Result  |
+| ---- | ---- |
+|   | <img src="images/YukoFace.png" width="240">  |
+
 ### Apply to 1st Shading map
 Apply Base map to the 1st shading map.
 
 ### 1st Shading map
 The map used for the brighter portions of the shadow.
+|  1st Shading map  | Result  |
+| ---- | ---- |
+|   | <img src="images/YukoFace1stShadingMap.png" width="240">  |
+
 
 ### Apply to 2nd Shading map
 Apply Base map or the 1st shading map to the 2st shading map.
@@ -30,7 +38,7 @@ Apply Base map or the 1st shading map to the 2st shading map.
 The map used for the darker portions of the shadow.
 
 ### Normal Map
-The map used for the darker portions of the shadow.
+A texture that dictates the bumpiness of the material.
 
 ## NormalMap Effectiveness
 
