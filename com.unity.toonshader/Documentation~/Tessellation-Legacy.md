@@ -1,27 +1,12 @@
-# Metaverse Settings (Experimental)
+# Tessellation Settings (Legacy)
 
-* [Metaverse Light](#metaverse-light)
-* [Metaverse Light Intensity](#metaverse-light-intensity)
-* [Metaverse Light Direction](#metaverse-light-direction)
-* [Offset X-Axis Direction](#offset-x-axis-direction)
-* [Offset Y-Axis Direction](#offset-y-axis-direction)
-* [Invert Z-Axis Direction](#invert-z-axis-direction)
+* [Edge Length](#edge-length)
+* [Phong Strength](#phong-strength)
+* [Extrusion Amount](#extrusion-amount)
 
-
-### Metaverse Light
-Enables the use of UTS to work appropriately without any directional lights in the scene.
-
-### Metaverse Light Intensity
-Control the intensity of the supplementary lighting for UTS in the scene.
-
-### Metaverse Light Direction
-Control the direction of the supplementary lighting for UTS in the scene.
-
-### Offset X-Axis Direction
-Moves Metaverse light horizontally.
-
-### Offset Y-Axis Direction
-Moves Metaverse light vertically.
-
-### Invert Z-Axis Direction
-Invert Metaverse light Z-Axis Direction.
+### Edge Length
+Divides the tessellation according to the camera's distance. The smaller the value, the smaller the tiles become.
+### Phong Strength
+Adjusts the pulling strength of the surfaces divided by tessellation.
+### Extrusion Amount
+Scale the expanded parts due to tessellation.
