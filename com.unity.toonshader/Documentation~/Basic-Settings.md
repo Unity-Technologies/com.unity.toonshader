@@ -17,7 +17,7 @@
 ### Base Map
 Base Color : Texture(sRGB) × Color(RGB). The defaula color is White.
 
-|  Base Color Map(Face) | (Hair) | Result  |
+|  Base Color Map (Face) | (Hair) | Result  |
 | ---- | ---- |---- |
 | <img src="images/yuko_face3_main.png" height="256">  |<img src="images/yuko_hair.png" height="256"> |<img src="images/YukoFace.png" height="256">  |
 
@@ -30,7 +30,7 @@ Please refer to the image at [Apply to 2nd Shading Map](#apply-to-2nd-shading-ma
 
 ### 1st Shading Map
 The map used for the brighter portions of the shadow. Texture(sRGB) × Color(RGB). The defaula color is White.
-|  with 1st Shading map  | (Hair) | Result  |
+|  with 1st Shading Map (Face) | (Hair) | Result  |
 | ---- | ---- | ---- |
 | <img src="images/yuko_face3_B.png" height="256">   | <img src="images/yuko_hairB.png" height="256"> |<img src="images/YukoFace1stShadingMap.png" height="256">  |
 
@@ -42,7 +42,7 @@ Apply **Base Map** or the **1st shading Map** to the **2nd Shading Map**. When *
 
 ### 2nd Shading Map
 The map used for the darker portions of the shadow. Texture(sRGB) × Color(RGB). The defaula color is White.
-|  with 1st Shading map  | (Hair) | Result  |
+|  with 2nd Shading Map (Face)  | (Hair) | Result  |
 | ---- | ---- | ---- |
 | <img src="images/yuko_face3_C.png" height="256">   | <img src="images/yuko_hairC.png" height="256"> |<img src="images/YukoFace2ndShadingMap.png" height="256">  |
 ### Normal Map
@@ -50,6 +50,9 @@ A texture that dictates the bumpiness of the material. The slider is for control
 | Normal Map | Result  |
 | ---- | ---- |
 | <img src="images/DecoPlane_Nromal.png" height="256"> |<img src="images/NormalMapSample.png" height="256">  |
+
+<img src="images/UTSNrormalMap-2.gif" height="256"> 
+
 ## NormalMap Effectiveness
 
 ### 3 Basic Colors
@@ -61,7 +64,7 @@ Normal map effectiveness to high lit areas.
 ### Rim Light
 Normal map effectiveness to rim lit areas.
 
-<img src="images/UTSNrormalMap.gif" height="256"> 
+
 
 
 ## Shadow Control Maps
