@@ -46,8 +46,10 @@ The map used for the darker portions of the shadow. Texture(sRGB) × Color(RGB).
 | ---- | ---- | ---- |
 | <img src="images/yuko_face3_C.png" height="256">   | <img src="images/yuko_hairC.png" height="256"> |<img src="images/YukoFace2ndShadingMap.png" height="256">  |
 ### Normal Map
-A texture that dictates the bumpiness of the material.
-
+A texture that dictates the bumpiness of the material. The slider is for controlling strength.
+| Normal Map | Result  |
+| ---- | ---- |
+| <img src="images/DecoPlane_Nromal.png" height="256"> |<img src="images/NormalMapSample.png" height="256">  |
 ## NormalMap Effectiveness
 
 ### 3 Basic Colors
@@ -58,6 +60,9 @@ Normal map effectiveness to high lit areas.
 
 ### Rim Light
 Normal map effectiveness to rim lit areas.
+
+<img src="images/UTSNrormalMap.gif" height="256"> 
+
 
 ## Shadow Control Maps
 ### 1st Shading Position Map
