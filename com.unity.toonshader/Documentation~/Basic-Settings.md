@@ -6,7 +6,7 @@
 - [Apply to 2nd Shading Map](#apply-to-2nd-shading-map)
 - [2nd Shading Map](#2nd-shading-map)
 - [Normal Map](#normal-map)
-- [NormalMap Effectiveness](#normalmap-effectiveness)
+- [Normal Map Effectiveness](#normal-map-effectiveness)
 - [3 Basic Colors](#3-basic-colors)
 - [Highlight](#highlight)
 - [Rim Light](#rim-light)
@@ -30,30 +30,30 @@ Please refer to the image at [Apply to 2nd Shading Map](#apply-to-2nd-shading-ma
 
 ### 1st Shading Map
 The map used for the brighter portions of the shadow. Texture(sRGB) × Color(RGB). The defaula color is White.
-|  with 1st Shading Map (Face) | (Hair) | Result  |
+|  with **1st Shading Map** (Face) | (Hair) | Result  |
 | ---- | ---- | ---- |
 | <img src="images/yuko_face3_B.png" height="256">   | <img src="images/yuko_hairB.png" height="256"> |<img src="images/YukoFace1stShadingMap.png" height="256">  |
 
 
 ### Apply to 2nd Shading Map
-Apply **Base Map** or the **1st shading Map** to the **2nd Shading Map**. When **Apply to 2nd Shading Map** is checked, texture map in **2nd Shading Map** is not used fore redering and its texture UI is disabled.
+Apply **Base Map** or the **1st Shading Map** to the **2nd Shading Map**. When **Apply to 2nd Shading Map** is checked, texture map in **2nd Shading Map** is not used fore redering and its texture UI is disabled.
 
-<img src="images/ApplyTo1st2ndMap-3.gif" height="384"> 
+<img src="images/ApplyTo1st2ndMap-3.gif" height="320"> 
 
 ### 2nd Shading Map
 The map used for the darker portions of the shadow. Texture(sRGB) × Color(RGB). The defaula color is White.
-|  with 2nd Shading Map (Face)  | (Hair) | Result  |
+|  with **2nd Shading Map** (Face)  | (Hair) | Result  |
 | ---- | ---- | ---- |
 | <img src="images/yuko_face3_C.png" height="256">   | <img src="images/yuko_hairC.png" height="256"> |<img src="images/YukoFace2ndShadingMap.png" height="256">  |
 ### Normal Map
 A texture that dictates the bumpiness of the material. The slider is for controlling strength.
 | Normal Map | Result  |
 | ---- | ---- |
-| <img src="images/DecoPlane_Nromal.png" height="256"> |<img src="images/NormalMapSample.png" height="256">  |
+| <img src="images/DecoPlane_Nromal.png" height="256"> | <img src="images/UTSNrormalMap-2.gif" height="256">   |
 
-<img src="images/UTSNrormalMap-2.gif" height="256"> 
 
-## NormalMap Effectiveness
+
+## Normal Map Effectiveness
 
 ### 3 Basic Colors
 Normal map effectiveness to 3 Basic color areas, lit, the 1st shading and the 2nd.
@@ -68,8 +68,30 @@ Normal map effectiveness to rim lit areas.
 
 
 ## Shadow Control Maps
+Textures that dictates the fixed shadows of the material. 
+
 ### 1st Shading Position Map
-Specify the position of fixed shadows that falls in 1st shade color areas in UV coordinates. 1st Position Map : Texture(linear)
+Specify the position of fixed shadows that falls in 1st shade color areas in UV coordinates. 1st Position Map : Texture(linear). 
 
 ### 2nd Shading Position Map
-Specify the position of fixed shadows that falls in 2nd shade color areas in UV coordinates. 2nd Position Map : Texture(linear)
+Specify the position of fixed shadows that falls in 2nd shade color areas in UV coordinates. 2nd Position Map : Texture(linear).
+
+| Base Map | 1st Shading Map | Shading Position Map |
+| ---- | ---- | ---- |
+| <img src="images/utc_all2_light.png" height="256"> |<img src="images/utc_all2_dark.png" height="256"> |<img src="images/utc_all2_offsetdark.png" height="256"> |
+
+| No Shadow Control Maps |
+| ---- |
+| <img src="images/ShadowControlMap0.png" height="256"> |
+
+| 1st Shading Position Map |
+| ---- | 
+|<img src="images/ShadowControlMap1.png" height="256"> |
+
+| 2nd Shading Position Map | 
+| ---- |
+| <img src="images/ShadowControlMap2.png" height="256">|
+
+| Both |
+| ---- |
+| <img src="images/ShadowControlMap3.png" height="256">|
