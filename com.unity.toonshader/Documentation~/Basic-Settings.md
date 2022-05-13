@@ -1,9 +1,9 @@
 # Three Color Map and Control Map Settings
 
 - [Base Map](#base-map)
-- [Apply to 1st Shading map](#apply-to-1st-shading-map)
+- [Apply to 1st Shading Map](#apply-to-1st-shading-map)
 - [1st Shading map](#1st-shading-map)
-- [Apply to 2nd Shading map](#apply-to-2nd-shading-map)
+- [Apply to 2nd Shading Map](#apply-to-2nd-shading-map)
 - [2nd Shading Map](#2nd-shading-map)
 - [Normal Map](#normal-map)
 - [NormalMap Effectiveness](#normalmap-effectiveness)
@@ -15,7 +15,7 @@
 - [2nd Shading Position Map](#2nd-shading-map)
 
 ### Base Map
-Base Color : Texture(sRGB) × Color(RGB) Default:White
+Base Color : Texture(sRGB) × Color(RGB). The defaula color is White.
 
 |  Base Color Map(Face) | (Hair) | Result  |
 | ---- | ---- |---- |
@@ -25,11 +25,11 @@ Base Color : Texture(sRGB) × Color(RGB) Default:White
 ### Apply to 1st Shading Map
 Apply Base Map to the 1st shading map. When **Apply to 1st Shading Map** is checked, texture map in **1st Shading Map** is not used fore redering and its texture UI is disabled.
 
-<img src="images/ApplyTo1st2ndMap-3.gif" height="384"> 
+Please refer to the image at [Apply to 2nd Shading Map](#apply-to-2nd-shading-map).
 
 
 ### 1st Shading Map
-The map used for the brighter portions of the shadow.
+The map used for the brighter portions of the shadow. Texture(sRGB) × Color(RGB). The defaula color is White.
 |  with 1st Shading map  | (Hair) | Result  |
 | ---- | ---- | ---- |
 | <img src="images/yuko_face3_B.png" height="256">   | <img src="images/yuko_hairB.png" height="256"> |<img src="images/YukoFace1stShadingMap.png" height="256">  |
@@ -38,9 +38,13 @@ The map used for the brighter portions of the shadow.
 ### Apply to 2nd Shading Map
 Apply **Base Map** or the **1st shading Map** to the **2nd Shading Map**. When **Apply to 2nd Shading Map** is checked, texture map in **2nd Shading Map** is not used fore redering and its texture UI is disabled.
 
-### 2nd Shading Map
-The map used for the darker portions of the shadow.
+<img src="images/ApplyTo1st2ndMap-3.gif" height="384"> 
 
+### 2nd Shading Map
+The map used for the darker portions of the shadow. Texture(sRGB) × Color(RGB). The defaula color is White.
+|  with 1st Shading map  | (Hair) | Result  |
+| ---- | ---- | ---- |
+| <img src="images/yuko_face3_C.png" height="256">   | <img src="images/yuko_hairC.png" height="256"> |<img src="images/YukoFace2ndShadingMap.png" height="256">  |
 ### Normal Map
 A texture that dictates the bumpiness of the material.
 
