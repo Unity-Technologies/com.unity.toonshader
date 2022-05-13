@@ -5,7 +5,7 @@
   * [0.5.0-preview](whats-new-0.5.0.md)
   * [0.4.0-preview](whats-new-0.4.0.md)
   * [0.3.0-preview](whats-new-0.3.0.md)
-* [Shader Parameter Settings](Paameter-Settings.md)
+* [Shader Parameter Settings](Parameter-Settings.md)
   * [Modes](Modes.md)
   * [Shader Settings](Shader-Settings.md)
   * [Three Color Map and Control Map Settings](Basic-Settings.md)

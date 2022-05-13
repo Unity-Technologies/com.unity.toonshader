@@ -8,7 +8,7 @@
   * [0.5.0-preview](com.unity.toonshader/Documentation~/whats-new-0.5.0.md)
   * [0.4.0-preview](com.unity.toonshader/Documentation~/whats-new-0.4.0.md)
   * [0.3.0-preview](com.unity.toonshader/Documentation~/whats-new-0.3.0.md)
-* [Shader Parameter Settings](com.unity.toonshader/Documentation~/Paameter-Settings.md)
+* [Shader Parameter Settings](com.unity.toonshader/Documentation~/Parameter-Settings.md)
   * [Modes](com.unity.toonshader/Documentation~/Modes.md)
   * [Shader Settings](com.unity.toonshader/Documentation~/Shader-Settings.md)
   * [Three Color Map and Control Map Settings](com.unity.toonshader/Documentation~/Basic-Settings.md)
