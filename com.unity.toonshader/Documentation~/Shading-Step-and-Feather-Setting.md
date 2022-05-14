@@ -1,19 +1,25 @@
 # Shadeing Steps and Feather Settings
 
-- [Base Color Step](#base-color-step)
-- [Base Shading Feather](#base-shading-feather)
-- [Shading Color Step](#shading-color-step)
-- [1st/2nd Shading Feather](#1st2nd-shading-feather)
-- [System Shadow Level](#system-shadow-level)
-- [Step Offset](#step-offset)
-- [Filter Point Light Highlights](#filter-point-light-highlights)
-
+* [Base Color Step](#base-color-step)
+* [Base Shading Feather](#base-shading-feather)
+* [Shading Color Step](#shading-color-step)
+* [1st/2nd Shading Feather](#1st2nd-shading-feather)
+* [Receive Shadows](#receive-shadows)
+  * [System Shadow Level](#system-shadow-level)
+* [Step Offset](#step-offset)
+* [Filter Point Light Highlights](#filter-point-light-highlights)
+<br><br>
 ### Base Color Step
 Sets the boundary between the Base Color and the Shade Colors.
 
+<img src="images/ColorStep.gif" height="256">
+<br><br>
 
 ### Base Shading Feather
 Feathers the boundary between the Base Color and the Shade Colors.
+
+<img src="images/BaseShadingFeather.gif" height="256">
+<br><br>
 
 ### Shading Color Step
 Sets the boundary between the 1st and 2nd Shade Colors. Set this to 0 if no 2nd Shade Color is used.
@@ -21,7 +27,10 @@ Sets the boundary between the 1st and 2nd Shade Colors. Set this to 0 if no 2nd 
 ### 1st/2nd Shading Feather
 Feathers the boundary between the 1st and 2nd Shade Colors.
 
-### System Shadow Level
+### Receive Shadows
+Determine if the material reflects shadows.
+
+#### System Shadow Level
 Define the appearance of self-shadows and other received shadows that blend with the toon shader.
 
 ### Step Offset
