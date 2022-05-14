@@ -43,6 +43,9 @@ Determine if the material reflects shadows.
 #### System Shadow Level
 Define the appearance of self-shadows and other received shadows that blend with the toon shader.
 
+<img src="images/SystemShadowLevel.gif" height="384">
+<br><br>
+
 ### Step Offset
 Fine tunes light steps (boundaries) added in the ForwardAdd pass, such as real-time point lights.
 
