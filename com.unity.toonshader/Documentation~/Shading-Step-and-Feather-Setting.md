@@ -31,6 +31,9 @@ Sets the boundary between the 1st and 2nd Shade Colors. Set this to 0 if no 2nd 
 ### 1st/2nd Shading Feather
 Feathers the boundary between the 1st and 2nd Shade Colors.
 
+<img src="images/1st2ndShadeFeather.gif" height="384">
+<br><br>
+
 ### Receive Shadows
 Determine if the material reflects shadows.
 
