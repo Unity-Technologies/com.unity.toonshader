@@ -37,6 +37,9 @@ Feathers the boundary between the 1st and 2nd Shade Colors.
 ### Receive Shadows
 Determine if the material reflects shadows.
 
+<img src="images/RecieveSystemShadow.gif" height="384">
+<br><br>
+
 #### System Shadow Level
 Define the appearance of self-shadows and other received shadows that blend with the toon shader.
 
