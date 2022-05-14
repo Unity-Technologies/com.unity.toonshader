@@ -24,6 +24,10 @@ Feathers the boundary between the Base Color and the Shade Colors.
 ### Shading Color Step
 Sets the boundary between the 1st and 2nd Shade Colors. Set this to 0 if no 2nd Shade Color is used.
 
+<img src="images/ShadingColorStep.gif" height="256">
+<br><br>
+
+
 ### 1st/2nd Shading Feather
 Feathers the boundary between the 1st and 2nd Shade Colors.
 
