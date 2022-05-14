@@ -58,3 +58,4 @@ Fine tunes light steps (boundaries) added in the ForwardAdd pass, such as real-t
 
 ### Filter Point Light Highlights
 Show or hide highlight of point lights.
+<img src="images/FilterHilightOnPointLight-2.gif" height="384">
