@@ -1,4 +1,4 @@
-# Shadeing Steps and Feather Settings
+# Shading Steps and Feather Settings
 
 * [Base Color Step](#base-color-step)
 * [Base Shading Feather](#base-shading-feather)
@@ -6,8 +6,9 @@
 * [1st/2nd Shading Feather](#1st2nd-shading-feather)
 * [Receive Shadows](#receive-shadows)
   * [System Shadow Level](#system-shadow-level)
-* [Step Offset](#step-offset)
-* [Filter Point Light Highlights](#filter-point-light-highlights)
+* [Point Light Settings](#point-light-settings)
+  * [Step Offset](#step-offset)
+  * [Filter Point Light Highlights](#filter-point-light-highlights)
 <br><br>
 ### Base Color Step
 Sets the boundary between the Base Color and the Shade Colors.
@@ -46,8 +47,14 @@ Define the appearance of self-shadows and other received shadows that blend with
 <img src="images/SystemShadowLevel.gif" height="384">
 <br><br>
 
+## Point Light Settings
+
 ### Step Offset
 Fine tunes light steps (boundaries) added in the ForwardAdd pass, such as real-time point lights.
+
+<img src="images/PointLightStepOffset.gif" height="384">
+<br><br>
+
 
 ### Filter Point Light Highlights
 Show or hide highlight of point lights.
