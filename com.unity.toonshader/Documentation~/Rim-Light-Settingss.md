@@ -51,6 +51,11 @@ Disable Rim light feather.
 
 ### Light Direction
 When Enabled, rim light is generated only in the direction of the light source.
+|  Rim Light Direction Off | Rim Light Direction On | 
+| ---- | ---- |
+| <img src="images/RimLightDirectionOff.png" height="256"> | <img src="images/RimLightDirectionOn.png" height="256"> |
+<br>
+
 ### Light Direction Rim Light Level
 Specifies intensity of Rim Light in the light source direction,
 ### Inversed Light Direction Rim Light
