@@ -11,7 +11,7 @@
   * [Three Color Map and Control Map Settings](Basic-Settings.md)
   * [Shading Step and Feather Settings](Shading-Step-and-Feather-Setting.md)
   * [Highlight Settings](Highlight-Settings.md)
-  * [Rim Light Settings](Rim-Light-Settingss.md)
+  * [Rim Light Settings](Rim-Light-Settings.md)
   * [Material Capture (MatCap) Setting](MatCap-Settings.md)
   * [Emission Settings](Emission-Settings.md)
   * [Angel Ring Projection Settings](Angel-Ring-Settings.md)

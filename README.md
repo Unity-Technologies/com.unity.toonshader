@@ -14,7 +14,7 @@
   * [Three Color Map and Control Map Settings](com.unity.toonshader/Documentation~/Basic-Settings.md)
   * [Shading Step and Feather Settings](com.unity.toonshader/Documentation~/Shading-Step-and-Feather-Setting.md)
   * [Highlight Settings](com.unity.toonshader/Documentation~/Highlight-Settings.md)
-  * [Rim Light Settings](com.unity.toonshader/Documentation~/Rim-Light-Settingss.md)
+  * [Rim Light Settings](com.unity.toonshader/Documentation~/Rim-Light-Settings.md)
   * [Material Capture (MatCap) Setting](com.unity.toonshader/Documentation~/MatCap-Settings.md)
   * [Emission Settings](com.unity.toonshader/Documentation~/Emission-Settings.md)
   * [Angel Ring Projection Settings](com.unity.toonshader/Documentation~/Angel-Ring-Settings.md)
