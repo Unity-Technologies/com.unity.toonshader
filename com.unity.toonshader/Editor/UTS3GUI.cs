@@ -602,7 +602,7 @@ namespace UnityEditor.Rendering.Toon
             public static readonly GUIContent secondShadeColorText = new GUIContent("2nd Shading Map", "The map used for the darker portions of the shadow.");
             public static readonly GUIContent normalMapText = new GUIContent("Normal Map", "A texture that dictates the bumpiness of the material.");
             public static readonly GUIContent highColorText = new GUIContent("Highlight", "Highlight : Texture(sRGB) × Color(RGB) Default:White");
-            public static readonly GUIContent highColorMaskText = new GUIContent("Highlight Mask", "A grayscale texture which utilises its brightness to control transparency.");
+            public static readonly GUIContent highColorMaskText = new GUIContent("Highlight Mask", "A grayscale texture which utilises its brightness to control intensity.");
             public static readonly GUIContent rimLightMaskText = new GUIContent("Rim Light Mask", "Rim Light Mask : Texture(linear). The white part of the texture is displayed as Rim Light, and the black part is masked and not displayed.");
             public static readonly GUIContent matCapSamplerText = new GUIContent("MatCap Map", "MatCap Color : Texture(sRGB) × Color(RGB) Default:White");
             public static readonly GUIContent matCapMaskText = new GUIContent("MatCap Mask", "The MatCap mask is positioned with respect to the UV coordinates of the mesh onto which the MatCap is projected, and the pixels on black areas are hidden.");
