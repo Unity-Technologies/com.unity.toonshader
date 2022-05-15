@@ -57,7 +57,11 @@ When Enabled, rim light is generated only in the direction of the light source.
 <br>
 
 ### Light Direction Rim Light Level
-Specifies intensity of Rim Light in the light source direction,
+Specifies intensity of Rim Light in the light source direction.
+
+ <img src="images/LightDirectionRimLightLevel.gif" height="256">
+<br>
+
 ### Inversed Light Direction Rim Light
 Light color effectiveness to inverted direction rim lit areas.
 ### Inversed Rim Light Color
