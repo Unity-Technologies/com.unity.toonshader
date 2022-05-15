@@ -19,6 +19,9 @@ Highlight : Texture(sRGB) × Color(RGB) Default:White.
 ### Highlight Power
 Highlight power factor, pow(x,5) is used inside the shader.
 
+<img src="images/SpecularPower.gif"  height="384">
+<br><br>
+
 ### Specular Mode
 Specular light mode. Hard or Soft.
 
