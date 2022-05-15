@@ -17,9 +17,18 @@
 
 ### Rim Light
 A light that hits the 3D model from behind and emphasizes the contours of the model from the front.
+|  Rim Light Off | Rim Light On | 
+| ---- | ---- |
+| <img src="images/RimLightOff.png" height="256"> | <img src="images/RimLightOn.png" height="256"> |
+ 
+<br><br>
 
 ### Rim Light Color
 Specifies the color of rim light.
+
+<img src="images/RimLightColor.gif" height="256">
+<br><br>
+
 ### Rim Light Level
 Specifies Rim Light Intensity.
 ### Adjust Rim Light Area
