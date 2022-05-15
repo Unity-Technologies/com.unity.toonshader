@@ -21,20 +21,34 @@ A light that hits the 3D model from behind and emphasizes the contours of the mo
 | ---- | ---- |
 | <img src="images/RimLightOff.png" height="256"> | <img src="images/RimLightOn.png" height="256"> |
  
-<br><br>
+<br>
 
 ### Rim Light Color
 Specifies the color of rim light.
 
 <img src="images/RimLightColor.gif" height="256">
-<br><br>
+<br>
 
 ### Rim Light Level
 Specifies Rim Light Intensity.
+
+<img src="images/RimLightLevel.gif" height="256">
+<br>
+
 ### Adjust Rim Light Area
 Increasing this value narrows the area of influence of Rim Light.
+
+<img src="images/AdjustRimLightArea.gif" height="256">
+<br>
+
 ### Rim Light Feather Off
 Disable Rim light feather.
+
+|  Rim Light with feather | Rim light feather is disabled | 
+| ---- | ---- |
+| <img src="images/RimLightFeatherOn.png" height="256"> | <img src="images/RimLightFeatherOff.png" height="256"> |
+<br>
+
 ### Light Direction
 When Enabled, rim light is generated only in the direction of the light source.
 ### Light Direction Rim Light Level
