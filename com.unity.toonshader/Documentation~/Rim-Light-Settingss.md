@@ -8,9 +8,9 @@
 * [Light Direction](#light-direction)
 * [Light Direction Rim Light Level](#light-direction-rim-light-level)
 * [Inversed Light Direction Rim Light](#inversed-light-direction-rim-light)
-* [Inversed Rim Light Color](#inversed-light-direction-rim-light)
-* [Inversed Rim Light Level](#inversed-rim-light-level)
-* [Inversed Rim Light Feather Off](#inversed-rim-light-level)
+  * [Inversed Rim Light Color](#inversed-light-direction-rim-light)
+  * [Inversed Rim Light Level](#inversed-rim-light-level)
+  * [Inversed Rim Light Feather Off](#inversed-rim-light-level)
 
 * [Rim Light Mask](#rim-light-mask)
 * [Rim Light Mask Level](#rim-light-mask-level)
@@ -64,11 +64,16 @@ Specifies intensity of Rim Light in the light source direction.
 
 ### Inversed Light Direction Rim Light
 Light color effectiveness to inverted direction rim lit areas.
-### Inversed Rim Light Color
+|  Inversed Light Direction Rim Light Off | Inversed Light Direction Rim Light On | 
+| ---- | ---- |
+| <img src="images/InversedLightDirectionRimLightOff.png" height="256"> | <img src="images/InversedLightDirectionRimLightOn.png" height="256"> |
+<br>
+
+#### Inversed Rim Light Color
 Specifies the color of inversed/antipodean rim light.
-### Inversed Rim Light Level
+#### Inversed Rim Light Level
 Specifies Inversed/Antipodean Rim Light Level.
-### Inversed Rim Light Feather Off
+#### Inversed Rim Light Feather Off
 Disable Inversed Rim light feather.
 
 ### Rim Light Mask
