@@ -13,6 +13,9 @@
 ### Highlight
 Highlight : Texture(sRGB) × Color(RGB) Default:White.
 
+<img src="images/Highlight.gif"  height="384">
+<br><br>
+
 ### Highlight Power
 Highlight power factor, pow(x,5) is used inside the shader.
 

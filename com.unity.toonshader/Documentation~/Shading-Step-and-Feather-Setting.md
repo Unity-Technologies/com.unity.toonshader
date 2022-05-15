@@ -13,7 +13,7 @@
 ### Base Color Step
 Sets the boundary between the Base Color and the Shade Colors.
 
-<img src="images/ColorStep.gif" height="384">
+<img src="images/ColorStep.gif"  height="384">
 <br><br>
 
 ### Base Shading Feather
@@ -52,9 +52,9 @@ Define the appearance of self-shadows and other received shadows that blend with
 ### Step Offset
 Fine tunes light steps (boundaries) added in the ForwardAdd pass, such as real-time point lights.
 
-<img src="images/PointLightStepOffset.gif" height="384">
-<img src="images/PointLightStepOffset-Ball3.gif" height="384">
 
+<img src="images/PointLightStepOffset.gif" height="384">  
+<img src="images/PointLightStepOffset-Ball3.gif" height="384"> 
 <br><br>
 
 
