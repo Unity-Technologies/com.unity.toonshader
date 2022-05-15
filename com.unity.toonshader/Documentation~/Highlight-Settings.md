@@ -13,26 +13,39 @@
 ### Highlight
 Highlight : Texture(sRGB) × Color(RGB) Default:White.
 
-<img src="images/Highlight.gif"  height="384">
+<img src="images/Highlight.gif"  height="256">
 <br><br>
 
 ### Highlight Power
 Highlight power factor, pow(x,5) is used inside the shader.
 
-<img src="images/SpecularPower.gif"  height="384">
+<img src="images/SpecularPower.gif"  height="256">
 <br><br>
 
 ### Specular Mode
 Specular light mode. Hard or Soft.
 
+| Hard | Soft |
+| - | - |
+| <img src="images/SpecularHard.png" > | <img src="images/SpecularSoft.png" > |
+
+
+<br><br>
 ### Color Blending Mode
-Specular color blending mode. Multiply or Additive.
+Specular color blending mode. Multiply or Add. **Color Blending Mode** is disabled when **Specular Mode** is **Soft**.
+
+| Multiply | Add |
+| - | - |
+| <img src="images/SpecularMultiply.png" > | <img src="images/SpecularAdd.png" > |
 
 ### Highlight Blending on Shadows
-Control the blending for the highlights in shadows.
+Control the blending for the highlights in shadows. Please refer to the image at [Blending Level](#blending-level).
 
 ### Blending Level
 Adjusts the intensity of highlight applied to shadow areas.
+
+<img src="images/HighlightBlendingLevel.gif" >
+<br><br>
 
 ### Highlight Mask
 A grayscale texture which utilises its brightness to control transparency.

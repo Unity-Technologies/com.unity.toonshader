@@ -236,11 +236,11 @@ namespace UnityEditor.Rendering.Toon
         }
         public enum UTS_SpeculerColorBlendMode
         {
-            Multiply, Additive
+            Multiply, Add
         }
         public enum UTS_MatcapColorBlendMode
         {
-            Multiply, Additive
+            Multiply, Add
         }
 
         public enum StencilOperation
@@ -617,8 +617,8 @@ namespace UnityEditor.Rendering.Toon
             public static readonly GUIContent clippingMaskText = new GUIContent("Clipping Mask", "A grayscale texture which utilises its brightness to control transparency.");
 
             public static readonly GUIContent specularModeText = new GUIContent("Specular Mode", "Specular light mode. Hard or Soft.");
-            public static readonly GUIContent specularBlendModeText = new GUIContent("Color Blending Mode", "Specular color blending mode. Multiply or Additive.");
-            public static readonly GUIContent matcapBlendModeText = new GUIContent("Color Blending Mode", "MatCap color blending mode. Multiply or Additive.");
+            public static readonly GUIContent specularBlendModeText = new GUIContent("Color Blending Mode", "Specular color blending mode. Multiply or Add.");
+            public static readonly GUIContent matcapBlendModeText = new GUIContent("Color Blending Mode", "MatCap color blending mode. Multiply or Add.");
             public static readonly GUIContent matcapOrthoText = new GUIContent("MatCap Camera Mode", "Control how the MatCap Map is rendered based on the type of camera.");
             public static readonly GUIContent transparentModeText = new GUIContent("Transparency", "Enable different modes that allow the simulation of a variety of transparent objects. ");
             public static readonly GUIContent stencilVauleText = new GUIContent("Stencil Value", "Stencil value that is submitted to the stencil buffer for controlling the per-pixel drawing.");
