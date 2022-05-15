@@ -53,7 +53,7 @@ Define the appearance of self-shadows and other received shadows that blend with
 Fine tunes light steps (boundaries) added in the ForwardAdd pass, such as real-time point lights.
 
 <img src="images/PointLightStepOffset.gif" height="384">
-<img src="images/PointLightStepOffset-Ball2.gif" height="384">
+<img src="images/PointLightStepOffset-Ball3.gif" height="384">
 
 <br><br>
 
@@ -62,3 +62,4 @@ Fine tunes light steps (boundaries) added in the ForwardAdd pass, such as real-t
 Show or hide highlight of point lights.
 
 <img src="images/FilterHilightOnPointLight-2.gif" height="384">
+<img src="images/FilterPointLightHighlight-Ball.gif" height="384">
