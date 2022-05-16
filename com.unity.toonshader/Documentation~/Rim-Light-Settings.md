@@ -78,8 +78,16 @@ Specifies the color of inversed/antipodean rim light.
 
 #### Inversed Rim Light Level
 Specifies Inversed/Antipodean Rim Light Level.
+
+ <img src="images/InversedRimLightLevel.gif" height="256">
+<br>
+
 #### Inversed Rim Light Feather Off
 Disable Inversed Rim light feather.
+
+|  Inversed Rim Light Feather On | Inversed Rim Light Feather Off | 
+| ---- | ---- |
+| <img src="images/InversedRimLightFeathterOn.png" height="256"> | <img src="images/InversedRimLightFeathterOff.png" height="256"> |
 
 ### Rim Light Mask
 Rim Light Mask : Texture(linear). The white part of the texture is displayed as Rim Light, and the black part is masked and not displayed.
