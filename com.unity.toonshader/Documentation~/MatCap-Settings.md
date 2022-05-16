@@ -20,10 +20,10 @@
 MatCap Color : Texture(sRGB) × Color(RGB) Default:White
 
 ### MatCap Blur Level
-Blur MatCap Map using the Mip Map feature; to enable Mip Map, turn on Advanced > Generate Mip Maps in the Texture Import Settings. Default is 0 (no blur)
+Blur MatCap Map using the Mip Map feature; to enable Mip Map, turn on Advanced > Generate Mip Maps in the [Texture Import Settings](https://docs.unity3d.com/Manual/class-TextureImporter.html). Default is 0 (no blur)
 
 ### Color Blending Mode
-MatCap color blending mode. Multiply or Additive.
+MatCap color blending mode. Multiply or Add.
 
 ### Scale MatCap UV
 Scaling UV of MatCap Map.
@@ -51,4 +51,4 @@ The MatCap mask is positioned with respect to the UV coordinates of the mesh ont
 ### MatCap Mask Level
 Adjusts the level of the MatCap Mask. When the value is 1, MatCap is displayed 100% irrespective of whether or not there is a mask. When the value is -1, MatCap will not be displayed at all and MatCap will be the same as in the off state.
 ### Invert MatCap Mask
-When enabled, MatCap Mask Texture is inversed.
+When enabled, **MatCap Mask** Texture is inversed.
