@@ -31,4 +31,4 @@ Adjusts the Angel Ring’s shape in the horizontal direction.
 ### Offset V
 Adjusts the Angel Ring’s shape in the vertical direction.
 ### Alpha Chennel as Clipping Mask
-Texture alpha channel is used for clipping mask. If disabled, alpha does not affect at all.
+Texture alpha channel is used for clipping mask. If disabled, alpha does not affect at all. The color of the **Angel Ring** can be specified directly instead of using the additive method.
