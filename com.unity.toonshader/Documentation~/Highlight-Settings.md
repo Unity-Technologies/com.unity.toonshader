@@ -3,9 +3,9 @@
 * [Highlight](#highlight)
 * [Highlight Power](#highlight-power)
 * [Specular Mode](#specular-mode)
-* [Color Blending Mode](#color-blending-mode)
+  * [Color Blending Mode](#color-blending-mode)
 * [Highlight Blending on Shadows](#highlight-blending-on-shadows)
-* [Blending Level](#blending-level)
+  * [Blending Level](#blending-level)
 * [Highlight Mask](#highlight-mask)
 * [Highlight Mask Level](#highlight-mask-level)
 
@@ -31,7 +31,7 @@ Specular light mode. Hard or Soft.
 
 
 <br><br>
-### Color Blending Mode
+#### Color Blending Mode
 Specular color blending mode. Multiply or Add. **Color Blending Mode** is disabled when **Specular Mode** is **Soft**.
 
 | Multiply | Add |
@@ -41,7 +41,7 @@ Specular color blending mode. Multiply or Add. **Color Blending Mode** is disabl
 ### Highlight Blending on Shadows
 Control the blending for the highlights in shadows. Please refer to the image at [Blending Level](#blending-level).
 
-### Blending Level
+#### Blending Level
 Adjusts the intensity of highlight applied to shadow areas.
 
 <img src="images/HighlightBlendingLevel.gif" >
