@@ -48,7 +48,20 @@ Adjusts the intensity of highlight applied to shadow areas.
 <br><br>
 
 ### Highlight Mask
-A grayscale texture which utilises its brightness to control highlight intensity. Applying a **Highlight Mask** can reduce areas of shiny skin at certain angles. 
+A grayscale texture which utilises its brightness to control highlight intensity. Applying the highlight mask allows to fine-tune the reflectivity on the material.
+
+ Gray Scale Texture Sample | 
+| ---- |
+|<img src="images/UVCheckGrid.png" height="256">|
+
+| High Light Mask Off | HIgh Light Mask On |
+| ---- | ---- |
+| <img src="images/HighlightMaskOff.png" height="256"> | <img src="images/HighlightMaskOn.png" height="256"> |
+
+
+
 
 ### Highlight Mask Level
 Highlight mask texture blending level to highlights.
+
+<img src="images/HighlightMaskLevel.gif" height="256">
