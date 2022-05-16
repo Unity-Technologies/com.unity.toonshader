@@ -50,7 +50,7 @@ Adjusts the intensity of highlight applied to shadow areas.
 ### Highlight Mask
 A grayscale texture which utilises its brightness to control highlight intensity. Applying the highlight mask allows to fine-tune the reflectivity on the material.
 
- Gray Scale Texture Sample | 
+ Gray Scale Texture Example | 
 | ---- |
 |<img src="images/UVCheckGrid.png" height="256">|
 
