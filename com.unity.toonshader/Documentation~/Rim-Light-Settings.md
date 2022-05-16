@@ -90,6 +90,19 @@ Disable Inversed Rim light feather.
 | <img src="images/InversedRimLightFeathterOn.png" height="256"> | <img src="images/InversedRimLightFeathterOff.png" height="256"> |
 
 ### Rim Light Mask
-Rim Light Mask : Texture(linear). The white part of the texture is displayed as Rim Light, and the black part is masked and not displayed.
+Rim Light Mask : a gray scale texture(sRGB). The white part of the texture is displayed as Rim Light, and the black part is masked and not displayed.
+ Gray Scale Texture Sample | 
+| ---- |
+|<img src="images/UVCheckGrid.png" height="256">|
+
+| Rim Light Mask Off | Rim Light Mask On |
+| ---- | ---- |
+| <img src="images/RimLightMaskOff.png" height="256"> | <img src="images/RimLightMaskOn.png" height="256"> |
+
+
+
 ### Rim Light Mask Level
 -1 gives 0% for the Rim Light effect, 0 gives 100% for the Rim Light and Mask effect, 1 gives 100% for the Rim Light and 0% for the Mask effect.
+
+ <img src="images/RimLightMaskLevel.gif" height="256">
+<br>
