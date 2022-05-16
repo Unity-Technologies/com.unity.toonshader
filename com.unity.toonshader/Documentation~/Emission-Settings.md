@@ -1,4 +1,6 @@
 # Emission Settings
+<img src="images/EmissiveAnimation.png" height="256">
+
 
 * [Emission Map](#emission-map)
 * [Base Speed (Time)](#base-speed-time)
