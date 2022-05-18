@@ -209,7 +209,7 @@
 #if !defined(ADDITIONAL_LIGHT_CALCULATE_SHADOWS)
                 return 1.0h;
 #endif
-# if (SHADER_LIBRARY_VERSION_MAJOR >= 14)
+# if (SHADER_LIBRARY_VERSION_MAJOR >= 13 && UNITY_VERSION >= 202200 )
                 ShadowSamplingData shadowSamplingData = GetAdditionalLightShadowSamplingData(lightIndex);
 # else
                 ShadowSamplingData shadowSamplingData = GetAdditionalLightShadowSamplingData();
