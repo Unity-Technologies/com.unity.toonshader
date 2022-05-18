@@ -88,6 +88,7 @@
 * Fixed some popups in the inspector window not to use connected names without spaces. Each name is separated by a space.
 * `Rimlight Mask` on URP and HDRP version were not working well.
 * Single pass stereo rendering was not working with legacy(built-in) tessellation shaders.
+
 ## [0.6.1-preview] - 2022-02-24
 ### Fixed:
 * typo in inspector.
