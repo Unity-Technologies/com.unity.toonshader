@@ -1,5 +1,5 @@
 # Changelog
-## [0.7.0-preview] - 2022-04-02
+## [0.7.0-preview] - 2022-05-18
 ### Updated:
 * Shader version properties in all the render pipeline shaders.
 * Updated installation.md.

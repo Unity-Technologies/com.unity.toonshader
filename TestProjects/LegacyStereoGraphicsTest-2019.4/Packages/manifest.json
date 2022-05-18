@@ -11,6 +11,7 @@
     "com.unity.textmeshpro": "2.0.1",
     "com.unity.toonshader": "file:../../../com.unity.toonshader",
     "com.unity.ugui": "1.0.0",
+    "com.unity.xr.mock-hmd": "1.3.0-preview.1",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",
     "com.unity.modules.animation": "1.0.0",
@@ -45,5 +46,5 @@
   },
   "testables": [
     "com.unity.testframework.graphics"
-  ]    
+  ]
 }
