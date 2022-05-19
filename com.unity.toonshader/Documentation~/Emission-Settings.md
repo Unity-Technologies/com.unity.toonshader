@@ -40,6 +40,9 @@ Specifies the base update speed of scroll animation. If the value is 1, it will 
 ### Animation Mode
 Controls the animated scrolling of the emissive texture.
 
+| UV Coordinate Scroll | View Coordinate Scroll |
+| -- | --|
+| <img src="images/EmissionMapBaseSpeedHalf.gif" height="256">| <img src="images/EmissionMapViewCoordinateScroll.gif" height="256"> |
 
 
 #### Scroll U/X direction
