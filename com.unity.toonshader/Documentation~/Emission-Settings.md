@@ -64,6 +64,8 @@ When Base Speed=1, the Emissive texture will rotate clockwise by 1. When combine
 #### Ping-pong moves for base
 When enabled, you can set PingPong (back and forth) in the direction of the animation.
 
+<img src="images/PingPongMove.gif" height="256">
+
 #### Color Shifting with Time
 The color that is multiplied by the Emissive texture is changed by linear interpolation (Lerp) toward the Destination Color.
 
@@ -72,6 +74,9 @@ Destination color above, must be specified in HDR.
 
 #### Color Shifting Speed (Time)
 Sets the reference speed for color shift. When the value is 1, one cycle should take approximately 6 seconds.
+
+<img src="images/ColorShiftingWithTime.gif" height="256">
+
 
 #### Color Shifting with View Angle
 Emissive color shifts in accordance with view angle.
