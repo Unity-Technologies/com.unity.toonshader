@@ -83,3 +83,6 @@ Emissive color shifts in accordance with view angle.
 
 #### Shifting Target Color
 Target color for Color Shifting with View Angle which must be specified in HDR.
+
+<img src="images/ColorShiftingWithView.gif" height="256">
+
