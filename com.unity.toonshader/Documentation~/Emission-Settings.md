@@ -25,9 +25,14 @@ Primarily used with the Bloom Post Effect, Luminous objects can be represented.
 ### Emission Map Animation
 When Enabled, the UV and Color of the Emission Map are animated.
 
-Emission Animation Example:
+Emission Map Animation Example:
 
-<img src="images/EmissionAnimation.gif" height="256">
+| Texture | Animation |
+| -- | --|
+| <img src="images/EmissionMapSample.png" height="256">| <img src="images/EmissionAnimation.gif" height="256"> |
+
+
+
 
 ### Base Speed (Time)
 Specifies the base update speed of scroll animation. If the value is 1, it will be updated in 1 second. Specifying a value of 2 results in twice the speed of a value of 1, so it will be updated in 0.5 seconds.
@@ -54,7 +59,7 @@ Specifies how much the Emissive texture should scroll in the V-direction (y-axis
 #### Rotate around UV center
 When Base Speed=1, the Emissive texture will rotate clockwise by 1. When combined with scrolling, rotation will occur after scrolling.
 
-<img src="images/RottateAroundUVCenter2.gif" height="256">
+<img src="images/RotateAroundUVCenter3.gif" height="256">
 
 #### Ping-pong moves for base
 When enabled, you can set PingPong (back and forth) in the direction of the animation.
