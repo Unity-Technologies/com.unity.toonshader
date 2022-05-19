@@ -677,7 +677,7 @@ namespace UnityEditor.Rendering.Toon
             public static readonly GUIContent metaverseLightDirectionText = new GUIContent("Metaverse Light Direction", "Control the direction of the supplementary lighting for UTS in the scene.");
             public static readonly GUIContent invertZaxisDirection = new GUIContent("Invert Z-Axis Direction", "Invert Metaverse light Z-Axis Direction.");
             public static readonly GUIContent emissiveScrollAnimationModeText = new GUIContent("Animation Mode", "Controls the animated scrolling of the emissive texture.");
-
+            public static readonly GUIContent emissionAnimationText = new GUIContent("Emission Map Animation", "When Enabled, the UV and Color of the Emission Map are animated.");
             public static readonly GUIContent outlineModeText = new GUIContent("Outline Mode", "Specifies how the inverted-outline object is spawned.");
             // Range properties
             public static readonly RangeProperty metaverseRangePropText = new RangeProperty(
@@ -2040,11 +2040,11 @@ namespace UnityEditor.Rendering.Toon
             EditorGUILayout.Space();
 
             EditorGUI.BeginChangeCheck();
-            var label = "Emissive Animation";
-            var ret = EditorGUILayout.Toggle("Emissive Animation", m_emissionMode != EmissionMode.SimpleEmissive);
+
+            var ret = EditorGUILayout.Toggle(Styles.emissionAnimationText, m_emissionMode != EmissionMode.SimpleEmissive);
             if (EditorGUI.EndChangeCheck())
             {
-                m_MaterialEditor.RegisterPropertyChangeUndo(label);
+                m_MaterialEditor.RegisterPropertyChangeUndo(Styles.emissionAnimationText.text);
                 if (ret )
                 {
                     material.SetFloat("_EMISSIVE", 1);
@@ -2065,7 +2065,6 @@ namespace UnityEditor.Rendering.Toon
             {
                 EditorGUI.indentLevel++;
 
-
                 GUI_FloatProperty(material, Styles.baseSpeedText);
                 if (!_SimpleUI)
                 {
@@ -2074,7 +2073,7 @@ namespace UnityEditor.Rendering.Toon
                     mode = EditorGUILayout.Popup(Styles.emissiveScrollAnimationModeText, (int)mode, EmissiveScrollMode);
                     if (EditorGUI.EndChangeCheck())
                     {
-                        m_MaterialEditor.RegisterPropertyChangeUndo("Emissive Scroll Mode");
+                        m_MaterialEditor.RegisterPropertyChangeUndo(Styles.emissiveScrollAnimationModeText.text);
                         MaterialSetInt(material, ShaderPropIs_ViewCoord_Scroll, mode);
                     }
                 }
