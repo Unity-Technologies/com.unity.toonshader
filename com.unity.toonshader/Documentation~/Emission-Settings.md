@@ -54,6 +54,8 @@ Specifies how much the Emissive texture should scroll in the V-direction (y-axis
 #### Rotate around UV center
 When Base Speed=1, the Emissive texture will rotate clockwise by 1. When combined with scrolling, rotation will occur after scrolling.
 
+<img src="images/RottateAroundUVCenter2.gif" height="256">
+
 #### Ping-pong moves for base
 When enabled, you can set PingPong (back and forth) in the direction of the animation.
 
