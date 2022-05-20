@@ -35,11 +35,13 @@ namespace UnityEngine.Rendering.Toon.Samples
 		[SerializeField]
 		private Vector3 endRotationEuler = new Vector3(0, 180, 0);
 		[SerializeField]
-		int framesBetween = 7680 * 128;
+		int framesBetween = 240;
 		[SerializeField]
-		int frameBeforeStart = 7680 * 64;
+		int frameBeforeStart = 60;
 		[SerializeField]
-		int frameAfterEend = 7680 * 64;
+		int frameAfterEend = 60;
+		[SerializeField]
+		AnimationCurve animationCurve = AnimationCurve.EaseInOut(0, 0.0f, 1.0f, 1.0f);
 		int currentFrame = 0;
 
 
@@ -56,9 +58,20 @@ namespace UnityEngine.Rendering.Toon.Samples
 
 		void LateUpdate ()
 		{
-			currentFrame = currentFrame % framesBetween;
-			float currentRate = (float)currentFrame / (float)framesBetween;
+			currentFrame = currentFrame % (framesBetween + frameBeforeStart + frameAfterEend);
+			float currentRate = (float)(currentFrame - frameBeforeStart) / (float)(framesBetween);
+			if ( currentFrame < frameBeforeStart )
+            {
+				currentRate = 0;
+			}
+			if (currentFrame >= frameBeforeStart + framesBetween)
+			{
+				currentRate = 1.0f;
+			}
+
+			currentRate = animationCurve.Evaluate(currentRate);
 			Quaternion qt = Quaternion.Lerp( Quaternion.Euler(startRotationEuler), Quaternion.Euler(endRotationEuler), currentRate);
+
 			Vector3 position = Vector3.Lerp(startPosition, endPosition, currentRate);
 			Camera.main.transform.position = position;
 			Camera.main.transform.rotation = qt;
