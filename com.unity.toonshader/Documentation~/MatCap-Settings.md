@@ -1,6 +1,6 @@
 # Material Capture(MatCap) Settings
 
-<img src="images/MatCap.png" height="256">
+<img src="images/MatCap.gif" height="256">
 
 * [MatCap Map](#matcap-map)
 * [MatCap Blur Level](#matcap-blur-level)
@@ -9,14 +9,14 @@
 * [Rotate MatCap UV](#rotate-matcap-uv)
 * [Stabilize Camera rolling](#stabilize-camera-rolling)
 * [Normal Map Specular Mask for MatCap](#normal-map-specular-mask-for-matcap)
-* [Normal Map](#normal-map)
-* [Rotate Normal Map UV](#rotate-normal-map-uv)
+  * [Normal Map](#normal-map)
+  * [Rotate Normal Map UV](#rotate-normal-map-uv)
 * [MatCap Blending on Shadows](#matcap-blending-on-shadows)
-* [Blending Level](#blending-level)
+  * [Blending Level](#blending-level)
 * [MatCap Camera Mode](#matcap-camera-mode)
 * [MatCap Mask](#matcap-mask)
-* [MatCap Mask Level](#matcap-mask-level)
-* [Invert MatCap Mask](#invert-matcap-mask)
+  * [MatCap Mask Level](#matcap-mask-level)
+  * [Invert MatCap Mask](#invert-matcap-mask)
 
 ### MatCap Map
 MatCap Color : Texture(sRGB) × Color(RGB) Default:White
@@ -34,6 +34,8 @@ MatCap Color : Texture(sRGB) × Color(RGB) Default:White
 ### MatCap Blur Level
 Blur MatCap Map using the Mip Map feature; to enable Mip Map, turn on Advanced > Generate Mip Maps in the [Texture Import Settings](https://docs.unity3d.com/Manual/class-TextureImporter.html). Default is 0 (no blur)
 
+<img src="images/MatCapBlurLebel.gif" height="256">
+
 ### Color Blending Mode
 MatCap color blending mode. Multiply or Add.
 
@@ -42,16 +44,27 @@ MatCap color blending mode. Multiply or Add.
 ### Scale MatCap UV
 Scaling UV of MatCap Map.
 
+<img src="images/ScaleMatCapUV.gif" height="256">
+
+
 ### Rotate MatCap UV
 Rotating UV of MatCap Map.
 
-### Stabilize Camera rolling
+<img src="images/RotateMatCapUV.gif" height="256">
+
+### Stabilize Camera Rolling
 Stabilize Camera rolling when capturing materials with camera.
+
+| Stabilize Camera Rolling Off  | Stabilize Camera Rolling On |
+| -- | --|
+| <img src="images/StabilizerOff.gif" height="256">| <img src="images/StabilizerOn.gif" height="256"> 
+
+
 ### Normal Map Specular Mask for MatCap
 If enabled, gives a normal map specifically for MatCap.If you are using MatCap as speculum lighting, you can use this to mask it.
-### Normal Map
+#### Normal Map
 A texture that dictates the bumpiness of the material.
-### Rotate Normal Map UV
+#### Rotate Normal Map UV
 Rotates the MatCap normal map UV based on its center.
 
 ### MatCap Blending on Shadows
