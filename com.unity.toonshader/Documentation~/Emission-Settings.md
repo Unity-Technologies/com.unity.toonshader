@@ -21,15 +21,14 @@
 
 ### Emission Map
 Primarily used with the Bloom Post Effect, Luminous objects can be represented.
+| Emission Map Example |
+| -- |
+| <img src="images/EmissionMapSample.png" height="256"> | 
 
 ### Emission Map Animation
 When Enabled, the UV and Color of the Emission Map are animated.
 
-Emission Map Animation Example:
-
-| Texture | Animation |
-| -- | --|
-| <img src="images/EmissionMapSample.png" height="256">| <img src="images/EmissionAnimation.gif" height="256"> |
+ <img src="images/EmissionAnimation.gif" height="256"> 
 
 
 

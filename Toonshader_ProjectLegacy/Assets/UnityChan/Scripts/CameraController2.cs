@@ -19,7 +19,7 @@ using System.Collections;
 namespace UnityEngine.Rendering.Toon.Samples
 {
 
-	[ExecuteAlways]
+	//[ExecuteAlways]
 	public class CameraController2 : MonoBehaviour
 	{
 

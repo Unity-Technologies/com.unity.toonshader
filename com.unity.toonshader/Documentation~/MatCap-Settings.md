@@ -57,20 +57,40 @@ Stabilize Camera rolling when capturing materials with camera.
 
 | Stabilize Camera Rolling Off  | Stabilize Camera Rolling On |
 | -- | --|
-| <img src="images/StabilizerOff.gif" height="256">| <img src="images/StabilizerOn.gif" height="256"> 
+| <img src="images/StabilizerOff.gif" height="256">| <img src="images/StabilizerOn.gif" height="256"> |
 
 
 ### Normal Map Specular Mask for MatCap
 If enabled, gives a normal map specifically for MatCap.If you are using MatCap as speculum lighting, you can use this to mask it.
+
+| Normal Map Specular Maskg Off  | Normal Map Specular Mask On |
+| -- | --|
+| <img src="images/MatCapNormalMapOff.png" height="256">| <img src="images/MatCapNormalMapOn.png" height="256"> |
+
+
 #### Normal Map
 A texture that dictates the bumpiness of the material.
+
+| Normal Map Texture Example | 
+| -- |
+| <img src="images/HairNormalMask.png" height="256">|
+
 #### Rotate Normal Map UV
 Rotates the MatCap normal map UV based on its center.
 
+<img src="images/RotateMatCapNormalMapUV.gif" height="256">
+
 ### MatCap Blending on Shadows
-Adjusts the blending rate of the MatCap range in shadows.
+Enables the blending rate of the MatCap range in shadows.
+| MatCap Blending on Shadows Off  | MatCap Blending on Shadows On |
+| -- | --|
+| <img src="images/MatCapBlendingOnShadowOff.png" height="256">| <img src="images/MatCapBlendingOnShadowOn.png" height="256"> |
+
 ### Blending Level
 Adjusts the intensity of MatCap applied to shadow areas.
+
+<img src="images/MatCapOnShadowLevel.gif" height="256">
+
 ### MatCap Camera Mode
 Control how the MatCap Map is rendered based on the type of camera.
 ### MatCap Mask
