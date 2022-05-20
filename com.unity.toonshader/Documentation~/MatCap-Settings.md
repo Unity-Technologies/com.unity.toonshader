@@ -95,7 +95,18 @@ Adjusts the intensity of MatCap applied to shadow areas.
 Control how the MatCap Map is rendered based on the type of camera.
 ### MatCap Mask
 The MatCap mask is positioned with respect to the UV coordinates of the mesh onto which the MatCap is projected, and the pixels on black areas are hidden.
+
+<img src="images/MatCapMaskSample.png" height="256">
+
 ### MatCap Mask Level
 Adjusts the level of the MatCap Mask. When the value is 1, MatCap is displayed 100% irrespective of whether or not there is a mask. When the value is -1, MatCap will not be displayed at all and MatCap will be the same as in the off state.
+
+<img src="images/MatCapMaskLevel.gif" height="256">
+
+
+
 ### Invert MatCap Mask
 When enabled, **MatCap Mask** Texture is inversed.
+
+<img src="images/InvertMatCapMask.png" height="256">
+
