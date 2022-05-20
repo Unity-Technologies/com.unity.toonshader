@@ -1,5 +1,7 @@
 # Material Capture(MatCap) Settings
 
+<img src="images/MatCap.png" height="256">
+
 * [MatCap Map](#matcap-map)
 * [MatCap Blur Level](#matcap-blur-level)
 * [Color Blending Mode](#color-blending-mode)
@@ -19,11 +21,23 @@
 ### MatCap Map
 MatCap Color : Texture(sRGB) × Color(RGB) Default:White
 
+| MatCap Map Texture Example | 
+| -- |
+| <img src="images/HiLight_Matcap.png" height="256">|
+
+
+
+| MatCap Map Off  | MatCap Map On |
+| -- | --|
+| <img src="images/WithOutMatCap.gif" height="256">| <img src="images/WithMatCap.gif" height="256"> 
+
 ### MatCap Blur Level
 Blur MatCap Map using the Mip Map feature; to enable Mip Map, turn on Advanced > Generate Mip Maps in the [Texture Import Settings](https://docs.unity3d.com/Manual/class-TextureImporter.html). Default is 0 (no blur)
 
 ### Color Blending Mode
 MatCap color blending mode. Multiply or Add.
+
+
 
 ### Scale MatCap UV
 Scaling UV of MatCap Map.
