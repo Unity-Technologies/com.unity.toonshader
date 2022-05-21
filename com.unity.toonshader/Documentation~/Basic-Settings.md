@@ -25,7 +25,7 @@
 <br><br>
 ## 3 Basic Color Maps
 
-### Base Map
+## Base Map
 Base Color : Texture(sRGB) × Color(RGB). The default color is White.
 
 |  Base Color Map (Face) | (Hair) | Result  |
@@ -37,7 +37,7 @@ Base Color : Texture(sRGB) × Color(RGB). The default color is White.
 Apply Base Map to the **1st Shading Map**. When **Apply to 1st Shading Map** is checked, texture map in **1st Shading Map** is not used fore redering and its texture UI is disabled.
 
 
-### 1st Shading Map
+## 1st Shading Map
 The map used for the brighter portions of the shadow. Texture(sRGB) × Color(RGB). The default color is White.
 |   **1st Shading Map** (Face) | (Hair) | Result  |
 | ---- | ---- | ---- |
@@ -58,7 +58,9 @@ The map used for the darker portions of the shadow. Texture(sRGB) × Color(RGB).
 <img src="images/ApplyTo1st2ndMap-3.gif" height="320"> 
 
 <br><br>
+
 ## Normal Map
+
 A texture that dictates the bumpiness of the material. The slider is for controlling strength.
 | Normal Map | 
 | ---- | 
@@ -79,6 +81,7 @@ Normal map effectiveness to rim lit areas.
 <img src="images/UTSNrormalMap-2.gif" height="256">   |
 
 <br><br>
+
 ## Shadow Control Maps
 Textures that dictates the fixed shadows of the material. 
 

@@ -10,19 +10,19 @@
 * [Highlight Mask Level](#highlight-mask-level)
 
 
-### Highlight
+## Highlight
 Highlight : Texture(sRGB) × Color(RGB) Default:White.
 
 <img src="images/Highlight.gif"  height="256">
 <br><br>
 
-### Highlight Power
+## Highlight Power
 Highlight power factor, pow(x,5) is used inside the shader.
 
 <img src="images/SpecularPower.gif"  height="256">
 <br><br>
 
-### Specular Mode
+## Specular Mode
 Specular light mode. Hard or Soft.
 
 | Hard | Soft |
@@ -38,16 +38,16 @@ Specular color blending mode. Multiply or Add. **Color Blending Mode** is disabl
 | - | - |
 | <img src="images/SpecularMultiply.png" > | <img src="images/SpecularAdd.png" > |
 
-### Highlight Blending on Shadows
+## Highlight Blending on Shadows
 Control the blending for the highlights in shadows. Please refer to the image at [Blending Level](#blending-level).
 
-#### Blending Level
+### Blending Level
 Adjusts the intensity of highlight applied to shadow areas.
 
 <img src="images/HighlightBlendingLevel.gif" >
 <br><br>
 
-### Highlight Mask
+## Highlight Mask
 A grayscale texture which utilises its brightness to control highlight intensity. Applying the highlight mask allows to fine-tune the reflectivity on the material.
 
  Gray Scale Texture Example | 
@@ -61,7 +61,7 @@ A grayscale texture which utilises its brightness to control highlight intensity
 
 
 
-### Highlight Mask Level
+## Highlight Mask Level
 Highlight mask texture blending level to highlights.
 
 <img src="images/HighlightMaskLevel.gif" height="256">

@@ -1,21 +1,21 @@
 # Rim Light Settings
 
 * [Rim Light](#rim-light)
-* [Rim Light Color](#rim-light-color)
-* [Rim Light Level](#rim-light-level)
-* [Adjust Rim Light Area](#adjust-rim-light-area)
-* [Rim Light Feather Off](#rim-light-feather-off)
-* [Light Direction](#light-direction)
-* [Light Direction Rim Light Level](#light-direction-rim-light-level)
-* [Inversed Light Direction Rim Light](#inversed-light-direction-rim-light)
-  * [Inversed Rim Light Color](#inversed-light-direction-rim-light)
-  * [Inversed Rim Light Level](#inversed-rim-light-level)
-  * [Inversed Rim Light Feather Off](#inversed-rim-light-level)
+  * [Rim Light Color](#rim-light-color)
+  * [Rim Light Level](#rim-light-level)
+  * [Adjust Rim Light Area](#adjust-rim-light-area)
+  * [Rim Light Feather Off](#rim-light-feather-off)
+  * [Light Direction](#light-direction)
+  * [Light Direction Rim Light Level](#light-direction-rim-light-level)
+  * [Inversed Light Direction Rim Light](#inversed-light-direction-rim-light)
+    * [Inversed Rim Light Color](#inversed-light-direction-rim-light)
+    * [Inversed Rim Light Level](#inversed-rim-light-level)
+    * [Inversed Rim Light Feather Off](#inversed-rim-light-level)
 
-* [Rim Light Mask](#rim-light-mask)
-* [Rim Light Mask Level](#rim-light-mask-level)
+  * [Rim Light Mask](#rim-light-mask)
+  * [Rim Light Mask Level](#rim-light-mask-level)
 
-### Rim Light
+## Rim Light
 A light that hits the 3D model from behind and emphasizes the contours of the model from the front.
 |  Rim Light Off | Rim Light On | 
 | ---- | ---- |
