@@ -1,6 +1,7 @@
 # Outline Settings
 
-* [Outline Mode](#outline-mode)
+* [Outline](#outline)
+  * [Outline Mode](#outline-mode)
   * [Outline Width](#outline-width)
   * [Outline Color](#outline-color)
   * [Blend Base Color to Outline](#blend-base-color-to-outline)
@@ -13,8 +14,15 @@
   * [Outline Color Map](#outline-color-map)
   * [Baked Normal Map](#baked-normal-map)
 
-## Outline Mode
+## Outline 
+
+| Outline Off | Outline On |
+| -- | -- | 
+| <img src="images/OutlineOff.png" height="256"> | <img src="images/OutlineOn.png" height="256"> |
+
+### Outline Mode
 Specifies how the inverted-outline object is spawned.
+
 ### Outline Width
 Specifies the width of the outline. This value relies on the scale when the model was imported to Unity
 
