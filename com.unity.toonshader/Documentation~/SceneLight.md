@@ -1,5 +1,7 @@
 # Scene Light Effectivines Settings
 
+If the setting for each color is Off, the color is always illuminated with a light intensity of 1 and a light color of white regardless of the intensity of the lights in the scene.
+
 * [Base Color](#base-color)
 * [1st Shading Color](#1st-shading-color)
 * [2nd Shading Color](#2nd-shading-color)

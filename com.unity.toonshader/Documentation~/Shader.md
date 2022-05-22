@@ -1,6 +1,6 @@
 # Shader Settings
 
-The Shader Settings provides basic settings that are not specific to  cel-shading but are needed for general CG.
+The Shader Settings provide basic settings that are not specific to  cel-shading but are needed for general CG.
 
 - [Culling Mode](#culling-Mode)
 - [Auto Render Queue](#auto-render-queue)
