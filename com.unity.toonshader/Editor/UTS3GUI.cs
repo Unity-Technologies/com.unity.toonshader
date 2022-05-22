@@ -679,6 +679,7 @@ namespace UnityEditor.Rendering.Toon
             public static readonly GUIContent emissiveScrollAnimationModeText = new GUIContent("Animation Mode", "Controls the animated scrolling of the emissive texture.");
             public static readonly GUIContent emissionAnimationText = new GUIContent("Emission Map Animation", "When Enabled, the UV and Color of the Emission Map are animated.");
             public static readonly GUIContent outlineModeText = new GUIContent("Outline Mode", "Specifies how the inverted-outline object is spawned.");
+            public static readonly GUIContent limitLightIntensityText = new GUIContent("Limit Light Intensity", "Limit the brightness of the light to 1 to avoid white-out.");
             // Range properties
             public static readonly RangeProperty metaverseRangePropText = new RangeProperty(
                 label: "Metaverse Light Intensity", 
@@ -806,7 +807,7 @@ namespace UnityEditor.Rendering.Toon
                 propName: "_Ap_RimLight_Power", defaultValue: 0.1f, min: 0, max: 1);
 
             public static readonly RangeProperty giIntensityText = new RangeProperty(
-                label: "GI Intensity", tooltip: "TBD.",
+                label: "GI Intensity", tooltip: "The light probe color is added to the material color according to the GI Intensity value.",
                 propName: ShaderPropGI_Intensity, defaultValue: 0.0f, min: 0, max: 1);
 
             public static readonly RangeProperty tweakMatCapMaskLevelText = new RangeProperty(
