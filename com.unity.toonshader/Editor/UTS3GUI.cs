@@ -300,9 +300,9 @@ namespace UnityEditor.Rendering.Toon
         protected enum Expandable
         {
             Shader = 1 << 0,
-            BasicColor = 1 << 1,
-            BasicLookDevs = 1 << 2,
-            HighLight = 1 << 3,
+            Basic = 1 << 1,
+            ShadingStepAndFeather = 1 << 2,
+            Highlight = 1 << 3,
             RimLight = 1 << 4,
             MatCap = 1 << 5,
             AngelRing = 1 << 6,
@@ -310,7 +310,7 @@ namespace UnityEditor.Rendering.Toon
             Outline = 1 << 8,
             TessellationLegacy = 1 << 9,
             TessellationHDRP = 1 << 10,
-            LightColorEffectiveness = 1 << 11,
+            SceneLight = 1 << 11,
             EnvironmentalLightEffectiveness = 1 << 12,
             MetaverseSettings = 1 << 13,
         }
@@ -327,7 +327,7 @@ namespace UnityEditor.Rendering.Toon
 
 
 
-        readonly UTS3MaterialHeaderScopeList m_MaterialScopeList = new UTS3MaterialHeaderScopeList(uint.MaxValue & ~(uint)Expandable.BasicColor);
+        readonly UTS3MaterialHeaderScopeList m_MaterialScopeList = new UTS3MaterialHeaderScopeList(uint.MaxValue & ~(uint)Expandable.Basic);
 
 
         //Button sizes
@@ -887,9 +887,9 @@ namespace UnityEditor.Rendering.Toon
         void OnOpenGUI(Material material, MaterialEditor materialEditor, MaterialProperty[] props)
         {
             m_MaterialScopeList.RegisterHeaderScope(Styles.shaderFoldout, Expandable.Shader, DrawShaderOptions, (uint)UTS_Mode.ThreeColorToon, (uint)UTS_TransparentMode.Off, isTessellation:0);
-            m_MaterialScopeList.RegisterHeaderScope(Styles.basicColorFoldout, Expandable.BasicColor, GUI_BasicThreeColors, (uint)UTS_Mode.ThreeColorToon,(uint)UTS_TransparentMode.Off, isTessellation: 0);
-            m_MaterialScopeList.RegisterHeaderScope(Styles.shadingStepAndFeatherFoldout, Expandable.BasicLookDevs, GUI_StepAndFeather, (uint)UTS_Mode.ThreeColorToon, (uint)UTS_TransparentMode.Off, isTessellation: 0);
-            m_MaterialScopeList.RegisterHeaderScope(Styles.highlightFoldout, Expandable.HighLight, GUI_HighlightSettings, (uint)UTS_Mode.ThreeColorToon, (uint)UTS_TransparentMode.Off, isTessellation: 0);
+            m_MaterialScopeList.RegisterHeaderScope(Styles.basicColorFoldout, Expandable.Basic, GUI_BasicThreeColors, (uint)UTS_Mode.ThreeColorToon,(uint)UTS_TransparentMode.Off, isTessellation: 0);
+            m_MaterialScopeList.RegisterHeaderScope(Styles.shadingStepAndFeatherFoldout, Expandable.ShadingStepAndFeather, GUI_StepAndFeather, (uint)UTS_Mode.ThreeColorToon, (uint)UTS_TransparentMode.Off, isTessellation: 0);
+            m_MaterialScopeList.RegisterHeaderScope(Styles.highlightFoldout, Expandable.Highlight, GUI_HighlightSettings, (uint)UTS_Mode.ThreeColorToon, (uint)UTS_TransparentMode.Off, isTessellation: 0);
             m_MaterialScopeList.RegisterHeaderScope(Styles.rimLightFoldout, Expandable.RimLight, GUI_RimLight, (uint)UTS_Mode.ThreeColorToon, (uint)UTS_TransparentMode.Off, isTessellation: 0);
             m_MaterialScopeList.RegisterHeaderScope(Styles.matCapFoldout, Expandable.MatCap, GUI_MatCap, (uint)UTS_Mode.ThreeColorToon, (uint)UTS_TransparentMode.Off, isTessellation: 0);
             m_MaterialScopeList.RegisterHeaderScope(Styles.angelRingFoldout, Expandable.AngelRing, GUI_AngelRing, (uint)UTS_Mode.ShadingGradeMap, (uint)UTS_TransparentMode.Off, isTessellation: 0);
@@ -900,7 +900,7 @@ namespace UnityEditor.Rendering.Toon
             m_MaterialScopeList.RegisterHeaderScope(Styles.tessellationFoldout, Expandable.TessellationHDRP, GUI_TessellationHDRP, (uint)UTS_Mode.ThreeColorToon, (uint)UTS_TransparentMode.Off, isTessellation: 1);
 
             // originally these were in simple UI
-            m_MaterialScopeList.RegisterHeaderScope(Styles.lightColorEffectivenessFoldout, Expandable.LightColorEffectiveness, GUI_LightColorEffectiveness, (uint)UTS_Mode.ThreeColorToon, (uint)UTS_TransparentMode.Off, isTessellation: 0);
+            m_MaterialScopeList.RegisterHeaderScope(Styles.lightColorEffectivenessFoldout, Expandable.SceneLight, GUI_LightColorEffectiveness, (uint)UTS_Mode.ThreeColorToon, (uint)UTS_TransparentMode.Off, isTessellation: 0);
             m_MaterialScopeList.RegisterHeaderScope(Styles.metaverseSettingsFoldout, Expandable.MetaverseSettings, GUI_MetaverseSettings, (uint)UTS_Mode.ThreeColorToon, (uint)UTS_TransparentMode.Off, isTessellation: 0);
         }
 
