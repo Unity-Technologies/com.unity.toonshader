@@ -590,7 +590,7 @@ namespace UnityEditor.Rendering.Toon
             public static readonly GUIContent outlineFoldout = EditorGUIUtility.TrTextContent("Outline Settings", "Outline settings. Such as width, colors and so on.");
             public static readonly GUIContent tessellationFoldout = EditorGUIUtility.TrTextContent("Tessellation Settings", "Tessellation settings for DX11, DX12 and Mac  Metal.");
             public static readonly GUIContent maskRenderingFoldout = EditorGUIUtility.TrTextContent("Mask Rendering Settings", "Mask rendering setting, controlled by Visual Compositor.");
-            public static readonly GUIContent lightColorEffectivenessFoldout = EditorGUIUtility.TrTextContent("Scene Light Effectiveness Settings", "Scene light effectiveness to each parameter.");
+            public static readonly GUIContent lightEffectivenessFoldout = EditorGUIUtility.TrTextContent("Scene Light Effectiveness Settings", "Scene light effectiveness to each parameter.");
 
             public static readonly GUIContent metaverseSettingsFoldout = EditorGUIUtility.TrTextContent("Metaverse Settings (Experimental)", "Default directional light when no directional lights are in the scene.");
             public static readonly GUIContent normalMapFoldout = EditorGUIUtility.TrTextContent("Normal Map Settings", "Normal Map settings. Normal Map itself and its effectiveness to some areas.");
@@ -643,6 +643,7 @@ namespace UnityEditor.Rendering.Toon
             public static readonly GUIContent receiveShadowText = new GUIContent("Receive Shadows", "Determine if the material reflects shadows.");
             public static readonly GUIContent filterPointLightText = new GUIContent("Filter Point Light Highlights", "Show or hide highlight of point lights.");
             public static readonly GUIContent highlightOnShadowText = new GUIContent("Highlight Blending on Shadows", "Control the blending for the highlights in shadows.");
+            public static readonly GUIContent lightColorEffectiveness = EditorGUIUtility.TrTextContent("Light Color Effectiveness", "light color effectiveness to each parameter.");
 
             public static readonly GUIContent lightColorEffectivinessToBaseColorText  = new GUIContent("Base Color", "Light color effect the base color areas.");
             public static readonly GUIContent lightColorEffectivinessTo1stShadingText = new GUIContent("1st Shading Color", "Light color effect in the 1st shading color areas.");
@@ -901,7 +902,7 @@ namespace UnityEditor.Rendering.Toon
             m_MaterialScopeList.RegisterHeaderScope(Styles.tessellationFoldout, Expandable.TessellationHDRP, GUI_TessellationHDRP, (uint)UTS_Mode.ThreeColorToon, (uint)UTS_TransparentMode.Off, isTessellation: 1);
 
             // originally these were in simple UI
-            m_MaterialScopeList.RegisterHeaderScope(Styles.lightColorEffectivenessFoldout, Expandable.SceneLight, GUI_LightColorEffectiveness, (uint)UTS_Mode.ThreeColorToon, (uint)UTS_TransparentMode.Off, isTessellation: 0);
+            m_MaterialScopeList.RegisterHeaderScope(Styles.lightEffectivenessFoldout, Expandable.SceneLight, GUI_LightColorEffectiveness, (uint)UTS_Mode.ThreeColorToon, (uint)UTS_TransparentMode.Off, isTessellation: 0);
             m_MaterialScopeList.RegisterHeaderScope(Styles.metaverseSettingsFoldout, Expandable.MetaverseSettings, GUI_MetaverseSettings, (uint)UTS_Mode.ThreeColorToon, (uint)UTS_TransparentMode.Off, isTessellation: 0);
         }
 
@@ -2269,6 +2270,8 @@ namespace UnityEditor.Rendering.Toon
 
         void GUI_LightColorEffectiveness(Material material)
         {
+            EditorGUILayout.LabelField(Styles.lightColorEffectiveness);
+            EditorGUI.indentLevel++;
             GUI_Toggle(material, Styles.lightColorEffectivinessToBaseColorText, ShaderPropIsLightColor_Base, MaterialGetInt(material, ShaderPropIsLightColor_Base)!= 0);
             GUI_Toggle(material, Styles.lightColorEffectivinessTo1stShadingText, ShaderPropIs_LightColor_1st_Shade, MaterialGetInt(material, ShaderPropIs_LightColor_1st_Shade) != 0);
             GUI_Toggle(material, Styles.lightColorEffectivinessTo2ndShadingText, ShaderPropIs_LightColor_2nd_Shade, MaterialGetInt(material, ShaderPropIs_LightColor_2nd_Shade) != 0);
@@ -2284,19 +2287,19 @@ namespace UnityEditor.Rendering.Toon
 
             GUI_Toggle(material, Styles.lightColorEffectivinessToMatCapText, ShaderPropIs_LightColor_MatCap, MaterialGetInt(material, ShaderPropIs_LightColor_MatCap) != 0);
             GUI_Toggle(material, Styles.lightColorEffectivinessToOutlineText, ShaderPropIs_LightColor_Outline, MaterialGetInt(material, ShaderPropIs_LightColor_Outline) != 0);
-
+            EditorGUI.indentLevel--;
             EditorGUILayout.Space();
             GUI_RangeProperty(material, Styles.giIntensityText);
 
             EditorGUI.BeginChangeCheck();
             var prop = ShaderPropIs_Filter_LightColor;
-            var label = "Limit Light Intensity";
+
             var value = MaterialGetInt(material, prop);
-            var ret = EditorGUILayout.Toggle(label, value != 0);
+            var ret = EditorGUILayout.Toggle(Styles.limitLightIntensityText.text, value != 0);
             if (EditorGUI.EndChangeCheck())
             {
                 var boolValue = ret ? 1 : 0;
-                m_MaterialEditor.RegisterPropertyChangeUndo(label);
+                m_MaterialEditor.RegisterPropertyChangeUndo(Styles.limitLightIntensityText.text);
                 MaterialSetInt(material, prop, boolValue);
                 if (boolValue != 0)
                 {
