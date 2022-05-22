@@ -82,9 +82,9 @@ publish:
 prerelease:
   name: Create a prerelease {{ yamato_name }}  
   agent:
-    type:   {{ promote_platform.type }}
-    image:  {{ promote_platform.image }}
-    flavor: {{ promote_platform.flavor }}
+    type: Unity::VM
+    image: package-ci/win10:stable
+    flavor: b1.large
   commands:
     - |
        echo off
@@ -127,12 +127,12 @@ prerelease:
 publish_dry_run:
   name: Publish Dry Run {{ yamato_name }} to Internal Registry
   agent:
-    type:   {{ publish_platform.type }}
-    image:  {{ publish_platform.image }}
-    flavor: {{ publish_platform.flavor }}
+    type: Unity::VM
+    image: package-ci/win10:stable
+    flavor: b1.large
   commands:
     - npm install upm-ci-utils@stable -g --registry https://artifactory.prd.cds.internal.unity3d.com/artifactory/api/npm/upm-npm
-    - upm-ci package publish --dry-run 
+    - upm-ci package publish --dry-run --package-path com.unity.toonshader
   triggers:
     tags:
       only:
