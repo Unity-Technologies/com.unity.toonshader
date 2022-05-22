@@ -303,7 +303,7 @@ namespace UnityEditor.Rendering.Toon
             Basic = 1 << 1,
             ShadingStepAndFeather = 1 << 2,
             Highlight = 1 << 3,
-            RimLight = 1 << 4,
+            Rimlight = 1 << 4,
             MatCap = 1 << 5,
             AngelRing = 1 << 6,
             Emission = 1 << 7,
@@ -827,7 +827,7 @@ namespace UnityEditor.Rendering.Toon
                 propName: "_Base_Speed", defaultValue: 0);
 
             public static readonly FloatProperty outlineWidthText = new FloatProperty(label: "Outline Width",
-                tooltip: "SSpecifies the width of the outline. This value relies on the scale when the model was imported to Unity.",
+                tooltip: "Specifies the width of the outline. This value relies on the scale when the model was imported to Unity.",
                 propName: "_Outline_Width", defaultValue: 0);
 
             public static readonly FloatProperty farthestDistanceText = new FloatProperty(label: "Farthest Distance to vanish",
@@ -890,7 +890,7 @@ namespace UnityEditor.Rendering.Toon
             m_MaterialScopeList.RegisterHeaderScope(Styles.basicColorFoldout, Expandable.Basic, GUI_BasicThreeColors, (uint)UTS_Mode.ThreeColorToon,(uint)UTS_TransparentMode.Off, isTessellation: 0);
             m_MaterialScopeList.RegisterHeaderScope(Styles.shadingStepAndFeatherFoldout, Expandable.ShadingStepAndFeather, GUI_StepAndFeather, (uint)UTS_Mode.ThreeColorToon, (uint)UTS_TransparentMode.Off, isTessellation: 0);
             m_MaterialScopeList.RegisterHeaderScope(Styles.highlightFoldout, Expandable.Highlight, GUI_HighlightSettings, (uint)UTS_Mode.ThreeColorToon, (uint)UTS_TransparentMode.Off, isTessellation: 0);
-            m_MaterialScopeList.RegisterHeaderScope(Styles.rimLightFoldout, Expandable.RimLight, GUI_RimLight, (uint)UTS_Mode.ThreeColorToon, (uint)UTS_TransparentMode.Off, isTessellation: 0);
+            m_MaterialScopeList.RegisterHeaderScope(Styles.rimLightFoldout, Expandable.Rimlight, GUI_RimLight, (uint)UTS_Mode.ThreeColorToon, (uint)UTS_TransparentMode.Off, isTessellation: 0);
             m_MaterialScopeList.RegisterHeaderScope(Styles.matCapFoldout, Expandable.MatCap, GUI_MatCap, (uint)UTS_Mode.ThreeColorToon, (uint)UTS_TransparentMode.Off, isTessellation: 0);
             m_MaterialScopeList.RegisterHeaderScope(Styles.angelRingFoldout, Expandable.AngelRing, GUI_AngelRing, (uint)UTS_Mode.ShadingGradeMap, (uint)UTS_TransparentMode.Off, isTessellation: 0);
             m_MaterialScopeList.RegisterHeaderScope(Styles.emissionFoldout, Expandable.Emission, GUI_Emissive, (uint)UTS_Mode.ThreeColorToon, (uint)UTS_TransparentMode.Off, isTessellation: 0);
