@@ -56,7 +56,7 @@ Example: A red light on the face. Unchecked areas on the face material are not a
 
 
 ## Light Probe Intensity
-The light probe color is added to the material color according to the GI Intensity value.
+The light probe color is added to the material color according to the **Light Probe Intensity** value.
 
 <img src="images/LightProbeIntensity.gif" height="256">
 <br><br>
