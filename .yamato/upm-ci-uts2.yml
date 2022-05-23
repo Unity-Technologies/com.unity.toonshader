@@ -14,7 +14,7 @@ test_platforms:
 pack:
   name: Pack {{ yamato_name }}
   agent:
-    type: Unity::VM
+    type: Unity::VM::linux
     image: package-ci/ubuntu:v2.0.0
     flavor: b1.medium
   commands:
@@ -77,7 +77,7 @@ publish:
 prerelease:
   name: Create a prerelease {{ yamato_name }}  
   agent:
-    type: Unity::VM
+    type: Unity::VM::linux
     image: package-ci/ubuntu:v2.0.0
     flavor: b1.medium
   commands:
