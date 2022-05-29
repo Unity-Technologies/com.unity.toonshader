@@ -2,6 +2,7 @@
 ## [0.7.2-preview] - 2022-05-27
 ### Updated:
 * Next Version is 0.7.2-preview
+* Resotered Graphics tests for Mac OS.
 
 ## [0.7.1-preview] - 2022-05-26
 ### Updated:
