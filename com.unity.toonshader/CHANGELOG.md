@@ -1,7 +1,7 @@
 # Changelog
 ## [0.7.2-preview] - 2022-05-30
 ### Fixed:
-* Dead links for Toon EV adjutment HELP URL Buttons.
+* Dead links for Toon EV adjustment HELP URL Buttons.
 * Some classes are accessible from outside.
 
 ## [0.7.1-preview] - 2022-05-26
