@@ -1,5 +1,19 @@
 # Changelog
-## [0.7.0-preview] - 2022-04-02
+## [0.7.3-preview] - 2022-05-31
+### Updated:
+* Made Mac Graphics Tests to utilize rsync instead of scp.
+* Set retry count to several commands in Mac graphics tests.
+
+## [0.7.2-preview] - 2022-05-30
+### Fixed:
+* Dead links for Toon EV adjustment HELP URL Buttons.
+* Some classes are accessible from outside.
+
+## [0.7.1-preview] - 2022-05-26
+### Updated:
+* Polished docs.
+
+## [0.7.0-preview] - 2022-05-23
 ### Updated:
 * Shader version properties in all the render pipeline shaders.
 * Updated installation.md.
@@ -9,7 +23,7 @@
 * Replaced toggle buttons Off/Active UI to Unity standard toggles.
 * Renamed `Basic Shader Settings` to `Shader Setting`.
 * Replaced some toggle buttons, such as `Emissive UV Coord`, `Specular Mode`, to dropdown menus
-* Specular mode name are not just Off/On but Soft/Hard.
+* Specular mode name are not just `Off`/`On` but `Soft`/`Hard`.
 * Made everything in the inspector hidden when disabled to be shown but grayed out.
 * Folder headers use Unity standard style in the inspector window when SRP core newer than 12 is not installed.
 * Folder headers use SRP style in the inspector window when SRP core newer than 12 is installed.
@@ -22,7 +36,6 @@
 * Renamed term, `High Color`, to `Highlight`.
 * Renamed `Settings for PointLights in ForwardAdd Pass` to `Point Light Settings`.
 * Renamed `Point Light High Cut Filter` to `Filter Point Light Hight Light`.
-* Renamed `Antipodean(Ap)_RimLight` to `Inversed Rim Light`
 * Re-organized Stencil and Clipping settings in the inspector window.
 * Renamed `Stencil Out` to `Draw If Not Equal to`.
 * Renamed `Stencil Mask` to `Replace Stencil Buffer with`.
@@ -30,11 +43,37 @@
 * The above used to be a number field. Now it is editable with IntSlider.
 * Renamed `Inverse MatCap Mask` to `Invert MatCap Mask`.
 * Renamed `Trans Clipping Mode` to `Clip Transparency`.
-* Renamed `Unlit Intensity` to `Metaverse Light Intensity` and `Buiilt-in light settings` are moved into `Metaverse Settings` folder in the inspector so that users can understand  setting them is not necessary for usual uses.The setting works only when no directional lights are on the scenes like some VRChat ones.
+* Renamed `Unlit Intensity` to `Metaverse Light Intensity` and `Buiilt-in light settings` are moved into `Metaverse Settings` foldout header in the inspector so that users can understand  setting them is not necessary for usual uses.The setting works only when no directional lights are on the scenes like some VRChat ones.
 * _Unlit_Intensity ranges defined in all the shaders are from 0 to 4. originally they were from 0.001 to 4.
 * Changed built-in light default brightness from 1 to 0.
-* Renamed 'Basic Look Dev' to 'Shading Step and Feather Settings'
-* `Advanced settings` in Outline folder are always shown.
+* Renamed `Basic Look Dev` to `Shading Step and Feather Settings`.
+* `Advanced settings` in Outline foldout header are always shown.
+* Renamed `Outline Sampler` in Ontline foldout header to `Outline Width Map`.
+* Renamed `Outline-tex` in Ontline foldout header to `Outline Color Map`.
+* Renamed Culling mode itemes from `CullingOff`, `FrontCulling` and `BackCulling` to `Off`, `Frontface` and `Backface`.
+* Renamed `Receive System Shadows` to `Receive Shadows`.
+* Renamed `Shadow Mask on High Color` to `Highlight Blending on Shadows`.
+* Renamed `Highlight Power on Shadows` to `Blending Level`.
+* Renamed `Camera Rolling Stabilizer` to `Stabilize Camera Rolling`.
+* Renamed `ViewShift of Color` to `Color Shifting with View Angle`.
+* Renamed `ViewShift` to `Shifting Target Color`.
+* Renamed `Use Outline Texture` to `Outline Color Map`.
+* Renamed `Use Baked Normal for Outline` to `Baked Normalmap`.
+* Renamed `HighColor Power on Shadow` to `Brightness on Shadows`.
+* Renamed `MatCap Power on Shadow` to `MatCap Blending on Shadows`.
+* Renamed `Color Shift Speed` to `Color Shifting Speed`.
+* Renamed `Blur Level of ShadingGradeMap` to `ShadingGradeMap Blur Level`.
+* Renamed `MatCap Sampler` to `MatCap Map`.
+* Renamed `Blur Level of MatCap Sampler` to `MatCap Blur Level`.
+* Renamed `Rim Light Power` to `Rim Light Level`.
+* Renamed `RimLight Inside Mask` to `Adjust Rim Light Area`.
+* Renamed `Light Direction Mask` under Rim Light Settings to `Light Dreiction Mode`.
+* Renamed `Light Direction Mask Level` to `Light Direction Rim Light Level`.
+* Renamed `Antipodean(Ap)_RimLight` to `Inversed Direciton Rim Light`.
+* Renamed `AP_RimLgiht Power` to `Inversed Rim Light Level`.
+* Renamed `Color Blend Mode` to `Color Bleinding Mode`.
+* Renamed `GI Intesity` to `Light Probe Intensity`
+.
 ### Added:
 * Legacy: Compatibility with Single Pass Stereo Rendering.
 * Legacy: Graphics Test 2022.2.
@@ -44,8 +83,11 @@
 * Help buttons to foldout headers in the inspector window, which work newer than Unity 2021.1.
 * Unity-Chan Toon Shader 2 Converter window opens when old shaders are in projects on start up or right after the package is installed.
 * Dependency to srp core take advantege of its help system.
+* Added Tips to Culling Mode popup menu in the inspector window.
+* Added Tips to GUI Toggles in the inspector window.
+* Added Tips to Range Properties in the inspector window.
 ### Removed:
-* Removed   `● Additional Settings` in the Inspector.
+* Removed   `● Additional Settings` in the Inspector window.
 * Removed Simple UI.
 * Removed Japanese and English manual link buttons.
 * Removed Game Recommendation window and changed the default values of shader variables.
@@ -60,11 +102,16 @@
 * `Point Light High Cut Filter` Side Effects. It just shows or hides the point lights' highlight.
 * Unify the notation in the converter with Unity-Chan Toon Shader 2.
 * Fixed some popups in the inspector window not to use connected names without spaces. Each name is separated by a space.
+* `Rimlight Mask` on URP and HDRP version were not working well.
+* Single pass stereo rendering was not working with legacy(built-in) tessellation shaders.
+* URP shader errors when used with Unity 2022.2.
+
 ## [0.6.1-preview] - 2022-02-24
 ### Fixed:
 * typo in inspector.
 * removed .sample.json under Samples~ folder
 * Some unnecessary classes were public.
+* Unnatural expression `Multiply or Additive` to `Multiply or Add`.
 
 ## [0.6.0-preview] - 2022-02-22
 ### Updated:

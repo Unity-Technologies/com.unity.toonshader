@@ -1,13 +1,21 @@
 # Requirements and compatibility
 
-* **Requires Unity 2019.4.21f1 or higher**. 
+## Requirements
 
-## Render pipeline compatibility
+Because The Unity Toon Shader is ready for all the render pipelines, please referrer to each render pipeline requirement doc to see specific hardware and software requirements. The use of linear color space is strongly recommended.
 
-*  Unity Toon Sahder supports **Legacy**, **Universal RP** and **HDRP**. Please refer to the documentation of each rendering pipeline for supported platforms.
 
-* However, The behavior of the Unity Toon Shader varies slightly depending on the render pipeline. HDRP uses stencil buffers internally, so UTS stencil effects cannot be applied. Please see the [Feature Model documentation](./FeatureModel_en.md) for the different support status of UTS in each render pipeline.
- 
-* Unity Toon Shader uses **a forward rendering**. Using **a linear color space** is recommended. (A gamma color space can also be used, but this tends to strengthen shadow gradiation. For more details, see [Linear or Gamma Workflow](https://docs.unity3d.com/Manual/LinearRendering-LinearOrGammaWorkflow.html).)
+## Unity Render Pipeline compatibility
+The **Unity Toon Shader** is compatible with all the render pipelines, **Legacy(built-in) render pipeline**, **Universal Render Pipeline (URP)** and **High Definition Render Pipeline (HDRP)**.  However, there are some differences in the features supported by different render pipelines. Please refer to the Feature difference for each render pipeline for details.
 
-* Due to the pandemic, we are currently unable to test on the consoles, so please bear this in mind.
+
+## Unity Editor compatibility
+
+Unity Toon Shader  0.7.x-preview works for SRP 7.x to 14.x, Unity 2019.4 to 2022.2.
+
+|  Package Version  |  Minimum Unity Version  | Maximum Unity Version  |
+| ---- | ---- | ---- |
+|  0.7.x  |  2019.4  |  2022.2  |
+
+
+

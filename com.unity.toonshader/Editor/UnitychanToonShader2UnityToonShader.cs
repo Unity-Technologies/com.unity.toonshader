@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿// #define SHOW_CONVERTER_ON_STARTUP
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
@@ -171,13 +172,14 @@ namespace UnityEditor.Rendering.Toon
         Dictionary<Material, string> m_Material2GUID_Dictionary = new Dictionary<Material, string>();
         Dictionary<string, UTS2GUID> m_GuidToUTSID_Dictionary = new Dictionary<string, UTS2GUID>();
         static int frameToWait;
+#if SHOW_CONVERTER_ON_STARTUP
         static   UnitychanToonShader2UnityToonShader()
         {
 
             ConverterBehaviour();
 
         }
-
+#endif
         static void ConvertorBehaviourDelayed()
         {
             if (frameToWait > 0)
@@ -198,9 +200,9 @@ namespace UnityEditor.Rendering.Toon
 
             }
         }
-
+#if SHOW_CONVERTER_ON_STARTUP
         [Callbacks.DidReloadScripts]
-
+#endif
         static void ConverterBehaviour()
         {
             //We need to wait at least one frame or the popup will not show up
@@ -649,27 +651,27 @@ namespace UnityEditor.Rendering.Toon
             const string _CullMode = "_CullMode";
             int _CullMode_Setting = UTS3GUI.MaterialGetInt(material, _CullMode);
             //Convert it to Enum format and store it in the offlineMode variable.
-            if ((int)UTS3GUI.CullingMode.CullingOff == _CullMode_Setting)
+            if ((int)UTS3GUI.CullingMode.Off == _CullMode_Setting)
             {
-                m_cullingMode = UTS3GUI.CullingMode.CullingOff;
+                m_cullingMode = UTS3GUI.CullingMode.Off;
             }
-            else if ((int)UTS3GUI.CullingMode.FrontCulling == _CullMode_Setting)
+            else if ((int)UTS3GUI.CullingMode.Frontface == _CullMode_Setting)
             {
-                m_cullingMode = UTS3GUI.CullingMode.FrontCulling;
+                m_cullingMode = UTS3GUI.CullingMode.Frontface;
             }
             else
             {
-                m_cullingMode = UTS3GUI.CullingMode.BackCulling;
+                m_cullingMode = UTS3GUI.CullingMode.Backface;
             }
             //If the value changes, write to the material.
             if (_CullMode_Setting != (int)m_cullingMode)
             {
                 switch (m_cullingMode)
                 {
-                    case UTS3GUI.CullingMode.CullingOff:
+                    case UTS3GUI.CullingMode.Off:
                         UTS3GUI.MaterialSetInt(material, _CullMode, 0);
                         break;
-                    case UTS3GUI.CullingMode.FrontCulling:
+                    case UTS3GUI.CullingMode.Frontface:
                         UTS3GUI.MaterialSetInt(material, _CullMode, 1);
                         break;
                     default:
