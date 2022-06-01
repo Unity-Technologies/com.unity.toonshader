@@ -8,4 +8,4 @@ For more information on how to set up Raytrace Shadow, please refer to  [Ray-tra
 
 <a id="ToonEvAdjustmentCurve"></a>
 ## **Toon EV Adjustment**  
-Please refer to [Toon EV Adjustment](#toon-ev-adjustment) page.
+Please refer to [Toon EV Adjustment](ToonEVAdjustment.md) page.
