@@ -11,7 +11,8 @@ using System.Linq;
 
 namespace Unity.Rendering.Toon
 {
-    [HelpURL("https://docs.unity3d.com/Packages/com.unity.toonshader@0.7/manual/ToonEVAdjustment.html")]
+
+    [UTSHelpURL("ToonEVAdjustment")]
     [ExecuteAlways]
     [DisallowMultipleComponent]
     internal class ModelToonEvAdjustment : MonoBehaviour
