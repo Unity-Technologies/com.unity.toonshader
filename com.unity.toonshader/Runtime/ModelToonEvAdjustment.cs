@@ -11,10 +11,12 @@ using System.Linq;
 
 namespace Unity.Rendering.Toon
 {
-
-    [UTSHelpURL("ToonEVAdjustment")]
     [ExecuteAlways]
     [DisallowMultipleComponent]
+#if UNITY_2021_1_OR_NEWER
+    [UTSHelpURL("ToonEVAdjustment")]
+#endif
+
     internal class ModelToonEvAdjustment : MonoBehaviour
     {
         const string kCompensationPorpName = "_ToonEvAdjustmentCompensation";

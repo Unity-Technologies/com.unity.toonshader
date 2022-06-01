@@ -9,6 +9,7 @@ using UnityEngine.Experimental.Rendering;
 using UnityObject = UnityEngine.Object;
 namespace Unity.Rendering.Toon
 {
+#if UNITY_2021_1_OR_NEWER
     internal class UTSHelpURLAttribute : HelpURLAttribute
     {
         internal const string fallbackVersion = "0.7";
@@ -30,4 +31,5 @@ namespace Unity.Rendering.Toon
         internal static string GetPageLink(string packageName, string pageName) => string.Format(url, packageName, version, pageName);
 
     }
+#endif
 }
