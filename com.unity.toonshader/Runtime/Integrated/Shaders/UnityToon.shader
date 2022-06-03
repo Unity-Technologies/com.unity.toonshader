@@ -196,7 +196,7 @@ Shader "Toon" {
         //For VR Chat under No effective light objects
         _Unlit_Intensity ("Unlit_Intensity", Range(0, 4)) = 0
         //v.2.0.5 
-        [Toggle(_)] _Is_Filter_LightColor ("VRChat : SceneLights HiCut_Filter", Float ) = 0
+        [Toggle(_)] _Is_Filter_LightColor ("VRChat : SceneLights HiCut_Filter", Float ) = 1
         //Built-in Light Direction
         [Toggle(_)] _Is_BLD ("Advanced : Activate Built-in Light Direction", Float ) = 0
         _Offset_X_Axis_BLD (" Offset X-Axis (Built-in Light Direction)", Range(-1, 1)) = -0.05
@@ -258,6 +258,8 @@ Shader "Toon" {
         _MaskMap("MaskMap", 2D) = "white" {}
         _SmoothnessRemapMin("SmoothnessRemapMin", Float) = 0.0
         _SmoothnessRemapMax("SmoothnessRemapMax", Float) = 1.0
+        _AlphaRemapMin("AlphaRemapMin", Float) = 0.0   // HDRP 14
+        _AlphaRemapMax("AlphaRemapMax", Float) = 1.0   // HDRP 14
         _AORemapMin("AORemapMin", Float) = 0.0
         _AORemapMax("AORemapMax", Float) = 1.0
 
@@ -414,6 +416,7 @@ Shader "Toon" {
         [HideInInspector] _DoubleSidedConstants("_DoubleSidedConstants", Vector) = (1, 1, -1, 0)
 
         [Enum(UV0, 0, UV1, 1, UV2, 2, UV3, 3, Planar, 4, Triplanar, 5)] _UVBase("UV Set for base", Float) = 0
+        [Enum(WorldSpace, 0, ObjectSpace, 1)] _ObjectSpaceUVMapping("Mapping space", Float) = 0.0
         _TexWorldScale("Scale to apply on world coordinate", Float) = 1.0
         [HideInInspector] _InvTilingScale("Inverse tiling scale = 2 / (abs(_BaseColorMap_ST.x) + abs(_BaseColorMap_ST.y))", Float) = 1
         [HideInInspector] _UVMappingMask("_UVMappingMask", Color) = (1, 0, 0, 0)
