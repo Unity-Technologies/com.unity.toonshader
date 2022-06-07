@@ -51,21 +51,22 @@
 | MatCap Mask	| OK 	| OK 	| OK 	|  	|
 | MatCap Mask Level 	| OK 	| OK 	| OK 	|  	|
 | Invert MatCap Mask	| OK 	| OK 	| OK 	|  	|
-| ***8. Emissive features*** 	|  	|  	|  	|  	|
-| Set Emissive Map and Color and Tweak Tiling and Offset 	| OK 	| OK 	| OK 	|  	|
+| ***8. Emission Settings*** 	|  	|  	|  	|  	|
+| Emission Map 	| OK 	| OK 	| OK 	|  	|
 | Use the alpha channel of Emissive Map as a Clipping mask 	| OK 	| OK 	| OK 	|  	|
-| Emissive Animation function 	| OK 	| OK 	| OK 	|  	|
-| Set Base Speed of updating 	| OK 	| OK 	| OK 	|  	|
-| Switch scroll coordinate either UV or View 	| OK 	| OK 	| OK 	|  	|
-| Set scroll amounts of Emissive Map between U/X and V/Y directions 	| OK 	| OK 	| OK 	|  	|
-| Set rotate amounts of Emissive Map around the center of UV Coordinate 	| OK 	| OK 	| OK 	|  	|
-| Set PingPong like movement for scroll 	| OK 	| OK 	| OK 	|  	|
-| ColorShift function. Set the speed of shift and the destination color 	| OK 	| OK 	| OK 	|  	|
-| ViewShift function. Set the destination color to view shift. 	| OK 	| OK 	| OK 	|  	|
-| ***7. AngelRing Projection features*** 	|  	|  	|  	|  	|
-| Add AngelRing Projection on the surface and <br>Set the AngelRing Sampler and color 	| OK 	| OK 	| OK 	|  	|
-| Offset the position of AngelRing with  the U or V axis 	| OK 	| OK 	| OK 	|  	|
-| Use the alpha channel of AngelRing sampler as a Clipping mask 	| OK 	| OK 	| OK 	|  	|
+| Emission Map Animation	| OK 	| OK 	| OK 	|  	|
+| Base Speed (Time)	| OK 	| OK 	| OK 	|  	|
+| Animation Mode	| OK 	| OK 	| OK 	|  	|
+| Scroll U/X direction 	| OK 	| OK 	| OK 	|  	|
+| Scroll V/Y direction	| OK 	| OK 	| OK 	|  	|
+| Rotate around UV center 	| OK 	| OK 	| OK 	|  	|
+| Ping-pong moves for base 	| OK 	| OK 	| OK 	|  	|
+| Color Shifting with Time 	| OK 	| OK 	| OK 	|  	|
+| Color Shifting with View Angle	| OK 	| OK 	| OK 	|  	|
+| ***9. Angel Ring Projection Settings*** 	|  	|  	|  	|  	|
+| Angel Ring	| OK 	| OK 	| OK 	|  	|
+| Offset U/V	| OK 	| OK 	| OK 	|  	|
+| Alpha Chennel as Clipping Mask	| OK 	| OK 	| OK 	|  	|
 | ***9. Outline features*** 	|  	|  	|  	|  	|
 | Switch the method of Outline Mode either Normal Direction or Position Scaling 	| OK 	| OK 	| OK 	|  	|
 | Set the width and color of the outline 	| OK 	| OK 	| OK 	|  	|
