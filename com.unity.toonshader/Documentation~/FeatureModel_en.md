@@ -31,26 +31,26 @@
 | Highlight Blending on Shadows 	| OK 	| OK 	| OK 	|  	|
 | Highlight Mask	| OK 	| OK 	| OK 	|  	|
 | Highlight Mask Level	| OK 	| OK 	| OK 	|  	|
-| ***5. RimLight features*** 	|  	|  	|  	|  	|
-| Add RimLight on the surface and Set the color and power of it 	| OK 	| OK 	| OK 	|  	|
-| Tweak the power of RimLight Inside Mask and Cut the feather off on the edge of the mask 	| OK 	| OK 	| OK 	|  	|
-| Light Direction Mask function. Tweak the level of the mask 	| OK 	| OK 	| OK 	|  	|
-| Antipodean(Ap)_RimLight function. <br>Ap_RimLight appears on the opposite surface of the light direction. <br>Set the color of the Ap_RimLight, tweak the power of it and switch whether cutting the feather off 	| OK 	| OK 	| OK 	|  	|
-| RimLight Mask function. Tweak the level of the mask 	| OK 	| OK 	| OK 	|  	|
-| ***6. MatCap features*** 	|  	|  	|  	|  	|
-| Add MatCap on the surface and Set the MatCap sampler and color 	| OK 	| OK 	| OK 	|  	|
-| Blur the MatCap sampler and Tweak Tiling and Offset 	| OK 	| OK 	| OK 	|  	|
-| Switch Color Blend Mode either Multiply or Additive 	| OK 	| OK 	| OK 	|  	|
-| Tweak the Scale and Rotate of the UV Coordinate of MatCap Sampler 	| OK 	| OK 	| OK 	|  	|
-| CameraRolling Stabilizer function, freezing the rotation of MatCap <br>projection following by camera rolls 	| OK 	| OK 	| OK 	|  	|
-| Normal Map for MatCap function.  Tweak Bump scale, Tiling, Offset and UV Rotation 	| OK 	| OK 	| OK 	|  	|
-| Mask MatCap projection with system shadows and Tweak the masking power 	| OK 	| OK 	| OK 	|  	|
-| Switch the projection camera of MatCap, avoiding lens distortion 	| OK 	| OK 	| OK 	|  	|
-| Set MatCap Mask, Tweak the level of the mask, or Inverse it. 	| OK 	| OK 	| OK 	|  	|
-| ***7. AngelRing Projection features*** 	|  	|  	|  	|  	|
-| Add AngelRing Projection on the surface and <br>Set the AngelRing Sampler and color 	| OK 	| OK 	| OK 	|  	|
-| Offset the position of AngelRing with  the U or V axis 	| OK 	| OK 	| OK 	|  	|
-| Use the alpha channel of AngelRing sampler as a Clipping mask 	| OK 	| OK 	| OK 	|  	|
+| ***6. Rim Light Settings*** 	|  	|  	|  	|  	|
+| Rim Light Color	| OK 	| OK 	| OK 	|  	|
+| Rim Light Level	| OK 	| OK 	| OK 	|  	|
+| Adjust Rim Light Area 	| OK 	| OK 	| OK 	|  	|
+| Inversed Light Direction Rim Light 	| OK 	| OK 	| OK 	|  	|
+| Rim Light Mask	| OK 	| OK 	| OK 	|  	|
+| ***7. Material Capture(MatCap) Settings*** 	|  	|  	|  	|  	|
+| MatCap Map 	| OK 	| OK 	| OK 	|  	|
+| MatCap Blur Level	| OK 	| OK 	| OK 	|  	|
+| Color Blending Modee 	| OK 	| OK 	| OK 	|  	|
+| Scale MatCap UV	| OK 	| OK 	| OK 	|  	|
+| Rotate MatCap UV	| OK 	| OK 	| OK 	|  	|
+| Stabilize Camera Rolling	| OK 	| OK 	| OK 	|  	|
+| Normal Map	| OK 	| OK 	| OK 	|  	|
+| Rotate Normal Map UV 	| OK 	| OK 	| OK 	|  	|
+| MatCap Blending on Shadows 	| OK 	| OK 	| OK 	|  	|
+| MatCap Camera Mode	| OK 	| OK 	| OK 	|  	|
+| MatCap Mask	| OK 	| OK 	| OK 	|  	|
+| MatCap Mask Level 	| OK 	| OK 	| OK 	|  	|
+| Invert MatCap Mask	| OK 	| OK 	| OK 	|  	|
 | ***8. Emissive features*** 	|  	|  	|  	|  	|
 | Set Emissive Map and Color and Tweak Tiling and Offset 	| OK 	| OK 	| OK 	|  	|
 | Use the alpha channel of Emissive Map as a Clipping mask 	| OK 	| OK 	| OK 	|  	|
@@ -62,6 +62,10 @@
 | Set PingPong like movement for scroll 	| OK 	| OK 	| OK 	|  	|
 | ColorShift function. Set the speed of shift and the destination color 	| OK 	| OK 	| OK 	|  	|
 | ViewShift function. Set the destination color to view shift. 	| OK 	| OK 	| OK 	|  	|
+| ***7. AngelRing Projection features*** 	|  	|  	|  	|  	|
+| Add AngelRing Projection on the surface and <br>Set the AngelRing Sampler and color 	| OK 	| OK 	| OK 	|  	|
+| Offset the position of AngelRing with  the U or V axis 	| OK 	| OK 	| OK 	|  	|
+| Use the alpha channel of AngelRing sampler as a Clipping mask 	| OK 	| OK 	| OK 	|  	|
 | ***9. Outline features*** 	|  	|  	|  	|  	|
 | Switch the method of Outline Mode either Normal Direction or Position Scaling 	| OK 	| OK 	| OK 	|  	|
 | Set the width and color of the outline 	| OK 	| OK 	| OK 	|  	|
