@@ -615,7 +615,6 @@ Shader "Toon" {
             #include "./UtsHDRP.hlsl"
 
             #pragma only_renderers d3d11 playstation xboxone xboxseries vulkan metal switch
-            #pragma instancing_options renderinglayer
             #pragma multi_compile _ DOTS_INSTANCING_ON
 
 
@@ -1171,9 +1170,6 @@ Shader "Toon" {
             // -------------------------------------
             // Material Keywords
             // -------------------------------------
-            // Material Keywords
-//            #pragma shader_feature _NORMALMAP
-            #pragma shader_feature _ALPHATEST_ON
             #pragma shader_feature _ALPHAPREMULTIPLY_ON
             #pragma shader_feature _EMISSION
             #pragma shader_feature _METALLICSPECGLOSSMAP
@@ -1243,13 +1239,9 @@ Shader "Toon" {
             #pragma exclude_renderers d3d11_9x
             #pragma target 2.0
 
-            // -------------------------------------
-            // Material Keywords
-            #pragma shader_feature _ALPHATEST_ON
 
             //--------------------------------------
             // GPU Instancing
-            #pragma multi_compile_instancing
             #pragma shader_feature _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
 
             #pragma vertex ShadowPassVertex
@@ -1280,12 +1272,9 @@ Shader "Toon" {
 
             // -------------------------------------
             // Material Keywords
-            #pragma shader_feature _ALPHATEST_ON
+
             #pragma shader_feature _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
 
-            //--------------------------------------
-            // GPU Instancing
-            #pragma multi_compile_instancing
 
             #include "../../UniversalRP/Shaders/UniversalToonInput.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/Shaders/DepthOnlyPass.hlsl"
@@ -1302,10 +1291,8 @@ Shader "Toon" {
 
             HLSLPROGRAM
 #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Version.hlsl"
-#ifndef VERSION_GREATER_EQUAL
-#define VERSION_GREATER_EQUAL(x, y) 1
-#endif
-#if (VERSION_GREATER_EQUAL(10, 0))
+
+
             // Required to compile gles 2.0 with standard srp library
             #pragma prefer_hlslcc gles
             #pragma exclude_renderers d3d11_9x
@@ -1316,18 +1303,14 @@ Shader "Toon" {
 
             // -------------------------------------
             // Material Keywords
-            #pragma shader_feature_local _NORMALMAP
             #pragma shader_feature_local _PARALLAXMAP
-            #pragma shader_feature _ALPHATEST_ON
+
             #pragma shader_feature _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
 
-            //--------------------------------------
-            // GPU Instancing
-            #pragma multi_compile_instancing
 
             #include "../../UniversalRP/Shaders/UniversalToonInput.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/Shaders/DepthNormalsPass.hlsl"
-#endif
+
             ENDHLSL
         }
 
