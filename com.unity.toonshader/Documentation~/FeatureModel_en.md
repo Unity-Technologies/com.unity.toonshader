@@ -85,9 +85,6 @@
 | Tweak the value of Unlit Intensity of material in the scene where is no realtime lighting source 	| OK 	| OK 	| OK 	|  	|
 | SceneLights Hi-Cut Filter function. Adjust the high intensity from lights avoiding the overshoot of material's colors 	| OK 	| OK 	| OK 	|  	|
 | Built-in Light Direction function. <br>Activate the virtual light for each material and Tweak the offset value of each axis of the light's direction 	| OK 	| OK 	| OK 	|  	|
-| **UTS Feature Model 2.1** 	|  	|  	|  	|  	|
-| 1. Support RTHS (Realtime Raytraced Hard Shadow) as the shadow map, getting precise cel-shaded images (requires a working environment for DXR) 	|  	|  	|  	|  	|
-| Activate Raytraced Hard Shadow function (requiring ShadowRaytracer component on the camera) 	| deprecated 	| deprecated 	| deprecated 	|  	|
 | **UTS Feature Model 2.2** 	|  	|  	|  	|  	|
 | ***1. Integrate two workflows and shader variations as an Uber Shader*** 	|  	|  	|  	|  	|
 | UniversalToon / Uber shader custom user interface 	| OK	| OK 	| OK 	|  	|
@@ -101,11 +98,7 @@
 | ***2. Rendering per Channels feature*** 	|  	|  	|  	|  	|
 | Set the color and visibility of each channel:<br> i.e., BaseColor, 1st Shade, 2nd Shade, HighColor, AngelRing, RimLight, or Outline 	| N.A. 	| N.A. 	| OK 	|  	|
 | **UTS Feature Model 3.0** 	|  	|  	|  	|  	|
-| ***1. Integrate some textures into one automatically (experimental)***	|  	|  	|  	|  	|
-| _MainTexSynthesized, _ShadowControlSynthesized, _HighColor_TexSynthesized<br>and _Outline_SamplerSynthesized 	| deprecated	| deprecated	| deprecated	|  	|
 | **UTS Feature Model 3.1** 	|  	|  	|  	|  	|
-| ***1. More than 16 textures*** 	|  	|  	|  	|  	|
-| Some texture samplers are shared 	| OK	| OK	| OK	|  	|
 | ***2. EV Adjustment*** 	|  	|  	|  	|  	|
 | EV Adjustment in high intensity light scenes	 	| N.A	| N.A.	| OK	|  	|
 | ***3. Render pipeline built-in raytraced shadows*** 	|  	|  	|  	|  	|
