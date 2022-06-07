@@ -13,19 +13,17 @@
 | Invert  Clipping Mask 	| OK 	| OK 	| OK 	|  	|
 | Use Base Map Alpha as Clipping Mask 	| OK 	|OK	| OK	|  	|
 | ***3. Three Color Map and Control Map Settings*** 	|  	|  	|  	|  	|
-| Set Base Map and Color.  Sharing the map with 1st Shade Map 	| OK 	| OK	| OK 	|  	|
-| Set 1st Shade Map and Color.  Sharing the map with 2nd Shade Map 	| OK 	| OK 	| OK	|  	|
-| Set 2nd Shade Map and Color 	| OK 	| OK 	| OK 	|  	|
-| Normal Map function. Tweak Bump scale, Tiling and Offset 	| OK 	| OK 	| OK 	|  	|
-| Tweak Normal map effectiveness to three basic colors, high color, or rim light 	| OK 	| OK 	| OK 	|  	|
-| Set 1st and 2nd Position Maps for shadow control 	| OK 	| OK 	| OK 	|  	|
-| Set Shading Grade Map for shadow control. Tweak gray level and blur the map 	| OK 	| OK	| OK 	|  	|
-| ***3. Basic Lookdevs features***	|  	|  	|  	|  	|
-| Tweak the level of step and feather between the base and 1st shade colors 	| OK 	| OK 	| OK 	|  	|
-| Tweak the level of step and feather between the 1st and 2nd shade colors 	| OK 	| OK 	| OK 	|  	|
-| Switch system shadows receiving. Tweak the level of system shadows 	| OK 	| OK 	| OK 	|  	|
-| Offset the step value of Point lights 	| OK 	| OK 	| OK 	|  	|
-| PointLights Hi-Cut Filter function 	| OK 	| OK 	| OK 	|  	|
+| Base Map　| OK 	| OK	| OK 	|  	|
+| 1st Shading Map	| OK 	| OK 	| OK	|  	|
+| 2nd Shading Map	| OK 	| OK 	| OK 	|  	|
+| Normal Map	| OK 	| OK 	| OK 	|  	|
+| Shadow Control Maps	| OK 	| OK 	| OK 	|  	|
+| ***4. Shading Steps and Feather Settings***	|  	|  	|  	|  	|
+| Base Color Step	| OK 	| OK 	| OK 	|  	|
+| Base Shading Feather| OK 	| OK 	| OK 	|  	|
+| Shading Color Step 	| OK 	| OK 	| OK 	|  	|
+| Point Light Step Offset	| OK 	| OK 	| OK 	|  	|
+| Filter Point Light Highlights 	| OK 	| OK 	| OK 	|  	|
 | ***4. HighColor features*** 	|  	|  	|  	|  	|
 | Set High Color and map and Tweak HighColor Power | OK 	| OK 	| OK 	|  	|
 | Switch Specular Mode 	| OK 	| OK 	| OK 	|  	|
