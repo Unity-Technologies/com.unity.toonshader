@@ -24,12 +24,13 @@
 | Shading Color Step 	| OK 	| OK 	| OK 	|  	|
 | Point Light Step Offset	| OK 	| OK 	| OK 	|  	|
 | Filter Point Light Highlights 	| OK 	| OK 	| OK 	|  	|
-| ***4. HighColor features*** 	|  	|  	|  	|  	|
-| Set High Color and map and Tweak HighColor Power | OK 	| OK 	| OK 	|  	|
-| Switch Specular Mode 	| OK 	| OK 	| OK 	|  	|
-| Switch Color Blend Mode either Multiply or Additive 	| OK 	| OK 	| OK 	|  	|
-| Mask High Color zone with system shadows and Tweak the masking power 	| OK 	| OK 	| OK 	|  	|
-| Set HighColor Mask and Tweak the level of the mask 	| OK 	| OK 	| OK 	|  	|
+| ***5. Highlight Settingss*** 	|  	|  	|  	|  	|
+| Highlight Power | OK 	| OK 	| OK 	|  	|
+| Specular Mode 	| OK 	| OK 	| OK 	|  	|
+| Color Blending Mode 	| OK 	| OK 	| OK 	|  	|
+| Highlight Blending on Shadows 	| OK 	| OK 	| OK 	|  	|
+| Highlight Mask	| OK 	| OK 	| OK 	|  	|
+| Highlight Mask Level	| OK 	| OK 	| OK 	|  	|
 | ***5. RimLight features*** 	|  	|  	|  	|  	|
 | Add RimLight on the surface and Set the color and power of it 	| OK 	| OK 	| OK 	|  	|
 | Tweak the power of RimLight Inside Mask and Cut the feather off on the edge of the mask 	| OK 	| OK 	| OK 	|  	|
