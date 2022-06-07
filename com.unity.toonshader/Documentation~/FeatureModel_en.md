@@ -1,22 +1,18 @@
 | Feature Description 	|  Legacy 	| URP 	| HDRP 	| Note 	|
 |-	|-	|-	|-	|-	|
 | 	|  	|  	|  	| as of 0.7.3-preview	|
-| ***1. Basic shader features*** 	|  	|  	|  	|  	|
-| Double Shade With Feather Workflow 	| OK 	| OK 	| OK 	|  	|
-| Shading Grade Map Workflow 	| OK 	| OK	| OK 	|  	|
-| Switch Culling Mode 	| OK 	| OK 	| OK 	|  	|
-| Stencil Mask function 	| OK 	| OK 	| N.A. 	|  	|
-| Stencil Out function 	| OK 	| OK 	| N.A. 	|  	|
-| Custom stencil number 	| OK 	| OK 	| N.A. 	|  	|
-| Clipping mask function. Tweak Clipping level 	| OK 	| OK 	| OK	|  	|
-| TransClipping function. Tweak TransClipping level 	| OK 	|OK	| OK 	|  	|
-| Inverse Clipping Mask 	| OK 	| OK 	| OK 	|  	|
-| Use the alpha channel of Basemap as a Clipping mask 	| OK 	|OK	| OK	|  	|
-| Transparent shader function. Tweak Transparency Level 	| OK 	| OK 	| OK 	|  	|
-| Switch Current UI type 	| OK 	| OK	| OK 	|  	|
-| Game recommendation button 	| OK 	| OK 	| OK 	|  	|
-| Remove Unused Keyword button 	| OK 	| OK 	| OK 	|  	|
-| ***2. Basic Three Colors and Shadow Control Maps features*** 	|  	|  	|  	|  	|
+| ***1. Modes*** 	|  	|  	|  	|  	|
+| Standard	| OK 	| OK 	| OK 	|  	|
+| With Advanced Control Map 	| OK 	| OK	| OK 	|  	|
+| ***2. Shader Settings*** 	|  	|  	|  	|  	|
+| Culling  	| OK 	| OK 	| OK 	|  	|
+| Stencil  	| OK 	| OK 	| N.A. 	|  	|
+| Stencil Value 	| OK 	| OK 	| N.A. 	|  	|
+| Clipping 	| OK 	| OK 	| OK	|  	|
+| Clipping Mask | OK 	|OK	| OK 	|  	|
+| Invert  Clipping Mask 	| OK 	| OK 	| OK 	|  	|
+| Use Base Map Alpha as Clipping Mask 	| OK 	|OK	| OK	|  	|
+| ***3. Three Color Map and Control Map Settings*** 	|  	|  	|  	|  	|
 | Set Base Map and Color.  Sharing the map with 1st Shade Map 	| OK 	| OK	| OK 	|  	|
 | Set 1st Shade Map and Color.  Sharing the map with 2nd Shade Map 	| OK 	| OK 	| OK	|  	|
 | Set 2nd Shade Map and Color 	| OK 	| OK 	| OK 	|  	|
