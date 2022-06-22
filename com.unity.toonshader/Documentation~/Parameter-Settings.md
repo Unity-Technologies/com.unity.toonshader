@@ -18,5 +18,5 @@ The followings are all the Unity Toon Shader settings in the inspector window.
   * [Scene Light Effectiveness Settings](SceneLight.md)
   * [Metaverse Settings(Experimental)](Metaverse.md)
   * [Outline Settings](Outline.md)
-  * [Tessellation Settings(Legacy)](TessellationLegacy.md)
+  * [Tessellation Settings(the Built-in Render Pipeline)](TessellationLegacy.md)
   * [Tessellation Settings(HDRP)](TessellationHDRP.md)

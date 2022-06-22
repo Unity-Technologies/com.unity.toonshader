@@ -1,6 +1,7 @@
 * [Unity Toon Shader](index.md)
 * [Requirements](System-Requirements.md)
 * [Installation](installation.md)
+* [Getting Started](GettingStarted.md)
 * [What's new](whats-new.md)
   * [0.7.x-preview](whats-new-0.7.x.md)
   * [0.6.x-preview](whats-new-0.6.x.md)
