@@ -1,5 +1,10 @@
 # Shading Steps and Feather Settings
 
+The **Unity Toon Shader** allows you to control the position of the boundaries of the area, to clearly demarcate the boundaries, or to blur or blend them.
+
+<img src="images/InspecotrShadingStepsAndFeatherSettings.png" width="573">
+<br/><br/>
+
 * [Base Color Step](#base-color-step)
 * [Base Shading Feather](#base-shading-feather)
 * [Shading Color Step](#shading-color-step)
@@ -24,7 +29,7 @@ Feathers the boundary between the Base Color and the Shade Colors.
 <br><br>
 
 ## Shading Color Step
-Sets the boundary between the 1st and 2nd Shade Colors. Set this to 0 if no 2nd Shade Color is used.
+Sets the boundary between the 1st and 2nd Shade Colors. Set this to 0 if  2nd Shade Color is unnecessary.
 
 <img src="images/ShadingColorStep.gif" height="384">
 <br><br>
@@ -43,7 +48,7 @@ Determine if the material reflects shadows.
 <br><br>
 
 #### System Shadow Level
-Define the appearance of self-shadows and other received shadows that blend with the toon shader.
+Define the appearance of self-shadows and other received shadows that blend with the Too Shader.
 
 <img src="images/SystemShadowLevel.gif" height="384">
 <br><br>

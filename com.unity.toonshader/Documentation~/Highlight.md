@@ -1,5 +1,10 @@
 # Highlight Settings
 
+Highlighting specular light area is an important element of animation production and toon shaders. The **Unity Toon Shader** provides a wide variety of expressions with controllability to illuminate the area independently of light color and intensity for impressive cel-shading.
+
+<img src="images/InspectorHighlightSettings.png" width="573">
+<br/><br/>
+
 * [Highlight](#highlight)
 * [Highlight Power](#highlight-power)
 * [Specular Mode](#specular-mode)
@@ -11,28 +16,33 @@
 
 
 ## Highlight
-Highlight : Texture(sRGB) × Color(RGB) Default:White.
+Highlight : Texture(sRGB) × Color(RGB) Default:White. Pattern and color of specularly illuminated area.
 
-<img src="images/Highlight.gif"  height="256">
 <br><br>
+| Default Color | Applied different light color |
+| - | - |
+| <img src="images/Highlight0.png"  height="256"> | <img src="images/Highlight1.png"  height="256"> | 
 
 ## Highlight Power
-Highlight power factor, pow(x,5) is used inside the shader.
+
+The size of the Highlight controlled through the High light power slider. The size increase with the formula: pow(x,5).
 
 <img src="images/SpecularPower.gif"  height="256">
 <br><br>
 
 ## Specular Mode
-Specular light mode. Hard or Soft.
 
-| Hard | Soft |
+UTS provides two modes for the highlight for different occasions and effect. The hard mode provides a crisp and solid edge to the highlight while the soft mode provides a blended blurred effect.
+
+| default color | applied different color |
 | - | - |
 | <img src="images/SpecularHard.png" > | <img src="images/SpecularSoft.png" > |
 
 
 <br><br>
-#### Color Blending Mode
-Specular color blending mode. Multiply or Add. **Color Blending Mode** is disabled when **Specular Mode** is **Soft**.
+
+### Color Blending Mode
+Specular color blending mode allows the user to control the hardness of the colour applied to the highlight. Users have two options: Multiply or Add. Note that **Color Blending Mode** is disabled when **Specular** Mode is  **Soft**.
 
 | Multiply | Add |
 | - | - |
@@ -48,7 +58,7 @@ Adjusts the intensity of highlight applied to shadow areas.
 <br><br>
 
 ## Highlight Mask
-A grayscale texture which utilises its brightness to control highlight intensity. Applying the highlight mask allows to fine-tune the reflectivity on the material.
+A gray scale texture which utilises its brightness to control highlight intensity. Applying the highlight mask allows to fine-tune the reflectivity on the material.
 
  Gray Scale Texture Example | 
 | ---- |

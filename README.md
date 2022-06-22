@@ -15,6 +15,7 @@
   * [Shader Settings](com.unity.toonshader/Documentation~/Shader.md)
   * [Three Color Map and Control Map Settings](com.unity.toonshader/Documentation~/Basic.md)
   * [Shading Step and Feather Settings](com.unity.toonshader/Documentation~/ShadingStepAndFeather.md)
+  * [Normal Map Settings](com.unity.toonshader/Documentation~/NormalMap.md)
   * [Highlight Settings](com.unity.toonshader/Documentation~/Highlight.md)
   * [Rim Light Settings](com.unity.toonshader/Documentation~/Rimlight.md)
   * [Material Capture (MatCap) Setting](com.unity.toonshader/Documentation~/MatCap.md)
@@ -27,7 +28,7 @@
   * [Tessellation Settings(HDRP)](com.unity.toonshader/Documentation~/TessellationHDRP.md)
 * [Toon Ev Adjustment(HDRP)](com.unity.toonshader/Documentation~/ToonEVAdjustment.md)  
 * [Samples](com.unity.toonshader/Documentation~/sample-instlation.md)
-* [Feature Model](com.unity.toonshader/Documentation~/FeatureModel_en.md)
+* [Feature Difference](com.unity.toonshader/Documentation~/FeatureModel_en.md)
 * [Known Issues](com.unity.toonshader/Documentation~/Known-issue.md)
 
 - [日本語] -- in progress now.
