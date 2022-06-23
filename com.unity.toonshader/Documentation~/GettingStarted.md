@@ -29,11 +29,13 @@ Because the **Unity Toon Shader**(UTS) includes shaders for all the render pipel
 
 ## Setting up three basic colors
 
-The most basic function of the UTS is to render the mesh in three areas. **Base Map** for areas with no shadows, **1st shading map** for lighter shadows, and **2nd shading map** for darker shadows. [Three Color Map and Control Map Settings](Basic.md) provides the parameters to control this fundamental settings.
+The most basic function of the UTS is to render the mesh in three regions. **Base Map** for regions with no shadows, **1st shading map** for regions with shaded lighter , and **2nd shading map** for regions with shaded darker. [Three Color Map and Control Map Settings](Basic.md) provides the parameters to control this fundamental settings.
+
+
 
 ## Adjusting edge of three basic color area
 
-Touch of the image one of the most important factors that determine the style of the work. [Shading Steps and Feather Settings](ShadingStepAndFeather.md) provides  ways to adjust the position of the border between the regions and whether they're clearly separated or blended.
+Touch of the image is one of the most important factors that determine the style of the work. [Shading Steps and Feather Settings](ShadingStepAndFeather.md) provides  ways to adjust the position of the border between the regions and whether they're clearly separated or blended.
 
 ## Setting highlight type
 
