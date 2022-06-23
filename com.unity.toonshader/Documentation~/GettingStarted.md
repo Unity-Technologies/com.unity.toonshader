@@ -18,7 +18,7 @@ To make cel-shading work. You need to place at least one [directional light](htt
 
 Start from [creating a material](https://docs.unity3d.com/2022.2/Documentation/Manual/materials-introduction.html) and selecting appropriate shader for it. 
 
-Because the **Unity Toon Shader**(UTS) includes shaders for all the render pipelines,The Built-in Render Pipeline, URP, and HDRP, you need to choose appropriate shader for the render pipeline set to your project.
+Because the **Unity Toon Shader**(UTS) includes shaders for all the render pipelines, the Built-in Render Pipeline, URP, and HDRP, you need to choose appropriate shader for the render pipeline set to your project.
 
 | Render Pipeline | Shader Path | Tesselation Shader Path |
 |----|----|----|
@@ -46,7 +46,7 @@ The Outline is another important factor that determines the animation touch. The
 
 ## Options to make the shading more impressive
 
-The following factors are also essential in recent  animation production. Please try them after mastering this chapter.
+The following factors are also essential in nowadays animation production. Please try these out after mastering this chapter.
 
 * [Emission](Emission.md)
 * [Normal Map](NormalMap.md)
