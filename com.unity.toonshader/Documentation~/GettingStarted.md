@@ -6,7 +6,7 @@ What you have to do for simple cel-shading are:
 * [Make sure at least one directional light is in the scene.](#put-a-directional-light-in-the-scene)
 * [Create materials for cel-shading and set appropriate shader path.](#creating-a-material-and-applying-unity-toon-shader)
 * [Set up three basic colors](#setting-up-three-basic-colors).
-* [Determine touch of the character](#adjusting-edge-of-three-basic-color-area).
+* [Determine touch of the character](#adjusting-edge-of-three-basic-color-region).
 * [Set highlight type.](#setting-highlight-type)
 * [Adjust Outline.](#adjusting-outline)
 
@@ -33,13 +33,13 @@ The most basic function of the UTS is to render the mesh in three regions. **Bas
 
 
 
-## Adjusting edge of three basic color area
+## Adjusting edge of three basic color region
 
 Touch of the image is one of the most important factors that determine the style of the work. [Shading Steps and Feather Settings](ShadingStepAndFeather.md) provides  ways to adjust the position of the border between the regions and whether they're clearly separated or blended.
 
 ## Setting highlight type
 
-Japanese-style animation production tends to favor highlights that are clearly distinguished from other areas. Whereas, depending on the animation style, natural specular light may be desirable. UTS supports both, providing a rich variety of expression with a wide range of parameters in [Highlight Settings](Highlight.md).
+Japanese-style animation production tends to favor highlights that are clearly distinguished from other regions. Whereas, depending on the animation style, natural specular light may be desirable. UTS supports both, providing a rich variety of expression with a wide range of parameters in [Highlight Settings](Highlight.md).
 
 ## Adjusting outline
 The Outline is another important factor that determines the animation touch. The color of the border should be close to the background or clearly distinguishable, and its thickness affects the style of the animation. [Outline Settings](Outline.md) provides the parameters to control them.

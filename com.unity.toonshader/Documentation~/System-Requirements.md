@@ -13,7 +13,7 @@ The **Unity Toon Shader** is compatible with all the render pipelines, the **Bui
 
 **Unity Toon Shader**  0.7.x-preview works for SRP 7.x to 14.x, Unity 2019.4 to 2022.2.
 
-|  Package version  |  Minimum Unity Version  | Maximum Unity Version  |
+|  Package version  |  Minimum Unity version  | Maximum Unity version  |
 | ---- | ---- | ---- |
 |  0.7.x  |  2019.4  |  2022.2  |
 
