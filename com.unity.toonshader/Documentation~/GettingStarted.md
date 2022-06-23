@@ -74,8 +74,8 @@ To make the flow to learn simple, one material is set to the character in this c
 
 The following factors are also essential in nowadays animation production. Please try these out after mastering this chapter.
 
-* [Highlight](Highlight.md).
-* [Angel Ring](AngelRing.md.md).
+* [Highlight](Highlight.md)
+* [Angel Ring](AngelRing.md.md)
 * [Emission](Emission.md)
 * [Normal Map](NormalMap.md)
 * [Rim Light](Rimlight.md)
