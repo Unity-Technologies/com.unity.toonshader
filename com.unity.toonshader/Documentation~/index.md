@@ -3,7 +3,7 @@
 ![](images/TPK_04.png)
 
 
-The **Unity Toon Shader** (UTS3) is a set toon shaders designed to meet the needs of creators working on cel-shaded 3D-CG animations. 
+The **Unity Toon Shader** (UTS3) is a set of toon shaders designed to meet the needs of creators working on cel-shaded 3D-CG animations. 
 
 The **Unity Toon Shader** is compatible with all the render pipelines, the **Built-in Render Pipeline**, the **Universal Render Pipeline (URP)** and the **High Definition Render Pipeline (HDRP)**, though, there are some differences in the features supported by different render pipelines. Please refer to the Feature difference for each render pipeline for details in [Feature Difference](FeatureModel_en.md).
 

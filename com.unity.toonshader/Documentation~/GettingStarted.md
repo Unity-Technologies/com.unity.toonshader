@@ -1,4 +1,4 @@
-# Getting Started
+# Getting started with Unity Toon Shader
 
 The **Unity Toon Shader**(UTS) provides tons of parameters for professional cel-shading,though. In this chapter, you'll learn what are keys for basic cel-shading step by step. 
 
@@ -20,7 +20,7 @@ Start from [creating a material](https://docs.unity3d.com/2022.2/Documentation/M
 
 Because the **Unity Toon Shader**(UTS) includes shaders for all the render pipelines, the Built-in Render Pipeline, URP, and HDRP, you need to choose appropriate shader for the render pipeline set to your project.
 
-| Render Pipeline | Shader Path | Tesselation Shader Path |
+| Render pipeline | Shader path | Tesselation Shader path |
 |----|----|----|
 |The Built-in Render Pipeline | Toon (Built-in) | ToonTessellation (Built-in) |
 |URP | URP/Toon | N.A. |
