@@ -69,10 +69,11 @@ The Outline is another important factor that determines the animation touch. The
 | --- | 
 | <img src="images/BoldOutline.png" width="490">  | 
 
-To make the flow to learn simple, one material is set to the character in this chapter, though, in real animation/game productions, much more detailed  settings to various materials are indispensable. Sometimes, outline in the characters'  eyes shouldn't appear, highlight should be necessary on the characters' hair, Angel Ring would be much better, etc.
+To simplifi the learning process, one material is set to the character in this chapter, though, in real animation/game production scenes, much more detailed  settings to various materials are indispensable. Sometimes, outlines in the characters' eyes shouldn't appear, highlight should be necessary on the characters' hair, Angel Ring would be much better, etc.
+
 ## Options to make the shading more impressive
 
-The following factors are also essential in nowadays animation production. Please try these out after mastering this chapter.
+The following factors are also essential in nowadays animation/game production when using cel-shading. Please try these out after mastering this chapter.
 
 * [Highlight](Highlight.md)
 * [Angel Ring](AngelRing.md.md)
