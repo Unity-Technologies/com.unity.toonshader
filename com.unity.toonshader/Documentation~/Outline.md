@@ -56,7 +56,7 @@ Outline Width Map as gray scale Texture : Texture(linear).
 
 | Outline Width Map Off | Outline Width Map On |
 | -- | -- | 
-| <img src="images/OutlineWidthMapOff.png" height="256"> | <img src="images/OutlineWidthMapOn.png" height="256"> |
+| <img src="images/OutlineWidthMapOff.png" width="320"> | <img src="images/OutlineWidthMapOn.png" width="320"> |
 
 ### Offset Outline with Camera Z-axis
 Offsets the outline in the depth (Z) direction of the camera.

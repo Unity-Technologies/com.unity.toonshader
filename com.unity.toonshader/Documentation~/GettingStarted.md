@@ -8,9 +8,9 @@ What you have to do for simple cel-shading are:
 * [Set up three basic colors](#setting-up-three-basic-colors).
 * [Determine touch of the character](#adjusting-edge-of-three-basic-color-region).
 * [Set Outline.](#set-outline)
-* [Apply advanced techniques](#advanced-techniques)
-  * [Erse outlines in the eyes](#erasing-outlines-in-the-eyes)
+* [Advanced techniques](#advanced-techniques)
   * [Add luster to hair](#adding-luster-to-hair)
+  * [Erase outlines in the eyes](#erasing-outlines-in-the-eyes)
 * [Options for stunning professional cel-shading](#more-options-for-stunning-professional-cel-shading)
 
 
@@ -74,13 +74,23 @@ The Outline is another important factor that determines the animation touch. The
 | <img src="images/BoldOutline.png" width="490">  | 
 
 ## Advanced techniques
-Now, you  learned basic cel-sheding. To simplify the learning process, one material is set to the character, though, in real animation/game production scenes, much more detailed  settings to various materials are indispensable. The followings explain some simple techniques using more than two different materials.
+Now, you  learned basic cel-sheding. To simplify the learning process, one material is set to the character, though, in real animation/game production scenes, much more detailed settings to various materials are indispensable. Sometimes special maps provide solution for problems.
 
-### Erasing outlines in the eyes
-Sometimes, outlines in the characters' eyes shouldn't be ideal. Create another material to erase unnecessary outlines in the eyes.
+The followings explain some simple techniques using more than two different materials.
 
 ### Adding luster to hair
-[Highlight](Highlight.md) on hair makes the images more impressive. [Angel Ring](AngelRing.md.md) or [Material Capture(MatCap)](MatCap.md) would be much more specialized for hair luster. This time, apply MatCap on the hair.
+[Highlight](Highlight.md) on hair makes the images more impressive. [Angel Ring](AngelRing.md) or [Material Capture(MatCap)](MatCap.md) are more specialized for hair luster. This time, apply MatCap on the hair. Create another material  then set [MatCap map](MatCap.md#matcap-map) in it.
+
+| Applied MatCap Map to Hair | 
+| --- | 
+| <img src="images/luster.png">  | 
+
+### Erasing outlines in the eyes
+Sometimes, outlines around characters' eyes spoil images. In such cases, [Outline Width Map](Outline.md#outline-width-map) is definitive answer to erase unnecessary outlines in the eyes.
+
+| Applied Outline Width Map | 
+| --- | 
+| <img src="images/OutlineWidthMap.png">  | 
 
 ## More options for stunning professional cel-shading
 The following factors are also essential in nowadays animation/game production when using cel-shading. Please try these out after mastering this chapter.
