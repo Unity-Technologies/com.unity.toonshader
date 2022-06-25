@@ -74,13 +74,13 @@ The Outline is another important factor that determines the animation touch. The
 | <img src="images/BoldOutline.png" width="490">  | 
 
 ## Advanced techniques
-Now, you  learned basic cel-sheding. To simplify the learning process, one material is set to the character, though, in real animation/game production scenes, much more detailed  settings to various materials are indispensable. The followings explain some simple techniques applying different materials.
+Now, you  learned basic cel-sheding. To simplify the learning process, one material is set to the character, though, in real animation/game production scenes, much more detailed  settings to various materials are indispensable. The followings explain some simple techniques using more than two different materials.
 
 ### Erasing outlines in the eyes
-Sometimes, outlines in the characters' eyes shouldn't appear. Create another material to erase unnecessary outlines in the eyes.
+Sometimes, outlines in the characters' eyes shouldn't be ideal. Create another material to erase unnecessary outlines in the eyes.
 
 ### Adding luster to hair
-[Highlight](Highlight.md) on hair makes the images more impressive. [Angel Ring](AngelRing.md.md) or [Material Capture(MatCap)](MatCap.md) would be much more specialized for hair luster. This time,apply MatCap on the hair.
+[Highlight](Highlight.md) on hair makes the images more impressive. [Angel Ring](AngelRing.md.md) or [Material Capture(MatCap)](MatCap.md) would be much more specialized for hair luster. This time, apply MatCap on the hair.
 
 ## More options for stunning professional cel-shading
 The following factors are also essential in nowadays animation/game production when using cel-shading. Please try these out after mastering this chapter.
