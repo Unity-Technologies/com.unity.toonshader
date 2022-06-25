@@ -3,15 +3,17 @@
 The **Unity Toon Shader**(UTS) provides tons of properties for professional cel-shading, though. In this page, you'll learn what are keys for basic cel-shading step by step. 
 
 What you have to do for simple cel-shading are:
-* [Make sure at least one directional light is in the scene.](#put-a-directional-light-in-the-scene)
-* [Create materials for cel-shading and set appropriate shader path.](#creating-a-new-material-and-applying-it-unity-toon-shader)
+* [Make sure at least one directional light is in the scene](#put-a-directional-light-in-the-scene).
+* [Create materials for cel-shading and set appropriate shader path](#creating-a-new-material-and-applying-it-unity-toon-shader).
 * [Set up three basic colors](#setting-up-three-basic-colors).
 * [Determine touch of the character](#adjusting-edge-of-three-basic-color-region).
-* [Set Outline.](#set-outline)
-* [Advanced techniques](#advanced-techniques)
-  * [Erase outlines in the eyes](#erasing-outlines-around-the-eyes)
-  * [Add luster to hair](#adding-luster-to-hair)
-* [Options for stunning professional cel-shading](#more-options-for-stunning-professional-cel-shading)
+* [Set Outline](#set-outline).
+
+After mastering above you might want to check:
+* [Advanced techniques](#advanced-techniques).
+  * [Erase outlines in the eyes](#erasing-outlines-around-the-eyes).
+  * [Add luster to hair](#adding-luster-to-hair).
+* [Options for stunning professional cel-shading](#more-options-for-stunning-professional-cel-shading).
 
 
 ## Put a directional light in the scene
