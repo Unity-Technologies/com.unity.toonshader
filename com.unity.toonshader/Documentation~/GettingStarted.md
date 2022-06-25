@@ -1,6 +1,6 @@
 # Getting started with Unity Toon Shader
 
-The **Unity Toon Shader**(UTS) provides tons of properties for professional cel-shading,though. In this chapter, you'll learn what are keys for basic cel-shading step by step. 
+The **Unity Toon Shader**(UTS) provides tons of properties for professional cel-shading, though. In this page, you'll learn what are keys for basic cel-shading step by step. 
 
 What you have to do for simple cel-shading are:
 * [Make sure at least one directional light is in the scene.](#put-a-directional-light-in-the-scene)
@@ -74,10 +74,10 @@ The Outline is another important factor that determines the animation touch. The
 | <img src="images/BoldOutline2.png" >  | 
 
 ## Advanced techniques
-Now, you  learned basic cel-sheding. But, professional cel-shading often requires more treatments.
+Now, you  learned basic cel-sheding. But, professional cel-shading often requires more treatments. You will lean a couple of techniques in this section.
 
 ### Erasing outlines around the eyes
-Look at the character's face above again, you will notice outlines around characters' eyes spoiling the images. UTS provides  [Outline Width Map](Outline.md#outline-width-map) to solve this. By applying that map, you can control the thickness of outlines around every part of the meshes to your satisfaction.
+Look at the character's face above again. You will notice outlines around characters' eyes spoiling the images. UTS provides  [Outline Width Map](Outline.md#outline-width-map) to solve this. By applying that map, you can control the thickness of outlines around every part of the meshes to your satisfaction.
 
 | Applied Outline Width Map | 
 | --- | 
@@ -96,7 +96,7 @@ Still, the image may appear flat and lacking in three-dimensionality.
 
 
 ## More options for stunning professional cel-shading
-The following factors are also essential in nowadays animation/game production when using cel-shading. Please try these out after mastering this chapter.
+The following factors are also essential in nowadays animation/game production when using cel-shading. Please try these out after mastering this page.
 
 * [Emission](Emission.md)
 * [Normal Map](NormalMap.md)
