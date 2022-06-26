@@ -60,7 +60,7 @@ The difference between the two texture is the color tone. In this sample, applie
 
 ## Adjusting edge of three basic color region
 
-Touch of the image is one of the most important factors that determine the style of the work. [Shading Steps and Feather Settings](ShadingStepAndFeather.md) provides  ways to adjust the position of the border between the regions and whether they're clearly separated or blended. First, you should adjust  **Base Color Step** to make the **1st Shading Map** displayed.
+Touch of the image is one of the most important factors that determine the style of the work. [Shading Steps and Feather Settings](ShadingStepAndFeather.md) provides  ways to adjust the position of the border between the regions and whether they're clearly separated or blended. First, you should adjust  **Base Color Step** to make  **1st Shading Map**, darker texture above, displayed.
 
 | Adjusted Base Color Step | 
 | --- | 
