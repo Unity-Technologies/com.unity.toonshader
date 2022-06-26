@@ -41,6 +41,8 @@ Because the **Unity Toon Shader**(UTS) includes shaders for all the render pipel
 | --- | 
 | <img src="images/AppliedUTS.png"> | 
 
+You see all the  lights aren't affecting like usual lighting. This is because UTS controls the response of the lighting according to the artist's intentions.
+
 ## Setting up three basic colors
 
 The most basic function of the UTS is to render the mesh in three regions. **Base Map** for regions with no shadows, **1st shading map** for regions with shaded lighter , and **2nd shading map** for regions with shaded darker. [Three Color Map and Control Map Settings](Basic.md) provides the properties to control this fundamental settings. For basic cel-shading, two maps, **Base Map** and **1st Shading Map** work fine.
@@ -49,16 +51,22 @@ The most basic function of the UTS is to render the mesh in three regions. **Bas
 | --- | 
 | <img src="images/AppliedTextures.png"> | 
 
+The difference between the two texture is the color tone. In this sample, applied two different textures. But, applying one texture and differ colors to apply is also possible.
+| A: Base Map | B: 1st Shading Map | 
+| --- |  --- |
+| <img src="images/utc_all2_light.png" width=256> |  <img src="images/utc_all2_dark.png" width=256> | 
 
 
 
 ## Adjusting edge of three basic color region
 
-Touch of the image is one of the most important factors that determine the style of the work. [Shading Steps and Feather Settings](ShadingStepAndFeather.md) provides  ways to adjust the position of the border between the regions and whether they're clearly separated or blended.
+Touch of the image is one of the most important factors that determine the style of the work. [Shading Steps and Feather Settings](ShadingStepAndFeather.md) provides  ways to adjust the position of the border between the regions and whether they're clearly separated or blended. First, you should adjust  **Base Color Step** to make the **1st Shading Map** displayed.
 
 | Adjusted Base Color Step | 
 | --- | 
 |<img src="images/WithoutOutline.png">  | 
+
+In the above, the boundary of **Base Map** and **1st Shading Map** is cleary separated. Try adjusting **Base Shading Feather** to see how to control the boundary clearness. Sometimes, blended borders are favorable.
 
 | Adjusted Base Shading Feather | 
 | --- | 
