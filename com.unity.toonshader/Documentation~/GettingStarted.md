@@ -11,7 +11,7 @@ What you have to do for simple cel-shading are:
 
 After mastering above you might want to check:
 * [Advanced techniques](#advanced-techniques).
-  * [Erase outlines in the eyes](#erasing-outlines-around-the-eyes).
+  * [Eliminate outlines around eyes](#eliminating-outlines-around-eyes).
   * [Add luster to hair](#adding-luster-to-hair).
 * [Options for stunning professional cel-shading](#more-options-for-stunning-professional-cel-shading).
 
@@ -78,7 +78,7 @@ The Outline is another important factor that determines the animation touch. The
 ## Advanced techniques
 Now, you  learned basic cel-sheding. But, professional cel-shading often requires more treatments. You will lean a couple of techniques in this section.
 
-### Erasing outlines around the eyes
+### Eliminating outlines around eyes
 Look at the character's face above again. You will notice outlines around characters' eyes spoiling the images. UTS provides  [Outline Width Map](Outline.md#outline-width-map) to solve this. By applying that map, you can control the thickness of outlines around every part of the meshes to your satisfaction.
 
 | Applied Outline Width Map | 
