@@ -45,7 +45,7 @@ You see all the  lights aren't affecting like usual lighting. This is because UT
 
 ## Setting up three basic colors
 
-The most basic function of the UTS is to render the mesh in three regions. **Base Map** for regions with no shadows, **1st shading map** for regions with shaded lighter , and **2nd shading map** for regions with shaded darker. [Three Color Map and Control Map Settings](Basic.md) provides the properties to control this fundamental settings. For basic cel-shading, two maps, **Base Map** and **1st Shading Map** work fine.
+The most basic function of the UTS is to render the mesh in three regions. **Base Map** for regions with no shadows, **1st shading map** for regions with shaded lighter , and **2nd shading map** for regions with shaded darker. [Three Color Map and Control Map Settings](Basic.md) provide the properties to control this fundamental settings. For basic cel-shading, two maps, **Base Map** and **1st Shading Map** work fine.
 
 | Applied Base Map and 1st Shading map to the material | 
 | --- | 
@@ -95,9 +95,9 @@ Look at the character's face above again. You will notice outlines around charac
 
 
 ### Adding luster to hair
-Still, the image may appear flat and lacking in three-dimensionality.
-[Highlight](Highlight.md) on hair makes the images more impressive. 
-[Angel Ring](AngelRing.md) or [Material Capture(MatCap)](MatCap.md) are more specialized for hair luster. This time, apply MatCap on the hair. Create another material, then set [MatCap map](MatCap.md#matcap-map) in it.
+You might still see the image  appear flat and lacking in three-dimensionality.
+[Highlight](Highlight.md) on hair is common expression in anime production. 
+[Angel Ring](AngelRing.md) and [Material Capture(MatCap)](MatCap.md) are more specialized for hair luster. This time, apply MatCap on the hair. Create another material, then set [MatCap map](MatCap.md#matcap-map) in it.
 
 | Applied MatCap Map to Hair | 
 | --- | 
