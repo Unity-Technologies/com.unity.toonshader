@@ -73,7 +73,7 @@ Offsets the outline in the depth (Z) direction of the camera. UTS outline is an 
 
 | With Z-axis Offset | Without Z-axis Offset |
 | -- | -- |
-| <img src="images/OffsetZ03.png" height="256"> | <img src="images/OffsetZ02.png" height="256"> |
+| <img src="images/OffsetZ02.png" height="256"> | <img src="images/OffsetZ03.png" height="256"> |
 
 ### Camera Distance for Outline Width
 
