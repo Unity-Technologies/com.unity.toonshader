@@ -2,21 +2,15 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 8
+  serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Capsule
   m_Shader: {fileID: 4800000, guid: 873188af6a7b5ca49aa69929a5d863c1, type: 3}
-  m_ValidKeywords:
-  - _EMISSIVE_SIMPLE
-  - _IS_ANGELRING_OFF
-  - _IS_CLIPPING_OFF
-  - _IS_OUTLINE_CLIPPING_NO
-  - _NORMALMAP_TANGENT_SPACE
-  - _OUTLINE_NML
-  m_InvalidKeywords: []
+  m_ShaderKeywords: _EMISSIVE_SIMPLE _IS_ANGELRING_OFF _IS_CLIPPING_OFF _IS_OUTLINE_CLIPPING_NO
+    _NORMALMAP_TANGENT_SPACE _OUTLINE_NML
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -189,7 +183,6 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    m_Ints: []
     m_Floats:
     - _1st2nd_Shades_Feather: 0.0001
     - _1st_ShadeColor_Feather: 0.0001
@@ -440,7 +433,7 @@ Material:
     - _utsTechnique: 0
     - _utsVersionX: 0
     - _utsVersionY: 7
-    - _utsVersionZ: 5
+    - _utsVersionZ: 4
     m_Colors:
     - _1st_ShadeColor: {r: 0.49411768, g: 0.49411768, b: 0.49411768, a: 1}
     - _2nd_ShadeColor: {r: 0.19607845, g: 0.19607845, b: 0.19607845, a: 1}
@@ -477,7 +470,6 @@ Material:
     - _UVMappingMaskEmissive: {r: 1, g: 0, b: 0, a: 0}
     - _ViewShift: {r: 0, g: 0, b: 0, a: 1}
     - emissive: {r: 0, g: 0, b: 0, a: 1}
-  m_BuildTextureStacks: []
 --- !u!114 &5860315164177609273
 MonoBehaviour:
   m_ObjectHideFlags: 11
@@ -491,6 +483,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 2
-  hdPluginSubTargetMaterialVersions:
-    m_Keys: []
-    m_Values: 
