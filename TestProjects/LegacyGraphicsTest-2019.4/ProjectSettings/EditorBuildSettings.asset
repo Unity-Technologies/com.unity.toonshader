@@ -6,6 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/MetaverseOutlineLighting/OutlineLighting01_Skybox.unity
+    guid: 0964b84bc833cdc489778d79a29db029
+  - enabled: 1
+    path: Assets/MetaverseOutlineLighting/OutlineLighting02_Gradient.unity
+    guid: aeac473983060434abd2b5cc71b14ea3
+  - enabled: 1
+    path: Assets/MetaverseOutlineLighting/OutlineLighting03_Color.unity
+    guid: 62191d05ba8b1d245a8cf459652462e3
+  - enabled: 1
     path: Assets/Scenes/AngelRing.unity
     guid: 2d3d3c301eec4c5784c6a4d8ee060d57
   - enabled: 1
