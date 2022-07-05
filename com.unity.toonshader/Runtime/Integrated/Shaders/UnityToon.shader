@@ -1199,7 +1199,6 @@ Shader "Toon" {
             #pragma multi_compile_fog
 
             #pragma multi_compile   _IS_PASS_FWDBASE
-            #pragma multi_compile   _ENVIRONMENTREFLECTIONS_OFF
             // DoubleShadeWithFeather and ShadingGradeMap use different fragment shader.  
             #pragma shader_feature _ _SHADINGGRADEMAP
 
@@ -1242,9 +1241,7 @@ Shader "Toon" {
             #pragma target 2.0
 
 
-            //--------------------------------------
-            // GPU Instancing
-            #pragma shader_feature _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
+
 
             #pragma vertex ShadowPassVertex
             #pragma fragment ShadowPassFragment
@@ -1275,7 +1272,6 @@ Shader "Toon" {
             // -------------------------------------
             // Material Keywords
 
-            #pragma shader_feature _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
 
 
             #include "../../UniversalRP/Shaders/UniversalToonInput.hlsl"
@@ -1307,7 +1303,6 @@ Shader "Toon" {
             // Material Keywords
             #pragma shader_feature_local _PARALLAXMAP
 
-            #pragma shader_feature _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
 
 
             #include "../../UniversalRP/Shaders/UniversalToonInput.hlsl"

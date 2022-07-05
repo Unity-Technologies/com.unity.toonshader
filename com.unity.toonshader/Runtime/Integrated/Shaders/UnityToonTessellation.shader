@@ -588,6 +588,21 @@ Shader "Toon(Tessellation)" {
     //    #pragma multi_compile _ UTS_DEBUG_SHADOWMAP_NO_OUTLINE
     // end of HDRP Variants
 
+
+    // -------------------------------------
+    // urp Material Keywords
+    // -------------------------------------
+    #pragma shader_feature_local _ALPHAPREMULTIPLY_ON
+    #pragma shader_feature_local _EMISSION
+    #pragma shader_feature_local _METALLICSPECGLOSSMAP
+    #pragma shader_feature_local _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
+//            #pragma shader_feature _OCCLUSIONMAP
+
+    #pragma shader_feature_local _SPECULARHIGHLIGHTS_OFF
+    #pragma shader_feature_local _ENVIRONMENTREFLECTIONS_OFF
+    #pragma shader_feature_local _SPECULAR_SETUP
+    #pragma shader_feature_local _RECEIVE_SHADOWS_OFF
+    
     //-------------------------------------------------------------------------------------
     // Define
     //-------------------------------------------------------------------------------------
@@ -1242,20 +1257,6 @@ Shader "Toon(Tessellation)" {
 
 
             // -------------------------------------
-            // Material Keywords
-            // -------------------------------------
-            #pragma shader_feature _ALPHAPREMULTIPLY_ON
-            #pragma shader_feature _EMISSION
-            #pragma shader_feature _METALLICSPECGLOSSMAP
-            #pragma shader_feature _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
-//            #pragma shader_feature _OCCLUSIONMAP
-
-            #pragma shader_feature _SPECULARHIGHLIGHTS_OFF
-            #pragma shader_feature _ENVIRONMENTREFLECTIONS_OFF
-            #pragma shader_feature _SPECULAR_SETUP
-            #pragma shader_feature _RECEIVE_SHADOWS_OFF
-
-            // -------------------------------------
             // Lightweight Pipeline keywords
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS_CASCADE
@@ -1271,7 +1272,6 @@ Shader "Toon(Tessellation)" {
             #pragma multi_compile_fog
 
             #pragma multi_compile   _IS_PASS_FWDBASE
-            #pragma multi_compile   _ENVIRONMENTREFLECTIONS_OFF
             // DoubleShadeWithFeather and ShadingGradeMap use different fragment shader.  
             #pragma shader_feature _ _SHADINGGRADEMAP
 
@@ -1316,7 +1316,6 @@ Shader "Toon(Tessellation)" {
             // -------------------------------------
 
 
-            #pragma shader_feature _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
 
             #pragma vertex ShadowPassVertex
             #pragma fragment ShadowPassFragment
@@ -1344,9 +1343,6 @@ Shader "Toon(Tessellation)" {
             #pragma vertex DepthOnlyVertex
             #pragma fragment DepthOnlyFragment
 
-            // -------------------------------------
-            // Material Keywords
-            #pragma shader_feature _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
 
 
 
@@ -1380,7 +1376,6 @@ Shader "Toon(Tessellation)" {
             // -------------------------------------
             // Material Keywords
             #pragma shader_feature_local _PARALLAXMAP
-            #pragma shader_feature _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
 
 
 
