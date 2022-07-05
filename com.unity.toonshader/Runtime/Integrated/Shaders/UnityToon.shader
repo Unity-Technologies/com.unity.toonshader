@@ -524,7 +524,7 @@ Shader "Toon" {
     #pragma shader_feature_local _ADD_PRECOMPUTED_VELOCITY
     #pragma shader_feature_local _ENABLE_GEOMETRIC_SPECULAR_AA
 
-    // Keywords for transparent
+    // Keyword for transparent
     #pragma shader_feature _SURFACE_TYPE_TRANSPARENT
     #pragma shader_feature_local _ _BLENDMODE_ALPHA _BLENDMODE_ADD _BLENDMODE_PRE_MULTIPLY
     #pragma shader_feature_local _BLENDMODE_PRESERVE_SPECULAR_LIGHTING
@@ -540,6 +540,21 @@ Shader "Toon" {
     #pragma shader_feature_local _MATERIAL_FEATURE_SPECULAR_COLOR
 
 
+    // -------------------------------------
+    // urp Material Keywords
+    // -------------------------------------
+    #pragma shader_feature_local _ALPHAPREMULTIPLY_ON
+    #pragma shader_feature_local _EMISSION
+    #pragma shader_feature_local _METALLICSPECGLOSSMAP
+    #pragma shader_feature_local _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
+//            #pragma shader_feature _OCCLUSIONMAP
+
+    #pragma shader_feature_local _SPECULARHIGHLIGHTS_OFF
+    #pragma shader_feature_local _ENVIRONMENTREFLECTIONS_OFF
+    #pragma shader_feature_local _SPECULAR_SETUP
+    #pragma shader_feature_local _RECEIVE_SHADOWS_OFF
+
+
     // enable dithering LOD crossfade
     #pragma multi_compile _ LOD_FADE_CROSSFADE
 
@@ -552,18 +567,6 @@ Shader "Toon" {
     //    #pragma multi_compile _ UTS_DEBUG_SHADOWMAP_NO_OUTLINE
     // end of HDRP Variants
 
-    //-------------------------------------------------------------------------------------
-    // Variant
-    //-------------------------------------------------------------------------------------
-    // UTS keywords
-    // DoubleShadeWithFeather and ShadingGradeMap use different fragment shader.  
-    #pragma shader_feature_local  _ _SHADINGGRADEMAP
-    // used in ShadingGradeMap
-    #pragma shader_feature_local  _IS_TRANSCLIPPING_OFF _IS_TRANSCLIPPING_ON
-    #pragma shader_feature_local  _IS_ANGELRING_OFF _IS_ANGELRING_ON
-    // used in DoubleShadeWithFeather
-    #pragma shader_feature  _IS_CLIPPING_OFF _IS_CLIPPING_MODE _IS_CLIPPING_TRANSMODE
-    #pragma shader_feature_local  _EMISSIVE_SIMPLE _EMISSIVE_ANIMATION
     ENDHLSL
 
     // *************************** //
@@ -966,8 +969,14 @@ Shader "Toon" {
             #if !defined(_SURFACE_TYPE_TRANSPARENT) && !defined(DEBUG_DISPLAY)
                 #define SHADERPASS_FORWARD_BYPASS_ALPHA_TEST
             #endif
+            #pragma shader_feature _ _SHADINGGRADEMAP
+            // used in ShadingGradeMap
+            #pragma shader_feature _IS_TRANSCLIPPING_OFF _IS_TRANSCLIPPING_ON
+            #pragma shader_feature _IS_ANGELRING_OFF _IS_ANGELRING_ON
             // used in Shadow calculation 
             #pragma shader_feature _ UTS_USE_RAYTRACING_SHADOW
+            // used in DoubleShadeWithFeather
+            #pragma shader_feature _IS_CLIPPING_OFF _IS_CLIPPING_MODE _IS_CLIPPING_TRANSMODE
             // controlling mask rendering
             #pragma shader_feature _ _IS_CLIPPING_MATTE
             #pragma shader_feature _EMISSIVE_SIMPLE _EMISSIVE_ANIMATION
@@ -1173,19 +1182,6 @@ Shader "Toon" {
             #pragma fragment frag
 
 
-            // -------------------------------------
-            // Material Keywords
-            // -------------------------------------
-            #pragma shader_feature _ALPHAPREMULTIPLY_ON
-            #pragma shader_feature _EMISSION
-            #pragma shader_feature _METALLICSPECGLOSSMAP
-            #pragma shader_feature _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
-//            #pragma shader_feature _OCCLUSIONMAP
-
-            #pragma shader_feature _SPECULARHIGHLIGHTS_OFF
-            #pragma shader_feature _ENVIRONMENTREFLECTIONS_OFF
-            #pragma shader_feature _SPECULAR_SETUP
-            #pragma shader_feature _RECEIVE_SHADOWS_OFF
 
             // -------------------------------------
             // Lightweight Pipeline keywords
@@ -1204,12 +1200,18 @@ Shader "Toon" {
 
             #pragma multi_compile   _IS_PASS_FWDBASE
             #pragma multi_compile   _ENVIRONMENTREFLECTIONS_OFF
+            // DoubleShadeWithFeather and ShadingGradeMap use different fragment shader.  
+            #pragma shader_feature _ _SHADINGGRADEMAP
 
 
-
+            // used in ShadingGradeMap
+            #pragma shader_feature _IS_TRANSCLIPPING_OFF _IS_TRANSCLIPPING_ON
+            #pragma shader_feature _IS_ANGELRING_OFF _IS_ANGELRING_ON
 
             // used in Shadow calculation 
             #pragma shader_feature _ UTS_USE_RAYTRACING_SHADOW
+            // used in DoubleShadeWithFeather
+            #pragma shader_feature _IS_CLIPPING_OFF _IS_CLIPPING_MODE _IS_CLIPPING_TRANSMODE
 
             #pragma shader_feature _EMISSIVE_SIMPLE _EMISSIVE_ANIMATION
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
@@ -1388,7 +1390,14 @@ Shader "Toon" {
             #pragma multi_compile_fog
             #pragma only_renderers d3d9 d3d11 glcore gles gles3 metal vulkan xboxone ps4 switch
             #pragma target 3.0
-
+            // DoubleShadeWithFeather and ShadingGradeMap use different fragment shader.  
+            #pragma shader_feature _ _SHADINGGRADEMAP
+            // used in ShadingGradeMap
+            #pragma shader_feature _IS_TRANSCLIPPING_OFF _IS_TRANSCLIPPING_ON
+            #pragma shader_feature _IS_ANGELRING_OFF _IS_ANGELRING_ON
+            // used in DoubleShadeWithFeather
+            #pragma shader_feature _IS_CLIPPING_OFF _IS_CLIPPING_MODE _IS_CLIPPING_TRANSMODE
+            #pragma shader_feature _EMISSIVE_SIMPLE _EMISSIVE_ANIMATION
             #pragma multi_compile _IS_PASS_FWDBASE
 
             //
@@ -1429,7 +1438,14 @@ Shader "Toon" {
             #pragma multi_compile_fog
             #pragma only_renderers d3d9 d3d11 glcore gles gles3 metal vulkan xboxone ps4 switch
             #pragma target 3.0
-
+            // DoubleShadeWithFeather and ShadingGradeMap use different fragment shader.  
+            #pragma shader_feature _ _SHADINGGRADEMAP
+            // used in ShadingGradeMap
+            #pragma shader_feature _IS_TRANSCLIPPING_OFF _IS_TRANSCLIPPING_ON
+            #pragma shader_feature _IS_ANGELRING_OFF _IS_ANGELRING_ON
+            // used in DoubleShadeWithFeather
+            #pragma shader_feature _IS_CLIPPING_OFF _IS_CLIPPING_MODE _IS_CLIPPING_TRANSMODE
+            #pragma shader_feature _EMISSIVE_SIMPLE _EMISSIVE_ANIMATION
             //v.2.0.4
 
             #pragma multi_compile _IS_PASS_FWDDELTA
@@ -1468,6 +1484,8 @@ Shader "Toon" {
             #pragma multi_compile_fog
             #pragma only_renderers d3d9 d3d11 glcore gles gles3 metal vulkan xboxone ps4 switch
             #pragma target 3.0
+            //v.2.0.4
+            #pragma shader_feature _IS_CLIPPING_OFF _IS_CLIPPING_MODE _IS_CLIPPING_TRANSMODE
             #include "../../Legacy/Shaders/UCTS_ShadowCaster.cginc"
             ENDCG
         }
