@@ -512,9 +512,11 @@ Shader "Toon(Tessellation)" {
     HLSLINCLUDE
     #pragma target 5.0
     #pragma only_renderers d3d11 playstation xboxone xboxseries vulkan metal switch
+    #define DISABLE_RP_SHADERS
     //-------------------------------------------------------------------------------------
     // Variant
     //-------------------------------------------------------------------------------------
+#ifndef DISABLE_RP_SHADERS
     // HDRP Variant
     #pragma shader_feature_local _ALPHATEST_ON
     #pragma shader_feature_local _DEPTHOFFSET_ON
@@ -587,9 +589,9 @@ Shader "Toon(Tessellation)" {
     //    #pragma multi_compile _ UTS_DEBUG_SHADOWMAP
     //    #pragma multi_compile _ UTS_DEBUG_SHADOWMAP_NO_OUTLINE
     // end of HDRP Variants
+#endif //#ifndef DISABLE_RP_SHADERS
 
 
-    
     //-------------------------------------------------------------------------------------
     // Define
     //-------------------------------------------------------------------------------------
@@ -1024,7 +1026,7 @@ Shader "Toon(Tessellation)" {
             #if !defined(_SURFACE_TYPE_TRANSPARENT) && !defined(DEBUG_DISPLAY)
                 #define SHADERPASS_FORWARD_BYPASS_ALPHA_TEST
             #endif
-            #pragma shader_feature _ _SHADINGGRADEMAP
+            #pragma shader_feature_local _ _SHADINGGRADEMAP
             // used in ShadingGradeMap
             #pragma shader_feature _IS_TRANSCLIPPING_OFF _IS_TRANSCLIPPING_ON
             #pragma shader_feature _IS_ANGELRING_OFF _IS_ANGELRING_ON
@@ -1242,6 +1244,7 @@ Shader "Toon(Tessellation)" {
             #pragma vertex vert
             #pragma fragment frag
 
+#ifndef DISABLE_RP_SHADERS
             // -------------------------------------
             // urp Material Keywords
             // -------------------------------------
@@ -1255,7 +1258,7 @@ Shader "Toon(Tessellation)" {
             #pragma shader_feature_local _ENVIRONMENTREFLECTIONS_OFF
             #pragma shader_feature_local _SPECULAR_SETUP
             #pragma shader_feature_local _RECEIVE_SHADOWS_OFF
-
+#endif
             // -------------------------------------
             // Lightweight Pipeline keywords
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS
@@ -1269,11 +1272,11 @@ Shader "Toon(Tessellation)" {
             // Unity defined keywords
             #pragma multi_compile _ DIRLIGHTMAP_COMBINED
             #pragma multi_compile _ LIGHTMAP_ON
-            #pragma multi_compile_fog
+//            #pragma multi_compile_fog
 
             #pragma multi_compile   _IS_PASS_FWDBASE
             // DoubleShadeWithFeather and ShadingGradeMap use different fragment shader.  
-            #pragma shader_feature _ _SHADINGGRADEMAP
+            #pragma shader_feature_local _ _SHADINGGRADEMAP
 
 
             // used in ShadingGradeMap
@@ -1475,11 +1478,11 @@ Shader "Toon(Tessellation)" {
             #include "AutoLight.cginc"
             #include "Lighting.cginc"
             #pragma multi_compile_fwdbase_fullshadows
-            #pragma multi_compile_fog
+//            #pragma multi_compile_fog
             #pragma only_renderers d3d9 d3d11 glcore gles gles3 metal vulkan xboxone ps4 switch
             #pragma target 5.0
             // DoubleShadeWithFeather and ShadingGradeMap use different fragment shader.  
-            #pragma shader_feature _ _SHADINGGRADEMAP
+            #pragma shader_feature_local _ _SHADINGGRADEMAP
             // used in ShadingGradeMap
             #pragma shader_feature _IS_TRANSCLIPPING_OFF _IS_TRANSCLIPPING_ON
             #pragma shader_feature _IS_ANGELRING_OFF _IS_ANGELRING_ON
@@ -1531,10 +1534,10 @@ Shader "Toon(Tessellation)" {
             #include "Lighting.cginc"
             //for Unity2018.x
             #pragma multi_compile_fwdadd_fullshadows
-            #pragma multi_compile_fog
+//            #pragma multi_compile_fog
             #pragma only_renderers d3d9 d3d11 glcore gles gles3 metal vulkan xboxone ps4 switch
             // DoubleShadeWithFeather and ShadingGradeMap use different fragment shader.  
-            #pragma shader_feature _ _SHADINGGRADEMAP
+            #pragma shader_feature_local _ _SHADINGGRADEMAP
             // used in ShadingGradeMap
             #pragma shader_feature _IS_TRANSCLIPPING_OFF _IS_TRANSCLIPPING_ON
             #pragma shader_feature _IS_ANGELRING_OFF _IS_ANGELRING_ON
@@ -1583,9 +1586,8 @@ Shader "Toon(Tessellation)" {
             #include "Lighting.cginc"
             #pragma fragmentoption ARB_precision_hint_fastest
             #pragma multi_compile_shadowcaster
-            #pragma multi_compile_fog
+//            #pragma multi_compile_fog
             #pragma only_renderers d3d9 d3d11 glcore gles gles3 metal vulkan xboxone ps4 switch
-            #pragma shader_feature _ _SYNTHESIZED_TEXTURE
             //v.2.0.4
             #pragma shader_feature _IS_CLIPPING_OFF _IS_CLIPPING_MODE _IS_CLIPPING_TRANSMODE
             // Unity Toon Shader 0.5.0
