@@ -965,7 +965,7 @@ Shader "Toon" {
             #pragma shader_feature _IS_TRANSCLIPPING_OFF _IS_TRANSCLIPPING_ON
             #pragma shader_feature _IS_ANGELRING_OFF _IS_ANGELRING_ON
             // used in Shadow calculation 
-            #pragma shader_feature _ UTS_USE_RAYTRACING_SHADOW
+            #pragma shader_feature_local _ UTS_USE_RAYTRACING_SHADOW
             // used in DoubleShadeWithFeather
             #pragma shader_feature _IS_CLIPPING_OFF _IS_CLIPPING_MODE _IS_CLIPPING_TRANSMODE
             // controlling mask rendering
@@ -1200,7 +1200,7 @@ Shader "Toon" {
             // Unity defined keywords
             #pragma multi_compile _ DIRLIGHTMAP_COMBINED
             #pragma multi_compile _ LIGHTMAP_ON
-//            #pragma multi_compile_fog
+            #pragma multi_compile_fog
 
             #define _IS_PASS_FWDBASE
             // DoubleShadeWithFeather and ShadingGradeMap use different fragment shader.  
@@ -1212,7 +1212,7 @@ Shader "Toon" {
             #pragma shader_feature _IS_ANGELRING_OFF _IS_ANGELRING_ON
 
             // used in Shadow calculation 
-            #pragma shader_feature _ UTS_USE_RAYTRACING_SHADOW
+            #pragma shader_feature_local _ UTS_USE_RAYTRACING_SHADOW
             // used in DoubleShadeWithFeather
             #pragma shader_feature _IS_CLIPPING_OFF _IS_CLIPPING_MODE _IS_CLIPPING_TRANSMODE
 
@@ -1388,7 +1388,7 @@ Shader "Toon" {
             #include "AutoLight.cginc"
             #include "Lighting.cginc"
             #pragma multi_compile_fwdbase_fullshadows
-//            #pragma multi_compile_fog
+            #pragma multi_compile_fog
             #pragma only_renderers d3d9 d3d11 glcore gles gles3 metal vulkan xboxone ps4 switch
             #pragma target 3.0
             // DoubleShadeWithFeather and ShadingGradeMap use different fragment shader.  
@@ -1436,7 +1436,7 @@ Shader "Toon" {
             #include "Lighting.cginc"
             //for Unity2018.x
             #pragma multi_compile_fwdadd_fullshadows
-//            #pragma multi_compile_fog
+            #pragma multi_compile_fog
             #pragma only_renderers d3d9 d3d11 glcore gles gles3 metal vulkan xboxone ps4 switch
             #pragma target 3.0
             // DoubleShadeWithFeather and ShadingGradeMap use different fragment shader.  
@@ -1450,7 +1450,7 @@ Shader "Toon" {
             //v.2.0.4
 
             #pragma multi_compile _IS_PASS_FWDDELTA
-            #pragma shader_feature UTS_USE_RAYTRACING_SHADOW
+            #pragma shader_feature_local UTS_USE_RAYTRACING_SHADOW
 
 #if defined(_SHADINGGRADEMAP)
 
@@ -1482,7 +1482,7 @@ Shader "Toon" {
             #include "Lighting.cginc"
             #pragma fragmentoption ARB_precision_hint_fastest
             #pragma multi_compile_shadowcaster
-//            #pragma multi_compile_fog
+            #pragma multi_compile_fog
             #pragma only_renderers d3d9 d3d11 glcore gles gles3 metal vulkan xboxone ps4 switch
             #pragma target 3.0
             //v.2.0.4
