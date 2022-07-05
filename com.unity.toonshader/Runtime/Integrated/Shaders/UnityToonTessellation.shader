@@ -589,19 +589,6 @@ Shader "Toon(Tessellation)" {
     // end of HDRP Variants
 
 
-    // -------------------------------------
-    // urp Material Keywords
-    // -------------------------------------
-    #pragma shader_feature_local _ALPHAPREMULTIPLY_ON
-    #pragma shader_feature_local _EMISSION
-    #pragma shader_feature_local _METALLICSPECGLOSSMAP
-    #pragma shader_feature_local _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
-//            #pragma shader_feature _OCCLUSIONMAP
-
-    #pragma shader_feature_local _SPECULARHIGHLIGHTS_OFF
-    #pragma shader_feature_local _ENVIRONMENTREFLECTIONS_OFF
-    #pragma shader_feature_local _SPECULAR_SETUP
-    #pragma shader_feature_local _RECEIVE_SHADOWS_OFF
     
     //-------------------------------------------------------------------------------------
     // Define
@@ -1255,6 +1242,19 @@ Shader "Toon(Tessellation)" {
             #pragma vertex vert
             #pragma fragment frag
 
+            // -------------------------------------
+            // urp Material Keywords
+            // -------------------------------------
+            #pragma shader_feature_local _ALPHAPREMULTIPLY_ON
+            #pragma shader_feature_local _EMISSION
+            #pragma shader_feature_local _METALLICSPECGLOSSMAP
+            #pragma shader_feature_local _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
+//            #pragma shader_feature _OCCLUSIONMAP
+
+            #pragma shader_feature_local _SPECULARHIGHLIGHTS_OFF
+            #pragma shader_feature_local _ENVIRONMENTREFLECTIONS_OFF
+            #pragma shader_feature_local _SPECULAR_SETUP
+            #pragma shader_feature_local _RECEIVE_SHADOWS_OFF
 
             // -------------------------------------
             // Lightweight Pipeline keywords
@@ -1315,7 +1315,7 @@ Shader "Toon(Tessellation)" {
 
             // -------------------------------------
 
-
+            #pragma shader_feature_local _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
 
             #pragma vertex ShadowPassVertex
             #pragma fragment ShadowPassFragment
@@ -1343,6 +1343,9 @@ Shader "Toon(Tessellation)" {
             #pragma vertex DepthOnlyVertex
             #pragma fragment DepthOnlyFragment
 
+	    // -------------------------------------
+            // Material Keywords
+            #pragma shader_feature_local _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
 
 
 
@@ -1376,7 +1379,7 @@ Shader "Toon(Tessellation)" {
             // -------------------------------------
             // Material Keywords
             #pragma shader_feature_local _PARALLAXMAP
-
+            #pragma shader_feature_local _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
 
 
             #include "../../UniversalRP/Shaders/UniversalToonInput.hlsl"

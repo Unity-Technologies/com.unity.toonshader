@@ -540,19 +540,6 @@ Shader "Toon" {
     #pragma shader_feature_local _MATERIAL_FEATURE_SPECULAR_COLOR
 
 
-    // -------------------------------------
-    // urp Material Keywords
-    // -------------------------------------
-    #pragma shader_feature_local _ALPHAPREMULTIPLY_ON
-    #pragma shader_feature_local _EMISSION
-    #pragma shader_feature_local _METALLICSPECGLOSSMAP
-    #pragma shader_feature_local _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
-//            #pragma shader_feature _OCCLUSIONMAP
-
-    #pragma shader_feature_local _SPECULARHIGHLIGHTS_OFF
-    #pragma shader_feature_local _ENVIRONMENTREFLECTIONS_OFF
-    #pragma shader_feature_local _SPECULAR_SETUP
-    #pragma shader_feature_local _RECEIVE_SHADOWS_OFF
 
 
     // enable dithering LOD crossfade
@@ -1182,6 +1169,19 @@ Shader "Toon" {
             #pragma fragment frag
 
 
+            // -------------------------------------
+            // urp Material Keywords
+            // -------------------------------------
+            #pragma shader_feature_local _ALPHAPREMULTIPLY_ON
+            #pragma shader_feature_local _EMISSION
+            #pragma shader_feature_local _METALLICSPECGLOSSMAP
+            #pragma shader_feature_local _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
+//            #pragma shader_feature _OCCLUSIONMAP
+
+            #pragma shader_feature_local _SPECULARHIGHLIGHTS_OFF
+            #pragma shader_feature_local _ENVIRONMENTREFLECTIONS_OFF
+            #pragma shader_feature_local _SPECULAR_SETUP
+            #pragma shader_feature_local _RECEIVE_SHADOWS_OFF
 
             // -------------------------------------
             // Lightweight Pipeline keywords
@@ -1241,7 +1241,7 @@ Shader "Toon" {
             #pragma target 2.0
 
 
-
+            #pragma shader_feature_local _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
 
             #pragma vertex ShadowPassVertex
             #pragma fragment ShadowPassFragment
@@ -1271,6 +1271,7 @@ Shader "Toon" {
 
             // -------------------------------------
             // Material Keywords
+            #pragma shader_feature_local _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
 
 
 
@@ -1302,6 +1303,7 @@ Shader "Toon" {
             // -------------------------------------
             // Material Keywords
             #pragma shader_feature_local _PARALLAXMAP
+            #pragma shader_feature_local _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
 
 
 
