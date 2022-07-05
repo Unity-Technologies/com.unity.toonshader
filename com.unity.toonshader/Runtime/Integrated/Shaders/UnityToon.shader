@@ -540,6 +540,8 @@ Shader "Toon" {
     #pragma shader_feature_local _MATERIAL_FEATURE_SPECULAR_COLOR
 
 
+
+
     // enable dithering LOD crossfade
     #pragma multi_compile _ LOD_FADE_CROSSFADE
 
@@ -1168,18 +1170,18 @@ Shader "Toon" {
 
 
             // -------------------------------------
-            // Material Keywords
+            // urp Material Keywords
             // -------------------------------------
-            #pragma shader_feature _ALPHAPREMULTIPLY_ON
-            #pragma shader_feature _EMISSION
-            #pragma shader_feature _METALLICSPECGLOSSMAP
-            #pragma shader_feature _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
+            #pragma shader_feature_local _ALPHAPREMULTIPLY_ON
+            #pragma shader_feature_local _EMISSION
+            #pragma shader_feature_local _METALLICSPECGLOSSMAP
+            #pragma shader_feature_local _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
 //            #pragma shader_feature _OCCLUSIONMAP
 
-            #pragma shader_feature _SPECULARHIGHLIGHTS_OFF
-            #pragma shader_feature _ENVIRONMENTREFLECTIONS_OFF
-            #pragma shader_feature _SPECULAR_SETUP
-            #pragma shader_feature _RECEIVE_SHADOWS_OFF
+            #pragma shader_feature_local _SPECULARHIGHLIGHTS_OFF
+            #pragma shader_feature_local _ENVIRONMENTREFLECTIONS_OFF
+            #pragma shader_feature_local _SPECULAR_SETUP
+            #pragma shader_feature_local _RECEIVE_SHADOWS_OFF
 
             // -------------------------------------
             // Lightweight Pipeline keywords
@@ -1197,7 +1199,6 @@ Shader "Toon" {
             #pragma multi_compile_fog
 
             #pragma multi_compile   _IS_PASS_FWDBASE
-            #pragma multi_compile   _ENVIRONMENTREFLECTIONS_OFF
             // DoubleShadeWithFeather and ShadingGradeMap use different fragment shader.  
             #pragma shader_feature _ _SHADINGGRADEMAP
 
@@ -1240,9 +1241,7 @@ Shader "Toon" {
             #pragma target 2.0
 
 
-            //--------------------------------------
-            // GPU Instancing
-            #pragma shader_feature _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
+            #pragma shader_feature_local _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
 
             #pragma vertex ShadowPassVertex
             #pragma fragment ShadowPassFragment
@@ -1272,8 +1271,8 @@ Shader "Toon" {
 
             // -------------------------------------
             // Material Keywords
+            #pragma shader_feature_local _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
 
-            #pragma shader_feature _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
 
 
             #include "../../UniversalRP/Shaders/UniversalToonInput.hlsl"
@@ -1304,8 +1303,8 @@ Shader "Toon" {
             // -------------------------------------
             // Material Keywords
             #pragma shader_feature_local _PARALLAXMAP
+            #pragma shader_feature_local _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
 
-            #pragma shader_feature _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
 
 
             #include "../../UniversalRP/Shaders/UniversalToonInput.hlsl"
@@ -1481,7 +1480,6 @@ Shader "Toon" {
             #pragma multi_compile_shadowcaster
             #pragma multi_compile_fog
             #pragma only_renderers d3d9 d3d11 glcore gles gles3 metal vulkan xboxone ps4 switch
-            #pragma shader_feature _ _SYNTHESIZED_TEXTURE
             #pragma target 3.0
             //v.2.0.4
             #pragma shader_feature _IS_CLIPPING_OFF _IS_CLIPPING_MODE _IS_CLIPPING_TRANSMODE
