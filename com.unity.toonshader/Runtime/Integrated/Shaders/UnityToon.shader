@@ -1402,7 +1402,7 @@ Shader "Toon" {
             #pragma multi_compile _IS_PASS_FWDBASE
 
             //
-            #pragma shader_feature UTS_USE_RAYTRACING_SHADOW
+            #pragma shader_feature_local UTS_USE_RAYTRACING_SHADOW
 #if defined(_SHADINGGRADEMAP)
 
 #include "../../Legacy/Shaders/UCTS_ShadingGradeMap.cginc"
