@@ -1,4 +1,4 @@
-﻿// #define SHOW_CONVERTER_ON_STARTUP
+﻿#define SHOW_CONVERTER_ON_STARTUP
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,11 +7,12 @@ using System.IO;
 using System.Linq;
 using System;
 using System.Text;
+using System.Reflection;
 
 namespace UnityEditor.Rendering.Toon
 {
     [InitializeOnLoad]
-    internal class UnitychanToonShader2UnityToonShader : EditorWindow
+    internal class UTS3Converter : EditorWindow
     {
 
         internal class UTS2GUID
@@ -173,7 +174,7 @@ namespace UnityEditor.Rendering.Toon
         Dictionary<string, UTS2GUID> m_GuidToUTSID_Dictionary = new Dictionary<string, UTS2GUID>();
         static int frameToWait;
 #if SHOW_CONVERTER_ON_STARTUP
-        static   UnitychanToonShader2UnityToonShader()
+        static   UTS3Converter()
         {
 
             ConverterBehaviour();
@@ -183,7 +184,9 @@ namespace UnityEditor.Rendering.Toon
         static void ConvertorBehaviourDelayed()
         {
             if (frameToWait > 0)
+            { 
                 --frameToWait;
+            }
             else
             {
                 EditorApplication.update -= ConvertorBehaviourDelayed;
@@ -193,11 +196,9 @@ namespace UnityEditor.Rendering.Toon
                     return;
                 if (UnityToonShaderSettings.instance.m_ShowConverter == true)
                 {
-                    OpenWindow();
+                    ShowWindow();
 
                 }
-
-
             }
         }
 #if SHOW_CONVERTER_ON_STARTUP
@@ -222,13 +223,35 @@ namespace UnityEditor.Rendering.Toon
             bool isUtsInstalled = CheckUTS2isInstalled();
             bool isUtsSupportedVersion = CheckUTS2VersionError();
         }
-        [MenuItem("Window/Rendering/Unity Toon Shader/Material Converter", false, 9999)]
-        static private UnitychanToonShader2UnityToonShader OpenWindow()
+        [MenuItem("Window/Rendering/Unity Toon Shader Converter", false, 51)]
+        static private UTS3Converter ShowWindow()
         {
-            var window = GetWindow<UnitychanToonShader2UnityToonShader>(true, "Unity-Chan Toon Shader 2 Material Converter");
-            window.ShowUtility();
-            return window;
+            var wnd = GetWindow<UTS3Converter>();
+            wnd.titleContent = new GUIContent("Unity Toon Shader Converter");
+            DontSaveToLayout(wnd);
+            wnd.minSize = new Vector2(650f, 400f);
+            wnd.Show();
+            return wnd;
         }
+
+        internal static void DontSaveToLayout(EditorWindow wnd)
+        {
+            // Making sure that the window is not saved in layouts.
+            Assembly assembly = typeof(EditorWindow).Assembly;
+            var editorWindowType = typeof(EditorWindow);
+            var hostViewType = assembly.GetType("UnityEditor.HostView");
+            var containerWindowType = assembly.GetType("UnityEditor.ContainerWindow");
+            var parentViewField = editorWindowType.GetField("m_Parent", BindingFlags.Instance | BindingFlags.NonPublic);
+            var parentViewValue = parentViewField.GetValue(wnd);
+            // window should not be saved to layout
+            var containerWindowProperty =
+                hostViewType.GetProperty("window", BindingFlags.Instance | BindingFlags.Public);
+            var parentContainerWindowValue = containerWindowProperty.GetValue(parentViewValue);
+            var dontSaveToLayoutField =
+                containerWindowType.GetField("m_DontSaveToLayout", BindingFlags.Instance | BindingFlags.NonPublic);
+            dontSaveToLayoutField.SetValue(parentContainerWindowValue, true);
+        }
+
         static bool CheckUTS2VersionError()
         {
             s_guids = AssetDatabase.FindAssets("t:Material", null);
