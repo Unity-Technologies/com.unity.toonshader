@@ -8,9 +8,16 @@ using System.Linq;
 using System;
 using System.Text;
 using System.Reflection;
+using UnityEngine.UIElements;
 
 namespace UnityEditor.Rendering.Toon
 {
+    [Serializable]
+    internal struct ConverterItems
+    {
+        public List<ConverterItemDescriptor> itemDescriptors;
+    }
+
     [InitializeOnLoad]
     internal class UTS3Converter : EditorWindow
     {
@@ -158,6 +165,9 @@ namespace UnityEditor.Rendering.Toon
         // for converter
         static int s_materialCount = 0;
         List<RenderPipelineConverter> m_CoreConvertersList = new List<RenderPipelineConverter>();
+        List<VisualElement> m_VEList = new List<VisualElement>();
+        // This list needs to be as long as the amount of converters
+        List<ConverterItems> m_ItemsToConvert = new List<ConverterItems>();
 
         Vector2 m_scrollPos;
         bool m_uts2isInstalled = false;
