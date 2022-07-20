@@ -14,7 +14,7 @@ namespace UnityEditor.Rendering.Toon
     [InitializeOnLoad]
     internal class UTS3Converter : EditorWindow
     {
-
+        internal static string versionString => "0.8.0-preview";
         internal class UTS2GUID
         {
             public UTS2GUID(string guid, string shaderName)
@@ -157,6 +157,7 @@ namespace UnityEditor.Rendering.Toon
 
         // for converter
         static int s_materialCount = 0;
+        List<RenderPipelineConverter> m_CoreConvertersList = new List<RenderPipelineConverter>();
 
         Vector2 m_scrollPos;
         bool m_uts2isInstalled = false;
@@ -217,12 +218,18 @@ namespace UnityEditor.Rendering.Toon
         }
         void OnEnable()
         {
+            InitIfNeeded();
+
+        }
+        void InitIfNeeded()
+        {
             m_selectedRenderPipeline = UTS3GUI.currentRenderPipeline;
             packageFullPath = GetPackageFullPath();
 
             bool isUtsInstalled = CheckUTS2isInstalled();
             bool isUtsSupportedVersion = CheckUTS2VersionError();
         }
+
         [MenuItem("Window/Rendering/Unity Toon Shader Converter", false, 51)]
         static private UTS3Converter ShowWindow()
         {
@@ -359,6 +366,8 @@ namespace UnityEditor.Rendering.Toon
             Debug.LogErrorFormat("File: {0} is corrupted.", path);
 
         }
+
+#if false
         private void OnGUI()
         {
             if (!m_initialzed)
@@ -551,8 +560,9 @@ namespace UnityEditor.Rendering.Toon
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.EndVertical();
 
-
         }
+#endif
+
         private static string GetPackageFullPath()
         {
             const string kUtsPackageName = "com.unity.toonshader";
