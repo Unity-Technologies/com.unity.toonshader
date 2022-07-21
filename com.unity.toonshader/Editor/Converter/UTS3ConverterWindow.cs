@@ -164,11 +164,80 @@ namespace UnityEditor.Rendering.Toon
 
         // for converter
         static int s_materialCount = 0;
+
+        // Status for each row item to say in which state they are in.
+        // This will make sure they are showing the correct icon
+        [Serializable]
+        enum Status
+        {
+            Pending,
+            Warning,
+            Error,
+            Success
+        }
+
+        // This is the serialized class that stores the state of each item in the list of items to convert
+        [Serializable]
+        class ConverterItemState
+        {
+            public bool isActive;
+
+            // Message that will be displayed on the icon if warning or failed.
+            public string message;
+
+            // Status of the converted item, Pending, Warning, Error or Success
+            public Status status;
+
+            internal bool hasConverted = false;
+        }
+
+        // Each converter uses the active bool
+        // Each converter has a list of active items/assets
+        // We do this so that we can use the binding system of the UI Elements
+        [Serializable]
+        class ConverterState
+        {
+            // This is the enabled state of the whole converter
+            public bool isEnabled;
+            public bool isActive;
+            public bool isLoading; // to name
+            public bool isInitialized;
+            public List<ConverterItemState> items = new List<ConverterItemState>();
+
+            public int pending;
+            public int warnings;
+            public int errors;
+            public int success;
+            internal int index;
+
+            public bool isActiveAndEnabled => isEnabled && isActive;
+            public bool requiresInitialization => !isInitialized && isActiveAndEnabled;
+        }
+
+        [Serializable]
+        internal struct ConverterItems
+        {
+            public List<ConverterItemDescriptor> itemDescriptors;
+        }
+
         List<RenderPipelineConverter> m_CoreConvertersList = new List<RenderPipelineConverter>();
         List<VisualElement> m_VEList = new List<VisualElement>();
         // This list needs to be as long as the amount of converters
         List<ConverterItems> m_ItemsToConvert = new List<ConverterItems>();
 
+        //List<List<ConverterItemDescriptor>> m_ItemsToConvert = new List<List<ConverterItemDescriptor>>();
+        SerializedObject m_SerializedObject;
+
+        List<string> m_ContainerChoices = new List<string>();
+        List<RenderPipelineConverterContainer> m_Containers = new List<RenderPipelineConverterContainer>();
+        int m_ContainerChoiceIndex = 0;
+        int m_WorkerCount;
+
+        // This is a list of Converter States which holds a list of which converter items/assets are active
+        // There is one for each Converter.
+        [SerializeField] List<ConverterState> m_ConverterStates = new List<ConverterState>();
+
+        TypeCache.TypeCollection m_ConverterContainers;
         Vector2 m_scrollPos;
         bool m_uts2isInstalled = false;
         bool m_initialzed;
@@ -238,8 +307,79 @@ namespace UnityEditor.Rendering.Toon
 
             bool isUtsInstalled = CheckUTS2isInstalled();
             bool isUtsSupportedVersion = CheckUTS2VersionError();
+
+            if (m_CoreConvertersList.Any())
+                return;
+            m_CoreConvertersList = new List<RenderPipelineConverter>();
+            // This is the drop down choices.
+            m_ConverterContainers = TypeCache.GetTypesDerivedFrom<RenderPipelineConverterContainer>();
+            foreach (var containerType in m_ConverterContainers)
+            {
+                var container = (RenderPipelineConverterContainer)Activator.CreateInstance(containerType);
+                m_Containers.Add(container);
+            }
+
+            // this need to be sorted by Priority property
+            m_Containers = m_Containers
+                .OrderBy(o => o.priority).ToList();
+
+            foreach (var container in m_Containers)
+            {
+                m_ContainerChoices.Add(container.name);
+            }
+
+            if (m_ConverterContainers.Any())
+            {
+                GetConverters();
+            }
+            else
+            {
+                ClearConverterStates();
+            }
         }
 
+        void GetConverters()
+        {
+            ClearConverterStates();
+            var converterList = TypeCache.GetTypesDerivedFrom<RenderPipelineConverter>();
+
+            for (int i = 0; i < converterList.Count; ++i)
+            {
+                // Iterate over the converters that are used by the current container
+                RenderPipelineConverter conv = (RenderPipelineConverter)Activator.CreateInstance(converterList[i]);
+                m_CoreConvertersList.Add(conv);
+            }
+
+            // this need to be sorted by Priority property
+            m_CoreConvertersList = m_CoreConvertersList
+                .OrderBy(o => o.priority).ToList();
+
+            for (int i = 0; i < m_CoreConvertersList.Count; i++)
+            {
+                // Create a new ConvertState which holds the active state of the converter
+                var converterState = new ConverterState
+                {
+                    isEnabled = m_CoreConvertersList[i].isEnabled,
+                    isActive = false,
+                    isInitialized = false,
+                    items = new List<ConverterItemState>(),
+                    index = i,
+                };
+                m_ConverterStates.Add(converterState);
+
+                // This just creates empty entries in the m_ItemsToConvert.
+                // This list need to have the same amount of entries as the converters
+                List<ConverterItemDescriptor> converterItemInfos = new List<ConverterItemDescriptor>();
+                m_ItemsToConvert.Add(new ConverterItems { itemDescriptors = converterItemInfos });
+            }
+        }
+        void ClearConverterStates()
+        {
+            m_CoreConvertersList.Clear();
+            m_ConverterStates.Clear();
+            m_ItemsToConvert.Clear();
+            m_VEList.Clear();
+        }
         [MenuItem("Window/Rendering/Unity Toon Shader Converter", false, 51)]
         static private UTS3Converter ShowWindow()
         {
@@ -250,7 +390,10 @@ namespace UnityEditor.Rendering.Toon
             wnd.Show();
             return wnd;
         }
-
+        private void CreateGUI()
+        {
+            InitIfNeeded();
+        }
         internal static void DontSaveToLayout(EditorWindow wnd)
         {
             // Making sure that the window is not saved in layouts.
