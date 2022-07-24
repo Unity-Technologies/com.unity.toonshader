@@ -6,4 +6,9 @@ using UnityEditor;
 public class ConverterWindow : EditorWindow
 {
     public VisualTreeAsset visualTreeTemplate;
+
+    protected void OnEnable()
+    {
+        visualTreeTemplate.CloneTree(rootVisualElement);
+    }
 }
