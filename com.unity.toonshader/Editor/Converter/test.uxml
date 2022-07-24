@@ -1,0 +1,3 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" >
+    <ui:Label tabindex="-1" text="AAA" display-tooltip-when-elided="true" name="lblAdd" />
+</ui:UXML>
