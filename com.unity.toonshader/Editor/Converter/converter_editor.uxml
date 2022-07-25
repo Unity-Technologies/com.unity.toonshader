@@ -1,4 +1,4 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xmlns:uts="UnityEditor.Rendering.Toon" editor-extension-mode="False">
     <Style src="project://database/Packages/com.unity.toonshader/Editor/Converter/converter_editor.uss" />
     <ui:VisualElement name="singleConverterVE" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); display: none; padding-left: 19px; padding-right: 19px; padding-top: 20px; padding-bottom: 20px;">
         <ui:VisualElement name="backButtonVE" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row; height: 0; flex-shrink: 1; max-height: 22px; display: flex; min-height: 22px; margin-bottom: 10px;">
@@ -8,7 +8,7 @@
     <ui:VisualElement name="converterEditorMainVE" style="max-width: 100%; min-width: 620px; flex-grow: 1; padding-left: 19px; padding-right: 19px; padding-top: 15px; width: auto; padding-bottom: 20px;">
         <ui:VisualElement name="topInformationVE" style="flex-grow: initial; background-color: rgba(0, 0, 0, 0); height: 146px; flex-shrink: initial; width: auto; min-height: 130px; max-height: 130px;">
             <ui:VisualElement style="flex-direction: row; padding-left: 2px;">
-                <ui:DropdownField index="-1" name="conversionsDropDown" style="height: 27px; width: 208px; display: flex; margin-left: 0;" />
+                <uts:PopupVE index="-1" name="conversionsDropDown" style="height: 27px; width: 208px; display: flex; margin-left: 0;" />
                 <ui:VisualElement style="flex-grow: 1;" />
                 <ui:Button name="containerHelpButton" class="iconButton unity-icon-button" style="width: 16px; height: 16px; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; margin-left: 0; margin-right: 0; margin-top: 0;">
                     <ui:Image name="containerHelpImage" class="unity-icon-button" style="background-image: none; flex-grow: 1;" />

@@ -21,8 +21,8 @@ namespace UnityEditor.Rendering.Toon
     }
 
     [Serializable]
-    [InitializeOnLoad]
-    internal class UTS3Converter : EditorWindow
+//    [InitializeOnLoad]
+    internal class UTS3ConverterWindow : EditorWindow
     {
         internal static string versionString => "0.8.0-preview";
         internal class UTS2GUID
@@ -296,7 +296,7 @@ namespace UnityEditor.Rendering.Toon
         Dictionary<string, UTS2GUID> m_GuidToUTSID_Dictionary = new Dictionary<string, UTS2GUID>();
         static int frameToWait;
 #if SHOW_CONVERTER_ON_STARTUP
-        static   UTS3Converter()
+        static UTS3ConverterWindow()
         {
 
             ConverterBehaviour();
@@ -423,9 +423,9 @@ namespace UnityEditor.Rendering.Toon
             m_VEList.Clear();
         }
         [MenuItem("Window/Rendering/Unity Toon Shader Converter", false, 51)]
-        static private UTS3Converter ShowWindow()
+        static private UTS3ConverterWindow ShowWindow()
         {
-            var wnd = GetWindow<UTS3Converter>();
+            var wnd = GetWindow<UTS3ConverterWindow>();
             wnd.titleContent = new GUIContent("Unity Toon Shader Converter");
             DontSaveToLayout(wnd);
             wnd.minSize = new Vector2(650f, 400f);
@@ -434,7 +434,7 @@ namespace UnityEditor.Rendering.Toon
         }
         private void CreateGUI()
         {
-#if UNITY_2021_1_OR_NEWER
+#if false // UNITY_2021_1_OR_NEWER
             iconHelp = CoreEditorUtils.FindTexture("_Help");
 #endif
             iconWarn = CoreEditorUtils.LoadIcon("icons", "console.warnicon", ".png");
@@ -477,7 +477,7 @@ namespace UnityEditor.Rendering.Toon
                 m_InitAnConvertButton.RegisterCallback<ClickEvent>(InitializeAndConvert);
 #if UNITY_2021_1_OR_NEWER
                 m_ContainerHelpButton = rootVisualElement.Q<Button>("containerHelpButton");
-                m_ContainerHelpButton.RegisterCallback<ClickEvent>(GotoHelpURL);
+//                m_ContainerHelpButton.RegisterCallback<ClickEvent>(GotoHelpURL);
                 m_ContainerHelpButton.Q<Image>("containerHelpImage").image = CoreEditorStyles.iconHelp;
                 m_ContainerHelpButton.RemoveFromClassList("unity-button");
                 m_ContainerHelpButton.AddToClassList(theme);
@@ -871,7 +871,7 @@ namespace UnityEditor.Rendering.Toon
         private void HideUnhideConverters()
         {
             var type = currentContainer.GetType();
-#if UNITY_2021_1_OR_NEWER
+#if false //UNITY_2021_1_OR_NEWER
             if (DocumentationUtils.TryGetHelpURL(type, out var url))
             {
                 m_ContainerHelpButton.style.display = DisplayStyle.Flex;
