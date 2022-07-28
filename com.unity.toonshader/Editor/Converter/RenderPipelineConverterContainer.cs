@@ -21,5 +21,9 @@ namespace UnityEditor.Rendering.Toon
         /// </summary>
         public virtual int priority => 0;
 
+
+        public abstract void SetupConverter();
+        public abstract void Convert();
+        public abstract void PostConverting();
     }
 }

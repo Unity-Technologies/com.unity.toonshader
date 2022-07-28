@@ -94,6 +94,11 @@ namespace UnityEditor.Rendering.Toon
         public VisualTreeAsset converterWidgetMainAsset;
         internal static string versionString => "0.8.0-preview";
 
+        static int s_materialCount = 0;
+        static string[] s_guids;
+        static int s_versionErrorCount = 0;
+        const string legacyShaderPrefix = "UnityChanToonShader/";
+
         ScrollView m_ScrollView;
         VisualElement m_ConverterSelectedVE;
         Button m_ConvertButton;
@@ -165,8 +170,8 @@ namespace UnityEditor.Rendering.Toon
                 rootVisualElement.Q<DropdownField>("conversionsDropDown").choices = m_ContainerChoices;
                 rootVisualElement.Q<DropdownField>("conversionsDropDown").index = m_ContainerChoiceIndex;
 #else
-                rootVisualElement.Q<PopupField<string>>("conversionsDropDown").choices = m_ContainerChoices;
-                rootVisualElement.Q<PopupField<string>>("conversionsDropDown").index = m_ContainerChoiceIndex;
+                rootVisualElement.Q<PopupVE>("conversionsDropDown").choices = m_ContainerChoices;
+                rootVisualElement.Q<PopupVE>("conversionsDropDown").index = m_ContainerChoiceIndex;
 #endif
                 // Getting the scrollview where the converters should be added
                 m_ScrollView = rootVisualElement.Q<ScrollView>("convertersScrollView");
@@ -218,8 +223,8 @@ namespace UnityEditor.Rendering.Toon
             m_selectedRenderPipeline = UTS3GUI.currentRenderPipeline;
             packageFullPath = GetPackageFullPath();
 
-//            bool isUtsInstalled = CheckUTS2isInstalled();
-//            bool isUtsSupportedVersion = CheckUTS2VersionError();
+            bool isUts2Installed = CheckUTS2isInstalled();
+            bool isUts2SupportedVersion = CheckUTS2VersionError();
 
             if (m_CoreConvertersList.Any())
                 return;
@@ -506,9 +511,9 @@ namespace UnityEditor.Rendering.Toon
                 HideUnhideConverters();
             });
 #else
-            rootVisualElement.Q<PopupField<string>>("conversionsDropDown").RegisterCallback<ChangeEvent<string>>((evt) =>
+            rootVisualElement.Q<PopupVE>("conversionsDropDown").RegisterCallback<ChangeEvent<string>>((evt) =>
             {
-                m_ContainerChoiceIndex = rootVisualElement.Q<PopupField<string>>("conversionsDropDown").index;
+                m_ContainerChoiceIndex = rootVisualElement.Q<PopupVE>("conversionsDropDown").index;
                 rootVisualElement.Q<TextElement>("conversionInfo").text = currentContainer.info;
                 HideUnhideConverters();
             });
@@ -888,6 +893,109 @@ namespace UnityEditor.Rendering.Toon
 
         void Convert(ClickEvent evt)
         {
+        }
+        static bool CheckUTS2VersionError()
+        {
+            s_guids = AssetDatabase.FindAssets("t:Material", null);
+            int materialCount = 0;
+
+            for (int ii = 0; ii < s_guids.Length; ii++)
+            {
+                var guid = s_guids[ii];
+
+
+                string path = AssetDatabase.GUIDToAssetPath(guid);
+                Material material = AssetDatabase.LoadAssetAtPath<Material>(path);
+
+                var shaderName = material.shader.ToString();
+                if (!shaderName.StartsWith(legacyShaderPrefix))
+                {
+                    continue;
+
+                }
+                const string utsVersionProp = "_utsVersion";
+                if (material.HasProperty(utsVersionProp))
+                {
+                    float utsVersion = material.GetFloat(utsVersionProp);
+                    if (utsVersion < 2.07)
+                    {
+                        s_versionErrorCount++;
+                        continue;
+                    }
+                }
+                else
+                {
+                    s_versionErrorCount++;
+                    continue;
+                }
+                materialCount++;
+            }
+            s_materialCount = materialCount;
+            if (s_versionErrorCount > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        static bool CheckUTS2isInstalled()
+        {
+            var shaders = AssetDatabase.FindAssets("t:Shader", new string[] { "Assets" });
+            foreach (var guid in shaders)
+            {
+                foreach (var shader in BuiltInRPShaders.stdShaders)
+                {
+                    if (guid == shader.m_Guid)
+                    {
+                        /*
+                                            var filename = AssetDatabase.GUIDToAssetPath(guid);
+
+                                            if (!filename.EndsWith(kLegacyShaderFileName + kShaderFileNameExtention))
+                                            {
+                                                return true;
+                                            }
+                        */
+                        return true;
+
+                    }
+                }
+                foreach (var shader in BuiltInRPShaders.tessShaders)
+                {
+                    if (guid == shader.m_Guid)
+                    {
+                        /*
+                                            var filename = AssetDatabase.GUIDToAssetPath(guid);
+
+                                            if (!filename.EndsWith(kLegacyShaderFileName + kShaderFileNameExtention))
+                                            {
+                                                return true;
+                                            }
+                        */
+                        return true;
+
+                    }
+                }
+            }
+            return false;
+        }
+        static UTS2GUID FindUTS2GUID(string guid)
+        {
+            var ret = Array.Find<UTS2GUID>(BuiltInRPShaders.stdShaders, element => element.m_Guid == guid);
+            foreach (var shader in BuiltInRPShaders.stdShaders)
+            {
+                if (shader.m_Guid == guid)
+                {
+                    return shader;
+                }
+            }
+            foreach (var shader in BuiltInRPShaders.tessShaders)
+            {
+                if (shader.m_Guid == guid)
+                {
+                    return shader;
+                }
+            }
+            return null;
         }
     }
 }

@@ -24,7 +24,7 @@ namespace UnityEditor.Rendering.Toon
 //    [InitializeOnLoad]
     internal class UTS3ConverterWindow : EditorWindow
     {
-        internal static string versionString => "0.8.0-preview";
+
         internal class UTS2GUID
         {
             public UTS2GUID(string guid, string shaderName)
