@@ -507,18 +507,19 @@ namespace UnityEditor.Rendering.Toon
                 HideUnhideConverters();
             });
 #else
+            m_ScrollView.Clear();
             rootVisualElement.Q<PopupVE>("conversionsDropDown").RegisterCallback<ChangeEvent<string>>((evt) =>
             {
                 m_ContainerChoiceIndex = rootVisualElement.Q<PopupVE>("conversionsDropDown").index;
                 rootVisualElement.Q<TextElement>("conversionInfo").text = currentContainer.info;
-                currentContainer.SetupConverter();
+                currentContainer.SetupConverter(m_ScrollView);
                 HideUnhideConverters();
             });
 #endif
 
-
+#if false
             rootVisualElement.Q<TextElement>("conversionInfo").text = currentContainer.info;
-            m_ScrollView.Clear();
+
 
             for (int i = 0; i < m_CoreConvertersList.Count; ++i)
             {
@@ -670,8 +671,9 @@ namespace UnityEditor.Rendering.Toon
                 };
 
                 m_ScrollView.Add(item);
-            }
 
+            }
+#endif
             InitOrConvert();
             HideUnhideConverters();
             rootVisualElement.Bind(m_SerializedObject);

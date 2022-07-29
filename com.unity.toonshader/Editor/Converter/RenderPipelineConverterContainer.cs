@@ -1,10 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using UnityEngine.UIElements;
+
 namespace UnityEditor.Rendering.Toon
 {
     internal abstract class RenderPipelineConverterContainer 
     {
+        protected int s_materialCount = 0;
+        protected string[] s_guids;
+        protected int s_versionErrorCount = 0;
+
+        protected ScrollView m_ScrollView;
         /// <summary>
         /// The name of the container. This name shows up in the UI.
         /// </summary>
@@ -22,7 +26,7 @@ namespace UnityEditor.Rendering.Toon
         public virtual int priority => 0;
 
 
-        public abstract void SetupConverter();
+        public abstract void SetupConverter(ScrollView scrollView);
         public abstract void Convert();
         public abstract void PostConverting();
     }
