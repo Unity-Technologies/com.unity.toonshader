@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UIElements;
 namespace UnityEditor.Rendering.Toon
@@ -12,8 +13,88 @@ namespace UnityEditor.Rendering.Toon
         public override int priority => -9000;
 
         public override void SetupConverter(ScrollView scrollView) {
+            m_ScrollView = scrollView;
             bool isUts2Installed = CheckUTS2isInstalled();
             bool isUts2SupportedVersion = CheckUTS2VersionError();
+
+            int materialCount = 0;
+
+            for (int ii = 0; ii < m_guids.Length; ii++)
+            {
+                var guid = m_guids[ii];
+
+                string path = AssetDatabase.GUIDToAssetPath(guid);
+                Material material = AssetDatabase.LoadAssetAtPath<Material>(path);
+                var shaderName = material.shader.ToString();
+                if (!shaderName.StartsWith("Hidden/InternalErrorShader"))
+                {
+                    continue;
+                }
+                string content = File.ReadAllText(path);
+                string[] lines = content.Split(lineSeparators, StringSplitOptions.None);
+                // always two spaces before m_Shader?
+                var targetLine = Array.Find<string>(lines, line => line.StartsWith("  m_Shader:"));
+                var shaderMetadata = targetLine.Split(targetSepeartors, StringSplitOptions.None);
+                if (shaderMetadata.Length < 4)
+                {
+                    Error(path);
+                    continue;
+                }
+                var shaderGUID = shaderMetadata[4];
+                while (shaderGUID.StartsWith(" "))
+                {
+                    shaderGUID = shaderGUID.TrimStart(' ');
+                }
+                var foundUTS2GUID = FindUTS2GUID(shaderGUID);
+                if (foundUTS2GUID == null)
+                {
+                    continue;
+                }
+
+                var targetLine2 = Array.Find<string>(lines, line => line.StartsWith("    - _utsVersion"));
+                if (targetLine2 == null)
+                {
+                    Error(path);
+                    continue;
+                }
+                string[] lines2 = targetLine2.Split(targetSepeartors2, StringSplitOptions.None);
+                if (lines2 == null || lines2.Length < 2)
+                {
+                    Error(path);
+                    m_versionErrorCount++;
+                    continue;
+                }
+                var utsVersionString = lines2[1];
+                while (utsVersionString.StartsWith(" "))
+                {
+                    utsVersionString = utsVersionString.TrimStart(' ');
+                }
+                float utsVersion = float.Parse(utsVersionString);
+                if (utsVersion < 2.07f)
+                {
+                    m_versionErrorCount++;
+                    continue;
+                }
+                m_ConvertingMaterials.Add(material);
+                if (!m_Material2GUID_Dictionary.ContainsKey(material))
+                {
+                    m_Material2GUID_Dictionary.Add(material, shaderGUID);
+                }
+                if (!m_GuidToUTSID_Dictionary.ContainsKey(shaderGUID))
+                {
+                    m_GuidToUTSID_Dictionary.Add(shaderGUID, foundUTS2GUID);
+                }
+                materialCount++;
+
+                string str = "" + materialCount + ":";
+                TextElement item = new TextElement();
+                item.text = "";
+                m_ScrollView.Add(item);
+            }
+            for ( int ii =0; ii < m_materialCount; ii++)
+            {
+
+            }
         }
         public override void Convert() { }
         public override void PostConverting() { }
@@ -23,12 +104,12 @@ namespace UnityEditor.Rendering.Toon
 
         bool CheckUTS2VersionError()
         {
-            s_guids = AssetDatabase.FindAssets("t:Material", null);
+            m_guids = AssetDatabase.FindAssets("t:Material", null);
             int materialCount = 0;
 
-            for (int ii = 0; ii < s_guids.Length; ii++)
+            for (int ii = 0; ii < m_guids.Length; ii++)
             {
-                var guid = s_guids[ii];
+                var guid = m_guids[ii];
 
 
                 string path = AssetDatabase.GUIDToAssetPath(guid);
@@ -46,19 +127,19 @@ namespace UnityEditor.Rendering.Toon
                     float utsVersion = material.GetFloat(utsVersionProp);
                     if (utsVersion < 2.07)
                     {
-                        s_versionErrorCount++;
+                        m_versionErrorCount++;
                         continue;
                     }
                 }
                 else
                 {
-                    s_versionErrorCount++;
+                    m_versionErrorCount++;
                     continue;
                 }
                 materialCount++;
             }
-            s_materialCount = materialCount;
-            if (s_versionErrorCount > 0)
+            m_materialCount = materialCount;
+            if (m_versionErrorCount > 0)
             {
                 return true;
             }

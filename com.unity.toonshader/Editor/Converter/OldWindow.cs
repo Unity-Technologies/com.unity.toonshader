@@ -281,7 +281,7 @@ namespace UnityEditor.Rendering.Toon
         RenderPipelineConverterContainer currentContainer => m_Containers[m_ContainerChoiceIndex];
 
         Vector2 m_scrollPos;
-        bool m_uts2isInstalled = false;
+
         bool m_initialzed;
         static string[] s_guids;
         static int s_versionErrorCount = 0;
