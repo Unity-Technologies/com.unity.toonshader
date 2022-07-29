@@ -26,10 +26,12 @@ namespace UnityEditor.Rendering.Toon
                 string path = AssetDatabase.GUIDToAssetPath(guid);
                 Material material = AssetDatabase.LoadAssetAtPath<Material>(path);
                 var shaderName = material.shader.ToString();
+#if false
                 if (!shaderName.StartsWith("Hidden/InternalErrorShader"))
                 {
                     continue;
                 }
+#endif
                 string content = File.ReadAllText(path);
                 string[] lines = content.Split(lineSeparators, StringSplitOptions.None);
                 // always two spaces before m_Shader?
@@ -87,8 +89,8 @@ namespace UnityEditor.Rendering.Toon
                 materialCount++;
 
                 string str = "" + materialCount + ":";
-                TextElement item = new TextElement();
-                item.text = "";
+                Label item = new Label();
+                item.text = material.name;
                 m_ScrollView.Add(item);
             }
             for ( int ii =0; ii < m_materialCount; ii++)
