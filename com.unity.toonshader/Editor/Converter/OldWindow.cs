@@ -434,6 +434,7 @@ namespace UnityEditor.Rendering.Toon
         }
         private void CreateGUI()
         {
+#if false
 #if false // UNITY_2021_1_OR_NEWER
             iconHelp = CoreEditorUtils.FindTexture("_Help");
 #endif
@@ -484,6 +485,7 @@ namespace UnityEditor.Rendering.Toon
 #endif
                 RecreateUI();
             }
+#endif
         }
 
 

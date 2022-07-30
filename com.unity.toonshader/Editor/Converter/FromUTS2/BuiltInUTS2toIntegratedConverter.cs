@@ -12,16 +12,16 @@ namespace UnityEditor.Rendering.Toon
         public override string info => "This tool converts project materials from Unity-chan Toon Shader to Unity Toon Shader " + UTS3Converter.versionString;
         public override int priority => -9000;
 
-        public override void SetupConverter(ScrollView scrollView) {
-            m_ScrollView = scrollView;
-            bool isUts2Installed = CheckUTS2isInstalled();
-            bool isUts2SupportedVersion = CheckUTS2VersionError();
+        public override void SetupConverter() {
+
+//            bool isUts2Installed = CheckUTS2isInstalled();
+//            bool isUts2SupportedVersion = CheckUTS2VersionError();
 
             int materialCount = 0;
 
-            for (int ii = 0; ii < m_guids.Length; ii++)
+            for (int ii = 0; ii < m_materialGuids.Length; ii++)
             {
-                var guid = m_guids[ii];
+                var guid = m_materialGuids[ii];
 
                 string path = AssetDatabase.GUIDToAssetPath(guid);
                 Material material = AssetDatabase.LoadAssetAtPath<Material>(path);
@@ -36,6 +36,10 @@ namespace UnityEditor.Rendering.Toon
                 string[] lines = content.Split(lineSeparators, StringSplitOptions.None);
                 // always two spaces before m_Shader?
                 var targetLine = Array.Find<string>(lines, line => line.StartsWith("  m_Shader:"));
+                if (targetLine == null)
+                {
+                    continue; // todo. prefab?
+                }
                 var shaderMetadata = targetLine.Split(targetSepeartors, StringSplitOptions.None);
                 if (shaderMetadata.Length < 4)
                 {
@@ -88,15 +92,9 @@ namespace UnityEditor.Rendering.Toon
                 }
                 materialCount++;
 
-                string str = "" + materialCount + ":";
-                Label item = new Label();
-                item.text = material.name;
-                m_ScrollView.Add(item);
+                AddMaterialToScrollview(material);
             }
-            for ( int ii =0; ii < m_materialCount; ii++)
-            {
 
-            }
         }
         public override void Convert() { }
         public override void PostConverting() { }
@@ -106,12 +104,12 @@ namespace UnityEditor.Rendering.Toon
 
         bool CheckUTS2VersionError()
         {
-            m_guids = AssetDatabase.FindAssets("t:Material", null);
+            
             int materialCount = 0;
 
-            for (int ii = 0; ii < m_guids.Length; ii++)
+            for (int ii = 0; ii < m_materialGuids.Length; ii++)
             {
-                var guid = m_guids[ii];
+                var guid = m_materialGuids[ii];
 
 
                 string path = AssetDatabase.GUIDToAssetPath(guid);
@@ -123,7 +121,7 @@ namespace UnityEditor.Rendering.Toon
                     continue;
 
                 }
-                const string utsVersionProp = "_utsVersion";
+
                 if (material.HasProperty(utsVersionProp))
                 {
                     float utsVersion = material.GetFloat(utsVersionProp);
@@ -208,5 +206,6 @@ namespace UnityEditor.Rendering.Toon
             return null;
         }
 
+        public override InstalledStatus CheckSourceShaderInstalled() { return InstalledStatus.NotInstalled; }
     }
 }
