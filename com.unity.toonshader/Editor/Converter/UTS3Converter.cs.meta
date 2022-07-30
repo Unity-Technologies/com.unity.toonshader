@@ -11,6 +11,8 @@ MonoImporter:
       type: 3}
   - converterWidgetMainAsset: {fileID: 9197481963319205126, guid: 7142661a783b06f42a6130280bed87a3,
       type: 3}
+  - converterItemMaterial: {fileID: 9197481963319205126, guid: 136a2f7bdc5291a47b8c54e9e3ef0d37,
+      type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

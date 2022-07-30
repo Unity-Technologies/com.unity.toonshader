@@ -92,6 +92,7 @@ namespace UnityEditor.Rendering.Toon
         public VisualTreeAsset converterEditorAsset;
         public VisualTreeAsset converterItem;
         public VisualTreeAsset converterWidgetMainAsset;
+        public VisualTreeAsset converterItemMaterial;
         internal static string versionString => "0.8.0-preview";
 
 

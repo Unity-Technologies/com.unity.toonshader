@@ -159,8 +159,7 @@ namespace UnityEditor.Rendering.Toon
 
         public void AddMaterialToScrollview(Material material)
         {
-            Label item = new Label();
-            item.text = material.name;
+            Label item = new Label(material.name);
             m_ScrollView.Add(item);
         }
 
