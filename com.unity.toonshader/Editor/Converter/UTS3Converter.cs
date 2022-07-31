@@ -517,13 +517,13 @@ namespace UnityEditor.Rendering.Toon
                 int errorCount = currentContainer.CountUTS2ErrorMaterials();
                 if (errorCount == 0 )
                     currentContainer.SetupConverter();
-                HideUnhideConverters();
+            //    HideUnhideConverters();
             });
 #endif
 
 
             InitOrConvert();
-            HideUnhideConverters();
+//            HideUnhideConverters();
             rootVisualElement.Bind(m_SerializedObject);
         }
 
