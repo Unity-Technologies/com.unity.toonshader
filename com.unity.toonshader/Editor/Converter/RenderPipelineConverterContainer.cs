@@ -27,7 +27,7 @@ namespace UnityEditor.Rendering.Toon
         protected Dictionary<Material, string> m_Material2GUID_Dictionary = new Dictionary<Material, string>();
         protected Dictionary<string, UTSGUID> m_GuidToUTSID_Dictionary = new Dictionary<string, UTSGUID>();
 
-        protected ScrollView m_ScrollView;
+
         protected const string utsVersionProp = "_utsVersion";
         protected void Error(string path)
         {
@@ -57,10 +57,10 @@ namespace UnityEditor.Rendering.Toon
 
         public abstract InstalledStatus CheckSourceShaderInstalled();
 
-        public void CommonSetup(ScrollView scrollView)
+        public void CommonSetup()
         {
-            m_ScrollView = scrollView;
-            Debug.Assert(scrollView != null);
+
+            Debug.Assert(UTS3Converter.scrollView != null);
             m_materialCount = 0;
             m_ConvertingMaterials.Clear();
 
@@ -68,7 +68,7 @@ namespace UnityEditor.Rendering.Toon
             m_ConvertingMaterials.Clear();
             m_Material2GUID_Dictionary.Clear();
             m_GuidToUTSID_Dictionary.Clear();
-            m_ScrollView.Clear();
+            UTS3Converter.scrollView.Clear();
             m_materialGuids = null;
             m_materialGuids = AssetDatabase.FindAssets("t:Material", null);
             // CheckSourceShaderInstalled(); // Not necessary? 
@@ -78,7 +78,7 @@ namespace UnityEditor.Rendering.Toon
         /// </summary>
         public int CountUTS2ErrorMaterials()
         {
-            Debug.Assert(m_ScrollView != null);
+            Debug.Assert(UTS3Converter.scrollView != null);
 
             m_versionErrorCount = 0;
 
@@ -160,7 +160,7 @@ namespace UnityEditor.Rendering.Toon
         public void AddMaterialToScrollview(Material material)
         {
             Label item = new Label(material.name);
-            m_ScrollView.Add(item);
+            UTS3Converter.scrollView.Add(item);
         }
 
         protected UTSGUID FindUTS2GUID(string guid)

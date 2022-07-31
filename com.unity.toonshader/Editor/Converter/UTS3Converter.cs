@@ -97,7 +97,7 @@ namespace UnityEditor.Rendering.Toon
 
 
 
-        ScrollView m_ScrollView;
+
         VisualElement m_ConverterSelectedVE;
         Button m_ConvertButton;
         Button m_InitButton;
@@ -128,6 +128,8 @@ namespace UnityEditor.Rendering.Toon
         RenderPipelineConverterContainer currentContainer => m_Containers[m_ContainerChoiceIndex];
 
         UTS3GUI.RenderPipeline m_selectedRenderPipeline;
+
+        internal static ScrollView scrollView { get; set; }
 
         [MenuItem("Window/Rendering/Unity Toon Shader Converter", false, 51)]
         public static void ShowWindow()
@@ -172,7 +174,7 @@ namespace UnityEditor.Rendering.Toon
                 rootVisualElement.Q<PopupVE>("conversionsDropDown").index = m_ContainerChoiceIndex;
 #endif
                 // Getting the scrollview where the converters should be added
-                m_ScrollView = rootVisualElement.Q<ScrollView>("convertersScrollView");
+                scrollView = rootVisualElement.Q<ScrollView>("convertersScrollView");
 
                 m_ConvertButton = rootVisualElement.Q<Button>("convertButton");
                 m_ConvertButton.RegisterCallback<ClickEvent>(Convert);
@@ -409,7 +411,7 @@ namespace UnityEditor.Rendering.Toon
             // Making sure that this is set here so that if user is clicking Convert again it will not run again.
             ctx.hasConverted = true;
 
-            VisualElement child = m_ScrollView[stateIndex];
+            VisualElement child = scrollView[stateIndex];
 #if UNITY_2021_1_OR_NEWER
             child.Q<ListView>("converterItems").Rebuild();
 #endif
@@ -508,12 +510,12 @@ namespace UnityEditor.Rendering.Toon
                 HideUnhideConverters();
             });
 #else
-            m_ScrollView.Clear();
+            scrollView.Clear();
             rootVisualElement.Q<PopupVE>("conversionsDropDown").RegisterCallback<ChangeEvent<string>>((evt) =>
             {
                 m_ContainerChoiceIndex = rootVisualElement.Q<PopupVE>("conversionsDropDown").index;
                 rootVisualElement.Q<TextElement>("conversionInfo").text = currentContainer.info;
-                currentContainer.CommonSetup(m_ScrollView);
+                currentContainer.CommonSetup();
                 int errorCount = currentContainer.CountUTS2ErrorMaterials();
                 if (errorCount == 0 )
                     currentContainer.SetupConverter();
@@ -540,7 +542,7 @@ namespace UnityEditor.Rendering.Toon
                 m_ContainerHelpButton.style.display = DisplayStyle.None;
             }
 #endif
-            foreach (VisualElement childElement in m_ScrollView.Q<VisualElement>().Children())
+            foreach (VisualElement childElement in scrollView.Q<VisualElement>().Children())
             {
                 var container = Type.GetType(childElement.name.Split('#').Last());
                 if (container == type)
