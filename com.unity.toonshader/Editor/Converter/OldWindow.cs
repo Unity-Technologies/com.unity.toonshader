@@ -11,7 +11,7 @@ using System.Reflection;
 using UnityEngine.UIElements;
 using UnityEditor.UIElements;
 
-
+#if false
 namespace UnityEditor.Rendering.Toon
 {
     [Serializable]
@@ -422,7 +422,7 @@ namespace UnityEditor.Rendering.Toon
             m_ItemsToConvert.Clear();
             m_VEList.Clear();
         }
-        [MenuItem("Window/Rendering/Unity Toon Shader Converter", false, 51)]
+//        [MenuItem("Window/Rendering/Unity Toon Shader Converter", false, 51)]
         static private UTS3ConverterWindow ShowWindow()
         {
             var wnd = GetWindow<UTS3ConverterWindow>();
@@ -1847,3 +1847,4 @@ namespace UnityEditor.Rendering.Toon
 
     }
 }
+#endif
