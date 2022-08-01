@@ -22,8 +22,6 @@
                 </ui:VisualElement>
         </ui:VisualElement>
 
-    </ui:VisualElement>
-    <ui:VisualElement name="bottomVE" style="max-width: 100%; min-width: 620px; flex-grow: 1; padding-left: 19px; padding-right: 19px; padding-top: 15px; width: auto; padding-bottom: 20px;">
         <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" name="convertersScrollView" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Auto" style="flex-grow: 1; flex-shrink: 1; max-width: none; width: auto; padding-right: 0; padding-left: 0; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; border-top-left-radius: 0; border-bottom-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; border-left-color: rgba(0, 0, 0, 0); border-right-color: rgba(0, 0, 0, 0); border-top-color: rgba(0, 0, 0, 0); border-bottom-color: rgba(0, 0, 0, 0); padding-top: 10px;" />
         <ui:VisualElement name="bottomButtonVE" style="flex-direction: row-reverse; flex-shrink: 0; padding-left: 0; padding-right: 0; margin-top: 6px; width: auto; align-items: stretch; flex-grow: 0;">
             <ui:VisualElement style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); min-width: auto; min-height: auto; flex-shrink: 0; width: auto; height: auto;">

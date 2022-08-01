@@ -17,7 +17,7 @@ namespace UnityEditor.Rendering.Toon
         protected InstalledStatus m_sourceShaderInstalledStatus;
         protected int m_materialCount = 0;
         protected string[] m_materialGuids;
-        protected int m_versionErrorCount = 0;
+        internal int m_versionErrorCount = 0;
 
         protected readonly string[] lineSeparators = new[] { "\r\n", "\r", "\n" };
         protected readonly string[] targetSepeartors = new[] { ":", "," };
@@ -176,11 +176,12 @@ namespace UnityEditor.Rendering.Toon
         }
         protected UTSGUID FindSrcShader2GUID(string strShaderGUID, UTSGUID srcShaderGUID, UTSGUID srcTessShaderGUID)
         {
-            if (srcShaderGUID.m_Guid == strShaderGUID)
+
+            if (srcShaderGUID != null && srcShaderGUID.m_Guid == strShaderGUID)
             {
                 return srcShaderGUID;
             }
-            if (srcTessShaderGUID.m_Guid == strShaderGUID)
+            if (srcTessShaderGUID != null && srcTessShaderGUID.m_Guid == strShaderGUID)
             {
                 return srcTessShaderGUID;
             }
