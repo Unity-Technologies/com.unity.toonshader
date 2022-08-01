@@ -420,7 +420,7 @@ namespace UnityEditor.Rendering.Toon
         {
 
             currentContainer.CommonSetup();
-            int errorCount = currentContainer.CountUTS2ErrorMaterials(addToScrollView:true);
+            int errorCount = currentContainer.CountErrors(addToScrollView:true);
             if (errorCount == 0)
                 currentContainer.SetupConverter();
             else
@@ -506,7 +506,7 @@ namespace UnityEditor.Rendering.Toon
 
         void BackToConverters(ClickEvent evt)
         {
-            HideConverterLayout(m_ConverterSelectedVE);
+            HideConverterLayout();
         }
 
         void RecreateUI()
@@ -619,14 +619,14 @@ namespace UnityEditor.Rendering.Toon
             rootVisualElement.Q<Button>("backButton").RegisterCallback<ClickEvent>(BackToConverters);
         }
 
-        void HideConverterLayout(VisualElement element)
+        void HideConverterLayout()
         {
             rootVisualElement.Q<VisualElement>("converterEditorMainVE").style.display = DisplayStyle.Flex;
             rootVisualElement.Q<VisualElement>("singleConverterVE").style.display = DisplayStyle.None;
-            rootVisualElement.Q<VisualElement>("singleConverterVE").Remove(element);
+            // rootVisualElement.Q<VisualElement>("singleConverterVE").Remove(element);
 
-            element.Q<VisualElement>("converterItems").style.display = DisplayStyle.None;
-            element.Q<VisualElement>("informationVE").style.display = DisplayStyle.None;
+            //element.Q<VisualElement>("converterItems").style.display = DisplayStyle.None;
+            //element.Q<VisualElement>("informationVE").style.display = DisplayStyle.None;
 
             RecreateUI();
             m_ConverterSelectedVE = null;

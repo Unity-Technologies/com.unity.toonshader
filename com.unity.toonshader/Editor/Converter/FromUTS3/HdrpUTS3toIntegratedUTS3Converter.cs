@@ -13,6 +13,9 @@ namespace UnityEditor.Rendering.Toon
         public override void Convert() { }
         public override void PostConverting() { }
 
+
+        public override int CountErrors(bool addToScrollView) { return 0; }
+ 
         public override InstalledStatus CheckSourceShaderInstalled() { return InstalledStatus.NotInstalled; }
     }
 }

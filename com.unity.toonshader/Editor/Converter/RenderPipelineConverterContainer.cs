@@ -55,6 +55,7 @@ namespace UnityEditor.Rendering.Toon
         public abstract void Convert();
         public abstract void PostConverting();
 
+        public abstract int CountErrors(bool addToScrollView);
         public abstract InstalledStatus CheckSourceShaderInstalled();
 
         public void Reset()
@@ -82,89 +83,7 @@ namespace UnityEditor.Rendering.Toon
         /// <summary>
         /// Returns number of materials which are unable to convert.
         /// </summary>
-        public int CountUTS2ErrorMaterials(bool addToScrollView)
-        {
-            Debug.Assert(UTS3Converter.scrollView != null);
 
-            m_versionErrorCount = 0;
-
-            for (int ii = 0; ii < m_materialGuids.Length; ii++)
-            {
-
-                var guid = m_materialGuids[ii];
-
-                string path = AssetDatabase.GUIDToAssetPath(guid);
-                Material material = AssetDatabase.LoadAssetAtPath<Material>(path);
-                var shaderName = material.shader.ToString();
-#if false
-                if (!shaderName.StartsWith("Hidden/InternalErrorShader"))
-                {
-                    continue;
-                }
-#endif
-                string content = File.ReadAllText(path);
-                string[] lines = content.Split(lineSeparators, StringSplitOptions.None);
-                // always two spaces before m_Shader?
-                var targetLine = Array.Find<string>(lines, line => line.StartsWith("  m_Shader:"));
-                if (targetLine == null)
-                {
-                    continue; // todo. prefab?
-                }
-                var shaderMetadata = targetLine.Split(targetSepeartors, StringSplitOptions.None);
-                if (shaderMetadata == null)
-                {
-                    continue;
-                }
-                if (shaderMetadata.Length < 4)
-                {
-                    m_versionErrorCount++;
-                    Error(path);
-                    continue;
-                }
-                var shaderGUID = shaderMetadata[4];
-                while (shaderGUID.StartsWith(" "))
-                {
-                    shaderGUID = shaderGUID.TrimStart(' ');
-                }
-                var foundUTS2GUID = FindUTS2GUID(shaderGUID);
-                if (foundUTS2GUID == null)
-                {
-                    continue;       // Not Unity-chan Toon Shader Ver 2.
-                }
-
-                var targetLine2 = Array.Find<string>(lines, line => line.StartsWith("    - _utsVersion"));
-                if (targetLine2 == null)
-                {
-                    m_versionErrorCount++;
-                    if (addToScrollView)
-                        AddMaterialToScrollview(material);
-                    continue;
-                }
-                string[] lines2 = targetLine2.Split(targetSepeartors2, StringSplitOptions.None);
-                if (lines2 == null || lines2.Length < 2)
-                {
-                    m_versionErrorCount++;
-                    if (addToScrollView)
-                        AddMaterialToScrollview(material);
-                    continue;
-                }
-                var utsVersionString = lines2[1];
-                while (utsVersionString.StartsWith(" "))
-                {
-                    utsVersionString = utsVersionString.TrimStart(' ');
-                }
-                float utsVersion = float.Parse(utsVersionString);
-                if (utsVersion < 2.07f)
-                {
-                    m_versionErrorCount++;
-                    if ( addToScrollView )
-                        AddMaterialToScrollview(material);
-                    continue;
-                }
-                
-            }
-            return m_versionErrorCount;
-        }
 
         public void AddMaterialToScrollview(Material material)
         {
