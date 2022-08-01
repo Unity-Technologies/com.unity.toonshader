@@ -612,7 +612,7 @@ namespace UnityEditor.Rendering.Toon
 
             rootVisualElement.Q<VisualElement>("converterEditorMainVE").style.display = DisplayStyle.None;
             rootVisualElement.Q<VisualElement>("singleConverterVE").style.display = DisplayStyle.Flex;
-            rootVisualElement.Q<VisualElement>("singleConverterVE").Add(element);
+            // rootVisualElement.Q<VisualElement>("singleConverterVE").Add(element);
             //            element.Q<VisualElement>("converterItems").style.display = DisplayStyle.Flex;
             //            element.Q<VisualElement>("informationVE").style.display = DisplayStyle.Flex;
 
