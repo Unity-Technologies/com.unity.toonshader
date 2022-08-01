@@ -80,36 +80,104 @@ namespace UnityEditor.Rendering.Toon
             }
             // CheckSourceShaderInstalled(); // Not necessary? 
         }
-        /// <summary>
-        /// Returns number of materials which are unable to convert.
-        /// </summary>
+        protected void SetupConverterCommon(UTSGUID srcShaderGUID, UTSGUID srcTessShaderGUID)
+        {
+            //            bool isUts2Installed = CheckUTS2isInstalled();
+            //            bool isUts2SupportedVersion = CheckUTS2VersionError();
 
+            int materialCount = 0;
 
+            for (int ii = 0; ii < m_materialGuids.Length; ii++)
+            {
+                var guid = m_materialGuids[ii];
+
+                string path = AssetDatabase.GUIDToAssetPath(guid);
+                Material material = AssetDatabase.LoadAssetAtPath<Material>(path);
+                var shaderName = material.shader.ToString();
+#if false
+                if (!shaderName.StartsWith("Hidden/InternalErrorShader"))
+                {
+                    continue;
+                }
+#endif
+                string content = File.ReadAllText(path);
+                string[] lines = content.Split(lineSeparators, StringSplitOptions.None);
+                // always two spaces before m_Shader?
+                var targetLine = Array.Find<string>(lines, line => line.StartsWith("  m_Shader:"));
+                if (targetLine == null)
+                {
+                    continue; // todo. prefab?
+                }
+                var shaderMetadata = targetLine.Split(targetSepeartors, StringSplitOptions.None);
+                if (shaderMetadata.Length < 4)
+                {
+                    Error(path);
+                    continue;
+                }
+                var shaderGUID = shaderMetadata[4];
+                while (shaderGUID.StartsWith(" "))
+                {
+                    shaderGUID = shaderGUID.TrimStart(' ');
+                }
+                var foundUTS2GUID = FindSrcShader2GUID(shaderGUID, srcShaderGUID, srcTessShaderGUID);
+                if (foundUTS2GUID == null)
+                {
+                    continue;
+                }
+
+                var targetLine2 = Array.Find<string>(lines, line => line.StartsWith("    - _utsVersion"));
+                if (targetLine2 == null)
+                {
+                    Error(path);
+                    continue;
+                }
+                string[] lines2 = targetLine2.Split(targetSepeartors2, StringSplitOptions.None);
+                if (lines2 == null || lines2.Length < 2)
+                {
+                    Error(path);
+                    m_versionErrorCount++;
+                    continue;
+                }
+                var utsVersionString = lines2[1];
+                while (utsVersionString.StartsWith(" "))
+                {
+                    utsVersionString = utsVersionString.TrimStart(' ');
+                }
+                float utsVersion = float.Parse(utsVersionString);
+
+                m_ConvertingMaterials.Add(material);
+                if (!m_Material2GUID_Dictionary.ContainsKey(material))
+                {
+                    m_Material2GUID_Dictionary.Add(material, shaderGUID);
+                }
+                if (!m_GuidToUTSID_Dictionary.ContainsKey(shaderGUID))
+                {
+                    m_GuidToUTSID_Dictionary.Add(shaderGUID, foundUTS2GUID);
+                }
+                materialCount++;
+
+                AddMaterialToScrollview(material);
+            }
+        }
+
+        protected UTSGUID FindSrcShader2GUID(string strShaderGUID, UTSGUID srcShaderGUID, UTSGUID srcTessShaderGUID)
+        {
+            if (srcShaderGUID.m_Guid == strShaderGUID)
+            {
+                return srcShaderGUID;
+            }
+            if (srcTessShaderGUID.m_Guid == strShaderGUID)
+            {
+                return srcTessShaderGUID;
+            }
+            return null;
+        }
         public void AddMaterialToScrollview(Material material)
         {
             Label item = new Label(material.name);
             UTS3Converter.scrollView.Add(item);
         }
 
-        protected UTSGUID FindUTS2GUID(string guid)
-        {
-            var ret = Array.Find<UTSGUID>(UTS2ShaderInfo.stdShaders, element => element.m_Guid == guid);
-            foreach (var shader in UTS2ShaderInfo.stdShaders)
-            {
-                if (shader.m_Guid == guid)
-                {
-                    return shader;
-                }
-            }
-            foreach (var shader in UTS2ShaderInfo.tessShaders)
-            {
-                if (shader.m_Guid == guid)
-                {
-                    return shader;
-                }
-            }
-            return null;
-        }
 
     }
 }

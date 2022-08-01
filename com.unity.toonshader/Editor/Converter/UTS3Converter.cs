@@ -98,7 +98,7 @@ namespace UnityEditor.Rendering.Toon
 
 
 
-        VisualElement m_ConverterSelectedVE;
+
         Button m_ConvertButton;
         Button m_ScanButton;
         Button m_InitAnConvertButton;
@@ -106,7 +106,7 @@ namespace UnityEditor.Rendering.Toon
 
         bool m_InitAndConvert;
 
-        List<RenderPipelineConverter> m_CoreConvertersList = new List<RenderPipelineConverter>();
+
         List<VisualElement> m_VEList = new List<VisualElement>();
         // This list needs to be as long as the amount of converters
         List<ConverterItems> m_ItemsToConvert = new List<ConverterItems>();
@@ -225,9 +225,7 @@ namespace UnityEditor.Rendering.Toon
 
 
 
-            if (m_CoreConvertersList.Any())
-                return;
-            m_CoreConvertersList = new List<RenderPipelineConverter>();
+
             // This is the drop down choices.
             m_ConverterContainers = TypeCache.GetTypesDerivedFrom<RenderPipelineConverterContainer>();
             foreach (var containerType in m_ConverterContainers)
@@ -247,7 +245,7 @@ namespace UnityEditor.Rendering.Toon
 
             if (m_ConverterContainers.Any())
             {
-                GetConverters();
+            //    GetConverters();
             }
             else
             {
@@ -255,44 +253,9 @@ namespace UnityEditor.Rendering.Toon
             }
         }
 
-        void GetConverters()
-        {
-            ClearConverterStates();
-            var converterList = TypeCache.GetTypesDerivedFrom<RenderPipelineConverter>();
-
-            for (int i = 0; i < converterList.Count; ++i)
-            {
-                // Iterate over the converters that are used by the current container
-                RenderPipelineConverter conv = (RenderPipelineConverter)Activator.CreateInstance(converterList[i]);
-                m_CoreConvertersList.Add(conv);
-            }
-
-            // this need to be sorted by Priority property
-            m_CoreConvertersList = m_CoreConvertersList
-                .OrderBy(o => o.priority).ToList();
-
-            for (int i = 0; i < m_CoreConvertersList.Count; i++)
-            {
-                // Create a new ConvertState which holds the active state of the converter
-                var converterState = new ConverterState
-                {
-                    isEnabled = m_CoreConvertersList[i].isEnabled,
-                    isActive = false,
-                    isInitialized = false,
-                    items = new List<ConverterItemState>(),
-                    index = i,
-                };
-                m_ConverterStates.Add(converterState);
-
-                // This just creates empty entries in the m_ItemsToConvert.
-                // This list need to have the same amount of entries as the converters
-                List<ConverterItemDescriptor> converterItemInfos = new List<ConverterItemDescriptor>();
-                m_ItemsToConvert.Add(new ConverterItems { itemDescriptors = converterItemInfos });
-            }
-        }
         void ClearConverterStates()
         {
-            m_CoreConvertersList.Clear();
+
             m_ConverterStates.Clear();
             m_ItemsToConvert.Clear();
             m_VEList.Clear();
@@ -300,13 +263,7 @@ namespace UnityEditor.Rendering.Toon
 
         void InitializeAndConvert(ClickEvent evt)
         {
-            m_InitAndConvert = ShouldCreateSearchIndex();
-
-            InitializeAllActiveConverters(evt);
-            if (!m_InitAndConvert)
-            {
-                Convert(evt);
-            }
+            Debug.Assert(false);
         }
         private bool SaveCurrentSceneAndContinue()
         {
@@ -327,23 +284,6 @@ namespace UnityEditor.Rendering.Toon
             }
 #endif
             return true;
-        }
-
-        bool ShouldCreateSearchIndex()
-        {
-            for (int i = 0; i < m_ConverterStates.Count; ++i)
-            {
-                if (m_ConverterStates[i].requiresInitialization)
-                {
-                    var converter = m_CoreConvertersList[i];
-                    if (converter.needsIndexing)
-                    {
-                        return true;
-                    }
-                }
-            }
-
-            return false;
         }
 
 
@@ -629,7 +569,7 @@ namespace UnityEditor.Rendering.Toon
             //element.Q<VisualElement>("informationVE").style.display = DisplayStyle.None;
 
             RecreateUI();
-            m_ConverterSelectedVE = null;
+
         }
 
         void ToggleAllNone(ClickEvent evt, int index, bool value, VisualElement item)
@@ -746,7 +686,7 @@ namespace UnityEditor.Rendering.Toon
                     descriptor = m_ItemsToConvert[coreConverterIndex].itemDescriptors[index],
                 };
                 var ctx = new RunItemContext(item);
-                m_CoreConvertersList[coreConverterIndex].OnRun(ref ctx);
+
                 UpdateInfo(coreConverterIndex, ctx);
             }
         }

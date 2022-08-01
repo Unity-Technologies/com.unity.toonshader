@@ -6,11 +6,17 @@ namespace UnityEditor.Rendering.Toon
 {
     internal sealed class UniversalUTS2toIntegratedUTS3Converter : RenderPipelineConverterContainer
     {
+        readonly UTSGUID kOrgShaderGUID = new UTSGUID("766736548846cdf459a9766614dcccab", "Universal Render Pipeline/Toon");
+        readonly UTSGUID kOrgTessShaderGUID = null;
+
         public override string name => "Universal Toon Shader";
         public override string info => "This tool converts project materials from Universal Toon Shader to Unity Toon Shader " + UTS3Converter.versionString;
         public override int priority => -9000;
 
-        public override void SetupConverter() { }
+        public override void SetupConverter() 
+        {
+            SetupConverterCommon(kOrgShaderGUID, kOrgTessShaderGUID);
+        }
         public override void Convert() { }
         public override void PostConverting() { }
 

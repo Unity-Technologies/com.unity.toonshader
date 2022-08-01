@@ -189,22 +189,23 @@ namespace UnityEditor.Rendering.Toon
         UTSGUID FindUTS2GUID(string guid)
         {
             var ret = Array.Find<UTSGUID>(UTS2ShaderInfo.stdShaders, element => element.m_Guid == guid);
-            foreach (var shader in UTS2ShaderInfo.stdShaders)
+            foreach (var utsGuid in UTS2ShaderInfo.stdShaders)
             {
-                if (shader.m_Guid == guid)
+                if (utsGuid.m_Guid == guid)
                 {
-                    return shader;
+                    return utsGuid;
                 }
             }
-            foreach (var shader in UTS2ShaderInfo.tessShaders)
+            foreach (var utsGuid in UTS2ShaderInfo.tessShaders)
             {
-                if (shader.m_Guid == guid)
+                if (utsGuid.m_Guid == guid)
                 {
-                    return shader;
+                    return utsGuid;
                 }
             }
             return null;
         }
+
 
         public override int CountErrors(bool addToScrollView) 
         {
