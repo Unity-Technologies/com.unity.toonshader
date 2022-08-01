@@ -27,7 +27,12 @@ namespace UnityEditor.Rendering.Toon
         protected Dictionary<Material, string> m_Material2GUID_Dictionary = new Dictionary<Material, string>();
         protected Dictionary<string, UTSGUID> m_GuidToUTSID_Dictionary = new Dictionary<string, UTSGUID>();
 
-
+        protected const string kIntegratedUTS3GUID = "be891319084e9d147b09d89e80ce60e0";
+        protected const string kIntegratedUTS3Name = "Toon";
+        protected static string packageFullPath
+        {
+            get; set;
+        }
         protected const string utsVersionProp = "_utsVersion";
         protected void Error(string path)
         {
@@ -119,8 +124,8 @@ namespace UnityEditor.Rendering.Toon
                 {
                     shaderGUID = shaderGUID.TrimStart(' ');
                 }
-                var foundUTS2GUID = FindSrcShader2GUID(shaderGUID, srcShaderGUID, srcTessShaderGUID);
-                if (foundUTS2GUID == null)
+                var foundOldUTSGUID = FindSrcShader2GUID(shaderGUID, srcShaderGUID, srcTessShaderGUID);
+                if (foundOldUTSGUID == null)
                 {
                     continue;
                 }
@@ -152,14 +157,23 @@ namespace UnityEditor.Rendering.Toon
                 }
                 if (!m_GuidToUTSID_Dictionary.ContainsKey(shaderGUID))
                 {
-                    m_GuidToUTSID_Dictionary.Add(shaderGUID, foundUTS2GUID);
+                    m_GuidToUTSID_Dictionary.Add(shaderGUID, foundOldUTSGUID);
                 }
                 materialCount++;
 
                 AddMaterialToScrollview(material);
             }
         }
+        protected void CommonConvert()
+        {
+            foreach (var material in m_ConvertingMaterials)
+            {
 
+                material.shader = Shader.Find(kIntegratedUTS3Name);
+            }
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+        }
         protected UTSGUID FindSrcShader2GUID(string strShaderGUID, UTSGUID srcShaderGUID, UTSGUID srcTessShaderGUID)
         {
             if (srcShaderGUID.m_Guid == strShaderGUID)

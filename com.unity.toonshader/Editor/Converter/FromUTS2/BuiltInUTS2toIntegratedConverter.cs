@@ -8,6 +8,16 @@ namespace UnityEditor.Rendering.Toon
 {
     internal sealed class BuiltInUTS2toIntegratedConverter : RenderPipelineConverterContainer
     {
+        internal UTS3GUI.CullingMode m_cullingMode;
+        internal int _autoRenderQueue = 1;
+        internal int _renderQueue = (int)UnityEngine.Rendering.RenderQueue.Geometry;
+        internal UTS3GUI.UTS_TransparentMode _Transparent_Setting;
+        internal int _StencilNo_Setting;
+
+        const string kLegacyShaderFileName = "LegacyToon";
+        const string kShaderFileNameExtention = ".shader";
+
+
         public override string name => "Unity-chan Toon Shader 2";
         public override string info => "This tool converts project materials from Unity-chan Toon Shader to Unity Toon Shader " + UTS3Converter.versionString;
         public override int priority => -9000;
@@ -96,7 +106,10 @@ namespace UnityEditor.Rendering.Toon
             }
 
         }
-        public override void Convert() { }
+        public override void Convert() 
+        {
+            ConvertBuiltInUTS2Materials(m_materialGuids);
+        }
         public override void PostConverting() { }
 
 
@@ -289,6 +302,453 @@ namespace UnityEditor.Rendering.Toon
 
             }
             return m_versionErrorCount;
+        }
+
+        private static string GetPackageFullPath()
+        {
+            const string kUtsPackageName = "com.unity.toonshader";
+            // Check for potential UPM package
+            string packagePath = Path.GetFullPath("Packages/" + kUtsPackageName);
+            if (Directory.Exists(packagePath))
+            {
+                return packagePath;
+            }
+            return null;
+        }
+#if false
+        void RestoreShaderGUID(UTS3GUI.RenderPipeline renderPipeline)
+        {
+            var packagePath = packageFullPath;
+            const string kGuid = "guid: ";
+            AssetDatabase.StartAssetEditing();
+            if (renderPipeline == UTS3GUI.RenderPipeline.Legacy)
+            {
+                var filePath = packagePath + "/Runtime/Legacy/Shaders/" + kLegacyShaderFileName + kShaderFileNameExtention + ".meta";
+                string content = File.ReadAllText(filePath);
+                string[] lines = content.Split(lineSeparators, StringSplitOptions.None);
+                string oldGuid = null;
+                foreach (var line in lines)
+                {
+                    if (line.Contains(kGuid))
+                    {
+                        var splitted = line.Split(targetSepeartors2, StringSplitOptions.None);
+                        oldGuid = splitted[1];
+                        while (oldGuid.StartsWith(" "))
+                        {
+                            oldGuid = oldGuid.TrimStart(' ');
+                        }
+                        break;
+                    }
+                }
+                content = content.Replace(kGuid + oldGuid, kGuid + stdShaders[0].m_Guid);
+                using (FileStream fs = new FileStream(filePath, FileMode.Open)) { using (TextWriter tw = new StreamWriter(fs, Encoding.UTF8, 1024, true)) { tw.Write(content); } fs.SetLength(fs.Position); }
+            }
+            else if (renderPipeline == UTS3GUI.RenderPipeline.Universal)
+            {
+
+            }
+            AssetDatabase.StopAssetEditing();
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+        }
+#endif
+        void ConvertBuiltInUTS2Materials( string[] guids)
+        {
+            foreach (var material in m_ConvertingMaterials)
+            {
+
+                material.shader = Shader.Find(kIntegratedUTS3Name);
+                var shaderGUID = m_Material2GUID_Dictionary[material];
+                var UTS2GUID = m_GuidToUTSID_Dictionary[shaderGUID];
+
+                //                _Transparent_Setting = (UTS3GUI.UTS_TransparentMode)UTS3GUI.MaterialGetInt( material, UTS3GUI.ShaderPropTransparentEnabled);
+                _Transparent_Setting = UTS3GUI.UTS_TransparentMode.Off;
+                if (UTS2GUID.m_ShaderName.Contains("Trans") || UTS2GUID.m_ShaderName.Contains("trans"))
+                {
+                    _Transparent_Setting = UTS3GUI.UTS_TransparentMode.On;
+                }
+                _StencilNo_Setting = UTS3GUI.MaterialGetInt(material, UTS3GUI.ShaderPropStencilNo);
+                _autoRenderQueue = UTS3GUI.MaterialGetInt(material, UTS3GUI.ShaderPropAutoRenderQueue);
+                _renderQueue = material.renderQueue;
+                UTS3GUI.UTS_Mode technique = (UTS3GUI.UTS_Mode)UTS3GUI.MaterialGetInt(material, UTS3GUI.ShaderPropUtsTechniqe);
+
+                switch (technique)
+                {
+                    case UTS3GUI.UTS_Mode.ThreeColorToon:
+                        material.DisableKeyword(UTS3GUI.ShaderDefineSHADINGGRADEMAP);
+                        break;
+                    case UTS3GUI.UTS_Mode.ShadingGradeMap:
+                        material.EnableKeyword(UTS3GUI.ShaderDefineSHADINGGRADEMAP);
+                        break;
+                }
+                if (_Transparent_Setting == UTS3GUI.UTS_TransparentMode.On)
+                {
+                    UTS3GUI.MaterialSetInt(material, UTS3GUI.ShaderPropTransparentEnabled, 1);
+                }
+                if (_Transparent_Setting != UTS3GUI.UTS_TransparentMode.On)
+                {
+                    UTS3GUI.SetupOutline(material);
+                }
+                else
+                {
+                    UTS3GUI.SetupOverDrawTransparentObject(material);
+                }
+                SetCullingMode(material);
+                SetRenderQueue(material);
+                SetTranparent(material);
+
+                BasicLookdevs(material);
+                SetGameRecommendation(material);
+                ApplyClippingMode(material);
+                ApplyStencilMode(material);
+                ApplyAngelRing(material);
+                ApplyMatCapMode(material);
+                ApplyQueueAndRenderType(technique, material);
+
+
+            }
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+
+        }
+
+        void SetCullingMode(Material material)
+        {
+            const string _CullMode = "_CullMode";
+            int _CullMode_Setting = UTS3GUI.MaterialGetInt(material, _CullMode);
+            //Convert it to Enum format and store it in the offlineMode variable.
+            if ((int)UTS3GUI.CullingMode.Off == _CullMode_Setting)
+            {
+                m_cullingMode = UTS3GUI.CullingMode.Off;
+            }
+            else if ((int)UTS3GUI.CullingMode.Frontface == _CullMode_Setting)
+            {
+                m_cullingMode = UTS3GUI.CullingMode.Frontface;
+            }
+            else
+            {
+                m_cullingMode = UTS3GUI.CullingMode.Backface;
+            }
+            //If the value changes, write to the material.
+            if (_CullMode_Setting != (int)m_cullingMode)
+            {
+                switch (m_cullingMode)
+                {
+                    case UTS3GUI.CullingMode.Off:
+                        UTS3GUI.MaterialSetInt(material, _CullMode, 0);
+                        break;
+                    case UTS3GUI.CullingMode.Frontface:
+                        UTS3GUI.MaterialSetInt(material, _CullMode, 1);
+                        break;
+                    default:
+                        UTS3GUI.MaterialSetInt(material, _CullMode, 2);
+                        break;
+                }
+
+            }
+        }
+        void SetRenderQueue(Material material)
+        {
+            UTS3GUI.MaterialSetInt(material, UTS3GUI.ShaderPropAutoRenderQueue, _autoRenderQueue);
+            // material.renderQueue
+        }
+
+        void SetTranparent(Material material)
+        {
+            const string _ZWriteMode = "_ZWriteMode";
+            const string _ZOverDrawMode = "_ZOverDrawMode";
+
+
+            if (_Transparent_Setting == UTS3GUI.UTS_TransparentMode.On)
+            {
+                if (UTS3GUI.MaterialGetInt(material, UTS3GUI.ShaderPropUtsTechniqe) == (int)UTS3GUI.UTS_Mode.ThreeColorToon)
+                {
+                    UTS3GUI.MaterialSetInt(material, UTS3GUI.ShaderPropClippingMode, (int)UTS3GUI.UTS_ClippingMode.TransClippingMode);
+                }
+                else
+                {
+                    // ShadingGradeMap
+                    UTS3GUI.MaterialSetInt(material, UTS3GUI.ShaderPropClippingMode, (int)UTS3GUI.UTS_TransClippingMode.On);
+                }
+                UTS3GUI.MaterialSetInt(material, _ZWriteMode, 0);
+                material.SetFloat(_ZOverDrawMode, 1);
+            }
+            else
+            {
+                UTS3GUI.MaterialSetInt(material, _ZWriteMode, 1);
+                material.SetFloat(_ZOverDrawMode, 0);
+            }
+
+        }
+
+        void BasicLookdevs(Material material)
+        {
+            if (material.HasProperty(UTS3GUI.ShaderPropUtsTechniqe))//ThreeColorToon or ShadingGradeMap
+            {
+                if (UTS3GUI.MaterialGetInt(material, UTS3GUI.ShaderPropUtsTechniqe) == (int)UTS3GUI.UTS_Mode.ThreeColorToon)   //DWF
+                {
+
+                    //Sharing variables with ShadingGradeMap method.
+
+                    material.SetFloat(UTS3GUI.ShaderProp1st_ShadeColor_Step, material.GetFloat(UTS3GUI.ShaderPropBaseColor_Step));
+                    material.SetFloat(UTS3GUI.ShaderProp1st_ShadeColor_Feather, material.GetFloat(UTS3GUI.ShaderPropBaseShade_Feather));
+                    material.SetFloat(UTS3GUI.ShaderProp2nd_ShadeColor_Step, material.GetFloat(UTS3GUI.ShaderPropShadeColor_Step));
+                    material.SetFloat(UTS3GUI.ShaderProp2nd_ShadeColor_Feather, material.GetFloat(UTS3GUI.ShaderProp1st2nd_Shades_Feather));
+                }
+                else if (UTS3GUI.MaterialGetInt(material, UTS3GUI.ShaderPropUtsTechniqe) == (int)UTS3GUI.UTS_Mode.ShadingGradeMap)
+                {    //SGM
+
+                    //Share variables with DoubleWithFeather method.
+                    material.SetFloat(UTS3GUI.ShaderPropBaseColor_Step, material.GetFloat(UTS3GUI.ShaderProp1st_ShadeColor_Step));
+                    material.SetFloat(UTS3GUI.ShaderPropBaseShade_Feather, material.GetFloat(UTS3GUI.ShaderProp1st_ShadeColor_Feather));
+                    material.SetFloat(UTS3GUI.ShaderPropShadeColor_Step, material.GetFloat(UTS3GUI.ShaderProp2nd_ShadeColor_Step));
+                    material.SetFloat(UTS3GUI.ShaderProp1st2nd_Shades_Feather, material.GetFloat(UTS3GUI.ShaderProp2nd_ShadeColor_Feather));
+                }
+                else
+                {
+                    // OutlineObj.
+                    return;
+                }
+            }
+            EditorGUILayout.Space();
+        }
+        private bool IsShadingGrademap(Material material)
+        {
+            return UTS3GUI.MaterialGetInt(material, UTS3GUI.ShaderPropUtsTechniqe) == (int)UTS3GUI.UTS_Mode.ShadingGradeMap;
+        }
+
+        void ApplyQueueAndRenderType(UTS3GUI.UTS_Mode technique, Material material)
+        {
+            var stencilMode = (UTS3GUI.UTS_StencilMode)UTS3GUI.MaterialGetInt(material, UTS3GUI.ShaderPropStencilMode);
+            if (_autoRenderQueue == 1)
+            {
+                material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Geometry;
+            }
+
+            const string OPAQUE = "Opaque";
+            const string TRANSPARENTCUTOUT = "TransparentCutOut";
+            const string TRANSPARENT = "Transparent";
+            const string RENDERTYPE = "RenderType";
+            const string IGNOREPROJECTION = "IgnoreProjection";
+            const string DO_IGNOREPROJECTION = "True";
+            const string DONT_IGNOREPROJECTION = "False";
+            var renderType = OPAQUE;
+            var ignoreProjection = DONT_IGNOREPROJECTION;
+
+            if (_Transparent_Setting == UTS3GUI.UTS_TransparentMode.On)
+            {
+                renderType = TRANSPARENT;
+                ignoreProjection = DO_IGNOREPROJECTION;
+            }
+            else
+            {
+                switch (technique)
+                {
+                    case UTS3GUI.UTS_Mode.ThreeColorToon:
+                        {
+                            UTS3GUI.UTS_ClippingMode clippingMode = (UTS3GUI.UTS_ClippingMode)UTS3GUI.MaterialGetInt(material, UTS3GUI.ShaderPropClippingMode);
+                            if (clippingMode == UTS3GUI.UTS_ClippingMode.Off)
+                            {
+
+                            }
+                            else
+                            {
+                                renderType = TRANSPARENTCUTOUT;
+
+                            }
+
+                            break;
+                        }
+                    case UTS3GUI.UTS_Mode.ShadingGradeMap:
+                        {
+                            UTS3GUI.UTS_TransClippingMode transClippingMode = (UTS3GUI.UTS_TransClippingMode)UTS3GUI.MaterialGetInt(material, UTS3GUI.ShaderPropClippingMode);
+                            if (transClippingMode == UTS3GUI.UTS_TransClippingMode.Off)
+                            {
+                            }
+                            else
+                            {
+                                renderType = TRANSPARENTCUTOUT;
+
+                            }
+
+                            break;
+                        }
+                }
+
+            }
+            if (_autoRenderQueue == 1)
+            {
+                if (_Transparent_Setting == UTS3GUI.UTS_TransparentMode.On)
+                {
+                    material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
+                }
+                else if (stencilMode == UTS3GUI.UTS_StencilMode.StencilMask)
+                {
+                    material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.AlphaTest - 1;
+                }
+                else if (stencilMode == UTS3GUI.UTS_StencilMode.StencilOut)
+                {
+                    material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.AlphaTest;
+                }
+            }
+            else
+            {
+                material.renderQueue = _renderQueue;
+            }
+
+            material.SetOverrideTag(RENDERTYPE, renderType);
+            material.SetOverrideTag(IGNOREPROJECTION, ignoreProjection);
+        }
+        void ApplyMatCapMode(Material material)
+        {
+            if (UTS3GUI.MaterialGetInt(material, UTS3GUI.ShaderPropClippingMode) == 0)
+            {
+                if (material.GetFloat(UTS3GUI.ShaderPropMatCap) == 1)
+                    material.EnableKeyword(UTS3GUI.ShaderPropMatCap);
+                else
+                    material.DisableKeyword(UTS3GUI.ShaderPropMatCap);
+            }
+            else
+            {
+                material.DisableKeyword(UTS3GUI.ShaderPropMatCap);
+            }
+        }
+
+        void ApplyAngelRing(Material material)
+        {
+            int angelRingEnabled = UTS3GUI.MaterialGetInt(material, UTS3GUI.ShaderPropAngelRing);
+            if (angelRingEnabled == 0)
+            {
+                material.DisableKeyword(UTS3GUI.ShaderDefineANGELRING_ON);
+                material.EnableKeyword(UTS3GUI.ShaderDefineANGELRING_OFF);
+            }
+            else
+            {
+                material.EnableKeyword(UTS3GUI.ShaderDefineANGELRING_ON);
+                material.DisableKeyword(UTS3GUI.ShaderDefineANGELRING_OFF);
+
+            }
+        }
+
+        void ApplyStencilMode(Material material)
+        {
+            UTS3GUI.UTS_StencilMode mode = (UTS3GUI.UTS_StencilMode)(UTS3GUI.MaterialGetInt(material, UTS3GUI.ShaderPropStencilMode));
+            switch (mode)
+            {
+                case UTS3GUI.UTS_StencilMode.Off:
+                    //    UTS3GUI.MaterialSetInt(material,UTS3GUI.ShaderPropStencilNo,0);
+                    UTS3GUI.MaterialSetInt(material, UTS3GUI.ShaderPropStencilComp, (int)UTS3GUI.StencilCompFunction.Disabled);
+                    UTS3GUI.MaterialSetInt(material, UTS3GUI.ShaderPropStencilOpPass, (int)UTS3GUI.StencilOperation.Keep);
+                    UTS3GUI.MaterialSetInt(material, UTS3GUI.ShaderPropStencilOpFail, (int)UTS3GUI.StencilOperation.Keep);
+                    break;
+                case UTS3GUI.UTS_StencilMode.StencilMask:
+                    //    UTS3GUI.MaterialSetInt(material,UTS3GUI.ShaderPropStencilNo,0);
+                    UTS3GUI.MaterialSetInt(material, UTS3GUI.ShaderPropStencilComp, (int)UTS3GUI.StencilCompFunction.Always);
+                    UTS3GUI.MaterialSetInt(material, UTS3GUI.ShaderPropStencilOpPass, (int)UTS3GUI.StencilOperation.Replace);
+                    UTS3GUI.MaterialSetInt(material, UTS3GUI.ShaderPropStencilOpFail, (int)UTS3GUI.StencilOperation.Replace);
+                    break;
+                case UTS3GUI.UTS_StencilMode.StencilOut:
+                    //    UTS3GUI.MaterialSetInt(material,UTS3GUI.ShaderPropStencilNo,0);
+                    UTS3GUI.MaterialSetInt(material, UTS3GUI.ShaderPropStencilComp, (int)UTS3GUI.StencilCompFunction.NotEqual);
+                    UTS3GUI.MaterialSetInt(material, UTS3GUI.ShaderPropStencilOpPass, (int)UTS3GUI.StencilOperation.Keep);
+                    UTS3GUI.MaterialSetInt(material, UTS3GUI.ShaderPropStencilOpFail, (int)UTS3GUI.StencilOperation.Keep);
+
+                    break;
+            }
+
+
+
+        }
+        void ApplyClippingMode(Material material)
+        {
+
+            if (!IsShadingGrademap(material))
+            {
+
+
+                material.DisableKeyword(UTS3GUI.ShaderDefineIS_TRANSCLIPPING_OFF);
+                material.DisableKeyword(UTS3GUI.ShaderDefineIS_TRANSCLIPPING_ON);
+
+                switch (UTS3GUI.MaterialGetInt(material, UTS3GUI.ShaderPropClippingMode))
+                {
+                    case 0:
+                        material.EnableKeyword(UTS3GUI.ShaderDefineIS_CLIPPING_OFF);
+                        material.DisableKeyword(UTS3GUI.ShaderDefineIS_CLIPPING_MODE);
+                        material.DisableKeyword(UTS3GUI.ShaderDefineIS_CLIPPING_TRANSMODE);
+                        material.EnableKeyword(UTS3GUI.ShaderDefineIS_OUTLINE_CLIPPING_NO);
+                        material.DisableKeyword(UTS3GUI.ShaderDefineIS_OUTLINE_CLIPPING_YES);
+                        break;
+                    case 1:
+                        material.DisableKeyword(UTS3GUI.ShaderDefineIS_CLIPPING_OFF);
+                        material.EnableKeyword(UTS3GUI.ShaderDefineIS_CLIPPING_MODE);
+                        material.DisableKeyword(UTS3GUI.ShaderDefineIS_CLIPPING_TRANSMODE);
+                        material.DisableKeyword(UTS3GUI.ShaderDefineIS_OUTLINE_CLIPPING_NO);
+                        material.EnableKeyword(UTS3GUI.ShaderDefineIS_OUTLINE_CLIPPING_YES);
+                        break;
+                    default:
+                        material.DisableKeyword(UTS3GUI.ShaderDefineIS_CLIPPING_OFF);
+                        material.DisableKeyword(UTS3GUI.ShaderDefineIS_CLIPPING_MODE);
+                        material.EnableKeyword(UTS3GUI.ShaderDefineIS_CLIPPING_TRANSMODE);
+                        material.DisableKeyword(UTS3GUI.ShaderDefineIS_OUTLINE_CLIPPING_NO);
+                        material.EnableKeyword(UTS3GUI.ShaderDefineIS_OUTLINE_CLIPPING_YES);
+                        break;
+                }
+            }
+            else
+            {
+
+
+                material.DisableKeyword(UTS3GUI.ShaderDefineIS_CLIPPING_OFF);
+                material.DisableKeyword(UTS3GUI.ShaderDefineIS_CLIPPING_MODE);
+                material.DisableKeyword(UTS3GUI.ShaderDefineIS_CLIPPING_TRANSMODE);
+                switch (UTS3GUI.MaterialGetInt(material, UTS3GUI.ShaderPropClippingMode))
+                {
+                    case 0:
+                        material.EnableKeyword(UTS3GUI.ShaderDefineIS_TRANSCLIPPING_OFF);
+                        material.DisableKeyword(UTS3GUI.ShaderDefineIS_TRANSCLIPPING_ON);
+                        break;
+                    default:
+                        material.DisableKeyword(UTS3GUI.ShaderDefineIS_TRANSCLIPPING_OFF);
+                        material.EnableKeyword(UTS3GUI.ShaderDefineIS_TRANSCLIPPING_ON);
+                        break;
+
+                }
+
+            }
+
+        }
+
+        const string srpDefaultColorMask = "_SPRDefaultUnlitColorMask";
+        const string srpDefaultCullMode = "_SRPDefaultUnlitColMode";
+
+
+
+        void SetGameRecommendation(Material material)
+        {
+
+
+            material.SetFloat(UTS3GUI.ShaderPropIsLightColor_Base, 1);
+            material.SetFloat(UTS3GUI.ShaderPropIs_LightColor_1st_Shade, 1);
+            material.SetFloat(UTS3GUI.ShaderPropIs_LightColor_2nd_Shade, 1);
+            material.SetFloat(UTS3GUI.ShaderPropIs_LightColor_HighColor, 1);
+            material.SetFloat(UTS3GUI.ShaderPropIs_LightColor_RimLight, 1);
+            material.SetFloat(UTS3GUI.ShaderPropIs_LightColor_Ap_RimLight, 1);
+            material.SetFloat(UTS3GUI.ShaderPropIs_LightColor_MatCap, 1);
+            if (material.HasProperty(UTS3GUI.ShaderPropAngelRing))
+            {//When AngelRing is available
+                material.SetFloat(UTS3GUI.ShaderPropIs_LightColor_AR, 1);
+            }
+            if (material.HasProperty(UTS3GUI.ShaderPropOutline))//OUTLINEÇ™Ç†ÇÈèÍçá.
+            {
+                material.SetFloat(UTS3GUI.ShaderPropIs_LightColor_Outline, 1);
+            }
+            material.SetFloat(UTS3GUI.ShaderPropSetSystemShadowsToBase, 1);
+            material.SetFloat(UTS3GUI.ShaderPropIsFilterHiCutPointLightColor, 1);
+            material.SetFloat(UTS3GUI.ShaderPropCameraRolling_Stabilizer, 1);
+            material.SetFloat(UTS3GUI.ShaderPropIs_Ortho, 0);
+            material.SetFloat(UTS3GUI.ShaderPropGI_Intensity, 0);
+            material.SetFloat(UTS3GUI.ShaderPropUnlit_Intensity, 1);
+            material.SetFloat(UTS3GUI.ShaderPropIs_Filter_LightColor, 1);
         }
         public override InstalledStatus CheckSourceShaderInstalled() { return InstalledStatus.NotInstalled; }
     }

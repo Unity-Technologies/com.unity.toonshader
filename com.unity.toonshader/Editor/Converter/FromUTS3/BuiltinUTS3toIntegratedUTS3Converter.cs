@@ -18,7 +18,11 @@ namespace UnityEditor.Rendering.Toon
         {
             SetupConverterCommon(kOrgShaderGUID, kOrgTessShaderGUID);
         }
-        public override void Convert() { }
+        public override void Convert()
+        {
+            CommonConvert();
+        }
+
         public override void PostConverting() { }
 
         public override int CountErrors(bool addToScrollView) { return 0; }
