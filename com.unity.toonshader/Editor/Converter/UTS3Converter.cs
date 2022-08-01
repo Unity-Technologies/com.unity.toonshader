@@ -25,6 +25,7 @@ namespace UnityEditor.Rendering.Toon
         {
             Idle,
             MaterialScanError,
+            MaterialScanErrorNextScreen,
             MaterialScanSuccess,
             MaterialConvertingSuccess
         }
@@ -289,18 +290,20 @@ namespace UnityEditor.Rendering.Toon
             if (errorCount == 0)
             {
                 m_Status = Status.MaterialScanSuccess;
+                currentContainer.SetupConverter();
             }
             else
             {
-                m_Status = Status.MaterialScanError;
-                currentContainer.SetupConverter();
-                ShowConverterLayout();
+                m_Status = Status.MaterialScanErrorNextScreen;
+                ErrorConverterLayout();
             }
         }
 
         void BackToConverters(ClickEvent evt)
         {
+            m_Status = Status.MaterialScanError;
             HideConverterLayout();
+            ApplyConverterStatus();
         }
 
         void RecreateUI()
@@ -326,7 +329,7 @@ namespace UnityEditor.Rendering.Toon
 
 
 
-        void ShowConverterLayout()
+        void ErrorConverterLayout()
         {
 
             rootVisualElement.Q<VisualElement>("topInformationVE").style.display = DisplayStyle.None;
@@ -399,13 +402,21 @@ namespace UnityEditor.Rendering.Toon
         {
             switch (m_Status)
             {
-                case Status.MaterialScanError:
-                    m_ConvertButton.style.display = DisplayStyle.Flex;
-                    m_ScanButton.style.display = DisplayStyle.None;
-                    break;
-                default:
+                case Status.Idle:
                     m_ConvertButton.style.display = DisplayStyle.None;
                     m_ScanButton.style.display = DisplayStyle.Flex;
+                    break;
+                case Status.MaterialScanErrorNextScreen:
+                    m_ConvertButton.style.display = DisplayStyle.None;
+                    m_ScanButton.style.display = DisplayStyle.None;
+                    break;
+                case Status.MaterialScanError:
+                    m_ConvertButton.style.display = DisplayStyle.None;
+                    m_ScanButton.style.display = DisplayStyle.Flex;
+                    break;
+                default:
+                    m_ConvertButton.style.display = DisplayStyle.Flex;
+                    m_ScanButton.style.display = DisplayStyle.None;
 
                     break;
             }
