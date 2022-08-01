@@ -87,8 +87,7 @@ namespace UnityEditor.Rendering.Toon
         }
         protected void SetupConverterCommon(UTSGUID srcShaderGUID, UTSGUID srcTessShaderGUID)
         {
-            //            bool isUts2Installed = CheckUTS2isInstalled();
-            //            bool isUts2SupportedVersion = CheckUTS2VersionError();
+
 
             int materialCount = 0;
 
@@ -99,12 +98,7 @@ namespace UnityEditor.Rendering.Toon
                 string path = AssetDatabase.GUIDToAssetPath(guid);
                 Material material = AssetDatabase.LoadAssetAtPath<Material>(path);
                 var shaderName = material.shader.ToString();
-#if false
-                if (!shaderName.StartsWith("Hidden/InternalErrorShader"))
-                {
-                    continue;
-                }
-#endif
+
                 string content = File.ReadAllText(path);
                 string[] lines = content.Split(lineSeparators, StringSplitOptions.None);
                 // always two spaces before m_Shader?
@@ -130,26 +124,6 @@ namespace UnityEditor.Rendering.Toon
                     continue;
                 }
 
-                var targetLine2 = Array.Find<string>(lines, line => line.StartsWith("    - _utsVersion"));
-                if (targetLine2 == null)
-                {
-                    Error(path);
-                    continue;
-                }
-                string[] lines2 = targetLine2.Split(targetSepeartors2, StringSplitOptions.None);
-                if (lines2 == null || lines2.Length < 2)
-                {
-                    Error(path);
-                    m_versionErrorCount++;
-                    continue;
-                }
-                var utsVersionString = lines2[1];
-                while (utsVersionString.StartsWith(" "))
-                {
-                    utsVersionString = utsVersionString.TrimStart(' ');
-                }
-                float utsVersion = float.Parse(utsVersionString);
-
                 m_ConvertingMaterials.Add(material);
                 if (!m_Material2GUID_Dictionary.ContainsKey(material))
                 {
@@ -168,8 +142,8 @@ namespace UnityEditor.Rendering.Toon
         {
             foreach (var material in m_ConvertingMaterials)
             {
-
                 material.shader = Shader.Find(kIntegratedUTS3Name);
+                UTS3GUI.UpdateVersionInMaterial(material);
             }
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();

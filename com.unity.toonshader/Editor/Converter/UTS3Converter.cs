@@ -95,7 +95,7 @@ namespace UnityEditor.Rendering.Toon
         public VisualTreeAsset converterItem;
         public VisualTreeAsset converterWidgetMainAsset;
         public VisualTreeAsset converterItemMaterial;
-        internal static string versionString => "0.8.0-preview";
+
 
 
 
@@ -103,7 +103,7 @@ namespace UnityEditor.Rendering.Toon
 
         Button m_ConvertButton;
         Button m_ScanButton;
-        Button m_InitAnConvertButton;
+
         Button m_ContainerHelpButton;
 
         bool m_InitAndConvert;
@@ -181,8 +181,6 @@ namespace UnityEditor.Rendering.Toon
                 m_ScanButton = rootVisualElement.Q<Button>("scanButton");
                 m_ScanButton.RegisterCallback<ClickEvent>(ScanProject);
 
-                m_InitAnConvertButton = rootVisualElement.Q<Button>("initializeAndConvert");
-                m_InitAnConvertButton.RegisterCallback<ClickEvent>(InitializeAndConvert);
 #if UNITY_2021_1_OR_NEWER
                 m_ContainerHelpButton = rootVisualElement.Q<Button>("containerHelpButton");
 //                m_ContainerHelpButton.RegisterCallback<ClickEvent>(GotoHelpURL);
@@ -257,10 +255,7 @@ namespace UnityEditor.Rendering.Toon
             m_VEList.Clear();
         }
 
-        void InitializeAndConvert(ClickEvent evt)
-        {
-            Debug.Assert(false);
-        }
+
         private bool SaveCurrentSceneAndContinue()
         {
 #if false
@@ -354,50 +349,6 @@ namespace UnityEditor.Rendering.Toon
 
         }
 
-        void ToggleAllNone(ClickEvent evt, int index, bool value, VisualElement item)
-        {
-            var conv = m_ConverterStates[index];
-            if (conv.items.Count > 0)
-            {
-                foreach (var convItem in conv.items)
-                {
-                    convItem.isActive = value;
-                }
-                UpdateSelectedConverterItems(index, item);
-                // Changing the look of the labels
-                if (value)
-                {
-                    item.Q<Label>("all").AddToClassList("selected");
-                    item.Q<Label>("all").RemoveFromClassList("not_selected");
-
-                    item.Q<Label>("none").AddToClassList("not_selected");
-                    item.Q<Label>("none").RemoveFromClassList("selected");
-                }
-                else
-                {
-                    item.Q<Label>("none").AddToClassList("selected");
-                    item.Q<Label>("none").RemoveFromClassList("not_selected");
-
-                    item.Q<Label>("all").AddToClassList("not_selected");
-                    item.Q<Label>("all").RemoveFromClassList("selected");
-                }
-            }
-        }
-
-        void UpdateSelectedConverterItems(int index, VisualElement element)
-        {
-            int count = 0;
-            foreach (ConverterItemState state in m_ConverterStates[index].items)
-            {
-                if (state.isActive)
-                {
-                    count++;
-                }
-            }
-
-            element.Q<Label>("converterStats").text = $"{count}/{m_ItemsToConvert[index].itemDescriptors.Count} selected";
-        }
-
         void ApplyConverterStatus()
         {
             switch (m_Status)
@@ -409,6 +360,10 @@ namespace UnityEditor.Rendering.Toon
                 case Status.MaterialScanErrorNextScreen:
                     m_ConvertButton.style.display = DisplayStyle.None;
                     m_ScanButton.style.display = DisplayStyle.None;
+                    break;
+                case Status.MaterialScanSuccess:
+                    m_ConvertButton.style.display = DisplayStyle.Flex;
+                    m_ScanButton.style.display = DisplayStyle.Flex;
                     break;
                 case Status.MaterialScanError:
                     m_ConvertButton.style.display = DisplayStyle.None;
@@ -447,6 +402,7 @@ namespace UnityEditor.Rendering.Toon
 
         void Convert(ClickEvent evt)
         {
+            currentContainer.Convert();
         }
 
     }

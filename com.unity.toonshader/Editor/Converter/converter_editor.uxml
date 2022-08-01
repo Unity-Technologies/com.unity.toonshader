@@ -29,7 +29,7 @@
                     <ui:Label tabindex="-1" display-tooltip-when-elided="true" style="flex-grow: 1;" />
                     <ui:Button text=" Convert Assets" name="convertButton" style="flex-direction: column; margin-bottom: 1px; width: 130px; min-width: auto; display: none;" />
                 </ui:VisualElement>
-                <ui:Button tabindex="-1" text="Initialize And Convert" display-tooltip-when-elided="true" name="initializeAndConvert" style="width: 140px;" />
+
             </ui:VisualElement>
             <ui:Label style="flex-grow: 1;" />
         </ui:VisualElement>
