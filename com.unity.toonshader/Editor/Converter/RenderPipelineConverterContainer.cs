@@ -57,10 +57,8 @@ namespace UnityEditor.Rendering.Toon
 
         public abstract InstalledStatus CheckSourceShaderInstalled();
 
-        public void CommonSetup()
+        public void Reset()
         {
-
-            Debug.Assert(UTS3Converter.scrollView != null);
             m_materialCount = 0;
             m_ConvertingMaterials.Clear();
 
@@ -69,8 +67,16 @@ namespace UnityEditor.Rendering.Toon
             m_Material2GUID_Dictionary.Clear();
             m_GuidToUTSID_Dictionary.Clear();
             UTS3Converter.scrollView.Clear();
-            m_materialGuids = null;
-            m_materialGuids = AssetDatabase.FindAssets("t:Material", null);
+
+        }
+        public void CommonSetup()
+        {
+
+            Debug.Assert(UTS3Converter.scrollView != null);
+            if (m_materialGuids == null)
+            {
+                m_materialGuids = AssetDatabase.FindAssets("t:Material", null);
+            }
             // CheckSourceShaderInstalled(); // Not necessary? 
         }
         /// <summary>

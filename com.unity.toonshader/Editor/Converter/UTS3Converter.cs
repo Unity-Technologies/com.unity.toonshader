@@ -100,7 +100,7 @@ namespace UnityEditor.Rendering.Toon
 
         VisualElement m_ConverterSelectedVE;
         Button m_ConvertButton;
-        Button m_InitButton;
+        Button m_ScanButton;
         Button m_InitAnConvertButton;
         Button m_ContainerHelpButton;
 
@@ -179,8 +179,8 @@ namespace UnityEditor.Rendering.Toon
                 m_ConvertButton = rootVisualElement.Q<Button>("convertButton");
                 m_ConvertButton.RegisterCallback<ClickEvent>(Convert);
 
-                m_InitButton = rootVisualElement.Q<Button>("initializeButton");
-                m_InitButton.RegisterCallback<ClickEvent>(InitializeAllActiveConverters);
+                m_ScanButton = rootVisualElement.Q<Button>("scanButton");
+                m_ScanButton.RegisterCallback<ClickEvent>(ScanProject);
 
                 m_InitAnConvertButton = rootVisualElement.Q<Button>("initializeAndConvert");
                 m_InitAnConvertButton.RegisterCallback<ClickEvent>(InitializeAndConvert);
@@ -416,7 +416,13 @@ namespace UnityEditor.Rendering.Toon
             child.Q<ListView>("converterItems").Rebuild();
 #endif
         }
-
+        void ScanProject(ClickEvent evt)
+        {
+            currentContainer.CommonSetup();
+            int errorCount = currentContainer.CountUTS2ErrorMaterials();
+            if (errorCount == 0)
+                currentContainer.SetupConverter();
+        }
         void InitializeAllActiveConverters(ClickEvent evt)
         {
             if (!SaveCurrentSceneAndContinue()) return;
@@ -515,10 +521,8 @@ namespace UnityEditor.Rendering.Toon
             {
                 m_ContainerChoiceIndex = rootVisualElement.Q<PopupVE>("conversionsDropDown").index;
                 rootVisualElement.Q<TextElement>("conversionInfo").text = currentContainer.info;
-                currentContainer.CommonSetup();
-                int errorCount = currentContainer.CountUTS2ErrorMaterials();
-                if (errorCount == 0 )
-                    currentContainer.SetupConverter();
+                currentContainer.Reset();
+
             //    HideUnhideConverters();
             });
 #endif
@@ -694,13 +698,14 @@ namespace UnityEditor.Rendering.Toon
             if (allSelectedHasInitialized)
             {
                 m_ConvertButton.style.display = DisplayStyle.Flex;
-                m_InitButton.style.display = DisplayStyle.None;
+                m_ScanButton.style.display = DisplayStyle.None;
             }
             else
             {
                 m_ConvertButton.style.display = DisplayStyle.None;
-                m_InitButton.style.display = DisplayStyle.Flex;
+                m_ScanButton.style.display = DisplayStyle.Flex;
             }
+
         }
 
         internal static void DontSaveToLayout(EditorWindow wnd)
