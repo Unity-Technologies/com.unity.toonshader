@@ -71,7 +71,7 @@ namespace UnityEditor.Rendering.Toon
         }
         public void CommonSetup()
         {
-
+            Reset();
             Debug.Assert(UTS3Converter.scrollView != null);
             if (m_materialGuids == null)
             {
@@ -82,7 +82,7 @@ namespace UnityEditor.Rendering.Toon
         /// <summary>
         /// Returns number of materials which are unable to convert.
         /// </summary>
-        public int CountUTS2ErrorMaterials()
+        public int CountUTS2ErrorMaterials(bool addToScrollView)
         {
             Debug.Assert(UTS3Converter.scrollView != null);
 
@@ -136,14 +136,16 @@ namespace UnityEditor.Rendering.Toon
                 if (targetLine2 == null)
                 {
                     m_versionErrorCount++;
-                    AddMaterialToScrollview( material);
+                    if (addToScrollView)
+                        AddMaterialToScrollview(material);
                     continue;
                 }
                 string[] lines2 = targetLine2.Split(targetSepeartors2, StringSplitOptions.None);
                 if (lines2 == null || lines2.Length < 2)
                 {
                     m_versionErrorCount++;
-                    AddMaterialToScrollview( material);
+                    if (addToScrollView)
+                        AddMaterialToScrollview(material);
                     continue;
                 }
                 var utsVersionString = lines2[1];
@@ -155,7 +157,8 @@ namespace UnityEditor.Rendering.Toon
                 if (utsVersion < 2.07f)
                 {
                     m_versionErrorCount++;
-                    AddMaterialToScrollview(material);
+                    if ( addToScrollView )
+                        AddMaterialToScrollview(material);
                     continue;
                 }
                 

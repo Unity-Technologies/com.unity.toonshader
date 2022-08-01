@@ -418,10 +418,15 @@ namespace UnityEditor.Rendering.Toon
         }
         void ScanProject(ClickEvent evt)
         {
+
             currentContainer.CommonSetup();
-            int errorCount = currentContainer.CountUTS2ErrorMaterials();
+            int errorCount = currentContainer.CountUTS2ErrorMaterials(addToScrollView:true);
             if (errorCount == 0)
                 currentContainer.SetupConverter();
+            else
+            {
+                ShowConverterLayout();
+            }
         }
         void InitializeAllActiveConverters(ClickEvent evt)
         {
@@ -523,7 +528,8 @@ namespace UnityEditor.Rendering.Toon
                 rootVisualElement.Q<TextElement>("conversionInfo").text = currentContainer.info;
                 currentContainer.Reset();
 
-            //    HideUnhideConverters();
+
+                //    HideUnhideConverters();
             });
 #endif
 
@@ -601,14 +607,14 @@ namespace UnityEditor.Rendering.Toon
             item.Q<Image>("converterStateInfoIcon").image = info.Item2;
         }
 
-        void ShowConverterLayout(VisualElement element)
+        void ShowConverterLayout()
         {
-            m_ConverterSelectedVE = element;
+
             rootVisualElement.Q<VisualElement>("converterEditorMainVE").style.display = DisplayStyle.None;
             rootVisualElement.Q<VisualElement>("singleConverterVE").style.display = DisplayStyle.Flex;
             rootVisualElement.Q<VisualElement>("singleConverterVE").Add(element);
-            element.Q<VisualElement>("converterItems").style.display = DisplayStyle.Flex;
-            element.Q<VisualElement>("informationVE").style.display = DisplayStyle.Flex;
+            //            element.Q<VisualElement>("converterItems").style.display = DisplayStyle.Flex;
+            //            element.Q<VisualElement>("informationVE").style.display = DisplayStyle.Flex;
 
             rootVisualElement.Q<Button>("backButton").RegisterCallback<ClickEvent>(BackToConverters);
         }
