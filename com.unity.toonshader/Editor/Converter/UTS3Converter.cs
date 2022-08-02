@@ -12,11 +12,6 @@ namespace UnityEditor.Rendering.Toon
 {
     internal class UTS3Converter : EditorWindow
     {
-        [Serializable]
-        internal struct ConverterItems
-        {
-            public List<ConverterItemDescriptor> itemDescriptors;
-        }
 
         // Status for each row item to say in which state they are in.
         // This will make sure they are showing the correct icon
@@ -110,10 +105,9 @@ namespace UnityEditor.Rendering.Toon
 
 
         List<VisualElement> m_VEList = new List<VisualElement>();
-        // This list needs to be as long as the amount of converters
-        List<ConverterItems> m_ItemsToConvert = new List<ConverterItems>();
 
-        //List<List<ConverterItemDescriptor>> m_ItemsToConvert = new List<List<ConverterItemDescriptor>>();
+
+
         SerializedObject m_SerializedObject;
 
         List<string> m_ContainerChoices = new List<string>();
@@ -251,7 +245,6 @@ namespace UnityEditor.Rendering.Toon
         {
 
             m_ConverterStates.Clear();
-            m_ItemsToConvert.Clear();
             m_VEList.Clear();
         }
 
