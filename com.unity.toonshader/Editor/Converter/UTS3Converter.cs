@@ -101,6 +101,8 @@ namespace UnityEditor.Rendering.Toon
 
         Button m_ContainerHelpButton;
 
+        PopupVE m_ConversionsDropDown;
+        TextElement m_ConversionInfoText;
         bool m_InitAndConvert;
 
 
@@ -163,8 +165,11 @@ namespace UnityEditor.Rendering.Toon
                 m_SerializedObject = new SerializedObject(this);
                 converterEditorAsset.CloneTree(rootVisualElement);
 
-                rootVisualElement.Q<PopupVE>("conversionsDropDown").choices = m_ContainerChoices;
-                rootVisualElement.Q<PopupVE>("conversionsDropDown").index = m_ContainerChoiceIndex;
+                m_ConversionInfoText = rootVisualElement.Q<TextElement>("conversionInfo");
+
+                m_ConversionsDropDown = rootVisualElement.Q<PopupVE>("conversionsDropDown");
+                m_ConversionsDropDown.choices = m_ContainerChoices;
+                m_ConversionsDropDown.index = m_ContainerChoiceIndex;
 
                 // Getting the scrollview where the converters should be added
                 scrollView = rootVisualElement.Q<ScrollView>("convertersScrollView");
@@ -300,10 +305,11 @@ namespace UnityEditor.Rendering.Toon
             // This is temp now to get the information filled in
 
             scrollView.Clear();
-            rootVisualElement.Q<PopupVE>("conversionsDropDown").RegisterCallback<ChangeEvent<string>>((evt) =>
+            m_ConversionsDropDown.RegisterCallback<ChangeEvent<string>>((evt) =>
             {
-                m_ContainerChoiceIndex = rootVisualElement.Q<PopupVE>("conversionsDropDown").index;
-                rootVisualElement.Q<TextElement>("conversionInfo").text = currentContainer.info;
+                m_ContainerChoiceIndex = m_ConversionsDropDown.index;
+
+                m_ConversionInfoText.text = currentContainer.info;
                 currentContainer.Reset();
                 m_Status = Status.Idle;
             });
