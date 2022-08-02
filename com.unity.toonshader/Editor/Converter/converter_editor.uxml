@@ -1,9 +1,10 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xmlns:uts="UnityEditor.Rendering.Toon" editor-extension-mode="False">
     <Style src="project://database/Packages/com.unity.toonshader/Editor/Converter/converter_editor.uss" />
-    <ui:VisualElement name="singleConverterVE" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); display: none; padding-left: 19px; padding-right: 19px; padding-top: 20px; padding-bottom: 20px;">
+    <ui:VisualElement name="singleConverterVE" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); display: none;  max-height: 120px; min-height: 90px; padding-left: 19px; padding-right: 19px; padding-top: 20px; padding-bottom: 20px;">
         <ui:VisualElement name="backButtonVE" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row; height: 0; flex-shrink: 1; max-height: 22px; display: flex; min-height: 22px; margin-bottom: 10px;">
             <ui:Button tabindex="-1" text="&lt; Back" display-tooltip-when-elided="true" name="backButton" style="width: 110px; margin-left: 3px; display: flex;" />
         </ui:VisualElement>
+        <ui:HelpBox message-type="Error" text="The following materials are too old. Please load them using Unity-Chan Toon Shader Ver 2.0.7 or newer." style="flex-grow: 0; padding-top: 2px; padding-bottom: 2px; margin-top: 1px; margin-bottom: 1px;" />
     </ui:VisualElement>
     <ui:VisualElement name="converterEditorMainVE" style="max-width: 100%; min-width: 620px; flex-grow: 1; padding-left: 19px; padding-right: 19px; padding-top: 15px; width: auto; padding-bottom: 20px;">
         <ui:VisualElement name="topInformationVE" style="flex-grow: initial; background-color: rgba(0, 0, 0, 0); height: 146px; flex-shrink: initial; width: auto; min-height: 130px; max-height: 130px;">
@@ -16,7 +17,6 @@
             </ui:VisualElement>
             <ui:TextElement text="The Render Pipeline Converter converts project elements from the Built-in Render Pipeline to URP." name="conversionInfo" style="height: 46px; width: 540px; flex-shrink: 0; margin-top: 3px; padding-left: 4px; padding-top: 9px;" />
             <ui:HelpBox message-type="Error" text="This process makes irreversible changes to the project. Back up your project before proceeding." style="flex-grow: 0; padding-top: 2px; padding-bottom: 2px; margin-top: 1px; margin-bottom: 1px;" />
-            <ui:HelpBox message-type="Info" text="Click the converters below to see more information." style="flex-grow: 0; padding-top: 2px; padding-bottom: 2px; margin-top: 1px; margin-bottom: 1px;" />
                 <ui:VisualElement name="bottomTopVE" style="flex-direction: row-reverse; flex-shrink: 0; padding-left: 0; padding-right: 0; margin-top: 6px; width: auto; align-items: stretch; flex-grow: 0;">
                     <ui:Button text="Scan the project" name="scanButton" tooltip="Click to initialize all the selected converters." style="flex-direction: column; margin-bottom: 1px; min-width: auto; width: 130px; display: none;" />
                 </ui:VisualElement>
