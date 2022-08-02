@@ -180,7 +180,7 @@ namespace UnityEditor.Rendering.Toon
                 m_ScanButton = rootVisualElement.Q<Button>("scanButton");
                 m_ScanButton.RegisterCallback<ClickEvent>(ScanProject);
 
-#if UNITY_2021_1_OR_NEWER
+#if false // UNITY_2021_1_OR_NEWER
                 m_ContainerHelpButton = rootVisualElement.Q<Button>("containerHelpButton");
 //                m_ContainerHelpButton.RegisterCallback<ClickEvent>(GotoHelpURL);
                 m_ContainerHelpButton.Q<Image>("containerHelpImage").image = CoreEditorStyles.iconHelp;
