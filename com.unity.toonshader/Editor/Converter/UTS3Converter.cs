@@ -7,6 +7,7 @@ using UnityEditor.UIElements;
 using System;
 using System.Linq;
 using System.IO;
+using UnityEngine.Rendering;
 
 namespace UnityEditor.Rendering.Toon
 {
@@ -178,18 +179,27 @@ namespace UnityEditor.Rendering.Toon
                 m_ScanButton = rootVisualElement.Q<Button>("scanButton");
                 m_ScanButton.RegisterCallback<ClickEvent>(ScanProject);
 
-#if false // UNITY_2021_1_OR_NEWER
                 m_ContainerHelpButton = rootVisualElement.Q<Button>("containerHelpButton");
-//                m_ContainerHelpButton.RegisterCallback<ClickEvent>(GotoHelpURL);
+
+#if UNITY_2021_2_OR_NEWER
+                m_ContainerHelpButton.RegisterCallback<ClickEvent>(GotoHelpURL);
                 m_ContainerHelpButton.Q<Image>("containerHelpImage").image = CoreEditorStyles.iconHelp;
                 m_ContainerHelpButton.RemoveFromClassList("unity-button");
                 m_ContainerHelpButton.AddToClassList(theme);
+#else
+                m_ContainerHelpButton.style.display = DisplayStyle.None;
 #endif
                 RecreateUI();
             }
 
         }
 
+        void GotoHelpURL(ClickEvent evt)
+        {
+
+            Help.BrowseURL("https://github.com/Unity-Technologies/com.unity.toonshader/blob/development/v1/com.unity.toonshader/Documentation~/index.md");
+
+        }
 
         static string packageFullPath
         {
