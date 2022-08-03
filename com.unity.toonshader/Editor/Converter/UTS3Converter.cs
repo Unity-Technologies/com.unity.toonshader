@@ -106,9 +106,7 @@ namespace UnityEditor.Rendering.Toon
         bool m_InitAndConvert;
 
 
-        List<VisualElement> m_VEList = new List<VisualElement>();
-
-
+ 
 
         SerializedObject m_SerializedObject;
 
@@ -141,7 +139,7 @@ namespace UnityEditor.Rendering.Toon
 
         private void CreateGUI()
         {
-#if false // UNITY_2021_1_OR_NEWER
+#if false
             iconHelp = CoreEditorUtils.FindTexture("_Help");
 #endif
             iconWarn = CoreEditorUtils.LoadIcon("icons", "console.warnicon", ".png");
@@ -250,7 +248,6 @@ namespace UnityEditor.Rendering.Toon
         {
 
             m_ConverterStates.Clear();
-            m_VEList.Clear();
         }
 
 
