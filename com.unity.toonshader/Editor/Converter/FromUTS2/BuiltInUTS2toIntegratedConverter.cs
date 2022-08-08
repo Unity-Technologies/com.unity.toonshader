@@ -9,13 +9,8 @@ namespace UnityEditor.Rendering.Toon
     internal sealed class BuiltInUTS2toIntegratedConverter : RenderPipelineConverterContainer
     {
         internal UTS3GUI.CullingMode m_cullingMode;
-        internal int _autoRenderQueue = 1;
 
-        internal UTS3GUI.UTS_TransparentMode _Transparent_Setting;
-        internal int _StencilNo_Setting;
 
-        const string kLegacyShaderFileName = "LegacyToon";
-        const string kShaderFileNameExtention = ".shader";
 
 
         public override string name => "Unity-chan Toon Shader 2";
@@ -24,8 +19,7 @@ namespace UnityEditor.Rendering.Toon
 
         public override void SetupConverter() {
 
-//            bool isUts2Installed = CheckUTS2isInstalled();
-//            bool isUts2SupportedVersion = CheckUTS2VersionError();
+
 
             int materialCount = 0;
 
@@ -369,21 +363,24 @@ namespace UnityEditor.Rendering.Toon
         {
             foreach (var guid in m_ConvertingMaterialGuids)
             {
-                int renderQueue = (int)UnityEngine.Rendering.RenderQueue.Geometry;
+
                 string path = AssetDatabase.GUIDToAssetPath(guid);
                 Material material = AssetDatabase.LoadAssetAtPath<Material>(path);
+                if (material.name == "UTS2_TransClipping")
+                {
+                    Debug.Log("UTS2_TransClipping");
+                }
                 material.shader = Shader.Find(kIntegratedUTS3Name);
                 var shaderGUID = m_Material2GUID_Dictionary[material];
-                var UTS2GUID = m_GuidToUTSID_Dictionary[shaderGUID];
-                renderQueue = material.renderQueue;
+                var UTS2GUID = m_GuidToUTSID_Dictionary[shaderGUID] as UTSINFO;
+               
                 //                _Transparent_Setting = (UTS3GUI.UTS_TransparentMode)UTS3GUI.MaterialGetInt( material, UTS3GUI.ShaderPropTransparentEnabled);
-                _Transparent_Setting = UTS3GUI.UTS_TransparentMode.Off;
-                if (UTS2GUID.m_ShaderName.Contains("Trans") || UTS2GUID.m_ShaderName.Contains("trans"))
-                {
-                    _Transparent_Setting = UTS3GUI.UTS_TransparentMode.On;
-                }
-                _StencilNo_Setting = UTS3GUI.MaterialGetInt(material, UTS3GUI.ShaderPropStencilNo);
-                _autoRenderQueue = UTS3GUI.MaterialGetInt(material, UTS3GUI.ShaderPropAutoRenderQueue);
+                UTS3GUI.UTS_TransparentMode transparentSetting = UTS3GUI.UTS_TransparentMode.Off;
+                UTS3GUI.UTS_TransClippingMode transclippingMode = UTS3GUI.UTS_TransClippingMode.Off;
+
+
+                int stencilNo_Setting = UTS3GUI.MaterialGetInt(material, UTS3GUI.ShaderPropStencilNo);
+                int autoRenderQueue = UTS3GUI.MaterialGetInt(material, UTS3GUI.ShaderPropAutoRenderQueue);
 
                 UTS3GUI.UTS_Mode technique = (UTS3GUI.UTS_Mode)UTS3GUI.MaterialGetInt(material, UTS3GUI.ShaderPropUtsTechniqe);
 
@@ -396,21 +393,18 @@ namespace UnityEditor.Rendering.Toon
                         material.EnableKeyword(UTS3GUI.ShaderDefineSHADINGGRADEMAP);
                         break;
                 }
-                if (_Transparent_Setting == UTS3GUI.UTS_TransparentMode.On)
+                if (transparentSetting == UTS3GUI.UTS_TransparentMode.On)
                 {
                     UTS3GUI.MaterialSetInt(material, UTS3GUI.ShaderPropTransparentEnabled, 1);
-                }
-                if (_Transparent_Setting != UTS3GUI.UTS_TransparentMode.On)
-                {
-                    UTS3GUI.SetupOutline(material);
+                    UTS3GUI.SetupOverDrawTransparentObject(material);
                 }
                 else
                 {
-                    UTS3GUI.SetupOverDrawTransparentObject(material);
+                    UTS3GUI.SetupOutline(material);
                 }
                 SetCullingMode(material);
-                SetAutoRenderQueue(material);
-                SetTranparent(material);
+                SetAutoRenderQueue(material,autoRenderQueue);
+                SetTranparent(material, transparentSetting);
 
                 BasicLookdevs(material);
                 SetGameRecommendation(material);
@@ -418,7 +412,8 @@ namespace UnityEditor.Rendering.Toon
                 ApplyStencilMode(material);
                 ApplyAngelRing(material);
                 ApplyMatCapMode(material);
-                ApplyQueueAndRenderType(technique, renderQueue, material );
+                var renderType = UTS2GUID.m_renderType;
+                ApplyQueueAndRenderType(material, technique, autoRenderQueue, renderType, transparentSetting);
 
 
             }
@@ -462,19 +457,19 @@ namespace UnityEditor.Rendering.Toon
 
             }
         }
-        void SetAutoRenderQueue(Material material)
+        void SetAutoRenderQueue(Material material, int autoRenderQueue)
         {
-            UTS3GUI.MaterialSetInt(material, UTS3GUI.ShaderPropAutoRenderQueue, _autoRenderQueue);
+            UTS3GUI.MaterialSetInt(material, UTS3GUI.ShaderPropAutoRenderQueue, autoRenderQueue);
             // material.renderQueue
         }
 
-        void SetTranparent(Material material)
+        void SetTranparent(Material material, UTS3GUI.UTS_TransparentMode transperentSetting)
         {
             const string _ZWriteMode = "_ZWriteMode";
             const string _ZOverDrawMode = "_ZOverDrawMode";
 
 
-            if (_Transparent_Setting == UTS3GUI.UTS_TransparentMode.On)
+            if (transperentSetting == UTS3GUI.UTS_TransparentMode.On)
             {
                 if (UTS3GUI.MaterialGetInt(material, UTS3GUI.ShaderPropUtsTechniqe) == (int)UTS3GUI.UTS_Mode.ThreeColorToon)
                 {
@@ -532,28 +527,19 @@ namespace UnityEditor.Rendering.Toon
             return UTS3GUI.MaterialGetInt(material, UTS3GUI.ShaderPropUtsTechniqe) == (int)UTS3GUI.UTS_Mode.ShadingGradeMap;
         }
 
-        void ApplyQueueAndRenderType(UTS3GUI.UTS_Mode technique, int renderQueue, Material material)
+        void ApplyQueueAndRenderType(Material material, UTS3GUI.UTS_Mode technique, int autoRenderQueue,string renderType, UTS3GUI.UTS_TransparentMode transperentSetting)
         {
             var stencilMode = (UTS3GUI.UTS_StencilMode)UTS3GUI.MaterialGetInt(material, UTS3GUI.ShaderPropStencilMode);
-            if (_autoRenderQueue == 1)
-            {
-                material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Geometry;
-            }
+            int renderQueue = -1;
 
-            const string OPAQUE = "Opaque";
-            const string TRANSPARENTCUTOUT = "TransparentCutOut";
-            const string TRANSPARENT = "Transparent";
-            const string RENDERTYPE = "RenderType";
-            const string IGNOREPROJECTION = "IgnoreProjection";
-            const string DO_IGNOREPROJECTION = "True";
-            const string DONT_IGNOREPROJECTION = "False";
-            var renderType = OPAQUE;
-            var ignoreProjection = DONT_IGNOREPROJECTION;
 
-            if (_Transparent_Setting == UTS3GUI.UTS_TransparentMode.On)
+
+            var ignoreProjection = UTSINFO.DONT_IGNOREPROJECTION;
+
+            if (transperentSetting == UTS3GUI.UTS_TransparentMode.On)
             {
-                renderType = TRANSPARENT;
-                ignoreProjection = DO_IGNOREPROJECTION;
+
+                ignoreProjection = UTSINFO.DO_IGNOREPROJECTION;
             }
             else
             {
@@ -568,7 +554,7 @@ namespace UnityEditor.Rendering.Toon
                             }
                             else
                             {
-                                renderType = TRANSPARENTCUTOUT;
+                                renderType = UTSINFO.TRANSPARENTCUTOUT;
 
                             }
 
@@ -582,7 +568,7 @@ namespace UnityEditor.Rendering.Toon
                             }
                             else
                             {
-                                renderType = TRANSPARENTCUTOUT;
+                                renderType = UTSINFO.TRANSPARENTCUTOUT;
 
                             }
 
@@ -591,9 +577,9 @@ namespace UnityEditor.Rendering.Toon
                 }
 
             }
-            if (_autoRenderQueue == 1)
+            if (autoRenderQueue == 1)
             {
-                if (_Transparent_Setting == UTS3GUI.UTS_TransparentMode.On)
+                if (transperentSetting == UTS3GUI.UTS_TransparentMode.On)
                 {
                     material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
                 }
@@ -611,8 +597,8 @@ namespace UnityEditor.Rendering.Toon
                 material.renderQueue = renderQueue;
             }
 
-            material.SetOverrideTag(RENDERTYPE, renderType);
-            material.SetOverrideTag(IGNOREPROJECTION, ignoreProjection);
+            material.SetOverrideTag(UTSINFO.RENDERTYPE, renderType);
+            material.SetOverrideTag(UTSINFO.IGNOREPROJECTION, ignoreProjection);
         }
         void ApplyMatCapMode(Material material)
         {

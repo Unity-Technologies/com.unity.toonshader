@@ -12,13 +12,29 @@ namespace UnityEditor.Rendering.Toon
 {
     internal class UTSGUID
     {
-        public UTSGUID(string guid, string shaderName)
+        internal UTSGUID(string guid, string shaderName)
         {
             m_ShaderName = shaderName;
             m_Guid = guid;
         }
         internal string m_ShaderName;
         internal string m_Guid;
+    }
+
+    internal class UTSINFO : UTSGUID
+    {
+        internal const string OPAQUE = "Opaque";
+        internal const string TRANSPARENTCUTOUT = "TransparentCutOut";
+        internal const string TRANSPARENT = "Transparent";
+        internal const string RENDERTYPE = "RenderType";
+        internal const string IGNOREPROJECTION = "IgnoreProjection";
+        internal const string DO_IGNOREPROJECTION = "True";
+        internal const string DONT_IGNOREPROJECTION = "False";
+        internal string m_renderType;
+        internal UTSINFO(string guid, string shaderName, string renderType ) : base(guid, shaderName)
+        {
+            m_renderType = renderType;
+        }
     }
 
 }
