@@ -366,15 +366,15 @@ namespace UnityEditor.Rendering.Toon
 
                 string path = AssetDatabase.GUIDToAssetPath(guid);
                 Material material = AssetDatabase.LoadAssetAtPath<Material>(path);
-                if (material.name == "UTS2_TransClipping")
+                if (material.name == "Quad_TransStencilOut")
                 {
-                    Debug.Log("UTS2_TransClipping");
+                    Debug.Log("Quad_TransStencilOut");
                 }
                 material.shader = Shader.Find(kIntegratedUTS3Name);
                 var shaderGUID = m_Material2GUID_Dictionary[material];
                 var UTS2Info = m_GuidToUTSID_Dictionary[shaderGUID] as UTS2INFO;
-               
-                UTS3GUI.UTS_TransparentMode transparencyEnabled = UTS3GUI.UTS_TransparentMode.Off;
+
+                UTS3GUI.UTS_TransparentMode transparencyEnabled = UTS2Info.m_transparency ? UTS3GUI.UTS_TransparentMode.On : UTS3GUI.UTS_TransparentMode.Off;
 
 
 
@@ -382,10 +382,7 @@ namespace UnityEditor.Rendering.Toon
                 int stencilNo_Setting = UTS3GUI.MaterialGetInt(material, UTS3GUI.ShaderPropStencilNo);
                 int autoRenderQueue = UTS3GUI.MaterialGetInt(material, UTS3GUI.ShaderPropAutoRenderQueue);
                 var renderType = UTS2Info.m_renderType;
-                if (renderType == UTS2INFO.TRANSPARENT)
-                {
-                    transparencyEnabled = UTS3GUI.UTS_TransparentMode.On;
-                }
+
                 material.SetOverrideTag(UTS2INFO.RENDERTYPE, renderType);
                 UTS3GUI.UTS_Mode technique = (UTS3GUI.UTS_Mode)UTS3GUI.MaterialGetInt(material, UTS3GUI.ShaderPropUtsTechniqe);
 
