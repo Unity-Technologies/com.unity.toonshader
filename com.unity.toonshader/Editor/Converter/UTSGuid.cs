@@ -20,6 +20,13 @@ namespace UnityEditor.Rendering.Toon
         internal string m_ShaderName;
         internal string m_Guid;
     }
+    enum RenderQueue
+    {
+        None,
+        AlphaTestMinus1,
+        AlphaTest,
+        Transparent,
+    };
 
     internal class UTS2INFO : UTSGUID
     {
@@ -33,10 +40,12 @@ namespace UnityEditor.Rendering.Toon
         internal const string DONT_IGNOREPROJECTION = "False";
         internal string m_renderType;
         internal bool m_transparency;
-        internal UTS2INFO(string guid, string shaderName, string renderType, bool transparency  ) : base(guid, shaderName)
+        internal RenderQueue m_renderQueue;
+        internal UTS2INFO(string guid, string shaderName, string renderType, bool transparency, RenderQueue renderQueue ) : base(guid, shaderName)
         {
             m_renderType = renderType;
             m_transparency = transparency;
+            m_renderQueue = renderQueue;
         }
         internal int clippingMode
         {

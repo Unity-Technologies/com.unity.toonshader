@@ -366,23 +366,23 @@ namespace UnityEditor.Rendering.Toon
 
                 string path = AssetDatabase.GUIDToAssetPath(guid);
                 Material material = AssetDatabase.LoadAssetAtPath<Material>(path);
-                if (material.name == "Quad_TransStencilOut")
+                if (material.name == "UTS2_TransClipping")
                 {
-                    Debug.Log("Quad_TransStencilOut");
+                    Debug.Log("UTS2_TransClipping");
                 }
                 material.shader = Shader.Find(kIntegratedUTS3Name);
                 var shaderGUID = m_Material2GUID_Dictionary[material];
                 var UTS2Info = m_GuidToUTSID_Dictionary[shaderGUID] as UTS2INFO;
 
-                UTS3GUI.UTS_TransparentMode transparencyEnabled = UTS2Info.m_transparency ? UTS3GUI.UTS_TransparentMode.On : UTS3GUI.UTS_TransparentMode.Off;
+                UTS3GUI.UTS_TransparentMode transparencyEnabled = (UTS2Info.m_renderQueue == RenderQueue.Transparent) ? UTS3GUI.UTS_TransparentMode.On : UTS3GUI.UTS_TransparentMode.Off;
 
 
 
 
                 int stencilNo_Setting = UTS3GUI.MaterialGetInt(material, UTS3GUI.ShaderPropStencilNo);
-                int autoRenderQueue = UTS3GUI.MaterialGetInt(material, UTS3GUI.ShaderPropAutoRenderQueue);
-                var renderType = UTS2Info.m_renderType;
 
+                var renderType = UTS2Info.m_renderType;
+                var renderQueue = UTS2Info.m_renderQueue;
                 material.SetOverrideTag(UTS2INFO.RENDERTYPE, renderType);
                 UTS3GUI.UTS_Mode technique = (UTS3GUI.UTS_Mode)UTS3GUI.MaterialGetInt(material, UTS3GUI.ShaderPropUtsTechniqe);
 
@@ -409,7 +409,7 @@ namespace UnityEditor.Rendering.Toon
                 }
                 SetCullingMode(material);
 
-                SetAutoRenderQueue(material,autoRenderQueue);
+                SetAutoRenderQueue(material, 0);
 
                 SetTranparent(material, transparencyEnabled);
 
@@ -422,7 +422,7 @@ namespace UnityEditor.Rendering.Toon
                 ApplyMatCapMode(material);
 
 
-                ApplyQueueAndRenderType(material, technique, autoRenderQueue, transparencyEnabled);
+                ApplyQueueAndRenderType(material, technique, renderQueue, transparencyEnabled);
 
 
             }
@@ -536,10 +536,10 @@ namespace UnityEditor.Rendering.Toon
             return UTS3GUI.MaterialGetInt(material, UTS3GUI.ShaderPropUtsTechniqe) == (int)UTS3GUI.UTS_Mode.ShadingGradeMap;
         }
 
-        void ApplyQueueAndRenderType(Material material, UTS3GUI.UTS_Mode technique, int autoRenderQueue,UTS3GUI.UTS_TransparentMode transperentSetting )
+        void ApplyQueueAndRenderType(Material material, UTS3GUI.UTS_Mode technique, RenderQueue renderQueue,UTS3GUI.UTS_TransparentMode transperentSetting )
         {
             var stencilMode = (UTS3GUI.UTS_StencilMode)UTS3GUI.MaterialGetInt(material, UTS3GUI.ShaderPropStencilMode);
-            int renderQueue = -1;
+
 
 
 
@@ -554,27 +554,23 @@ namespace UnityEditor.Rendering.Toon
             {
 
             }
-            if (autoRenderQueue == 1)
+            //            material.SetOverrideTag(UTS2INFO.IGNOREPROJECTION, ignoreProjection);
+            switch (renderQueue)
             {
-                if (transperentSetting == UTS3GUI.UTS_TransparentMode.On)
-                {
-                    material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
-                }
-                else if (stencilMode == UTS3GUI.UTS_StencilMode.StencilMask)
-                {
-                    material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.AlphaTest - 1;
-                }
-                else if (stencilMode == UTS3GUI.UTS_StencilMode.StencilOut)
-                {
+                case RenderQueue.None:
+                    material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Geometry;
+                    break;
+                case RenderQueue.AlphaTest:
                     material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.AlphaTest;
-                }
-            }
-            else
-            {
-                material.renderQueue = renderQueue;
+                    break;
+                case RenderQueue.AlphaTestMinus1:
+                    material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.AlphaTest - 1;
+                    break;
+                case RenderQueue.Transparent:
+                    material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
+                    break;
             }
 
-//            material.SetOverrideTag(UTS2INFO.IGNOREPROJECTION, ignoreProjection);
         }
         void ApplyMatCapMode(Material material)
         {
