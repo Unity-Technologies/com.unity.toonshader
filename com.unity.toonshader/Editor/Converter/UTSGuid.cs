@@ -21,8 +21,9 @@ namespace UnityEditor.Rendering.Toon
         internal string m_Guid;
     }
 
-    internal class UTSINFO : UTSGUID
+    internal class UTS2INFO : UTSGUID
     {
+
         internal const string OPAQUE = "Opaque";
         internal const string TRANSPARENTCUTOUT = "TransparentCutOut";
         internal const string TRANSPARENT = "Transparent";
@@ -31,7 +32,7 @@ namespace UnityEditor.Rendering.Toon
         internal const string DO_IGNOREPROJECTION = "True";
         internal const string DONT_IGNOREPROJECTION = "False";
         internal string m_renderType;
-        internal UTSINFO(string guid, string shaderName, string renderType ) : base(guid, shaderName)
+        internal UTS2INFO(string guid, string shaderName, string renderType ) : base(guid, shaderName)
         {
             m_renderType = renderType;
         }
