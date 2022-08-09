@@ -372,7 +372,7 @@ namespace UnityEditor.Rendering.Toon
                 }
                 material.shader = Shader.Find(kIntegratedUTS3Name);
                 var shaderGUID = m_Material2GUID_Dictionary[material];
-                var UTS2GUID = m_GuidToUTSID_Dictionary[shaderGUID] as UTS2INFO;
+                var UTS2Info = m_GuidToUTSID_Dictionary[shaderGUID] as UTS2INFO;
                
                 UTS3GUI.UTS_TransparentMode transparencyEnabled = UTS3GUI.UTS_TransparentMode.Off;
 
@@ -381,7 +381,7 @@ namespace UnityEditor.Rendering.Toon
 
                 int stencilNo_Setting = UTS3GUI.MaterialGetInt(material, UTS3GUI.ShaderPropStencilNo);
                 int autoRenderQueue = UTS3GUI.MaterialGetInt(material, UTS3GUI.ShaderPropAutoRenderQueue);
-                var renderType = UTS2GUID.m_renderType;
+                var renderType = UTS2Info.m_renderType;
                 if (renderType == UTS2INFO.TRANSPARENT)
                 {
                     transparencyEnabled = UTS3GUI.UTS_TransparentMode.On;
@@ -399,7 +399,7 @@ namespace UnityEditor.Rendering.Toon
                         break;
                 }
 
-                var clippingMode = UTS3GUI.MaterialGetInt(material, UTS3GUI.ShaderPropClippingMode);
+
 
                 if (transparencyEnabled == UTS3GUI.UTS_TransparentMode.On)
                 {
@@ -418,8 +418,8 @@ namespace UnityEditor.Rendering.Toon
 
                 BasicLookdevs(material);
                 SetGameRecommendation(material);
-
-                ApplyClippingMode(material);
+                var clippingMode = UTS2Info.clippingMode;
+                ApplyClippingMode(material, clippingMode);
                 ApplyStencilMode(material);
                 ApplyAngelRing(material);
                 ApplyMatCapMode(material);
@@ -639,7 +639,7 @@ namespace UnityEditor.Rendering.Toon
 
 
         }
-        void ApplyClippingMode(Material material)
+        void ApplyClippingMode(Material material,int clippingMode)
         {
 
             if (!IsShadingGrademap(material))
@@ -649,7 +649,7 @@ namespace UnityEditor.Rendering.Toon
                 material.DisableKeyword(UTS3GUI.ShaderDefineIS_TRANSCLIPPING_OFF);
                 material.DisableKeyword(UTS3GUI.ShaderDefineIS_TRANSCLIPPING_ON);
 
-                switch (UTS3GUI.MaterialGetInt(material, UTS3GUI.ShaderPropClippingMode))
+                switch (clippingMode)
                 {
                     case 0:
                         material.EnableKeyword(UTS3GUI.ShaderDefineIS_CLIPPING_OFF);
@@ -665,12 +665,15 @@ namespace UnityEditor.Rendering.Toon
                         material.DisableKeyword(UTS3GUI.ShaderDefineIS_OUTLINE_CLIPPING_NO);
                         material.EnableKeyword(UTS3GUI.ShaderDefineIS_OUTLINE_CLIPPING_YES);
                         break;
-                    default:
+                    case 2:
                         material.DisableKeyword(UTS3GUI.ShaderDefineIS_CLIPPING_OFF);
                         material.DisableKeyword(UTS3GUI.ShaderDefineIS_CLIPPING_MODE);
                         material.EnableKeyword(UTS3GUI.ShaderDefineIS_CLIPPING_TRANSMODE);
                         material.DisableKeyword(UTS3GUI.ShaderDefineIS_OUTLINE_CLIPPING_NO);
                         material.EnableKeyword(UTS3GUI.ShaderDefineIS_OUTLINE_CLIPPING_YES);
+                        break;
+                    default:
+                        Debug.Assert(false);
                         break;
                 }
             }
@@ -681,25 +684,27 @@ namespace UnityEditor.Rendering.Toon
                 material.DisableKeyword(UTS3GUI.ShaderDefineIS_CLIPPING_OFF);
                 material.DisableKeyword(UTS3GUI.ShaderDefineIS_CLIPPING_MODE);
                 material.DisableKeyword(UTS3GUI.ShaderDefineIS_CLIPPING_TRANSMODE);
-                switch (UTS3GUI.MaterialGetInt(material, UTS3GUI.ShaderPropClippingMode))
+                switch (clippingMode)
                 {
                     case 0:
                         material.EnableKeyword(UTS3GUI.ShaderDefineIS_TRANSCLIPPING_OFF);
                         material.DisableKeyword(UTS3GUI.ShaderDefineIS_TRANSCLIPPING_ON);
                         break;
-                    default:
+                    case 1:
                         material.DisableKeyword(UTS3GUI.ShaderDefineIS_TRANSCLIPPING_OFF);
                         material.EnableKeyword(UTS3GUI.ShaderDefineIS_TRANSCLIPPING_ON);
+                        break;
+                    default:
+                        Debug.Assert(false);
                         break;
 
                 }
 
             }
-
+            UTS3GUI.MaterialSetInt(material, UTS3GUI.ShaderPropClippingMode, clippingMode);
         }
 
-        const string srpDefaultColorMask = "_SPRDefaultUnlitColorMask";
-        const string srpDefaultCullMode = "_SRPDefaultUnlitColMode";
+
 
 
 

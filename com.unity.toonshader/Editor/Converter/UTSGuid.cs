@@ -32,9 +32,24 @@ namespace UnityEditor.Rendering.Toon
         internal const string DO_IGNOREPROJECTION = "True";
         internal const string DONT_IGNOREPROJECTION = "False";
         internal string m_renderType;
-        internal UTS2INFO(string guid, string shaderName, string renderType ) : base(guid, shaderName)
+        internal UTS2INFO(string guid, string shaderName, string renderType  ) : base(guid, shaderName)
         {
             m_renderType = renderType;
+        }
+        internal int clippingMode
+        {
+            get
+            {
+                if (m_ShaderName.Contains("TransClipping"))
+                {
+                    return 2;
+                }
+                if (m_ShaderName.Contains("Clipping"))
+                {
+                    return 1;
+                }
+                return 0;
+            }
         }
     }
 
