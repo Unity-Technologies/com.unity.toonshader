@@ -409,7 +409,7 @@ namespace UnityEditor.Rendering.Toon
                 }
                 SetCullingMode(material);
 
-                SetAutoRenderQueue(material, 0);
+                SetAutoRenderQueue(material, 1);
 
                 SetTranparent(material, transparencyEnabled);
 
@@ -603,9 +603,8 @@ namespace UnityEditor.Rendering.Toon
             }
         }
 
-        void ApplyStencilMode(Material material)
+        void ApplyStencilMode(Material material, UTS3GUI.UTS_StencilMode mode)
         {
-            UTS3GUI.UTS_StencilMode mode = (UTS3GUI.UTS_StencilMode)(UTS3GUI.MaterialGetInt(material, UTS3GUI.ShaderPropStencilMode));
             switch (mode)
             {
                 case UTS3GUI.UTS_StencilMode.Off:

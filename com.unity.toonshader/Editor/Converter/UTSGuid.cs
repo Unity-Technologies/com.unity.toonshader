@@ -41,11 +41,13 @@ namespace UnityEditor.Rendering.Toon
         internal string m_renderType;
         internal bool m_transparency;
         internal RenderQueue m_renderQueue;
-        internal UTS2INFO(string guid, string shaderName, string renderType, bool transparency, RenderQueue renderQueue ) : base(guid, shaderName)
+        internal UTS3GUI.UTS_StencilMode m_stencilMode;
+        internal UTS2INFO(string guid, string shaderName, string renderType, bool transparency, RenderQueue renderQueue, UTS3GUI.UTS_StencilMode stencilMode ) : base(guid, shaderName)
         {
             m_renderType = renderType;
             m_transparency = transparency;
             m_renderQueue = renderQueue;
+            m_stencilMode = stencilMode;
         }
         internal int clippingMode
         {
