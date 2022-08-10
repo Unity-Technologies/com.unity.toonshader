@@ -366,10 +366,12 @@ namespace UnityEditor.Rendering.Toon
 
                 string path = AssetDatabase.GUIDToAssetPath(guid);
                 Material material = AssetDatabase.LoadAssetAtPath<Material>(path);
-                if (material.name == "UTS2_TransClipping")
+/*
+                if (material.name == "ToonShader_Eyebrow_StencilMask")
                 {
-                    Debug.Log("UTS2_TransClipping");
+                    Debug.Log("ToonShader_Eyebrow_StencilMask");
                 }
+*/
                 material.shader = Shader.Find(kIntegratedUTS3Name);
                 var shaderGUID = m_Material2GUID_Dictionary[material];
                 var UTS2Info = m_GuidToUTSID_Dictionary[shaderGUID] as UTS2INFO;
@@ -538,8 +540,7 @@ namespace UnityEditor.Rendering.Toon
 
         void ApplyQueueAndRenderType(Material material, UTS3GUI.UTS_Mode technique, RenderQueue renderQueue,UTS3GUI.UTS_TransparentMode transperentSetting )
         {
-            var stencilMode = (UTS3GUI.UTS_StencilMode)UTS3GUI.MaterialGetInt(material, UTS3GUI.ShaderPropStencilMode);
-
+ 
 
 
 
@@ -605,6 +606,8 @@ namespace UnityEditor.Rendering.Toon
 
         void ApplyStencilMode(Material material, UTS3GUI.UTS_StencilMode mode)
         {
+            UTS3GUI.MaterialSetInt(material, UTS3GUI.ShaderPropStencilMode,(int)mode);
+
             switch (mode)
             {
                 case UTS3GUI.UTS_StencilMode.Off:
