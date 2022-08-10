@@ -366,12 +366,12 @@ namespace UnityEditor.Rendering.Toon
 
                 string path = AssetDatabase.GUIDToAssetPath(guid);
                 Material material = AssetDatabase.LoadAssetAtPath<Material>(path);
-/*
-                if (material.name == "ToonShader_Eyebrow_StencilMask")
+
+                if (material.name == "ShadingGradeMap")
                 {
-                    Debug.Log("ToonShader_Eyebrow_StencilMask");
+                    Debug.Log("ShadingGradeMap");
                 }
-*/
+
                 material.shader = Shader.Find(kIntegratedUTS3Name);
                 var shaderGUID = m_Material2GUID_Dictionary[material];
                 var UTS2Info = m_GuidToUTSID_Dictionary[shaderGUID] as UTS2INFO;
@@ -416,7 +416,8 @@ namespace UnityEditor.Rendering.Toon
                 SetTranparent(material, transparencyEnabled);
 
                 BasicLookdevs(material);
-                SetGameRecommendation(material);
+                // Should be kept as it is.
+                // SetGameRecommendation(material);
                 var clippingMode = UTS2Info.clippingMode;
                 ApplyClippingMode(material, clippingMode);
                 ApplyStencilMode(material, UTS2Info.m_stencilMode);
