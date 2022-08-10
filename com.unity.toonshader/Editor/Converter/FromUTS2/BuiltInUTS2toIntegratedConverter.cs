@@ -417,7 +417,7 @@ namespace UnityEditor.Rendering.Toon
                 SetGameRecommendation(material);
                 var clippingMode = UTS2Info.clippingMode;
                 ApplyClippingMode(material, clippingMode);
-                ApplyStencilMode(material);
+                ApplyStencilMode(material, UTS2Info.m_stencilMode);
                 ApplyAngelRing(material);
                 ApplyMatCapMode(material);
 
