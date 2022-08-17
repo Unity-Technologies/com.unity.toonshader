@@ -182,6 +182,7 @@ namespace UnityEditor.Rendering.Toon
             return null;
         }
 
+
         [MenuItem("Window/Rendering/Create UTS2 Table", false, 51)]
         static void CreateUTS2Table()
         {
@@ -229,7 +230,17 @@ namespace UnityEditor.Rendering.Toon
                     // 
                     foreach (var line in lines)
                     {
-                        string[] words = line.Split(RenderPipelineConverterContainer.wordSepeators, StringSplitOptions.None);
+                        string[] wordTmp = line.Split(RenderPipelineConverterContainer.wordSepeators, StringSplitOptions.RemoveEmptyEntries);
+                        List<string> wordTmpList = new List<string>();
+                        foreach ( var word in wordTmp)
+                        {
+                            if ( word != " " && word != "," && word != ":" && word!= "\t" )
+                            {
+                                wordTmpList.Add(word);
+                            }
+
+                        }
+                        string[] words = wordTmpList.ToArray();
                         var targetWord = Array.Find<string>(words, word => word.StartsWith("UsePass"));
                         if (targetWord == null)
                         {
@@ -259,39 +270,107 @@ namespace UnityEditor.Rendering.Toon
                     }
                     // done,  usepass shader file.
                     int lineNo = 0;
-                    bool checkSubShaderBlock = false;
-                    bool inSubShaderBlock = false;
+                    bool findingShaderBlock = false;
+                    bool parsingShaderBlock = false;
+
+                    bool findingProperyBlock = false;
+                    bool parsingProperyBlock = false;
+
+                    bool findingSubShaderBlock = false;
+                    bool parsingSubShaderBlock = false;
                     int balanceLevel = 0;
                     foreach (var line in lines)
                     {
                         string[] words = line.Split(RenderPipelineConverterContainer.wordSepeators, StringSplitOptions.None);
-                        var targetWord = Array.Find<string>(words, word => word.ToLower() == "SubShader".ToLower());
-                        if ( targetWord == "SubShader".ToLower())
+                        if (words == null || words.Length == 0)
                         {
-                            checkSubShaderBlock = true;
+                            lineNo++;
+                            continue;
+                        }
+                        bool commentFlag = false;
+                        for (int ii = 0; ii < words.Length; ii++)
+                        {
+                            words[ii] = words[ii].ToLower();
+                            if (words[ii].StartsWith("//") || commentFlag)
+                            {
+                                words[ii] = "//";
+                                commentFlag = true;
+                            }
                         }
                         var indexOfKakko = Array.IndexOf<string>(words, "{");
                         var indexOfKokka = Array.IndexOf<string>(words, "}");
+                        if (!findingShaderBlock && !parsingShaderBlock)
+                        {
+                            if ( balanceLevel != 0)
+                            {
+                                Debug.LogError("Parse Error.");
+                            }
+                            Debug.Assert(balanceLevel == 0);
+                            if ( Array.IndexOf<string>(words,"shader") >= 0)
+                            {
+                                findingShaderBlock = true;
+                            }
+                        }
+
+
                         if (indexOfKakko >= 0)
                         {
-                            if (checkSubShaderBlock && balanceLevel == 0)
+
+                            if (balanceLevel == 0 && findingShaderBlock)
                             {
-                                inSubShaderBlock = true;
-                                checkSubShaderBlock = false;
+                                parsingShaderBlock = true;
+                                findingShaderBlock = false;
+                            }
+                            if (balanceLevel == 1)
+                            {
+                                Debug.Assert(parsingShaderBlock);
+                                if (Array.IndexOf<string>(words, "properties") >= 0)
+                                {
+                                    findingProperyBlock = true;
+                                }
+                                if (findingProperyBlock && indexOfKakko >= 0)
+                                {
+                                    findingProperyBlock = false;
+                                    parsingProperyBlock = true;
+                                }
+
+                                if (Array.IndexOf<string>(words, "subshader") >= 0)
+                                {
+                                    findingSubShaderBlock = true;
+                                }
+                                if (findingSubShaderBlock && indexOfKakko >= 0)
+                                {
+                                    findingSubShaderBlock = false;
+                                    parsingSubShaderBlock = true;
+                                }
                             }
                             balanceLevel++;
                         }
                         if (indexOfKokka >= 0)
                         {
                             balanceLevel--;
-                            if ( balanceLevel == 0 && inSubShaderBlock )
+                            if (parsingShaderBlock && balanceLevel == 0)
                             {
-                                inSubShaderBlock = false;
+                                parsingShaderBlock = false;
+                            }
+                            if (parsingProperyBlock == true && balanceLevel == 1)
+                            {
+                                parsingProperyBlock = false;
+                            }
+                            if (parsingSubShaderBlock == true && balanceLevel == 1)
+                            {
+                                parsingSubShaderBlock = false;
                             }
                         }
-   
+                        
                         lineNo++;
+                    } // 
+                    Debug.Assert(!parsingShaderBlock);
+                    if (balanceLevel != 0)
+                    {
+                        Debug.LogError("Parse Error2.");
                     }
+                    Debug.Assert(balanceLevel == 0);
                 }
             }
         }
