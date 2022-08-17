@@ -19,10 +19,10 @@ namespace UnityEditor.Rendering.Toon
         protected string[] m_materialGuids;
         internal int m_versionErrorCount = 0;
 
-        protected readonly string[] lineSeparators = new[] { "\r\n", "\r", "\n" };
-        protected readonly string[] targetSepeartors = new[] { ":", "," };
-        protected readonly string[] targetSepeartors2 = new[] { ":" };
-
+        internal static readonly string[] lineSeparators = new[] { "\r\n", "\r", "\n" };
+        internal static readonly string[] targetSepeartors = new[] { ":", "," };
+        internal static readonly string[] targetSepeartors2 = new[] { ":" };
+        internal static readonly char[] wordSepeators = new[] { ' ', ',', '.', ':', '\t' };
 
         protected List<string> m_ConvertingMaterialGuids = new List<string>();
         protected Dictionary<Material, string> m_Material2GUID_Dictionary = new Dictionary<Material, string>();

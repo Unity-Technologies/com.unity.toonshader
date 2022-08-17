@@ -20,7 +20,7 @@ namespace UnityEditor.Rendering.Toon
         internal string m_ShaderName;
         internal string m_Guid;
     }
-    enum RenderQueue
+    enum UTS2RenderQueue
     {
         None,
         AlphaTestMinus1,
@@ -39,15 +39,15 @@ namespace UnityEditor.Rendering.Toon
         internal const string DO_IGNOREPROJECTION = "True";
         internal const string DONT_IGNOREPROJECTION = "False";
         internal string m_renderType;
-        internal bool m_transparency;
-        internal RenderQueue m_renderQueue;
+//        internal bool m_transparency;
+        internal UTS2RenderQueue m_renderQueue;
         internal UTS3GUI.UTS_StencilMode m_stencilMode;
         internal int m_clippingMode;
 
-        internal UTS2INFO(string guid, string shaderName, string renderType, bool transparency, RenderQueue renderQueue, UTS3GUI.UTS_StencilMode stencilMode, int clippingMode ) : base(guid, shaderName)
+        internal UTS2INFO(string guid, string shaderName, string renderType, bool transparency, UTS2RenderQueue renderQueue, UTS3GUI.UTS_StencilMode stencilMode, int clippingMode ) : base(guid, shaderName)
         {
             m_renderType = renderType;
-            m_transparency = transparency;
+//            m_transparency = transparency;
             m_renderQueue = renderQueue;
             m_stencilMode = stencilMode;
             m_clippingMode = clippingMode;

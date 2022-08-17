@@ -376,7 +376,7 @@ namespace UnityEditor.Rendering.Toon
                 var shaderGUID = m_Material2GUID_Dictionary[material];
                 var UTS2Info = m_GuidToUTSID_Dictionary[shaderGUID] as UTS2INFO;
 
-                UTS3GUI.UTS_TransparentMode transparencyEnabled = (UTS2Info.m_renderQueue == RenderQueue.Transparent) ? UTS3GUI.UTS_TransparentMode.On : UTS3GUI.UTS_TransparentMode.Off;
+                UTS3GUI.UTS_TransparentMode transparencyEnabled = (UTS2Info.m_renderQueue == UTS2RenderQueue.Transparent) ? UTS3GUI.UTS_TransparentMode.On : UTS3GUI.UTS_TransparentMode.Off;
 
 
 
@@ -539,7 +539,7 @@ namespace UnityEditor.Rendering.Toon
             return UTS3GUI.MaterialGetInt(material, UTS3GUI.ShaderPropUtsTechniqe) == (int)UTS3GUI.UTS_Mode.ShadingGradeMap;
         }
 
-        void ApplyQueueAndRenderType(Material material, UTS3GUI.UTS_Mode technique, RenderQueue renderQueue,UTS3GUI.UTS_TransparentMode transperentSetting )
+        void ApplyQueueAndRenderType(Material material, UTS3GUI.UTS_Mode technique, UTS2RenderQueue renderQueue,UTS3GUI.UTS_TransparentMode transperentSetting )
         {
  
 
@@ -559,16 +559,16 @@ namespace UnityEditor.Rendering.Toon
             //            material.SetOverrideTag(UTS2INFO.IGNOREPROJECTION, ignoreProjection);
             switch (renderQueue)
             {
-                case RenderQueue.None:
+                case UTS2RenderQueue.None:
                     material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Geometry;
                     break;
-                case RenderQueue.AlphaTest:
+                case UTS2RenderQueue.AlphaTest:
                     material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.AlphaTest;
                     break;
-                case RenderQueue.AlphaTestMinus1:
+                case UTS2RenderQueue.AlphaTestMinus1:
                     material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.AlphaTest - 1;
                     break;
-                case RenderQueue.Transparent:
+                case UTS2RenderQueue.Transparent:
                     material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
                     break;
             }
