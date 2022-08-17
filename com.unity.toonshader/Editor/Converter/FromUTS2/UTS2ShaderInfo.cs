@@ -276,6 +276,7 @@ namespace UnityEditor.Rendering.Toon
                     bool isSGM = false;
 
                     int balanceLevel = 0;
+                    int clippngMode = 0;
                     UTS3GUI.UTS_StencilMode stencilMode = UTS3GUI.UTS_StencilMode.Off;
                     foreach (var lineTmp in lines)
                     {
@@ -307,6 +308,12 @@ namespace UnityEditor.Rendering.Toon
                                 commentFlag = true;
                             }
                         }
+                        List<string> wordsTmp = new List<string>();
+                        foreach ( var word in words)
+                        {
+                            wordsTmp.Add(word.ToUpper());
+                        }
+                        string[] wordsUpper = wordsTmp.ToArray();
                         var indexOfKakko = Array.IndexOf<string>(words, "{");
                         var indexOfKokka = Array.IndexOf<string>(words, "}");
                         if (!findingShaderBlock && !parsingShaderBlock)
@@ -333,16 +340,51 @@ namespace UnityEditor.Rendering.Toon
                                 findingSubShaderBlock = true;
                             }
                         }
-                        if ( parsingProperyBlock)
+                        if (parsingProperyBlock)
                         {
+                            // SGM ?
                             if (Array.IndexOf<string>(words, "_utstechnique") >= 0)
                             {
                                 var indexOfEqueal = Array.IndexOf<string>(words, "=");
                                 Debug.Assert(indexOfEqueal > 1);
                                 isSGM = words[indexOfEqueal + 1] == "1";
-                                Debug.Log("isSGM =  " + isSGM);
-                            }
 
+                            }
+                            // Clipping Mode
+                            var indexOfMultiCompile = Array.IndexOf<string>(words, "multi_compile");
+                            if (indexOfMultiCompile > 1)
+                            {
+                                var indexOfPragma = Array.IndexOf<string>(words, "#pragma");
+                                if (indexOfPragma >= 0 && indexOfMultiCompile > indexOfPragma)
+                                {
+                                    if (isSGM)
+                                    {
+                                        if (Array.IndexOf<string>(wordsUpper, UTS3GUI.ShaderDefineIS_CLIPPING_OFF) > 0)
+                                        {
+                                            clippngMode = 0;
+                                        }
+                                        if (Array.IndexOf<string>(wordsUpper, UTS3GUI.ShaderDefineIS_CLIPPING_MODE) > 0)
+                                        {
+                                            clippngMode = 1;
+                                        }
+                                        if (Array.IndexOf<string>(wordsUpper, UTS3GUI.ShaderDefineIS_CLIPPING_TRANSMODE) > 0)
+                                        {
+                                            clippngMode =2;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (Array.IndexOf<string>(wordsUpper, UTS3GUI.ShaderDefineIS_TRANSCLIPPING_OFF) > 0)
+                                        {
+                                            clippngMode = 0;
+                                        }
+                                        if (Array.IndexOf<string>(wordsUpper, UTS3GUI.ShaderDefineIS_TRANSCLIPPING_ON) > 0)
+                                        {
+                                            clippngMode = 1;
+                                        }
+                                    }
+                                }
+                            }
                         }
                         else if ( parsingSubShaderBlock )
                         {
@@ -436,7 +478,7 @@ namespace UnityEditor.Rendering.Toon
                         transparency: true,
                         queueInTable,
                         stencilMode,
-                        (int)UTS3GUI.UTS_ClippingMode.Off);
+                        (int)clippngMode);
                 }
             }
         }
