@@ -22,7 +22,7 @@ namespace UnityEditor.Rendering.Toon
         internal static readonly string[] lineSeparators = new[] { "\r\n", "\r", "\n" };
         internal static readonly string[] targetSepeartors = new[] { ":", "," };
         internal static readonly string[] targetSepeartors2 = new[] { ":" };
-        internal static readonly char[] wordSepeators = new[] { ' ', ',', ':','{','}', '\t' };
+        internal static readonly char[] wordSepeators = new[] { ' ', ',', ':', '\t' };
 
         protected List<string> m_ConvertingMaterialGuids = new List<string>();
         protected Dictionary<Material, string> m_Material2GUID_Dictionary = new Dictionary<Material, string>();

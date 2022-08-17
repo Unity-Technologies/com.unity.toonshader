@@ -197,12 +197,13 @@ namespace UnityEditor.Rendering.Toon
                 {
                     string path = AssetDatabase.GUIDToAssetPath(shaderInfo.m_Guid);
                     Debug.Assert(!string.IsNullOrEmpty(path));
+                    string originalPath = path;
                     Shader shader = AssetDatabase.LoadAssetAtPath<Shader>(path);
                     var material = new Material(shader);
                     materials.Add(material);
 
 
-                    UTS2RenderQueue queueInTable;
+                    UTS2RenderQueue queueInTable = UTS2RenderQueue.None;
                     switch (shader.renderQueue)
                     {
                         case (int)UnityEngine.Rendering.RenderQueue.Geometry:
@@ -230,17 +231,7 @@ namespace UnityEditor.Rendering.Toon
                     // 
                     foreach (var line in lines)
                     {
-                        string[] wordTmp = line.Split(RenderPipelineConverterContainer.wordSepeators, StringSplitOptions.RemoveEmptyEntries);
-                        List<string> wordTmpList = new List<string>();
-                        foreach ( var word in wordTmp)
-                        {
-                            if ( word != " " && word != "," && word != ":" && word!= "\t" )
-                            {
-                                wordTmpList.Add(word);
-                            }
-
-                        }
-                        string[] words = wordTmpList.ToArray();
+                        string[] words = line.Split(RenderPipelineConverterContainer.wordSepeators, StringSplitOptions.None);
                         var targetWord = Array.Find<string>(words, word => word.StartsWith("UsePass"));
                         if (targetWord == null)
                         {
@@ -278,10 +269,29 @@ namespace UnityEditor.Rendering.Toon
 
                     bool findingSubShaderBlock = false;
                     bool parsingSubShaderBlock = false;
+
+                    bool findingStencilBlock = false;
+                    bool parsingStencilBlock = false;
+
+                    bool isSGM = false;
+
                     int balanceLevel = 0;
-                    foreach (var line in lines)
+                    UTS3GUI.UTS_StencilMode stencilMode = UTS3GUI.UTS_StencilMode.Off;
+                    foreach (var lineTmp in lines)
                     {
-                        string[] words = line.Split(RenderPipelineConverterContainer.wordSepeators, StringSplitOptions.None);
+                        string line = lineTmp;
+                        if (lineTmp.Contains("{") )
+                        {
+                            line = lineTmp.Replace("{", " { ");
+                        }
+                        if (lineTmp.Contains("}"))
+                        {
+                            line = lineTmp.Replace("}", " } ");
+
+                        }
+                        string[] words = line.Split(RenderPipelineConverterContainer.wordSepeators, StringSplitOptions.RemoveEmptyEntries);
+
+
                         if (words == null || words.Length == 0)
                         {
                             lineNo++;
@@ -311,6 +321,51 @@ namespace UnityEditor.Rendering.Toon
                                 findingShaderBlock = true;
                             }
                         }
+                        if ( balanceLevel == 1)
+                        {
+                            if (Array.IndexOf<string>(words, "properties") >= 0)
+                            {
+                                findingProperyBlock = true;
+                            }
+
+                            if (Array.IndexOf<string>(words, "subshader") >= 0)
+                            {
+                                findingSubShaderBlock = true;
+                            }
+                        }
+                        if ( parsingProperyBlock)
+                        {
+                            if (Array.IndexOf<string>(words, "_utstechnique") >= 0)
+                            {
+                                var indexOfEqueal = Array.IndexOf<string>(words, "=");
+                                Debug.Assert(indexOfEqueal > 1);
+                                isSGM = words[indexOfEqueal + 1] == "1";
+                                Debug.Log("isSGM =  " + isSGM);
+                            }
+
+                        }
+                        else if ( parsingSubShaderBlock )
+                        {
+                            if (Array.IndexOf<string>(words, "stencil") >= 0)
+                            {
+                                findingStencilBlock = true;
+                            }
+                            if ( parsingStencilBlock )
+                            {
+                                if (Array.IndexOf<string>(words, "comp") == 0)
+                                {
+                                    Debug.Assert(words.Length >= 2);
+                                    if (Array.IndexOf<string>(words, "always") > 0)
+                                    {
+                                        stencilMode = UTS3GUI.UTS_StencilMode.StencilMask;
+                                    }
+                                    if (Array.IndexOf<string>(words, "notequal") > 0)
+                                    {
+                                        stencilMode = UTS3GUI.UTS_StencilMode.StencilOut;
+                                    }
+                                }
+                            }
+                        }
 
 
                         if (indexOfKakko >= 0)
@@ -324,26 +379,26 @@ namespace UnityEditor.Rendering.Toon
                             if (balanceLevel == 1)
                             {
                                 Debug.Assert(parsingShaderBlock);
-                                if (Array.IndexOf<string>(words, "properties") >= 0)
-                                {
-                                    findingProperyBlock = true;
-                                }
-                                if (findingProperyBlock && indexOfKakko >= 0)
+
+                                if (findingProperyBlock)
                                 {
                                     findingProperyBlock = false;
                                     parsingProperyBlock = true;
                                 }
 
-                                if (Array.IndexOf<string>(words, "subshader") >= 0)
-                                {
-                                    findingSubShaderBlock = true;
-                                }
-                                if (findingSubShaderBlock && indexOfKakko >= 0)
+
+                                if (findingSubShaderBlock )
                                 {
                                     findingSubShaderBlock = false;
                                     parsingSubShaderBlock = true;
                                 }
                             }
+                            if (findingStencilBlock)
+                            {
+                                findingStencilBlock = false;
+                                parsingStencilBlock = true;
+                            }
+
                             balanceLevel++;
                         }
                         if (indexOfKokka >= 0)
@@ -361,6 +416,10 @@ namespace UnityEditor.Rendering.Toon
                             {
                                 parsingSubShaderBlock = false;
                             }
+                            if ( parsingStencilBlock == true )
+                            {
+                                parsingStencilBlock = false;
+                            }
                         }
                         
                         lineNo++;
@@ -371,6 +430,13 @@ namespace UnityEditor.Rendering.Toon
                         Debug.LogError("Parse Error2.");
                     }
                     Debug.Assert(balanceLevel == 0);
+                    UTS2INFO targetInfo = new UTS2INFO(shaderInfo.m_Guid,
+                        originalPath,
+                        UTS2INFO.OPAQUE,
+                        transparency: true,
+                        queueInTable,
+                        stencilMode,
+                        (int)UTS3GUI.UTS_ClippingMode.Off);
                 }
             }
         }
