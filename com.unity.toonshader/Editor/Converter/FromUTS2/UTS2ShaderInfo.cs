@@ -151,6 +151,37 @@ namespace UnityEditor.Rendering.Toon
             shaderPath = shaderPath.Substring(1, length);
             return shaderPath;
         }
+        static string FindShaderFile(string shaderName, List<UTS2INFO[]> infoSrcTables)
+        {
+            foreach (var srcTable in infoSrcTables)
+            {
+                foreach (var shaderInfo in srcTable)
+                {
+                    string path = AssetDatabase.GUIDToAssetPath(shaderInfo.m_Guid);
+                    Debug.Assert(!string.IsNullOrEmpty(path));
+                    Shader shader = AssetDatabase.LoadAssetAtPath<Shader>(path);
+                    string content = File.ReadAllText(path);
+                    string[] lines = content.Split(RenderPipelineConverterContainer.lineSeparators, StringSplitOptions.None);
+                    foreach (var line in lines)
+                    {
+                        string[] words = line.Split(RenderPipelineConverterContainer.wordSepeators, StringSplitOptions.None);
+                        if (words.Length > 2 && words[0].StartsWith("Shader", StringComparison.OrdinalIgnoreCase))
+                        {
+                            var targetShaderName = Array.Find<string>(words, word => word.Contains(kUnityChanToonShader));
+                            Debug.Assert(targetShaderName.Length > 2);
+                            targetShaderName = targetShaderName.Substring(1, targetShaderName.Length - 2);
+                            if ( targetShaderName == shaderName)
+                            {
+                                return path;
+                            }
+
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+
         [MenuItem("Window/Rendering/Create UTS2 Table", false, 51)]
         static void CreateUTS2Table()
         {
@@ -205,12 +236,17 @@ namespace UnityEditor.Rendering.Toon
                         {
                             continue;
                         }
-                        var shaderPath = Array.Find<string>(words, word => word.Contains(kUnityChanToonShader));
-                        if (! shaderPath.Contains(kForward))
+                        var shaderName = Array.Find<string>(words, word => word.Contains(kUnityChanToonShader));
+                        if (! shaderName.Contains(kForward))
                         {
                             continue;
                         }
-                        shaderPath = GetShaderPath(line);
+                        shaderName = GetShaderPath(line);
+                        if ( shaderName != null)
+                        {
+                            path = FindShaderFile(shaderName, infoSrcTables);
+
+                        }
                     }
 
 
