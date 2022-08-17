@@ -197,10 +197,10 @@ namespace UnityEditor.Rendering.Toon
                     string path = AssetDatabase.GUIDToAssetPath(shaderInfo.m_Guid);
                     Debug.Assert(!string.IsNullOrEmpty(path));
                     Shader shader = AssetDatabase.LoadAssetAtPath<Shader>(path);
-                    string content = File.ReadAllText(path);
-                    string[] lines = content.Split(RenderPipelineConverterContainer.lineSeparators, StringSplitOptions.None);
                     var material = new Material(shader);
                     materials.Add(material);
+
+
                     UTS2RenderQueue queueInTable;
                     switch (shader.renderQueue)
                     {
@@ -210,7 +210,7 @@ namespace UnityEditor.Rendering.Toon
                         case (int)UnityEngine.Rendering.RenderQueue.AlphaTest:
                             queueInTable = UTS2RenderQueue.AlphaTest;
                             break;
-                        case (int)UnityEngine.Rendering.RenderQueue.AlphaTest-1:
+                        case (int)UnityEngine.Rendering.RenderQueue.AlphaTest - 1:
                             queueInTable = UTS2RenderQueue.AlphaTestMinus1;
                             break;
                         case (int)UnityEngine.Rendering.RenderQueue.Transparent:
@@ -220,36 +220,78 @@ namespace UnityEditor.Rendering.Toon
                             Debug.Assert(false);
                             break;
                     }
+
+                    string content = File.ReadAllText(path);
+                    string[] lines = content.Split(RenderPipelineConverterContainer.lineSeparators, StringSplitOptions.None);
+
                     // stencil
                     // first of all we need to locate shaders set stencil mode in others
-                    foreach ( var line in lines)
+                    // 
+                    foreach (var line in lines)
                     {
-
                         string[] words = line.Split(RenderPipelineConverterContainer.wordSepeators, StringSplitOptions.None);
                         var targetWord = Array.Find<string>(words, word => word.StartsWith("UsePass"));
                         if (targetWord == null)
                         {
-                            continue; // todo. prefab?
+                            continue;
                         }
-                        Debug.Assert(line.Contains(kUnityChanToonShader)); 
+                        Debug.Assert(line.Contains(kUnityChanToonShader));
                         if (!line.Contains(kUnityChanToonShader))
                         {
                             continue;
                         }
                         var shaderName = Array.Find<string>(words, word => word.Contains(kUnityChanToonShader));
-                        if (! shaderName.Contains(kForward))
+                        if (!shaderName.Contains(kForward))
                         {
                             continue;
                         }
                         shaderName = GetShaderPath(line);
-                        if ( shaderName != null)
+                        if (shaderName != null)
                         {
                             path = FindShaderFile(shaderName, infoSrcTables);
-
+                            if (path != null)
+                            {
+                                content = File.ReadAllText(path);
+                                lines = content.Split(RenderPipelineConverterContainer.lineSeparators, StringSplitOptions.None);
+                                break;
+                            }
                         }
                     }
-
-
+                    // done,  usepass shader file.
+                    int lineNo = 0;
+                    bool checkSubShaderBlock = false;
+                    bool inSubShaderBlock = false;
+                    int balanceLevel = 0;
+                    foreach (var line in lines)
+                    {
+                        string[] words = line.Split(RenderPipelineConverterContainer.wordSepeators, StringSplitOptions.None);
+                        var targetWord = Array.Find<string>(words, word => word.ToLower() == "SubShader".ToLower());
+                        if ( targetWord == "SubShader".ToLower())
+                        {
+                            checkSubShaderBlock = true;
+                        }
+                        var indexOfKakko = Array.IndexOf<string>(words, "{");
+                        var indexOfKokka = Array.IndexOf<string>(words, "}");
+                        if (indexOfKakko >= 0)
+                        {
+                            if (checkSubShaderBlock && balanceLevel == 0)
+                            {
+                                inSubShaderBlock = true;
+                                checkSubShaderBlock = false;
+                            }
+                            balanceLevel++;
+                        }
+                        if (indexOfKokka >= 0)
+                        {
+                            balanceLevel--;
+                            if ( balanceLevel == 0 && inSubShaderBlock )
+                            {
+                                inSubShaderBlock = false;
+                            }
+                        }
+   
+                        lineNo++;
+                    }
                 }
             }
         }
