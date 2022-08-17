@@ -127,7 +127,30 @@ namespace UnityEditor.Rendering.Toon
             new UTS2INFO(  "08c6bb334aed21c4198cf46b71ebca2d", "Toon_ShadingGradeMap_TransClipping_Tess_StencilOut",UTS2INFO.TRANSPARENTCUTOUT,transparency:true,UTS2RenderQueue.AlphaTest,UTS3GUI.UTS_StencilMode.StencilMask, (int)UTS3GUI.UTS_TransClippingMode.On),
 
         };
-
+        const string kUnityChanToonShader = "\"UnityChanToonShader/";
+        const string kForward = "/FORWARD\"";
+        static string GetShaderPath(string lineInShaderFile)
+        {
+            string[] words = lineInShaderFile.Split(RenderPipelineConverterContainer.wordSepeators, StringSplitOptions.None);
+            var targetWord = Array.Find<string>(words, word => word.StartsWith("UsePass"));
+            if (targetWord == null)
+            {
+                return null;
+            }
+            Debug.Assert(lineInShaderFile.Contains(kUnityChanToonShader));
+            if (!lineInShaderFile.Contains(kUnityChanToonShader))
+            {
+                return null;
+            }
+            var shaderPath = Array.Find<string>(words, word => word.Contains(kUnityChanToonShader));
+            if (!shaderPath.EndsWith(kForward))
+            {
+                return null;
+            }
+            var length = shaderPath.Length - kForward.Length - 1;
+            shaderPath = shaderPath.Substring(1, length);
+            return shaderPath;
+        }
         [MenuItem("Window/Rendering/Create UTS2 Table", false, 51)]
         static void CreateUTS2Table()
         {
@@ -170,7 +193,7 @@ namespace UnityEditor.Rendering.Toon
                     // first of all we need to locate shaders set stencil mode in others
                     foreach ( var line in lines)
                     {
-                        const string kUnityChanToonShader = "\"UnityChanToonShader/";
+
                         string[] words = line.Split(RenderPipelineConverterContainer.wordSepeators, StringSplitOptions.None);
                         var targetWord = Array.Find<string>(words, word => word.StartsWith("UsePass"));
                         if (targetWord == null)
@@ -183,11 +206,11 @@ namespace UnityEditor.Rendering.Toon
                             continue;
                         }
                         var shaderPath = Array.Find<string>(words, word => word.Contains(kUnityChanToonShader));
-                        if (! shaderPath.Contains("/FORWARD\""))
+                        if (! shaderPath.Contains(kForward))
                         {
                             continue;
                         }
-                        Debug.Log(shaderPath);
+                        shaderPath = GetShaderPath(line);
                     }
 
 
