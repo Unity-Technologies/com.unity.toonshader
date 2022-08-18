@@ -201,7 +201,7 @@ namespace UnityEditor.Rendering.Toon
         UTSGUID FindUTS2GUID(string guid)
         {
             //            var ret = Array.Find<UTSGUID>(UTS2ShaderInfo.stdShaders, element => element.m_Guid == guid);
-#if false
+#if true
             foreach (var utsGuid in UTS2ShaderInfo.stdShaders)
             {
                 if (utsGuid.m_Guid == guid)

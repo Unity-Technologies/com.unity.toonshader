@@ -230,7 +230,7 @@ namespace UnityEditor.Rendering.Toon
                     var material = new Material(shader);
                     materials.Add(material);
 
-
+                    string renderType = UTS2INFO.OPAQUE;
                     UTS2RenderQueue queueInTable = UTS2RenderQueue.None;
                     switch (shader.renderQueue)
                     {
@@ -305,6 +305,9 @@ namespace UnityEditor.Rendering.Toon
                     bool findingPassBlock = false;
                     bool parsingPassBlock = false;
 
+                    bool findingTagsInSubShader = false;
+                    bool parsingTagsInSubShader = false;
+
                     bool isSGM = false;
 
                     int balanceLevel = 0;
@@ -322,6 +325,10 @@ namespace UnityEditor.Rendering.Toon
                             line = lineTmp.Replace("}", " } ");
 
                         }
+                        if (lineTmp.Contains("="))
+                        {
+                            line = lineTmp.Replace("=", " = ");
+                        }
                         string[] words = line.Split(RenderPipelineConverterContainer.wordSepeators, StringSplitOptions.RemoveEmptyEntries);
 
 
@@ -333,19 +340,28 @@ namespace UnityEditor.Rendering.Toon
                         bool commentFlag = false;
                         for (int ii = 0; ii < words.Length; ii++)
                         {
-                            words[ii] = words[ii].ToLower();
+
                             if (words[ii].StartsWith("//") || commentFlag)
                             {
                                 words[ii] = "//";
                                 commentFlag = true;
                             }
                         }
+
                         List<string> wordsTmp = new List<string>();
+                        List<string> wordsCaseSensitveTmp = new List<string>();
                         foreach ( var word in words)
                         {
                             wordsTmp.Add(word.ToUpper());
+                            wordsCaseSensitveTmp.Add(word);
+                        }
+                        for (int ii = 0; ii < words.Length; ii++)
+                        {
+                            words[ii] = words[ii].ToLower();
                         }
                         string[] wordsUpper = wordsTmp.ToArray();
+                        string[] wordsCaseSensitive = wordsCaseSensitveTmp.ToArray();
+
                         var indexOfKakko = Array.IndexOf<string>(words, "{");
                         var indexOfKokka = Array.IndexOf<string>(words, "}");
                         if (!findingShaderBlock && !parsingShaderBlock)
@@ -385,6 +401,13 @@ namespace UnityEditor.Rendering.Toon
                         }
                         else if ( parsingSubShaderBlock )
                         {
+                            if (!findingTagsInSubShader)
+                            {
+                                if (Array.IndexOf<string>(words, "tags") >= 0)
+                                {
+                                    findingTagsInSubShader = true;
+                                }
+                            }
                             if (!findingPassBlock)
                             {
                                 if ( Array.IndexOf<string>(words,"pass") >= 0)
@@ -400,6 +423,16 @@ namespace UnityEditor.Rendering.Toon
                                     {
                                         isForwardPass = true;
                                     }
+                                }
+                            }
+                            if ( parsingTagsInSubShader )
+                            {
+                                var renderTypeIndex = Array.IndexOf<string>(words, "\"rendertype\"");
+                                if ( renderTypeIndex >= 0 )
+                                {
+                                    var equalIndex = Array.IndexOf<string>(words, "=");
+                                    Debug.Assert(equalIndex == renderTypeIndex + 1);
+                                    renderType = wordsCaseSensitive[2].Substring(1, wordsCaseSensitive[2].Length - 2);
                                 }
                             }
                             if (isForwardPass && parsingPassBlock)
@@ -502,6 +535,12 @@ namespace UnityEditor.Rendering.Toon
                                 findingPassBlock = false;
                                 parsingPassBlock = true;
                             }
+                            if (findingTagsInSubShader)
+                            {
+                                findingTagsInSubShader = false;
+                                parsingTagsInSubShader = true;
+
+                            }
                             balanceLevel++;
                         }
                         if (indexOfKokka >= 0)
@@ -527,6 +566,10 @@ namespace UnityEditor.Rendering.Toon
                             {
                                 parsingPassBlock = false;
                             }
+                            if (parsingTagsInSubShader == true && balanceLevel == 2)
+                            {
+                                parsingTagsInSubShader = false;
+                            }
                         }
                         
                         lineNo++;
@@ -539,7 +582,7 @@ namespace UnityEditor.Rendering.Toon
                     Debug.Assert(balanceLevel == 0);
                     UTS2INFO targetInfo = new UTS2INFO(shaderInfo.m_Guid,
                         Path.GetFileName(originalPath),
-                        UTS2INFO.OPAQUE,
+                        renderType,
                         transparency: true,
                         queueInTable,
                         stencilMode,
