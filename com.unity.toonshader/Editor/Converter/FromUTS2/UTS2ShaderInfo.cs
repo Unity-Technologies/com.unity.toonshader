@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using UnityEngine;
 namespace UnityEditor.Rendering.Toon
 { 
@@ -182,7 +183,33 @@ namespace UnityEditor.Rendering.Toon
             return null;
         }
 
+        static void WriteTable(List<UTS2INFO> targetTable)
+        {
+            var fileName = "D:/TMP/Table.cs";
+            using (StreamWriter sw = new StreamWriter(fileName, false, System.Text.Encoding.ASCII))
+            {
+                sw.WriteLine("using System;");
+                sw.WriteLine("using System.Collections;");
+                sw.WriteLine("using System.Collections.Generic;");
+                sw.WriteLine("using System.IO;");
+                sw.WriteLine("using UnityEngine;");
+                sw.WriteLine("namespace UnityEditor.Rendering.Toon");
+                sw.WriteLine("{");
+                sw.WriteLine("    internal class UTS2Table");
+                sw.WriteLine("    {");
+                sw.WriteLine("        static internal readonly UTS2INFO[] tables =  ");
+                sw.WriteLine("        {");
 
+                foreach (var table in targetTable)
+                {
+                    Debug.Log(table.GetConstructorString());
+                    sw.WriteLine("             " + table.GetConstructorString());
+                }
+                sw.WriteLine("        };");
+                sw.WriteLine("    };");
+                sw.WriteLine("}");
+            }
+        }
         [MenuItem("Window/Rendering/Create UTS2 Table", false, 51)]
         static void CreateUTS2Table()
         {
@@ -198,6 +225,7 @@ namespace UnityEditor.Rendering.Toon
                     string path = AssetDatabase.GUIDToAssetPath(shaderInfo.m_Guid);
                     Debug.Assert(!string.IsNullOrEmpty(path));
                     string originalPath = path;
+
                     Shader shader = AssetDatabase.LoadAssetAtPath<Shader>(path);
                     var material = new Material(shader);
                     materials.Add(material);
@@ -473,14 +501,16 @@ namespace UnityEditor.Rendering.Toon
                     }
                     Debug.Assert(balanceLevel == 0);
                     UTS2INFO targetInfo = new UTS2INFO(shaderInfo.m_Guid,
-                        originalPath,
+                        Path.GetFileName(originalPath),
                         UTS2INFO.OPAQUE,
                         transparency: true,
                         queueInTable,
                         stencilMode,
                         (int)clippngMode);
+                    targetTable.Add(targetInfo);
                 }
             }
+            WriteTable(targetTable);
         }
 
     }

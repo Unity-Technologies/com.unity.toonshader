@@ -7,6 +7,7 @@ using UnityEditor.UIElements;
 using System;
 using System.Linq;
 using System.IO;
+using System.Text;
 
 namespace UnityEditor.Rendering.Toon
 {
@@ -70,6 +71,21 @@ namespace UnityEditor.Rendering.Toon
                 return 0;
 #endif
             }
+        }
+
+        internal string GetConstructorString()
+        {
+            StringBuilder sb = new StringBuilder("new UTS2INFO(", 1024);
+            sb.AppendFormat("\"{0}\",\"{1}\",\"{2}\",transparency:{3},UTS2RenderQueue.{4},UTS3GUI.UTS_StencilMode.{5},{6}", 
+                m_Guid, 
+                m_ShaderName, 
+                m_renderType, 
+                "false",
+                m_renderQueue,
+                m_stencilMode, 
+                m_clippingMode );
+            sb.Append("),");
+            return sb.ToString();
         }
     }
 
