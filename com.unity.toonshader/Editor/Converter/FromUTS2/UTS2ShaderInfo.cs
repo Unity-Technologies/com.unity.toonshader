@@ -202,7 +202,7 @@ namespace UnityEditor.Rendering.Toon
 
                 foreach (var table in targetTable)
                 {
-                    Debug.Log(table.GetConstructorString());
+                    // Debug.Log(table.GetConstructorString());
                     sw.WriteLine("             " + table.GetConstructorString());
                 }
                 sw.WriteLine("        };");
@@ -301,6 +301,10 @@ namespace UnityEditor.Rendering.Toon
                     bool findingStencilBlock = false;
                     bool parsingStencilBlock = false;
 
+                    bool isForwardPass = false;
+                    bool findingPassBlock = false;
+                    bool parsingPassBlock = false;
+
                     bool isSGM = false;
 
                     int balanceLevel = 0;
@@ -378,63 +382,88 @@ namespace UnityEditor.Rendering.Toon
                                 isSGM = words[indexOfEqueal + 1] == "1";
 
                             }
-                            // Clipping Mode
-                            var indexOfMultiCompile = Array.IndexOf<string>(words, "multi_compile");
-                            if (indexOfMultiCompile > 1)
-                            {
-                                var indexOfPragma = Array.IndexOf<string>(words, "#pragma");
-                                if (indexOfPragma >= 0 && indexOfMultiCompile > indexOfPragma)
-                                {
-                                    if (isSGM)
-                                    {
-                                        if (Array.IndexOf<string>(wordsUpper, UTS3GUI.ShaderDefineIS_CLIPPING_OFF) > 0)
-                                        {
-                                            clippngMode = 0;
-                                        }
-                                        if (Array.IndexOf<string>(wordsUpper, UTS3GUI.ShaderDefineIS_CLIPPING_MODE) > 0)
-                                        {
-                                            clippngMode = 1;
-                                        }
-                                        if (Array.IndexOf<string>(wordsUpper, UTS3GUI.ShaderDefineIS_CLIPPING_TRANSMODE) > 0)
-                                        {
-                                            clippngMode =2;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        if (Array.IndexOf<string>(wordsUpper, UTS3GUI.ShaderDefineIS_TRANSCLIPPING_OFF) > 0)
-                                        {
-                                            clippngMode = 0;
-                                        }
-                                        if (Array.IndexOf<string>(wordsUpper, UTS3GUI.ShaderDefineIS_TRANSCLIPPING_ON) > 0)
-                                        {
-                                            clippngMode = 1;
-                                        }
-                                    }
-                                }
-                            }
                         }
                         else if ( parsingSubShaderBlock )
                         {
-                            if (Array.IndexOf<string>(words, "stencil") >= 0)
+                            if (!findingPassBlock)
                             {
-                                findingStencilBlock = true;
-                            }
-                            if ( parsingStencilBlock )
-                            {
-                                if (Array.IndexOf<string>(words, "comp") == 0)
+                                if ( Array.IndexOf<string>(words,"pass") >= 0)
                                 {
-                                    Debug.Assert(words.Length >= 2);
-                                    if (Array.IndexOf<string>(words, "always") > 0)
+                                    findingPassBlock = true;
+                                }
+                            }
+                            if ( parsingPassBlock )
+                            {
+                                if (Array.IndexOf<string>(words,"name") == 0)
+                                {
+                                    if (Array.IndexOf<string>(words, "\"forward\"") == 1)
                                     {
-                                        stencilMode = UTS3GUI.UTS_StencilMode.StencilMask;
-                                    }
-                                    if (Array.IndexOf<string>(words, "notequal") > 0)
-                                    {
-                                        stencilMode = UTS3GUI.UTS_StencilMode.StencilOut;
+                                        isForwardPass = true;
                                     }
                                 }
                             }
+                            if (isForwardPass && parsingPassBlock)
+                            {
+                                // Stencil Mode
+                                if (Array.IndexOf<string>(words, "stencil") >= 0)
+                                {
+                                    findingStencilBlock = true;
+                                }
+                                if (parsingStencilBlock)
+                                {
+                                    if (Array.IndexOf<string>(words, "comp") == 0)
+                                    {
+                                        Debug.Assert(words.Length >= 2);
+                                        if (Array.IndexOf<string>(words, "always") > 0)
+                                        {
+                                            stencilMode = UTS3GUI.UTS_StencilMode.StencilMask;
+                                        }
+                                        if (Array.IndexOf<string>(words, "notequal") > 0)
+                                        {
+                                            stencilMode = UTS3GUI.UTS_StencilMode.StencilOut;
+                                        }
+                                    }
+                                }
+
+                                // Clipping Mode
+                                var indexOfMultiCompile = Array.IndexOf<string>(words, "multi_compile");
+                                if (indexOfMultiCompile >= 1)
+                                {
+                                    var indexOfPragma = Array.IndexOf<string>(words, "#pragma");
+                                    if (indexOfPragma >= 0 && indexOfMultiCompile > indexOfPragma)
+                                    {
+                                        if (isSGM)
+                                        {
+                                            if (Array.IndexOf<string>(wordsUpper, UTS3GUI.ShaderDefineIS_TRANSCLIPPING_OFF) > 0)
+                                            {
+                                                clippngMode = 0;
+                                            }
+                                            if (Array.IndexOf<string>(wordsUpper, UTS3GUI.ShaderDefineIS_TRANSCLIPPING_ON) > 0)
+                                            {
+                                                clippngMode = 1;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (Array.IndexOf<string>(wordsUpper, UTS3GUI.ShaderDefineIS_CLIPPING_OFF) > 0)
+                                            {
+                                                clippngMode = 0;
+                                            }
+                                            if (Array.IndexOf<string>(wordsUpper, UTS3GUI.ShaderDefineIS_CLIPPING_MODE) > 0)
+                                            {
+                                                clippngMode = 1;
+                                            }
+                                            if (Array.IndexOf<string>(wordsUpper, UTS3GUI.ShaderDefineIS_CLIPPING_TRANSMODE) > 0)
+                                            {
+                                                clippngMode = 2;
+                                            }
+                                        }
+                                    }
+                                }
+
+                            } // if (isForwardPass)
+
+
                         }
 
 
@@ -468,7 +497,11 @@ namespace UnityEditor.Rendering.Toon
                                 findingStencilBlock = false;
                                 parsingStencilBlock = true;
                             }
-
+                            if (findingPassBlock)
+                            {
+                                findingPassBlock = false;
+                                parsingPassBlock = true;
+                            }
                             balanceLevel++;
                         }
                         if (indexOfKokka >= 0)
@@ -486,9 +519,13 @@ namespace UnityEditor.Rendering.Toon
                             {
                                 parsingSubShaderBlock = false;
                             }
-                            if ( parsingStencilBlock == true )
+                            if ( parsingStencilBlock == true && balanceLevel == 3)
                             {
                                 parsingStencilBlock = false;
+                            }
+                            if ( parsingPassBlock == true && balanceLevel == 2)
+                            {
+                                parsingPassBlock = false;
                             }
                         }
                         
@@ -506,7 +543,7 @@ namespace UnityEditor.Rendering.Toon
                         transparency: true,
                         queueInTable,
                         stencilMode,
-                        (int)clippngMode);
+                        clippngMode);
                     targetTable.Add(targetInfo);
                 }
             }

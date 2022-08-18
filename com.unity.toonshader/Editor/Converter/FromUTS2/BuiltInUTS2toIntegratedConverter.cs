@@ -200,7 +200,8 @@ namespace UnityEditor.Rendering.Toon
         }
         UTSGUID FindUTS2GUID(string guid)
         {
-            var ret = Array.Find<UTSGUID>(UTS2ShaderInfo.stdShaders, element => element.m_Guid == guid);
+            //            var ret = Array.Find<UTSGUID>(UTS2ShaderInfo.stdShaders, element => element.m_Guid == guid);
+#if false
             foreach (var utsGuid in UTS2ShaderInfo.stdShaders)
             {
                 if (utsGuid.m_Guid == guid)
@@ -215,6 +216,16 @@ namespace UnityEditor.Rendering.Toon
                     return utsGuid;
                 }
             }
+#else
+            foreach (var utsGuid in UTS2Table.tables)
+            {
+                if (utsGuid.m_Guid == guid)
+                {
+                    return utsGuid;
+                }
+            }
+            
+#endif
             return null;
         }
 
@@ -366,11 +377,6 @@ namespace UnityEditor.Rendering.Toon
 
                 string path = AssetDatabase.GUIDToAssetPath(guid);
                 Material material = AssetDatabase.LoadAssetAtPath<Material>(path);
-
-                if (material.name == "ShadingGradeMap")
-                {
-                    Debug.Log("ShadingGradeMap");
-                }
 
                 material.shader = Shader.Find(kIntegratedUTS3Name);
                 var shaderGUID = m_Material2GUID_Dictionary[material];
