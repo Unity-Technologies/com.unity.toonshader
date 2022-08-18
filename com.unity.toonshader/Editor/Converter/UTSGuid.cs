@@ -13,13 +13,15 @@ namespace UnityEditor.Rendering.Toon
 {
     internal class UTSGUID
     {
-        internal UTSGUID(string guid, string shaderName)
+        internal UTSGUID(string guid, string shaderName, bool tessellation = false)
         {
             m_ShaderName = shaderName;
             m_Guid = guid;
+            m_Tessellation = tessellation;
         }
         internal string m_ShaderName;
         internal string m_Guid;
+        internal bool m_Tessellation;
     }
     enum UTS2RenderQueue
     {
@@ -45,13 +47,13 @@ namespace UnityEditor.Rendering.Toon
         internal UTS3GUI.UTS_StencilMode m_stencilMode;
         internal int m_clippingMode;
 
-        internal UTS2INFO(string guid, string shaderName, string renderType, bool transparency, UTS2RenderQueue renderQueue, UTS3GUI.UTS_StencilMode stencilMode, int clippingMode ) : base(guid, shaderName)
+        internal UTS2INFO(string guid, string shaderName, string renderType, UTS2RenderQueue renderQueue, UTS3GUI.UTS_StencilMode stencilMode, int clippingMode, bool tessellation ) : base(guid, shaderName, tessellation)
         {
             m_renderType = renderType;
-//            m_transparency = transparency;
             m_renderQueue = renderQueue;
             m_stencilMode = stencilMode;
             m_clippingMode = clippingMode;
+
         }
 
         internal int clippingMode
@@ -76,14 +78,14 @@ namespace UnityEditor.Rendering.Toon
         internal string GetConstructorString()
         {
             StringBuilder sb = new StringBuilder("new UTS2INFO(", 1024);
-            sb.AppendFormat("\"{0}\",\"{1}\",\"{2}\",transparency:{3},UTS2RenderQueue.{4},UTS3GUI.UTS_StencilMode.{5},{6}", 
+            sb.AppendFormat("\"{0}\",\"{1}\",\"{2}\",UTS2RenderQueue.{3},UTS3GUI.UTS_StencilMode.{4},{5},tessellation:{6}", 
                 m_Guid, 
                 m_ShaderName, 
                 m_renderType, 
-                "false",
                 m_renderQueue,
                 m_stencilMode, 
-                m_clippingMode );
+                m_clippingMode,
+                m_Tessellation ? "true" : "false");
             sb.Append("),");
             return sb.ToString();
         }

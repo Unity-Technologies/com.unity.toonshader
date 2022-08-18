@@ -201,7 +201,7 @@ namespace UnityEditor.Rendering.Toon
         UTSGUID FindUTS2GUID(string guid)
         {
             //            var ret = Array.Find<UTSGUID>(UTS2ShaderInfo.stdShaders, element => element.m_Guid == guid);
-#if true
+#if false
             foreach (var utsGuid in UTS2ShaderInfo.stdShaders)
             {
                 if (utsGuid.m_Guid == guid)
@@ -551,12 +551,12 @@ namespace UnityEditor.Rendering.Toon
 
 
 
-            var ignoreProjection = UTS2INFO.DONT_IGNOREPROJECTION;
+            // var ignoreProjection = UTS2INFO.DONT_IGNOREPROJECTION;
 
             if (transperentSetting == UTS3GUI.UTS_TransparentMode.On)
             {
 
-                ignoreProjection = UTS2INFO.DO_IGNOREPROJECTION;
+               // ignoreProjection = UTS2INFO.DO_IGNOREPROJECTION;
             }
             else
             {
