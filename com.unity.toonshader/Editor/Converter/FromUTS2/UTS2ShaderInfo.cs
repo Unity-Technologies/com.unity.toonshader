@@ -210,8 +210,9 @@ namespace UnityEditor.Rendering.Toon
             }
         }
 
-
+#if false   // internal use only.
         [MenuItem("Window/Rendering/Create UTS2 Table", false, 51)]
+#endif
         static void CreateUTS2Table()
         {
 

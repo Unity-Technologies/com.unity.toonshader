@@ -43,7 +43,7 @@ namespace UnityEditor.Rendering.Toon
                 string content = File.ReadAllText(path);
                 string[] lines = content.Split(lineSeparators, StringSplitOptions.None);
                 // always two spaces before m_Shader?
-                var targetLine = Array.Find<string>(lines, line => line.StartsWith("  m_Shader:"));
+                var targetLine = Array.Find<string>(lines, line => line.StartsWith(kShaderKeywordInMatrial));
                 if (targetLine == null)
                 {
                     continue; // todo. prefab?
@@ -261,7 +261,7 @@ namespace UnityEditor.Rendering.Toon
                 string content = File.ReadAllText(path);
                 string[] lines = content.Split(lineSeparators, StringSplitOptions.None);
                 // always two spaces before m_Shader?
-                var targetLine = Array.Find<string>(lines, line => line.StartsWith("  m_Shader:"));
+                var targetLine = Array.Find<string>(lines, line => line.StartsWith(kShaderKeywordInMatrial));
                 if (targetLine == null)
                 {
                     continue; // todo. prefab?
@@ -377,8 +377,8 @@ namespace UnityEditor.Rendering.Toon
 
                 string path = AssetDatabase.GUIDToAssetPath(guid);
                 Material material = AssetDatabase.LoadAssetAtPath<Material>(path);
-
-                material.shader = Shader.Find(kIntegratedUTS3Name);
+                var shaderID = GetShaderIDinMaterial(path);
+                material.shader = Shader.Find(IsTesselationShader(path) ? kIntegratedTessllationUTS3Name :  kIntegratedUTS3Name);
                 var shaderGUID = m_Material2GUID_Dictionary[material];
                 var UTS2Info = m_GuidToUTSID_Dictionary[shaderGUID] as UTS2INFO;
 
