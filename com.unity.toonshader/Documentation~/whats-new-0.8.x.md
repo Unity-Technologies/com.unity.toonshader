@@ -7,4 +7,5 @@
 * All the materials created with older than 0.7.x-preview must be converted. Please refer to What's new in 0.8.x.
 * The converter is capable of converting from Unity-chan Toon Shader 2.0.7 and Universal Toon Shader materials.
 
+Please, refer to [Unity Toon Shader Material Converter](MaterialConverter.md) for detail.
 
