@@ -16,6 +16,6 @@ The **Unity Toon Shader** is compatible with all the render pipelines, the **Bui
 |  Package version  |  Minimum Unity version  | Maximum Unity version  |
 | ---- | ---- | ---- |
 |  0.7.x  |  2019.4  |  2022.2  |
-|  0.8.x  |  2020.3.30, 2021.3 |  2022.2  |
+|  0.8.x  |  2020.3.25, 2021.3 |  2022.2  |
 
 
