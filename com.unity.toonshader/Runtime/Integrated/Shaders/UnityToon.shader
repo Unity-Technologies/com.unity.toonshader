@@ -474,7 +474,7 @@ Shader "Toon" {
     } 
 
     HLSLINCLUDE
-    #pragma only_renderers d3d11 playstation xboxone xboxseries vulkan metal switch
+
     #define DISABLE_RP_SHADERS
     //-------------------------------------------------------------------------------------
     // Variant
@@ -579,6 +579,7 @@ Shader "Toon" {
             Cull Off
 
             HLSLPROGRAM
+            #pragma only_renderers d3d11 playstation xboxone xboxseries vulkan metal switch
             #pragma target 4.5	    
             #include "./UtsHDRP.hlsl"
             // Note: Require _ObjectId and _PassValue variables
@@ -618,6 +619,7 @@ Shader "Toon" {
             }
 
             HLSLPROGRAM
+            #pragma only_renderers d3d11 playstation xboxone xboxseries vulkan metal switch
             #pragma target 4.5	    
             #include "./UtsHDRP.hlsl"
 
@@ -669,6 +671,7 @@ Shader "Toon" {
             Cull Off
 
             HLSLPROGRAM
+            #pragma only_renderers d3d11 playstation xboxone xboxseries vulkan metal switch
             #pragma target 4.5	    
             #include "./UtsHDRP.hlsl"
             // Lightmap memo
@@ -702,6 +705,7 @@ Shader "Toon" {
             ColorMask 0
 
             HLSLPROGRAM
+            #pragma only_renderers d3d11 playstation xboxone xboxseries vulkan metal switch
             #pragma target 4.5	    
             #include "./UtsHDRP.hlsl"
 
@@ -737,6 +741,7 @@ Shader "Toon" {
             ZWrite On
 
             HLSLPROGRAM
+            #pragma only_renderers d3d11 playstation xboxone xboxseries vulkan metal switch
             #pragma target 4.5	    
             #include "./UtsHDRP.hlsl"
             // In deferred, depth only pass don't output anything.
@@ -782,6 +787,7 @@ Shader "Toon" {
             ZWrite On
 
             HLSLPROGRAM
+            #pragma only_renderers d3d11 playstation xboxone xboxseries vulkan metal switch
             #pragma target 4.5	    
             #include "./UtsHDRP.hlsl"
             #pragma multi_compile _ WRITE_NORMAL_BUFFER
@@ -824,6 +830,7 @@ Shader "Toon" {
             Cull [_CullMode]
 
             HLSLPROGRAM
+            #pragma only_renderers d3d11 playstation xboxone xboxseries vulkan metal switch
             #pragma target 4.5	    
             #include "./UtsHDRP.hlsl"
             #define SHADERPASS SHADERPASS_DISTORTION
@@ -849,6 +856,7 @@ Shader "Toon" {
             ColorMask 0
 
             HLSLPROGRAM
+            #pragma only_renderers d3d11 playstation xboxone xboxseries vulkan metal switch
             #pragma target 4.5	    
             #include "./UtsHDRP.hlsl"
             #define SHADERPASS SHADERPASS_DEPTH_ONLY
@@ -878,6 +886,7 @@ Shader "Toon" {
             ZTest [_ZTestTransparent]
 
             HLSLPROGRAM
+            #pragma only_renderers d3d11 playstation xboxone xboxseries vulkan metal switch
             #pragma target 4.5	    
             #include "./UtsHDRP.hlsl"
             #pragma multi_compile _ DEBUG_DISPLAY
@@ -947,6 +956,7 @@ Shader "Toon" {
 
 
             HLSLPROGRAM
+            #pragma only_renderers d3d11 playstation xboxone xboxseries vulkan metal switch
             #pragma target 4.5	    
             #include "./UtsHDRP.hlsl"
 //            #pragma multi_compile _ UTS_DEBUG_SHADOWMAP_BINALIZATION
@@ -1024,6 +1034,7 @@ Shader "Toon" {
             ColorMask 0
 
             HLSLPROGRAM
+            #pragma only_renderers d3d11 playstation xboxone xboxseries vulkan metal switch
             #pragma target 4.5	    
             #include "./UtsHDRP.hlsl"
             #define SHADERPASS SHADERPASS_DEPTH_ONLY
@@ -1061,6 +1072,7 @@ Shader "Toon" {
             }
 
             HLSLPROGRAM
+            #pragma only_renderers d3d11 playstation xboxone xboxseries vulkan metal switch
             #pragma target 4.5	    
             #include "./UtsHDRP.hlsl"
             #define AREA_SHADOW_LOW

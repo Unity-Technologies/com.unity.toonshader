@@ -5,7 +5,8 @@
 
 ### Fixed:
 * Some warinings.
-* Proper shader model is not applied in the URP shader.
+* URP shader was not working for WebGL.
+
 
 ## [0.8.1-preview] - 2022-08-24
 ### Updated:
