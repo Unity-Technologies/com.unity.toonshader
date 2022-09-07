@@ -1,7 +1,11 @@
 # Changelog
-## [0.8.2-preview] - 2022-08-26
+## [0.8.2-preview] - 2022-09-07
 ### Updated:
-* Next version is 0.8.2-preview.
+* Updated some documents.
+
+### Fixed:
+* Some warinings.
+* Proper shader model is not applied in the URP shader.
 
 ## [0.8.1-preview] - 2022-08-24
 ### Updated:
