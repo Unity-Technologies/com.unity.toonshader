@@ -1,5 +1,5 @@
 # Changelog
-## [0.8.4-preview] - 2023-01-05	
+## [0.8.4-preview] - 2023-01-05
 ### Updated:
 * Next version is 0.8.4-preview
 
