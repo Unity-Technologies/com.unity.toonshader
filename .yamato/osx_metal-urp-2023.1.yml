@@ -5,8 +5,6 @@ test_projects:
   - name: UniversalGraphicsTest-2023.1
 unity_versions:
   - name: 2023.1
-#  - name: 2022.1
-o#  - name: trunk
 ---
 {% for test_project in test_projects %}
 {% for unity_version in unity_versions %}
