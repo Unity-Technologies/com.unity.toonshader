@@ -1,18 +1,21 @@
-﻿namespace UnityEditor.Rendering.Toon {
-internal partial class ToonShaderAnalytics {
-    private const string EVENT_NAME_PREFIX = "toonshader_";
-    
-    [InitializeOnLoadMethod]
-    private static void OnLoad() {
-        AnimeToolboxAnalytics.SendEvent(new LoadEvent(
+﻿namespace UnityEditor.Rendering.Toon
+{
+    internal partial class ToonShaderAnalytics
+    {
+        private const string k_EventNamePrefix = "toonshader_";
+
+        [InitializeOnLoadMethod]
+        private static void OnLoad()
+        {
+            AnimeToolboxAnalytics.SendEvent(new LoadEvent(
 #if HDRP_IS_INSTALLED_FOR_UTS
-            "high-definition"
+                "high-definition"
 #elif URP_IS_INSTALLED_FOR_UTS
-            "universal"
+                "universal"
 #else
-            "built-in"
+                "built-in"
 #endif
-        ));
+            ));
+        }
     }
-}
 }

@@ -262,7 +262,8 @@ namespace UnityEditor.Rendering.Toon
             UTS3Converter.scrollView.Add(item);
         }
 
-        protected void SendAnalyticsEvent() {
+        protected void SendAnalyticsEvent()
+        {
             AnimeToolboxAnalytics.SendEvent(new ToonShaderAnalytics.ConvertEvent(GetType().Name));
         }
     }
