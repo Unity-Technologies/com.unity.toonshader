@@ -35,7 +35,7 @@
 #if USE_FORWARD_PLUS
     #define UTS_LIGHT_LOOP_BEGIN(lightCount) { \
     uint lightIndex; \
-    ClusterIterator _urp_internal_clusterIterator = ClusterInit(GetNormalizedScreenSpaceUV(i.pos), i.posWorld.xyz, 0); \
+    ClusterIterator _urp_internal_clusterIterator = ClusterInit(inputData.normalizedScreenSpaceUV, i.posWorld.xyz, 0); \
     [loop] while (ClusterNext(_urp_internal_clusterIterator, lightIndex)) { \
         lightIndex += URP_FP_DIRECTIONAL_LIGHTS_COUNT; \
         FORWARD_PLUS_SUBTRACTIVE_LIGHT_CHECK
@@ -98,7 +98,7 @@
                 outSurfaceData.occlusion = SampleOcclusion(uv);
                 outSurfaceData.emission = SampleEmission(uv, _EmissionColor.rgb, TEXTURE2D_ARGS(_EmissionMap, sampler_EmissionMap));
             }
-            half3 GlobalIlluminationUTS_Deprecated(BRDFData brdfData, half3 bakedGI, half occlusion, half3 normalWS, half3 viewDirectionWS)
+            half3 GlobalIlluminationUTS_Deprecated_Deprecated(BRDFData brdfData, half3 bakedGI, half occlusion, half3 normalWS, half3 viewDirectionWS)
             {
                 half3 reflectVector = reflect(-viewDirectionWS, normalWS);
                 half fresnelTerm = Pow4(1.0 - saturate(dot(normalWS, viewDirectionWS)));

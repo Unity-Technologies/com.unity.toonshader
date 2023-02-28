@@ -36,6 +36,7 @@
                 input.vertexSH = i.vertexSH;
 # endif
                 input.uv = i.uv0;
+                input.positionCS = i.pos;
 #  if defined(_ADDITIONAL_LIGHTS_VERTEX) ||  (VERSION_LOWER(12, 0))  
 
                 input.fogFactorAndVertexLight = i.fogFactorAndVertexLight;
@@ -71,7 +72,7 @@
                     surfaceData.smoothness,
                     surfaceData.alpha, brdfData);
 
-                half3 envColor = GlobalIlluminationUTS(brdfData, inputData.bakedGI, surfaceData.occlusion, inputData.normalWS, inputData.viewDirectionWS, i.posWorld.xyz, GetNormalizedScreenSpaceUV(i.pos));
+                half3 envColor = GlobalIlluminationUTS(brdfData, inputData.bakedGI, surfaceData.occlusion, inputData.normalWS, inputData.viewDirectionWS, i.posWorld.xyz, inputData.normalizedScreenSpaceUV);
                 envColor *= 1.8f;
 
                 UtsLight mainLight = GetMainUtsLightByID(i.mainLightID, i.posWorld.xyz, inputData.shadowCoord, i.positionCS);
@@ -336,8 +337,8 @@
                         float3 halfDirection = normalize(viewDirection + lightDirection); // has to be recalced here.
 
                         //v.2.0.5:
-                        _1st_ShadeColor_Step = saturate(_1st_ShadeColor_Step + _StepOffset);
-                        _2nd_ShadeColor_Step = saturate(_2nd_ShadeColor_Step + _StepOffset);
+                        float firstShadeColorStep = saturate(_1st_ShadeColor_Step + _StepOffset);
+                        float secondShadeColorStep = saturate(_2nd_ShadeColor_Step + _StepOffset);
                         //
                         //v.2.0.5: If Added lights is directional, set 0 as _LightIntensity
                         float _LightIntensity = lerp(0, (0.299*additionalLightColor.r + 0.587*additionalLightColor.g + 0.114*additionalLightColor.b), notDirectional);
@@ -371,8 +372,8 @@
                         float Set_ShadingGrade = saturate(_ShadingGradeMapLevel_var)*lerp(_HalfLambert_var, (_HalfLambert_var*saturate(1.0 + _Tweak_SystemShadowsLevel)), _Set_SystemShadowsToBase);
 
                         //
-                        float Set_FinalShadowMask = saturate((1.0 + ((Set_ShadingGrade - (_1st_ShadeColor_Step - _1st_ShadeColor_Feather)) * (0.0 - 1.0)) / (_1st_ShadeColor_Step - (_1st_ShadeColor_Step - _1st_ShadeColor_Feather))));
-                        float Set_ShadeShadowMask = saturate((1.0 + ((Set_ShadingGrade - (_2nd_ShadeColor_Step - _2nd_ShadeColor_Feather)) * (0.0 - 1.0)) / (_2nd_ShadeColor_Step - (_2nd_ShadeColor_Step - _2nd_ShadeColor_Feather)))); // 1st and 2nd Shades Mask
+                        float Set_FinalShadowMask = saturate((1.0 + ((Set_ShadingGrade - (firstShadeColorStep - _1st_ShadeColor_Feather)) * (0.0 - 1.0)) / (firstShadeColorStep - (firstShadeColorStep - _1st_ShadeColor_Feather))));
+                        float Set_ShadeShadowMask = saturate((1.0 + ((Set_ShadingGrade - (secondShadeColorStep - _2nd_ShadeColor_Feather)) * (0.0 - 1.0)) / (secondShadeColorStep - (secondShadeColorStep - _2nd_ShadeColor_Feather)))); // 1st and 2nd Shades Mask
 
                         //Composition: 3 Basic Colors as finalColor
                         float3 finalColor =
@@ -435,8 +436,8 @@
                         float3 halfDirection = normalize(viewDirection + lightDirection); // has to be recalced here.
 
                         //v.2.0.5:
-                        _1st_ShadeColor_Step = saturate(_1st_ShadeColor_Step + _StepOffset);
-                        _2nd_ShadeColor_Step = saturate(_2nd_ShadeColor_Step + _StepOffset);
+                        float firstShadeColorStep = saturate(_1st_ShadeColor_Step + _StepOffset);
+                        float secondShadeColorStep = saturate(_2nd_ShadeColor_Step + _StepOffset);
                         //
                         //v.2.0.5: If Added lights is directional, set 0 as _LightIntensity
                         float _LightIntensity = lerp(0, (0.299*additionalLightColor.r + 0.587*additionalLightColor.g + 0.114*additionalLightColor.b), notDirectional);
@@ -473,8 +474,8 @@
 
 
                         //
-                        float Set_FinalShadowMask = saturate((1.0 + ((Set_ShadingGrade - (_1st_ShadeColor_Step - _1st_ShadeColor_Feather)) * (0.0 - 1.0)) / (_1st_ShadeColor_Step - (_1st_ShadeColor_Step - _1st_ShadeColor_Feather))));
-                        float Set_ShadeShadowMask = saturate((1.0 + ((Set_ShadingGrade - (_2nd_ShadeColor_Step - _2nd_ShadeColor_Feather)) * (0.0 - 1.0)) / (_2nd_ShadeColor_Step - (_2nd_ShadeColor_Step - _2nd_ShadeColor_Feather)))); // 1st and 2nd Shades Mask
+                        float Set_FinalShadowMask = saturate((1.0 + ((Set_ShadingGrade - (firstShadeColorStep - _1st_ShadeColor_Feather)) * (0.0 - 1.0)) / (firstShadeColorStep - (firstShadeColorStep - _1st_ShadeColor_Feather))));
+                        float Set_ShadeShadowMask = saturate((1.0 + ((Set_ShadingGrade - (secondShadeColorStep - _2nd_ShadeColor_Feather)) * (0.0 - 1.0)) / (secondShadeColorStep - (secondShadeColorStep - _2nd_ShadeColor_Feather)))); // 1st and 2nd Shades Mask
 
         //SGM
 

@@ -39,6 +39,7 @@
                 input.vertexSH = i.vertexSH;
 # endif
                 input.uv = i.uv0;
+                input.positionCS = i.pos;
 #  if defined(_ADDITIONAL_LIGHTS_VERTEX) ||  (VERSION_LOWER(12, 0))  
 
 				input.fogFactorAndVertexLight = i.fogFactorAndVertexLight;
@@ -75,7 +76,7 @@
                     surfaceData.smoothness,
                     surfaceData.alpha, brdfData);
 
-                half3 envColor = GlobalIlluminationUTS(brdfData, inputData.bakedGI, surfaceData.occlusion, inputData.normalWS, inputData.viewDirectionWS, i.posWorld.xyz, GetNormalizedScreenSpaceUV(i.pos));
+                half3 envColor = GlobalIlluminationUTS(brdfData, inputData.bakedGI, surfaceData.occlusion, inputData.normalWS, inputData.viewDirectionWS, i.posWorld.xyz, inputData.normalizedScreenSpaceUV);
                 envColor *= 1.8f;
 
                 UtsLight mainLight = GetMainUtsLightByID(i.mainLightID, i.posWorld.xyz, inputData.shadowCoord, i.positionCS);
@@ -275,8 +276,8 @@
                         float3 halfDirection = normalize(viewDirection + lightDirection); // has to be recalced here.
 
                         //v.2.0.5:
-                        _BaseColor_Step = saturate(_BaseColor_Step + _StepOffset);
-                        _ShadeColor_Step = saturate(_ShadeColor_Step + _StepOffset);
+                        float baseColorStep = saturate(_BaseColor_Step + _StepOffset);
+                        float shadeColorStep = saturate(_ShadeColor_Step + _StepOffset);
                         //
                         //v.2.0.5: If Added lights is directional, set 0 as _LightIntensity
                         float _LightIntensity = lerp(0, (0.299*additionalLightColor.r + 0.587*additionalLightColor.g + 0.114*additionalLightColor.b), notDirectional);
@@ -296,9 +297,9 @@
                         float4 _Set_1st_ShadePosition_var = tex2D(_Set_1st_ShadePosition, TRANSFORM_TEX(Set_UV0, _Set_1st_ShadePosition));
 
                         //v.2.0.5:
-                        float Set_FinalShadowMask = saturate((1.0 + ((lerp(_HalfLambert_var, (_HalfLambert_var*saturate(1.0 + _Tweak_SystemShadowsLevel)), _Set_SystemShadowsToBase) - (_BaseColor_Step - _BaseShade_Feather)) * ((1.0 - _Set_1st_ShadePosition_var.rgb).r - 1.0)) / (_BaseColor_Step - (_BaseColor_Step - _BaseShade_Feather))));
+                        float Set_FinalShadowMask = saturate((1.0 + ((lerp(_HalfLambert_var, (_HalfLambert_var*saturate(1.0 + _Tweak_SystemShadowsLevel)), _Set_SystemShadowsToBase) - (baseColorStep - _BaseShade_Feather)) * ((1.0 - _Set_1st_ShadePosition_var.rgb).r - 1.0)) / (baseColorStep - (baseColorStep - _BaseShade_Feather))));
                         //Composition: 3 Basic Colors as finalColor
-                        float3 finalColor = lerp(Set_BaseColor, lerp(Set_1st_ShadeColor, Set_2nd_ShadeColor, saturate((1.0 + ((_HalfLambert_var - (_ShadeColor_Step - _1st2nd_Shades_Feather)) * ((1.0 - _Set_2nd_ShadePosition_var.rgb).r - 1.0)) / (_ShadeColor_Step - (_ShadeColor_Step - _1st2nd_Shades_Feather))))), Set_FinalShadowMask); // Final Color
+                        float3 finalColor = lerp(Set_BaseColor, lerp(Set_1st_ShadeColor, Set_2nd_ShadeColor, saturate((1.0 + ((_HalfLambert_var - (shadeColorStep - _1st2nd_Shades_Feather)) * ((1.0 - _Set_2nd_ShadePosition_var.rgb).r - 1.0)) / (shadeColorStep - (shadeColorStep - _1st2nd_Shades_Feather))))), Set_FinalShadowMask); // Final Color
 
                         //v.2.0.6: Add HighColor if _Is_Filter_HiCutPointLightColor is False
 
@@ -354,8 +355,8 @@
                         float3 halfDirection = normalize(viewDirection + lightDirection); // has to be recalced here.
 
                         //v.2.0.5:
-                        _BaseColor_Step = saturate(_BaseColor_Step + _StepOffset);
-                        _ShadeColor_Step = saturate(_ShadeColor_Step + _StepOffset);
+                        float baseColorStep = saturate(_BaseColor_Step + _StepOffset);
+                        float shadeColorStep = saturate(_ShadeColor_Step + _StepOffset);
                         //
                         //v.2.0.5: If Added lights is directional, set 0 as _LightIntensity
                         float _LightIntensity = lerp(0, (0.299*additionalLightColor.r + 0.587*additionalLightColor.g + 0.114*additionalLightColor.b), notDirectional);
@@ -375,9 +376,9 @@
                         float4 _Set_1st_ShadePosition_var = tex2D(_Set_1st_ShadePosition, TRANSFORM_TEX(Set_UV0, _Set_1st_ShadePosition));
 
                         //v.2.0.5:
-                        float Set_FinalShadowMask = saturate((1.0 + ((lerp(_HalfLambert_var, (_HalfLambert_var*saturate(1.0 + _Tweak_SystemShadowsLevel)), _Set_SystemShadowsToBase) - (_BaseColor_Step - _BaseShade_Feather)) * ((1.0 - _Set_1st_ShadePosition_var.rgb).r - 1.0)) / (_BaseColor_Step - (_BaseColor_Step - _BaseShade_Feather))));
+                        float Set_FinalShadowMask = saturate((1.0 + ((lerp(_HalfLambert_var, (_HalfLambert_var*saturate(1.0 + _Tweak_SystemShadowsLevel)), _Set_SystemShadowsToBase) - (baseColorStep - _BaseShade_Feather)) * ((1.0 - _Set_1st_ShadePosition_var.rgb).r - 1.0)) / (baseColorStep - (baseColorStep - _BaseShade_Feather))));
                         //Composition: 3 Basic Colors as finalColor
-                        float3 finalColor = lerp(Set_BaseColor, lerp(Set_1st_ShadeColor, Set_2nd_ShadeColor, saturate((1.0 + ((_HalfLambert_var - (_ShadeColor_Step - _1st2nd_Shades_Feather)) * ((1.0 - _Set_2nd_ShadePosition_var.rgb).r - 1.0)) / (_ShadeColor_Step - (_ShadeColor_Step - _1st2nd_Shades_Feather))))), Set_FinalShadowMask); // Final Color
+                        float3 finalColor = lerp(Set_BaseColor, lerp(Set_1st_ShadeColor, Set_2nd_ShadeColor, saturate((1.0 + ((_HalfLambert_var - (shadeColorStep - _1st2nd_Shades_Feather)) * ((1.0 - _Set_2nd_ShadePosition_var.rgb).r - 1.0)) / (shadeColorStep - (shadeColorStep - _1st2nd_Shades_Feather))))), Set_FinalShadowMask); // Final Color
 
                         //v.2.0.6: Add HighColor if _Is_Filter_HiCutPointLightColor is False
 
