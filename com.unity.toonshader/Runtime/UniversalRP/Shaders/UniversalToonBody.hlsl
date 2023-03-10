@@ -25,7 +25,7 @@
 # endif
 #endif
 
-#if UNITY_VERSION >= 202211
+#if UNITY_VERSION >= 20220211 && UNITY_VERSION <= 20230199
  #define sampler_MainLightShadowmapTexture sampler_LinearClampCompare
  #define sampler_AdditionalLightsShadowmapTexture sampler_LinearClampCompare
 #endif
