@@ -1245,6 +1245,7 @@ Shader "Toon" {
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 #ifdef UNIVERSAL_PIPELINE_CORE_INCLUDED
             #include "../../UniversalRP/Shaders/UniversalToonInput.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Shadows.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/Shaders/LitForwardPass.hlsl"
             #include "../../UniversalRP/Shaders/UniversalToonHead.hlsl"
             #include "../../UniversalRP/Shaders/UniversalToonBody.hlsl"
