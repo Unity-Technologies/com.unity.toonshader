@@ -1,10 +1,9 @@
 # Changelog
 ## [0.9.4-preview] - 2023-05-01
-* Deleted warnings when creating materials with URP and Built-in shaders.
 * Added a exlanation for URP line issue  into Kown Issues.
 
 ## [0.9.3-preview] - 2023-04-18
-* URP shader doesn't recieve shadows in player builds.
+* Deleted warnings when creating materials with URP and Built-in shaders.
 
 ## [0.9.2-preview] - 2023-04-12
 ### Fixed
