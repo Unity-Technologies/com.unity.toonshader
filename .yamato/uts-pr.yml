@@ -1,9 +1,0 @@
-#
-#
-#
-urp_pr:
-  name: UTS PR
-  dependencies:
-  - path: .yamato/win_dx11-hdrp-2020.3.yml#test_projects
-  labels:
-  - UTS PR
