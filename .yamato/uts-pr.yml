@@ -1,0 +1,17 @@
+#
+#
+#
+urp_pr:
+  name: UTS PR
+  variables:
+    TEST_FILTER: '{{test_filters.generic}}'
+    UTR_VERSION: 1.19.2
+    GTF_VERSION: use_version_in_manifest
+    CLI_PROJECT_SETUP_VERSION:
+      value: com.unity.cli-project-setup@0.4.0-preview
+      propagate: always
+  quota_group: graphics
+  dependencies:
+  - path: .yamato/win_dx11-hdrp-2020.3.yml
+  labels:
+  - UTS PR
