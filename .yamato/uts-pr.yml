@@ -4,6 +4,6 @@
 urp_pr:
   name: UTS PR
   dependencies:
-  - path: .yamato/win_dx11-hdrp-2020.3.yml
+  - path: .yamato/win_dx11-hdrp-2020.3.yml#HdrpGraphicsTest-2020.3
   labels:
   - UTS PR
