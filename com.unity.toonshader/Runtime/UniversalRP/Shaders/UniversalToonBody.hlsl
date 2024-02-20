@@ -126,7 +126,7 @@
 #endif
                 return EnvironmentBRDF(brdfData, indirectDiffuse, indirectSpecular, fresnelTerm);     
             }
-
+#if UNITY_VERSION >= 202120
             void ApplyDecalToSurfaceDataUTS(float4 positionCS, inout float3 albedo, inout SurfaceData surfaceData, inout float3 normalWS)
             {
                 #ifdef _SPECULAR_SETUP
@@ -149,7 +149,7 @@
                         surfaceData.smoothness);
                 #endif
             }
-
+#endif
             struct VertexInput {
                 float4 vertex : POSITION;
                 float3 normal : NORMAL;
