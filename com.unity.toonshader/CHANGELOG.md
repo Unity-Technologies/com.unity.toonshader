@@ -1,8 +1,11 @@
 # Changelog
+## [0.9.8-preview] - 2024-04-01
+### TBD
+
 ## [0.9.7-preview] - 2024-03-20
 ### Updated
-* URP Shader is comaptible with Light Layer.   (Thanks to Hum9183Hum9183)
-* Fixed:Base Map/1st Shade Map/2nd Shade Map missing Tiling & Offset controls for all the render pipelines. (Thanks to Hum9183Hum9183)
+* URP Shader is comaptible with Light Layer.   (Thanks to Hum9183)
+* Fixed:Base Map/1st Shade Map/2nd Shade Map missing Tiling & Offset controls for all the render pipelines. (Thanks to Hum9183)
 
 ## [0.9.6-preview] - 2023-09-24
 ### Updated
