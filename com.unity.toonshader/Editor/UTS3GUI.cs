@@ -1036,11 +1036,11 @@ namespace UnityEditor.Rendering.Toon
             EditorGUIUtility.fieldWidth = 0;
             if (m_FirstTimeApply)
             {
-                FindProperties(props);
                 OnOpenGUI(material, materialEditor, props);
                 m_FirstTimeApply = false;
             }
 
+            FindProperties(props);
             UpdateVersionInMaterial(material);
 
             m_autoRenderQueue = MaterialGetInt(material,ShaderPropAutoRenderQueue);
