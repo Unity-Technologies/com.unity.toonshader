@@ -1223,6 +1223,16 @@ Shader "Toon(Tessellation)" {
             // Outline is implemented in UniversalToonOutline.hlsl.
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+
+            //--------------------------------------
+            // GPU Instancing
+            #pragma multi_compile_instancing
+        #if UNITY_VERSION >= 202230 // Requires Universal RP 14.0.7
+            #include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DOTS.hlsl"
+        #else
+            #pragma multi_compile _ DOTS_INSTANCING_ON
+        #endif
+
 #ifdef UNIVERSAL_PIPELINE_CORE_INCLUDED
             #include "../../UniversalRP/Shaders/UniversalToonInput.hlsl"
             #include "../../UniversalRP/Shaders/UniversalToonHead.hlsl"
@@ -1291,6 +1301,16 @@ Shader "Toon(Tessellation)" {
             #pragma multi_compile _ DYNAMICLIGHTMAP_ON
             #pragma multi_compile_fog
 
+            //--------------------------------------
+            // GPU Instancing
+            #pragma multi_compile_instancing
+            #pragma instancing_options renderinglayer
+        #if UNITY_VERSION >= 202230 // Requires Universal RP 14.0.7
+            #include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DOTS.hlsl"
+        #else
+            #pragma multi_compile _ DOTS_INSTANCING_ON
+        #endif
+
             #define _IS_PASS_FWDBASE
             // DoubleShadeWithFeather and ShadingGradeMap use different fragment shader.  
             #pragma shader_feature_local _ _SHADINGGRADEMAP
@@ -1334,6 +1354,13 @@ Shader "Toon(Tessellation)" {
             #pragma exclude_renderers d3d11_9x
 
             // -------------------------------------
+            // GPU Instancing
+            #pragma multi_compile_instancing
+        #if UNITY_VERSION >= 202230 // Requires Universal RP 14.0.7
+            #include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DOTS.hlsl"
+        #else
+            #pragma multi_compile _ DOTS_INSTANCING_ON
+        #endif
 
             #pragma shader_feature_local _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
 
@@ -1367,6 +1394,14 @@ Shader "Toon(Tessellation)" {
             // Material Keywords
             #pragma shader_feature_local _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
 
+            //--------------------------------------
+            // GPU Instancing
+            #pragma multi_compile_instancing
+        #if UNITY_VERSION >= 202230 // Requires Universal RP 14.0.7
+            #include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DOTS.hlsl"
+        #else
+            #pragma multi_compile _ DOTS_INSTANCING_ON
+        #endif
 
 
             #include "../../UniversalRP/Shaders/UniversalToonInput.hlsl"
@@ -1402,6 +1437,14 @@ Shader "Toon(Tessellation)" {
             #pragma shader_feature_local _PARALLAXMAP
             #pragma shader_feature_local _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
 
+            //--------------------------------------
+            // GPU Instancing
+            #pragma multi_compile_instancing
+        #if UNITY_VERSION >= 202230 // Requires Universal RP 14.0.7
+            #include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DOTS.hlsl"
+        #else
+            #pragma multi_compile _ DOTS_INSTANCING_ON
+        #endif
 
             #include "../../UniversalRP/Shaders/UniversalToonInput.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/Shaders/DepthNormalsPass.hlsl"

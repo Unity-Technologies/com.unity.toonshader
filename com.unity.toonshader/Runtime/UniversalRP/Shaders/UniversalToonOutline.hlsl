@@ -29,12 +29,12 @@
                 UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
                 o.uv0 = v.texcoord0;
-                float4 objPos = mul ( unity_ObjectToWorld, float4(0,0,0,1) );
+                float4 objPos = mul (GetObjectToWorldMatrix(), float4(0,0,0,1) );
                 float2 Set_UV0 = o.uv0;
                 float4 _Outline_Sampler_var = tex2Dlod(_Outline_Sampler,float4(TRANSFORM_TEX(Set_UV0, _Outline_Sampler),0.0,0));
                 //v.2.0.4.3 baked Normal Texture for Outline
                 o.normalDir = UnityObjectToWorldNormal(v.normal);
-                o.tangentDir = normalize( mul( unity_ObjectToWorld, float4( v.tangent.xyz, 0.0 ) ).xyz );
+                o.tangentDir = normalize( mul( GetObjectToWorldMatrix(), float4( v.tangent.xyz, 0.0 ) ).xyz );
                 o.bitangentDir = normalize(cross(o.normalDir, o.tangentDir) * v.tangent.w);
                 float3x3 tangentTransform = float3x3( o.tangentDir, o.bitangentDir, o.normalDir);
                 //UnpackNormal() can't be used, and so as follows. Do not specify a bump for the texture to be used.
@@ -73,7 +73,7 @@
                     return float4(1.0f, 1.0f, 1.0f, 1.0f);  // but nothing should be drawn except Z value as colormask is set to 0
                 }
                 _Color = _BaseColor;
-                float4 objPos = mul ( unity_ObjectToWorld, float4(0,0,0,1) );
+                float4 objPos = mul ( GetObjectToWorldMatrix(), float4(0,0,0,1) );
                 //v.2.0.9
                 float3 envLightSource_GradientEquator = unity_AmbientEquator.rgb >0.05 ? unity_AmbientEquator.rgb : half3(0.05,0.05,0.05);
                 float3 envLightSource_SkyboxIntensity = max(ShadeSH9(half4(0.0,0.0,0.0,1.0)),ShadeSH9(half4(0.0,-1.0,0.0,1.0))).rgb;
