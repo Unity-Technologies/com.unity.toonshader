@@ -759,7 +759,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8234019632041430816, guid: 0a86e8d92ff74b96af591fe02e177f9d, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -767,6 +768,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 4961882099442463827}
+    - targetCorrespondingSourceObject: {fileID: 4961882099022364211, guid: 0a86e8d92ff74b96af591fe02e177f9d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4961882099442463828}
   m_SourcePrefab: {fileID: 100100000, guid: 0a86e8d92ff74b96af591fe02e177f9d, type: 3}
 --- !u!1 &4961882099442463826 stripped
 GameObject:
@@ -818,6 +823,34 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!114 &4961882099442463828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4961882099442463826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 898aef0f40cb4ce6ae5ee42c0fd1b98a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ImageComparisonSettings:
+    TargetWidth: 960
+    TargetHeight: 540
+    PerPixelCorrectnessThreshold: 0.001
+    PerPixelGammaThreshold: 0.003921569
+    PerPixelAlphaThreshold: 0.003921569
+    AverageCorrectnessThreshold: 0.005
+    IncorrectPixelsThreshold: 0.0000038146973
+    UseHDR: 0
+    UseBackBuffer: 0
+    ImageResolution: 3
+    ActiveImageTests: 1
+    ActivePixelTests: -1
+  WaitFrames: 120
+  XRCompatible: 1
+  CheckMemoryAllocation: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -417,6 +417,7 @@ GameObject:
   - component: {fileID: 2116290028}
   - component: {fileID: 2116290033}
   - component: {fileID: 2116290030}
+  - component: {fileID: 2116290034}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -565,6 +566,34 @@ MonoBehaviour:
   focus: {x: 0, y: 1, z: 0}
   focusObj: {fileID: 981154325}
   showInstWindow: 0
+--- !u!114 &2116290034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2116290027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 898aef0f40cb4ce6ae5ee42c0fd1b98a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ImageComparisonSettings:
+    TargetWidth: 960
+    TargetHeight: 540
+    PerPixelCorrectnessThreshold: 0.001
+    PerPixelGammaThreshold: 0.003921569
+    PerPixelAlphaThreshold: 0.003921569
+    AverageCorrectnessThreshold: 0.005
+    IncorrectPixelsThreshold: 0.0000038146973
+    UseHDR: 0
+    UseBackBuffer: 0
+    ImageResolution: 3
+    ActiveImageTests: 1
+    ActivePixelTests: -1
+  WaitFrames: 120
+  XRCompatible: 1
+  CheckMemoryAllocation: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
