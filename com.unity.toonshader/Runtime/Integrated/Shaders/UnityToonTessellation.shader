@@ -1288,6 +1288,23 @@ Shader "Toon(Tessellation)" {
             #pragma multi_compile _ _ADDITIONAL_LIGHT_SHADOWS
             #pragma multi_compile _ _SHADOWS_SOFT
             #pragma multi_compile _ _FORWARD_PLUS
+            #if (!defined(UNITY_COMPILER_DXC) && (defined(UNITY_PLATFORM_OSX) || defined(UNITY_PLATFORM_IOS))) || defined(SHADER_API_PS5)
+
+                #if defined(SHADER_API_PS5) || defined(SHADER_API_METAL)
+
+                    #define SUPPORTS_FOVEATED_RENDERING_NON_UNIFORM_RASTER 1
+
+                    // On Metal Foveated Rendering is currently not supported with DXC
+                    #pragma warning (disable : 3568) // unknown pragma ignored
+
+                    #pragma never_use_dxc metal
+                    #pragma dynamic_branch _ _FOVEATED_RENDERING_NON_UNIFORM_RASTER
+
+                    #pragma warning (default : 3568) // restore unknown pragma ignored
+
+                #endif
+
+            #endif
             #pragma multi_compile_fragment _ _DBUFFER_MRT1 _DBUFFER_MRT2 _DBUFFER_MRT3
             #pragma multi_compile_fragment _ _LIGHT_LAYERS
 
