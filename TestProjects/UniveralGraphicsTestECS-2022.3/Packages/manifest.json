@@ -12,7 +12,7 @@
     "com.unity.test-framework.utp-reporter": "1.0.2-preview",
     "com.unity.testframework.graphics": "7.8.14-preview",
     "com.unity.textmeshpro": "3.0.6",
-    "com.unity.toonshader": "file:../../com.unity.toonshader",
+    "com.unity.toonshader": "file:../../../com.unity.toonshader",
     "com.unity.ugui": "1.0.0",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",
