@@ -3,7 +3,7 @@
 ### Updated:
 * URP shader is compatible with DOTS instancing. (Thanks to Hum9183)
 ### Fixed:
-* Base Map/1st Shade Map/2nd Shade Map missing Tiling & Offset is applied to Clipping Masks.
+* Base Map/1st Shade Map/2nd Shade Map missing Tiling & Offset values are applied to Clipping Masks.
 * Undoing/Redoing Tiling & Offset won't be reflected on the screen until slection is changed.(Thanks to Hum9183)
 
 ## [0.9.7-preview] - 2024-03-20
