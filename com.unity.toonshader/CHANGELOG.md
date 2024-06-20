@@ -1,4 +1,8 @@
 # Changelog
+## [0.10.1-preview] - 2024-06-24
+### Fixed:
+* TBD
+
 ## [0.10.0-preview] - 2024-04-14
 ### Updated:
 * URP shader is compatible with DOTS instancing. (Thanks to Hum9183)
