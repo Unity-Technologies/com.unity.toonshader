@@ -220,7 +220,7 @@ void Frag(PackedVaryingsToPS packedInput,
     context.shadowContext = InitShadowContext();
     context.shadowValue = 1;
     context.sampleReflection = 0;
-#if    VERSION_GREATER_EQUAL (12, 1 )
+#if    UNITY_VERSION >= 202120 && UNITY_VERSION < 202320
     context.splineVisibility = -1;
 #endif
 #ifdef APPLY_FOG_ON_SKY_REFLECTIONS
