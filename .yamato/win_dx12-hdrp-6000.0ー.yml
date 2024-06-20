@@ -2,9 +2,9 @@
 #
 #
 test_projects:
-  - name: HdrpDX12GraphicsTest-2023.1
+  - name: HdrpDX12GraphicsTest-6000.0
 unity_versions:
-  - name: 2023.1
+  - name: 6000.0
 
 ---
 {% for test_project in test_projects %}
