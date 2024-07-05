@@ -77,6 +77,7 @@ float3 UTS_MainLightShadingGrademap(LightLoopContext lightLoopContext, FragInput
         SampleBakedGI_UTS(posInput.positionWS, float3(0.0, 0.0, 0.0), input.texCoord1.xy, input.texCoord2.xy, true),
         SampleBakedGI_UTS(posInput.positionWS, float3(0.0, -1.0, 0.0), input.texCoord1.xy, input.texCoord2.xy, true)
         ) * _Unlit_Intensity));
+    float3 customLightDirection = normalize(mul(UNITY_MATRIX_M, float4(((float3(1.0, 0.0, 0.0) * _Offset_X_Axis_BLD * 10) + (float3(0.0, 1.0, 0.0) * _Offset_Y_Axis_BLD * 10) + (float3(0.0, 0.0, -1.0) * lerp(-1.0, 1.0, _Inverse_Z_Axis_BLD))), 0)).xyz);    
     float3 lightDirection = normalize(lerp(defaultLightDirection, mainLihgtDirection.xyz, any(mainLihgtDirection.xyz)));
     lightDirection = lerp(lightDirection, customLightDirection, _Is_BLD);
     float3 originalLightColor = mainLightColor.rgb;
