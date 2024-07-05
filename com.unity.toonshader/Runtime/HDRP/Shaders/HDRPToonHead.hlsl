@@ -272,6 +272,38 @@ float rateG = 0.587;
 float rateB = 0.114;
 
 
+float3 SampleBakedGI_UTS(float3 positionRWS, float3 normalWS, float2 uvStaticLightmap, float2 uvDynamicLightmap, bool needToIncludeAPV = false)
+{
+    float3 bakeDiffuseLighting = float3(0, 0, 0);
+    float3 backBakeDiffuseLighting = float3(0, 0, 0);
+    float3 backNormalWS = float3(0, 0, 0);
 
+#if !defined(_SURFACE_TYPE_TRANSPARENT) && (SHADERPASS != SHADERPASS_RAYTRACING_INDIRECT) && (SHADERPASS != SHADERPASS_RAYTRACING_GBUFFER)
+    if (_IndirectDiffuseMode != INDIRECTDIFFUSEMODE_OFF
+#if (SHADERPASS == SHADERPASS_GBUFER)
+        && _IndirectDiffuseMode != INDIRECTDIFFUSEMODE_MIXED && _ReflectionsMode != REFLECTIONSMODE_MIXED
+#endif
+        )
+        return bakeDiffuseLighting;
+#endif
+
+#if defined(LIGHTMAP_ON) || defined(DYNAMICLIGHTMAP_ON)
+    EvaluateLightmap(positionRWS, normalWS, backNormalWS, uvStaticLightmap, uvDynamicLightmap, bakeDiffuseLighting, backBakeDiffuseLighting);
+#elif (defined(PROBE_VOLUMES_L1) || defined(PROBE_VOLUMES_L2))
+    if (needToIncludeAPV)
+    {
+        EvaluateAdaptiveProbeVolume(GetAbsolutePositionWS(positionRWS), normalWS, backNormalWS, GetWorldSpaceNormalizeViewDir(positionRWS), 0.0, bakeDiffuseLighting, backBakeDiffuseLighting);
+    }
+#else
+    EvaluateLightProbeBuiltin(positionRWS, normalWS, backNormalWS, bakeDiffuseLighting, backBakeDiffuseLighting);
+
+#if defined(SHADER_STAGE_RAY_TRACING)
+    bakeDiffuseLighting *= _RayTracingAmbientProbeDimmer;
+    backBakeDiffuseLighting *= _RayTracingAmbientProbeDimmer;
+#endif
+#endif
+
+    return bakeDiffuseLighting;
+}
 
 #endif //#ifndef UCTS_HDRP_INCLUDED
