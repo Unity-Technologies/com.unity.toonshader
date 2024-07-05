@@ -964,6 +964,8 @@ Shader "Toon" {
             #pragma multi_compile _ LIGHTMAP_ON
             #pragma multi_compile _ DIRLIGHTMAP_COMBINED
             #pragma multi_compile _ DYNAMICLIGHTMAP_ON
+            // Ensure APV path is taken if available
+            #pragma multi_compile_fragment _ PROBE_VOLUMES_L1 PROBE_VOLUMES_L2
             #pragma multi_compile _ SHADOWS_SHADOWMASK
             // Setup DECALS_OFF so the shader stripper can remove variants
             #pragma multi_compile DECALS_OFF DECALS_3RT DECALS_4RT
@@ -1080,6 +1082,10 @@ Shader "Toon" {
             #define SHADOW_LOW
             #define LIGHTLOOP_DISABLE_TILE_AND_CLUSTER
 
+            #pragma multi_compile _ LIGHTMAP_ON
+            #pragma multi_compile _ DYNAMICLIGHTMAP_ON
+            // Ensure APV path is taken if available
+            #pragma multi_compile_fragment _ PROBE_VOLUMES_L1 PROBE_VOLUMES_L2
             #pragma multi_compile _IS_OUTLINE_CLIPPING_NO _IS_OUTLINE_CLIPPING_YES
             #pragma multi_compile _OUTLINE_NML _OUTLINE_POS
             #pragma shader_feature _ _IS_CLIPPING_MATTE
