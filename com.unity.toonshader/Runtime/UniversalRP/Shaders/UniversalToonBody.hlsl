@@ -510,7 +510,7 @@
 
                 OUTPUT_LIGHTMAP_UV(v.lightmapUV, unity_LightmapST, o.lightmapUV);
 #if UNITY_VERSION >= 60000009
-		// https://github.com/Unity-Technologies/Graphics/commit/74b1fdc26cee492e8af7358116076806bdf5b4cc
+                // https://github.com/Unity-Technologies/Graphics/commit/74b1fdc26cee492e8af7358116076806bdf5b4cc
                 float4 probeOcclusionUnused;
                 OUTPUT_SH4(positionWS, o.normalDir.xyz, GetWorldSpaceNormalizeViewDir(positionWS), o.vertexSH, probeOcclusionUnused);
 #elif UNITY_VERSION >= 202317
