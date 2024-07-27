@@ -1139,52 +1139,6 @@ Shader "Toon" {
             "RenderType"="Opaque"
             "RenderPipeline" = "UniversalPipeline"
         }
-        Pass {
-            Name "Outline"
-            Tags {
-                "LightMode" = "SRPDefaultUnlit"
-            }
-            Cull [_SRPDefaultUnlitColMode]
-            ColorMask [_SPRDefaultUnlitColorMask]
-            Blend SrcAlpha OneMinusSrcAlpha
-            Stencil
-            {
-                Ref[_StencilNo]
-                Comp[_StencilComp]
-                Pass[_StencilOpPass]
-                Fail[_StencilOpFail]
-
-            }
-
-            HLSLPROGRAM
-            #pragma target 2.0
-            #pragma vertex vert
-            #pragma fragment frag
-
-
-            //V.2.0.4
-            #pragma multi_compile _IS_OUTLINE_CLIPPING_NO _IS_OUTLINE_CLIPPING_YES
-            #pragma multi_compile _OUTLINE_NML _OUTLINE_POS
-            // Outline is implemented in UniversalToonOutline.hlsl.
-            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
-            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
-
-            //--------------------------------------
-            // GPU Instancing
-            #pragma multi_compile_instancing
-        #if UNITY_VERSION >= 202230 // Requires Universal RP 14.0.7
-            #include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DOTS.hlsl"
-        #else
-            #pragma multi_compile _ DOTS_INSTANCING_ON
-        #endif
-
-#ifdef UNIVERSAL_PIPELINE_CORE_INCLUDED
-            #include "../../UniversalRP/Shaders/UniversalToonInput.hlsl"
-            #include "../../UniversalRP/Shaders/UniversalToonHead.hlsl"
-            #include "../../UniversalRP/Shaders/UniversalToonOutline.hlsl"
-#endif
-            ENDHLSL
-        }
 
 //ToonCoreStart
         Pass {
@@ -1298,6 +1252,53 @@ Shader "Toon" {
 #endif
             ENDHLSL
             
+        }
+
+        Pass {
+            Name "Outline"
+            Tags {
+                "LightMode" = "SRPDefaultUnlit"
+            }
+            Cull [_SRPDefaultUnlitColMode]
+            ColorMask [_SPRDefaultUnlitColorMask]
+            Blend SrcAlpha OneMinusSrcAlpha
+            Stencil
+            {
+                Ref[_StencilNo]
+                Comp[_StencilComp]
+                Pass[_StencilOpPass]
+                Fail[_StencilOpFail]
+
+            }
+
+            HLSLPROGRAM
+            #pragma target 2.0
+            #pragma vertex vert
+            #pragma fragment frag
+
+
+            //V.2.0.4
+            #pragma multi_compile _IS_OUTLINE_CLIPPING_NO _IS_OUTLINE_CLIPPING_YES
+            #pragma multi_compile _OUTLINE_NML _OUTLINE_POS
+            // Outline is implemented in UniversalToonOutline.hlsl.
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+
+            //--------------------------------------
+            // GPU Instancing
+            #pragma multi_compile_instancing
+        #if UNITY_VERSION >= 202230 // Requires Universal RP 14.0.7
+            #include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DOTS.hlsl"
+        #else
+            #pragma multi_compile _ DOTS_INSTANCING_ON
+        #endif
+
+#ifdef UNIVERSAL_PIPELINE_CORE_INCLUDED
+            #include "../../UniversalRP/Shaders/UniversalToonInput.hlsl"
+            #include "../../UniversalRP/Shaders/UniversalToonHead.hlsl"
+            #include "../../UniversalRP/Shaders/UniversalToonOutline.hlsl"
+#endif
+            ENDHLSL
         }
 
         Pass
