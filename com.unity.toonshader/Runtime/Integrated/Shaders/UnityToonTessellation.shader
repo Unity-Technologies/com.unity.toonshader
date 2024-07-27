@@ -1480,47 +1480,6 @@ Shader "Toon(Tessellation)" {
         Tags {
             "RenderType"="Opaque"
         }
-        Pass {
-            Name "Outline"
-            Tags {
-                "LightMode"="ForwardBase"
-            }
-            Cull[_SRPDefaultUnlitColMode]
-            ColorMask[_SPRDefaultUnlitColorMask]
-            Blend SrcAlpha OneMinusSrcAlpha
-            Stencil
-            {
-                Ref[_StencilNo]
-                Comp[_StencilComp]
-                Pass[_StencilOpPass]
-                Fail[_StencilOpFail]
-
-            }
-            CGPROGRAM
-            #define TESSELLATION_ON
-            #pragma target 5.0
-            #pragma vertex tess_VertexInput
-            #pragma hull hs_VertexInput
-            #pragma domain ds_surf
-            #pragma fragment frag
-	    #ifdef TESSELLATION_ON
-            #include "../../Legacy/Shaders/UCTS_Tess.cginc"
-            #endif
-            #include "UnityCG.cginc"
-            //#pragma fragmentoption ARB_precision_hint_fastest
-            //#pragma multi_compile_shadowcaster
-            //#pragma multi_compile_fog
-            #pragma only_renderers d3d9 d3d11 glcore gles gles3 playstation xboxone xboxseries vulkan metal switch
-
-	    //V.2.0.4
-            #pragma multi_compile _IS_OUTLINE_CLIPPING_NO 
-            #pragma multi_compile _OUTLINE_NML _OUTLINE_POS
-            // Unity Toon Shader 0.5.0
-            #pragma multi_compile _ _DISABLE_OUTLINE
-            //The outline process goes to UTS_Outline.cginc.
-            #include "../../Legacy/Shaders/UCTS_Outline_tess.cginc"
-            ENDCG
-        }
 //ToonCoreStart
         Pass {
             Name "FORWARD"
@@ -1582,6 +1541,47 @@ Shader "Toon(Tessellation)" {
 
 #endif //#if defined(_SHADINGGRADEMAP)
 
+            ENDCG
+        }
+        Pass {
+            Name "Outline"
+            Tags {
+                "LightMode"="ForwardBase"
+            }
+            Cull[_SRPDefaultUnlitColMode]
+            ColorMask[_SPRDefaultUnlitColorMask]
+            Blend SrcAlpha OneMinusSrcAlpha
+            Stencil
+            {
+                Ref[_StencilNo]
+                Comp[_StencilComp]
+                Pass[_StencilOpPass]
+                Fail[_StencilOpFail]
+
+            }
+            CGPROGRAM
+            #define TESSELLATION_ON
+            #pragma target 5.0
+            #pragma vertex tess_VertexInput
+            #pragma hull hs_VertexInput
+            #pragma domain ds_surf
+            #pragma fragment frag
+	    #ifdef TESSELLATION_ON
+            #include "../../Legacy/Shaders/UCTS_Tess.cginc"
+            #endif
+            #include "UnityCG.cginc"
+            //#pragma fragmentoption ARB_precision_hint_fastest
+            //#pragma multi_compile_shadowcaster
+            //#pragma multi_compile_fog
+            #pragma only_renderers d3d9 d3d11 glcore gles gles3 playstation xboxone xboxseries vulkan metal switch
+
+	    //V.2.0.4
+            #pragma multi_compile _IS_OUTLINE_CLIPPING_NO
+            #pragma multi_compile _OUTLINE_NML _OUTLINE_POS
+            // Unity Toon Shader 0.5.0
+            #pragma multi_compile _ _DISABLE_OUTLINE
+            //The outline process goes to UTS_Outline.cginc.
+            #include "../../Legacy/Shaders/UCTS_Outline_tess.cginc"
             ENDCG
         }
         Pass {

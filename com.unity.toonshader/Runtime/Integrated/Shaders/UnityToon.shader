@@ -1426,41 +1426,6 @@ Shader "Toon" {
         Tags {
             "RenderType"="Opaque"
         }
-        Pass {
-            Name "Outline"
-            Tags {
-                "LightMode"="ForwardBase"
-            }
-            Cull[_SRPDefaultUnlitColMode]
-            ColorMask[_SPRDefaultUnlitColorMask]
-            Blend SrcAlpha OneMinusSrcAlpha
-            Stencil
-            {
-                Ref[_StencilNo]
-                Comp[_StencilComp]
-                Pass[_StencilOpPass]
-                Fail[_StencilOpFail]
-
-            }
-            CGPROGRAM
-            #pragma vertex vert
-            #pragma fragment frag
-            #include "UnityCG.cginc"
-            //#pragma fragmentoption ARB_precision_hint_fastest
-            //#pragma multi_compile_shadowcaster
-            //#pragma multi_compile_fog
-            #pragma only_renderers d3d9 d3d11 glcore gles gles3 playstation xboxone xboxseries vulkan metal switch
-
-            #pragma target 3.0
-            //V.2.0.4
-            #pragma multi_compile _IS_OUTLINE_CLIPPING_NO 
-            #pragma multi_compile _OUTLINE_NML _OUTLINE_POS
-            // Unity Toon Shader 0.5.0
-            #pragma multi_compile _ _DISABLE_OUTLINE
-            //The outline process goes to UTS_Outline.cginc.
-            #include "../../Legacy/Shaders/UCTS_Outline.cginc"
-            ENDCG
-        }
 //ToonCoreStart
         Pass {
             Name "FORWARD"
@@ -1515,6 +1480,41 @@ Shader "Toon" {
 
 #endif //#if defined(_SHADINGGRADEMAP)
 
+            ENDCG
+        }
+        Pass {
+            Name "Outline"
+            Tags {
+                "LightMode"="ForwardBase"
+            }
+            Cull[_SRPDefaultUnlitColMode]
+            ColorMask[_SPRDefaultUnlitColorMask]
+            Blend SrcAlpha OneMinusSrcAlpha
+            Stencil
+            {
+                Ref[_StencilNo]
+                Comp[_StencilComp]
+                Pass[_StencilOpPass]
+                Fail[_StencilOpFail]
+
+            }
+            CGPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+            #include "UnityCG.cginc"
+            //#pragma fragmentoption ARB_precision_hint_fastest
+            //#pragma multi_compile_shadowcaster
+            //#pragma multi_compile_fog
+            #pragma only_renderers d3d9 d3d11 glcore gles gles3 playstation xboxone xboxseries vulkan metal switch
+
+            #pragma target 3.0
+            //V.2.0.4
+            #pragma multi_compile _IS_OUTLINE_CLIPPING_NO
+            #pragma multi_compile _OUTLINE_NML _OUTLINE_POS
+            // Unity Toon Shader 0.5.0
+            #pragma multi_compile _ _DISABLE_OUTLINE
+            //The outline process goes to UTS_Outline.cginc.
+            #include "../../Legacy/Shaders/UCTS_Outline.cginc"
             ENDCG
         }
         Pass {
