@@ -1518,7 +1518,7 @@ Shader "Toon(Tessellation)" {
             // Unity Toon Shader 0.5.0
             #pragma multi_compile _ _DISABLE_OUTLINE
             //The outline process goes to UTS_Outline.cginc.
-            #include "../../Legacy/Shaders/UCTS_Outline_tess.cginc"
+            #include "../../Legacy/Shaders/UCTS_Outline_Tess.cginc"
             ENDCG
         }
 //ToonCoreStart
@@ -1669,7 +1669,7 @@ Shader "Toon(Tessellation)" {
             #pragma shader_feature _IS_CLIPPING_OFF _IS_CLIPPING_MODE _IS_CLIPPING_TRANSMODE
             // Unity Toon Shader 0.5.0
             #pragma multi_compile _ _DISABLE_OUTLINE
-            #include "../../Legacy/Shaders/UCTS_ShadowCaster_tess.cginc"
+            #include "../../Legacy/Shaders/UCTS_ShadowCaster_Tess.cginc"
             ENDCG
 
         }
