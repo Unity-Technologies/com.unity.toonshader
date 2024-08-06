@@ -1519,6 +1519,7 @@ Shader "Toon(Tessellation)" {
             #pragma multi_compile _ _DISABLE_OUTLINE
             //The outline process goes to UTS_Outline.cginc.
             #include "../../Legacy/Shaders/UCTS_Outline_Tess.cginc"
+            
             ENDCG
         }
 //ToonCoreStart
