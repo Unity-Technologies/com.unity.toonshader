@@ -1,4 +1,9 @@
 # Changelog
+## [0.10.2-preview] - 2024-08-20
+### Fixed:
+* Plane objects can not be chosen from their front face in SceneViews.
+* Wrong include path for Linux systems.
+
 ## [0.10.1-preview] - 2024-07-08
 ### Fixed:
 * URP Shader Eroors on newer then Unity 6000.0.9.
