@@ -11,7 +11,7 @@ The **Unity Toon Shader** is compatible with all the render pipelines, the **Bui
 
 ## Feature of Unity Toon Shader
 
-In animation production, color specialists specify detailed color designs for every scene. UTS can apply these color specifications written in the instructions. UTS allows  users to apply the colors of light and shadow regardless of actual light colors in the scene. This feature is essential for cel-shaded character designs. UTS allows detailed control whether the directional light color effects on materials or not.
+In animation production, color specialists specify detailed color designs for every scene. UTS can apply these color specifications written in the instructions. UTS allows  users to apply the colors of light and shadow regardless of actual light colors in the scene. This feature is essential for cel-shaded character designs. UTS allows detailed control whether the directional light color affects materials or not.
 
 | Typical color design instruction example |
 |--|
