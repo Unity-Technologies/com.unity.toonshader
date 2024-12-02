@@ -1,3 +1,4 @@
+{% metadata_file .yamato/UnityToonShader.metafile %}
  
 # 
 unity_versions:
@@ -14,9 +15,9 @@ unity_versions:
 editor:priming:{{ unity_version.name }}:macos:
     name: '[{{ unity_version.name }},macos] Editor priming'
     agent:
-        type: Unity::VM
-        image: cds-ops/ubuntu-16.04-base:stable
-        flavor: b1.small
+        type:   {{ pack_platform.type }}
+        image:  {{ pack_platform.image }}
+        flavor: {{ pack_platform.flavor }}
     skip_checkout: true
     variables:
         PATH: /home/bokken/bin:/home/bokken/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/sbin:/home/bokken/.npm-global/bin
@@ -32,9 +33,9 @@ editor:priming:{{ unity_version.name }}:macos:
 editor:priming:fast-{{ unity_version.name }}:macos:
     name: '[fast-{{ unity_version.name }},macos] Editor priming'
     agent:
-        type: Unity::VM
-        image: cds-ops/ubuntu-16.04-base:stable
-        flavor: b1.small
+        type:   {{ pack_platform.type }}
+        image:  {{ pack_platform.image }}
+        flavor: {{ pack_platform.flavor }}
     skip_checkout: true
     variables:
         PATH: /home/bokken/bin:/home/bokken/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/sbin:/home/bokken/.npm-global/bin
@@ -68,9 +69,9 @@ editor:priming:{{ unity_version.name }}:android:
 editor:priming:fast-{{ unity_version.name }}:android:
     name: '[fast-{{ unity_version.name }},android] Editor priming'
     agent:
-        type: Unity::VM
-        image: cds-ops/ubuntu-16.04-base:stable
-        flavor: b1.small
+        type:   {{ pack_platform.type }}
+        image:  {{ pack_platform.image }}
+        flavor: {{ pack_platform.flavor }}
     skip_checkout: true
     variables:
         PATH: /home/bokken/bin:/home/bokken/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/sbin:/home/bokken/.npm-global/bin
@@ -86,9 +87,9 @@ editor:priming:fast-{{ unity_version.name }}:android:
 editor:priming:{{ unity_version.name }}:windows:
     name: '[{{ unity_version.name }},windows] Editor priming'
     agent:
-        type: Unity::VM
-        image: cds-ops/ubuntu-16.04-base:stable
-        flavor: b1.small
+        type:   {{ pack_platform.type }}
+        image:  {{ pack_platform.image }}
+        flavor: {{ pack_platform.flavor }}
     skip_checkout: true
     variables:
         PATH: /home/bokken/bin:/home/bokken/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/sbin:/home/bokken/.npm-global/bin
@@ -104,9 +105,9 @@ editor:priming:{{ unity_version.name }}:windows:
 editor:priming:fast-{{ unity_version.name }}:windows:
     name: '[fast-{{ unity_version.name }},windows] Editor priming'
     agent:
-        type: Unity::VM
-        image: cds-ops/ubuntu-16.04-base:stable
-        flavor: b1.small
+        type:   {{ pack_platform.type }}
+        image:  {{ pack_platform.image }}
+        flavor: {{ pack_platform.flavor }}
     skip_checkout: true
     variables:
         PATH: /home/bokken/bin:/home/bokken/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/sbin:/home/bokken/.npm-global/bin
@@ -122,9 +123,9 @@ editor:priming:fast-{{ unity_version.name }}:windows:
 editor:priming:{{ unity_version.name }}:linux:
     name: '[{{ unity_version.name }},linux] Editor priming'
     agent:
-        type: Unity::VM
-        image: cds-ops/ubuntu-16.04-base:stable
-        flavor: b1.small
+        type:   {{ pack_platform.type }}
+        image:  {{ pack_platform.image }}
+        flavor: {{ pack_platform.flavor }}
     skip_checkout: true
     variables:
         PATH: /home/bokken/bin:/home/bokken/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/sbin:/home/bokken/.npm-global/bin
@@ -140,9 +141,9 @@ editor:priming:{{ unity_version.name }}:linux:
 editor:priming:fast-{{ unity_version.name }}:linux:
     name: '[fast-{{ unity_version.name }},linux] Editor priming'
     agent:
-        type: Unity::VM
-        image: cds-ops/ubuntu-16.04-base:stable
-        flavor: b1.small
+        type:   {{ pack_platform.type }}
+        image:  {{ pack_platform.image }}
+        flavor: {{ pack_platform.flavor }}
     skip_checkout: true
     variables:
         PATH: /home/bokken/bin:/home/bokken/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/sbin:/home/bokken/.npm-global/bin
@@ -158,9 +159,9 @@ editor:priming:fast-{{ unity_version.name }}:linux:
 editor:priming:{{ unity_version.name }}:ios:
     name: '[{{ unity_version.name }},ios] Editor priming'
     agent:
-        type: Unity::VM
-        image: cds-ops/ubuntu-16.04-base:stable
-        flavor: b1.small
+        type:   {{ pack_platform.type }}
+        image:  {{ pack_platform.image }}
+        flavor: {{ pack_platform.flavor }}
     skip_checkout: true
     variables:
         PATH: /home/bokken/bin:/home/bokken/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/sbin:/home/bokken/.npm-global/bin
@@ -176,9 +177,9 @@ editor:priming:{{ unity_version.name }}:ios:
 editor:priming:fast-{{ unity_version.name }}:ios:
     name: '[fast-{{ unity_version.name }},ios] Editor priming'
     agent:
-        type: Unity::VM
-        image: cds-ops/ubuntu-16.04-base:stable
-        flavor: b1.small
+        type:   {{ pack_platform.type }}
+        image:  {{ pack_platform.image }}
+        flavor: {{ pack_platform.flavor }}
     skip_checkout: true
     variables:
         PATH: /home/bokken/bin:/home/bokken/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/sbin:/home/bokken/.npm-global/bin
