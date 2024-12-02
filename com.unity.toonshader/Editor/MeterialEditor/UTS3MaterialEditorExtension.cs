@@ -6,7 +6,7 @@ namespace UnityEditor.Rendering
     /// <summary>
     /// Set of extensions to allow storing, getting and setting the expandable states of a <see cref="MaterialEditor"/> areas
     /// </summary>
-    public static partial class UTS3MaterialEditorExtension
+    internal static partial class UTS3MaterialEditorExtension
     {
         const string k_KeyPrefix = "CoreRP:Material:UI_State:";
 
@@ -64,7 +64,7 @@ namespace UnityEditor.Rendering
     /// <summary>
     /// Set of extensions to handle more shader property drawer
     /// </summary>
-    public static partial class MaterialEditorExtension
+    internal static partial class MaterialEditorExtension
     {
         static Rect GetRect(MaterialProperty prop)
         {
@@ -78,7 +78,7 @@ namespace UnityEditor.Rendering
         /// <param name="prop">The MaterialProperty to make a field for</param>
         /// <param name="label">Label for the property</param>
         /// <param name="transform">Optional function to apply on the new value</param>
-        public static void IntShaderProperty(this MaterialEditor editor, MaterialProperty prop, GUIContent label, System.Func<int, int> transform = null)
+        internal static void IntShaderProperty(this MaterialEditor editor, MaterialProperty prop, GUIContent label, System.Func<int, int> transform = null)
         {
             EditorGUI.BeginChangeCheck();
             EditorGUI.showMixedValue = prop.hasMixedValue;
@@ -98,7 +98,7 @@ namespace UnityEditor.Rendering
         /// <param name="editor"><see cref="MaterialEditor"/></param>
         /// <param name="prop">The MaterialProperty to make a field for</param>
         /// <param name="label">Label for the property</param>
-        public static void IntSliderShaderProperty(this MaterialEditor editor, MaterialProperty prop, GUIContent label)
+        internal static void IntSliderShaderProperty(this MaterialEditor editor, MaterialProperty prop, GUIContent label)
         {
             var limits = prop.rangeLimits;
             editor.IntSliderShaderPropertyUTS3(prop, (int)limits.x, (int)limits.y, label);
@@ -112,7 +112,7 @@ namespace UnityEditor.Rendering
         /// <param name="min">The value at the left end of the slider</param>
         /// <param name="max">The value at the right end of the slider</param>
         /// <param name="label">Label for the property</param>
-        public static void IntSliderShaderPropertyUTS3(this MaterialEditor editor, MaterialProperty prop, int min, int max, GUIContent label)
+        internal static void IntSliderShaderPropertyUTS3(this MaterialEditor editor, MaterialProperty prop, int min, int max, GUIContent label)
         {
             EditorGUI.BeginChangeCheck();
             EditorGUI.showMixedValue = prop.hasMixedValue;
@@ -132,7 +132,7 @@ namespace UnityEditor.Rendering
         /// <param name="prop">The MaterialProperty to make a field for</param>
         /// <param name="label">Label for the property</param>
         /// <param name="min">The minimum value the user can specify</param>
-        public static void MinFloatShaderProperty(this MaterialEditor editor, MaterialProperty prop, GUIContent label, float min)
+        internal static void MinFloatShaderProperty(this MaterialEditor editor, MaterialProperty prop, GUIContent label, float min)
         {
             EditorGUI.BeginChangeCheck();
             EditorGUI.showMixedValue = prop.hasMixedValue;
@@ -151,7 +151,7 @@ namespace UnityEditor.Rendering
         /// <param name="label">Label for the property</param>
         /// <param name="displayedOptions">An array with the options shown in the popup</param>
         /// <returns>The index of the option that has been selected by the user</returns>
-        public static int PopupShaderProperty(this MaterialEditor editor, MaterialProperty prop, GUIContent label, string[] displayedOptions)
+        internal static int PopupShaderProperty(this MaterialEditor editor, MaterialProperty prop, GUIContent label, string[] displayedOptions)
         {
             int val = (int)prop.floatValue;
 
@@ -177,7 +177,7 @@ namespace UnityEditor.Rendering
         /// <param name="displayedOptions">An array with the options shown in the popup</param>
         /// <param name="optionValues">An array with the values for each option</param>
         /// <returns>The value of the option that has been selected by the user</returns>
-        public static int IntPopupShaderProperty(this MaterialEditor editor, MaterialProperty prop, string label, string[] displayedOptions, int[] optionValues)
+        internal static int IntPopupShaderProperty(this MaterialEditor editor, MaterialProperty prop, string label, string[] displayedOptions, int[] optionValues)
         {
             int val = (int)prop.floatValue;
 
@@ -203,7 +203,7 @@ namespace UnityEditor.Rendering
         /// <param name="minLimit">The limit at the left end of the slider</param>
         /// <param name="maxLimit">The limit at the right end of the slider</param>
         /// <param name="label">Label for the property</param>
-        public static void MinMaxShaderProperty(this MaterialEditor editor, MaterialProperty min, MaterialProperty max, float minLimit, float maxLimit, GUIContent label)
+        internal static void MinMaxShaderProperty(this MaterialEditor editor, MaterialProperty min, MaterialProperty max, float minLimit, float maxLimit, GUIContent label)
         {
             float minValue = min.floatValue;
             float maxValue = max.floatValue;
@@ -224,7 +224,7 @@ namespace UnityEditor.Rendering
         /// <param name="minLimit">The limit at the left end of the slider</param>
         /// <param name="maxLimit">The limit at the right end of the slider</param>
         /// <param name="label">Label for the property</param>
-        public static void MinMaxShaderProperty(this MaterialEditor editor, MaterialProperty remapProp, float minLimit, float maxLimit, GUIContent label)
+        internal static void MinMaxShaderProperty(this MaterialEditor editor, MaterialProperty remapProp, float minLimit, float maxLimit, GUIContent label)
         {
             Vector2 remap = remapProp.vectorValue;
 
