@@ -23,7 +23,7 @@ namespace UnityEditor.Rendering.Toon
     /// </code>
     /// </example>
     /// </summary>
-    public struct UTS3MaterialHeaderScope : IDisposable
+    internal struct UTS3MaterialHeaderScope : IDisposable
     {
         /// <summary>Indicates whether the header is expanded or not. Is true if the header is expanded, false otherwise.</summary>
         public readonly bool expanded;
