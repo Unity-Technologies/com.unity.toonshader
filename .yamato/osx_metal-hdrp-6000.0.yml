@@ -13,7 +13,7 @@ unity_versions:
     agent:
         type: Unity::metal::macmini
         model: M1
-        image: package-ci/macos-12:v0.0.1-1084810
+        image: package-ci/macos-13:v4
         flavor: b1.large    
     variables:
         UPM_REGISTRY: https://artifactory-slo.bf.unity3d.com/artifactory/api/npm/upm-candidates
