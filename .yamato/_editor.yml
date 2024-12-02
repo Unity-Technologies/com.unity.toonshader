@@ -23,7 +23,7 @@ editor:priming:{{ unity_version.name }}:macos:
         DISPLAY: ":0"
         UPM_REGISTRY: https://artifactory-slo.bf.unity3d.com/artifactory/api/npm/upm-candidates
     commands:
-      -  pip install unity-downloader-cli --user --upgrade --index-url https://artifactory.prd.it.unity3d.com/artifactory/api/pypi/pypi/simple --upgrade
+      -  pip3 install unity-downloader-cli --user --upgrade --index-url https://artifactory.prd.it.unity3d.com/artifactory/api/pypi/pypi/simple --upgrade
       -  unity-downloader-cli -u {{ unity_version.name }} -o macos --wait --skip-download -c editor -c il2cpp  > unity_revision_{{ unity_version.name }}.txt
     artifacts:
         unity_revision_{{ unity_version.name }}.zip:
@@ -41,7 +41,7 @@ editor:priming:fast-{{ unity_version.name }}:macos:
         DISPLAY: ":0"
         UPM_REGISTRY: https://artifactory-slo.bf.unity3d.com/artifactory/api/npm/upm-candidates
     commands:
-      -  pip install unity-downloader-cli --user --upgrade --index-url https://artifactory.prd.it.unity3d.com/artifactory/api/pypi/pypi/simple --upgrade
+      -  pip3 install unity-downloader-cli --user --upgrade --index-url https://artifactory.prd.it.unity3d.com/artifactory/api/pypi/pypi/simple --upgrade
       -  unity-downloader-cli -u {{ unity_version.name }} --fast -o macos --wait --skip-download -c editor -c il2cpp  > unity_revision_{{ unity_version.name }}.txt
     artifacts:
         unity_revision_{{ unity_version.name }}.zip:
@@ -59,7 +59,7 @@ editor:priming:{{ unity_version.name }}:android:
         DISPLAY: ":0"
         UPM_REGISTRY: https://artifactory-slo.bf.unity3d.com/artifactory/api/npm/upm-candidates
     commands:
-      -  pip install unity-downloader-cli --user --upgrade --index-url https://artifactory.prd.it.unity3d.com/artifactory/api/pypi/pypi/simple --upgrade
+      -  pip3 install unity-downloader-cli --user --upgrade --index-url https://artifactory.prd.it.unity3d.com/artifactory/api/pypi/pypi/simple --upgrade
       -  unity-downloader-cli -u {{ unity_version.name }} -o windows --wait --skip-download -c editor -c il2cpp -c android  > unity_revision_{{ unity_version.name }}.txt
     artifacts:
         unity_revision_{{ unity_version.name }}.zip:
@@ -77,7 +77,7 @@ editor:priming:fast-{{ unity_version.name }}:android:
         DISPLAY: ":0"
         UPM_REGISTRY: https://artifactory-slo.bf.unity3d.com/artifactory/api/npm/upm-candidates
     commands:
-      -  pip install unity-downloader-cli --user --upgrade --index-url https://artifactory.prd.it.unity3d.com/artifactory/api/pypi/pypi/simple --upgrade
+      -  pip3 install unity-downloader-cli --user --upgrade --index-url https://artifactory.prd.it.unity3d.com/artifactory/api/pypi/pypi/simple --upgrade
       -  unity-downloader-cli -u {{ unity_version.name }} --fast -o windows --wait --skip-download -c editor -c il2cpp -c android  > unity_revision.txt
     artifacts:
         unity_revision_{{ unity_version.name }}.zip:
@@ -95,7 +95,7 @@ editor:priming:{{ unity_version.name }}:windows:
         DISPLAY: ":0"
         UPM_REGISTRY: https://artifactory-slo.bf.unity3d.com/artifactory/api/npm/upm-candidates
     commands:
-      -  pip install unity-downloader-cli --user --upgrade --index-url https://artifactory.prd.it.unity3d.com/artifactory/api/pypi/pypi/simple --upgrade
+      -  pip3 install unity-downloader-cli --user --upgrade --index-url https://artifactory.prd.it.unity3d.com/artifactory/api/pypi/pypi/simple --upgrade
       -  unity-downloader-cli -u {{ unity_version.name }} -o windows --wait --skip-download -c editor -c il2cpp  > unity_revision_{{ unity_version.name }}.txt
     artifacts:
         unity_revision_{{ unity_version.name }}.zip:
@@ -113,7 +113,7 @@ editor:priming:fast-{{ unity_version.name }}:windows:
         DISPLAY: ":0"
         UPM_REGISTRY: https://artifactory-slo.bf.unity3d.com/artifactory/api/npm/upm-candidates
     commands:
-      -  pip install unity-downloader-cli --user --upgrade --index-url https://artifactory.prd.it.unity3d.com/artifactory/api/pypi/pypi/simple --upgrade
+      -  pip3 install unity-downloader-cli --user --upgrade --index-url https://artifactory.prd.it.unity3d.com/artifactory/api/pypi/pypi/simple --upgrade
       -  unity-downloader-cli -u {{ unity_version.name }} --fast -o windows --wait --skip-download -c editor -c il2cpp  > unity_revision_{{ unity_version.name }}.txt
     artifacts:
         unity_revision_{{ unity_version.name }}.zip:
@@ -131,7 +131,7 @@ editor:priming:{{ unity_version.name }}:linux:
         DISPLAY: ":0"
         UPM_REGISTRY: https://artifactory-slo.bf.unity3d.com/artifactory/api/npm/upm-candidates
     commands:
-      -  pip install unity-downloader-cli --user --upgrade --index-url https://artifactory.prd.it.unity3d.com/artifactory/api/pypi/pypi/simple --upgrade
+      -  pip3 install unity-downloader-cli --user --upgrade --index-url https://artifactory.prd.it.unity3d.com/artifactory/api/pypi/pypi/simple --upgrade
       -  unity-downloader-cli -u {{ unity_version.name }} -o linux --wait --skip-download -c editor -c il2cpp  > unity_revision_{{ unity_version.name }}.txt
     artifacts:
         unity_revision_{{ unity_version.name }}.zip:
@@ -149,7 +149,7 @@ editor:priming:fast-{{ unity_version.name }}:linux:
         DISPLAY: ":0"
         UPM_REGISTRY: https://artifactory-slo.bf.unity3d.com/artifactory/api/npm/upm-candidates
     commands:
-      -  pip install unity-downloader-cli --user --upgrade --index-url https://artifactory.prd.it.unity3d.com/artifactory/api/pypi/pypi/simple --upgrade
+      -  pip3 install unity-downloader-cli --user --upgrade --index-url https://artifactory.prd.it.unity3d.com/artifactory/api/pypi/pypi/simple --upgrade
       -  unity-downloader-cli -u {{ unity_version.name }} --fast -o linux --wait --skip-download -c editor -c il2cpp  > unity_revision_{{ unity_version.name }}.txt
     artifacts:
         unity_revision_{{ unity_version.name }}.zip:
@@ -167,7 +167,7 @@ editor:priming:{{ unity_version.name }}:ios:
         DISPLAY: ":0"
         UPM_REGISTRY: https://artifactory-slo.bf.unity3d.com/artifactory/api/npm/upm-candidates
     commands:
-      -  pip install unity-downloader-cli --user --upgrade --index-url https://artifactory.prd.it.unity3d.com/artifactory/api/pypi/pypi/simple --upgrade
+      -  pip3 install unity-downloader-cli --user --upgrade --index-url https://artifactory.prd.it.unity3d.com/artifactory/api/pypi/pypi/simple --upgrade
       -  unity-downloader-cli -u {{ unity_version.name }} -o macos --wait --skip-download -c editor -c iOS  > unity_revision_{{ unity_version.name }}.txt
     artifacts:
         unity_revision_{{ unity_version.name }}.zip:
@@ -185,7 +185,7 @@ editor:priming:fast-{{ unity_version.name }}:ios:
         DISPLAY: ":0"
         UPM_REGISTRY: https://artifactory-slo.bf.unity3d.com/artifactory/api/npm/upm-candidates
     commands:
-      -  pip install unity-downloader-cli --user --upgrade --index-url https://artifactory.prd.it.unity3d.com/artifactory/api/pypi/pypi/simple --upgrade
+      -  pip3 install unity-downloader-cli --user --upgrade --index-url https://artifactory.prd.it.unity3d.com/artifactory/api/pypi/pypi/simple --upgrade
       -  unity-downloader-cli -u {{ unity_version.name }} --fast -o macos --wait --skip-download -c editor -c iOS  > unity_revision_{{ unity_version.name }}.txt
     artifacts:
         unity_revision_{{ unity_version.name }}.zip:
