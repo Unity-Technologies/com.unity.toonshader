@@ -1,0 +1,55 @@
+yamato_name: UnityToonShader
+
+platforms:
+  - platform_type: &platform_win
+      name: win
+      type: Unity::VM
+      type_build: Unity::VM
+      image: package-ci/win10:v4
+      model: 
+      flavor: b1.medium
+      cmd_prefix: 
+  - platform_type: &platform_mac
+      name: mac
+      type: Unity::VM::osx
+      type_build: Unity::VM::osx
+      image: package-ci/macos-13:v4
+      model: 
+      flavor: m1.mac
+      cmd_prefix: 
+  - platform_type: &platform_linux
+      name: linux
+      type: Unity::VM
+      type_build: Unity::VM
+      image: package-ci/ubuntu-20.04:v4
+      model: 
+      flavor: b1.large
+      cmd_prefix: DISPLAY=:0.0
+  - platform_type: &platform_android
+      name: android
+      type: Unity::mobile::shield
+      type_build: Unity::VM
+      image: package-ci/win10:v4
+      model: 
+      flavor: b1.large
+      cmd_prefix: 
+  - platform_type: &platform_ios
+      name: ios
+      type: Unity::mobile::iPhone
+      type_build: Unity::VM::osx
+      image: package-ci/macos-12:v4
+      model: SE
+      flavor: b1.medium
+      cmd_prefix:
+      
+      
+pack_platform: &pack_platform_linux
+  name: linux
+  type: Unity::VM
+  image: package-ci/ubuntu-20.04:v4
+  flavor: b1.medium
+
+publish_platform: *platform_win
+promote_platform: *pack_platform_linux
+trigger_platform: *pack_platform_linux
+
