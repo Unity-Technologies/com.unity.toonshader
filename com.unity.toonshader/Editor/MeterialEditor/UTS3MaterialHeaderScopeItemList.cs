@@ -13,7 +13,7 @@ namespace UnityEditor.Rendering.Toon
     /// <summary>
     /// Collection to store <see cref="UTS3MaterialHeaderScopeItem"></see>
     /// </summary>
-    public class UTS3MaterialHeaderScopeList
+    internal class UTS3MaterialHeaderScopeList
     {
         internal readonly uint m_DefaultExpandedState;
         internal readonly List<UTS3MaterialHeaderScopeItem> m_Items = new List<UTS3MaterialHeaderScopeItem>();
@@ -22,7 +22,7 @@ namespace UnityEditor.Rendering.Toon
         /// Constructor that initializes it with the default expanded state for the internal scopes
         /// </summary>
         /// <param name="defaultExpandedState">By default, everything is expanded</param>
-        public UTS3MaterialHeaderScopeList(uint defaultExpandedState = uint.MaxValue)
+        internal UTS3MaterialHeaderScopeList(uint defaultExpandedState = uint.MaxValue)
         {
             m_DefaultExpandedState = defaultExpandedState;
         }
@@ -36,7 +36,7 @@ namespace UnityEditor.Rendering.Toon
         /// <param name="workflowMode">UTS workflow mode </param>        /// 
         /// <param name="isTransparent">Flag transparent material header should be drawn</param>        /// 
         /// <param name="isTessellation">Flag Tessellation material header should be drawn</param>        /// 
-        public void RegisterHeaderScope<TEnum>(GUIContent title, TEnum expandable, Action<Material> action, uint workflowMode, uint isTransparent, uint isTessellation )
+        internal void RegisterHeaderScope<TEnum>(GUIContent title, TEnum expandable, Action<Material> action, uint workflowMode, uint isTransparent, uint isTessellation )
             where TEnum : struct, IConvertible
         {
             m_Items.Add(new UTS3MaterialHeaderScopeItem()
@@ -60,7 +60,7 @@ namespace UnityEditor.Rendering.Toon
         /// </summary>
         /// <param name="materialEditor"><see cref="MaterialEditor"/></param>
         /// <param name="material"><see cref="Material"/></param>
-        public void DrawHeaders(MaterialEditor materialEditor, Material material)
+        internal void DrawHeaders(MaterialEditor materialEditor, Material material)
         {
             if (material == null)
                 throw new ArgumentNullException(nameof(material));
