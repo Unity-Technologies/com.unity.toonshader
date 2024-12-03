@@ -23,10 +23,10 @@ namespace UnityEditor.Rendering.Toon
     /// </code>
     /// </example>
     /// </summary>
-    public struct UTS3MaterialHeaderScope : IDisposable
+    internal struct UTS3MaterialHeaderScope : IDisposable
     {
         /// <summary>Indicates whether the header is expanded or not. Is true if the header is expanded, false otherwise.</summary>
-        public readonly bool expanded;
+        internal readonly bool expanded;
         bool spaceAtEnd;
 #if !UNITY_2020_1_OR_NEWER
         int oldIndentLevel;
@@ -86,7 +86,7 @@ namespace UnityEditor.Rendering.Toon
         /// <param name="subHeader">Set to true to make this into a sub-header. This affects the style of the header. Set to false to make this use the standard style.</param>
         /// <param name="defaultExpandedState">The default state if the header is not present</param>
         /// <param name="documentationURL">[optional] Documentation page</param>
-        public UTS3MaterialHeaderScope(GUIContent title, uint bitExpanded, MaterialEditor materialEditor, bool spaceAtEnd = true, bool subHeader = false, uint defaultExpandedState = uint.MaxValue, string documentationURL = "")
+        internal UTS3MaterialHeaderScope(GUIContent title, uint bitExpanded, MaterialEditor materialEditor, bool spaceAtEnd = true, bool subHeader = false, uint defaultExpandedState = uint.MaxValue, string documentationURL = "")
         {
             if (title == null)
                 throw new ArgumentNullException(nameof(title));
@@ -126,7 +126,7 @@ namespace UnityEditor.Rendering.Toon
         /// <param name="materialEditor">The current material editor.</param>
         /// <param name="spaceAtEnd">Set this to true to make the block include space at the bottom of its UI. Set to false to not include any space.</param>
         /// <param name="subHeader">Set to true to make this into a sub-header. This affects the style of the header. Set to false to make this use the standard style.</param>
-        public UTS3MaterialHeaderScope(string title, uint bitExpanded, MaterialEditor materialEditor, bool spaceAtEnd = true, bool subHeader = false)
+        internal UTS3MaterialHeaderScope(string title, uint bitExpanded, MaterialEditor materialEditor, bool spaceAtEnd = true, bool subHeader = false)
             : this(EditorGUIUtility.TrTextContent(title, string.Empty), bitExpanded, materialEditor, spaceAtEnd, subHeader)
         {
         }
