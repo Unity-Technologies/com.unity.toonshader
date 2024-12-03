@@ -1,6 +1,6 @@
 yamato_name: uts2
 test_editors:
-  - version: 2020.3
+  - version: 2022.3
 test_platforms:
   - name: win
     type: Unity::VM
@@ -15,7 +15,7 @@ pack:
   name: Pack {{ yamato_name }}
   agent:
     type: Unity::VM
-    image: package-ci/ubuntu:v2.0.0
+    image: package-ci/ubuntu-22.04:v4
     flavor: b1.medium
   commands:
     - npm install upm-ci-utils@stable -g --registry https://artifactory.prd.cds.internal.unity3d.com/artifactory/api/npm/upm-npm
@@ -78,7 +78,7 @@ prerelease:
   name: Create a prerelease {{ yamato_name }}  
   agent:
     type: Unity::VM
-    image: package-ci/ubuntu:v2.0.0
+    image: package-ci/ubuntu-22.04:v4
     flavor: b1.medium
   commands:
     - |
