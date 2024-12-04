@@ -2,9 +2,9 @@
 #
 #
 test_projects:
-  - name: LegacyStereoGraphicsTest-2023.1
+  - name: LegacyStereoGraphicsTest-6000.0
 unity_versions:
-  - name: 2023.1
+  - name: 6000.0
 ---
 {% for test_project in test_projects %}
 {% for unity_version in unity_versions %}

@@ -2,15 +2,14 @@
 #
 #
 test_projects:
-  - name: HdrpDX12GraphicsTest-2023.1
+  - name: UniversalGraphicsTestECS-6000.0
 unity_versions:
-  - name: 2023.1
-
+  - name: 6000.0
 ---
 {% for test_project in test_projects %}
 {% for unity_version in unity_versions %}
-{{ test_project.name }}_Win_DX12_playmode_{{ unity_version.name }}:
-    name: {{ test_project.name }} on Win_DX12_playmode on version {{ unity_version.name }}
+{{ test_project.name }}_Win_DX11_playmode_{{ unity_version.name }}:
+    name: {{ test_project.name }} on Win_Vulkan_playmode on version {{ unity_version.name }}
     agent:
         type: Unity::VM::GPU
         image: graphics-foundation/win10-dxr:stable
