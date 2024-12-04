@@ -4,18 +4,18 @@ test_editors:
 test_platforms:
   - name: win
     type: Unity::VM
-    image: package-ci/win10:stable
+    image: package-ci/win10:v4
     flavor: b1.large
   - name: mac
     type: Unity::VM::osx
-    image: package-ci/mac:stable
+    image: package-ci/macos-13:v4
     flavor: m1.mac
 ---
 pack:
   name: Pack {{ yamato_name }}
   agent:
     type: Unity::VM
-    image: package-ci/ubuntu:v2.0.0
+    image: package-ci/ubuntu-22.04:v4
     flavor: b1.medium
   commands:
     - npm install upm-ci-utils@stable -g --registry https://artifactory.prd.cds.internal.unity3d.com/artifactory/api/npm/upm-npm
@@ -53,7 +53,7 @@ publish:
   name: Publish {{ yamato_name }} to Internal Registry
   agent:
     type: Unity::VM
-    image: package-ci/win10:stable
+    image: package-ci/win10:v4
     flavor: b1.large
   commands:
     - npm install upm-ci-utils@stable -g --registry https://artifactory.prd.cds.internal.unity3d.com/artifactory/api/npm/upm-npm
@@ -78,7 +78,7 @@ prerelease:
   name: Create a prerelease {{ yamato_name }}  
   agent:
     type: Unity::VM
-    image: package-ci/ubuntu:v2.0.0
+    image: package-ci/ubuntu-22.04:v4
     flavor: b1.medium
   commands:
     - |
@@ -123,7 +123,7 @@ publish_dry_run:
   name: Publish Dry Run {{ yamato_name }} to Internal Registry
   agent:
     type: Unity::VM
-    image: package-ci/win10:stable
+    image: package-ci/win10:v4
     flavor: b1.large
   commands:
     - npm install upm-ci-utils@stable -g --registry https://artifactory.prd.cds.internal.unity3d.com/artifactory/api/npm/upm-npm
