@@ -1,4 +1,9 @@
 # Changelog
+## [0.11.0-preview] - 2024-12-04
+### Updated:
+* updated supported Unity versions.
+
+
 ## [0.10.2-preview] - 2024-08-20
 ### Fixed:
 * Plane objects can not be chosen from their front face in SceneViews.
