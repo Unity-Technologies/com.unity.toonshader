@@ -7,8 +7,8 @@ Shader "Toon" {
         [HideInInspector] _simpleUI ("SimpleUI", Int ) = 0
         [HideInInspector][Enum(OFF, 0, ON, 1)] _isUnityToonshader("Material is touched by Unity Toon Shader", Int) = 1
         [HideInInspector] _utsVersionX("VersionX", Float) = 0
-        [HideInInspector] _utsVersionY("VersionY", Float) = 10
-        [HideInInspector] _utsVersionZ("VersionZ", Float) = 2
+        [HideInInspector] _utsVersionY("VersionY", Float) = 11
+        [HideInInspector] _utsVersionZ("VersionZ", Float) = 0
         [HideInInspector] _utsTechnique ("Technique", int ) = 0 //DWF
         _AutoRenderQueue("Automatic Render Queue ", int) = 1
 

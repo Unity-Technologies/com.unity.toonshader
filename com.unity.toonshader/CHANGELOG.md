@@ -1,4 +1,10 @@
 # Changelog
+## [0.11.0-preview] - 2024-12-04
+### Updated:
+* The classes that were unnecessarily declared as public have been changed to internal.
+* updated supported Unity versions.
+* Minimum Unity versions are 2021.3.19, 2022.3, 6000.0.
+
 ## [0.10.2-preview] - 2024-08-20
 ### Fixed:
 * Plane objects can not be chosen from their front face in SceneViews.
