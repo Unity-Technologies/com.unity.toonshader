@@ -2,7 +2,7 @@
 #
 #
 test_projects:
-  - name: UniversalGraphicsTestECS-6000.0
+  - name: UniversalGraphicsTest-6000.0
 unity_versions:
   - name: 6000.0
 ---
