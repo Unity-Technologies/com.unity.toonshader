@@ -17,7 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/EmissiveAnimation.unity
     guid: 78a2ca88832c4e838052ce8e7b6436da
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/LightAndShadows_BakedLight.unity
     guid: cb9cd012102546509011eec8aa6f7d26
   - enabled: 1
@@ -68,3 +68,4 @@ EditorBuildSettings:
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 64c27f0e2a332ba4e84daabcd2dd9cdc,
       type: 2}
+  m_UseUCBPForAssetBundles: 0
