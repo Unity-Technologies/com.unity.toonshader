@@ -11,13 +11,13 @@ The **Unity Toon Shader** is compatible with all the render pipelines, the **Bui
 
 ## Unity Editor compatibility
 
-**Unity Toon Shader**  0.10.0-preview works for Unity 2020.3.45, 2021.3.19 to 2022.3. As some functions aren't available, supporting 2021.1, 2021.2 and 2022.2 are impossible.
+**Unity Toon Shader**  0.11.0-preview works for Unity 2021.3.19 to 6000.0. As some functions aren't available, supporting 2021.1, 2021.2 and 2022.2 are out of scope.
 
 |  Package version  |  Minimum Unity version  | Maximum Unity version  |
 | ---- | ---- | ---- |
 |  0.7.x  |  2019.4  |  2022.2  |
 |  0.8.x  |  2020.3.25, 2021.3 |  2022.2  |
 |  0.9.x  |  2020.3.45, 2021.3.19,2022.2.11,2023.1 |  2023.1  |
-|  0.10.x  |  2020.3.45, 2021.3.19,2022.3, 2023.2, 6000.0.0 |  6000.x |
-
+|  0.10.x  |  2020.3.45, 2021.3.19,2022.3, 2023.2  |6000.0 |
+|  0.11.x  | 2021.3.19, 2022.3, 6000.0 | 6000.0|
 

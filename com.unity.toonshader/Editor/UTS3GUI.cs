@@ -12,10 +12,10 @@ namespace UnityEditor.Rendering.Toon
 
 
         internal const float kVersionX = 0.0f;
-        internal const float kVersionY = 10.0f;
-        internal const float kVersionZ = 2.0f;
+        internal const float kVersionY = 11.0f;
+        internal const float kVersionZ = 0.0f;
 
-        internal static string versionString => "0.10.2-preview";
+        internal static string versionString => "0.11.0-preview";
 
         // Render Pipelines UTS supports are the followings 
         internal enum RenderPipeline
