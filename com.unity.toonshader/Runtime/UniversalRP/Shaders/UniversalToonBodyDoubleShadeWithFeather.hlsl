@@ -1,6 +1,6 @@
 ﻿//Unity Toon Shader/Universal
 //nobuyuki@unity3d.com
-//toshiyuki@unity3d.com (Universal RP/HDRP) 
+//toshiyuki@unity3d.com (Universal RP/HDRP)
 
 
 
@@ -47,7 +47,7 @@
 # endif
                 input.uv = i.uv0;
                 input.positionCS = i.pos;
-#  if defined(_ADDITIONAL_LIGHTS_VERTEX) ||  (VERSION_LOWER(12, 0))  
+#  if defined(_ADDITIONAL_LIGHTS_VERTEX) ||  (VERSION_LOWER(12, 0))
 
 				input.fogFactorAndVertexLight = i.fogFactorAndVertexLight;
 #  else
@@ -70,9 +70,9 @@
 #    endif
 #  else //ifdef _NORMALMAP
                 input.normalWS = half3(i.normalDir);
-    #if (VERSION_LOWER(12, 0))  
+    #if (VERSION_LOWER(12, 0))
                 input.viewDirWS = half3(viewDirection);
-    #endif  //    #if (VERSION_LOWER(12, 0))  
+    #endif  //    #if (VERSION_LOWER(12, 0))
 #  endif
                 InitializeInputData(input, surfaceData.normalTS, inputData);
 
@@ -106,7 +106,7 @@
 #endif
 
 //v.2.0.4
-#if defined(_IS_CLIPPING_MODE) 
+#if defined(_IS_CLIPPING_MODE)
 //DoubleShadeWithFeather_Clipping
                 float4 _ClippingMask_var = SAMPLE_TEXTURE2D(_ClippingMask, sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex));
                 float Set_Clipping = saturate((lerp( _ClippingMask_var.r, (1.0 - _ClippingMask_var.r), _Inverse_Clipping )+_Clipping_Level));
@@ -142,7 +142,7 @@
                 float3 customLightDirection = normalize(mul( GetObjectToWorldMatrix(), float4(((float3(1.0,0.0,0.0)*_Offset_X_Axis_BLD*10)+(float3(0.0,1.0,0.0)*_Offset_Y_Axis_BLD*10)+(float3(0.0,0.0,-1.0)*lerp(-1.0,1.0,_Inverse_Z_Axis_BLD))),0)).xyz);
                 float3 lightDirection = normalize(lerp(defaultLightDirection, mainLight.direction.xyz,any(mainLight.direction.xyz)));
                 lightDirection = lerp(lightDirection, customLightDirection, _Is_BLD);
-                //v.2.0.5: 
+                //v.2.0.5:
 
                 half3 originalLightColor = mainLightColor.rgb;
 
@@ -179,7 +179,7 @@
 
                 float4 _Set_HighColorMask_var = tex2D(_Set_HighColorMask, TRANSFORM_TEX(Set_UV0, _Set_HighColorMask));
 
-                float _Specular_var = 0.5*dot(halfDirection,lerp( i.normalDir, normalDirection, _Is_NormalMapToHighColor ))+0.5; //  Specular                
+                float _Specular_var = 0.5*dot(halfDirection,lerp( i.normalDir, normalDirection, _Is_NormalMapToHighColor ))+0.5; //  Specular
                 float _TweakHighColorMask_var = (saturate((_Set_HighColorMask_var.g+_Tweak_HighColorMaskLevel))*lerp( (1.0 - step(_Specular_var,(1.0 - pow(abs(_HighColor_Power),5)))), pow(abs(_Specular_var),exp2(lerp(11,1,_HighColor_Power))), _Is_SpecularToHighColor ));
 
                 float4 _HighColor_Tex_var = tex2D(_HighColor_Tex, TRANSFORM_TEX(Set_UV0, _HighColor_Tex));
@@ -231,7 +231,7 @@
                 float3 viewNormal = (mul(UNITY_MATRIX_V, float4(lerp( i.normalDir, mul( _NormalMapForMatCap_var.rgb, tangentTransform ).rgb, _Is_NormalMapForMatCap ),0))).rgb;
                 float3 NormalBlend_MatcapUV_Detail = viewNormal.rgb * float3(-1,-1,1);
                 float3 NormalBlend_MatcapUV_Base = (mul( UNITY_MATRIX_V, float4(viewDirection,0) ).rgb*float3(-1,-1,1)) + float3(0,0,1);
-                float3 noSknewViewNormal = NormalBlend_MatcapUV_Base*dot(NormalBlend_MatcapUV_Base, NormalBlend_MatcapUV_Detail)/NormalBlend_MatcapUV_Base.b - NormalBlend_MatcapUV_Detail;                
+                float3 noSknewViewNormal = NormalBlend_MatcapUV_Base*dot(NormalBlend_MatcapUV_Base, NormalBlend_MatcapUV_Detail)/NormalBlend_MatcapUV_Base.b - NormalBlend_MatcapUV_Detail;
                 float2 _ViewNormalAsMatCapUV = (lerp(noSknewViewNormal,viewNormal,_Is_Ortho).rg*0.5)+0.5;
                 //v.2.0.7
                 float2 _Rot_MatCapUV_var = RotateUV((0.0 + ((_ViewNormalAsMatCapUV - (0.0+_Tweak_MatCapUV)) * (1.0 - 0.0) ) / ((1.0-_Tweak_MatCapUV) - (0.0+_Tweak_MatCapUV))), _Rot_MatCapUV_var_ang, float2(0.5, 0.5), 1.0);
@@ -264,12 +264,12 @@
                 //
                 //v.2.0.6: GI_Intensity with Intensity Multiplier Filter
 
-                float3 envLightColor = envColor.rgb;
+                float3 envLightColor = envColor.rgb + SampleSH(normalDirection);
 
-                float envLightIntensity = 0.299*envLightColor.r + 0.587*envLightColor.g + 0.114*envLightColor.b <1 ? (0.299*envLightColor.r + 0.587*envLightColor.g + 0.114*envLightColor.b) : 1;
+                float envLightIntensity = saturate(0.299*envLightColor.r + 0.587*envLightColor.g + 0.114*envLightColor.b);
 
 
-                float3 pointLightColor = 0;
+                float3 pointLightColor = envLightColor*envLightIntensity*_GI_Intensity*smoothstep(1,0,envLightIntensity/2);
   #ifdef _ADDITIONAL_LIGHTS
 
                 int pixelLightCount = GetAdditionalLightsCount();
@@ -295,7 +295,7 @@
 
 
                         float3 lightDirection = additionalLight.direction;
-                        //v.2.0.5: 
+                        //v.2.0.5:
                         float3 addPassLightColor = (0.5*dot(lerp(i.normalDir, normalDirection, _Is_NormalMapToBase), lightDirection) + 0.5) * additionalLightColor.rgb;
                         float  pureIntencity = max(0.001, (0.299*additionalLightColor.r + 0.587*additionalLightColor.g + 0.114*additionalLightColor.b));
                         float3 lightColor = max(float3(0.0,0.0,0.0), lerp(addPassLightColor, lerp(float3(0.0,0.0,0.0), min(addPassLightColor, addPassLightColor / pureIntencity), notDirectional), _Is_Filter_LightColor));
@@ -332,7 +332,7 @@
 
                         float4 _Set_HighColorMask_var = tex2D(_Set_HighColorMask, TRANSFORM_TEX(Set_UV0, _Set_HighColorMask));
 
-                        float _Specular_var = 0.5*dot(halfDirection, lerp(i.normalDir, normalDirection, _Is_NormalMapToHighColor)) + 0.5; //  Specular                
+                        float _Specular_var = 0.5*dot(halfDirection, lerp(i.normalDir, normalDirection, _Is_NormalMapToHighColor)) + 0.5; //  Specular
                         float _TweakHighColorMask_var = (saturate((_Set_HighColorMask_var.g + _Tweak_HighColorMaskLevel))*lerp((1.0 - step(_Specular_var, (1.0 - pow(_HighColor_Power, 5)))), pow(_Specular_var, exp2(lerp(11, 1, _HighColor_Power))), _Is_SpecularToHighColor));
 
                         float4 _HighColor_Tex_var = tex2D(_HighColor_Tex, TRANSFORM_TEX(Set_UV0, _HighColor_Tex));
@@ -379,7 +379,7 @@
 
 
                         float3 lightDirection = additionalLight.direction;
-                        //v.2.0.5: 
+                        //v.2.0.5:
                         float3 addPassLightColor = (0.5*dot(lerp(i.normalDir, normalDirection, _Is_NormalMapToBase), lightDirection) + 0.5) * additionalLightColor.rgb;
                         float  pureIntencity = max(0.001, (0.299*additionalLightColor.r + 0.587*additionalLightColor.g + 0.114*additionalLightColor.b));
                         float3 lightColor = max(float3(0.0,0.0,0.0), lerp(addPassLightColor, lerp(float3(0.0,0.0,0.0), min(addPassLightColor, addPassLightColor / pureIntencity), notDirectional), _Is_Filter_LightColor));
@@ -416,7 +416,7 @@
 
                         float4 _Set_HighColorMask_var = tex2D(_Set_HighColorMask, TRANSFORM_TEX(Set_UV0, _Set_HighColorMask));
 
-                        float _Specular_var = 0.5*dot(halfDirection, lerp(i.normalDir, normalDirection, _Is_NormalMapToHighColor)) + 0.5; //  Specular                
+                        float _Specular_var = 0.5*dot(halfDirection, lerp(i.normalDir, normalDirection, _Is_NormalMapToHighColor)) + 0.5; //  Specular
                         float _TweakHighColorMask_var = (saturate((_Set_HighColorMask_var.g + _Tweak_HighColorMaskLevel))*lerp((1.0 - step(_Specular_var, (1.0 - pow(_HighColor_Power, 5)))), pow(_Specular_var, exp2(lerp(11, 1, _HighColor_Power))), _Is_SpecularToHighColor));
 
                         float4 _HighColor_Tex_var = tex2D(_HighColor_Tex, TRANSFORM_TEX(Set_UV0, _HighColor_Tex));
@@ -432,7 +432,7 @@
                         //	pointLightColor += lightColor;
                     }
                 UTS_LIGHT_LOOP_END
-  
+
   #endif
 
 
@@ -442,7 +442,7 @@
                 float emissiveMask = _Emissive_Tex_var.a;
                 emissive = _Emissive_Tex_var.rgb * _Emissive_Color.rgb * emissiveMask;
 #elif _EMISSIVE_ANIMATION
-                //v.2.0.7 Calculation View Coord UV for Scroll 
+                //v.2.0.7 Calculation View Coord UV for Scroll
                 float3 viewNormal_Emissive = (mul(UNITY_MATRIX_V, float4(i.normalDir,0))).xyz;
                 float3 NormalBlend_Emissive_Detail = viewNormal_Emissive * float3(-1,-1,1);
                 float3 NormalBlend_Emissive_Base = (mul( UNITY_MATRIX_V, float4(viewDirection,0)).xyz*float3(-1,-1,1)) + float3(0,0,1);
@@ -474,8 +474,8 @@
                 emissive = emissive_Color.rgb * _Emissive_Tex_var.rgb * emissiveMask;
 #endif
 
-                //Final Composition#if 
-                finalColor = SATURATE_IF_SDR(finalColor) + (envLightColor*envLightIntensity*_GI_Intensity*smoothstep(1,0,envLightIntensity/2)) + emissive;
+                //Final Composition#if
+                finalColor = SATURATE_IF_SDR(finalColor) + emissive;
 
 
                 finalColor += pointLightColor;
