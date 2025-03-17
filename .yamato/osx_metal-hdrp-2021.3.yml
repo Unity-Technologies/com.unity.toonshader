@@ -14,7 +14,7 @@ unity_versions:
         type: Unity::metal::macmini
         model: M1
         image: package-ci/macos-13:v4
-        flavor: b1.large    
+        flavor: m1.mac
     variables:
         UPM_REGISTRY: https://artifactory-slo.bf.unity3d.com/artifactory/api/npm/upm-candidates
         UTR_VERSION: current
