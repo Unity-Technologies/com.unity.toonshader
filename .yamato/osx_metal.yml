@@ -29,7 +29,7 @@ test_projects:
 
 {% assign project_name = test_project.project_prefix | append: '-' | concat: unity_editor.version %}
 
-{{ project_name }}_OSX_Metal_playmode_mono_Linear_{{ unity_version.name }}:
+{{ project_name }}_OSX_Metal_playmode_mono_Linear:
     name: {{ project_name }} on OSX_Metal_playmode_mono_Linear 
     agent:
         type: {{ metal_platform.type }}
@@ -48,7 +48,7 @@ test_projects:
          retries: 2
       -  command: scp -i ~/.ssh/id_rsa_macmini -o "StrictHostKeyChecking=no" ~/.ssh/id_rsa_macmini bokken@$BOKKEN_DEVICE_IP:~/.ssh/id_rsa_macmini
          retries: 2
-      -  command: ssh -i ~/.ssh/id_rsa_macmini -o "StrictHostKeyChecking=no" bokken@$BOKKEN_DEVICE_IP '$(python3 -m site --user-base)/bin/unity-downloader-cli --source-file ~/com.unity.toonshader/unity_revision_{{ unity_version.name }}.txt -c editor -c il2cpp  --wait --published-only'
+      -  command: ssh -i ~/.ssh/id_rsa_macmini -o "StrictHostKeyChecking=no" bokken@$BOKKEN_DEVICE_IP '$(python3 -m site --user-base)/bin/unity-downloader-cli -u {{ unity_editor.version }} -c editor -c il2cpp  --wait --published-only'
          retries: 2
       -  command: |5-
 
