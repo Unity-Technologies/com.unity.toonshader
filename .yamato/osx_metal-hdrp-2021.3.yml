@@ -1,3 +1,5 @@
+{% metadata_file .yamato/UnityToonShader.metafile %}
+
 #
 #
 #
@@ -30,10 +32,10 @@ test_projects:
 {{ project_name }}_OSX_Metal_playmode_mono_Linear_{{ unity_version.name }}:
     name: {{ project_name }} on OSX_Metal_playmode_mono_Linear 
     agent:
-        type: Unity::metal::macmini
-        model: M1
-        image: package-ci/macos-13:v4
-        flavor: m1.mac
+        type: {{ metal_platform.type }}
+        model: {{ metal_platform.model }}
+        image: {{ metal_platform.image }}
+        flavor: {{ metal_platform.flavor }}
     variables:
         UPM_REGISTRY: https://artifactory-slo.bf.unity3d.com/artifactory/api/npm/upm-candidates
         UTR_VERSION: current
