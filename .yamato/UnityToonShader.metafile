@@ -53,3 +53,10 @@ publish_platform: *platform_win
 promote_platform: *pack_platform_linux
 trigger_platform: *pack_platform_linux
 
+
+metal_platform: 
+  name: metal
+  type: Unity::metal::macmini
+  image: package-ci/macos-13:v4
+  model: M1
+  flavor: m1.mac
