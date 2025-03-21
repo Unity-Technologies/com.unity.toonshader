@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: UniversalRP-HighQuality
   m_EditorClassIdentifier: 
   k_AssetVersion: 11
-  k_AssetPreviousVersion: 10
+  k_AssetPreviousVersion: 11
   m_RendererType: 1
   m_RendererData: {fileID: 0}
   m_RendererDataList:
