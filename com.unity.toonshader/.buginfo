@@ -1,1 +1,5 @@
+system: jira
+server: jira.unity3d.com
+issuetype: Bug
+project: TOONB
 package: Unity Toon Shader
