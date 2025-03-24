@@ -14,19 +14,24 @@ test_projects:
       - version: 2022.3
       - version: 6000.0
   - project_prefix: HdrpStereoGraphicsTest
+    unity_editors:
       - version: 2021.3
   - project_prefix: LegacyGraphicsTest
+    unity_editors:
       - version: 2021.3
       - version: 2022.3
       - version: 6000.0
   - project_prefix: UniversalGraphicsTest
+    unity_editors:
       - version: 2021.3
       - version: 2022.3
       - version: 6000.0
   - project_prefix: UniversalGraphicsTestECS
+    unity_editors:
       - version: 2022.3
       - version: 6000.0
   - project_prefix: UniversalStereoGraphicsTest
+    unity_editors:
       - version: 2021.3
       - version: 6000.0
 
