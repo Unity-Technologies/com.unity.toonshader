@@ -1,3 +1,5 @@
+{% metadata_file .yamato/UnityToonShader.metafile %}
+
 #
 #
 #
@@ -84,10 +86,10 @@ test_projects:
 {{ project_name }}{{ test_project.key_postfix}}_Win_playmode:
     name: {{ project_name }}{{ test_project.key_postfix}} on Win_playmode
     agent:
-        type: Unity::VM::GPU
-        image: graphics-foundation/win10-dxr:stable
-        flavor: b1.large
-        model: gtx1080
+        type: {{win_test_platform.type}}
+        image: {{win_test_platform.image}}
+        model: {{win_test_platform.model}}
+        flavor: {{win_test_platform.flavor}}
     variables:
         UPM_REGISTRY: https://artifactory-slo.bf.unity3d.com/artifactory/api/npm/upm-candidates
         UTR_VERSION: current

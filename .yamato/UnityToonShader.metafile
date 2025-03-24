@@ -60,3 +60,10 @@ metal_platform:
   image: package-ci/macos-13:v4
   model: M1
   flavor: m1.mac
+
+win_test_platform: 
+  name: win test
+  type: Unity::VM::GPU
+  image: graphics-foundation/win10-dxr:stable
+  model: gtx1080
+  flavor: b1.large
