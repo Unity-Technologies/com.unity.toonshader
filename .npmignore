@@ -12,6 +12,7 @@ Toonshader_ProjectURP/**
 .npmrc
 .npmignore
 .gitignore
+.buginfo
 CONTRIBUTING.md
 CONTRIBUTING.md.meta
 QAReport.md
