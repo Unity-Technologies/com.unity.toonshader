@@ -15,6 +15,13 @@ test_projects:
       - version: 2021.3
       - version: 2022.3
       - version: 6000.0
+  - project_prefix: HdrpGraphicsTest
+    key_postfix: _Vulkan
+    utr_arguments: 
+    unity_editors:
+      - version: 2021.3
+      - version: 2022.3
+      - version: 6000.0
   - project_prefix: HdrpStereoGraphicsTest
     utr_arguments: --extra-editor-arg="-force-d3d11"
     unity_editors:
@@ -25,14 +32,34 @@ test_projects:
       - version: 2021.3
       - version: 2022.3
       - version: 6000.0
+  - project_prefix: LegacyGraphicsTest 
+    key_postfix: _Vulkan
+    utr_arguments: 
+    unity_editors:
+      - version: 2021.3
+      - version: 2022.3
+      - version: 6000.0
   - project_prefix: UniversalGraphicsTest
     utr_arguments: --extra-editor-arg="-force-d3d11"
     unity_editors:
       - version: 2021.3
       - version: 2022.3
       - version: 6000.0
+  - project_prefix: UniversalGraphicsTest
+    key_postfix: _Vulkan
+    utr_arguments: 
+    unity_editors:
+      - version: 2021.3
+      - version: 2022.3
+      - version: 6000.0
   - project_prefix: UniversalGraphicsTestECS
     utr_arguments: --extra-editor-arg="-force-d3d11"
+    unity_editors:
+      - version: 2022.3
+      - version: 6000.0
+  - project_prefix: UniversalGraphicsTestECS
+    key_postfix: _Vulkan
+    utr_arguments: 
     unity_editors:
       - version: 2022.3
       - version: 6000.0
@@ -54,8 +81,8 @@ test_projects:
 
 {% assign project_name = test_project.project_prefix | append: '-' | concat: unity_editor.version %}
 
-{{ project_name }}_Win_DX11_playmode:
-    name: {{ project_name }} on Win_DX11_playmode
+{{ project_name }}{{ test_project.key_postfix}}_Win_playmode:
+    name: {{ project_name }}{{ test_project.key_postfix}} on Win_playmode
     agent:
         type: Unity::VM::GPU
         image: graphics-foundation/win10-dxr:stable
