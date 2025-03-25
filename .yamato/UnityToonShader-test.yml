@@ -4,7 +4,7 @@
 #
 #
 
-test_projects:
+osx_test_projects:
   - project_prefix: HdrpGraphicsTest
     unity_editors:
       - version: 2021.3
@@ -24,7 +24,7 @@ test_projects:
       - version: 6000.0
   
 ---
-{% for test_project in test_projects %}
+{% for test_project in osx_test_projects %}
 {% for unity_editor in test_project.unity_editors %}
 
 {% assign project_name = test_project.project_prefix | append: '-' | concat: unity_editor.version %}
