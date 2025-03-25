@@ -133,10 +133,6 @@ win_test_projects:
                  mkdir -p TestProjects/{{ project_name }}/test-results/
                  scp -i ~/.ssh/id_rsa_macmini -o "StrictHostKeyChecking=no" -r bokken@$BOKKEN_DEVICE_IP:/Users/bokken/com.unity.toonshader/TestProjects/{{ project_name }}/test-results/ TestProjects/{{ project_name }}/test-results/
                  exit $UTR_RESULT
-    triggers:
-        branches:
-          only:
-          - "/.*/"
     artifacts:
         logs:
             paths:
@@ -170,13 +166,43 @@ win_test_projects:
       -  cd TestProjects/{{ project_name }} && utr --suite=playmode --testproject=. --editor-location=.Editor --artifacts_path=test-results {{ test_project.utr_arguments }}
     timeout: 360000
     retries: 1
-    triggers:
-        branches:
-          only:
-          - "/.*/"
     artifacts:
         logs:
             paths:
               -  "**/test-results/**"
 {% endfor %}
 {% endfor %}
+
+test_trigger:
+  name: Tests Trigger for {{ yamato_name }}
+  agent:
+    type: {{ trigger_platform.type }}
+    image: {{ trigger_platform.image }}
+    flavor: {{ trigger_platform.flavor}}
+  commands:
+    -  npm install upm-ci-utils@stable -g --registry https://artifactory.prd.cds.internal.unity3d.com/artifactory/api/npm/upm-npm
+    -  upm-ci package izon -t  
+  triggers:
+    expression: | 
+        NOT push.branch eq "development/v1" 
+    branches:
+      only:
+      - "/.*/"
+    recurring:
+      - branch: dev
+        frequency: daily
+        rerun: on_new_revision
+        
+  dependencies:
+    {% for test_project in osx_test_projects %}
+    {% for unity_editor in test_project.unity_editors %}
+    {% assign project_name = test_project.project_prefix | append: '-' | concat: unity_editor.version %}
+    - .yamato/{{ yamato_name }}-test.yml#{{ project_name }}_OSX_Metal_playmode_mono_Linear
+    {% endfor %}
+    {% endfor %}
+    {% for test_project in win_test_projects %}
+    {% for unity_editor in test_project.unity_editors %}
+    {% assign project_name = test_project.project_prefix | append: '-' | concat: unity_editor.version %}
+    - .yamato/{{ yamato_name }}-test.yml#{{ project_name }}{{ test_project.key_postfix}}_Win_playmode
+    {% endfor %}
+    {% endfor %}
