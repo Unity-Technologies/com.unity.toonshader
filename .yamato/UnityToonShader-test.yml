@@ -185,9 +185,6 @@ test_trigger:
   triggers:
     expression: | 
         NOT push.branch eq "development/v1" 
-    branches:
-      only:
-      - "/.*/"
     recurring:
       - branch: dev
         frequency: daily
