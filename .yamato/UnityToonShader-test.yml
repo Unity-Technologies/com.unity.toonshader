@@ -22,8 +22,84 @@ osx_test_projects:
     unity_editors:
       - version: 2022.3
       - version: 6000.0
+
+
+win_test_projects:
+  - project_prefix: LegacyStereoGraphicsTest
+    utr_arguments: --extra-editor-arg="-force-d3d11"
+    unity_editors:
+      - version: 2021.3
+      - version: 2022.3
+      - version: 6000.0
+  - project_prefix: HdrpGraphicsTest
+    utr_arguments: --extra-editor-arg="-force-d3d11"
+    unity_editors:
+      - version: 2021.3
+      - version: 2022.3
+      - version: 6000.0
+  - project_prefix: HdrpGraphicsTest
+    key_postfix: _Vulkan
+    utr_arguments: 
+    unity_editors:
+      - version: 2021.3
+      - version: 2022.3
+      - version: 6000.0
+  - project_prefix: HdrpStereoGraphicsTest
+    utr_arguments: --extra-editor-arg="-force-d3d11"
+    unity_editors:
+      - version: 2021.3
+  - project_prefix: LegacyGraphicsTest
+    utr_arguments: --extra-editor-arg="-force-d3d11"
+    unity_editors:
+      - version: 2021.3
+      - version: 2022.3
+      - version: 6000.0
+  - project_prefix: LegacyGraphicsTest 
+    key_postfix: _Vulkan
+    utr_arguments: 
+    unity_editors:
+      - version: 2021.3
+      - version: 2022.3
+      - version: 6000.0
+  - project_prefix: UniversalGraphicsTest
+    utr_arguments: --extra-editor-arg="-force-d3d11"
+    unity_editors:
+      - version: 2021.3
+      - version: 2022.3
+      - version: 6000.0
+  - project_prefix: UniversalGraphicsTest
+    key_postfix: _Vulkan
+    utr_arguments: 
+    unity_editors:
+      - version: 2021.3
+      - version: 2022.3
+      - version: 6000.0
+  - project_prefix: UniversalGraphicsTestECS
+    utr_arguments: --extra-editor-arg="-force-d3d11"
+    unity_editors:
+      - version: 2022.3
+      - version: 6000.0
+  - project_prefix: UniversalGraphicsTestECS
+    key_postfix: _Vulkan
+    utr_arguments: 
+    unity_editors:
+      - version: 2022.3
+      - version: 6000.0
+  - project_prefix: UniversalStereoGraphicsTest
+    utr_arguments: --extra-editor-arg="-force-d3d11"
+    unity_editors:
+      - version: 2021.3
+      - version: 6000.0
+  - project_prefix: HdrpDX12GraphicsTest
+    utr_arguments:
+    unity_editors:
+      - version: 2021.3
+      - version: 6000.0
+
   
 ---
+
+# OSX Metal
 {% for test_project in osx_test_projects %}
 {% for unity_editor in test_project.unity_editors %}
 
@@ -66,5 +142,41 @@ osx_test_projects:
             paths:
               -  "**/test-results/**"
               -  "TestProjects/{{ project_name }}/Logs/*.log"
+{% endfor %}
+{% endfor %}
+
+
+# Windows
+{% for test_project in win_test_projects %}
+{% for unity_editor in test_project.unity_editors %}
+
+{% assign project_name = test_project.project_prefix | append: '-' | concat: unity_editor.version %}
+
+{{ project_name }}{{ test_project.key_postfix}}_Win_playmode:
+    name: {{ project_name }}{{ test_project.key_postfix}} on Win_playmode
+    agent:
+        type: {{win_test_platform.type}}
+        image: {{win_test_platform.image}}
+        model: {{win_test_platform.model}}
+        flavor: {{win_test_platform.flavor}}
+    variables:
+        UPM_REGISTRY: https://artifactory-slo.bf.unity3d.com/artifactory/api/npm/upm-candidates
+        UTR_VERSION: current
+    commands:
+      -  curl -s https://artifactory.prd.it.unity3d.com/artifactory/unity-tools-local/utr-standalone/utr.bat --output TestProjects/{{ project_name }}/utr.bat
+      -  choco install unity-downloader-cli -y -s https://artifactory.prd.it.unity3d.com/artifactory/api/nuget/unity-choco-local
+      -  cd TestProjects/{{ project_name }} && unity-downloader-cli -u {{ unity_editor.version }} -c editor -c il2cpp  --wait --published-only
+#      -  cd TestProjects/{{ project_name }} && utr --scripting-backend=Mono2x --suite=playmode --suite=playmode --testproject=. --editor-location=.Editor --artifacts_path=test-results {{ test_project.utr_arguments }} --zero-tests-are-ok=1
+      -  cd TestProjects/{{ project_name }} && utr --suite=playmode --testproject=. --editor-location=.Editor --artifacts_path=test-results {{ test_project.utr_arguments }}
+    timeout: 360000
+    retries: 1
+    triggers:
+        branches:
+          only:
+          - "/.*/"
+    artifacts:
+        logs:
+            paths:
+              -  "**/test-results/**"
 {% endfor %}
 {% endfor %}
