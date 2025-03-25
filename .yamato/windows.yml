@@ -4,7 +4,7 @@
 #
 #
 
-test_projects:
+win_test_projects:
   - project_prefix: LegacyStereoGraphicsTest
     utr_arguments: --extra-editor-arg="-force-d3d11"
     unity_editors:
@@ -78,7 +78,7 @@ test_projects:
 
 ---
 
-{% for test_project in test_projects %}
+{% for test_project in win_test_projects %}
 {% for unity_editor in test_project.unity_editors %}
 
 {% assign project_name = test_project.project_prefix | append: '-' | concat: unity_editor.version %}
