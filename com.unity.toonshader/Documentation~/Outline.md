@@ -21,12 +21,14 @@ Outlines are one of the most important elements that  affect the impression of a
 
 ## Outline 
 A checkbox to enable outline.
+
 | Outline Off | Outline On |
 | -- | -- | 
 | <img src="images/OutlineOff.png" height="256"> | <img src="images/OutlineOn.png" height="256"> |
 
 ### Outline Mode
 Specifies how the inverted-outline objects spawn.
+
 | Outline Mode | Description |
 | -- | -- | 
 | Normal Direction | Stretches polygons in the normal direction. |

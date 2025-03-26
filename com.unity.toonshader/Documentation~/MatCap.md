@@ -88,6 +88,7 @@ Rotates the MatCap normal map UV based on its center.
 
 ## MatCap Blending on Shadows
 Enables the blending rate of the MatCap range in shadows.
+
 | MatCap Blending on Shadows Off  | MatCap Blending on Shadows On |
 | -- | --|
 | <img src="images/MatCapBlendingOnShadowOff.png" height="256">| <img src="images/MatCapBlendingOnShadowOn.png" height="256"> |

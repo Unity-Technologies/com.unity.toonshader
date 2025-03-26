@@ -27,6 +27,7 @@ Emission controls the color and intensity of light emitted from the surface. Whe
 
 ## Emission Map
 Primarily used with the Bloom Post Effect and represents luminous objects.
+
 | Emission Map Example |
 | -- |
 | <img src="images/EmissionMapSample.png" height="256"> | 
