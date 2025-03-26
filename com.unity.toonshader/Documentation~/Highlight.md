@@ -18,7 +18,6 @@ The ability to display specular highlights in a cel-animation-like manner is ess
 ## Highlight
 Highlight : Texture(sRGB) × Color(RGB) Default:White. Pattern and color of specularly illuminated area.
 
-<br><br>
 | Default Color | Applied different light color |
 | - | - |
 | <img src="images/Highlight0.png"  height="256"> | <img src="images/Highlight1.png"  height="256"> | 
