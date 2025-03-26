@@ -37,6 +37,7 @@ Apply **Base Map** to the **1st Shading Map**. When you check **Apply to 1st Sha
 
 ## 1st Shading Map
 The map used for the brighter portions of the shadow. Texture(sRGB) × Color(RGB). The default color is White.
+
 |   **1st Shading Map** (Face) | (Hair) | Result  |
 | ---- | ---- | ---- |
 | <img src="images/yuko_face3_B.png" height="256">   | <img src="images/yuko_hairB.png" height="256"> |<img src="images/YukoFace1stShadingMap.png" height="256">  |
@@ -48,6 +49,7 @@ Apply **Base Map** or the **1st Shading Map** to the **2nd Shading Map**. When y
 
 ### 2nd Shading Map
 The map used for the darker portions of the shadow. Texture(sRGB) × Color(RGB). The default color is White.
+
 |  **2nd Shading Map** (Face)  | (Hair) | Result  |
 | ---- | ---- | ---- |
 | <img src="images/yuko_face3_C.png" height="256">   | <img src="images/yuko_hairC.png" height="256"> |<img src="images/YukoFace2ndShadingMap.png" height="256">  |
