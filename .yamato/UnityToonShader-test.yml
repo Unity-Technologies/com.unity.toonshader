@@ -174,14 +174,7 @@ win_test_projects:
 {% endfor %}
 
 test_trigger:
-  name: Tests Trigger for {{ yamato_name }}
-  agent:
-    type: {{ trigger_platform.type }}
-    image: {{ trigger_platform.image }}
-    flavor: {{ trigger_platform.flavor}}
-  commands:
-    -  npm install upm-ci-utils@stable -g --registry https://artifactory.prd.cds.internal.unity3d.com/artifactory/api/npm/upm-npm
-    -  upm-ci package izon -t  
+  name: Tests Trigger (Virtual) for {{ yamato_name }}
   triggers:
     expression: | 
         NOT push.branch eq "development/v1" 
