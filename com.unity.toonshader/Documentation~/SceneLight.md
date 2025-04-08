@@ -4,10 +4,6 @@ The **Unity Toon Shader** provides the way to control effectiveness of lights in
 UTS allows you to control each area color regardless of the actual light color. While this feature is fundamental to professional cell shading, sometimes it's necessary to apply actual light colors. 
 UTS provides a way to determine if the actual light color does or doesn't affect it.
 
-
-<img src="images/InspectorSceneLightEffectivenessSettings.png" width="573">
-<br/><br/>
-
 * [Light Color Effectiveness Settings](#light-color-effectiveness)
 * [Light Probe Intensity](#light-probe-intensity)
 * [Limit Light Intensity](#limit-light-intensity)
@@ -31,19 +27,14 @@ If the setting for each color is Off, the color is always illuminated with a lig
 | Outline |  Light color effect in outlines. |
 
 Light Color Effectiveness example: A red light on the face. Unchecked areas on the face material aren't affected by the light color.
-|Light Color Effectiveness is off | Light Color Effectiveness is on |
-| - | - |
-| <img src="images/SceneLightColorEffectivenessOn.png" height="256"> | <img src="images/SceneLightColorEffectivenessOff.png" height="256"> |
-|<img src="images/SceneLightColorEffectiveness1.png" height="70">|<img src="images/SceneLightColorEffectiveness0.png" height="70">|
-<br/><br/>
 
+![**Light Color Effectiveness** is off. The red light doesn't affect the face of the model.](images/SceneLightColorEffectivenessOn.png)
+
+![**Light Color Effectiveness** is on. The red light doesn't affect the face of the model.](images/SceneLightColorEffectivenessOff.png)
 
 ## Light Probe Intensity
 
 Adds the light probe color to the material color according to the **Light Probe Intensity** value.
-
-<img src="images/LightProbeIntensity.gif" height="256">
-<br><br>
 
 ## Limit Light Intensity
 
@@ -51,6 +42,6 @@ Limit the brightness of the light to 1 to avoid white-out.
 
 Example: When a intensive directional light is on the character.
 
-| Limit Light Intensity Off | Limit Light Intensity On |
-| - | - |
-| <img src="images/LimitLightIntensityOff.png" height="256"> | <img src="images/LimitLightIntensityOn.png" height="256"> |
+![**Limit Light Intensity is off. The model is brightly lit by a white light.](images/LimitLightIntensityOff.png)
+
+![**Limit Light Intensity is on. The model is lit more naturally.](images/LimitLightIntensityOn.png)
