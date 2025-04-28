@@ -47,7 +47,7 @@ win_test_projects:
   - project_prefix: HdrpStereoGraphicsTest
     utr_arguments: --extra-editor-arg="-force-d3d11"
     unity_editors:
-      - version: 2021.3
+      - version: 2022.3
   - project_prefix: LegacyGraphicsTest
     utr_arguments: --extra-editor-arg="-force-d3d11"
     unity_editors:
