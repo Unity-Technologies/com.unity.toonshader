@@ -71,7 +71,9 @@
 #    endif //(VERSION_LOWER(12, 0))
 #  endif
                 InitializeInputData(input, surfaceData.normalTS, inputData);
-
+#  if UNITY_VERSION >= 60000000
+                InitializeBakedGIData(input, inputData);
+#  endif
                 BRDFData brdfData;
                 InitializeBRDFData(surfaceData.albedo,
                     surfaceData.metallic,
