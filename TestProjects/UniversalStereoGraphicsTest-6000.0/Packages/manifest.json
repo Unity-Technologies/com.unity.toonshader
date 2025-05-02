@@ -1,12 +1,10 @@
 {
   "dependencies": {
-    "com.unity.ai.navigation": "2.0.0",
-    "com.unity.ide.rider": "3.0.28",
-    "com.unity.ide.visualstudio": "2.0.22",
+    "com.unity.ide.rider": "3.0.36",
+    "com.unity.ide.visualstudio": "2.0.23",
     "com.unity.package-validation-suite": "0.73.0-preview",
-    "com.unity.raytracedhardshadow": "https://github.com/unity3d-jp/RaytracedHardShadow.git#bbba12aaf3e7c6fb1c198746ef9a0fcf408b79b9",
-    "com.unity.render-pipelines.universal": "17.0.3",
-    "com.unity.test-framework": "1.4.4",
+    "com.unity.render-pipelines.universal": "17.0.4",
+    "com.unity.test-framework": "1.5.1",
     "com.unity.test-framework.build": "0.0.1-preview.14",
     "com.unity.test-framework.utp-reporter": "1.0.2-preview",
     "com.unity.testframework.graphics": "7.17.1-exp.1",
