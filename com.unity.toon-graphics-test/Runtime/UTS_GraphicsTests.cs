@@ -14,7 +14,7 @@ namespace Tests
 {
     public class UTS_GraphicsTests
     {
-        public const string ReferenceImagePath = "Assets/ReferenceImages";
+        private const string ReferenceImagePath = "Packages/com.unity.toon-reference-images";
         [UnityTest]
         [PrebuildSetup("SetupGraphicsTestCases")]
         [UseGraphicsTestCases(ReferenceImagePath)]
