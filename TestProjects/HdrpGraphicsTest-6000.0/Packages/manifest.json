@@ -5,6 +5,7 @@
     "com.unity.package-validation-suite": "0.73.0-preview",
     "com.unity.recorder": "5.1.2",
     "com.unity.render-pipelines.high-definition": "17.0.4",
+    "com.unity.render-pipelines.high-definition-config": "17.0.4",
     "com.unity.test-framework": "1.5.1",
     "com.unity.test-framework.build": "0.0.1-preview.14",
     "com.unity.testframework.graphics": "7.17.1-exp.1",
