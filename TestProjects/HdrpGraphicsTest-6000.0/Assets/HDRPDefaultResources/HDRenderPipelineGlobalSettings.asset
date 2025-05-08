@@ -787,14 +787,14 @@ MonoBehaviour:
         asm: Unity.RenderPipelines.HighDefinition.Runtime}
       data:
         m_Version: 0
-        m_VolumeProfile: {fileID: 11400000, guid: f9190b1d53db498492b507d1f61be3c9,
+        m_VolumeProfile: {fileID: 11400000, guid: a7a56d22c47969f469c278befdffb53f,
           type: 2}
     - rid: 4063824025482690755
       type: {class: HDRPDefaultVolumeProfileSettings, ns: UnityEngine.Rendering.HighDefinition,
         asm: Unity.RenderPipelines.HighDefinition.Runtime}
       data:
         m_Version: 0
-        m_VolumeProfile: {fileID: 11400000, guid: f9190b1d53db498492b507d1f61be3c9,
+        m_VolumeProfile: {fileID: 11400000, guid: 1723b7799b3653243b0b63f6244e50c2,
           type: 2}
     - rid: 4063824025482690756
       type: {class: HDRenderPipelineRuntimeMaterials, ns: UnityEngine.Rendering.HighDefinition,
