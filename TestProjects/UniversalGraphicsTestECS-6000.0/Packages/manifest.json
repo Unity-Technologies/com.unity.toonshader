@@ -10,6 +10,7 @@
     "com.unity.test-framework.utp-reporter": "1.0.2-preview",
     "com.unity.testframework.graphics": "7.12.0-exp.2",
     "com.unity.toonshader": "file:../../../com.unity.toonshader",
+    "com.unity.toon-graphics-test": "file:../../../com.unity.toon-graphics-test",
     "com.unity.ugui": "2.0.0",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",
