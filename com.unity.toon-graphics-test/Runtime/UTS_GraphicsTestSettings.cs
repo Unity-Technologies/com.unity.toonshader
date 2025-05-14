@@ -2,7 +2,7 @@
 
 namespace Tests
 {
-    public class HDRPUTS_GraphicsTestSettings : GraphicsTestSettings
+    public class UTS_GraphicsTestSettings : GraphicsTestSettings
     {
         public int WaitFrames = 0;
         public bool XRCompatible = true;
@@ -12,7 +12,7 @@ namespace Tests
         public bool CheckMemoryAllocation = true;
 #endif //#if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
 
-        public HDRPUTS_GraphicsTestSettings()
+        public UTS_GraphicsTestSettings()
         {
             ImageComparisonSettings.TargetWidth = 960;
             ImageComparisonSettings.TargetHeight = 540;

@@ -28,7 +28,7 @@ namespace Tests
             yield return null;
 
             var cameras = GameObject.FindGameObjectsWithTag("MainCamera").Select(x => x.GetComponent<Camera>());
-            var settings = Object.FindObjectOfType<HDRPUTS_GraphicsTestSettings>();
+            var settings = Object.FindObjectOfType<UTS_GraphicsTestSettings>();
             Assert.IsNotNull(settings, "Invalid test scene, couldn't find UTS_GraphicsTestSettings");
 
             Scene scene = SceneManager.GetActiveScene();
