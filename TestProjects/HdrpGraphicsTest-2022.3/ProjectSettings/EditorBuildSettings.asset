@@ -71,4 +71,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MetaverseOutlineLighting/OutlineLighting02_GradientSky.unity
     guid: f8ee6806625245d498d2a9217ae571ef
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: cdb6e892022f4fc4196b153659c4d080,
+      type: 2}
