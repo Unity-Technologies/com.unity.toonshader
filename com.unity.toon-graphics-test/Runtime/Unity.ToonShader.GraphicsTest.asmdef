@@ -2,7 +2,8 @@
     "name": "Unity.ToonShader.GraphicsTest",
     "rootNamespace": "",
     "references": [
-        "GUID:c081bc530f560634bb5c21d4b323a7f1"
+        "GUID:c081bc530f560634bb5c21d4b323a7f1",
+        "GUID:27619889b8ba8c24980f49ee34dbb44a"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
