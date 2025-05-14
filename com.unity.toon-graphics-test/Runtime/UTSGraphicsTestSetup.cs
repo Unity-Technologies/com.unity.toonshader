@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace UnityEditor.Rendering.Toon
 {
-    public class HDRPGraphicsTestSetup : EditorWindow
+    public class UTSGraphicsTestSetup : EditorWindow
     {
         // https://docs.unity3d.com/ScriptReference/EditorBuildSettings-scenes.html
         Vector2 m_scrollPos;
@@ -32,10 +32,10 @@ namespace UnityEditor.Rendering.Toon
             "Animator"
         };
 
-        [MenuItem("Window/Toon Shader/HDRP/Graphics Test Setup", false, 9999)]
-        static private void OpenWindow()
+        [MenuItem("Window/Toon Shader/Graphics Test Setup", false, 9999)]
+        private static void OpenWindow()
         {
-            var window = GetWindow<HDRPGraphicsTestSetup>(true, "Graphics Test Setup");
+            UTSGraphicsTestSetup window = GetWindow<UTSGraphicsTestSetup>(true, "Graphics Test Setup");
             window.Show();
         }
         private void OnGUI()
