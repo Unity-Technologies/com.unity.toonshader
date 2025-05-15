@@ -3,8 +3,6 @@
 The **Unity Toon Shader** is a preview/experimental package and 
 Installing the package requires the following steps.
 
-<img align="right" src="images/package-manager-add-by-name.png">
-
 1. Make sure git is installed in the system.
 1. Open [Package Manager window](https://docs.unity3d.com/Manual/upm-ui.html) 
 1. Click the **+** button, and choose **Add package by name** 
