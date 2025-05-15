@@ -10,7 +10,7 @@ Normal Map is a texture that dictates the bumpiness of the material. The **Unity
 ## Normal Map
 A Normal Map texture and its strength.
 
-![A example of a normal map. A square surface with 16 small raised squares in a regular layout. The edges of the raised squares use a different color for each normal direction.](images/DecoPlane_Nromal.png)
+![An example of a normal map. A square surface with 16 small raised squares in a regular layout. The edges of the raised squares use a different color for each normal direction.](images/DecoPlane_Nromal.png)
 
 Examples of a normal map with a strength of 1.0, 0.3, and 0.0.
 
@@ -33,6 +33,6 @@ Examples of a normal map with a strength of 1.0, 0.3, and 0.0.
 
 ## Example of Normal Map Effectiveness Operation
 
-<img src="images/NormalmapEffectiveness.gif" height="256">  
+<video title="The example normal applied to a plane using the URP/Lit shader on the left side and the UTS shader on the right side. When **Three Basic Colors** is selected in the Inspector, the raised squares appear. when **Highlight** is selected, the raised squares have a higher contrast. When **Rim Light** is selected, the edges of the squares are much brighter." src="images/NormalmapEffectiveness.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video>
 
 
