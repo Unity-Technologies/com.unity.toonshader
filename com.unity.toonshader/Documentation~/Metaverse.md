@@ -2,9 +2,6 @@
 
 The **Unity Toon Shader** requires one directional light to work, though, often there are no directional lights in Metaverse scenes. In such cases, Metaverse light works as virtual directional light for cel-shading.
 
-<img src="images/InspectorMetaverseSettings.png" width="573">
-<br/><br/>
-
 * [Metaverse Light](#metaverse-light)
   * [Metaverse Light Intensity](#metaverse-light-intensity)
   * [Metaverse Light Direction](#metaverse-light-direction)
