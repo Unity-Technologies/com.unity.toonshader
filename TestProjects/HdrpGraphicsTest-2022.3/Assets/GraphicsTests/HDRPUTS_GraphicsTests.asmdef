@@ -1,9 +1,11 @@
 {
     "name": "HDRPUTS_GraphicsTests",
+    "rootNamespace": "",
     "references": [
         "UnityEngine.TestTools.Graphics",
         "UnityEngine.TestRunner",
-        "UnityEditor.TestRunner"
+        "UnityEditor.TestRunner",
+        "Unity.ToonShader.GraphicsTest"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

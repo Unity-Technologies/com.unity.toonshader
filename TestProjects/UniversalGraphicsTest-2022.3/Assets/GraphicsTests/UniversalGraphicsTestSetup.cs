@@ -109,12 +109,12 @@ namespace UnityEditor.Rendering.Toon
             {
                 Debug.LogError("Unable to Find MainCamera in " + EditorBuildSettings.scenes[scneneIndex].path );
             }
-            UniversalUTS_GraphicsTestSettings settings = cameraList[0].gameObject.GetComponent<UniversalUTS_GraphicsTestSettings>();
+            UTS_GraphicsTestSettings settings = cameraList[0].gameObject.GetComponent<UTS_GraphicsTestSettings>();
 
 
             if ( settings == null )
             {
-                settings = cameraList[0].gameObject.AddComponent<UniversalUTS_GraphicsTestSettings>();
+                settings = cameraList[0].gameObject.AddComponent<UTS_GraphicsTestSettings>();
             }
             settings.ImageComparisonSettings.ImageResolution = UnityEngine.TestTools.Graphics.ImageComparisonSettings.Resolution.w960h540;
             settings.ImageComparisonSettings.PerPixelCorrectnessThreshold = 0.005f;
