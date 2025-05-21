@@ -9,6 +9,7 @@ using UnityEditor.TestTools.Graphics;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.IO;
+using Unity.Testing.XR.Runtime;
 
 namespace Tests
 {
