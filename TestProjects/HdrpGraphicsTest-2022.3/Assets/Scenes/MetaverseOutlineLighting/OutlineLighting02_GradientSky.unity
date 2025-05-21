@@ -990,6 +990,36 @@ PrefabInstance:
       propertyPath: m_Name
       value: SD_unitychan_humanoid_CelLook_Metaverse
       objectReference: {fileID: 0}
+    - target: {fileID: 5864869180374587508, guid: ff28eb67aef1a0f43aa6044d6c788824,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5864915921416602720, guid: ff28eb67aef1a0f43aa6044d6c788824,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5864945828586295374, guid: ff28eb67aef1a0f43aa6044d6c788824,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866344403610899228, guid: ff28eb67aef1a0f43aa6044d6c788824,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5867020577414205830, guid: ff28eb67aef1a0f43aa6044d6c788824,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5884199727018795648, guid: ff28eb67aef1a0f43aa6044d6c788824,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
