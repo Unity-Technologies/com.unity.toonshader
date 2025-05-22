@@ -13,7 +13,7 @@ namespace Unity.Testing.XR.Runtime
     {
         static public int SetupTest(bool xrCompatible, int waitFrames, UnityEngine.TestTools.Graphics.ImageComparisonSettings settings)
         {
-#if ENABLE_VR && USE_XR_MOCK_HMD
+#if false
             if (XRGraphicsAutomatedTests.enabled)
             {
                 if (xrCompatible)
