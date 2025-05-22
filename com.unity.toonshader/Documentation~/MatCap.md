@@ -85,7 +85,7 @@ Normal Map Texture Example.
 ### Rotate Normal Map UV
 Rotates the MatCap normal map UV based on its center.
 
-<video title="A view from above a chibi-style character model with blonde hair and brighter yellow specular highlights on individual hairs. The highlights rotate." src="images/NormalmapEffectivenessRotateMatCapNormalMapUV.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video>
+<video title="A view from above a chibi-style character model with blonde hair and brighter yellow specular highlights on individual hairs. The highlights rotate." src="images/RotateMatCapNormalMapUV.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video>
 
 
 ## MatCap Blending on Shadows
