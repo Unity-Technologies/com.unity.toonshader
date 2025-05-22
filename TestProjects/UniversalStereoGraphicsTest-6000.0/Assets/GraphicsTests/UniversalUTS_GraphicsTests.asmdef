@@ -7,22 +7,19 @@
         "UnityEditor.TestRunner",
         "Unity.ToonShader.GraphicsTest",
         "Unity.Testing.XR.Runtime",
-        "Unity.Testing.XR.Editor",
-        "UnityEditor.TestTools.Graphics",
         "Unity.RenderPipelines.Core.Runtime",
-        "Unity.XR.MockHMD"
+        "Unity.XR.MockHMD",
+        "UnityEditor.TestTools.Graphics"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
-    "overrideReferences": true,
+    "overrideReferences": false,
     "precompiledReferences": [
         "nunit.framework.dll"
     ],
     "autoReferenced": true,
-    "defineConstraints": [
-        "UNITY_INCLUDE_TESTS"
-    ],
+    "defineConstraints": [],
     "versionDefines": [],
     "noEngineReferences": false
 }
