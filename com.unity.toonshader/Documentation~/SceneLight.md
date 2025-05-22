@@ -28,7 +28,7 @@ If the setting for each color is Off, the color is always illuminated with a lig
 
 Light Color Effectiveness example: A red light on the face. Unchecked areas on the face material aren't affected by the light color.
 
-![A toon-shaded model of a human. **Light Color Effectiveness** is off. The face of the model is unaffected by red light.](images/SceneLightColorEffectivenessOn.png)
+![A chibi-style character model. **Light Color Effectiveness** is off. The face of the model is unaffected by red light.](images/SceneLightColorEffectivenessOn.png)
 
 ![The same model, with **Light Color Effectiveness** on. The face of the model is bright red.](images/SceneLightColorEffectivenessOff.png)
 
@@ -42,6 +42,6 @@ Limit the brightness of the light to 1 to avoid white-out.
 
 Example: When a intensive directional light is on the character.
 
-![A toon-shaded model of a human. **Limit Light Intensity is off. The model is brightly lit by a white light that washes out the colors.](images/LimitLightIntensityOff.png)
+![A chibi-style character model. **Limit Light Intensity is off. The model is brightly lit by a white light that washes out the colors.](images/LimitLightIntensityOff.png)
 
 ![**Limit Light Intensity is on. The model is lit less brightly and more naturally.](images/LimitLightIntensityOn.png)

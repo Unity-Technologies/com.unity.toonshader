@@ -19,7 +19,7 @@ Outlines are one of the most important elements that  affect the impression of a
 ## Outline 
 A checkbox to enable outline.
 
-<canvas class="image-comparison" role="img" aria-label="A model of a human. The first image has no outline. The second image has an outline.">
+<canvas class="image-comparison" role="img" aria-label="A chibi-style character model of with long blonde hair and rabbit ears. The first image has no outline. The second image has an outline.">
     <img src="images/OutlineOff.png" title="Outline Off">
     <img src="images/OutlineOn.png" title="Outline On">
 </canvas>
@@ -44,7 +44,7 @@ Specifies the color of outline.
 ### Blend Base Color to Outline
 Blends **Base Color** into outline color. 
 
-<canvas class="image-comparison" role="img" aria-label="A toon-shaded model of a human, and the Inspector window for the Univeral Renderer Data asset. On the left, Depth Priming is set to Auto and the model has no outline. On the right, Depth Priming is set to Disabled and model has an outline.">
+<canvas class="image-comparison" role="img" aria-label="A chibi-style character model, and the Inspector window for the Univeral Renderer Data asset. On the left, Depth Priming is set to Auto and the model has no outline. On the right, Depth Priming is set to Disabled and the model has an outline.">
     <img src="images/BlendBaseColorToOutlineOff.png" title="Blend Base Color to Outline Off">
     <img src="images/BlendBaseColorToOutlineOn.png" title="Blend Base Color to Outline On">
 </canvas>
@@ -54,7 +54,7 @@ Drag the slider to compare the images.
 ### Outline Width Map
 Outline Width Map as gray scale Texture : Texture(linear). UTS provides  meticulous control solution for outline thickness as a texture map. Look at the difference of the outlines around the character's eyes and face.
 
-<canvas class="image-comparison" role="img" aria-label="A model of a human with outlining. The outlines become thinner, and the outlines around the white areas of the character's eyes are gone.">
+<canvas class="image-comparison" role="img" aria-label="A chibi-style character model with long blonde hair and rabbit ears. The model has outlining which becomes thinner, and the outlines around the white areas of the character's eyes disappear.">
     <img src="images/OutlineWidthMapOff.png" title="Outline Width Map Off">
     <img src="images/OutlineWidthMapOn.png" title="Outline Width Map On">
 </canvas>
