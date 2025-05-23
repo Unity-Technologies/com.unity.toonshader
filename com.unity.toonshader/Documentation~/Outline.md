@@ -19,9 +19,9 @@ Outlines are one of the most important elements that  affect the impression of a
 ## Outline 
 A checkbox to enable outline.
 
-<canvas class="image-comparison" role="img" aria-label="A chibi-style character model of with long blonde hair and rabbit ears. The first image has no outline. The second image has an outline.">
-    <img src="images/OutlineOff.png" title="Outline Off">
-    <img src="images/OutlineOn.png" title="Outline On">
+<canvas class="image-comparison" role="img" aria-label="A chibi-style character model with rabbit ears. The first image has no outline. The second image has an outline.">
+    <img src="images/OutlineOff.png" title="Outline disabled">
+    <img src="images/OutlineOn.png" title="Outline enabled">
 </canvas>
 <br />
 
@@ -44,9 +44,9 @@ Specifies the color of outline.
 ### Blend Base Color to Outline
 Blends **Base Color** into outline color. 
 
-<canvas class="image-comparison" role="img" aria-label="A chibi-style character model, and the Inspector window for the Univeral Renderer Data asset. On the left, Depth Priming is set to Auto and the model has no outline. On the right, Depth Priming is set to Disabled and the model has an outline.">
-    <img src="images/BlendBaseColorToOutlineOff.png" title="Blend Base Color to Outline Off">
-    <img src="images/BlendBaseColorToOutlineOn.png" title="Blend Base Color to Outline On">
+<canvas class="image-comparison" role="img" aria-label="A chibi-style character model with a thick outline. With Blend Base Color to Outline disabled, the outline is black. With Blend Base Color to Outline enabled, the outline matches the colors of the adjacent texture.">
+    <img src="images/BlendBaseColorToOutlineOff.png" title="Blend Base Color to Outline disabled">
+    <img src="images/BlendBaseColorToOutlineOn.png" title="Blend Base Color to Outline enabled">
 </canvas>
 <br />
 Drag the slider to compare the images.
@@ -54,29 +54,28 @@ Drag the slider to compare the images.
 ### Outline Width Map
 Outline Width Map as gray scale Texture : Texture(linear). UTS provides  meticulous control solution for outline thickness as a texture map. Look at the difference of the outlines around the character's eyes and face.
 
-<canvas class="image-comparison" role="img" aria-label="A chibi-style character model with long blonde hair and rabbit ears. The model has outlining which becomes thinner, and the outlines around the white areas of the character's eyes disappear.">
-    <img src="images/OutlineWidthMapOff.png" title="Outline Width Map Off">
-    <img src="images/OutlineWidthMapOn.png" title="Outline Width Map On">
+<canvas class="image-comparison" role="img" aria-label="A chibi-style character model with rabbit ears. The model has outlining which becomes thinner, and the outlines around the eyes of the character disappear.">
+    <img src="images/OutlineWidthMapOff.png" title="Outline Width Map disabled">
+    <img src="images/OutlineWidthMapOn.png" title="Outline Width Map enabled">
 </canvas>
 <br />
 Drag the slider to compare the images.
 
 You will notice that the outlines of the white areas appear thicker in the texture map.
 
-The Base Map:
 
-![The UV map texture that contains all the parts of the model.](images/utc_all2_light.png)
+![The UV map texture that contains all the parts of the model.](images/utc_all2_light.png)<br/>
+An example of a Base Map.
 
-The Outline Width Map applied above:
-
-![A square grayscale texture that matches the Base Map. Most of the map is a consistent light gray. The face, legs, and hands are a darker gray. The white areas of the base map in the top-left are now black.](images/utc_all2_outlinesmpler.png)
+![A square grayscale texture that matches the Base Map. Most of the map is a consistent light gray. The face, legs, and hands are a darker gray. The white areas of the Base Map in the top-left are now black.](images/utc_all2_outlinesmpler.png)<br/>
+The Outline Width Map applied above.
 
 ### Offset Outline with Camera Z-axis
 Offsets the outline in the depth (Z) direction of the camera. UTS outline is an implementation of either extending polygons in the normal direction or applying a scale value. Sometimes, offsetting the position of the generated polygons in the Z (depth) direction can improve their appearance. 
 
 <canvas class="image-comparison" role="img" aria-label="A spiky pink ball. In the first image, the outline is a consistent thickness. In the second image, the outline is only visible at the edges.">
-    <img src="images/OffsetZ02.png" title="Without Z-axis Offset">
-    <img src="images/OffsetZ03.png" title="With Z-axis Offset">
+    <img src="images/OffsetZ02.png" title="Without z-axis offset">
+    <img src="images/OffsetZ03.png" title="With z-axis offset">
 </canvas>
 <br />
 Drag the slider to compare the images.

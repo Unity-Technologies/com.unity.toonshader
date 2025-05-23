@@ -30,14 +30,14 @@ please refer to the image in [Offset V](#offset-v).
 ### Offset V
 Adjusts the Angel Ring’s shape in the vertical direction. The range is from 0.0 to 1.0. The default is 0.3.
 
-<video title="The head of a chibi-style character, viewed face-on. The v-shaped highlights in the hair grow and shrink vertically." src="images/AngelRingOffsetUV_1.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video>
+<video title="The head of a chibi-style character, viewed face-on. The v-shaped highlights in the hair grow and shrink vertically, and move up and down." src="images/AngelRingOffsetUV_1.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video>
 
 
 ### Alpha Channel as Clipping Mask
 
 Texture alpha channel is a clipping mask. If disabled, the alpha doesn't affect at all. The color of the **Angel Ring** can directly affects instead of using the additive method.
 
-![A transparent square texture with white v-shaped areas at the left and right edges.](images/ARtexAlpha.png)<br/>
+![A 1024 x 1024 RGBA Compressed DXT5|BC3 Norm transparent square texture with white v-shaped areas at the left and right edges. The size of the texture is 1.3MB.](images/ARtexAlpha.png)<br/>
 Example texture.
 
 ![The head of a chibi-style character, with  the v-shaped highlights on the left and right of her hair.](images/AlphaChennelAsClippingMask.png)<br/>

@@ -21,7 +21,7 @@ Sets the boundary between the Base Color and the Shade Colors.
 ## Base Shading Feather
 Feathers the boundary between the Base Color and the Shade Colors.
 
-<video title="The same chibi-style character. The shadow on the chin becomes more and less visible, but doesn't disappear entirely." src="images/BaseShadingFeather.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video>
+<video title="The same chibi-style character. The visibility of the shadow on the chin changes, but the shadow doesn't disappear entirely." src="images/BaseShadingFeather.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video>
 
 ## Shading Color Step
 Sets the boundary between the 1st and 2nd Shade Colors. Set this to 0 if  2nd Shade Color is unnecessary.
@@ -43,7 +43,7 @@ Determine if the material reflects shadows.
 #### System Shadow Level
 Define the appearance of self-shadows and other received shadows that blend with the Too Shader.
 
-<video title="The same chibi-style character. The face starts with only a shadow on the chin. Then the hair casts shadows on the face, then the whole face is in shadow." src="images/SystemShadowLevel.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video>
+<video title="The same chibi-style character. The face starts with only a shadow on the chin, then the shadows grow. The hair casts shadows onto the face, then the whole face is in shadow." src="images/SystemShadowLevel.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video>
 
 
 ## Point Light Settings

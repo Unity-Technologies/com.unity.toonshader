@@ -12,9 +12,9 @@ A Normal Map texture and its strength.
 
 ![An example of a normal map. A square surface with 16 small raised squares in a regular layout. The edges of the raised squares use a different color for each normal direction.](images/DecoPlane_Nromal.png)
 
-Examples of a normal map with a strength of 1.0, 0.3, and 0.0.
+Examples of a normal map with a strength of 1.0, 0.3, and 0.0:
 
-![The example normal applied to a plane using the URP/Lit shader on the left side and the UTS shader on the right side, and a strength of 1.0. The raised squares are clearly visible on both halves.](images/NormalMapStrength1.png)
+![The example normal map applied to a plane using the URP/Lit shader on the left side and the UTS shader on the right side, with a strength of 1.0. The raised squares are clearly visible on both halves.](images/NormalMapStrength1.png)
 
 ![The same example with a strength of 0.3. The raised squares are less visible on the UTS side.](images/NormalMapStrength03.png)
 
@@ -33,6 +33,6 @@ Examples of a normal map with a strength of 1.0, 0.3, and 0.0.
 
 ## Example of Normal Map Effectiveness Operation
 
-<video title="The example normal applied to a plane using the URP/Lit shader on the left side and the UTS shader on the right side. When **Three Basic Colors** is selected in the Inspector, the raised squares appear. when **Highlight** is selected, the raised squares have a higher contrast. When **Rim Light** is selected, the edges of the squares are much brighter." src="images/NormalmapEffectiveness.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video>
+<video title="The example normal map applied to a plane using the URP/Lit shader on the left side and the UTS shader on the right side. When Three Basic Colors is selected in the Inspector window, the raised squares appear. When Highlight is also selected, the raised squares have a higher contrast. When Rim Light is also selected, the edges of the squares are much brighter." src="images/NormalmapEffectiveness.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video>
 
 

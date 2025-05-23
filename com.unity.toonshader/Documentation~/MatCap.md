@@ -24,13 +24,13 @@ MatCap is a method of light expression using pre-rendered images. This technique
 MatCap Color : Texture(sRGB) × Color(RGB) Default:White
 
 ![A square black texture, with an upwards-curving yellow shape with soft edges.](images/HiLight_Matcap.png)<br/>
-MatCap Map texture example.
+An example of a MatCap Map texture.
 
 <video title="A camera pan over the head of a chibi-style character model with long hair and rabbit ears." src="images/WithOutMatCap.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video>
-MatCap Map off.
+MatCap Map disabled.
 
 <video title="The same camera pan, but the blonde hair of the model now has a brighter yellow specular highlight." src="images/WithMatCap.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video>
-MatCap Map On.
+MatCap Map enabled.
 
 ## MatCap Blur Level
 Blur MatCap Map using the Mip Map feature; to enable Mip Map, activate Advanced > Generate Mip Maps in the [Texture Import Settings](https://docs.unity3d.com/Manual/class-TextureImporter.html). Default is 0 (no blur)
@@ -57,21 +57,21 @@ Rotating UV of MatCap Map.
 ## Stabilize Camera Rolling
 Stabilize Camera rolling when capturing materials with camera.
 
-<video title="A close-up on the head of a chibi-style character model. When the camera rotates, the specular highlights stay in the same place in the camera view." src="images/StabilizerOff.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video>
-Stabilize Camera Rolling Off
+<video title="A close-up on the face of a chibi-style character model. When the camera rotates, the specular highlights stay in the same place in the camera view." src="images/StabilizerOff.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video>
+Stabilize Camera Rolling disabled.
 
-<video title="The same close-up. When the camera rotates, the specular highlights stay in the same place on the model." src="images/StabilizerOn.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video>
-Stabilize Camera Rolling On
+<video title="The same close-up. When the camera rotates, the specular highlights stay in the same place on the hair." src="images/StabilizerOn.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video>
+Stabilize Camera Rolling enabled.
 
 
 ## Normal Map Specular Mask for MatCap
 If enabled, gives a normal map specifically for MatCap. If you are using MatCap as speculum lighting, you can use this to mask it.
 
-<video title="A view from above a chibi-style character model with blonde hair and brighter yellow specular highlights." src="images/MatCapNormalMapOff.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video><br/>
-Normal Map Specular Mask Off.
+![A view from above a chibi-style character model with blonde hair and brighter yellow specular highlights.](images/MatCapNormalMapOff.png)<br/>
+Normal Map Specular Mask disabled.
 
-<video title="The same view. The highlights are on the individual hairs." src="images/MatCapNormalMapOn.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video><br/>
-Normal Map Specular Mask On.
+![The same view. The individual hairs now have highlights.](images/MatCapNormalMapOn.png)<br/>
+Normal Map Specular Mask enabled.
 
 
 ### Normal Map
@@ -79,7 +79,7 @@ A texture that dictates the bumpiness of the material.
 
 
 ![A grayscale texture of fine hair.](images/HairNormalMask.png)<br/>
-Normal Map Texture Example.
+An example of a Normal Map texture.
 
 
 ### Rotate Normal Map UV
@@ -91,9 +91,9 @@ Rotates the MatCap normal map UV based on its center.
 ## MatCap Blending on Shadows
 Enables the blending rate of the MatCap range in shadows.
 
-<canvas class="image-comparison" role="img" aria-label="A view from above a chibi-style character model with blonde hair. With MatCap Blending on Shadows on, the bright highlights in individual hairs are less visible.">
-    <img src="images/MatCapBlendingOnShadowOff.png" title="MatCap blending on Shadows off.">
-    <img src="images/MatCapBlendingOnShadowOn.png" title="MapCap blending on Shadows on.">
+<canvas class="image-comparison" role="img" aria-label="A view from above a chibi-style character model with blonde hair. With MatCap Blending on Shadows on, the bright highlights on individual hairs are less visible.">
+    <img src="images/MatCapBlendingOnShadowOff.png" title="MatCap Blending on Shadows disabled.">
+    <img src="images/MatCapBlendingOnShadowOn.png" title="MapCap Blending on Shadows enabled.">
 </canvas>
 <br />
 Drag the slider to compare the images.
@@ -119,6 +119,6 @@ Adjusts the level of the MatCap Mask. When the value is 1, MatCap represents 100
 ## Invert MatCap Mask
 When enabled, inverts **MatCap Mask** Texture colors.
 
-![A view from above a chibi-style character model with blonde hair. Her hair has a bow=shaped brighter yellow specular highlight, with Unity logos cut out in the unlit hair color.](images/InvertMatCapMask.png)
+![A view from above a chibi-style character model with blonde hair. Her hair has a bow-shaped brighter yellow specular highlight, with Unity logos cut out in the unlit hair color.](images/InvertMatCapMask.png)
 
 

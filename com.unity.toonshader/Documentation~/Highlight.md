@@ -16,10 +16,10 @@ The ability to display specular highlights in a cel-animation-like manner is ess
 Highlight : Texture(sRGB) × Color(RGB) Default:White. Pattern and color of specularly illuminated area.
 
 ![A toon-shaded sphere in a room textured with graphs. The sphere has green and purple bands of color, and a bright white specular highlight.](images/Highlight0.png)<br/>
-Default color.
+The default color.
 
-![The same sphere, with the color picker window open and a bright red color selected. The specular highlight on the sphere is now orange and yellow.](images/Highlight1.png)<br/>
-Applied different light color.
+![The same sphere, with the color picker window open and the color #FF0000 selected. The specular highlight on the sphere is now orange and yellow.](images/Highlight1.png)<br/>
+A different light color applied.
 
 
 ## Highlight Power
@@ -32,10 +32,10 @@ The size of the Highlight controlled through the High light power slider. The si
 UTS provides two modes for the highlight for different occasions and effect. The hard mode provides a crisp and solid edge to the highlight while the soft mode provides a blended blurred effect.
 
 ![A close-up of a white specular highlight on a green sphere. The highlight is a clear white disc with a hard edge.](images/SpecularHard.png)<br/>
-Hard
+Specular Mode set to Hard.
 
 ![The same close-up. The specular highlight is now a blurred white disc.](images/SpecularSoft.png)<br/>
-Soft
+Specular Mode set to Soft.
 
 
 
@@ -45,10 +45,10 @@ Soft
 Specular color blending mode allows the user to control the hardness of the colour applied to the highlight. Users have two options: Multiply or Add. Note that **Color Blending Mode** is disabled when **Specular** Mode is  **Soft**.
 
 ![A close-up of a yellow specular highlight on a green sphere. The highlight is a clear yellow disc with a hard edge.](images/SpecularMultiply.png)<br/>
-Multiply
+Color Blending Mode set to Multiply.
 
-![The same close-up. The speciular highlight is now yellow, and changes brightness with the color of the sphere.](images/SpecularAdd.png)<br/>
-Add
+![The same close-up. The specular highlight is now yellow, and changes brightness with the color of the sphere.](images/SpecularAdd.png)<br/>
+Color Blending Mode set to Add.
 
 
 ## Highlight Blending on Shadows
@@ -61,13 +61,13 @@ Adjusts the intensity of highlight applied to shadow areas.
 A gray scale texture which utilises its brightness to control highlight intensity. Applying the highlight mask allows to fine-tune the reflectivity on the material.
 
 ![A square texture with a black and grey checkerboard pattern. Each square has a small plus symbol in its center.](images/UVCheckGrid.png)<br/>
-Grayscale texture.
+An example of a grayscale texture highlight mask.
 
 ![A toon-shaded sphere in a room textured with graphs. The sphere has green and purple bands of color, and circular green, white, and purple specular highlights.](images/HighlightMaskOff.png)<br/>
-High Light Mask Off
+Highlight Mask disabled.
 
 ![The same sphere. The specular highlights now reflect the checkerboard pattern.](images/HighlightMaskOn.png)<br/>
-High Light Mask On
+Highlight Mask enabled.
 
 
 ## Highlight Mask Level

@@ -24,7 +24,7 @@ Emission controls the color and intensity of light emitted from the surface. Whe
 ## Emission Map
 Primarily used with the Bloom Post Effect and represents luminous objects.
 
-![The Unity logo against a transparent background. The color fades from bright white at the center to black at the edges.](images/EmissionMapSample.png) 
+![The Unity logo against a transparent background. The color fades from bright white at the center to black at the edges. The texture dimensions are 1024 x 1024, the texture size is 1.3MB, and the texture type is RBGA Compressed DXT5|BC3 UNorm.](images/EmissionMapSample.png) 
 
 ## Emission Map Animation
 When Enabled, the UV and Color of the **Emission Map** animate.

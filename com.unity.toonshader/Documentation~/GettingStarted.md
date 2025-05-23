@@ -41,10 +41,10 @@ The most basic function of the UTS is to render the mesh in three regions. **Bas
 Applying the Base Map and 1st Shading Map to the material. The difference between the two texture is the color tone. In this sample, applied two different textures. But, applying one texture and differ colors to apply is also possible.
 
 ![A UV map texture that contains all the parts of a chibi-style model](images/utc_all2_light.png)<br/>
-A: Base Map
+An example Base Map.
 
 ![The same UV map but some areas have a darker color.](images/utc_all2_dark.png)</br>
-B: 1st Shading Map
+An example 1st Shading Map.
 
 
 ## Adjusting edge of three basic color region

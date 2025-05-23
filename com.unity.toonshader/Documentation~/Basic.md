@@ -37,7 +37,7 @@ The map used for the brighter portions of the shadow. Texture(sRGB) × Color(RGB
 
 |   **1st Shading Map** (Face) | (Hair) | Result  |
 | ---- | ---- | ---- |
-| <img alt="A similar texture map to the base map, but the background is now pink." src="images/yuko_face3_B.png" height="256">   | <img alt="A similar hair map to the base map, but the background is darker, and the brushstrokes have a blue gradient." src="images/yuko_hairB.png" height="256"> |<img alt="The chibi-style face, now with shadows at the bottom of the hair and face, and over the eyes." src="images/YukoFace1stShadingMap.png" height="256">  |
+| <img alt="A similar texture map to the base map, but the background is now tan." src="images/yuko_face3_B.png" height="256">   | <img alt="A similar hair map to the base map, but the background is darker, and the brushstrokes have a blue gradient." src="images/yuko_hairB.png" height="256"> |<img alt="The chibi-style face, now with shadows at the bottom of the hair and face, and over the eyes." src="images/YukoFace1stShadingMap.png" height="256">  |
 
 
 ### Apply to 2nd Shading Map
@@ -66,7 +66,7 @@ Specify the position of fixed shadows that falls in 2nd shade color areas in UV 
 ## Example of Shadow Control Map Application
 | Base Map | 1st Shading Map | Shading Position Map |
 | ---- | ---- | ---- |
-| <img alt="A UV map texture that contains all the parts of a chibi-style model" src="images/utc_all2_light.png" height="256"> |<img alt="The same UV map but some areas have a darker color." src="images/utc_all2_dark.png" height="256"> |<img alt="A mostly white texture, with 3 hair shapes." src="images/utc_all2_offsetdark.png" height="256"> |
+| <img alt="A UV map texture that contains all the parts of a chibi-style character model." src="images/utc_all2_light.png" height="256"> |<img alt="The same UV map but some areas have a darker color." src="images/utc_all2_dark.png" height="256"> |<img alt="A mostly white texture, with 3 black hair shapes." src="images/utc_all2_offsetdark.png" height="256"> |
 
 No Shadow Control Maps:
 ![A chibi-style character model with rabbit ears. In the Inspector window, the 1st Shading Position Map and 2nd Shading Position Map properties are empty.](images/ShadowControlMap0.png)
@@ -75,7 +75,7 @@ No Shadow Control Maps:
 ![The same model. In the Inspector window, the 1st Shading Position Map property is set to the shading position map texture.](images/ShadowControlMap1.png)
 
 2nd Shading Position Map:
-![The same model. In the Inspector window, the 2nd Shading Position Map properties is set to the shading position map texture.](images/ShadowControlMap2.png)
+![The same model. In the Inspector window, the 2nd Shading Position Map property is set to the shading position map texture.](images/ShadowControlMap2.png)
 
 Both:
 ![The same model. In the Inspector window, both the 1st Shading Position Map and 2nd Shading Position Map properties are set to the shading position map texture. ](images/ShadowControlMap3.png)
