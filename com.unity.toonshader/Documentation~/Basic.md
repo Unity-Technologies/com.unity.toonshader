@@ -49,7 +49,7 @@ The map used for the darker portions of the shadow. Texture(sRGB) × Color(RGB).
 
 |  **2nd Shading Map** (Face)  | (Hair) | Result  |
 | ---- | ---- | ---- |
-| <img alt="A similar texture map to the base map, but the background is now a dark orange." src="images/yuko_face3_C.png" height="256">   | <img alt="A similar hair map to the base map, but the background is even darker" src="images/yuko_hairC.png" height="256"> |<img alt="The chibi-style face, now with darker shadows at the edges of the hair." src="images/YukoFace2ndShadingMap.png" height="256">  |
+| <img alt="A similar texture map to the base map, but the background is now a dark orange." src="images/yuko_face3_C.png" height="256">   | <img alt="A similar hair map to the base map, but the background is even darker." src="images/yuko_hairC.png" height="256"> |<img alt="The chibi-style face, now with darker shadows at the edges of the hair." src="images/YukoFace2ndShadingMap.png" height="256">  |
 
 
 ## Shadow Control Maps

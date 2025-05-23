@@ -3,7 +3,7 @@
 The Angel Ring effect for UTS expresses shine or luster in hair. This effect always appears in a fixed position as seen from the Camera. Angel Ring requires the 2nd UV in the meshes.
 
 
-![The head of a chibi-style character with feathered hair and cat ears. The head is viewed from the side, front, and back. In each view, two bright highlights appear in the same place on the left and right.](images/AR_Image.png)
+![The head of a chibi-style character with feathered hair and cat ears. The head is oriented from three angles: side, front, and back. In each angle, two bright highlights appear in the same place on the left and right.](images/AR_Image.png)
 
 - [Angel Ring Projection](#angel-ring-projection) 
   - [Angel Ring](#angel-ring)
@@ -30,7 +30,7 @@ please refer to the image in [Offset V](#offset-v).
 ### Offset V
 Adjusts the Angel Ring’s shape in the vertical direction. The range is from 0.0 to 1.0. The default is 0.3.
 
-<video title="The head of a chibi-style character, viewed face-on. The v-shaped highlights in the hair grow and shrink vertically, and move up and down." src="images/AngelRingOffsetUV_1.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video>
+<video title="The head of a chibi-style character, oriented face-on. The v-shaped highlights in the hair grow and shrink vertically, and move up and down." src="images/AngelRingOffsetUV_1.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video>
 
 
 ### Alpha Channel as Clipping Mask
@@ -40,5 +40,5 @@ Texture alpha channel is a clipping mask. If disabled, the alpha doesn't affect 
 ![A 1024 x 1024 RGBA Compressed DXT5|BC3 Norm transparent square texture with white v-shaped areas at the left and right edges. The size of the texture is 1.3MB.](images/ARtexAlpha.png)<br/>
 Example texture.
 
-![The head of a chibi-style character, with  the v-shaped highlights on the left and right of her hair.](images/AlphaChennelAsClippingMask.png)<br/>
+![The head of a chibi-style character, with  the v-shaped highlights on the left and right of their hair.](images/AlphaChennelAsClippingMask.png)<br/>
 Applied the texture with **Alpha Channel as Clipping Mask**.
