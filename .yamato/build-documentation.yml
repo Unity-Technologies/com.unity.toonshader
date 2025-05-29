@@ -1,0 +1,14 @@
+# Build documentation for Toonshader on MacOS
+build_documentation_for_toonshader:
+  name: Build Documentation for Toonshader
+  agent:
+    image: package-ci/macos-13:default
+    type: Unity::VM::osx
+    flavor: b1.xlarge
+  commands:
+  - brick_source: git@github.cds.internal.unity3d.com:wind-xu/virtual_production_doc_generation.git@v0.3.0
+    variables:
+      EDITOR_VERSION: 6000.0
+      PACKAGE_NAME: com.unity.toonshader
+      PACKAGE_PATH: ./com.unity.toonshader
+      WARNINGS_AS_ERRORS: false
