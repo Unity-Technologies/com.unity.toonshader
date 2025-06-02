@@ -46,8 +46,8 @@ Increasing this value narrows the area of influence of **Rim Light**.
 A check box to disable **Rim Light** feather.
 
 <canvas class="image-comparison" role="img" aria-label="A toon-shaded sphere in a room textured with graphs. With Rim Light Feather disabled, the bright edge appears thicker and sharper.">
-    <img src="images/RimLightFeatherOn.png" title="Rim Light Feather enabled">
-    <img src="images/RimLightFeatherOff.png" title="Rim Light Feather disabled">
+    <img src="images/RimLightFeatherOn.png" title="Rim Light Feather Off disabled">
+    <img src="images/RimLightFeatherOff.png" title="Rim Light Feather Off enabled">
 </canvas>
 <br />
 Drag the slider to compare the images.
