@@ -8,7 +8,7 @@ build_documentation_for_toonshader:
   commands:
   - brick_source: git@github.cds.internal.unity3d.com:wind-xu/virtual_production_doc_generation.git@v0.3.6
     variables:
-      EDITOR_VERSION: 6000.0
+      EDITOR_VERSION: 2022.3
       PACKAGE_NAME: com.unity.toonshader
       PACKAGE_PATH: ./com.unity.toonshader
       WARNINGS_AS_ERRORS: false
