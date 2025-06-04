@@ -32,6 +32,12 @@ namespace Tests
 
             Scene scene = SceneManager.GetActiveScene();
 
+            Debug.Log("eyeTextureResolutionScale: " + XRSettings.eyeTextureResolutionScale);
+            Debug.Log("eyeTextureResolutionScale: " + XRSettings.eyeTextureResolutionScale);
+            Debug.Log("eyeTextureResolutionScale: " + XRSettings.eyeTextureResolutionScale);
+            
+            
+            XRSettings.eyeTextureResolutionScale = 1.0f;
 
             if (scene.name.Length > (3+ 4) && scene.name.Substring(3, 4).Equals("_xr_"))
             {
