@@ -9,6 +9,8 @@ using UnityEditor.TestTools.Graphics;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.IO;
+using UnityEngine.Rendering.Universal;
+
 
 namespace Tests
 {
@@ -67,6 +69,12 @@ namespace Tests
             {
                 waitFrames = 1;
             }
+            
+            //test
+            Camera a = cameras.Where(x => x != null).First();
+            Debug.Log(a);
+            UniversalAdditionalCameraData urpCameraData = a.GetComponent<UniversalAdditionalCameraData>();
+            urpCameraData.allowXRRendering = false;
 
 
             for (int i = 0; i < waitFrames; i++)

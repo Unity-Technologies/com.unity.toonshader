@@ -5,7 +5,9 @@
         "UnityEngine.TestTools.Graphics",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "Unity.ToonShader.GraphicsTest"
+        "Unity.ToonShader.GraphicsTest",
+        "Unity.RenderPipelines.Universal.Runtime",
+        "Unity.RenderPipelines.Core.Runtime"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
