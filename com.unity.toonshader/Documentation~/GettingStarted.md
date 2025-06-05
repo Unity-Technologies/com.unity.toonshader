@@ -46,6 +46,13 @@ An example Base Map.
 ![The same UV map but some areas have a darker color.](images/utc_all2_dark.png)</br>
 An example 1st Shading Map.
 
+<canvas class="image-comparison" role="img" aria-label="Comparison of the UV map texture that contains all the parts of a chibi-style model, and the same UV map where areas have a darker color.">
+    <img src="images/utc_all2_light.png" title="Base Map">
+    <img src="images/utc_all2_dark.png" title="1st Shading Map">
+</canvas>
+<br />
+
+Drag the slider to compare the base map and the 1st Shading Map.
 
 ## Adjusting edge of three basic color region
 
