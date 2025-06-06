@@ -6,7 +6,7 @@ build_documentation_for_toonshader:
     type: Unity::VM::osx
     flavor: b1.xlarge
   commands:
-  - brick_source: git@github.cds.internal.unity3d.com:wind-xu/virtual_production_doc_generation.git@v0.3.0
+  - brick_source: git@github.cds.internal.unity3d.com:wind-xu/virtual_production_doc_generation.git@v0.3.6
     variables:
       EDITOR_VERSION: 6000.0
       PACKAGE_NAME: com.unity.toonshader
