@@ -76,6 +76,7 @@ namespace Tests
             Screen.SetResolution(1920, 1080, FullScreenMode.FullScreenWindow);
             
             Debug.Log("XRSettings.renderViewportScale");
+            Debug.Log(XRSettings.eyeTextureWidth + ", " + XRSettings.eyeTextureHeight);
             Debug.Log(XRSettings.renderViewportScale);
             Debug.Log(XRSettings.renderViewportScale);
             Debug.Log(XRSettings.renderViewportScale);
