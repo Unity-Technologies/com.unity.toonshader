@@ -72,6 +72,8 @@ namespace Tests
             for (int i = 0; i < waitFrames; i++)
                 yield return new WaitForEndOfFrame();
 
+            //
+            Screen.SetResolution(1920, 1080, false);
             ImageAssert.AreEqual(testCase.ReferenceImage, cameras.Where(x => x != null), settings.ImageComparisonSettings);
 
             // Does it allocate memory when it renders what's on the main camera?
