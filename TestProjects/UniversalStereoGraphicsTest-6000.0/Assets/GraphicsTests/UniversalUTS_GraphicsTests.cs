@@ -73,7 +73,8 @@ namespace Tests
                 yield return new WaitForEndOfFrame();
 
             //
-            Screen.SetResolution(1920, 1080, FullScreenMode.FullScreenWindow);
+            Screen.SetResolution(3024, 3360, FullScreenMode.FullScreenWindow);
+            
             
             Debug.Log("XRSettings.renderViewportScale");
             Debug.Log(XRSettings.eyeTextureWidth + ", " + XRSettings.eyeTextureHeight);
@@ -81,6 +82,7 @@ namespace Tests
             Debug.Log(XRSettings.renderViewportScale);
             Debug.Log(XRSettings.renderViewportScale);
             XRSettings.renderViewportScale = 1;
+            XRSettings.eyeTextureResolutionScale = 1.5f;
  
             ImageAssert.AreEqual(testCase.ReferenceImage, cameras.Where(x => x != null), settings.ImageComparisonSettings);
 
