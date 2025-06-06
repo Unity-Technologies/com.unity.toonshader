@@ -73,7 +73,7 @@ namespace Tests
                 yield return new WaitForEndOfFrame();
 
             //
-            Screen.SetResolution(1920, 1080, false);
+            Screen.SetResolution(1920, 1080, FullScreenMode.FullScreenWindow);
             
             Debug.Log("XRSettings.renderViewportScale");
             Debug.Log(XRSettings.renderViewportScale);
