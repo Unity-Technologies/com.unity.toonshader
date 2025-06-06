@@ -75,6 +75,7 @@ namespace Tests
             //
             Screen.SetResolution(1920, 1080, false);
             
+            Debug.Log("XRSettings.renderViewportScale");
             Debug.Log(XRSettings.renderViewportScale);
             Debug.Log(XRSettings.renderViewportScale);
             Debug.Log(XRSettings.renderViewportScale);
