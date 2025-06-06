@@ -72,12 +72,16 @@ namespace Tests
             for (int i = 0; i < waitFrames; i++)
                 yield return new WaitForEndOfFrame();
 
+            var mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
             //
             Screen.SetResolution(3024, 3360, FullScreenMode.FullScreenWindow);
             
-            
+           
             Debug.Log("XRSettings.renderViewportScale");
             Debug.Log(XRSettings.eyeTextureWidth + ", " + XRSettings.eyeTextureHeight);
+            Debug.Log("Camera size: " + mainCamera.pixelWidth + ", " + mainCamera.pixelHeight);
+            mainCamera.allowDynamicResolution = false;
+            
             Debug.Log(XRSettings.renderViewportScale);
             Debug.Log(XRSettings.renderViewportScale);
             Debug.Log(XRSettings.renderViewportScale);
@@ -88,7 +92,6 @@ namespace Tests
 
             // Does it allocate memory when it renders what's on the main camera?
             bool allocatesMemory = false;
-            var mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
 
             if (settings == null || settings.CheckMemoryAllocation)
             {
