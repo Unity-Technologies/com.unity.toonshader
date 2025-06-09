@@ -104,17 +104,20 @@ namespace UnityEngine.TestTools.Graphics
                 if (RuntimeSettings.reuseTestsForXR)
                 {
                     GetImageResolution(settings, out int w, out int h);
+                    Debug.Log($"RuntimeSettings.reuseTestsForXR: {w}, {h}");
                     actual = new Texture2D(w, h, format, false);
                     actual.ReadPixels(new Rect(0, 0, w, h), 0, 0, false);
                     actual.Apply();
                 }
                 else if (settings.UseBackBuffer)
                 {
+                    Debug.Log($"UseBackBuffer: {settings.TargetWidth}, {settings.TargetHeight}");
                     actual = BackBufferCapture(expected, cameras, settings);
                     actual.Apply();
                 }
                 else
                 {
+                    Debug.Log($"The last branching");
                     for (int i = 0; i < dummyRenderedFrameCount + 1; i++)        // x frame delay + the last one is the one really tested ( ie 5 frames delay means 6 frames are rendered )
                     {
                         foreach (var camera in cameras)
