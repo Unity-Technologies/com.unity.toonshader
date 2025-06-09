@@ -80,9 +80,14 @@ namespace Tests
             
             mainCamera.allowDynamicResolution = false;
             bool isEyeResolutionSet = MockHMD.SetEyeResolution(1920, 1080);
+
             
             Debug.Log($"IsEyeResolutionSet: {isEyeResolutionSet}");
             Debug.Log($"XRSettings.enabled: {XRSettings.enabled}");
+            Debug.Log($"stereoRenderingMode: {XRSettings.stereoRenderingMode}");
+            Debug.Log($"prevGameViewRenderMode: {XRSettings.gameViewRenderMode}");
+            XRSettings.gameViewRenderMode = GameViewRenderMode.BothEyes;
+            
             
             
 #if UNITY_EDITOR
