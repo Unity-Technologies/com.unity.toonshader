@@ -9,6 +9,7 @@ using UnityEditor.TestTools.Graphics;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.IO;
+using Unity.XR.MockHMD;
 
 namespace Tests
 {
@@ -72,11 +73,35 @@ namespace Tests
             for (int i = 0; i < waitFrames; i++)
                 yield return new WaitForEndOfFrame();
 
+            var mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+            
+            Debug.Log("Previous allow dynamic resolution: " + mainCamera.allowDynamicResolution);
+            
+            
+            mainCamera.allowDynamicResolution = false;
+            bool isEyeResolutionSet = MockHMD.SetEyeResolution(1920, 1080);
+            
+            Debug.Log($"IsEyeResolutionSet: {isEyeResolutionSet}");
+            Debug.Log($"XRSettings.enabled: {XRSettings.enabled}");
+            
+            
+#if UNITY_EDITOR
+            Debug.Log("This is in editor ???!");
+#endif            
+            
+            XRSettings.renderViewportScale = 1;
+            XRSettings.eyeTextureResolutionScale = 1.5f;
+           
+            Debug.Log($"XRSettings.renderViewportScale: {XRSettings.renderViewportScale}");
+            Debug.Log($"XRSettings.eyeTextureResolutionScale: {XRSettings.eyeTextureResolutionScale}");
+            Debug.Log($"XRSettings.size: {XRSettings.eyeTextureWidth}, {XRSettings.eyeTextureHeight}");
+            Debug.Log("Camera size: " + mainCamera.pixelWidth + ", " + mainCamera.pixelHeight);
+            Debug.Log("Settings Size: " + settings.ImageComparisonSettings.TargetWidth + ", " + settings.ImageComparisonSettings.TargetHeight);
+ 
             ImageAssert.AreEqual(testCase.ReferenceImage, cameras.Where(x => x != null), settings.ImageComparisonSettings);
 
             // Does it allocate memory when it renders what's on the main camera?
             bool allocatesMemory = false;
-            var mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
 
             if (settings == null || settings.CheckMemoryAllocation)
             {

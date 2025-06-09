@@ -5,7 +5,8 @@
         "UnityEngine.TestTools.Graphics",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "Unity.ToonShader.GraphicsTest"
+        "Unity.ToonShader.GraphicsTest",
+        "Unity.XR.MockHMD"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
