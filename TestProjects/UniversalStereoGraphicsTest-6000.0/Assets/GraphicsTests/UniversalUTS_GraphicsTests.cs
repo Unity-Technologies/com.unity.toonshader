@@ -73,13 +73,24 @@ namespace Tests
                 yield return new WaitForEndOfFrame();
 
             var mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+            
+            Debug.Log("Previous allow dynamic resolution: " + mainCamera.allowDynamicResolution);
+            
+            
+            mainCamera.allowDynamicResolution = false;
             //
             Screen.SetResolution(3024, 3360, FullScreenMode.FullScreenWindow);
+            
+#if UNITY_EDITOR
+            Debug.Log("This is in editor ???!");
+#endif            
             
            
             Debug.Log("XRSettings.renderViewportScale");
             Debug.Log(XRSettings.eyeTextureWidth + ", " + XRSettings.eyeTextureHeight);
             Debug.Log("Camera size: " + mainCamera.pixelWidth + ", " + mainCamera.pixelHeight);
+            settings.ImageComparisonSettings.TargetWidth *= 2;
+            settings.ImageComparisonSettings.TargetHeight *= 2;
             Debug.Log("Settings Size: " + settings.ImageComparisonSettings.TargetWidth + ", " + settings.ImageComparisonSettings.TargetHeight);
             mainCamera.allowDynamicResolution = false;
             
