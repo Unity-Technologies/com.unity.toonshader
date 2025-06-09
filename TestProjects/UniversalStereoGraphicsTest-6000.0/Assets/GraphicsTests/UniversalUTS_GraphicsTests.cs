@@ -80,6 +80,7 @@ namespace Tests
             Debug.Log("XRSettings.renderViewportScale");
             Debug.Log(XRSettings.eyeTextureWidth + ", " + XRSettings.eyeTextureHeight);
             Debug.Log("Camera size: " + mainCamera.pixelWidth + ", " + mainCamera.pixelHeight);
+            Debug.Log("Settings Size: " + settings.ImageComparisonSettings.TargetWidth + ", " + settings.ImageComparisonSettings.TargetHeight);
             mainCamera.allowDynamicResolution = false;
             
             Debug.Log(XRSettings.renderViewportScale);
