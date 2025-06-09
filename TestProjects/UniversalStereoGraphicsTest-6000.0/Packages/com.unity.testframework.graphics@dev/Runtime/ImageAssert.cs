@@ -91,8 +91,10 @@ namespace UnityEngine.TestTools.Graphics
 
             var defaultFormat = (settings.UseHDR) ? SystemInfo.GetGraphicsFormat(DefaultFormat.HDR) : SystemInfo.GetGraphicsFormat(DefaultFormat.LDR);
             RenderTextureDescriptor desc = new RenderTextureDescriptor(width, height, defaultFormat, 24);
+            desc.vrUsage = VRTextureUsage.TwoEyes;
             desc.msaaSamples = samples;
             var rt = RenderTexture.GetTemporary(desc);
+            Debug.Log($"RT VRUSage: {rt.vrUsage}");
             UnityEngine.Graphics.SetRenderTarget(rt);
             UnityEngine.GL.Clear(true, true, UnityEngine.Color.black);
             UnityEngine.Graphics.SetRenderTarget(null);
