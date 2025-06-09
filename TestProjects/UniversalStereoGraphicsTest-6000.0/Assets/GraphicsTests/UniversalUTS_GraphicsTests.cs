@@ -9,6 +9,7 @@ using UnityEditor.TestTools.Graphics;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.IO;
+using Unity.XR.MockHMD;
 
 namespace Tests
 {
@@ -80,6 +81,7 @@ namespace Tests
             mainCamera.allowDynamicResolution = false;
             //
             Screen.SetResolution(3024, 3360, FullScreenMode.FullScreenWindow);
+            MockHMD.SetEyeResolution(1920, 1080);
             
 #if UNITY_EDITOR
             Debug.Log("This is in editor ???!");
