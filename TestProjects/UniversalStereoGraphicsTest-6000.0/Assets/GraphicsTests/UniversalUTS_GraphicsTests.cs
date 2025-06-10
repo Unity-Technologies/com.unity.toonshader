@@ -10,6 +10,10 @@ using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.IO;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 namespace Tests
 {
     public class UniversalUTS_GraphicsTests
@@ -67,7 +71,11 @@ namespace Tests
             {
                 waitFrames = 1;
             }
-
+            
+#if UNITY_EDITOR
+            GameViewUtils.AddAndSelectCustomSize(GameViewUtils.GameViewSizeType.AspectRatio, GameViewSizeGroupType.Standalone, 1920, 1080, "MySceneResolution");
+            yield return new WaitForEndOfFrame();
+#endif
 
             for (int i = 0; i < waitFrames; i++)
                 yield return new WaitForEndOfFrame();
