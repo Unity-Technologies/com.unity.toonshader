@@ -10,6 +10,7 @@ using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.IO;
 using Unity.XR.MockHMD;
+using UnityEditor;
 
 namespace Tests
 {
@@ -74,6 +75,19 @@ namespace Tests
                 yield return new WaitForEndOfFrame();
 
             var mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+            
+            Debug.Log($"Reference Image Size {testCase.ReferenceImage.width}, {testCase.ReferenceImage.height}");
+            Screen.SetResolution(1920,1080, FullScreenMode.Windowed);
+            
+            Debug.Log("Previous stereoTargetEye: " + mainCamera.stereoTargetEye);
+            Debug.Log($"Screen size {Screen.width}, {Screen.height}");
+            mainCamera.stereoTargetEye = StereoTargetEyeMask.Both;
+            
+            
+            
+            GameViewUtils.AddAndSelectCustomSize(GameViewUtils.GameViewSizeType.AspectRatio, GameViewSizeGroupType.Standalone, 1920, 1080, "MySceneResolution");
+            yield return null;
+
             
             Debug.Log("Previous allow dynamic resolution: " + mainCamera.allowDynamicResolution);
             
