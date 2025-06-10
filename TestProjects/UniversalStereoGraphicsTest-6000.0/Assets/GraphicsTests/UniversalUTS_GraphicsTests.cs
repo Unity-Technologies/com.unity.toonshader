@@ -75,7 +75,9 @@ namespace Tests
 
             var mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
             
-            Screen.SetResolution(testCase.ReferenceImage.width, testCase.ReferenceImage.height, FullScreenMode.Windowed);
+            Debug.Log($"Reference Image Size {testCase.ReferenceImage.width}, {testCase.ReferenceImage.height}");
+            Screen.SetResolution(1920,1080, FullScreenMode.Windowed);
+            
             Debug.Log("Previous stereoTargetEye: " + mainCamera.stereoTargetEye);
             Debug.Log($"Screen size {Screen.width}, {Screen.height}");
             mainCamera.stereoTargetEye = StereoTargetEyeMask.Both;
