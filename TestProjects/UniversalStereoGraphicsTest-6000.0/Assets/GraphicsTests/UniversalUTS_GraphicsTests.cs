@@ -75,6 +75,11 @@ namespace Tests
 
             var mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
             
+            Screen.SetResolution(testCase.ReferenceImage.width, testCase.ReferenceImage.height, FullScreenMode.Windowed);
+            Debug.Log("Previous stereoTargetEye: " + mainCamera.stereoTargetEye);
+            mainCamera.stereoTargetEye = StereoTargetEyeMask.Both;
+
+            
             Debug.Log("Previous allow dynamic resolution: " + mainCamera.allowDynamicResolution);
             
             
