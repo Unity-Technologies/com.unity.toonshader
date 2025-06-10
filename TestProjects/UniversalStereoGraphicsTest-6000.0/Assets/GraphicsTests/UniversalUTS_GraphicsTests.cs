@@ -77,7 +77,9 @@ namespace Tests
             
             Screen.SetResolution(testCase.ReferenceImage.width, testCase.ReferenceImage.height, FullScreenMode.Windowed);
             Debug.Log("Previous stereoTargetEye: " + mainCamera.stereoTargetEye);
+            Debug.Log($"Screen size {Screen.width}, {Screen.height}");
             mainCamera.stereoTargetEye = StereoTargetEyeMask.Both;
+            
 
             
             Debug.Log("Previous allow dynamic resolution: " + mainCamera.allowDynamicResolution);
@@ -107,7 +109,14 @@ namespace Tests
             Debug.Log($"XRSettings.size: {XRSettings.eyeTextureWidth}, {XRSettings.eyeTextureHeight}");
             Debug.Log("Camera size: " + mainCamera.pixelWidth + ", " + mainCamera.pixelHeight);
             Debug.Log("Settings Size: " + settings.ImageComparisonSettings.TargetWidth + ", " + settings.ImageComparisonSettings.TargetHeight);
- 
+
+            yield return null;
+            yield return null;
+            yield return null;
+            yield return null;
+            Debug.Log($"Screen size again: {Screen.width}, {Screen.height}");
+
+            
             ImageAssert.AreEqual(testCase.ReferenceImage, cameras.Where(x => x != null), settings.ImageComparisonSettings);
 
             // Does it allocate memory when it renders what's on the main camera?
