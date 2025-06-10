@@ -7,7 +7,7 @@
 
 win_test_projects:
   - project_prefix: UniversalStereoGraphicsTest
-    utr_arguments: --extra-editor-arg="-force-d3d11"
+    utr_arguments: --extra-editor-arg="-force-d3d11 -screen-width 1920 -screen-height 1080" 
     unity_editors:
       - version: 6000.0
 
