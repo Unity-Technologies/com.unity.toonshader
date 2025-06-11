@@ -19,6 +19,7 @@ pack:
     flavor: b1.medium
   commands:
     - npm install upm-ci-utils@stable -g --registry https://artifactory.prd.cds.internal.unity3d.com/artifactory/api/npm/upm-npm
+    - find ./com.unity.toonshader/com.unity.toonshader/Samples~ -type l -exec bash -c 'sh convert_symlinks.sh "$0"' {} \;
     - upm-ci package pack --package-path com.unity.toonshader
   artifacts:
     {{ yamato_name }}_pack_artifacts:
