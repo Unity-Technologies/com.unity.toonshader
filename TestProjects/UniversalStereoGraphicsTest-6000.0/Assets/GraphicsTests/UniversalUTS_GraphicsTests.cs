@@ -69,10 +69,6 @@ namespace Tests
                 waitFrames = 1;
             }
 
-
-            for (int i = 0; i < waitFrames; i++)
-                yield return new WaitForEndOfFrame();
-
             var mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
             
             Debug.Log("Previous allow dynamic resolution: " + mainCamera.allowDynamicResolution);
@@ -87,8 +83,7 @@ namespace Tests
             Debug.Log($"stereoRenderingMode: {XRSettings.stereoRenderingMode}");
             Debug.Log($"prevGameViewRenderMode: {XRSettings.gameViewRenderMode}");
             XRSettings.gameViewRenderMode = GameViewRenderMode.BothEyes;
-            
-            
+
             
 #if UNITY_EDITOR
             Debug.Log("This is in editor ???!");
@@ -102,6 +97,12 @@ namespace Tests
             Debug.Log($"XRSettings.size: {XRSettings.eyeTextureWidth}, {XRSettings.eyeTextureHeight}");
             Debug.Log("Camera size: " + mainCamera.pixelWidth + ", " + mainCamera.pixelHeight);
             Debug.Log("Settings Size: " + settings.ImageComparisonSettings.TargetWidth + ", " + settings.ImageComparisonSettings.TargetHeight);
+            
+            for (int i = 0; i < waitFrames; i++)
+                yield return new WaitForEndOfFrame();
+
+            
+            
 
             yield return null;
             yield return null;
