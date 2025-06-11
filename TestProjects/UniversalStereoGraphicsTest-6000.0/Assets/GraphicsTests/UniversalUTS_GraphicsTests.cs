@@ -101,7 +101,7 @@ namespace Tests
             
             // Ensure a valid XR display is active
             List<XRDisplaySubsystem> xrDisplays = new List<XRDisplaySubsystem>();
-            SubsystemManager.GetInstances(xrDisplays);
+            SubsystemManager.GetSubsystems(xrDisplays);
             Assume.That(xrDisplays.Count > 0 && xrDisplays[0].running, "No XR display active!");
 
             
