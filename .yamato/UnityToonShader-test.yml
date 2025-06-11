@@ -83,7 +83,7 @@ win_test_projects:
       -  cd TestProjects/{{ project_name }} && unity-downloader-cli -u {{ unity_editor.version }} -c editor -c il2cpp  --wait --published-only
       
 #      -  cd TestProjects/{{ project_name }} && utr --scripting-backend=Mono2x --suite=playmode --suite=playmode --testproject=. --editor-location=.Editor --artifacts_path=test-results {{ test_project.utr_arguments }} --zero-tests-are-ok=1
-      -  cd TestProjects/{{ project_name }} && utr --suite=playmode --testproject=. --editor-location=.Editor --artifacts_path=test-results {{ test_project.utr_arguments }}
+      -  cd TestProjects/{{ project_name }} && utr --suite=playmode --platform=StandaloneWindows64 --testproject=. --editor-location=.Editor --artifacts_path=test-results {{ test_project.utr_arguments }}
     timeout: 360000
     retries: 1
     artifacts:
