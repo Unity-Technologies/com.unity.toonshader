@@ -98,6 +98,20 @@ namespace Tests
             Debug.Log("Camera size: " + mainCamera.pixelWidth + ", " + mainCamera.pixelHeight);
             Debug.Log("Settings Size: " + settings.ImageComparisonSettings.TargetWidth + ", " + settings.ImageComparisonSettings.TargetHeight);
             
+            
+            // Ensure a valid XR display is active
+            List<XRDisplaySubsystem> xrDisplays = new List<XRDisplaySubsystem>();
+            SubsystemManager.GetInstances(xrDisplays);
+            Assume.That(xrDisplays.Count > 0 && xrDisplays[0].running, "No XR display active!");
+
+            
+            Debug.Log($"Preferred XR Blit Mode: {xrDisplays[0].GetPreferredMirrorBlitMode()}");
+            
+            // Set mirror view to side-by-side (both eyes)
+            xrDisplays[0].SetPreferredMirrorBlitMode(XRMirrorViewBlitMode.SideBySide);
+
+
+            
             for (int i = 0; i < waitFrames; i++)
                 yield return new WaitForEndOfFrame();
 
