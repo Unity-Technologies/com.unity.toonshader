@@ -86,7 +86,7 @@ namespace Tests
             
             
             GameViewUtils.AddAndSelectCustomSize(GameViewUtils.GameViewSizeType.AspectRatio, GameViewSizeGroupType.Standalone, 1920, 1080, "MySceneResolution");
-            yield return new WaitForEndOfFrame();
+            yield return null;
 
             
             Debug.Log("Previous allow dynamic resolution: " + mainCamera.allowDynamicResolution);
