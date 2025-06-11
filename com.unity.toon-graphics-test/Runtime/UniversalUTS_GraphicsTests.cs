@@ -18,6 +18,7 @@ namespace Tests
         [UnityTest, Category("URP")]
         [PrebuildSetup("SetupGraphicsTestCases")]
         [UseGraphicsTestCases(ReferenceImagePath)]
+        [Timeout(3600000)] //1 hour
         public IEnumerator Run(GraphicsTestCase testCase)
         {
 
