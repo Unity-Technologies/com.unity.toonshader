@@ -15,7 +15,7 @@ namespace Tests
     public class UniversalUTS_GraphicsTests
     {
         public const string ReferenceImagePath = "Assets/ReferenceImages";
-        [UnityTest, Category("URP")]
+        [UnityTest]
         [PrebuildSetup("SetupGraphicsTestCases")]
         [UseGraphicsTestCases(ReferenceImagePath)]
         [Timeout(3600000)] //1 hour
