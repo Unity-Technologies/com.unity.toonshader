@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.11.1-preview] - 2025-06-12
+
+### Added
+* sample: add metaverse materials and prefabs of Unity-chan in the HDRP sample
+
+### Fixed
+* fix: calling InitializeBakedGIData() is necessary for Unity newer than 6000.0.12
+* doc: fix incorrect table layout documentation in sections under Inspector Window Settings
+
 ## [0.11.0-preview] - 2024-12-11
 
 ### Changed:
