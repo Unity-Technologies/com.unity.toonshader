@@ -1357,6 +1357,42 @@ Shader "Toon(Tessellation)" {
 
         Pass
         {
+            Name "Universal2D"
+            Tags
+            {
+                "LightMode" = "Universal2D"
+            }
+
+            // -------------------------------------
+            // Render State Commands
+            Blend[_SrcBlend][_DstBlend]
+            ZWrite[_ZWrite]
+            Cull[_Cull]
+
+            HLSLPROGRAM
+            #pragma target 2.0
+
+            // -------------------------------------
+            // Shader Stages
+            #pragma vertex vert
+            #pragma fragment frag
+
+            // -------------------------------------
+            // Material Keywords
+            #pragma shader_feature_local_fragment _ALPHATEST_ON
+            #pragma shader_feature_local_fragment _ALPHAPREMULTIPLY_ON
+
+            #include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DOTS.hlsl"
+
+            // -------------------------------------
+            // Includes
+            #include "Packages/com.unity.render-pipelines.universal/Shaders/LitInput.hlsl"
+            #include "../../UniversalRP/Shaders/UniversalBasic2D.hlsl"
+            ENDHLSL
+        }
+
+        Pass
+        {
             Name "ShadowCaster"
             Tags{"LightMode" = "ShadowCaster"}
 
