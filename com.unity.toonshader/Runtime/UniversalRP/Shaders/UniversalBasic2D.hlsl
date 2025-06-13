@@ -38,8 +38,7 @@ half4 frag(Varyings input) : SV_Target
 {
     UNITY_SETUP_INSTANCE_ID(input);
     half2 uv = input.uv;
-    half4 texColor = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, TRANSFORM_TEX(uv, _MainTex));
-//    half4 texColor = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, uv);
+    half4 texColor = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, uv);
     half3 color = texColor.rgb * _BaseColor.rgb;
     half alpha = texColor.a * _BaseColor.a;
     AlphaDiscard(alpha, _Cutoff);
