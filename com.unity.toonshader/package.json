@@ -11,9 +11,9 @@
 	},
         "samples": [
         {
-         "displayName": "Legacy render pipeline",
-         "description": "Sample scenes for the legacy (built-in) pipe-lines.",
-         "path": "Samples~/Legacy"
+         "displayName": "Built-In render pipeline",
+         "description": "Sample scenes for Built-In render pipeline.",
+         "path": "Samples~/Built-in_RP"
         },
         {
          "displayName": "Universal render pipeline",
