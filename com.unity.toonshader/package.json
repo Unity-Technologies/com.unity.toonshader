@@ -13,7 +13,7 @@
         {
          "displayName": "Built-In render pipeline",
          "description": "Sample scenes for Built-In render pipeline.",
-         "path": "Samples~/Built-in_RP"
+         "path": "Samples~/Built-In_RP"
         },
         {
          "displayName": "Universal render pipeline",
