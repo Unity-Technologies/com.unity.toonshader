@@ -12,7 +12,7 @@ using System.IO;
 
 namespace Tests
 {
-    public class UniversalUTS_GraphicsTests
+    public class UTS_GraphicsTests
     {
         public const string ReferenceImagePath = "Assets/ReferenceImages";
         [UnityTest]
@@ -37,7 +37,7 @@ namespace Tests
             if (scene.name.Length > (3+ 4) && scene.name.Substring(3, 4).Equals("_xr_"))
             {
 #if ENABLE_VR && ENABLE_VR_MODULE
-            Assume.That((Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.OSXPlayer), "Stereo Universal tests do not run on MacOSX.");
+            Assume.That((Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.OSXPlayer), "Stereo tests do not run on MacOSX.");
 
             XRSettings.LoadDeviceByName("MockHMD");
             yield return null;
