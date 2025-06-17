@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement style="flex-direction: row; position: absolute; bottom: 150px; align-self: center;">
+        <ui:DropdownField name="DropdownLeft" style="width: 150px; position: relative; margin-left: 4px; align-self: center; padding-left: 0;" />
+        <ui:Button name="LoadButton" style="background-color: rgb(255, 140, 0); border-top-left-radius: 3px; border-radius: 3px; width: 150px; height: 70px; color: rgb(255, 255, 255); white-space: normal;" />
+        <ui:DropdownField name="DropdownRight" style="width: 150px; position: relative; margin-left: 4px; align-self: center; padding-left: 0;" />
+    </ui:VisualElement>
+    <ui:Label name="Description" style="font-size: 16px; color: rgb(255, 255, 255); white-space: normal; width: 400px; align-self: center; bottom: 20px; position: absolute; -unity-text-align: upper-center;" />
+</ui:UXML>

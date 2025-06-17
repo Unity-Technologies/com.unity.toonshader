@@ -1,0 +1,27 @@
+{
+    "name": "Unity.2D.Animation.Samples.Editor",
+    "references": [
+        "UnityEditor.UI",
+        "UnityEngine.UI",
+        "Unity.2D.Animation.Editor",
+        "Unity.2D.Animation.Runtime",
+        "Unity.2D.Animation.Samples.Runtime"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+        "name": "com.unity.modules.assetbundle",
+        "expression": "0.0.1",
+        "define": "ASSETBUNDLE_ENABLED"
+        }
+    ],
+    "noEngineReferences": false
+}

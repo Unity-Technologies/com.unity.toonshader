@@ -1,0 +1,25 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement style="left: 30px; top: 30px; position: absolute;">
+        <ui:VisualElement name="Body" style="align-items: center;">
+            <ui:Label text="Body" style="color: rgb(255, 255, 255); font-size: 18px;" />
+            <ui:DropdownField style="width: 150px;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Left Arm" style="align-items: center;">
+            <ui:Label text="Left Arm" style="color: rgb(255, 255, 255); font-size: 18px;" />
+            <ui:DropdownField style="width: 150px;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Right Arm" style="align-items: center;">
+            <ui:Label text="Right Arm" style="color: rgb(255, 255, 255); font-size: 18px;" />
+            <ui:DropdownField style="width: 150px;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Right Leg" style="align-items: center;">
+            <ui:Label text="Right Leg" style="color: rgb(255, 255, 255); font-size: 18px;" />
+            <ui:DropdownField style="width: 150px;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Left Leg" style="align-items: center;">
+            <ui:Label text="Left Leg" style="color: rgb(255, 255, 255); font-size: 18px;" />
+            <ui:DropdownField style="width: 150px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:Label name="Description" style="font-size: 14px; -unity-text-align: upper-left; white-space: normal; color: rgb(255, 255, 255); margin-top: 5px; bottom: 50px; position: absolute; width: 300px; justify-content: center; align-self: center;" />
+</ui:UXML>

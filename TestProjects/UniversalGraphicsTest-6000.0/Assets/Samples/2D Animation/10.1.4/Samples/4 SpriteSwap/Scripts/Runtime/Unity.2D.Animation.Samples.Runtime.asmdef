@@ -1,0 +1,24 @@
+{
+    "name": "Unity.2D.Animation.Samples.Runtime",
+    "rootNamespace": "",
+    "references": [
+        "UnityEngine.UI",
+        "Unity.2D.Animation.Runtime",
+        "Unity.2D.IK.Runtime"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.modules.assetbundle",
+            "expression": "0.0.1",
+            "define": "ASSETBUNDLE_ENABLED"
+        }
+    ],
+    "noEngineReferences": false
+}

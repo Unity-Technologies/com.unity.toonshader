@@ -1,0 +1,24 @@
+{
+    "name": "Unity.2D.Animation.Samples.Dependency",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.2d.psdimporter",
+            "expression": "0.0.1",
+            "define": "PSDIMPORTER_ENABLED"
+        },
+        {
+            "name": "com.unity.modules.assetbundle",
+            "expression": "0.0.1",
+            "define": "ASSETBUNDLE_ENABLED"
+        }
+    ],
+    "noEngineReferences": false
+}

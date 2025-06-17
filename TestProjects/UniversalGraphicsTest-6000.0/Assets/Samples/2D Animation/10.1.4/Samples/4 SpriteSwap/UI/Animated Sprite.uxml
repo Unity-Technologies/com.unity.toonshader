@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement style="align-self: center; margin-top: 30px;">
+        <ui:Label style="font-size: 16px; -unity-text-align: upper-center; white-space: normal; color: rgb(255, 255, 255); margin-top: 5px;" />
+        <ui:VisualElement style="flex-direction: row; justify-content: center; align-items: center;">
+            <ui:Image name="OpenPalmImage" style="width: 100px; height: 100px; margin-right: 30px; margin-left: 30px;" />
+            <ui:Image name="ThumbsUpImage" style="width: 100px; height: 100px; margin-left: 30px; margin-right: 30px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

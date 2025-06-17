@@ -1,0 +1,3 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:Label text="Press 'Play' to view the sample." style="font-size: 30px; -unity-text-align: upper-center; white-space: normal; color: rgb(255, 255, 255); margin-top: 5px;" />
+</ui:UXML>

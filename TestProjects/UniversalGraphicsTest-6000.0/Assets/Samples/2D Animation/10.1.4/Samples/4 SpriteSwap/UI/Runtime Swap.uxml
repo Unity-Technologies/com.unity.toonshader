@@ -1,0 +1,21 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement style="right: auto; position: absolute; top: 30px; left: 30px;">
+        <ui:Label name="Head" text="Head" style="align-items: center; flex-direction: row; font-size: 16px; color: rgb(255, 255, 255); margin: 5px; padding: 5px;">
+            <ui:Image name="RemoveOverride" style="width: 70px; height: 70px; background-color: rgb(255, 255, 255); padding: 5px; margin: 5px; top: 15px;" />
+            <ui:Image name="AddOverride" style="width: 70px; height: 70px; background-color: rgb(255, 255, 255); padding: 5px; margin: 5px; top: 15px;" />
+        </ui:Label>
+        <ui:Label name="Shoulders" text="Shoulders" style="align-items: center; flex-direction: row; font-size: 16px; color: rgb(255, 255, 255); margin: 5px; padding: 5px;">
+            <ui:Image name="RemoveOverride" style="width: 70px; height: 70px; background-color: rgb(255, 255, 255); padding: 5px; margin: 5px; top: 15px;" />
+            <ui:Image name="AddOverride" style="width: 70px; height: 70px; background-color: rgb(255, 255, 255); padding: 5px; margin: 5px; top: 15px;" />
+        </ui:Label>
+        <ui:Label name="Arms" text="Arms" style="align-items: center; flex-direction: row; font-size: 16px; color: rgb(255, 255, 255); margin: 5px; padding: 5px;">
+            <ui:Image name="RemoveOverride" style="width: 70px; height: 70px; background-color: rgb(255, 255, 255); padding: 5px; margin: 5px; top: 15px;" />
+            <ui:Image name="AddOverride" style="width: 70px; height: 70px; background-color: rgb(255, 255, 255); padding: 5px; margin: 5px; top: 15px;" />
+        </ui:Label>
+        <ui:Label name="Legs" text="Legs" style="align-items: center; flex-direction: row; font-size: 16px; color: rgb(255, 255, 255); margin: 5px; padding: 5px;">
+            <ui:Image name="RemoveOverride" style="width: 70px; height: 70px; background-color: rgb(255, 255, 255); padding: 5px; margin: 5px; top: 15px;" />
+            <ui:Image name="AddOverride" style="width: 70px; height: 70px; background-color: rgb(255, 255, 255); padding: 5px; margin: 5px; top: 15px;" />
+        </ui:Label>
+    </ui:VisualElement>
+    <ui:Label name="Description" style="font-size: 14px; -unity-text-align: upper-left; white-space: normal; color: rgb(255, 255, 255); margin-top: 5px; bottom: 50px; position: absolute; width: 300px; justify-content: center; align-self: center; right: auto;" />
+</ui:UXML>
