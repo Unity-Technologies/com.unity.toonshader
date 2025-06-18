@@ -11,6 +11,4 @@ When using [Universal Render Pipeline](https://docs.unity3d.com/Manual/com.unity
     <img src="images/DepthPrimingModeAuto.png" title="Depth Priming Mode set to Auto">
     <img src="images/DepthPrimingModeDisabled.png" title="Depth Priming Mode set to Disabled">
 </canvas>
-<br />
-
-Drag the slider to compare the images.
+<br />Drag the slider to compare the images.

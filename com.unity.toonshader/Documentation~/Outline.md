@@ -23,7 +23,7 @@ A checkbox to enable outline.
     <img src="images/OutlineOff.png" title="Outline disabled">
     <img src="images/OutlineOn.png" title="Outline enabled">
 </canvas>
-<br />
+<br />Drag the slider to compare the images.
 
 ### Outline Mode
 Specifies how the inverted-outline objects spawn.

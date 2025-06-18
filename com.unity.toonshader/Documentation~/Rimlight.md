@@ -55,6 +55,13 @@ Drag the slider to compare the images.
 ### Light Direction
 A Checkbox to enable light direction. When Enabled, generates **Rim Light** in the direction of the light source.
 
+<canvas class="image-comparison" role="img" aria-label="A toon-shaded sphere in a room textured with graphs. The light direction changes as Light Direction is disabled and enabled.">
+    <img src="images/RimLightDirectionOff.png" title="Light Direction disabled">
+    <img src="images/RimLightDirectionOn.png" title="Light Direction enabled">
+</canvas>
+<br />
+Drag the slider to compare the images.
+
 ### Light Direction Rim Light Level
 Specifies intensity of **Rim Light** in the light source direction.
 

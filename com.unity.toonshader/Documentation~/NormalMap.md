@@ -15,10 +15,13 @@ A Normal Map texture and its strength.
 Examples of a normal map with a strength of 1.0, 0.3, and 0.0:
 
 ![The example normal map applied to a plane using the URP/Lit shader on the left side and the UTS shader on the right side, with a strength of 1.0. The raised squares are clearly visible on both halves.](images/NormalMapStrength1.png)
+Strength: 1.0.
 
 ![The same example with a strength of 0.3. The raised squares are less visible on the UTS side.](images/NormalMapStrength03.png)
+Strength: 0.3.
 
 ![The same example with a strength of 0.0. The raised squares are not visible on the UTS side.](images/NormalMapStrength00.png)
+Strength: 0.0.
 
 ## Normal Map Effectiveness
 

@@ -67,12 +67,11 @@ Stabilize Camera Rolling enabled.
 ## Normal Map Specular Mask for MatCap
 If enabled, gives a normal map specifically for MatCap. If you are using MatCap as speculum lighting, you can use this to mask it.
 
-![A view from above a chibi-style character model with blonde hair and brighter yellow specular highlights.](images/MatCapNormalMapOff.png)<br/>
-Normal Map Specular Mask disabled.
-
-![The same view. The individual hairs now have highlights.](images/MatCapNormalMapOn.png)<br/>
-Normal Map Specular Mask enabled.
-
+<canvas class="image-comparison" role="img" aria-label="A view from above a chibi-style character model with blonde hair and brighter yellow specular highlights. Then the same view. The individual hairs now have highlights. ">
+    <img src="images/MatCapNormalMapOff.jpg" title="Normal Map Specular Mask disabled.">
+    <img src="images/MatCapNormalMapOn.jpg" title="Normal Map Specular Mask enabled">
+</canvas>
+<br />Drag the slider to compare the images.
 
 ### Normal Map
 A texture that dictates the bumpiness of the material.
@@ -95,8 +94,7 @@ Enables the blending rate of the MatCap range in shadows.
     <img src="images/MatCapBlendingOnShadowOff.png" title="MatCap Blending on Shadows disabled.">
     <img src="images/MatCapBlendingOnShadowOn.png" title="MapCap Blending on Shadows enabled.">
 </canvas>
-<br />
-Drag the slider to compare the images.
+<br />Drag the slider to compare the images.
 
 
 ## Blending Level

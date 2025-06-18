@@ -46,12 +46,6 @@ An example Base Map.
 ![The same UV map but some areas have a darker color.](images/utc_all2_dark.png)</br>
 An example 1st Shading Map.
 
-<canvas class="image-comparison" role="img" aria-label="Comparison of the UV map texture that contains all the parts of a chibi-style model, and the same UV map where areas have a darker color.">
-    <img src="images/utc_all2_light.png" title="Base Map">
-    <img src="images/utc_all2_dark.png" title="1st Shading Map">
-</canvas>
-<br />
-
 Drag the slider to compare the base map and the 1st Shading Map.
 
 ## Adjusting edge of three basic color region
@@ -67,7 +61,13 @@ In the above, the boundary of **Base Map** and **1st Shading Map** is cleary sep
 ## Set outline
 The Outline is another important factor that determines the animation touch. The color of the border should be close to the background or clearly distinguishable, and its thickness affects the style of the animation. [Outline Settings](Outline.md) provides the properties to control them.
 
-![The same character model. In the Inspector window of the Toon shader, the Outline Color property is set to gray, and the Outline Width property is set to 4. The model has a thin grey outline.](images/ThinOutline2.png)
+<canvas class="image-comparison" role="img" aria-label="The same character model. In the Inspector window of the Toon shader, the Outline Color property is set to gray, and the Outline Width property is set to 4, then 6.44.">
+    <img src="images/ThinOutline2.png" title="Outline Width: 4">
+    <img src="images/BoldOutline2.png" title="Outline Width: 6.44">
+</canvas>
+<br />Drag the slider to compare the images.
+
+![The same character model. In the Inspector window of the Toon shader, the Outline Color property is set to gray, and the Outline Width property is set to 4. The model has a thin grey outline.]()
 
 ## Advanced techniques
 Now, you  learned basic cel-sheding. But, professional cel-shading often requires more treatments. You will learn a couple of techniques in this section.
