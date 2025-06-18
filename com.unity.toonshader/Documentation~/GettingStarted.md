@@ -67,8 +67,6 @@ The Outline is another important factor that determines the animation touch. The
 </canvas>
 <br />Drag the slider to compare the images.
 
-![The same character model. In the Inspector window of the Toon shader, the Outline Color property is set to gray, and the Outline Width property is set to 4. The model has a thin grey outline.]()
-
 ## Advanced techniques
 Now, you  learned basic cel-sheding. But, professional cel-shading often requires more treatments. You will learn a couple of techniques in this section.
 
