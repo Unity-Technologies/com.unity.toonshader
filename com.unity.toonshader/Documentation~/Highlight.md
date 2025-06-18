@@ -61,8 +61,8 @@ A gray scale texture which utilises its brightness to control highlight intensit
 An example of a grayscale texture highlight mask.
 
 <canvas class="image-comparison" role="img" aria-label="A toon-shaded sphere in a room textured with graphs. The sphere has green and purple bands of color, and circular green, white, and purple specular highlights. Then the same sphere. The specular highlights now reflect the checkerboard pattern.">
-    <img src="images/HighlightMaskOff.jpg" title="Highlight Mask disabled">
-    <img src="images/HighlightMaskOff.jpg" title="Highlight Mask enabled">
+    <img src="images/HighlightMaskOff.png" title="Highlight Mask disabled">
+    <img src="images/HighlightMaskOff.png" title="Highlight Mask enabled">
 </canvas>
 <br />Drag the slider to compare the images.
 

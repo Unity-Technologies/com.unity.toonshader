@@ -68,8 +68,8 @@ Stabilize Camera Rolling enabled.
 If enabled, gives a normal map specifically for MatCap. If you are using MatCap as speculum lighting, you can use this to mask it.
 
 <canvas class="image-comparison" role="img" aria-label="A view from above a chibi-style character model with blonde hair and brighter yellow specular highlights. Then the same view. The individual hairs now have highlights. ">
-    <img src="images/MatCapNormalMapOff.jpg" title="Normal Map Specular Mask disabled.">
-    <img src="images/MatCapNormalMapOn.jpg" title="Normal Map Specular Mask enabled">
+    <img src="images/MatCapNormalMapOff.png" title="Normal Map Specular Mask disabled.">
+    <img src="images/MatCapNormalMapOn.png" title="Normal Map Specular Mask enabled">
 </canvas>
 <br />Drag the slider to compare the images.
 
