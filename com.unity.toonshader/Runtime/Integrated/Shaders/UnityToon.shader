@@ -900,7 +900,19 @@ Shader "Toon" {
 
             // Supported shadow modes per light type
             #pragma multi_compile SHADOW_LOW SHADOW_MEDIUM SHADOW_HIGH
-
+        #if UNITY_VERSION >= 60000000
+            // fix for https://github.com/Unity-Technologies/com.unity.toonshader/issues/391
+            #ifdef SHADOW_MEDIUM
+            #ifndef PUNCTUAL_SHADOW_MEDIUM
+            #define PUNCTUAL_SHADOW_MEDIUM
+            #endif
+            #endif
+            #ifdef SHADOW_HIGH
+            #ifndef PUNCTUAL_SHADOW_HIGH
+            #define PUNCTUAL_SHADOW_HIGH
+            #endif
+            #endif
+        #endif	
             #define USE_CLUSTERED_LIGHTLIST // There is not FPTL lighting when using transparent
             #define AREA_SHADOW_LOW
             #define SHADERPASS SHADERPASS_FORWARD
@@ -972,6 +984,19 @@ Shader "Toon" {
             #pragma multi_compile SCREEN_SPACE_SHADOWS_OFF SCREEN_SPACE_SHADOWS_ON
             // Supported shadow modes per light type
             #pragma multi_compile SHADOW_LOW SHADOW_MEDIUM SHADOW_HIGH
+        #if UNITY_VERSION >= 60000000
+            // fix for https://github.com/Unity-Technologies/com.unity.toonshader/issues/391
+            #ifdef SHADOW_MEDIUM
+            #ifndef PUNCTUAL_SHADOW_MEDIUM
+            #define PUNCTUAL_SHADOW_MEDIUM
+            #endif
+            #endif
+            #ifdef SHADOW_HIGH
+            #ifndef PUNCTUAL_SHADOW_HIGH
+            #define PUNCTUAL_SHADOW_HIGH
+            #endif
+            #endif
+        #endif	    
             #define LIGHTLOOP_DISABLE_TILE_AND_CLUSTER
 //	    #pragma multi_compile USE_FPTL_LIGHTLIST USE_CLUSTERED_LIGHTLIST
             #define AREA_SHADOW_LOW
