@@ -26,10 +26,10 @@ MatCap Color : Texture(sRGB) × Color(RGB) Default:White
 ![A square black texture, with an upwards-curving yellow shape with soft edges.](images/HiLight_Matcap.png)<br/>
 An example of a MatCap Map texture.
 
-<video title="A camera pan over the head of a chibi-style character model with long hair and rabbit ears." src="images/WithOutMatCap.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video>
+<video title="A camera pan over the head of a chibi-style character model with long hair and rabbit ears." src="images/WithOutMatCap.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video><br/>
 MatCap Map disabled.
 
-<video title="The same camera pan, but the blonde hair of the model now has a brighter yellow specular highlight." src="images/WithMatCap.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video>
+<video title="The same camera pan, but the blonde hair of the model now has a brighter yellow specular highlight." src="images/WithMatCap.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video><br/>
 MatCap Map enabled.
 
 ## MatCap Blur Level
@@ -57,10 +57,10 @@ Rotating UV of MatCap Map.
 ## Stabilize Camera Rolling
 Stabilize Camera rolling when capturing materials with camera.
 
-<video title="A close-up on the face of a chibi-style character model. When the camera rotates, the specular highlights stay in the same place in the camera view." src="images/StabilizerOff.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video>
+<video title="A close-up on the face of a chibi-style character model. When the camera rotates, the specular highlights stay in the same place in the camera view." src="images/StabilizerOff.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video><br/>
 Stabilize Camera Rolling disabled.
 
-<video title="The same close-up. When the camera rotates, the specular highlights stay in the same place on the hair." src="images/StabilizerOn.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video>
+<video title="The same close-up. When the camera rotates, the specular highlights stay in the same place on the hair." src="images/StabilizerOn.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video><br/>
 Stabilize Camera Rolling enabled.
 
 
@@ -112,6 +112,8 @@ The MatCap mask is positioned correspond with the UV coordinates of the mesh ont
 
 ## MatCap Mask Level
 Adjusts the level of the MatCap Mask. When the value is 1, MatCap represents 100% irrespective of mask. When the value is -1, MatCap won't be displayed at all and MatCap will be the same as in the off state.
+
+<video title="Specular highlights on hair fade in and out." src="images/MatCapMaskLevel.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video>
 
 
 ## Invert MatCap Mask

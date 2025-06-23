@@ -111,3 +111,5 @@ Drag the slider to compare the images.
 
 ### Rim Light Mask Level
 -1 gives 0% for the Rim Light effect, 0 gives 100% for the Rim Light and Mask effect, 1 gives 100% for the Rim Light and 0% for the Mask effect.
+
+<video title="Rim light fades in and out." src="images/RimLightMaskLevel.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video>

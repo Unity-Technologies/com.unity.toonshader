@@ -46,8 +46,6 @@ An example Base Map.
 ![The same UV map but some areas have a darker color.](images/utc_all2_dark.png)</br>
 An example 1st Shading Map.
 
-Drag the slider to compare the base map and the 1st Shading Map.
-
 ## Adjusting edge of three basic color region
 
 Touch of the image is one of the most important factors that determine the style of the work. [Shading Steps and Feather Settings](ShadingStepAndFeather.md) provides  ways to adjust the position of the border between the regions and whether they're clearly separated or blended. First, you should adjust  **Base Color Step** to make  **1st Shading Map**, darker texture above, displayed.
