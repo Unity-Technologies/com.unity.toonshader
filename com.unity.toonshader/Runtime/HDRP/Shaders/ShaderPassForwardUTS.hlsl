@@ -230,7 +230,7 @@ void Frag(PackedVaryingsToPS packedInput,
 #if defined(DEBUG_DISPLAY) && !defined(UTS_DEBUG_SHADOWMAP) && !defined(UTS_DEBUG_SELFSHADOW)
     // In Unity's SceneView, the Unlit mode is internally handled using the DEBUG_DISPLAY define.
     // In official HDRP shaders, this macro is often combined with other debug macros to display various kinds of debug information,
-    // However, UTS does not implement these advanced debug visualizations. Supporting all of them is outside the scope of UTS.
+    // However, UTS currently does not implement these advanced debug visualizations. 
     // Therefore, if no other debug macros (e.g., UTS_DEBUG_SHADOWMAP, UTS_DEBUG_SELFSHADOW) are defined, we treat this as SceneView's Unlit mode and simply output the main texture color.
 
     float4 _MainTex_var = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, TRANSFORM_TEX(input.texCoord0, _MainTex));
