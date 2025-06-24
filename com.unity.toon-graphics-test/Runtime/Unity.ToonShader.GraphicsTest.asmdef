@@ -14,6 +14,17 @@
     ],
     "autoReferenced": true,
     "defineConstraints": [],
-    "versionDefines": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.render-pipelines.high-definition",
+            "expression": "",
+            "define": "UTS_TEST_USE_HDRP"
+        },
+        {
+            "name": "com.unity.render-pipelines.universal",
+            "expression": "",
+            "define": "UTS_TEST_USE_URP"
+        }
+    ],    
     "noEngineReferences": false
 }

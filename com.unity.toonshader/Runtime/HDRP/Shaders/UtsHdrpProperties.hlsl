@@ -3,6 +3,10 @@
 // On PS4, texture/sampler declarations need to be outside of CBuffers
 // Otherwise those parameters are not bound correctly at runtime.
 // ===========================================================================
+#if DEBUG_DISPLAY
+#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/DebugMipmapStreamingMacros.hlsl"
+#endif
+
 #ifndef fixed
 #define fixed  half
 #endif
@@ -282,7 +286,9 @@ PROP_DECL(float, _LinkDetailsWithBase);
 
 #endif // LAYERED_LIT_SHADER
 
-
+#if DEBUG_DISPLAY
+UNITY_TEXTURE_STREAMING_DEBUG_VARS
+#endif
 
 // Tessellation specific
 

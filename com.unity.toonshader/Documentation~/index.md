@@ -1,7 +1,6 @@
 # Unity Toon Shader overview
 
-![](images/TPK_04.png)
-
+![An image from the toon-shaded film The Phantom Knowledge in the Scene view of the Unity Editor. A close-up of a girl raising a weapon with a ruined cityscape in the background.](images/TPK_04.png)
 
 The **Unity Toon Shader** (UTS3) is a set of toon shaders designed to meet the needs of creators working on cel-shaded 3D-CG animations. 
 
@@ -13,13 +12,14 @@ The **Unity Toon Shader** is compatible with all the render pipelines, the **Bui
 
 In animation production, color specialists specify detailed color designs for every scene. UTS can apply these color specifications written in the instructions. UTS allows  users to apply the colors of light and shadow regardless of actual light colors in the scene. This feature is essential for cel-shaded character designs. UTS allows detailed control whether the directional light color affects materials or not.
 
-| Typical color design instruction example |
-|--|
-| ![](images/UTS4Color2.png)|
-| A: Highlight Color|
-| B: Base Color |
-| C: 1st Shading Color|
-| D: 2nd Shading Color |
+Typical color design instruction example:
+
+![A stylized girl in a sailor uniform. A: White highlights on the hair. B: The main blonde hair color. C: Hair in shadow, with a tan color. D: Hair in darker shadow, with a darker tan color.](images/UTS4Color2.png)
+
+- A: Highlight Color
+- B: Base Color
+- C: 1st Shading Color
+- D: 2nd Shading Color
 
 Three basic colors, **base color**, **1st shading color**, and **2nd shading color**, play  key roles in character design in the **Unity Toon Shader**. Please, refer to [Three Color Map and Control Map Settings](Basic.md).
 

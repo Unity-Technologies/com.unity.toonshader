@@ -2,9 +2,6 @@
 
 The followings are all the **Unity Toon Shader** settings in the inspector window.  
 
-<img src="images/InspectorUTS.png" >
-<br/><br/>
-
   * [Modes](Modes.md)
   * [Shader Settings](Shader.md)
   * [Three Color Map and Control Map Settings](Basic.md)

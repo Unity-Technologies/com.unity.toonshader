@@ -2,9 +2,6 @@
 
 **Three Color Map and Control Map Settings** provide basic cell shading settings in the **Unity Toon Shader**. These settings allow you to control the rendering of light and shadow areas independent from the actual light color. UTS allows detailed control whether the directional light color effects on materials. Please refer to [Scene Light Effectiveness Settings](SceneLight.md).
 
-<img src="images/InspectorThreeColorAndControlMapSettings.png" width="573">
-<br/><br/>
-
 * [Three Basic Color Maps](#Three-basic-color-maps)
   * [Base Map](#base-map)
     * [Apply to 1st Shading Map](#apply-to-1st-shading-map)
@@ -28,7 +25,7 @@ Base Color : Texture(sRGB) × Color(RGB). The default color is White. The base c
 
 |  Base Color Map (Face) | (Hair) | Result  |
 | ---- | ---- |---- |
-| <img src="images/yuko_face3_main.png" height="256">  |<img src="images/yuko_hair.png" height="256"> |<img src="images/YukoFace.png" height="256">  |
+| <img alt="A yellow texture map with different-colored areas for skin, ears, eyes, cheeks, and other parts of a face." src="images/yuko_face3_main.png" height="256">  | <img alt="A grey texture map with two brown areas for cat-like ears, and lighter grey brushstrokes for parts of the hair." src="images/yuko_hair.png" height="256"> |<img alt="A chibi-style face with yellow skin, grey hair, brown cat ears, large eyes, and rosy cheeks." src="images/YukoFace.png" height="256">  |
 
 
 ### Apply to 1st Shading Map
@@ -40,7 +37,7 @@ The map used for the brighter portions of the shadow. Texture(sRGB) × Color(RGB
 
 |   **1st Shading Map** (Face) | (Hair) | Result  |
 | ---- | ---- | ---- |
-| <img src="images/yuko_face3_B.png" height="256">   | <img src="images/yuko_hairB.png" height="256"> |<img src="images/YukoFace1stShadingMap.png" height="256">  |
+| <img alt="A similar texture map to the base map, but the background is now tan." src="images/yuko_face3_B.png" height="256">   | <img alt="A similar hair map to the base map, but the background is darker, and the brushstrokes have a blue gradient." src="images/yuko_hairB.png" height="256"> |<img alt="The chibi-style face, now with shadows at the bottom of the hair and face, and over the eyes." src="images/YukoFace1stShadingMap.png" height="256">  |
 
 
 ### Apply to 2nd Shading Map
@@ -52,12 +49,7 @@ The map used for the darker portions of the shadow. Texture(sRGB) × Color(RGB).
 
 |  **2nd Shading Map** (Face)  | (Hair) | Result  |
 | ---- | ---- | ---- |
-| <img src="images/yuko_face3_C.png" height="256">   | <img src="images/yuko_hairC.png" height="256"> |<img src="images/YukoFace2ndShadingMap.png" height="256">  |
-
-## Example of Three Color Map Operation
-<img src="images/ApplyTo1st2ndMap-3.gif" height="394"> 
-
-<br><br>
+| <img alt="A similar texture map to the base map, but the background is now a dark orange." src="images/yuko_face3_C.png" height="256">   | <img alt="A similar hair map to the base map, but the background is even darker." src="images/yuko_hairC.png" height="256"> |<img alt="The chibi-style face, now with darker shadows at the edges of the hair." src="images/YukoFace2ndShadingMap.png" height="256">  |
 
 
 ## Shadow Control Maps
@@ -74,20 +66,16 @@ Specify the position of fixed shadows that falls in 2nd shade color areas in UV 
 ## Example of Shadow Control Map Application
 | Base Map | 1st Shading Map | Shading Position Map |
 | ---- | ---- | ---- |
-| <img src="images/utc_all2_light.png" height="256"> |<img src="images/utc_all2_dark.png" height="256"> |<img src="images/utc_all2_offsetdark.png" height="256"> |
+| <img alt="A UV map texture that contains all the parts of a chibi-style character model." src="images/utc_all2_light.png" height="256"> |<img alt="The same UV map but some areas have a darker color." src="images/utc_all2_dark.png" height="256"> |<img alt="A mostly white texture, with 3 black hair shapes." src="images/utc_all2_offsetdark.png" height="256"> |
 
-| No Shadow Control Maps |
-| ---- |
-| <img src="images/ShadowControlMap0.png" height="256"> |
+No Shadow Control Maps:
+![A chibi-style character model with rabbit ears. In the Inspector window, the 1st Shading Position Map and 2nd Shading Position Map properties are empty.](images/ShadowControlMap0.png)
 
-| 1st Shading Position Map |
-| ---- | 
-|<img src="images/ShadowControlMap1.png" height="256"> |
+1st Shading Position Map:
+![The same model. In the Inspector window, the 1st Shading Position Map property is set to the shading position map texture.](images/ShadowControlMap1.png)
 
-| 2nd Shading Position Map | 
-| ---- |
-| <img src="images/ShadowControlMap2.png" height="256">|
+2nd Shading Position Map:
+![The same model. In the Inspector window, the 2nd Shading Position Map property is set to the shading position map texture.](images/ShadowControlMap2.png)
 
-| Both |
-| ---- |
-| <img src="images/ShadowControlMap3.png" height="256">|
+Both:
+![The same model. In the Inspector window, both the 1st Shading Position Map and 2nd Shading Position Map properties are set to the shading position map texture. ](images/ShadowControlMap3.png)

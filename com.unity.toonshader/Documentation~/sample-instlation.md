@@ -9,11 +9,6 @@ Unity provides  the **Unity Toon Shader** sample scenes for the three render pip
 1. Set Graphics Pipeline Asset in the [Project Setting window](#https://docs.unity3d.com/2022.2/Documentation/Manual/comp-ManagerGroup.html).  URP samples require `UTS2URPPipelineAsset`. Whereas HDRP samples require  `HDRenderPipelineAsset_UTS`.
 <br/><br/>
 
-| Where you should set `UTS2URPPipelineAsset` or `HDRenderPipelineAsset_UTS` |
-| -- |
-| <img src="images/UtsProjectSettingsWindow.png">|
-
-
  `Assets/Samples/Unity Toon Shader/0.9.3-preview/Universal render pipeline` folder contains the following scenes.
 
 * Sample/Sample.unity        ：A scene to introduce the basic.  

@@ -4,10 +4,6 @@ The **Unity Toon Shader** provides the way to control effectiveness of lights in
 UTS allows you to control each area color regardless of the actual light color. While this feature is fundamental to professional cell shading, sometimes it's necessary to apply actual light colors. 
 UTS provides a way to determine if the actual light color does or doesn't affect it.
 
-
-<img src="images/InspectorSceneLightEffectivenessSettings.png" width="573">
-<br/><br/>
-
 * [Light Color Effectiveness Settings](#light-color-effectiveness)
 * [Light Probe Intensity](#light-probe-intensity)
 * [Limit Light Intensity](#limit-light-intensity)
@@ -31,19 +27,16 @@ If the setting for each color is Off, the color is always illuminated with a lig
 | Outline |  Light color effect in outlines. |
 
 Light Color Effectiveness example: A red light on the face. Unchecked areas on the face material aren't affected by the light color.
-|Light Color Effectiveness is off | Light Color Effectiveness is on |
-| - | - |
-| <img src="images/SceneLightColorEffectivenessOn.png" height="256"> | <img src="images/SceneLightColorEffectivenessOff.png" height="256"> |
-|<img src="images/SceneLightColorEffectiveness1.png" height="70">|<img src="images/SceneLightColorEffectiveness0.png" height="70">|
-<br/><br/>
 
+<canvas class="image-comparison" role="img" aria-label="A Chibi-style character model. The face of the model is unaffected by red light. Then the same model, with Light Color Effectiveness enabled. The face of the model is bright red.">
+    <img src="images/SceneLightColorEffectivenessOn.png" title="Light Color Effectiveness On">
+    <img src="images/SceneLightColorEffectivenessOff.png" title="Light Color Effectiveness Off">
+</canvas>
+<br />Drag the slider to compare the images.
 
 ## Light Probe Intensity
 
 Adds the light probe color to the material color according to the **Light Probe Intensity** value.
-
-<img src="images/LightProbeIntensity.gif" height="256">
-<br><br>
 
 ## Limit Light Intensity
 
@@ -51,6 +44,8 @@ Limit the brightness of the light to 1 to avoid white-out.
 
 Example: When a intensive directional light is on the character.
 
-| Limit Light Intensity Off | Limit Light Intensity On |
-| - | - |
-| <img src="images/LimitLightIntensityOff.png" height="256"> | <img src="images/LimitLightIntensityOn.png" height="256"> |
+<canvas class="image-comparison" role="img" aria-label="A chibi-style character model. Limit Light Intensity is disabled. The model is brightly lit by a white light that washes out the colors. Then the same model, with Limit Light Intensity enabled. The model is lit less brightly and more naturally.">
+    <img src="images/LimitLightIntensityOff.png" title="Limit Light Intensity Off">
+    <img src="images/LimitLightIntensityOn.png" title="Limit Light Intensity On">
+</canvas>
+<br />Drag the slider to compare the images.

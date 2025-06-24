@@ -2,9 +2,6 @@
 
 The Rim Light  highlight the edges of meshes. Rim Light is based on the angle between surface normal and view direction. The **Unity Toon Shader** provides variety of options for Rim Light.
 
-<img src="images/InspectorRimLightSettings.png" width="573">
-<br/><br/>
-
 * [Rim Light](#rim-light)
   * [Rim Light Color](#rim-light-color)
   * [Rim Light Level](#rim-light-level)
@@ -23,92 +20,96 @@ The Rim Light  highlight the edges of meshes. Rim Light is based on the angle be
 ## Rim Light
 A Check box to enable **Rim Light** that hits the 3D model from behind and emphasizes the contours of the model from the front.
 
-|  Rim Light Off | Rim Light On | 
-| ---- | ---- |
-| <img src="images/RimLightOff.png" height="256"> | <img src="images/RimLightOn.png" height="256"> |
- 
-<br>
+<canvas class="image-comparison" role="img" aria-label="A toon-shaded sphere in a room textured with graphs. The sphere has green and purple bands of color, and specular highlights. With Rim Light enabled, the sphere is bright at the edge.">
+    <img src="images/RimLightOff.png" title="Rim Light disabled">
+    <img src="images/RimLightOn.png" title="Rim Light enabled">
+</canvas>
+<br />
+Drag the slider to compare the images.
 
 ### Rim Light Color
 Specifies the color of **Rim Light**.
 
-<img src="images/RimLightColor.gif" height="256">
-<br>
-
 ### Rim Light Level
 Specifies **Rim Light** intensity.
 
-<img src="images/RimLightLevel.gif" height="256">
+<video title="The same sphere. The intensity of the bright edge grows and shrinks, affecting almost the whole sphere." src="images/RimLightLevel.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video>
 <br>
 
 ### Adjust Rim Light Area
 Increasing this value narrows the area of influence of **Rim Light**.
 
-<img src="images/AdjustRimLightArea.gif" height="256">
+<video title="The same sphere. The bright light appears at the edge, then the sphere becomes lighter as a whole." src="images/AdjustRimLightArea.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video>
 <br>
 
 ### Rim Light Feather Off
 A check box to disable **Rim Light** feather.
 
-|  Rim Light with feather | Rim light feather disabled | 
-| ---- | ---- |
-| <img src="images/RimLightFeatherOn.png" height="256"> | <img src="images/RimLightFeatherOff.png" height="256"> |
+<canvas class="image-comparison" role="img" aria-label="A toon-shaded sphere in a room textured with graphs. With Rim Light Feather disabled, the bright edge appears thicker and sharper.">
+    <img src="images/RimLightFeatherOn.png" title="Rim Light Feather Off disabled">
+    <img src="images/RimLightFeatherOff.png" title="Rim Light Feather Off enabled">
+</canvas>
+<br />
+Drag the slider to compare the images.
 
 ### Light Direction
 A Checkbox to enable light direction. When Enabled, generates **Rim Light** in the direction of the light source.
 
-|  Rim Light Direction Off | Rim Light Direction On | 
-| ---- | ---- |
-| <img src="images/RimLightDirectionOff.png" height="256"> | <img src="images/RimLightDirectionOn.png" height="256"> |
+<canvas class="image-comparison" role="img" aria-label="A toon-shaded sphere in a room textured with graphs. The light direction changes as Light Direction is disabled and enabled.">
+    <img src="images/RimLightDirectionOff.png" title="Light Direction disabled">
+    <img src="images/RimLightDirectionOn.png" title="Light Direction enabled">
+</canvas>
+<br />
+Drag the slider to compare the images.
 
 ### Light Direction Rim Light Level
 Specifies intensity of **Rim Light** in the light source direction.
 
- <img src="images/LightDirectionRimLightLevel.gif" height="256">
-<br>
-
 ### Inverted Light Direction Rim Light
 Light color effectiveness to inverted direction rim lit areas.
 
-|  Inverted Light Direction Rim Light Off | Inverted Light Direction Rim Light On | 
-| ---- | ---- |
-| <img src="images/InversedLightDirectionRimLightOff.png" height="256"> | <img src="images/InversedLightDirectionRimLightOn.png" height="256"> |
+<canvas class="image-comparison" role="img" aria-label="A toon-shaded sphere in a room textured with graphs. With Inverted Light Direction Rim Light disabled, the sphere has bright edges on both sides.">
+    <img src="images/InversedLightDirectionRimLightOff.png" title="Inverted Light Direction Rim Light disabled">
+    <img src="images/InversedLightDirectionRimLightOn.png" title="Inverted Light Direction Rim Light enabled">
+</canvas>
+<br />
+Drag the slider to compare the images.
+
 
 #### Inverted Rim Light Color
 Specifies the color of inverted/antipodean **Rim Light**.
-
- <img src="images/InversedRimLightColor.gif" height="256">
-<br>
 
 
 #### Inverted Rim Light Level
 Specifies Inverted/Antipodean **Rim Light** Level.
 
- <img src="images/InversedRimLightLevel.gif" height="256">
-<br>
 
 #### Inverted Rim Light Feather Off
 Disable Inverted **Rim Light** feather.
 
-|  Inverted Rim Light Feather On | Inverted Rim Light Feather Off | 
-| ---- | ---- |
-| <img src="images/InversedRimLightFeathterOn.png" height="256"> | <img src="images/InversedRimLightFeathterOff.png" height="256"> |
+<canvas class="image-comparison" role="img" aria-label="A toon-shaded sphere in a room textured with graphs. With Inverted Rim Light Feather disabled, the sphere has a thick ring of red, orange and purple.">
+    <img src="images/InversedRimLightFeathterOff.png" title="Inverted Rim Light Feather enabled">
+    <img src="images/InversedRimLightFeathterOn.png" title="Inverted Rim Light Feather disabled">
+</canvas>
+<br />
+Drag the slider to compare the images.
 
 ### Rim Light Mask
 Rim Light Mask : a gray scale texture(linear). The white part of the texture represents **Rim Light**, and the black part masks.
  
-Gray Scale Texture Example | 
-| ---- |
-|<img src="images/UVCheckGrid.png" height="256">|
+![A square checkerboard pattern of black and gray squares. Each square has a plus symbol at its center.](images/UVCheckGrid.png)<br/>
+Grayscale texture example.
 
-| Rim Light Mask Off | Rim Light Mask On |
-| ---- | ---- |
-| <img src="images/RimLightMaskOff.png" height="256"> | <img src="images/RimLightMaskOn.png" height="256"> |
 
+<canvas class="image-comparison" role="img" aria-label="A toon-shaded sphere in a room textured with graphs. With Rim Light Mask enabled, the edge of the sphere reflects the room.">
+    <img src="images/RimLightMaskOff.png" title="Rim Light Mask disabled">
+    <img src="images/RimLightMaskOn.png" title="Rim Light Mask enabled">
+</canvas>
+<br />
+Drag the slider to compare the images.
 
 
 ### Rim Light Mask Level
 -1 gives 0% for the Rim Light effect, 0 gives 100% for the Rim Light and Mask effect, 1 gives 100% for the Rim Light and 0% for the Mask effect.
 
- <img src="images/RimLightMaskLevel.gif" height="256">
-<br>
+<video title="Rim light fades in and out." src="images/RimLightMaskLevel.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video>

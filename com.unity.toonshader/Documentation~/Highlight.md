@@ -2,9 +2,6 @@
 
 The ability to display specular highlights in a cel-animation-like manner is essential for Toon Shaders. The **Unity Toon Shader** provides a wide variety of expressions with controllability to illuminate the area independently of light color and intensity for impressive cel-shading.
 
-<img src="images/InspectorHighlightSettings.png" width="573">
-<br/><br/>
-
 * [Highlight](#highlight)
 * [Highlight Power](#highlight-power)
 * [Specular Mode](#specular-mode)
@@ -18,34 +15,37 @@ The ability to display specular highlights in a cel-animation-like manner is ess
 ## Highlight
 Highlight : Texture(sRGB) × Color(RGB) Default:White. Pattern and color of specularly illuminated area.
 
-| Default Color | Applied different light color |
-| - | - |
-| <img src="images/Highlight0.png"  height="256"> | <img src="images/Highlight1.png"  height="256"> | 
+<canvas class="image-comparison" role="img" aria-label="A toon-shaded sphere in a room textured with graphs. The sphere has green and purple bands of color, and a bright white specular highlight. Then the same sphere, with the color picker window open and the color #FF0000 selected. The specular highlight on the sphere is now orange and yellow.">
+    <img src="images/Highlight0.png" title="The default color.">
+    <img src="images/Highlight1.png" title="A different light color applied.">
+</canvas>
+<br />Drag the slider to compare the images.
 
 ## Highlight Power
 
 The size of the Highlight controlled through the High light power slider. The size increase with the formula: pow(x,5).
 
-<img src="images/SpecularPower.gif"  height="256">
-<br><br>
 
 ## Specular Mode
 
 UTS provides two modes for the highlight for different occasions and effect. The hard mode provides a crisp and solid edge to the highlight while the soft mode provides a blended blurred effect.
 
-| Hard | Soft |
-| - | - |
-| <img src="images/SpecularHard.png" > | <img src="images/SpecularSoft.png" > |
-
+<canvas class="image-comparison" role="img" aria-label="A close-up of a white specular highlight on a green sphere. The highlight is a clear white disc with a hard edge. Then the same close-up. The specular highlight is now a blurred white disc.">
+    <img src="Images/SpecularHard.png" title="Specular Mode set to Hard.">
+    <img src="Images/SpecularSoft.png" title="Specular Mode set to Soft.">
+</canvas>
+<br />Drag the slider to compare the images.
 
 <br><br>
 
 ### Color Blending Mode
 Specular color blending mode allows the user to control the hardness of the colour applied to the highlight. Users have two options: Multiply or Add. Note that **Color Blending Mode** is disabled when **Specular** Mode is  **Soft**.
 
-| Multiply | Add |
-| - | - |
-| <img src="images/SpecularMultiply.png" > | <img src="images/SpecularAdd.png" > |
+<canvas class="image-comparison" role="img" aria-label="A close-up of a yellow specular highlight on a green sphere. The highlight is a clear yellow disc with a hard edge. Then the same close-up. The specular highlight is now a blurred yellow disc.">
+    <img src="images/SpecularMultiply.png" title="Multiply">
+    <img src="images/SpecularAdd.png" title="Add">
+</canvas>
+<br />Drag the slider to compare the images.
 
 ## Highlight Blending on Shadows
 Control the blending for the highlights in shadows. Please refer to the image at [Blending Level](#blending-level).
@@ -53,24 +53,21 @@ Control the blending for the highlights in shadows. Please refer to the image at
 ### Blending Level
 Adjusts the intensity of highlight applied to shadow areas.
 
-<img src="images/HighlightBlendingLevel.gif" >
-<br><br>
+<video title="A specular highlight on a green sphere. Part of the highlight is in shadow, and fades in and out." src="images/HighlightBlendingLevel.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video>
 
 ## Highlight Mask
 A gray scale texture which utilises its brightness to control highlight intensity. Applying the highlight mask allows to fine-tune the reflectivity on the material.
 
- Gray Scale Texture Example | 
-| ---- |
-|<img src="images/UVCheckGrid.png" height="256">|
+![A square texture with a black and grey checkerboard pattern. Each square has a small plus symbol in its center.](images/UVCheckGrid.png)<br/>
+An example of a grayscale texture highlight mask.
 
-| High Light Mask Off | HIgh Light Mask On |
-| ---- | ---- |
-| <img src="images/HighlightMaskOff.png" height="256"> | <img src="images/HighlightMaskOn.png" height="256"> |
-
-
-
+<canvas class="image-comparison" role="img" aria-label="A toon-shaded sphere in a room textured with graphs. The sphere has green and purple bands of color, and circular green, white, and purple specular highlights. Then the same sphere. The specular highlights now reflect the checkerboard pattern.">
+    <img src="images/HighlightMaskOff.png" title="Highlight Mask disabled">
+    <img src="images/HighlightMaskOn.png" title="Highlight Mask enabled">
+</canvas>
+<br />Drag the slider to compare the images.
 
 ## Highlight Mask Level
 Highlight mask texture blending level to highlights.
 
-<img src="images/HighlightMaskLevel.gif" height="256">
+<video title="A toon-shaded sphere in a room textured with graphs. The specular highlights fade in and out." src="images/HighlightMaskLevel.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video>

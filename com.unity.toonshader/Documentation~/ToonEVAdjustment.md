@@ -1,11 +1,10 @@
 # Toon EV Adjustment
 
-<img width = "800" src="images/TooEvAdjustmenEfficiency2.png">
+![Three examples of a chibi-style character model in front of a golden globe with the Unity logo. In the first, the model is under a very bright light. In the second, the model is under more natural light. In the third, the model is under a moderately bright light.](images/TooEvAdjustmenEfficiency2.png)
 
 **Toon EV Adjustment** is only available for HDRP. When combined with post-effects, such as the Exposure Volume Profile, is designed to render optically correct images without collapsing even in bright environments as intense as 130,000 lux. But, because the **Unity Toon Shader** uses a totally different logic to render toons, the automatic correction built in HDRP isn't enough to get the picture the artist wants. **Toon EV Adjustment** supports artists' corrections in two ways.
 
 ## Scene Toon EV Adjustment
-<img width = "380" src="images/sceneToonEvAdjustment.png">
 
 Over the scene, **Scene Toon EV Adjustment** can control exposure level by applying EV curve for **Unity Toon Shader**. 
 
@@ -19,12 +18,8 @@ Just one **Scene Toon EV Adjustment Component** can be placed in a scene.
 ## Model Toon EV Adjustment
 **Toon EV Adjustment** can works to a certain model by choosing `GameObject/Toon Shader/Attatch Model Toon EV Adjustment` when the model is selected.
 
-<img width = "380" src="images/attachModelToonEvAdjustment.png">
-
 
 ## Properties
-
-<img width = "380" src="images/ToonEvAdjustmentCurveScript.png">
 
 | Property| Description |
 |:-------------------|:-------------------|

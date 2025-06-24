@@ -14,7 +14,14 @@ namespace Tests
 {
     public class UTS_GraphicsTests
     {
-        public const string ReferenceImagePath = "Assets/ReferenceImages";
+#if UTS_TEST_USE_HDRP        
+        private const string ReferenceImagePath = "Packages/com.unity.toon-reference-images/HDRP";
+#elif UTS_TEST_USE_URP
+        private const string ReferenceImagePath = "Packages/com.unity.toon-reference-images/URP";
+#else        
+        private const string ReferenceImagePath = "Packages/com.unity.toon-reference-images/Built-In";
+#endif
+        
         [UnityTest]
         [PrebuildSetup("SetupGraphicsTestCases")]
         [UseGraphicsTestCases(ReferenceImagePath)]
