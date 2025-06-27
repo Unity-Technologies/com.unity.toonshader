@@ -91,7 +91,7 @@
                 UtsLight mainLight = GetMainUtsLightByID(i.mainLightID, i.posWorld.xyz, inputData.shadowCoord, i.positionCS);
 
 #if defined(_LIGHT_LAYERS)
-                uint meshRenderingLayers = GetMeshRenderingLayer();
+                const uint meshRenderingLayers = GetMeshRenderingLayer();
 #endif
 
                 half3 mainLightColor = GetLightColor(
@@ -281,7 +281,9 @@
                 {
                     FORWARD_PLUS_SUBTRACTIVE_LIGHT_CHECK
                     int iLight = lightIndex;
-                    // if (iLight != i.mainLightID)
+#if _LIGHT_LAYERS                    
+                    if (iLight != i.mainLightID)
+#endif                        
                     {
                         float notDirectional = 1.0f; //_WorldSpaceLightPos0.w of the legacy code.
 
