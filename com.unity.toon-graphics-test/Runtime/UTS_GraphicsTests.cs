@@ -6,7 +6,7 @@ using UnityEngine.TestTools;
 using UnityEngine.TestTools.Graphics;
 using UnityEngine.SceneManagement;
 using System.IO;
-using UnityEngine.Toon.GraphicsTest;
+using Unity.ToonShader.GraphicsTest;
 
 namespace Tests
 {

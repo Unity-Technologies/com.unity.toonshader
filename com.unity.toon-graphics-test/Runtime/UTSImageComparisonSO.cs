@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.TestTools.Graphics;
 
-namespace UnityEngine.Toon.GraphicsTest {
+namespace Unity.ToonShader.GraphicsTest {
 
 [Serializable]
 [CreateAssetMenu(menuName = "Unity Toon Shader/UTS Image Comparison Settings")]

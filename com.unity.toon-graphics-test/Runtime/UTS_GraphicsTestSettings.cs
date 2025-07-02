@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.TestTools.Graphics;
-using UnityEngine.Toon.GraphicsTest;
 
-namespace UnityEngine.Toon.GraphicsTest {
+namespace Unity.ToonShader.GraphicsTest {
     public class UTS_GraphicsTestSettings : MonoBehaviour
     {
         public int WaitFrames = 0;
