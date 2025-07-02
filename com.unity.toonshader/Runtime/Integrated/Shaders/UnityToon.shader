@@ -906,10 +906,17 @@ Shader "Toon" {
             #ifndef PUNCTUAL_SHADOW_MEDIUM
             #define PUNCTUAL_SHADOW_MEDIUM
             #endif
+            #ifndef DIRECTIONAL_SHADOW_MEDIUM
+            #define DIRECTIONAL_SHADOW_MEDIUM
             #endif
+            #endif
+            
             #ifdef SHADOW_HIGH
             #ifndef PUNCTUAL_SHADOW_HIGH
             #define PUNCTUAL_SHADOW_HIGH
+            #endif
+            #ifndef DIRECTIONAL_SHADOW_HIGH
+            #define DIRECTIONAL_SHADOW_HIGH
             #endif
             #endif
         #endif	
@@ -990,10 +997,17 @@ Shader "Toon" {
             #ifndef PUNCTUAL_SHADOW_MEDIUM
             #define PUNCTUAL_SHADOW_MEDIUM
             #endif
+            #ifndef DIRECTIONAL_SHADOW_MEDIUM
+            #define DIRECTIONAL_SHADOW_MEDIUM
             #endif
+            #endif
+            
             #ifdef SHADOW_HIGH
             #ifndef PUNCTUAL_SHADOW_HIGH
             #define PUNCTUAL_SHADOW_HIGH
+            #endif
+            #ifndef DIRECTIONAL_SHADOW_HIGH
+            #define DIRECTIONAL_SHADOW_HIGH
             #endif
             #endif
         #endif	    
