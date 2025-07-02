@@ -1,9 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 using UnityEditor.SceneManagement;
-using Tests;
 using System.Linq;
 using Unity.ToonShader.GraphicsTest;
 
@@ -14,7 +11,6 @@ namespace UnityEditor.Rendering.Toon
         // https://docs.unity3d.com/ScriptReference/EditorBuildSettings-scenes.html
         Vector2 m_scrollPos;
         bool m_initialzed;
-        List<EditorBuildSettingsScene> m_SceneAssets = new List<EditorBuildSettingsScene>();
         List<string> m_SceneNames = new List<string>();
 
         string[] monobehavioursToDisable =
