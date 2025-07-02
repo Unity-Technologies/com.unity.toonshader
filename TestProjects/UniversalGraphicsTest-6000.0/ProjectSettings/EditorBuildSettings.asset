@@ -66,8 +66,8 @@ EditorBuildSettings:
     path: Assets/Scenes/MetaverseOutlineLighting/OutlineLighting01_Skybox.unity
     guid: 5047ff20b5c6df041aaea05829075248
   m_configObjects:
-    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 64c27f0e2a332ba4e84daabcd2dd9cdc,
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: cf2afb40cc2d9db4ea3770686df52896,
       type: 2}
-    xr.sdk.mock-hmd.settings: {fileID: 11400000, guid: 9c7cd9ccea4f09a4ab0b68bfc16d944d,
+    xr.sdk.mock-hmd.settings: {fileID: 11400000, guid: 5f90b73960fab7b409fb33cbad9b2f3e,
       type: 2}
   m_UseUCBPForAssetBundles: 0

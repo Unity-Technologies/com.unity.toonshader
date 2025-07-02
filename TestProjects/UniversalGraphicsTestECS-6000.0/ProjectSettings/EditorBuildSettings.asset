@@ -36,8 +36,8 @@ EditorBuildSettings:
     path: Assets/Scenes/ShaderBall.unity
     guid: ca770347e2c945bcb2a16a2cd2ef000f
   m_configObjects:
-    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 64c27f0e2a332ba4e84daabcd2dd9cdc,
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: cf2afb40cc2d9db4ea3770686df52896,
       type: 2}
-    xr.sdk.mock-hmd.settings: {fileID: 11400000, guid: 108ea6a3706bcc94c82ce7e9320d6159,
+    xr.sdk.mock-hmd.settings: {fileID: 11400000, guid: 5f90b73960fab7b409fb33cbad9b2f3e,
       type: 2}
   m_UseUCBPForAssetBundles: 0
