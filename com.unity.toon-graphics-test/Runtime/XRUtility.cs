@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.XR;
 using UnityEngine.XR.Management;
 
@@ -24,6 +26,13 @@ public static IEnumerator EnableXRCoroutine()
     {
         XRGeneralSettings.Instance.Manager.StartSubsystems();
     }
+    
+    List<XRDisplaySubsystem> xrDisplaySubsystems = new List<XRDisplaySubsystem>();
+    SubsystemManager.GetSubsystems<XRDisplaySubsystem>(xrDisplaySubsystems);
+    foreach (XRDisplaySubsystem xrDisplay in xrDisplaySubsystems) {
+        xrDisplay.Start();
+    }
+    
 }
 
 
@@ -35,7 +44,13 @@ public static void DisableXR() {
         XRGeneralSettings.Instance.Manager.DeinitializeLoader();
     }
     
-    XRSettings.enabled = false;
+    
+    List<XRDisplaySubsystem> xrDisplaySubsystems = new List<XRDisplaySubsystem>();
+    SubsystemManager.GetSubsystems<XRDisplaySubsystem>(xrDisplaySubsystems);
+    foreach (XRDisplaySubsystem xrDisplay in xrDisplaySubsystems) {
+        xrDisplay.Stop();
+    }
+    
 }
     
     
