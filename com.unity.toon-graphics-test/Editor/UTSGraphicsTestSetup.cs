@@ -5,6 +5,7 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using Tests;
 using System.Linq;
+using UnityEngine.Toon.GraphicsTest;
 
 namespace UnityEditor.Rendering.Toon
 {
