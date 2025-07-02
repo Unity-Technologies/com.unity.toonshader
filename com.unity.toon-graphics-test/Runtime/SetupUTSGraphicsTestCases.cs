@@ -4,7 +4,7 @@ using UnityEngine.TestTools;
 
 namespace Unity.ToonShader.GraphicsTest {
     
-public class SetupUTSGraphicsTestCases : IPrebuildSetup {
+public class SetupUTSGraphicsTestCases : IPrebuildSetup, IPostBuildCleanup {
     public void Setup() {
         
         //Enable XR
@@ -15,6 +15,9 @@ public class SetupUTSGraphicsTestCases : IPrebuildSetup {
         if (!string.IsNullOrEmpty(projectName) && projectName.Contains("Stereo")) {
             XRUtility.DisableXR();
         }
+    }
+    
+    public void Cleanup() {
     }
 }
     
