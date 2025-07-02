@@ -3,15 +3,15 @@ using System.Linq;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
-using UnityEngine.XR;
 using UnityEngine.TestTools.Graphics;
-using UnityEditor.TestTools.Graphics;
 using UnityEngine.SceneManagement;
-using System.Collections.Generic;
 using System.IO;
+
 
 namespace Tests
 {
+    
+
     public class UTS_GraphicsTests
     {
 #if UTS_TEST_USE_HDRP        
@@ -21,9 +21,10 @@ namespace Tests
 #else        
         private const string ReferenceImagePath = "Packages/com.unity.toon-reference-images/Built-In";
 #endif
+
         
         [UnityTest]
-        [PrebuildSetup("SetupGraphicsTestCases")]
+        [PrebuildSetup(typeof(Unity.ToonShader.GraphicsTest.SetupUTSGraphicsTestCases))]
         [UseGraphicsTestCases(ReferenceImagePath)]
         [Timeout(3600000)] //1 hour
         public IEnumerator Run(GraphicsTestCase testCase)
@@ -35,40 +36,10 @@ namespace Tests
             yield return null;
 
             var cameras = GameObject.FindGameObjectsWithTag("MainCamera").Select(x => x.GetComponent<Camera>());
-            var settings = Object.FindObjectOfType<UTS_GraphicsTestSettings>();
+            UTS_GraphicsTestSettings settings = Object.FindFirstObjectByType<UTS_GraphicsTestSettings>();
             Assert.IsNotNull(settings, "Invalid test scene, couldn't find UTS_GraphicsTestSettings");
 
-            Scene scene = SceneManager.GetActiveScene();
-
-
-            if (scene.name.Length > (3+ 4) && scene.name.Substring(3, 4).Equals("_xr_"))
-            {
-#if ENABLE_VR && ENABLE_VR_MODULE
-            Assume.That((Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.OSXPlayer), "Stereo tests do not run on MacOSX.");
-
-            XRSettings.LoadDeviceByName("MockHMD");
-            yield return null;
-
-            XRSettings.enabled = true;
-            yield return null;
-
-            XRSettings.gameViewRenderMode = GameViewRenderMode.BothEyes;
-            yield return null;
-
-            foreach (var camera in cameras)
-                camera.stereoTargetEye = StereoTargetEyeMask.Both;
-#else
-                yield return null;
-#endif
-            }
-            else
-            {
-#if ENABLE_VR && ENABLE_VR_MODULE
-            XRSettings.enabled = false;
-#endif
-                yield return null;
-            }
-
+            
             int waitFrames = settings.WaitFrames;
 
             if (settings.ImageComparisonSettings.UseBackBuffer && settings.WaitFrames < 1)
