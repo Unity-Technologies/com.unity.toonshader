@@ -68,4 +68,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ToonShader_LightCulling.unity
     guid: 996ccb16826445bfb9ead90db4383e5e
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: cf2afb40cc2d9db4ea3770686df52896,
+      type: 2}
+    xr.sdk.mock-hmd.settings: {fileID: 11400000, guid: 5f90b73960fab7b409fb33cbad9b2f3e,
+      type: 2}
+  m_UseUCBPForAssetBundles: 0
