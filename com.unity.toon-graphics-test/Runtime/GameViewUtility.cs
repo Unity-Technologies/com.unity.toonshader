@@ -1,7 +1,8 @@
 using System;
 using System.Reflection;
+
+#if UNITY_EDITOR
 using UnityEditor;
-using UnityEngine;
 
 namespace Unity.ToonShader.GraphicsTest {
     
@@ -14,14 +15,11 @@ public static class GameViewUtility {
     }
     
 //----------------------------------------------------------------------------------------------------------------------
-    static GameViewUtility() {
-    }
-
 
     public static void SetSize(int index)
     {
-        EditorWindow gvWnd = EditorWindow.GetWindow(gvWndType);
-        selectedSizeIndexProp.SetValue(gvWnd, index, null);
+        EditorWindow gvWnd = EditorWindow.GetWindow(GameViewReflection.ASSEMBLY_TYPE);
+        GameViewReflection.SELECTED_SIZE_INDEX_PROP.SetValue(gvWnd, index, null);
     }
 
     public static void AddAndSelectCustomSize(GameViewSizeType viewSizeType, GameViewSizeGroupType sizeGroupType, int width, int height, string text)
@@ -34,10 +32,9 @@ public static class GameViewUtility {
     public static void AddCustomSize(GameViewSizeType viewSizeType, GameViewSizeGroupType sizeGroupType, int width, int height, string text)
     {
         object group = GetGroup(sizeGroupType);
-        MethodInfo addCustomSize = getGroup.ReturnType.GetMethod("AddCustomSize"); // or group.GetType().
         
-        object newSize = ctor.Invoke(new object[] { (int)viewSizeType, width, height, text });
-        addCustomSize.Invoke(group, new object[] { newSize });
+        object newSize = GameViewSizeReflection.CTOR.Invoke(new object[] { (int)viewSizeType, width, height, text });
+        GameViewSizesReflection.ADD_CUSTOM_SIZE.Invoke(group, new object[] { newSize });
     }
 
     public static int FindSize(GameViewSizeGroupType sizeGroupType, int width, int height)
@@ -71,33 +68,59 @@ public static class GameViewUtility {
 
     static object GetGroup(GameViewSizeGroupType type)
     {
-        return getGroup.Invoke(gameViewSizesInstance, new object[] { (int)type });
+        return GameViewSizesReflection.GET_GROUP.Invoke(GameViewSizesReflection.GAME_VIEW_SIZES_INSTANCE, new object[] { (int)type });
+    }
+    
+    public static bool IsInitialized() {
+        return GameViewSizesReflection.ASSEMBLY_TYPE != null
+            && GameViewSizesReflection.GET_GROUP != null
+            && GameViewSizesReflection.SINGLE_TYPE != null
+            && GameViewSizesReflection.INSTANCE_PROP != null
+            && GameViewSizesReflection.GAME_VIEW_SIZES_INSTANCE != null
+            && GameViewSizesReflection.ADD_CUSTOM_SIZE != null
+            && GameViewSizeReflection.ASSEMBLY != null
+            && GameViewSizeReflection.GAME_VIEW_SIZE != null
+            && GameViewSizeReflection.GAME_VIEW_SIZE_TYPE != null
+            && GameViewSizeReflection.CTOR != null
+            && GameViewReflection.ASSEMBLY_TYPE != null
+            && GameViewReflection.SELECTED_SIZE_INDEX_PROP != null;
+    }
+    
+//----------------------------------------------------------------------------------------------------------------------    
+
+    private struct GameViewSizesReflection {
+        internal static readonly Type ASSEMBLY_TYPE = typeof(Editor).Assembly.GetType("UnityEditor.GameViewSizes");
+        internal static readonly MethodInfo GET_GROUP = ASSEMBLY_TYPE.GetMethod("GetGroup");
+        internal static readonly Type SINGLE_TYPE = typeof(ScriptableSingleton<>).MakeGenericType(ASSEMBLY_TYPE);
+        internal static readonly PropertyInfo INSTANCE_PROP = SINGLE_TYPE.GetProperty("instance");
+        internal static readonly object GAME_VIEW_SIZES_INSTANCE = INSTANCE_PROP.GetValue(null, null);
+        internal static readonly MethodInfo ADD_CUSTOM_SIZE = GET_GROUP.ReturnType.GetMethod("AddCustomSize"); // or group.GetType().
+    }
+    
+    struct GameViewSizeReflection {
+        internal static readonly Assembly ASSEMBLY = Assembly.Load("UnityEditor.dll");
+        internal static readonly Type GAME_VIEW_SIZE = ASSEMBLY.GetType("UnityEditor.GameViewSize");
+        internal static readonly Type GAME_VIEW_SIZE_TYPE = ASSEMBLY.GetType("UnityEditor.GameViewSizeType");
+        internal static readonly ConstructorInfo CTOR = GAME_VIEW_SIZE.GetConstructor(new Type[]
+        {
+            GAME_VIEW_SIZE_TYPE,
+            typeof(int),
+            typeof(int),
+            typeof(string)
+        });
     }
 
-//----------------------------------------------------------------------------------------------------------------------    
     
-    static MethodInfo getGroup = sizesType.GetMethod("GetGroup");
-    static Type sizesType = typeof(Editor).Assembly.GetType("UnityEditor.GameViewSizes");
-    static Type singleType = typeof(ScriptableSingleton<>).MakeGenericType(sizesType);
-    static PropertyInfo instanceProp = singleType.GetProperty("instance");
-    static object gameViewSizesInstance = instanceProp.GetValue(null, null);
-
-    static Assembly assembly = Assembly.Load("UnityEditor.dll");
-    static Type gameViewSize = assembly.GetType("UnityEditor.GameViewSize");
-    static Type gameViewSizeType = assembly.GetType("UnityEditor.GameViewSizeType");
-    static ConstructorInfo ctor = gameViewSize.GetConstructor(new Type[]
-    {
-        gameViewSizeType,
-        typeof(int),
-        typeof(int),
-        typeof(string)
-    });
-
-    static Type gvWndType = typeof(Editor).Assembly.GetType("UnityEditor.GameView");
-    static PropertyInfo selectedSizeIndexProp = gvWndType.GetProperty("selectedSizeIndex",
-        BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+    struct GameViewReflection {
+        internal static readonly Type ASSEMBLY_TYPE = typeof(Editor).Assembly.GetType("UnityEditor.GameView");
+        internal static readonly PropertyInfo SELECTED_SIZE_INDEX_PROP = ASSEMBLY_TYPE.GetProperty("selectedSizeIndex",
+            BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+        
+    }
     
 }    
     
 } //end namespace
 
+
+#endif
