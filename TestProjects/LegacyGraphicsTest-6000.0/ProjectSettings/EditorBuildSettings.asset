@@ -69,5 +69,8 @@ EditorBuildSettings:
     path: Assets/MetaverseOutlineLighting/OutlineLighting03_Color.unity
     guid: 62191d05ba8b1d245a8cf459652462e3
   m_configObjects:
-    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 130499d3ed8f42c4e89f54b60cef895c,
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 9547f22256997f64f9f635134b12e81d,
       type: 2}
+    xr.sdk.mock-hmd.settings: {fileID: 11400000, guid: abf5c04a47ee1534a8fa7f884c979937,
+      type: 2}
+  m_UseUCBPForAssetBundles: 0

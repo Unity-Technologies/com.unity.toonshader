@@ -72,5 +72,7 @@ EditorBuildSettings:
     path: Assets/Scenes/MetaverseOutlineLighting/OutlineLighting02_GradientSky.unity
     guid: f8ee6806625245d498d2a9217ae571ef
   m_configObjects:
-    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: cdb6e892022f4fc4196b153659c4d080,
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: e6941f0dbfed7bb4a905b30bea4ad184,
+      type: 2}
+    xr.sdk.mock-hmd.settings: {fileID: 11400000, guid: 9ef61bd0293b99e4b8d0477393413258,
       type: 2}
