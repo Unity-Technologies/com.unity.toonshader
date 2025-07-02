@@ -8,19 +8,19 @@ namespace Unity.ToonShader.GraphicsTest {
     
 public static class XRUtility {
 
-public static IEnumerator EnableXRCoroutine()
-{
+public static void EnableXR() {
+    //Disable everything first
     if (XRGeneralSettings.Instance.Manager.activeLoader ||
         XRGeneralSettings.Instance.Manager.isInitializationComplete)
     {
         DisableXR();
-        yield return null;
     }
 
     if (!XRGeneralSettings.Instance.Manager.activeLoader) {
-        yield return XRGeneralSettings.Instance.Manager.InitializeLoader();
+        XRGeneralSettings.Instance.Manager.InitializeLoaderSync();
     }
-
+    
+    
     if (XRGeneralSettings.Instance.Manager.activeLoader 
         && XRGeneralSettings.Instance.Manager.isInitializationComplete)
     {
@@ -29,8 +29,9 @@ public static IEnumerator EnableXRCoroutine()
     
     List<XRDisplaySubsystem> xrDisplaySubsystems = new List<XRDisplaySubsystem>();
     SubsystemManager.GetSubsystems<XRDisplaySubsystem>(xrDisplaySubsystems);
-    foreach (XRDisplaySubsystem xrDisplay in xrDisplaySubsystems) {
-        xrDisplay.Start();
+    int count = xrDisplaySubsystems.Count;
+    for (int i = 0; i < count; i++) {
+        xrDisplaySubsystems[i].Start();
     }
     
 }
@@ -47,8 +48,9 @@ public static void DisableXR() {
     
     List<XRDisplaySubsystem> xrDisplaySubsystems = new List<XRDisplaySubsystem>();
     SubsystemManager.GetSubsystems<XRDisplaySubsystem>(xrDisplaySubsystems);
-    foreach (XRDisplaySubsystem xrDisplay in xrDisplaySubsystems) {
-        xrDisplay.Stop();
+    int count = xrDisplaySubsystems.Count;
+    for (int i = 0; i < count; i++) {
+        xrDisplaySubsystems[i].Stop();
     }
     
 }
