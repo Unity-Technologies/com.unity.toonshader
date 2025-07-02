@@ -1,8 +1,9 @@
-﻿using UnityEngine.TestTools.Graphics;
+﻿using UnityEngine;
+using UnityEngine.TestTools.Graphics;
 
 namespace Tests
 {
-    public class UTS_GraphicsTestSettings : GraphicsTestSettings
+    public class UTS_GraphicsTestSettings : MonoBehaviour
     {
         public int WaitFrames = 0;
         public bool XRCompatible = true;
@@ -11,15 +12,14 @@ namespace Tests
 #else
         public bool CheckMemoryAllocation = true;
 #endif //#if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
-
-        public UTS_GraphicsTestSettings()
-        {
-            ImageComparisonSettings.TargetWidth = 960;
-            ImageComparisonSettings.TargetHeight = 540;
-            ImageComparisonSettings.AverageCorrectnessThreshold = 0.005f;
-            ImageComparisonSettings.PerPixelCorrectnessThreshold = 0.001f;
-            ImageComparisonSettings.UseHDR = false;
-            ImageComparisonSettings.UseBackBuffer = false;
+        
+        [SerializeField] 
+        private UTSImageComparisonSO m_imageComparisonSO;
+        
+        public ImageComparisonSettings FindImageComparisonSettings() {
+            return m_imageComparisonSO != null ? m_imageComparisonSO.GetImageComparisonSettings() : null;
         }
+        
     }
+    
 }
