@@ -1,14 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
 using UnityEngine.XR.Management;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace Unity.ToonShader.GraphicsTest {
     
 public static class XRUtility {
 
-public static void EnableXR() {
+#if UNITY_EDITOR
+public static void EnableXRInEditor() {
+
+    if (null == XRGeneralSettings.Instance) {
+        XRGeneralSettings.Instance = AssetDatabase.LoadAssetAtPath<XRGeneralSettings>(
+            "Assets/XR/XRGeneralSettingsPerBuildTarget.asset");
+    }
+    
     //Disable everything first
     if (XRGeneralSettings.Instance.Manager.activeLoader ||
         XRGeneralSettings.Instance.Manager.isInitializationComplete)
@@ -36,13 +46,15 @@ public static void EnableXR() {
     
 }
 
+#endif //UNITY_EDITOR
 
 public static void DisableXR() {
 
-    if (XRGeneralSettings.Instance.Manager.isInitializationComplete)
+    XRManagerSettings xrManager = XRGeneralSettings.Instance?.Manager;
+    if (null!= xrManager && xrManager.isInitializationComplete)
     {
-        XRGeneralSettings.Instance.Manager.StopSubsystems();
-        XRGeneralSettings.Instance.Manager.DeinitializeLoader();
+        xrManager.StopSubsystems();
+        xrManager.DeinitializeLoader();
     }
     
     
@@ -52,9 +64,7 @@ public static void DisableXR() {
     for (int i = 0; i < count; i++) {
         xrDisplaySubsystems[i].Stop();
     }
-    
 }
-    
     
 }
 
