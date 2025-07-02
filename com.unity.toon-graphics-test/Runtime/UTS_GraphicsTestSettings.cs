@@ -18,7 +18,10 @@ namespace Unity.ToonShader.GraphicsTest {
         public ImageComparisonSettings FindImageComparisonSettings() {
             return m_imageComparisonSO != null ? m_imageComparisonSO.GetImageComparisonSettings() : null;
         }
-        
+
+        public void SetUTSImageComparisonSO(UTSImageComparisonSO so) {
+            m_imageComparisonSO = so; 
+        }
     }
     
 }
