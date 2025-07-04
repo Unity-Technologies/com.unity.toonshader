@@ -3,12 +3,10 @@ using System.Linq;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
-using UnityEngine.XR;
 using UnityEngine.TestTools.Graphics;
-using UnityEditor.TestTools.Graphics;
 using UnityEngine.SceneManagement;
-using System.Collections.Generic;
 using System.IO;
+using Unity.ToonShader.GraphicsTest;
 
 namespace Tests
 {
@@ -70,8 +68,10 @@ namespace Tests
             }
 
             int waitFrames = settings.WaitFrames;
+            ImageComparisonSettings imageComparisonSettings = settings.FindImageComparisonSettings();
+            Assert.IsNotNull(imageComparisonSettings);
 
-            if (settings.ImageComparisonSettings.UseBackBuffer && settings.WaitFrames < 1)
+            if (imageComparisonSettings.UseBackBuffer && settings.WaitFrames < 1)
             {
                 waitFrames = 1;
             }
@@ -80,7 +80,7 @@ namespace Tests
             for (int i = 0; i < waitFrames; i++)
                 yield return new WaitForEndOfFrame();
 
-            ImageAssert.AreEqual(testCase.ReferenceImage, cameras.Where(x => x != null), settings.ImageComparisonSettings);
+            ImageAssert.AreEqual(testCase.ReferenceImage, cameras.Where(x => x != null), imageComparisonSettings);
 
             // Does it allocate memory when it renders what's on the main camera?
             bool allocatesMemory = false;
@@ -90,7 +90,7 @@ namespace Tests
             {
                 try
                 {
-                    ImageAssert.AllocatesMemory(mainCamera, settings.ImageComparisonSettings);
+                    ImageAssert.AllocatesMemory(mainCamera, imageComparisonSettings);
                 }
                 catch (AssertionException)
                 {

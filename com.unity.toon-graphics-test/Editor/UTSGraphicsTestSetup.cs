@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 using UnityEditor.SceneManagement;
-using Tests;
 using System.Linq;
+using NUnit.Framework;
+using Unity.ToonShader.GraphicsTest;
 
 namespace UnityEditor.Rendering.Toon
 {
@@ -13,7 +12,6 @@ namespace UnityEditor.Rendering.Toon
         // https://docs.unity3d.com/ScriptReference/EditorBuildSettings-scenes.html
         Vector2 m_scrollPos;
         bool m_initialzed;
-        List<EditorBuildSettingsScene> m_SceneAssets = new List<EditorBuildSettingsScene>();
         List<string> m_SceneNames = new List<string>();
 
         string[] monobehavioursToDisable =
@@ -91,16 +89,21 @@ namespace UnityEditor.Rendering.Toon
                 EditorGUILayout.BeginHorizontal();
                 if ( GUILayout.Button("Set up scenes above.") )
                 {
+                    UTSImageComparisonSO imageComparisonSO = AssetDatabase.LoadAssetAtPath<UTSImageComparisonSO>(IMAGE_COMPARISON_SO_PATH);
+                    Assert.IsNotNull(imageComparisonSO);
+                    
                     for ( int sceneIndex = 0; sceneIndex < EditorBuildSettings.scenes.Length; sceneIndex++)
                     {
-                        SetupScenes(sceneIndex);
+                        SetupScenes(sceneIndex, imageComparisonSO);
                     }
                 }
 
                 EditorGUILayout.EndHorizontal();
             }
         }
-        void SetupScenes(int scneneIndex)
+        
+//----------------------------------------------------------------------------------------------------------------------
+        void SetupScenes(int scneneIndex, UTSImageComparisonSO imageComparisonSO)
         {
             var scene = EditorSceneManager.OpenScene(EditorBuildSettings.scenes[scneneIndex].path);
             var cameras = GameObject.FindGameObjectsWithTag("MainCamera").Select(x => x.GetComponent<Camera>());
@@ -116,8 +119,9 @@ namespace UnityEditor.Rendering.Toon
             {
                 settings = cameraList[0].gameObject.AddComponent<UTS_GraphicsTestSettings>();
             }
-            settings.ImageComparisonSettings.ImageResolution = UnityEngine.TestTools.Graphics.ImageComparisonSettings.Resolution.w960h540;
-            settings.ImageComparisonSettings.PerPixelCorrectnessThreshold = 0.005f;
+            
+            settings.SetUTSImageComparisonSO(imageComparisonSO);
+            
             settings.CheckMemoryAllocation = false;
             settings.WaitFrames = 480;
             foreach (GameObject obj in FindObjectsOfType(typeof(GameObject)))
@@ -158,5 +162,9 @@ namespace UnityEditor.Rendering.Toon
 
             EditorSceneManager.SaveScene(scene);
         }
+
+//----------------------------------------------------------------------------------------------------------------------
+
+        private const string IMAGE_COMPARISON_SO_PATH = "Packages/com.unity.toon-graphics-test/Runtime/UTSGraphicsTestImageComparisonSettings.asset";
     }
 }
