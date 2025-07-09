@@ -26,7 +26,16 @@ public class UTS_GraphicsTestsXR {
     [Timeout(3600000)] //1 hour
     public IEnumerator Run(GraphicsTestCase testCase) {
 
-        Unity.ToonShader.GraphicsTest.SetupUTSGraphicsXRTestCases.Setup();
+        //Enable XR
+        XRUtility.EnableXR();
+        
+#if UNITY_EDITOR
+        GameViewUtility.AddAndSelectCustomSize(
+            GameViewUtility.GameViewSizeType.FixedResolution,
+            GameViewSizeGroupType.Standalone,
+            2*1920, 1080, "XR Full HD (3840x1080)"
+        );
+#endif
         string loadedXRDevice = UseGraphicsTestCasesAttribute.LoadedXRDevice;
         
         //Manually load the reference image for XR. Ex: URP/Linear/WindowsEditor/Vulkan/None/AngelRing.png
@@ -42,7 +51,8 @@ public class UTS_GraphicsTestsXR {
         
         //Unity.ToonShader.GraphicsTest.SetupUTSGraphicsXRTestCases.Setup();
         yield return UTS_GraphicsTests.RunInternal(testCase, isXR:true);
-        Unity.ToonShader.GraphicsTest.SetupUTSGraphicsXRTestCases.Cleanup();
+        
+        XRUtility.DisableXR();
     }
    
 } 
@@ -60,9 +70,13 @@ public class UTS_GraphicsTestsNonXR  {
     [UseGraphicsTestCases(ReferenceImagePath)]
     [Timeout(3600000)] //1 hour
     public IEnumerator Run(GraphicsTestCase testCase) {
-        Unity.ToonShader.GraphicsTest.SetupUTSGraphicsNonXRTestCases.Setup();
+        //[TODO-sin: 2025-7-2] Hack for now to disable XR for non-Stereo projects
+        string projectName = Path.GetFileName(Path.GetDirectoryName(UnityEngine.Application.dataPath));
+        if (!string.IsNullOrEmpty(projectName) && !projectName.Contains("Stereo")) {
+            XRUtility.DisableXR();
+        }
+        
         yield return UTS_GraphicsTests.RunInternal(testCase);
-        Unity.ToonShader.GraphicsTest.SetupUTSGraphicsNonXRTestCases.Cleanup();
     }
 } 
     
@@ -91,8 +105,9 @@ public class UTS_GraphicsTestsNonXR  {
             Assert.IsNotNull(settings, "Invalid test scene, couldn't find UTS_GraphicsTestSettings");
 
             if (isXR) {
-                //[hack for now]
-                settings.ImageComparisonSettings.UseBackBuffer = true;
+                settings.ImageComparisonSettings.UseBackBuffer = true; //results using both eyes need backbuffer 
+
+                //[TODO-sin: 2025-7-9] Hack for now. The resolution will be set to this later
                 settings.ImageComparisonSettings.ImageResolution = ImageComparisonSettings.Resolution.w1920h1080;
             }
 
