@@ -47,7 +47,7 @@ public class UTSGraphicsTestsXR {
     }
    
 } 
-public class UT_GraphicsTestsNonXR  {
+public class UTSGraphicsTestsNonXR  {
     [UnityTest]
     [UseGraphicsTestCases(UTSGraphicsTestConstants.ReferenceImagePath)]
     [Timeout(3600000)] //1 hour
