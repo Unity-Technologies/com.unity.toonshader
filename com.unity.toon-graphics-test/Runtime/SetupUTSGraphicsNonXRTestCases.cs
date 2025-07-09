@@ -1,10 +1,9 @@
 ﻿using System.IO;
-using UnityEngine;
 using UnityEngine.TestTools;
 
 namespace Unity.ToonShader.GraphicsTest {
     
-public class SetupUTSGraphicsTestCases : IPrebuildSetup, IPostBuildCleanup {
+public class SetupUTSGraphicsNonXRTestCases : IPrebuildSetup, IPostBuildCleanup {
     public void Setup() {
         
         //Enable XR
@@ -18,6 +17,7 @@ public class SetupUTSGraphicsTestCases : IPrebuildSetup, IPostBuildCleanup {
     }
     
     public void Cleanup() {
+        
     }
 }
     
