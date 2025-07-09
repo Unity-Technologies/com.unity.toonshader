@@ -20,11 +20,15 @@ public class UTS_GraphicsTestsXR {
 #endif
 
     [UnityTest]
-    [PrebuildSetup(typeof(Unity.ToonShader.GraphicsTest.SetupUTSGraphicsXRTestCases))]
+    // [PrebuildSetup(typeof(Unity.ToonShader.GraphicsTest.SetupUTSGraphicsXRTestCases))]
+    // [PostBuildCleanup(typeof(Unity.ToonShader.GraphicsTest.SetupUTSGraphicsXRTestCases))]
     [UseGraphicsTestCases(ReferenceImagePath)]
     [Timeout(3600000)] //1 hour
     public IEnumerator Run(GraphicsTestCase testCase) {
+        Unity.ToonShader.GraphicsTest.SetupUTSGraphicsXRTestCases.Setup();
+        Debug.Log("RunXR Number: "+ UTS_GraphicsTests.number++);
         yield return UTS_GraphicsTests.RunInternal(testCase);
+        Unity.ToonShader.GraphicsTest.SetupUTSGraphicsXRTestCases.Cleanup();
     }
     
 } 
@@ -38,17 +42,23 @@ public class UTS_GraphicsTestsNonXR {
 #endif
     
     [UnityTest]
-    [PrebuildSetup(typeof(Unity.ToonShader.GraphicsTest.SetupUTSGraphicsNonXRTestCases))]
+    // [PrebuildSetup(typeof(Unity.ToonShader.GraphicsTest.SetupUTSGraphicsNonXRTestCases))]
+    // [PostBuildCleanup(typeof(Unity.ToonShader.GraphicsTest.SetupUTSGraphicsNonXRTestCases))]
     [UseGraphicsTestCases(ReferenceImagePath)]
     [Timeout(3600000)] //1 hour
-    public IEnumerator RunNonXR(GraphicsTestCase testCase) {
+    public IEnumerator Run(GraphicsTestCase testCase) {
+        Unity.ToonShader.GraphicsTest.SetupUTSGraphicsNonXRTestCases.Setup();
+        Debug.Log("RunNonXR Number: "+ UTS_GraphicsTests.number++);
         yield return UTS_GraphicsTests.RunInternal(testCase);
+        Unity.ToonShader.GraphicsTest.SetupUTSGraphicsNonXRTestCases.Cleanup();
     }
 } 
     
 
-    public class UTS_GraphicsTests
-    {
+    public class UTS_GraphicsTests {
+
+        public static int number = 0;
+        
 #if UTS_TEST_USE_HDRP        
         private const string ReferenceImagePath = "Packages/com.unity.toon-reference-images/HDRP";
 #elif UTS_TEST_USE_URP
