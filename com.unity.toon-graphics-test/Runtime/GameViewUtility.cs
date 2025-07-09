@@ -22,7 +22,8 @@ public static class GameViewUtility {
         GameViewReflection.SELECTED_SIZE_INDEX_PROP.SetValue(gvWnd, index, null);
     }
 
-    public static void AddAndSelectCustomSize(GameViewSizeType viewSizeType, GameViewSizeGroupType sizeGroupType, int width, int height, string text)
+    public static void AddAndSelectCustomSize(GameViewSizeType viewSizeType, GameViewSizeGroupType sizeGroupType, 
+        int width, int height, string text)
     {
         AddCustomSize(viewSizeType, sizeGroupType, width, height, text);
         int idx = GameViewUtility.FindSize(GameViewSizeGroupType.Standalone, width, height);
@@ -54,8 +55,7 @@ public static class GameViewUtility {
         PropertyInfo widthProp = gvsType.GetProperty("width");
         PropertyInfo heightProp = gvsType.GetProperty("height");
         object[] indexValue = new object[1];
-        for (int i = 0; i < sizesCount; i++)
-        {
+        for (int i = 0; i < sizesCount; i++) {
             indexValue[0] = i;
             object size = getGameViewSize.Invoke(group, indexValue);
             int sizeWidth = (int)widthProp.GetValue(size, null);
@@ -66,13 +66,12 @@ public static class GameViewUtility {
         return -1;
     }
 
-    static object GetGroup(GameViewSizeGroupType type)
-    {
+    static object GetGroup(GameViewSizeGroupType type)    {
         return GameViewSizesReflection.GET_GROUP.Invoke(GameViewSizesReflection.GAME_VIEW_SIZES_INSTANCE, new object[] { (int)type });
     }
     
     public static bool IsInitialized() {
-        return GameViewSizesReflection.ASSEMBLY_TYPE != null
+        bool ret = GameViewSizesReflection.ASSEMBLY_TYPE != null
             && GameViewSizesReflection.GET_GROUP != null
             && GameViewSizesReflection.SINGLE_TYPE != null
             && GameViewSizesReflection.INSTANCE_PROP != null
@@ -84,6 +83,10 @@ public static class GameViewUtility {
             && GameViewSizeReflection.CTOR != null
             && GameViewReflection.ASSEMBLY_TYPE != null
             && GameViewReflection.SELECTED_SIZE_INDEX_PROP != null;
+
+        FindSize( GameViewSizeGroupType.Standalone, 1920, 1080); // check execution
+        
+        return ret;
     }
     
 //----------------------------------------------------------------------------------------------------------------------    
