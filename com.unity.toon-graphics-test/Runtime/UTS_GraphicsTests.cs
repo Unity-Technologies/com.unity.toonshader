@@ -12,7 +12,7 @@ using UnityEditor;
 
 namespace Tests
 {
-public class UTS_GraphicsTestsXR {
+public class UTSGraphicsTestsXR {
     
     [UnityTest]
     [UseGraphicsTestCases(UTSGraphicsTestConstants.ReferenceImagePath)]
@@ -49,18 +49,9 @@ public class UTS_GraphicsTestsXR {
     }
    
 } 
-public class UTS_GraphicsTestsNonXR  {
-#if UTS_TEST_USE_HDRP        
-        private const string ReferenceImagePath = "Packages/com.unity.toon-reference-images/HDRP";
-#elif UTS_TEST_USE_URP
-    private const string ReferenceImagePath = "Packages/com.unity.toon-reference-images/URP";
-#else        
-        private const string ReferenceImagePath = "Packages/com.unity.toon-reference-images/Built-In";
-#endif
-    
-
+public class UT_GraphicsTestsNonXR  {
     [UnityTest]
-    [UseGraphicsTestCases(ReferenceImagePath)]
+    [UseGraphicsTestCases(UTSGraphicsTestConstants.ReferenceImagePath)]
     [Timeout(3600000)] //1 hour
     public IEnumerator Run(GraphicsTestCase testCase) {
         //[TODO-sin: 2025-7-2] Hack for now to disable XR for non-Stereo projects
