@@ -10,6 +10,41 @@ using System.IO;
 
 namespace Tests
 {
+public class UTS_GraphicsTestsXR {
+#if UTS_TEST_USE_HDRP        
+        private const string ReferenceImagePath = "Packages/com.unity.toon-reference-images/HDRP";
+#elif UTS_TEST_USE_URP
+    private const string ReferenceImagePath = "Packages/com.unity.toon-reference-images/URP";
+#else        
+        private const string ReferenceImagePath = "Packages/com.unity.toon-reference-images/Built-In";
+#endif
+
+    [UnityTest]
+    [PrebuildSetup(typeof(Unity.ToonShader.GraphicsTest.SetupUTSGraphicsXRTestCases))]
+    [UseGraphicsTestCases(ReferenceImagePath)]
+    [Timeout(3600000)] //1 hour
+    public IEnumerator Run(GraphicsTestCase testCase) {
+        yield return UTS_GraphicsTests.RunInternal(testCase);
+    }
+    
+} 
+public class UTS_GraphicsTestsNonXR {
+#if UTS_TEST_USE_HDRP        
+        private const string ReferenceImagePath = "Packages/com.unity.toon-reference-images/HDRP";
+#elif UTS_TEST_USE_URP
+    private const string ReferenceImagePath = "Packages/com.unity.toon-reference-images/URP";
+#else        
+        private const string ReferenceImagePath = "Packages/com.unity.toon-reference-images/Built-In";
+#endif
+    
+    [UnityTest]
+    [PrebuildSetup(typeof(Unity.ToonShader.GraphicsTest.SetupUTSGraphicsNonXRTestCases))]
+    [UseGraphicsTestCases(ReferenceImagePath)]
+    [Timeout(3600000)] //1 hour
+    public IEnumerator RunNonXR(GraphicsTestCase testCase) {
+        yield return UTS_GraphicsTests.RunInternal(testCase);
+    }
+} 
     
 
     public class UTS_GraphicsTests
@@ -22,25 +57,11 @@ namespace Tests
         private const string ReferenceImagePath = "Packages/com.unity.toon-reference-images/Built-In";
 #endif
 
-        [UnityTest]
-        [PrebuildSetup(typeof(Unity.ToonShader.GraphicsTest.SetupUTSGraphicsXRTestCases))]
-        [UseGraphicsTestCases(ReferenceImagePath)]
-        [Timeout(3600000)] //1 hour
-        public IEnumerator RunXR(GraphicsTestCase testCase) {
-            yield return RunInternal(testCase);
-        }
 
 
 
-        [UnityTest]
-        [PrebuildSetup(typeof(Unity.ToonShader.GraphicsTest.SetupUTSGraphicsNonXRTestCases))]
-        [UseGraphicsTestCases(ReferenceImagePath)]
-        [Timeout(3600000)] //1 hour
-        public IEnumerator RunNonXR(GraphicsTestCase testCase) {
-            yield return RunInternal(testCase);
-        }
         
-        private IEnumerator RunInternal(GraphicsTestCase testCase) {
+        internal static IEnumerator RunInternal(GraphicsTestCase testCase) {
             SceneManager.LoadScene(testCase.ScenePath);
 
             // Always wait one frame for scene load
