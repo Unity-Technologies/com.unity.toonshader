@@ -22,12 +22,17 @@ public static class GameViewUtility {
         GameViewReflection.SELECTED_SIZE_INDEX_PROP.SetValue(gvWnd, index, null);
     }
 
-    public static void AddAndSelectCustomSize(GameViewSizeType viewSizeType, GameViewSizeGroupType sizeGroupType, 
-        int width, int height, string text)
+    public static void FindAndSelectSize(int width, int height, string text) 
     {
-        AddCustomSize(viewSizeType, sizeGroupType, width, height, text);
-        int idx = GameViewUtility.FindSize(GameViewSizeGroupType.Standalone, width, height);
+        GameViewSizeGroupType sizeGroupType = GameViewSizeGroupType.Standalone;
+        int idx = GameViewUtility.FindSize(sizeGroupType, width, height);
+        if (idx <= -1) {
+            AddCustomSize(GameViewSizeType.FixedResolution, sizeGroupType, width, height, text);
+            idx = GameViewUtility.FindSize(sizeGroupType, width, height);
+        }
+        
         GameViewUtility.SetSize(idx);
+        
     }
 
     public static void AddCustomSize(GameViewSizeType viewSizeType, GameViewSizeGroupType sizeGroupType, int width, int height, string text)
@@ -38,6 +43,7 @@ public static class GameViewUtility {
         GameViewSizesReflection.ADD_CUSTOM_SIZE.Invoke(group, new object[] { newSize });
     }
 
+    //returns -1 if not found
     public static int FindSize(GameViewSizeGroupType sizeGroupType, int width, int height)
     {
         // goal:
