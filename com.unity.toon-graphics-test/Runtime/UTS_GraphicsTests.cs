@@ -23,9 +23,7 @@ public class UTSGraphicsTestsXR {
         XRUtility.EnableXR();
         
 #if UNITY_EDITOR
-        GameViewUtility.AddAndSelectCustomSize(
-            GameViewUtility.GameViewSizeType.FixedResolution,
-            GameViewSizeGroupType.Standalone,
+        GameViewUtility.FindAndSelectSize(
             1920, 1080, "Full HD (1920x1080)"
         );
 #endif
