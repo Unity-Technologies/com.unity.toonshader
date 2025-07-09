@@ -35,7 +35,7 @@ public class UTSGraphicsTestsXR {
         Assert.IsNotNull(imageFolderName);
         string xrImagePath = Path.Combine(imageFolderName, loadedXRDevice,imageFileName);
         testCase.ReferenceImagePathLog = xrImagePath;
-        Assert.IsTrue(File.Exists(xrImagePath));
+        Assert.IsTrue(File.Exists(xrImagePath),$"XR Reference image not found at: {xrImagePath}");
         testCase.ReferenceImage = AssetDatabase.LoadAssetAtPath<Texture2D>(xrImagePath);
         
         //Unity.ToonShader.GraphicsTest.SetupUTSGraphicsXRTestCases.Setup();
