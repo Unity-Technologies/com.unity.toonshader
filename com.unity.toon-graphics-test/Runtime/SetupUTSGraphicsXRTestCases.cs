@@ -1,4 +1,8 @@
-﻿using UnityEngine.TestTools;
+﻿#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
+using UnityEngine.TestTools;
 
 namespace Unity.ToonShader.GraphicsTest {
     
