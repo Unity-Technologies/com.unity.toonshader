@@ -12,6 +12,7 @@ using UnityEditor;
 
 namespace Tests
 {
+#if UNITY_EDITOR
 public class UTSGraphicsTestsXR {
     
     [UnityTest]
@@ -22,11 +23,8 @@ public class UTSGraphicsTestsXR {
         //Enable XR
         XRUtility.EnableXR();
         
-#if UNITY_EDITOR
-        GameViewUtility.FindAndSelectSize(
-            1920, 1080, "Full HD (1920x1080)"
-        );
-#endif
+        //Rendering both eyes in XR requires backbuffer, which depends on the game view resolution
+        UnityEditor.TestTools.Graphics.GameViewSize.SetCustomSize(1920, 1080);
         string loadedXRDevice = UseGraphicsTestCasesAttribute.LoadedXRDevice;
         
         //Manually load the reference image for XR. Ex: URP/Linear/WindowsEditor/Vulkan/None/AngelRing.png
@@ -46,7 +44,10 @@ public class UTSGraphicsTestsXR {
         XRUtility.DisableXR();
     }
    
-} 
+}
+
+#endif //UNITY_EDITOR
+
 public class UTSGraphicsTestsNonXR  {
     [UnityTest]
     [UseGraphicsTestCases(UTSGraphicsTestConstants.ReferenceImagePath)]
