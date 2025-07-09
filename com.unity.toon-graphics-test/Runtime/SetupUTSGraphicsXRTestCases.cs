@@ -7,6 +7,12 @@ public class SetupUTSGraphicsXRTestCases : IPrebuildSetup, IPostBuildCleanup {
         
         //Enable XR
         XRUtility.EnableXR();
+        
+        GameViewUtility.AddAndSelectCustomSize(
+            GameViewUtility.GameViewSizeType.FixedResolution,
+            GameViewSizeGroupType.Standalone,
+            1920, 1080, "Full HD (1920x1080)"
+        );
     }
     
     public void Cleanup() {
