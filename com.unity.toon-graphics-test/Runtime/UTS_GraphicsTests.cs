@@ -13,16 +13,9 @@ using UnityEditor;
 namespace Tests
 {
 public class UTS_GraphicsTestsXR {
-#if UTS_TEST_USE_HDRP        
-        private const string ReferenceImagePath = "Packages/com.unity.toon-reference-images/HDRP";
-#elif UTS_TEST_USE_URP
-    private const string ReferenceImagePath = "Packages/com.unity.toon-reference-images/URP";
-#else        
-        private const string ReferenceImagePath = "Packages/com.unity.toon-reference-images/Built-In";
-#endif
     
     [UnityTest]
-    [UseGraphicsTestCases(ReferenceImagePath)]
+    [UseGraphicsTestCases(UTSGraphicsTestConstants.ReferenceImagePath)]
     [Timeout(3600000)] //1 hour
     public IEnumerator Run(GraphicsTestCase testCase) {
 
