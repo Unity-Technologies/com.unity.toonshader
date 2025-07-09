@@ -26,7 +26,7 @@ public class UTS_GraphicsTestsXR {
         GameViewUtility.AddAndSelectCustomSize(
             GameViewUtility.GameViewSizeType.FixedResolution,
             GameViewSizeGroupType.Standalone,
-            2*1920, 1080, "XR Full HD (3840x1080)"
+            1920, 1080, "Full HD (1920x1080)"
         );
 #endif
         string loadedXRDevice = UseGraphicsTestCasesAttribute.LoadedXRDevice;
