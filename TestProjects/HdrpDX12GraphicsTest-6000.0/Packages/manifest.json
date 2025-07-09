@@ -7,7 +7,7 @@
     "com.unity.render-pipelines.high-definition-config": "17.0.4",
     "com.unity.test-framework": "1.5.1",
     "com.unity.test-framework.build": "0.0.1-preview.14",
-    "com.unity.testframework.graphics": "7.17.1-exp.1",
+    "com.unity.testframework.graphics": "8.9.1-exp.1",
     "com.unity.toon-graphics-test": "file:../../../com.unity.toon-graphics-test",
     "com.unity.toon-reference-images": "file:../../../com.unity.toon-reference-images",
     "com.unity.toonshader": "file:../../../com.unity.toonshader",
