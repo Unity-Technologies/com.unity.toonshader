@@ -10,9 +10,6 @@ namespace Unity.ToonShader.GraphicsTest {
     
 public static class SetupUTSGraphicsXRTestCases {
     public static void Setup() {
-        
-        Debug.Log("Setup XR: "+ UTS_GraphicsTests.number++);
-        
         //Enable XR
         XRUtility.EnableXR();
         
@@ -26,7 +23,6 @@ public static class SetupUTSGraphicsXRTestCases {
     }
     
     public static void Cleanup() {
-        Debug.Log("Cleanup XR: "+ UTS_GraphicsTests.number++);
         XRUtility.DisableXR();
     }
 }

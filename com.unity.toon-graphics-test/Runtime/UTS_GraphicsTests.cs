@@ -29,7 +29,7 @@ public class UTS_GraphicsTestsXR {
         Unity.ToonShader.GraphicsTest.SetupUTSGraphicsXRTestCases.Setup();
         string loadedXRDevice = UseGraphicsTestCasesAttribute.LoadedXRDevice;
         
-        //Manually load the reference image for XR. Ex: URP/Linear/WindowsEditor/Vulkan/MockHMDLoader/AngelRing.png
+        //Manually load the reference image for XR. Ex: URP/Linear/WindowsEditor/Vulkan/None/AngelRing.png
         Assert.IsNotNull(testCase.ReferenceImage);
         string imagePath = AssetDatabase.GetAssetPath(testCase.ReferenceImage);
         string imageFileName = Path.GetFileName(imagePath);
@@ -41,7 +41,6 @@ public class UTS_GraphicsTestsXR {
         testCase.ReferenceImage = AssetDatabase.LoadAssetAtPath<Texture2D>(xrImagePath);
         
         //Unity.ToonShader.GraphicsTest.SetupUTSGraphicsXRTestCases.Setup();
-        Debug.Log("RunXR Number: "+ UTS_GraphicsTests.number++);
         yield return UTS_GraphicsTests.RunInternal(testCase, isXR:true);
         Unity.ToonShader.GraphicsTest.SetupUTSGraphicsXRTestCases.Cleanup();
     }
@@ -62,7 +61,6 @@ public class UTS_GraphicsTestsNonXR  {
     [Timeout(3600000)] //1 hour
     public IEnumerator Run(GraphicsTestCase testCase) {
         Unity.ToonShader.GraphicsTest.SetupUTSGraphicsNonXRTestCases.Setup();
-        Debug.Log("RunNonXR Number: "+ UTS_GraphicsTests.number++);
         yield return UTS_GraphicsTests.RunInternal(testCase);
         Unity.ToonShader.GraphicsTest.SetupUTSGraphicsNonXRTestCases.Cleanup();
     }
@@ -70,9 +68,6 @@ public class UTS_GraphicsTestsNonXR  {
     
 
     public class UTS_GraphicsTests {
-
-        public static int number = 0;
-        
 #if UTS_TEST_USE_HDRP        
         private const string ReferenceImagePath = "Packages/com.unity.toon-reference-images/HDRP";
 #elif UTS_TEST_USE_URP
