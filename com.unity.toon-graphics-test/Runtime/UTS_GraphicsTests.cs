@@ -26,13 +26,19 @@ public class UTS_GraphicsTestsXR {
     [Timeout(3600000)] //1 hour
     public IEnumerator Run(GraphicsTestCase testCase) {
 
-        string xrImagePath = testCase.ReferenceImagePathLog.Replace("None", "MockHMDLoader");
-        xrImagePath = xrImagePath.Replace("Expected reference image path: ","");
+        Unity.ToonShader.GraphicsTest.SetupUTSGraphicsXRTestCases.Setup();
+        string loadedXRDevice = UseGraphicsTestCasesAttribute.LoadedXRDevice;
+        
+        //Manually load the reference image for XR. Ex: URP/Linear/WindowsEditor/Vulkan/MockHMDLoader/AngelRing.png
+        Assert.IsNotNull(testCase.ReferenceImage);
+        string imagePath = AssetDatabase.GetAssetPath(testCase.ReferenceImage);
+        string imageFileName = Path.GetFileName(imagePath);
+        string imageFolderName = Path.GetDirectoryName(Path.GetDirectoryName(imagePath));
+        Assert.IsNotNull(imageFolderName);
+        string xrImagePath = Path.Combine(imageFolderName, loadedXRDevice,imageFileName);
         testCase.ReferenceImagePathLog = xrImagePath;
         Assert.IsTrue(File.Exists(xrImagePath));
         testCase.ReferenceImage = AssetDatabase.LoadAssetAtPath<Texture2D>(xrImagePath);
-        
-        Unity.ToonShader.GraphicsTest.SetupUTSGraphicsXRTestCases.Setup();
         
         //Unity.ToonShader.GraphicsTest.SetupUTSGraphicsXRTestCases.Setup();
         Debug.Log("RunXR Number: "+ UTS_GraphicsTests.number++);
