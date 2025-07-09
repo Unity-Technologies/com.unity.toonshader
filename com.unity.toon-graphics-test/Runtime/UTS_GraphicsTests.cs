@@ -6,6 +6,8 @@ using UnityEngine.TestTools;
 using UnityEngine.TestTools.Graphics;
 using UnityEngine.SceneManagement;
 using System.IO;
+using Unity.ToonShader.GraphicsTest;
+using UnityEditor;
 
 
 namespace Tests
@@ -18,21 +20,28 @@ public class UTS_GraphicsTestsXR {
 #else        
         private const string ReferenceImagePath = "Packages/com.unity.toon-reference-images/Built-In";
 #endif
-
+    
     [UnityTest]
-    // [PrebuildSetup(typeof(Unity.ToonShader.GraphicsTest.SetupUTSGraphicsXRTestCases))]
-    // [PostBuildCleanup(typeof(Unity.ToonShader.GraphicsTest.SetupUTSGraphicsXRTestCases))]
     [UseGraphicsTestCases(ReferenceImagePath)]
     [Timeout(3600000)] //1 hour
     public IEnumerator Run(GraphicsTestCase testCase) {
+
+        string xrImagePath = testCase.ReferenceImagePathLog.Replace("None", "MockHMDLoader");
+        xrImagePath = xrImagePath.Replace("Expected reference image path: ","");
+        testCase.ReferenceImagePathLog = xrImagePath;
+        Assert.IsTrue(File.Exists(xrImagePath));
+        testCase.ReferenceImage = AssetDatabase.LoadAssetAtPath<Texture2D>(xrImagePath);
+        
         Unity.ToonShader.GraphicsTest.SetupUTSGraphicsXRTestCases.Setup();
+        
+        //Unity.ToonShader.GraphicsTest.SetupUTSGraphicsXRTestCases.Setup();
         Debug.Log("RunXR Number: "+ UTS_GraphicsTests.number++);
-        yield return UTS_GraphicsTests.RunInternal(testCase);
+        yield return UTS_GraphicsTests.RunInternal(testCase, isXR:true);
         Unity.ToonShader.GraphicsTest.SetupUTSGraphicsXRTestCases.Cleanup();
     }
-    
+   
 } 
-public class UTS_GraphicsTestsNonXR {
+public class UTS_GraphicsTestsNonXR  {
 #if UTS_TEST_USE_HDRP        
         private const string ReferenceImagePath = "Packages/com.unity.toon-reference-images/HDRP";
 #elif UTS_TEST_USE_URP
@@ -41,9 +50,8 @@ public class UTS_GraphicsTestsNonXR {
         private const string ReferenceImagePath = "Packages/com.unity.toon-reference-images/Built-In";
 #endif
     
+
     [UnityTest]
-    // [PrebuildSetup(typeof(Unity.ToonShader.GraphicsTest.SetupUTSGraphicsNonXRTestCases))]
-    // [PostBuildCleanup(typeof(Unity.ToonShader.GraphicsTest.SetupUTSGraphicsNonXRTestCases))]
     [UseGraphicsTestCases(ReferenceImagePath)]
     [Timeout(3600000)] //1 hour
     public IEnumerator Run(GraphicsTestCase testCase) {
@@ -71,7 +79,7 @@ public class UTS_GraphicsTestsNonXR {
 
 
         
-        internal static IEnumerator RunInternal(GraphicsTestCase testCase) {
+        internal static IEnumerator RunInternal(GraphicsTestCase testCase, bool isXR = false) {
             SceneManager.LoadScene(testCase.ScenePath);
 
             // Always wait one frame for scene load
@@ -80,6 +88,12 @@ public class UTS_GraphicsTestsNonXR {
             var cameras = GameObject.FindGameObjectsWithTag("MainCamera").Select(x => x.GetComponent<Camera>());
             UTS_GraphicsTestSettings settings = Object.FindFirstObjectByType<UTS_GraphicsTestSettings>();
             Assert.IsNotNull(settings, "Invalid test scene, couldn't find UTS_GraphicsTestSettings");
+
+            if (isXR) {
+                //[hack for now]
+                settings.ImageComparisonSettings.UseBackBuffer = true;
+                settings.ImageComparisonSettings.ImageResolution = ImageComparisonSettings.Resolution.w1920h1080;
+            }
 
             
             int waitFrames = settings.WaitFrames;
