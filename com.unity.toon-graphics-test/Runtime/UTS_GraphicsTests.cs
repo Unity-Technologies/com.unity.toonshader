@@ -79,21 +79,10 @@ public class UTS_GraphicsTestsNonXR  {
         yield return UTS_GraphicsTests.RunInternal(testCase);
     }
 } 
-    
+
+//----------------------------------------------------------------------------------------------------------------------
 
     public class UTS_GraphicsTests {
-#if UTS_TEST_USE_HDRP        
-        private const string ReferenceImagePath = "Packages/com.unity.toon-reference-images/HDRP";
-#elif UTS_TEST_USE_URP
-        private const string ReferenceImagePath = "Packages/com.unity.toon-reference-images/URP";
-#else        
-        private const string ReferenceImagePath = "Packages/com.unity.toon-reference-images/Built-In";
-#endif
-
-
-
-
-        
         internal static IEnumerator RunInternal(GraphicsTestCase testCase, bool isXR = false) {
             SceneManager.LoadScene(testCase.ScenePath);
 
