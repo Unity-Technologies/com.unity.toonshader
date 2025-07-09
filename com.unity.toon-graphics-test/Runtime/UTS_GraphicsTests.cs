@@ -22,14 +22,25 @@ namespace Tests
         private const string ReferenceImagePath = "Packages/com.unity.toon-reference-images/Built-In";
 #endif
 
-        
         [UnityTest]
-        [PrebuildSetup(typeof(Unity.ToonShader.GraphicsTest.SetupUTSGraphicsTestCases))]
+        [PrebuildSetup(typeof(Unity.ToonShader.GraphicsTest.SetupUTSGraphicsXRTestCases))]
         [UseGraphicsTestCases(ReferenceImagePath)]
         [Timeout(3600000)] //1 hour
-        public IEnumerator Run(GraphicsTestCase testCase)
-        {
+        public IEnumerator RunXR(GraphicsTestCase testCase) {
+            yield return RunInternal(testCase);
+        }
 
+
+
+        [UnityTest]
+        [PrebuildSetup(typeof(Unity.ToonShader.GraphicsTest.SetupUTSGraphicsNonXRTestCases))]
+        [UseGraphicsTestCases(ReferenceImagePath)]
+        [Timeout(3600000)] //1 hour
+        public IEnumerator RunNonXR(GraphicsTestCase testCase) {
+            yield return RunInternal(testCase);
+        }
+        
+        private IEnumerator RunInternal(GraphicsTestCase testCase) {
             SceneManager.LoadScene(testCase.ScenePath);
 
             // Always wait one frame for scene load
