@@ -24,7 +24,9 @@ public class UTSGraphicsTestsXR {
         XRUtility.EnableXR();
         
         //Rendering both eyes in XR requires backbuffer, which depends on the game view resolution
-        UnityEditor.TestTools.Graphics.GameViewSize.SetCustomSize(1920, 1080);
+        GameViewUtility.FindAndSelectSize(1920, 1080, "Full HD (1920x1080)");
+        
+        //UnityEditor.TestTools.Graphics.GameViewSize.SetCustomSize(1920, 1080);
         string loadedXRDevice = UseGraphicsTestCasesAttribute.LoadedXRDevice;
         
         //Manually load the reference image for XR. Ex: URP/Linear/WindowsEditor/Vulkan/None/AngelRing.png
@@ -103,7 +105,7 @@ public class UTSGraphicsTestsNonXR  {
 
 #if UNITY_EDITOR                    
                     //Rendering both eyes in XR requires backbuffer, which depends on the game view resolution
-                    UnityEditor.TestTools.Graphics.GameViewSize.SetCustomSize(1920, 1080);
+                    //UnityEditor.TestTools.Graphics.GameViewSize.SetCustomSize(1920, 1080);
 #endif                    
                     
                     mainCamera.Render();
