@@ -100,12 +100,6 @@ public class UTSGraphicsTestsNonXR  {
             if (isXR) {
                 int dummyRenderCount = 10;
                 for (int i = 0; i < dummyRenderCount; ++i) {
-
-#if UNITY_EDITOR                    
-                    //Rendering both eyes in XR requires backbuffer, which depends on the game view resolution
-                    UnityEditor.TestTools.Graphics.GameViewSize.SetCustomSize(1920, 1080);
-#endif                    
-                    
                     mainCamera.Render();
                     yield return new WaitForEndOfFrame();
                 }
