@@ -39,10 +39,11 @@ public static void EnableXR() {
 
 public static void DisableXR() {
 
-    if (XRGeneralSettings.Instance.Manager.isInitializationComplete)
+    XRManagerSettings xrManager = XRGeneralSettings.Instance.Manager;
+    if (null!= xrManager && xrManager.isInitializationComplete)
     {
-        XRGeneralSettings.Instance.Manager.StopSubsystems();
-        XRGeneralSettings.Instance.Manager.DeinitializeLoader();
+        xrManager.StopSubsystems();
+        xrManager.DeinitializeLoader();
     }
     
     
@@ -52,7 +53,6 @@ public static void DisableXR() {
     for (int i = 0; i < count; i++) {
         xrDisplaySubsystems[i].Stop();
     }
-    
 }
     
     
