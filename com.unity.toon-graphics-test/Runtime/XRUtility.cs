@@ -9,13 +9,6 @@ namespace Unity.ToonShader.GraphicsTest {
 public static class XRUtility {
 
 public static void EnableXR() {
-    List<XRDisplaySubsystem> xrDisplaySubsystems = new List<XRDisplaySubsystem>();
-    SubsystemManager.GetSubsystems<XRDisplaySubsystem>(xrDisplaySubsystems);
-    int count = xrDisplaySubsystems.Count;
-    for (int i = 0; i < count; i++) {
-        xrDisplaySubsystems[i].Start();
-    }
-    
     //Disable everything first
     if (XRGeneralSettings.Instance.Manager.activeLoader ||
         XRGeneralSettings.Instance.Manager.isInitializationComplete)
@@ -33,17 +26,25 @@ public static void EnableXR() {
     {
         XRGeneralSettings.Instance.Manager.StartSubsystems();
     }
+    
+    List<XRDisplaySubsystem> xrDisplaySubsystems = new List<XRDisplaySubsystem>();
+    SubsystemManager.GetSubsystems<XRDisplaySubsystem>(xrDisplaySubsystems);
+    int count = xrDisplaySubsystems.Count;
+    for (int i = 0; i < count; i++) {
+        xrDisplaySubsystems[i].Start();
+    }
+    
 }
 
 
 public static void DisableXR() {
 
-    XRManagerSettings xrManager = XRGeneralSettings.Instance.Manager; 
-    if (null!= xrManager && xrManager.isInitializationComplete)
+    if (XRGeneralSettings.Instance.Manager.isInitializationComplete)
     {
-        xrManager.StopSubsystems();
-        xrManager.DeinitializeLoader();
+        XRGeneralSettings.Instance.Manager.StopSubsystems();
+        XRGeneralSettings.Instance.Manager.DeinitializeLoader();
     }
+    
     
     List<XRDisplaySubsystem> xrDisplaySubsystems = new List<XRDisplaySubsystem>();
     SubsystemManager.GetSubsystems<XRDisplaySubsystem>(xrDisplaySubsystems);
