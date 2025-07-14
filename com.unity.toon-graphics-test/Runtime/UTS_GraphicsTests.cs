@@ -91,25 +91,15 @@ public class UTSGraphicsTestsNonXR  {
                 waitFrames = 1;
             }
 
-            Camera mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
 
-            
             for (int i = 0; i < waitFrames; i++)
                 yield return new WaitForEndOfFrame();
-
-            if (isXR) {
-                int dummyRenderCount = 10;
-                for (int i = 0; i < dummyRenderCount; ++i) {
-                    mainCamera.Render();
-                    yield return new WaitForEndOfFrame();
-                }
-            }
-            
 
             ImageAssert.AreEqual(testCase.ReferenceImage, cameras.Where(x => x != null), settings.ImageComparisonSettings);
 
             // Does it allocate memory when it renders what's on the main camera?
             bool allocatesMemory = false;
+            var mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
 
             if (settings == null || settings.CheckMemoryAllocation)
             {
