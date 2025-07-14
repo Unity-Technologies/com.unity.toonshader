@@ -21,7 +21,7 @@ public class UTSGraphicsTestsXR {
     public IEnumerator Run(GraphicsTestCase testCase) {
 
         //Enable XR
-        XRUtility.EnableXR();
+        XRUtility.EnableXRInEditor();
         
         //Rendering both eyes in XR requires backbuffer, which depends on the game view resolution
         object gameViewSizeObj = UnityEditor.TestTools.Graphics.GameViewSize.SetCustomSize(1920, 1080);
