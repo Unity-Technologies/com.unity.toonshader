@@ -56,7 +56,7 @@ struct VertexOutput {
                 //v.2.0.7.5
                 float4 _ClipCameraPos = mul(UNITY_MATRIX_VP, float4(_WorldSpaceCameraPos.xyz, 1));
                 //v.2.0.7
-                #if defined(UNITY_REVERSED_Z)
+                #if defined(UNITY_REVERSED_Z) ||  (UNITY_VERSION >= 202230)
                     //v.2.0.4.2 (DX)
                     _Offset_Z = _Offset_Z * -0.01;
                 #else
