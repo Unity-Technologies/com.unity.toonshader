@@ -98,7 +98,8 @@ public class UTSGraphicsTestsNonXR  {
             for (int i = 0; i < waitFrames; i++)
                 yield return new WaitForEndOfFrame();
 
-            ImageAssert.AreEqual(testCase.ReferenceImage, cameras.Where(x => x != null), settings.ImageComparisonSettings);
+            ImageAssert.AreEqual(testCase.ReferenceImage, cameras.Where(x => x != null), 
+                settings.ImageComparisonSettings, testCase.ReferenceImagePathLog);
 
             // Does it allocate memory when it renders what's on the main camera?
             bool allocatesMemory = false;
