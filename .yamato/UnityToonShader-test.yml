@@ -22,12 +22,6 @@ osx_test_projects:
 
 
 win_test_projects:
-  - project_prefix: LegacyStereoGraphicsTest
-    key_postfix: _D3D11
-    utr_arguments: --extra-editor-arg="-force-d3d11"
-    unity_editors:
-      - version: 2022.3
-      - version: 6000.0
   - project_prefix: HdrpGraphicsTest
     key_postfix: _D3D11
     utr_arguments: --extra-editor-arg="-force-d3d11"
@@ -40,11 +34,6 @@ win_test_projects:
     unity_editors:
       - version: 2022.3
       - version: 6000.0
-  - project_prefix: HdrpStereoGraphicsTest
-    key_postfix: _D3D11
-    utr_arguments: --extra-editor-arg="-force-d3d11"
-    unity_editors:
-      - version: 2022.3
   - project_prefix: LegacyGraphicsTest
     key_postfix: _D3D11
     utr_arguments: --extra-editor-arg="-force-d3d11"
@@ -80,11 +69,6 @@ win_test_projects:
     utr_arguments: --extra-editor-arg="-force-vulkan"
     unity_editors:
       - version: 2022.3
-      - version: 6000.0
-  - project_prefix: UniversalStereoGraphicsTest
-    key_postfix: _D3D11
-    utr_arguments: --extra-editor-arg="-force-d3d11"
-    unity_editors:
       - version: 6000.0
   - project_prefix: HdrpDX12GraphicsTest
     key_postfix: _D3D12
