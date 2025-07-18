@@ -95,9 +95,9 @@ win_test_projects:
   
 ---
 
-{% for runtime_test_platform in runtime_test_platforms %}
 
 # OSX Metal
+{% for runtime_test_platform in osx_runtime_test_platforms %}
 {% for test_project in osx_test_projects %}
 {% for unity_editor in test_project.unity_editors %}
 
@@ -126,7 +126,7 @@ win_test_projects:
          retries: 2
       -  command: |5-
 
-                 ssh -i ~/.ssh/id_rsa_macmini -o "StrictHostKeyChecking=no" bokken@$BOKKEN_DEVICE_IP "export UPM_REGISTRY=https://artifactory-slo.bf.unity3d.com/artifactory/api/npm/upm-candidates; echo \$UPM_REGISTRY; cd ~/com.unity.toonshader/TestProjects/{{ project_name }} && ~/com.unity.toonshader/TestProjects/{{ project_name }}/utr --artifacts_path=/Users/bokken/com.unity.toonshader/TestProjects/{{ project_name }}/test-results --editor-location=/Users/bokken/.Editor --extra-editor-arg="-colorspace=Linear" --reruncount=2 --scripting-backend=Mono2x --suite=playmode --platform={{ runtime_test_platform.arg}} --testproject=/Users/bokken/com.unity.toonshader/TestProjects/{{ project_name }}"
+                 ssh -i ~/.ssh/id_rsa_macmini -o "StrictHostKeyChecking=no" bokken@$BOKKEN_DEVICE_IP "export UPM_REGISTRY=https://artifactory-slo.bf.unity3d.com/artifactory/api/npm/upm-candidates; echo \$UPM_REGISTRY; cd ~/com.unity.toonshader/TestProjects/{{ project_name }} && ~/com.unity.toonshader/TestProjects/{{ project_name }}/utr --artifacts_path=/Users/bokken/com.unity.toonshader/TestProjects/{{ project_name }}/test-results --editor-location=/Users/bokken/.Editor --extra-editor-arg="-colorspace=Linear" --reruncount=2 --scripting-backend=Mono2x --suite=playmode --platform={{ runtime_test_platform.name}} --testproject=/Users/bokken/com.unity.toonshader/TestProjects/{{ project_name }}"
                  UTR_RESULT=$? 
                  mkdir -p TestProjects/{{ project_name }}/test-results/
                  scp -i ~/.ssh/id_rsa_macmini -o "StrictHostKeyChecking=no" -r bokken@$BOKKEN_DEVICE_IP:/Users/bokken/com.unity.toonshader/TestProjects/{{ project_name }}/test-results/ TestProjects/{{ project_name }}/test-results/
@@ -138,8 +138,10 @@ win_test_projects:
               -  "TestProjects/{{ project_name }}/Logs/*.log"
 {% endfor %}
 {% endfor %}
+{% endfor %}
 
 # Windows
+{% for runtime_test_platform in win_runtime_test_platforms %}
 {% for test_project in win_test_projects %}
 {% for unity_editor in test_project.unity_editors %}
 
@@ -165,7 +167,7 @@ win_test_projects:
       -  cd TestProjects/{{ project_name }} && unity-downloader-cli -u {{ unity_editor.version }} -c editor -c il2cpp  --wait --published-only
       
 #      -  cd TestProjects/{{ project_name }} && utr --scripting-backend=Mono2x --suite=playmode --suite=playmode --testproject=. --editor-location=.Editor --artifacts_path=test-results {{ test_project.utr_arguments }} --zero-tests-are-ok=1
-      -  cd TestProjects/{{ project_name }} && utr --suite=playmode --platform={{ runtime_test_platform.arg}} --testproject=. --editor-location=.Editor --artifacts_path=test-results {{ test_project.utr_arguments }}
+      -  cd TestProjects/{{ project_name }} && utr --suite=playmode --platform={{ runtime_test_platform.name}} --testproject=. --editor-location=.Editor --artifacts_path=test-results {{ test_project.utr_arguments }}
     timeout: 360000
     retries: 1
     artifacts:
@@ -191,13 +193,15 @@ test_trigger:
         rerun: on_new_revision
         
   dependencies:
-    {% for runtime_test_platform in runtime_test_platforms %}
+    {% for runtime_test_platform in osx_runtime_test_platforms %}
     {% for test_project in osx_test_projects %}
     {% for unity_editor in test_project.unity_editors %}
     {% assign project_name = test_project.project_prefix | append: '-' | concat: unity_editor.version %}
     - .yamato/{{ yamato_name }}-test.yml#{{ project_name }}_OSX_Metal_{{ runtime_test_platform.name}}_mono
     {% endfor %}
     {% endfor %}
+    {% endfor %}
+    {% for runtime_test_platform in win_runtime_test_platforms %}
     {% for test_project in win_test_projects %}
     {% for unity_editor in test_project.unity_editors %}
     {% assign project_name = test_project.project_prefix | append: '-' | concat: unity_editor.version %}
