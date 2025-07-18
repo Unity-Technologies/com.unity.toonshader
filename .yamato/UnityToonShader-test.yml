@@ -103,8 +103,8 @@ win_test_projects:
 
 {% assign project_name = test_project.project_prefix | append: '-' | concat: unity_editor.version %}
 
-{{ project_name }}_OSX_Metal_{{ runtime_test_platform.name}}_mono_Linear:
-    name: {{ project_name }} on OSX_Metal_playmode_mono_Linear 
+{{ project_name }}_OSX_Metal_{{ runtime_test_platform.name}}_mono:
+    name: {{ project_name }} on OSX_Metal {{ runtime_test_platform.name}} mono
     agent:
         type: {{ metal_platform.type }}
         model: {{ metal_platform.model }}
@@ -146,7 +146,7 @@ win_test_projects:
 {% assign project_name = test_project.project_prefix | append: '-' | concat: unity_editor.version %}
 
 {{ project_name }}{{ test_project.key_postfix}}_Win_{{ runtime_test_platform.name}}:
-    name: {{ project_name }}{{ test_project.key_postfix}} on Win_playmode
+    name: {{ project_name }}{{ test_project.key_postfix}} on Win {{ runtime_test_platform.name}}
     agent:
         type: {{win_test_platform.type}}
         image: {{win_test_platform.image}}
@@ -191,15 +191,17 @@ test_trigger:
         rerun: on_new_revision
         
   dependencies:
+    {% for runtime_test_platform in runtime_test_platforms %}
     {% for test_project in osx_test_projects %}
     {% for unity_editor in test_project.unity_editors %}
     {% assign project_name = test_project.project_prefix | append: '-' | concat: unity_editor.version %}
-    - .yamato/{{ yamato_name }}-test.yml#{{ project_name }}_OSX_Metal_playmode_mono_Linear
+    - .yamato/{{ yamato_name }}-test.yml#{{ project_name }}_OSX_Metal_{{ runtime_test_platform.name}}_mono
     {% endfor %}
     {% endfor %}
     {% for test_project in win_test_projects %}
     {% for unity_editor in test_project.unity_editors %}
     {% assign project_name = test_project.project_prefix | append: '-' | concat: unity_editor.version %}
-    - .yamato/{{ yamato_name }}-test.yml#{{ project_name }}{{ test_project.key_postfix}}_Win_playmode
+    - .yamato/{{ yamato_name }}-test.yml#{{ project_name }}{{ test_project.key_postfix}}_Win_{{ runtime_test_platform.name}}
+    {% endfor %}
     {% endfor %}
     {% endfor %}
