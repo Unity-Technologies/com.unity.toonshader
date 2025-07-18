@@ -42,6 +42,11 @@ platforms:
       flavor: b1.medium
       cmd_prefix:
       
+runtime_test_platforms:
+    - name: Editor
+      arg: RuntimePlatform.Editor
+    - name: Standalone 
+      arg: RuntimePlatform.Standalone 
       
 pack_platform: &pack_platform_linux
   name: linux
