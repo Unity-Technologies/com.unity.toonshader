@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.12.0-preview] - 2025-07-28
+
+### Added
+* feat: make toon URP work show basic colors/texture and outline in 2D light environment
+
+### Changed
+* doc: improve documentation accessibility
+
+### Fixed
+* fix: errors when unlit mode is selected in the SceneView
+* fix: undefined punctual shadow keywords for HDRP in Unity 6000.0 or later
+* fix: dark areas instead of outlines in WebGL and OpenGL
+
+
 ## [0.11.1-preview] - 2025-06-12
 
 ### Added
