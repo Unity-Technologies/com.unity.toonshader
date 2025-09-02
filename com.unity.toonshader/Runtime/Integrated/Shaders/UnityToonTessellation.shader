@@ -1347,6 +1347,119 @@ Shader "Toon(Tessellation)" {
             
         }
 
+        //ToonCoreStart
+        Pass {
+            Name "ForwardLitForDeffered"
+            Tags{"LightMode" = "UniversalForwardOnly"}
+            ZWrite[_ZWriteMode]
+            Cull[_CullMode]
+            Blend SrcAlpha OneMinusSrcAlpha
+            Stencil {
+
+                Ref[_StencilNo]
+
+                Comp[_StencilComp]
+                Pass[_StencilOpPass]
+                Fail[_StencilOpFail]
+
+            }
+
+            HLSLPROGRAM
+            #pragma target 2.0
+            #pragma prefer_hlslcc gles
+            #pragma exclude_renderers d3d11_9x
+
+            #pragma vertex vert
+            #pragma fragment frag
+
+#ifndef DISABLE_RP_SHADERS
+            // -------------------------------------
+            // urp Material Keywords
+            // -------------------------------------
+            #pragma shader_feature_local _ALPHAPREMULTIPLY_ON
+            #pragma shader_feature_local _EMISSION
+            #pragma shader_feature_local _METALLICSPECGLOSSMAP
+            #pragma shader_feature_local _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
+//            #pragma shader_feature _OCCLUSIONMAP
+
+            #pragma shader_feature_local _SPECULARHIGHLIGHTS_OFF
+            #pragma shader_feature_local _ENVIRONMENTREFLECTIONS_OFF
+            #pragma shader_feature_local _SPECULAR_SETUP
+            #pragma shader_feature_local _RECEIVE_SHADOWS_OFF
+#endif
+            // -------------------------------------
+            // Lightweight Pipeline keywords
+            #pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE _MAIN_LIGHT_SHADOWS_SCREEN
+            #pragma multi_compile _ _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHTS
+            #pragma multi_compile _ _ADDITIONAL_LIGHT_SHADOWS
+            #pragma multi_compile _ _SHADOWS_SOFT _SHADOWS_SOFT_LOW _SHADOWS_SOFT_MEDIUM _SHADOWS_SOFT_HIGH
+            #pragma multi_compile _ _FORWARD_PLUS
+            #if (!defined(UNITY_COMPILER_DXC) && (defined(UNITY_PLATFORM_OSX) || defined(UNITY_PLATFORM_IOS))) || defined(SHADER_API_PS5)
+
+                #if defined(SHADER_API_PS5) || defined(SHADER_API_METAL)
+
+                    #define SUPPORTS_FOVEATED_RENDERING_NON_UNIFORM_RASTER 1
+
+                    // On Metal Foveated Rendering is currently not supported with DXC
+                    #pragma warning (disable : 3568) // unknown pragma ignored
+
+                    #pragma never_use_dxc metal
+                    #pragma dynamic_branch _ _FOVEATED_RENDERING_NON_UNIFORM_RASTER
+
+                    #pragma warning (default : 3568) // restore unknown pragma ignored
+
+                #endif
+
+            #endif
+            #pragma multi_compile_fragment _ _DBUFFER_MRT1 _DBUFFER_MRT2 _DBUFFER_MRT3
+            #pragma multi_compile_fragment _ _LIGHT_LAYERS
+
+            #pragma multi_compile _ _MIXED_LIGHTING_SUBTRACTIVE
+            // -------------------------------------
+            // Unity defined keywords
+            #pragma multi_compile _ LIGHTMAP_SHADOW_MIXING
+            #pragma multi_compile _ SHADOWS_SHADOWMASK
+            #pragma multi_compile _ DIRLIGHTMAP_COMBINED
+            #pragma multi_compile _ LIGHTMAP_ON
+            #pragma multi_compile _ DYNAMICLIGHTMAP_ON
+            #pragma multi_compile_fog
+
+            //--------------------------------------
+            // GPU Instancing
+            #pragma multi_compile_instancing
+            #pragma instancing_options renderinglayer
+        #if UNITY_VERSION >= 202230 // Requires Universal RP 14.0.7
+            #include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DOTS.hlsl"
+        #else
+            #pragma multi_compile _ DOTS_INSTANCING_ON
+        #endif
+
+            #define _IS_PASS_FWDBASE
+            // DoubleShadeWithFeather and ShadingGradeMap use different fragment shader.  
+            #pragma shader_feature_local _ _SHADINGGRADEMAP
+
+
+            // used in ShadingGradeMap
+            #pragma shader_feature _IS_TRANSCLIPPING_OFF _IS_TRANSCLIPPING_ON
+            #pragma shader_feature _IS_ANGELRING_OFF _IS_ANGELRING_ON
+
+            // used in Shadow calculation 
+            #pragma shader_feature_local _ UTS_USE_RAYTRACING_SHADOW
+            // used in DoubleShadeWithFeather
+            #pragma shader_feature _IS_CLIPPING_OFF _IS_CLIPPING_MODE _IS_CLIPPING_TRANSMODE
+
+            #pragma shader_feature _EMISSIVE_SIMPLE _EMISSIVE_ANIMATION
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+#ifdef UNIVERSAL_PIPELINE_CORE_INCLUDED
+            #include "../../UniversalRP/Shaders/UniversalToonInput.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/Shaders/LitForwardPass.hlsl"
+            #include "../../UniversalRP/Shaders/UniversalToonHead.hlsl"
+            #include "../../UniversalRP/Shaders/UniversalToonBody.hlsl"
+#endif
+            ENDHLSL
+            
+        }
         Pass {
             Name "Outline"
             Tags {
