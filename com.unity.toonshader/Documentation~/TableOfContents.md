@@ -8,7 +8,6 @@
   * [0.7.x-preview](whats-new-0.7.x.md)
   * [0.6.x-preview](whats-new-0.6.x.md)
   * [0.5.0-preview](whats-new-0.5.x.md)
-  * [0.4.0-preview](whats-new-0.4.x.md)
   * [0.3.0-preview](whats-new-0.3.x.md)
 * [Getting started](GettingStarted.md)
 * [Material Converter](MaterialConverter.md)
@@ -28,7 +27,9 @@
   * [Outline Settings](Outline.md)
   * [Tessellation Settings（the Built-in Render Pipeline）](TessellationLegacy.md)
   * [Tessellation Settings（HDRP）](TessellationHDRP.md)
-* [Toon EV Adjustment（HDRP）](ToonEVAdjustment.md)
+* Additional features for HDRP
+  * [Box Light](HDRPBoxLight.md)
+  * [Toon EV Adjustment](ToonEVAdjustment.md)
 * [Samples](sample-instlation.md)
 * [Feature Difference](FeatureModel_en.md)
 * [Known Issues](Known-issue.md)
