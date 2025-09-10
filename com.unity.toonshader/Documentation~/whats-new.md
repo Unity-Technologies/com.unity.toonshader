@@ -8,5 +8,4 @@ The list of pages is as follows:
 * [0.7.x-preview ](whats-new-0.7.x.md)
 * [0.6.x-preview ](whats-new-0.6.x.md)
 * [0.5.x-preview ](whats-new-0.5.x.md)
-* [0.4.x-preview ](whats-new-0.4.x.md)
 * [0.3.x-preview ](whats-new-0.3.x.md)
