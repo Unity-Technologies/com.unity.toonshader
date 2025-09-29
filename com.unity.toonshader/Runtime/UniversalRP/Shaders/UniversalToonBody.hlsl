@@ -444,7 +444,7 @@
 
                 int mainLightIndex = MAINLIGHT_NOT_FOUND;
                 UtsLight nextLight = GetUrpMainUtsLight(shadowCoord, positionCS);
-#if false                
+#if 0                
                 if (nextLight.distanceAttenuation > mainLight.distanceAttenuation && nextLight.type == 0)
                 {
                     mainLight = nextLight;
