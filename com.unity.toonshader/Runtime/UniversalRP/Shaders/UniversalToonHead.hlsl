@@ -44,6 +44,21 @@
 #undef FOG_EXP2
 #endif
 
+#define USE_TEXTURE_FETCH_BRANCHING 1
+
+#ifndef USE_TEXTURE_FETCH_BRANCHING
+#define USE_TEXTURE_FETCH_BRANCHING 0
+#endif
+
+#if USE_TEXTURE_FETCH_BRANCHING
+    #define TEXTURE_FETCH(targetVal, defaultValue, texColor, conditionVal) \
+        float4 targetVal = (defaultValue); \
+        if ((conditionVal) < 0.1f) { targetVal = (texColor); }
+#else
+    #define TEXTURE_FETCH(targetVal, defaultValue, texColor, conditionVal) \
+        float4 targetVal = lerp((texColor), (defaultValue), (conditionVal))
+#endif
+
 //#include "UCTS_AutoLight.cginc" 
 #if 1
 
