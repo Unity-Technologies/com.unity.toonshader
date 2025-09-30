@@ -444,7 +444,10 @@
 
                 int mainLightIndex = MAINLIGHT_NOT_FOUND;
                 UtsLight nextLight = GetUrpMainUtsLight(shadowCoord, positionCS);
-#if 0                
+#if USE_TEXTURE_FETCH_BRANCHING
+                mainLight = nextLight;
+                mainLightIndex = MAINLIGHT_IS_MAINLIGHT;                
+#else
                 if (nextLight.distanceAttenuation > mainLight.distanceAttenuation && nextLight.type == 0)
                 {
                     mainLight = nextLight;
@@ -460,9 +463,6 @@
                         mainLightIndex = ii;
                     }
                 }
-#else
-                mainLight = nextLight;
-                mainLightIndex = MAINLIGHT_IS_MAINLIGHT;
 #endif
                 return mainLightIndex;
             }
