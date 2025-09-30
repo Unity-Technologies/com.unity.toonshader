@@ -444,7 +444,7 @@
 
                 int mainLightIndex = MAINLIGHT_NOT_FOUND;
                 UtsLight nextLight = GetUrpMainUtsLight(shadowCoord, positionCS);
-#if USE_TEXTURE_FETCH_BRANCHING
+#if 0 // USE_TEXTURE_FETCH_BRANCHING
                 mainLight = nextLight;
                 mainLightIndex = MAINLIGHT_IS_MAINLIGHT;                
 #else
