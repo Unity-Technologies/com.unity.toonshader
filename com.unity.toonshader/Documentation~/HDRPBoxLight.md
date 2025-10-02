@@ -1,8 +1,12 @@
 <a id="BoxLight"></a>
 ## HDRP Box Light
 
-When you want to use lighting that differs from the scene main light to make character face more clear or to add shadows that look ideal. But, in HDRP, one directional light cast shadows, not more than two. The [Box Light](https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@14.0/manual/Light-Component.html#Shape) provides the solution for this. The **Unity Toon Shader** now supports the feature. For now, HDRP Ray-traced shadows isn't ready for this feature.
+In HDRP, only one directional light can cast shadow at a time.
+This can be undesirable when we need lighting that differs from the scene's main directional light, 
+such as brightening a character's face or adding idealized shadows.
 
+The [Box Light](https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@14.0/manual/Light-Component.html#Shape) 
+offers a practical workaround, and Unity Toon Shader supports it. 
 <canvas class="image-comparison" role="img" aria-label="The Scene view with a cube representing a box light, and the Game view with a chibi-style character model. When the box light is rotated, the shadows on the face of the model change.">
     <img src="images/BoxLight0.png" title="Box light">
     <img src="images/BoxLight1.png" title="Box light rotated">
