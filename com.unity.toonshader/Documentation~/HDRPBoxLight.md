@@ -1,7 +1,7 @@
 <a id="BoxLight"></a>
 ## HDRP Box Light
 
-In HDRP, only one directional light can cast shadow at a time.
+In HDRP, [only one directional light can cast shadow at a time](https://docs.unity3d.com/Manual/render-pipelines-feature-comparison.html).
 This can be undesirable when we need lighting that differs from the scene's main directional light, 
 such as brightening a character's face or adding idealized shadows.
 
