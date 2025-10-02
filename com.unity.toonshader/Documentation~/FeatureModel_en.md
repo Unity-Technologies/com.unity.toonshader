@@ -91,7 +91,7 @@
 | EV Adjustment in high intensity light scenes	 	                                               | N.A	               | N.A.	   | OK	                 |
 | ***15. Render pipeline built-in ray-traced shadows*** 	                                       | 	                   | 	       | 	                 |
 | DXR shadow supported in render pipelines 	                                                       | N.A.	               | N.A.	   | OK	                 |
-| ***16. Box Light*** 	                                                                           | 	                   | 	       | 	                 |
+| ***16. [Box Light](HDRPBoxLight.md)*** 	                                                       | 	                   | 	       | 	                 |
 | Substitute for directional light 	                                                               | N.A.	               | N.A.	   | OK	                 |
 | ***17. Rendering Paths*** 	                                                                   | 	                   | 	       | 	                 |
 | Forward 	                                                                                       | OK	                   | OK	       | OK	                 |
