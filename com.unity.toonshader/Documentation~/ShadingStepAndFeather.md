@@ -1,6 +1,6 @@
 # Shading Steps and Feather Settings
 
-The **Unity Toon Shader** allows you to control the position of the boundaries of the area, to clearly demarcate the boundaries, or to blur or blend them.
+The **Unity Toon Shader** allows you to control the position of area boundaries, to clearly demarcate the boundaries, or to blur or blend them.
 
 * [Base Color Step](#base-color-step)
 * [Base Shading Feather](#base-shading-feather)
@@ -24,7 +24,7 @@ Feathers the boundary between the Base Color and the Shade Colors.
 <video title="The same chibi-style character. The visibility of the shadow on the chin changes, but the shadow doesn't disappear entirely." src="images/BaseShadingFeather.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video>
 
 ## Shading Color Step
-Sets the boundary between the 1st and 2nd Shade Colors. Set this to 0 if  2nd Shade Color is unnecessary.
+Sets the boundary between the 1st and 2nd Shade Colors. Set this to 0 if the 2nd Shade Color is unnecessary.
 
 <video title="The same chibi-style character. The lighter-colored shadow on the chin is gradually replaced with a darker shadow." src="images/ShadingColorStep.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video>
 

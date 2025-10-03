@@ -1,6 +1,6 @@
 # Emission Settings
 
-Emission controls the color and intensity of light emitted from the surface. When you use an emissive Material in your Scene, it appears as a visible source of light. The meshes appear to be self-illuminated.
+Emission controls the color and intensity of light emitted from the surface. When you use an emissive material in your scene, it appears as a visible source of light. The meshes appear to be self-illuminated.
 
 [A chibi-style model standing between two red cubes, which light the model with emissive light.](images/EmissiveAnimation.png)
 
@@ -27,7 +27,7 @@ Primarily used with the Bloom Post Effect and represents luminous objects.
 ![The Unity logo against a transparent background. The color fades from bright white at the center to black at the edges. The texture dimensions are 1024 x 1024, the texture size is 1.3MB, and the texture type is RBGA Compressed DXT5|BC3 UNorm.](images/EmissionMapSample.png) 
 
 ## Emission Map Animation
-When Enabled, the UV and Color of the **Emission Map** animate.
+When enabled, the UV and color of the **Emission Map** animate.
 
 <video title="A cube with the Unity logo on each face. The logo loops through the color spectrum, and vertical black bars scroll horizontally across the face." src="images/EmissionAnimation.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video>
 

@@ -1,6 +1,6 @@
 # Angel Ring Projection Settings
 
-The Angel Ring effect for UTS expresses shine or luster in hair. This effect always appears in a fixed position as seen from the Camera. Angel Ring requires the 2nd UV in the meshes.
+The Angel Ring effect for UTS expresses shine or luster in hair. This effect always appears in a fixed position as seen from the camera. Angel Ring requires the 2nd UV in the meshes.
 
 
 ![The head of a chibi-style character with feathered hair and cat ears. The head is oriented from three angles: side, front, and back. In each angle, two bright highlights appear in the same place on the left and right.](images/AR_Image.png)
@@ -16,16 +16,16 @@ Enable the Angel Ring effect for UTS, which expresses shine or luster in hair.
 
 
 ### Angel Ring 
-Angel Ring : Texture(sRGB) × Color(RGB). Default:Black.
-By default, the **Unity Toon Shader** adds the color to the lighting results. Texture alpha channel doesn't affect.
-Please refer to [Alpha Channel as Clipping Mask](#alpha-chennel-as-clipping-mask) when alpha clipping is desirable.
+Angel Ring: Texture(sRGB) × Color(RGB). Default: Black.
+By default, the **Unity Toon Shader** adds the color to the lighting results. The texture alpha channel has no effect.
+Please refer to [Alpha Channel as Clipping Mask](#alpha-channel-as-clipping-mask) when alpha clipping is desirable.
 
 ![A dark square texture, with lighter v-shaped areas at the left and right edges.](images/para_height2.png)<br/>
 Angel Ring Texture Example
 
 ### Offset U
-Adjusts the Angel Ring’s shape in the horizontal direction. The range is from 0.0 to 0.5. The default is 0.
-please refer to the image in [Offset V](#offset-v).
+Adjusts the Angel Ring's shape in the horizontal direction. The range is from 0.0 to 0.5. The default is 0.
+Please refer to the image in [Offset V](#offset-v).
 
 ### Offset V
 Adjusts the Angel Ring’s shape in the vertical direction. The range is from 0.0 to 1.0. The default is 0.3.

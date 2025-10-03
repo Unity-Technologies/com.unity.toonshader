@@ -1,6 +1,6 @@
 # Rim Light Settings
 
-The Rim Light  highlight the edges of meshes. Rim Light is based on the angle between surface normal and view direction. The **Unity Toon Shader** provides variety of options for Rim Light.
+Rim Light highlights the edges of meshes. Rim Light is based on the angle between the surface normal and view direction. The **Unity Toon Shader** provides a variety of options for Rim Light.
 
 * [Rim Light](#rim-light)
   * [Rim Light Color](#rim-light-color)
@@ -18,7 +18,7 @@ The Rim Light  highlight the edges of meshes. Rim Light is based on the angle be
   * [Rim Light Mask Level](#rim-light-mask-level)
 
 ## Rim Light
-A Check box to enable **Rim Light** that hits the 3D model from behind and emphasizes the contours of the model from the front.
+A checkbox to enable **Rim Light** that hits the 3D model from behind and emphasizes the contours of the model from the front.
 
 <canvas class="image-comparison" role="img" aria-label="A toon-shaded sphere in a room textured with graphs. The sphere has green and purple bands of color, and specular highlights. With Rim Light enabled, the sphere is bright at the edge.">
     <img src="images/RimLightOff.png" title="Rim Light disabled">
