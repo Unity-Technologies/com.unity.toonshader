@@ -1,9 +1,9 @@
 {
   "dependencies": {
-    "com.unity.ide.rider": "3.0.36",
-    "com.unity.ide.visualstudio": "2.0.23",
+    "com.unity.ide.rider": "3.0.38",
+    "com.unity.ide.visualstudio": "2.0.25",
     "com.unity.ide.vscode": "1.2.5",
-    "com.unity.package-validation-suite": "0.10.0-preview",
+    "com.unity.package-validation-suite": "0.83.0-preview",
     "com.unity.recorder": "4.0.3",
     "com.unity.render-pipelines.high-definition": "14.0.12",
     "com.unity.test-framework": "1.1.33",
