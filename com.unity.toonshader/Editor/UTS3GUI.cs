@@ -1,4 +1,4 @@
-﻿//#define USE_SIMPLE_UI
+//#define USE_SIMPLE_UI
 
 
 using System;
@@ -98,9 +98,7 @@ namespace UnityEditor.Rendering.Toon
         internal const string ShaderDefineSHADINGGRADEMAP = "_SHADINGGRADEMAP";
         internal const string ShaderDefineANGELRING_ON = "_IS_ANGELRING_ON";
         internal const string ShaderDefineANGELRING_OFF = "_IS_ANGELRING_OFF";
-        internal const string ShaderDefineUTS_USE_RAYTRACING_SHADOW = "UTS_USE_RAYTRACING_SHADOW";
         internal const string ShaderPropAngelRing = "_AngelRing";
-        internal const string ShaderPropRTHS = "_RTHS";
         internal const string ShaderPropMatCap = "_MatCap";
         internal const string ShaderPropMainTex = "_MainTex";
         internal const string ShaderPropClippingMode = "_ClippingMode";
@@ -1233,20 +1231,7 @@ namespace UnityEditor.Rendering.Toon
 
 
 
-        void GUI_SetRTHS(Material material)
-        {
-
-            EditorGUILayout.BeginHorizontal();
-
-
-            var isRTHSenabled = GUI_ToggleShaderKeyword(material, "Raytraced Hard Shadow (deprecated)", ShaderDefineUTS_USE_RAYTRACING_SHADOW);
-
-            EditorGUILayout.EndHorizontal();
-            if (isRTHSenabled)
-            {
-                EditorGUILayout.LabelField("ShadowRaytracer component must be attached to the camera when this feature is enabled.");
-            }
-        }
+        // RTHS feature removed
 
         void GUI_SetRenderQueue(Material material)
         {
@@ -1482,10 +1467,7 @@ namespace UnityEditor.Rendering.Toon
                 EditorGUI.indentLevel++;
                 GUI_RangeProperty(material, Styles.tweakSystemShadowLevelText);
 
-                if (UnityToonShaderSettings.instance.m_ShowDepracated)
-                {
-                    GUI_SetRTHS(material);
-                }
+                // RTHS (Raytraced Hard Shadow) removed
                 EditorGUI.indentLevel--;
                 EditorGUILayout.Space();
             }
