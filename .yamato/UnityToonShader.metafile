@@ -42,6 +42,13 @@ platforms:
       flavor: b1.medium
       cmd_prefix:
       
+win_runtime_test_platforms:
+    - name: Editor
+    - name: StandaloneWindows64
+
+osx_runtime_test_platforms:
+    - name: Editor
+    - name: StandaloneOSX 
       
 pack_platform: &pack_platform_linux
   name: linux
