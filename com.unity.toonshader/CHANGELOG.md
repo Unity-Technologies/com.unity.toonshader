@@ -250,6 +250,8 @@
 * Removed 【】in the Inspector window.
 * Removed  ● in the Inspector window.
 * Removed unnecessary labels in the inspector such as `System Shadows:`
+* `RTHS(Realtime Hard Shadow` is deprecated now as it will not be Unity official package.
+* RTHS is not shown unless `Show deprecated features in the inspector` is checked in the `Project Settings Window`.
 
 ### Fixed:
 * Undo/Redo was not working on some items in the inspector window.
