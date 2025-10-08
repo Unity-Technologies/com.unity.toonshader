@@ -29,6 +29,4 @@ MonoBehaviour:
   active: 1
   diffusionProfiles:
     m_OverrideState: 1
-    m_Value:
-    - {fileID: 11400000, guid: f35d1ac29f01482291c276feff307837, type: 2}
-    - {fileID: 11400000, guid: ce53e96619ea4c1ca6bc391d0792f801, type: 2}
+    m_Value: []
