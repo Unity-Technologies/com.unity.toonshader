@@ -141,26 +141,15 @@ namespace UnityEditor.Rendering.Toon
 
         }
 
-        float ConvertToEV100(float val)
-        {
-
-            return Mathf.Log(val * 0.4f, 2.0f);
-
-        }
         [MenuItem("GameObject/Toon Shader/Scene Toon Ev Adjustment", false, 9999)]
-        static void CreateToonEvAdjustmentCurveGameObject()
-        {
-            var obj = FindObjectOfType<SceneToonEvAdjustment>();
-            if (obj == null)
-            {
-                var go = new GameObject();
-                go.name = "Scene Toon Ev Adjustment";
+        static void CreateToonEvAdjustmentCurveGameObject() {
+            SceneToonEvAdjustment obj = FindFirstObjectByType<SceneToonEvAdjustment>();
+            if (obj == null) {
+                GameObject go = new GameObject { name = "Scene Toon Ev Adjustment" };
                 go.AddComponent<SceneToonEvAdjustment>();
                 Undo.RegisterCreatedObjectUndo(go, "Put Scene Toon Ev Adjustment");
                 Selection.activeGameObject = go;
-            }
-            else
-            {
+            } else {
                 Selection.activeGameObject = obj.gameObject;
             }
         }
