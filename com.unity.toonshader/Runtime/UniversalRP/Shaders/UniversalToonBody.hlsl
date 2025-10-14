@@ -348,7 +348,7 @@
                 half4 distanceAndSpotAttenuation = _AdditionalLightsBuffer[perObjectLightIndex].attenuation;
                 half4 spotDirection = _AdditionalLightsBuffer[perObjectLightIndex].spotDirection;
     #ifdef _LIGHT_LAYERS
-                uint lightLayerMask = _AdditionalLightsBuffer[perObjectLightIndex].layerMask;
+                uint lightLayerMask = asuint(_AdditionalLightsBuffer[perObjectLightIndex].layerMask);
     #endif
                 half4 lightOcclusionProbeInfo = _AdditionalLightsBuffer[perObjectLightIndex].occlusionProbeChannels;
 #else
@@ -429,12 +429,19 @@
             }
 
 
+#ifdef _LIGHT_LAYERS
+            #define INIT_LIGHT_LAYER(utslight) utslight.layerMask = 0 
+#else
+            #define INIT_LIGHT_LAYER(utslight)
+#endif
+
 #define INIT_UTSLIGHT(utslight) \
             utslight.direction = 0; \
             utslight.color = 0; \
             utslight.distanceAttenuation = 0; \
             utslight.shadowAttenuation = 0; \
-            utslight.type = 0
+            utslight.type = 0; \
+            INIT_LIGHT_LAYER(utslight);
 
 
             int DetermineUTS_MainLightIndex(float3 posW, float4 shadowCoord, float4 positionCS)
@@ -444,6 +451,27 @@
 
                 int mainLightIndex = MAINLIGHT_NOT_FOUND;
                 UtsLight nextLight = GetUrpMainUtsLight(shadowCoord, positionCS);
+ 
+#ifdef _LIGHT_LAYERS
+                if (IsMatchingLightLayer(nextLight.layerMask, GetMeshRenderingLayer()) && !IsMatchingLightLayer(mainLight.layerMask, GetMeshRenderingLayer()) )
+                {
+                    mainLight = nextLight;
+                    mainLightIndex = MAINLIGHT_IS_MAINLIGHT;                    
+                }
+                int lightCount = _AdditionalLightsCount.x; 
+               
+                for (int ii = 0; ii < lightCount; ++ii)
+                {
+                    nextLight = GetAdditionalUtsLight(ii, posW, positionCS);
+                    if (IsMatchingLightLayer(nextLight.layerMask, GetMeshRenderingLayer()) && !IsMatchingLightLayer(mainLight.layerMask, GetMeshRenderingLayer()) )                    
+                    {
+                       
+                        mainLight = nextLight;
+                        mainLightIndex = ii;
+                        break;
+                    }
+                }                
+#else
                 if (nextLight.distanceAttenuation > mainLight.distanceAttenuation && nextLight.type == 0)
                 {
                     mainLight = nextLight;
@@ -453,13 +481,14 @@
                 for (int ii = 0; ii < lightCount; ++ii)
                 {
                     nextLight = GetAdditionalUtsLight(ii, posW, positionCS);
-                    if (nextLight.distanceAttenuation > mainLight.distanceAttenuation && nextLight.type == 0)
+                    if (mainLightIndex == MAINLIGHT_NOT_FOUND ? 1: nextLight.distanceAttenuation > mainLight.distanceAttenuation && nextLight.type == 0 )
                     {
+                       
                         mainLight = nextLight;
                         mainLightIndex = ii;
                     }
                 }
-
+#endif
                 return mainLightIndex;
             }
 

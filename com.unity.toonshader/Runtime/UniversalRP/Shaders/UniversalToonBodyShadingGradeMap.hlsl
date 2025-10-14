@@ -344,7 +344,9 @@
                 for (uint loopCounter = 0; loopCounter < min(URP_FP_DIRECTIONAL_LIGHTS_COUNT, MAX_VISIBLE_LIGHTS); loopCounter++)
                 {
                     int iLight = loopCounter;
-                    // if (iLight != i.mainLightID)
+#if _LIGHT_LAYERS                    
+                    if (iLight != i.mainLightID)
+#endif    
                     {
                         float notDirectional = 1.0f; //_WorldSpaceLightPos0.w of the legacy code.
                         UtsLight additionalLight = GetUrpMainUtsLight(0,0);
