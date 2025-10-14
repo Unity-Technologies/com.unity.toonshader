@@ -1,23 +1,9 @@
-yamato_name: uts2
-test_editors:
-  - version: 2021.3
-test_platforms:
-  - name: win
-    type: Unity::VM
-    image: package-ci/win10:v4
-    flavor: b1.large
-  - name: mac
-    type: Unity::VM::osx
-    image: package-ci/macos-13:v4
-    flavor: m1.mac
-    
-pack_platform: &pack_platform_linux
-  name: linux
-  type: Unity::VM
-  image: package-ci/ubuntu-20.04:v4
-  flavor: b1.medium
+{% metadata_file .yamato/UnityToonShader.metafile %}
+
+#
+#
+#
   
----
 pack:
   name: Pack {{ yamato_name }}
   agent:
@@ -33,13 +19,16 @@ pack:
         - "upm-ci~/**/*"
 
 {% for editor in test_editors %}
-{% for platform in test_platforms %}
-test_{{ platform.name }}_{{ editor.version }}:
-  name : Test {{ yamato_name }} using {{ editor.version }} on {{ platform.name }}
+{% for platform in platforms %}
+
+{% assign platform_type = platform.platform_type %}
+
+test_{{ platform_type.name }}_{{ editor.version }}:
+  name : Test {{ yamato_name }} using {{ editor.version }} on {{ platform_type.name }}
   agent:
-    type: {{ platform.type }}
-    image: {{ platform.image }}
-    flavor: {{ platform.flavor}}
+    type: {{ platform_type.type }}
+    image: {{ platform_type.image }}
+    flavor: {{ platform_type.flavor}}
   commands:
     - npm install upm-ci-utils@stable -g --registry https://artifactory.prd.cds.internal.unity3d.com/artifactory/api/npm/upm-npm
     - upm-ci package test --unity-version {{ editor.version }} --package-path com.unity.toonshader
