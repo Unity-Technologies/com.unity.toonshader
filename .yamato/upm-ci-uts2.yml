@@ -10,13 +10,20 @@ test_platforms:
     type: Unity::VM::osx
     image: package-ci/macos-13:v4
     flavor: m1.mac
+    
+pack_platform: &pack_platform_linux
+  name: linux
+  type: Unity::VM
+  image: package-ci/ubuntu-20.04:v4
+  flavor: b1.medium
+  
 ---
 pack:
   name: Pack {{ yamato_name }}
   agent:
-    type: Unity::VM
-    image: package-ci/ubuntu-22.04:v4
-    flavor: b1.medium
+    type:   {{ pack_platform.type }}
+    image:  {{ pack_platform.image }} 
+    flavor: {{ pack_platform.flavor }} 
   commands:
     - npm install upm-ci-utils@stable -g --registry https://artifactory.prd.cds.internal.unity3d.com/artifactory/api/npm/upm-npm
     - upm-ci package pack --package-path com.unity.toonshader
