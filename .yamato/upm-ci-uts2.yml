@@ -70,6 +70,36 @@ publish:
     {% endfor %}
     {% endfor %}
 
+publish_dry_run:
+  name: Publish Dry Run {{ yamato_name }} to Internal Registry
+  agent:
+    type: Unity::VM
+    image: package-ci/win10:v4
+    flavor: b1.large
+  commands:
+    - npm install upm-ci-utils@stable -g --registry https://artifactory.prd.cds.internal.unity3d.com/artifactory/api/npm/upm-npm
+    - upm-ci package publish --dry-run --package-path com.unity.toonshader
+  triggers:
+    tags:
+      only:
+        - /^(r|R)(c|C)-\d+\.\d+\.\d+(-preview(\.\d+)?)?$/
+  artifacts:
+    {{ yamato_name }}_publish_dry_run_artifacts:
+      paths:
+        - "upm-ci~/packages/*.tgz"
+  dependencies:
+    - .yamato/{{ yamato_name }}-pack.yml#pack
+    {% for test_config in test_configs %}
+    {% for test_platform in test_config.test_platforms %}
+    {% for step in test_platform.test_type.steps %}
+    - .yamato/{{ yamato_name }}-test.yml#test_{{ test_platform.platform_type.name }}_{{ test_config.editor_version }}_{{step.name}}
+    {% endfor %}
+    {% endfor %}
+    {% endfor %}
+
+
+
+
 prerelease:
   name: Create a prerelease {{ yamato_name }}  
   agent:
@@ -115,32 +145,4 @@ prerelease:
   dependencies:
     - .yamato/upm-ci-uts2.yml#publish
     
-publish_dry_run:
-  name: Publish Dry Run {{ yamato_name }} to Internal Registry
-  agent:
-    type: Unity::VM
-    image: package-ci/win10:v4
-    flavor: b1.large
-  commands:
-    - npm install upm-ci-utils@stable -g --registry https://artifactory.prd.cds.internal.unity3d.com/artifactory/api/npm/upm-npm
-    - upm-ci package publish --dry-run --package-path com.unity.toonshader
-  triggers:
-    tags:
-      only:
-        - /^(r|R)(c|C)-\d+\.\d+\.\d+(-preview(\.\d+)?)?$/
-  artifacts:
-    {{ yamato_name }}_publish_dry_run_artifacts:
-      paths:
-        - "upm-ci~/packages/*.tgz"
-  dependencies:
-    - .yamato/{{ yamato_name }}-pack.yml#pack
-    {% for test_config in test_configs %}
-    {% for test_platform in test_config.test_platforms %}
-    {% for step in test_platform.test_type.steps %}
-    - .yamato/{{ yamato_name }}-test.yml#test_{{ test_platform.platform_type.name }}_{{ test_config.editor_version }}_{{step.name}}
-    {% endfor %}
-    {% endfor %}
-    {% endfor %}
-
-
 
