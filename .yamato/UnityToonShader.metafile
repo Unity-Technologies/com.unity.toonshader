@@ -67,3 +67,7 @@ win_test_platform:
   image: graphics-foundation/win10-dxr:stable
   model: gtx1080
   flavor: b1.large
+
+test_editors:
+  - version: 2022.3
+  - version: 6000.0
