@@ -87,12 +87,9 @@
 | Color Shifting with View Angle                                                             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 | ***13.Tessellation Settings***                                                             |                    |                    |                    |
 | Tessellation Settings                                                                      | DX11/Vulkan/Metal  | :x:                | DX11/Vulkan/Metal  |
-| ***14. EV Adjustment***                                                                    |                    |                    |                    |
-| EV Adjustment in high intensity light scenes                                               | :x:                | :x:                | :heavy_check_mark: |
-| ***15. Render pipeline built-in ray-traced shadows***                                      |                    |                    |                    |
-| DXR shadow supported in render pipelines                                                   | :x:                | :x:                | :heavy_check_mark: |
-| ***16. [Box Light](HDRPBoxLight.md)***                                                     |                    |                    |                    |
-| Substitute for directional light                                                           | :x:                | :x:                | :heavy_check_mark: |
+| ***14. EV Adjustment in high intensity light scenes***                                     | :x:                | :x:                | :heavy_check_mark: |
+| ***15. DXR (ray-traced) shadows***                                                         | :x:                | :x:                | :heavy_check_mark: |
+| ***16. [Box Light](HDRPBoxLight.md)***                                                     | :x:                | :x:                | :heavy_check_mark: |
 | ***17. Rendering Paths***                                                                  |                    |                    |                    |
 | Forward                                                                                    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 | Forward+                                                                                   | :x:                | :heavy_check_mark: | :x:                |
