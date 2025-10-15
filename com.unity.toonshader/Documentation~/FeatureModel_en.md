@@ -7,8 +7,8 @@
 | With Advanced Control Map                                                                  | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 | ***2. Shader Settings***                                                                   |                    |                    |                    |
 | Culling                                                                                    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
-| Stencil                                                                                    | :heavy_check_mark: | :heavy_check_mark: |                    |
-| Stencil Value                                                                              | :heavy_check_mark: | :heavy_check_mark: |                    |
+| Stencil                                                                                    | :heavy_check_mark: | :heavy_check_mark: | :grey_question:    |
+| Stencil Value                                                                              | :heavy_check_mark: | :heavy_check_mark: | :grey_question:    |
 | Clipping                                                                                   | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 | Clipping Mask                                                                              | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 | Invert  Clipping Mask                                                                      | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
@@ -70,9 +70,9 @@
 | Alpha Channel as Clipping Mask                                                             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 | ***10. [Scene Light Effectiveness Settings](SceneLight.md) for all UTS color properties*** | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 | ***11. Metaverse Settings***                                                               |                    |                    |                    |
-| Metaverse Light                                                                            | :heavy_check_mark: | :heavy_check_mark: |                    |
-| Metaverse Light Intensity                                                                  | :heavy_check_mark: | :heavy_check_mark: |                    |
-| Metaverse Light Direction                                                                  | :heavy_check_mark: | :heavy_check_mark: |                    |
+| Metaverse Light                                                                            | :heavy_check_mark: | :heavy_check_mark: | :grey_question:    |
+| Metaverse Light Intensity                                                                  | :heavy_check_mark: | :heavy_check_mark: | :grey_question:    |
+| Metaverse Light Direction                                                                  | :heavy_check_mark: | :heavy_check_mark: | :grey_question:    |
 | ***12. Outline Settings***                                                                 |                    |                    |                    |
 | Outline Mode                                                                               | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 | Outline Width                                                                              | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
@@ -96,10 +96,11 @@
 | ***17. Rendering Paths***                                                                  |                    |                    |                    |
 | Forward                                                                                    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 | Forward+                                                                                   | :x:                | :heavy_check_mark: | :x:                |
-| Deferred                                                                                   |                    |                    | :heavy_check_mark: |
-| Deferred+                                                                                  | :x:                |                    | :x:                |
+| Deferred                                                                                   | :grey_question:    | :grey_question:    | :heavy_check_mark: |
+| Deferred+                                                                                  | :x:                | :grey_question:    | :x:                |
 
 Notes:
+
 * :heavy_check_mark: : Supported
 * :x: : Not supported (e.g. limitations in the render pipeline, etc)
-* (blank) : Potential future support (not currently available)
+* :grey_question: : Potential future support (not currently available)
