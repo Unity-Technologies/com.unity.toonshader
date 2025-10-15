@@ -26,8 +26,9 @@ publish:
   dependencies:
     - .yamato/{{ yamato_name }}-pack.yml#pack
     {% for editor in test_editors %}
-    {% for platform in test_platforms %}
-    - .yamato/{{ yamato_name }}-test-package.yml#test_{{ platform.name }}_{{ editor.version }}
+    {% for platform in platforms %}
+    {% assign platform_type = platform.platform_type %}    
+    - .yamato/{{ yamato_name }}-test-package.yml#test_{{ platform_type.name }}_{{ editor.version }}
     {% endfor %}
     {% endfor %}
 
@@ -51,11 +52,10 @@ publish_dry_run:
         - "upm-ci~/packages/*.tgz"
   dependencies:
     - .yamato/{{ yamato_name }}-pack.yml#pack
-    {% for test_config in test_configs %}
-    {% for test_platform in test_config.test_platforms %}
-    {% for step in test_platform.test_type.steps %}
-    - .yamato/{{ yamato_name }}-test-package.yml#test_{{ test_platform.platform_type.name }}_{{ test_config.editor_version }}_{{step.name}}
-    {% endfor %}
+    {% for editor in test_editors %}
+    {% for platform in platforms %}
+    {% assign platform_type = platform.platform_type %}    
+    - .yamato/{{ yamato_name }}-test-package.yml#test_{{ platform_type.name }}_{{ editor.version }}
     {% endfor %}
     {% endfor %}
 
