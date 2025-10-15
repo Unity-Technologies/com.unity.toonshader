@@ -14,19 +14,6 @@ test_platforms:
     image: package-ci/macos-13:v4
     flavor: m1.mac
 ---
-pack:
-  name: Pack {{ yamato_name }}
-  agent:
-    type: Unity::VM
-    image: package-ci/ubuntu-22.04:v4
-    flavor: b1.medium
-  commands:
-    - npm install upm-ci-utils@stable -g --registry https://artifactory.prd.cds.internal.unity3d.com/artifactory/api/npm/upm-npm
-    - upm-ci package pack --package-path com.unity.toonshader
-  artifacts:
-    {{ yamato_name }}_pack_artifacts:
-      paths:
-        - "upm-ci~/**/*"
 
 {% for editor in test_editors %}
 {% for platform in test_platforms %}
@@ -48,7 +35,7 @@ test_{{ platform.name }}_{{ editor.version }}:
       paths:
         - "upm-ci~/test-results/**/*"
   dependencies:
-    - .yamato/upm-ci-{{ yamato_name }}.yml#pack
+    - .yamato/{{ yamato_name }}-pack.yml#pack
 {% endfor %}
 {% endfor %}
 
