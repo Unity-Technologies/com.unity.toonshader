@@ -29,7 +29,7 @@ jobs:
         id: read-doc-index
         uses: unity3d-jp/actions/read-file@main
         with:
-          filepath: 'com.unity.toonshader/Documentation~/index.md'
+          filepath: 'com.unity.toonshader/Documentation~/TableOfContents.md'
       - name: Overwrite Readme with Index
         id: overwrite-readme-with-index
         run: |
@@ -67,7 +67,7 @@ jobs:
         uses: unity3d-jp/actions/append-md-local-url@main
         with:
           filepath: 'README.md'
-          prefix: 'Documentation~/'
+          prefix: 'com.unity.toonshader/Documentation~/'
       - name: git setting
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
