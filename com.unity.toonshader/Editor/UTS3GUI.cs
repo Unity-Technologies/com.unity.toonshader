@@ -476,9 +476,8 @@ namespace UnityEditor.Rendering.Toon {
 
             FindTessellationProperties(props);
         }
-        // --------------------------------
+//----------------------------------------------------------------------------------------------------------------------
 
-        // --------------------------------
         static void Line() {
             GUILayout.Box("", GUILayout.ExpandWidth(true), GUILayout.Height(1));
         }
@@ -534,7 +533,7 @@ namespace UnityEditor.Rendering.Toon {
         }
 
 
-        // --------------------------------
+//----------------------------------------------------------------------------------------------------------------------
         //Specify only those that use the m_MaterialEditor method as their UI. For specifying textures and colors on a single line.
         private static class Styles {
             public static readonly GUIContent shaderFoldout = EditorGUIUtility.TrTextContent("Shader Settings",
@@ -642,7 +641,7 @@ namespace UnityEditor.Rendering.Toon {
 
             public static readonly GUIContent workflowModeText = new GUIContent("Mode", "The UTS mode that controls what settings are exposed in the shader.");
 
-            // -----------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------
             public static readonly GUIContent clippingmodeModeText0 =
                 new GUIContent("Clipping", "Allow for the use of a texture to control the transparency of the shader.");
 
@@ -652,7 +651,7 @@ namespace UnityEditor.Rendering.Toon {
             public static readonly GUIContent cullingModeText =
                 new GUIContent("Culling Mode", "Controls the sides of polygons that should not be drawn (culled).");
 
-            // ----------------------------------------------------- for GUI Toggles
+// ----------------------------------------------------- for GUI Toggles
             public static readonly GUIContent autoRenderQueueText =
                 new GUIContent("Auto Render Queue", "When enabled, rendering order is determined by system automatically.");
 
@@ -1000,7 +999,7 @@ namespace UnityEditor.Rendering.Toon {
                 tooltip: "Specifies the color of outline.",
                 propName: "_Outline_Color", isHDR: false);
         }
-        // --------------------------------
+//----------------------------------------------------------------------------------------------------------------------
 
         public UTS3GUI() {
         }
@@ -1333,8 +1332,7 @@ namespace UnityEditor.Rendering.Toon {
             return ret;
         }
 
-        // --------------------------------
-
+//- --------------------------------------------------------------------------------------------------------------------
 
         void GUI_SetRenderQueue(Material material) {
             EditorGUILayout.BeginHorizontal();
@@ -1911,7 +1909,7 @@ namespace UnityEditor.Rendering.Toon {
                 return;
             }
 
-            var stencilMode = (UTS_StencilMode)MaterialGetInt(material, ShaderPropStencilMode);
+            UTS_StencilMode stencilMode = (UTS_StencilMode)MaterialGetInt(material, ShaderPropStencilMode);
 
             switch (stencilMode) {
                 case UTS_StencilMode.StencilMask:
@@ -1928,7 +1926,7 @@ namespace UnityEditor.Rendering.Toon {
             }
 
             void ClippingMode() {
-                var clippingMode = (UTS_ClippingMode)MaterialGetInt(material, ShaderPropClippingMode);
+                UTS_ClippingMode clippingMode = (UTS_ClippingMode)MaterialGetInt(material, ShaderPropClippingMode);
 
                 switch (clippingMode) {
                     case UTS_ClippingMode.On:
