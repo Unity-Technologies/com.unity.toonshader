@@ -6,7 +6,7 @@ on:
       - master
     paths:
       - 'AutoGenerateParts/Readme*.md'
-      - 'Documentation~/index.md'
+      - 'com.unity.toonshader/Documentation~/index.md'
   workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -29,7 +29,7 @@ jobs:
         id: read-doc-index
         uses: unity3d-jp/actions/read-file@main
         with:
-          filepath: 'Documentation~/index.md'
+          filepath: 'com.unity.toonshader/Documentation~/index.md'
       - name: Overwrite Readme with Index
         id: overwrite-readme-with-index
         run: |
