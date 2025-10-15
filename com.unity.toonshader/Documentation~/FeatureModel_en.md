@@ -86,21 +86,24 @@
 | Color Shifting with Time 	                                                                       | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
 | Color Shifting with View Angle	                                                               | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
 | ***13.Tessellation Settings*** 	                                                               | 	                   | 	       | 	                 |
-| Tessellation Settings 	                                                                       | DX11/Vulkan/Metal 	   | N.A. 	   | DX11/Vulkan/Metal 	 |
+| Tessellation Settings 	                                                                       | DX11/Vulkan/Metal 	   | :x: 	   | DX11/Vulkan/Metal 	 |
 | ***14. EV Adjustment*** 	                                                                       | 	                   | 	       | 	                 |
-| EV Adjustment in high intensity light scenes	 	                                               | N.A	               | N.A.	   | :heavy_check_mark:	                 |
+| EV Adjustment in high intensity light scenes	 	                                               | N.A	               | :x:	   | :heavy_check_mark:	                 |
 | ***15. Render pipeline built-in ray-traced shadows*** 	                                       | 	                   | 	       | 	                 |
-| DXR shadow supported in render pipelines 	                                                       | N.A.	               | N.A.	   | :heavy_check_mark:	                 |
+| DXR shadow supported in render pipelines 	                                                       | :x:	               | :x:	   | :heavy_check_mark:	                 |
 | ***16. [Box Light](HDRPBoxLight.md)*** 	                                                       | 	                   | 	       | 	                 |
-| Substitute for directional light 	                                                               | N.A.	               | N.A.	   | :heavy_check_mark:	                 |
+| Substitute for directional light 	                                                               | :x:	               | :x:	   | :heavy_check_mark:	                 |
 | ***17. Rendering Paths*** 	                                                                   | 	                   | 	       | 	                 |
 | Forward 	                                                                                       | :heavy_check_mark:	                   | :heavy_check_mark:	       | :heavy_check_mark:	                 |
-| Forward+ 	                                                                                       | N/A	               | :heavy_check_mark:	       | N/A	             |
-| Deferred 	                                                                                       | NO	                   | NO	       | :heavy_check_mark:	                 |
-| Deferred+ 	                                                                                   | N/A	               | NO	       | N/A	             |
+| Forward+ 	                                                                                       | :x:	               | :heavy_check_mark:	       | :x:	             |
+| Deferred 	                                                                                       | 	                   | 	       | :heavy_check_mark:	                 |
+| Deferred+ 	                                                                                   | :x:	               | 	       | :x:	             |
 
 
-
+Notes:
+* :heavy_check_mark: : Supported
+* :x: : Impossible to support (no support from the render pipeline package, etc)
+* empty : May be supported in the future
 
 
 
