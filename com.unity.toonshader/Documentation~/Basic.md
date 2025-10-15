@@ -1,6 +1,6 @@
 # Three Color Map and Control Map Settings
 
-**Three Color Map and Control Map Settings** provide basic cell shading settings in the **Unity Toon Shader**. These settings allow you to control the rendering of light and shadow areas independent from the actual light color. UTS allows detailed control whether the directional light color effects on materials. Please refer to [Scene Light Effectiveness Settings](SceneLight.md).
+**Three Color Map and Control Map Settings** provide basic cel-shading settings in the **Unity Toon Shader**. These settings allow you to control the rendering of light and shadow areas independently from the actual light color. UTS provides detailed control over whether the directional light color affects materials. Please refer to [Scene Light Effectiveness Settings](SceneLight.md) for more information.
 
 * [Three Basic Color Maps](#Three-basic-color-maps)
   * [Base Map](#base-map)
@@ -21,7 +21,7 @@
 ## Three Basic Color Maps
 
 ## Base Map
-Base Color : Texture(sRGB) × Color(RGB). The default color is White. The base color represents the color of the unshaded area of object or character. 
+Base Color: Texture(sRGB) × Color(RGB). The default color is white. The base color represents the color of the unshaded areas of objects or characters. 
 
 |  Base Color Map (Face) | (Hair) | Result  |
 | ---- | ---- |---- |
@@ -29,11 +29,11 @@ Base Color : Texture(sRGB) × Color(RGB). The default color is White. The base c
 
 
 ### Apply to 1st Shading Map
-Apply **Base Map** to the **1st Shading Map**. When you check **Apply to 1st Shading Map**, the texture map in **1st Shading Map** isn't applied for rendering and the Inspector Window disables its texture UI.
+Apply **Base Map** to the **1st Shading Map**. When you check **Apply to 1st Shading Map**, the texture map in **1st Shading Map** is not applied for rendering and the Inspector window disables its texture UI.
 
 
 ## 1st Shading Map
-The map used for the brighter portions of the shadow. Texture(sRGB) × Color(RGB). The default color is White.
+The map used for the brighter portions of the shadow. Texture(sRGB) × Color(RGB). The default color is white.
 
 |   **1st Shading Map** (Face) | (Hair) | Result  |
 | ---- | ---- | ---- |
@@ -41,11 +41,11 @@ The map used for the brighter portions of the shadow. Texture(sRGB) × Color(RGB
 
 
 ### Apply to 2nd Shading Map
-Apply **Base Map** or the **1st Shading Map** to the **2nd Shading Map**. When you check the **Apply to 2nd Shading Map**, texture map in **2nd Shading Map** isn't applied for rendering and the Inspector Window disables its texture UI.
+Apply **Base Map** or the **1st Shading Map** to the **2nd Shading Map**. When you check **Apply to 2nd Shading Map**, the texture map in **2nd Shading Map** is not applied for rendering and the Inspector window disables its texture UI.
 
 
 ### 2nd Shading Map
-The map used for the darker portions of the shadow. Texture(sRGB) × Color(RGB). The default color is White.
+The map used for the darker portions of the shadow. Texture(sRGB) × Color(RGB). The default color is white.
 
 |  **2nd Shading Map** (Face)  | (Hair) | Result  |
 | ---- | ---- | ---- |
@@ -53,13 +53,13 @@ The map used for the darker portions of the shadow. Texture(sRGB) × Color(RGB).
 
 
 ## Shadow Control Maps
-Textures that dictates the fixed shadows of the material. 
+Textures that dictate the fixed shadows of the material. 
 
 ### 1st Shading Position Map
-Specify the position of fixed shadows that falls in 1st shade color areas in UV coordinates. **1st Position Map** : Texture(linear). 
+Specifies the position of fixed shadows that fall in 1st shade color areas in UV coordinates. **1st Position Map**: Texture(linear). 
 
 ### 2nd Shading Position Map
-Specify the position of fixed shadows that falls in 2nd shade color areas in UV coordinates. **2nd Position Map** : Texture(linear).
+Specifies the position of fixed shadows that fall in 2nd shade color areas in UV coordinates. **2nd Position Map**: Texture(linear).
 
 
 <br><br>

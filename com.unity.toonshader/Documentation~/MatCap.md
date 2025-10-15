@@ -1,6 +1,6 @@
-# Material Capture(MatCap) Settings
+# Material Capture (MatCap) Settings
 
-MatCap is a method of light expression using pre-rendered images. This technique uses a picture of a sphere that represents the material and light to simulate lighting.
+MatCap is a method of light expression using pre-rendered images. This technique uses a picture of a sphere that represents the material and lighting to simulate illumination.
 
 <video title="A camera pan over the head of a chibi-style character model with long hair and rabbit ears. The specular highlights on the ears and hair move with the camera." src="images/MatCap.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video>
 
@@ -21,7 +21,7 @@ MatCap is a method of light expression using pre-rendered images. This technique
   * [Invert MatCap Mask](#invert-matcap-mask)
 
 ## MatCap Map
-MatCap Color : Texture(sRGB) × Color(RGB) Default:White
+MatCap Color: Texture(sRGB) × Color(RGB). Default: White
 
 ![A square black texture, with an upwards-curving yellow shape with soft edges.](images/HiLight_Matcap.png)<br/>
 An example of a MatCap Map texture.

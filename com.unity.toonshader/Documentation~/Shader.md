@@ -1,6 +1,6 @@
 # Shader Settings
 
-The Shader Settings provide basic settings that aren't specific to  cel-shading but are necessary for general CG.
+The Shader Settings provide basic settings that aren't specific to cel-shading but are necessary for general computer graphics.
 
 * [Culling Mode](#culling-Mode)
 * [Auto Render Queue](#auto-render-queue)
@@ -19,12 +19,12 @@ The Shader Settings provide basic settings that aren't specific to  cel-shading 
 
 |  Culling Mode   |  Description  | 
 | ---- | ---- | 
-|  Back   |  Don't render polygons that are facing away from the viewer (default) i.e. back-facing polygons are culled.  |
+|  Back   |  Don't render polygons that are facing away from the viewer (default), i.e., back-facing polygons are culled.  |
 |  Front  | Don't render polygons that are facing towards the viewer. Used for turning objects inside-out. |
-|  Off  |  Disables culling - all faces are drawn. Used for special effects. |
+|  Off  |  Disables culling—all faces are drawn. Used for special effects. |
 
 ## Auto Render Queue
-When enabled, system automatically determines rendering order. 
+When enabled, the system automatically determines rendering order. 
 
 ### Render Queue
 Rendering order in the scene.
