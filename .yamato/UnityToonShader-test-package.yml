@@ -1,6 +1,9 @@
-yamato_name: uts2
-test_editors:
-  - version: 2021.3
+{% metadata_file .yamato/UnityToonShader.metafile %}
+
+#
+#
+#
+
 test_platforms:
   - name: win
     type: Unity::VM
