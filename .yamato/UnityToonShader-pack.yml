@@ -1,0 +1,22 @@
+{% metadata_file .yamato/UnityToonShader.metafile %}
+
+#
+#
+#
+
+---
+pack:
+  name: Pack {{ yamato_name }}
+  agent:  
+    type:   {{ pack_platform.type }}
+    image:  {{ pack_platform.image }} 
+    flavor: {{ pack_platform.flavor }} 
+  commands:
+    - npm install upm-ci-utils@stable -g --registry https://artifactory.prd.cds.internal.unity3d.com/artifactory/api/npm/upm-npm
+    - upm-ci package pack --package-path com.unity.toonshader
+  artifacts:
+    {{ yamato_name }}_pack_artifacts:
+      paths:
+        - "upm-ci~/**/*"
+
+
