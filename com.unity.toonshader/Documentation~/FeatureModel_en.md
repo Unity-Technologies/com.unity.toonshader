@@ -7,8 +7,8 @@
 | With Advanced Control Map 	                                                                   | :heavy_check_mark: 	               | :heavy_check_mark:	       | :heavy_check_mark: 	             |
 | ***2. Shader Settings*** 	                                                                       | 	                   | 	       | 	                 |
 | Culling  	                                                                                       | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Stencil  	                                                                                       | :heavy_check_mark: 	               | :heavy_check_mark: 	   | NO 	             |
-| Stencil Value 	                                                                               | :heavy_check_mark: 	               | :heavy_check_mark: 	   | NO 	             |
+| Stencil  	                                                                                       | :heavy_check_mark: 	               | :heavy_check_mark: 	   |  	             |
+| Stencil Value 	                                                                               | :heavy_check_mark: 	               | :heavy_check_mark: 	   |  	             |
 | Clipping 	                                                                                       | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark:	                 |
 | Clipping Mask                                                                                    | :heavy_check_mark: 	               | :heavy_check_mark:	       | :heavy_check_mark: 	             |
 | Invert  Clipping Mask 	                                                                       | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
