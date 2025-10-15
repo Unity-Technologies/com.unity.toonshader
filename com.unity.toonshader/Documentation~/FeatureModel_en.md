@@ -70,9 +70,9 @@
 | Alpha Channel as Clipping Mask	                                                               | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
 | ***10. [Scene Light Effectiveness Settings](SceneLight.md) for all UTS color properties ***                | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  | 
 | ***11. Metaverse Settings*** 	                                                                   | 	                   | 	       | 	                 |
-| Metaverse Light 	                                                                               | :heavy_check_mark: 	               | :heavy_check_mark: 	   | NO 	             |
-| Metaverse Light Intensity	                                                                       | :heavy_check_mark: 	               | :heavy_check_mark: 	   | NO 	             |
-| Metaverse Light Direction	                                                                       | :heavy_check_mark: 	               | :heavy_check_mark:        | NO 	             |
+| Metaverse Light 	                                                                               | :heavy_check_mark: 	               | :heavy_check_mark: 	   |  	             |
+| Metaverse Light Intensity	                                                                       | :heavy_check_mark: 	               | :heavy_check_mark: 	   |  	             |
+| Metaverse Light Direction	                                                                       | :heavy_check_mark: 	               | :heavy_check_mark:        |  	             |
 | ***12. Outline Settings*** 	                                                                   | 	                   | 	       | 	                 |
 | Outline Mode 	                                                                                   | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
 | Outline Width 	                                                                               | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
