@@ -99,4 +99,4 @@ Notes:
 
 * :heavy_check_mark: : Supported
 * :x: : Not supported (e.g. limitations in the render pipeline, etc)
-* :grey_question: : Potential future support (not currently available)
+* :grey_question: : Currently not available
