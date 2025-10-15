@@ -1,6 +1,8 @@
 ﻿# Latest official docs
 - [English](https://docs.unity3d.com/Packages/com.unity.toonshader@latest)
 - [日本語](https://docs.unity3d.com/ja/Packages/com.unity.toonshader@latest)
+
+# Unity Toon Shader
 * [Unity Toon Shader](com.unity.toonshader/Documentation~/index.md)
 * [Requirements](com.unity.toonshader/Documentation~/System-Requirements.md)
 * [Installation](com.unity.toonshader/Documentation~/installation.md)
@@ -28,7 +30,9 @@
 * [Samples](com.unity.toonshader/Documentation~/sample-instlation.md)
 * [Feature Difference](com.unity.toonshader/Documentation~/FeatureModel_en.md)
 * [Known Issues](com.unity.toonshader/Documentation~/Known-issue.md)
-﻿# Post-Cloning Setup on Windows
+﻿
+
+# Post-Cloning Setup on Windows
 
 This repository utilizes symbolic links to share code across multiple projects. 
 On Windows 10 or later, symbolic link creation is restricted by default for regular users, 
@@ -38,7 +42,7 @@ To resolve this, follow the steps below to enable symbolic link creation and con
 
 1. Open **Local Security Policy** by typing `secpol.msc` on Windows Command Prompt
 
-![](https://github.com/Unity-Technologies/com.unity.toonshader/tree/master/Images/CreateSymbolicLinks_LocalSecurityPolicy.jpg)
+![](https://raw.githubusercontent.com/Unity-Technologies/com.unity.toonshader/master/Images/CreateSymbolicLinks_LocalSecurityPolicy.jpg)
 
 
 2. Under **User Rights Assignment**, find a policy called **Create symbolic links** and open it.
@@ -46,11 +50,11 @@ To resolve this, follow the steps below to enable symbolic link creation and con
   - Click **Object Types**
   - Make sure **Groups** is checked and click **OK**.
 
-![](https://github.com/Unity-Technologies/com.unity.toonshader/tree/master/Images/CreateSymbolicLinks_Properties.jpg)
+![](https://raw.githubusercontent.com/Unity-Technologies/com.unity.toonshader/master/Images/CreateSymbolicLinks_Properties.jpg)
 
 3. Type **USERS** inside the textbox and click on **Check Names** to verify it, then click **OK**.
 
-![](https://github.com/Unity-Technologies/com.unity.toonshader/tree/master/Images/CreateSymbolicLinks_SelectUsers.jpg)
+![](https://raw.githubusercontent.com/Unity-Technologies/com.unity.toonshader/master/Images/CreateSymbolicLinks_SelectUsers.jpg)
 
 4. Configure git to allow symbolic links. For example, by typing the following in Git Bash:
 
@@ -61,4 +65,4 @@ git config --global core.symlinks true
 
 
 
-*Auto-generated on Wed Oct 15 12:28:20 UTC 2025*
+*Auto-generated on Wed Oct 15 12:50:26 UTC 2025*
