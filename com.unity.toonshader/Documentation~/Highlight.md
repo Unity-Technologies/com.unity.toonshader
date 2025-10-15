@@ -1,6 +1,6 @@
 # Highlight Settings
 
-The ability to display specular highlights in a cel-animation-like manner is essential for Toon Shaders. The **Unity Toon Shader** provides a wide variety of expressions with controllability to illuminate the area independently of light color and intensity for impressive cel-shading.
+The ability to display specular highlights in a cel-animation-like manner is essential for toon shaders. The **Unity Toon Shader** provides a wide variety of expressions with controllable illumination that works independently of light color and intensity for impressive cel-shading.
 
 * [Highlight](#highlight)
 * [Highlight Power](#highlight-power)
@@ -13,7 +13,7 @@ The ability to display specular highlights in a cel-animation-like manner is ess
 
 
 ## Highlight
-Highlight : Texture(sRGB) × Color(RGB) Default:White. Pattern and color of specularly illuminated area.
+Highlight: Texture(sRGB) × Color(RGB). Default: White. Pattern and color of the specularly illuminated area.
 
 <canvas class="image-comparison" role="img" aria-label="A toon-shaded sphere in a room textured with graphs. The sphere has green and purple bands of color, and a bright white specular highlight. Then the same sphere, with the color picker window open and the color #FF0000 selected. The specular highlight on the sphere is now orange and yellow.">
     <img src="images/Highlight0.png" title="The default color.">
@@ -23,7 +23,7 @@ Highlight : Texture(sRGB) × Color(RGB) Default:White. Pattern and color of spec
 
 ## Highlight Power
 
-The size of the Highlight controlled through the High light power slider. The size increase with the formula: pow(x,5).
+The size of the highlight is controlled through the highlight power slider. The size increases with the formula: pow(x,5).
 
 
 ## Specular Mode
