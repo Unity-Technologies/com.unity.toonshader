@@ -10,7 +10,7 @@ To resolve this, follow the steps below to enable symbolic link creation and con
 
 1. Open **Local Security Policy** by typing `secpol.msc` on Windows Command Prompt
 
-![](Images/CreateSymbolicLinks_LocalSecurityPolicy.jpg)
+![](https://github.com/Unity-Technologies/com.unity.toonshader/tree/master/Images/CreateSymbolicLinks_LocalSecurityPolicy.jpg)
 
 
 2. Under **User Rights Assignment**, find a policy called **Create symbolic links** and open it.
@@ -18,11 +18,11 @@ To resolve this, follow the steps below to enable symbolic link creation and con
   - Click **Object Types**
   - Make sure **Groups** is checked and click **OK**.
 
-![](Images/CreateSymbolicLinks_Properties.jpg)
+![](https://github.com/Unity-Technologies/com.unity.toonshader/tree/master/Images/CreateSymbolicLinks_Properties.jpg)
 
 3. Type **USERS** inside the textbox and click on **Check Names** to verify it, then click **OK**.
 
-![](Images/CreateSymbolicLinks_SelectUsers.jpg)
+![](https://github.com/Unity-Technologies/com.unity.toonshader/tree/master/Images/CreateSymbolicLinks_SelectUsers.jpg)
 
 4. Configure git to allow symbolic links. For example, by typing the following in Git Bash:
 
