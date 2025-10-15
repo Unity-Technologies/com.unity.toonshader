@@ -21,7 +21,7 @@ To make cel-shading work, you need to place at least one [directional light](htt
 
 ## Creating a new material and applying Unity Toon Shader
 
-Start by [creating a material](https://docs.unity3d.com/2022.2/Documentation/Manual/materials-introduction.html).
+Start by [creating a material](https://docs.unity3d.com/6000.0/Documentation/Manual/materials-introduction.html).
 
 ![A fully white chibi-style character model with long hair and rabbit ears. The Inspector window is open with the Lit material of the Universal Render Pipeline.](images/UrpLitMaterial.png)<br/>
 Next, select the appropriate shader for the material. 
