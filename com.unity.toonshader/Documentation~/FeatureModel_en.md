@@ -88,7 +88,7 @@
 | ***13.Tessellation Settings*** 	                                                               | 	                   | 	       | 	                 |
 | Tessellation Settings 	                                                                       | DX11/Vulkan/Metal 	   | :x: 	   | DX11/Vulkan/Metal 	 |
 | ***14. EV Adjustment*** 	                                                                       | 	                   | 	       | 	                 |
-| EV Adjustment in high intensity light scenes	 	                                               | N.A	               | :x:	   | :heavy_check_mark:	                 |
+| EV Adjustment in high intensity light scenes	 	                                               | :x:	               | :x:	   | :heavy_check_mark:	                 |
 | ***15. Render pipeline built-in ray-traced shadows*** 	                                       | 	                   | 	       | 	                 |
 | DXR shadow supported in render pipelines 	                                                       | :x:	               | :x:	   | :heavy_check_mark:	                 |
 | ***16. [Box Light](HDRPBoxLight.md)*** 	                                                       | 	                   | 	       | 	                 |
