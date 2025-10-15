@@ -7,8 +7,8 @@
 | &ensp; With Advanced Control Map                                                           | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark:     |
 | ***2. Shader Settings***                                                                   |                        |                    |                        |
 | &ensp; Culling                                                                             | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark:     |
-| &ensp; Stencil                                                                             | :heavy_check_mark:     | :heavy_check_mark: | :grey_question:        |
-| &ensp; Stencil Value                                                                       | :heavy_check_mark:     | :heavy_check_mark: | :grey_question:        |
+| &ensp; Stencil                                                                             | :heavy_check_mark:     | :heavy_check_mark: | :x:                    |
+| &ensp; Stencil Value                                                                       | :heavy_check_mark:     | :heavy_check_mark: | :x:                    |
 | &ensp; Clipping                                                                            | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark:     |
 | &ensp; Clipping Mask                                                                       | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark:     |
 | &ensp; Invert  Clipping Mask                                                               | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark:     |
@@ -70,9 +70,9 @@
 | &ensp; Alpha Channel as Clipping Mask                                                      | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark:     |
 | ***10. [Scene Light Effectiveness Settings](SceneLight.md) for all UTS color properties*** | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark:     |
 | ***11. Metaverse Settings***                                                               |                        |                    |                        |
-| &ensp; Metaverse Light                                                                     | :heavy_check_mark:     | :heavy_check_mark: | :grey_question:        |
-| &ensp; Metaverse Light Intensity                                                           | :heavy_check_mark:     | :heavy_check_mark: | :grey_question:        |
-| &ensp; Metaverse Light Direction                                                           | :heavy_check_mark:     | :heavy_check_mark: | :grey_question:        |
+| &ensp; Metaverse Light                                                                     | :heavy_check_mark:     | :heavy_check_mark: | :x:                    |
+| &ensp; Metaverse Light Intensity                                                           | :heavy_check_mark:     | :heavy_check_mark: | :x:                    |
+| &ensp; Metaverse Light Direction                                                           | :heavy_check_mark:     | :heavy_check_mark: | :x:                    |
 | ***12. Outline Settings***                                                                 |                        |                    |                        |
 | &ensp; Outline Mode                                                                        | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark:     |
 | &ensp; Outline Width                                                                       | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark:     |
@@ -85,18 +85,17 @@
 | &ensp; Ping-pong moves for base                                                            | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark:     |
 | &ensp; Color Shifting with Time                                                            | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark:     |
 | &ensp; Color Shifting with View Angle                                                      | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark:     |
-| ***13.Tessellation Settings***                                                             | DX11/DX12/Vulkan/Metal | :x:                | DX11/DX12/Vulkan/Metal |
-| ***14. EV Adjustment in high intensity light scenes***                                     | :x:                    | :x:                | :heavy_check_mark:     |
-| ***15. DXR (ray-traced) shadows***                                                         | :x:                    | :x:                | :heavy_check_mark:     |
-| ***16. [Box Light](HDRPBoxLight.md)***                                                     | :x:                    | :x:                | :heavy_check_mark:     |
+| ***13.Tessellation Settings***                                                             | DX11/DX12/Vulkan/Metal | :no_entry_sign:    | DX11/DX12/Vulkan/Metal |
+| ***14. EV Adjustment in high intensity light scenes***                                     | :no_entry_sign:        | :no_entry_sign:    | :heavy_check_mark:     |
+| ***15. DXR (ray-traced) shadows***                                                         | :no_entry_sign:        | :no_entry_sign:    | :heavy_check_mark:     |
+| ***16. [Box Light](HDRPBoxLight.md)***                                                     | :no_entry_sign:        | :no_entry_sign:    | :heavy_check_mark:     |
 | ***17. Rendering Paths***                                                                  |                        |                    |                        |
 | &ensp; Forward                                                                             | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark:     |
-| &ensp; Forward+                                                                            | :x:                    | :heavy_check_mark: | :x:                    |
-| &ensp; Deferred                                                                            | :grey_question:        | :grey_question:    | :heavy_check_mark:     |
-| &ensp; Deferred+                                                                           | :x:                    | :grey_question:    | :x:                    |
+| &ensp; Forward+                                                                            | :no_entry_sign:        | :heavy_check_mark: | :no_entry_sign:        |
+| &ensp; Deferred                                                                            | :x:                    | :x:                | :heavy_check_mark:     |
+| &ensp; Deferred+                                                                           | :no_entry_sign:        | :x:                | :no_entry_sign:        |
 
 Notes:
-
 * :heavy_check_mark: : Supported
-* :x: : Not supported (e.g. limitations in the render pipeline, etc)
-* :grey_question: : Currently not available
+* :no_entry_sign: : Not supported (e.g. limitations in the render pipeline, etc)
+* :x: : Currently not available
