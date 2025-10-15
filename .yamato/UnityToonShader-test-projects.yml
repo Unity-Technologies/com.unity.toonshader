@@ -13,6 +13,9 @@ osx_test_projects:
     unity_editors:
       - version: 2022.3
       - version: 6000.0
+  - project_prefix: LegacyGraphicsTest
+    unity_editors:
+      - version: 6000.0
   - project_prefix: UniversalGraphicsTest
     unity_editors:
       - version: 6000.0
