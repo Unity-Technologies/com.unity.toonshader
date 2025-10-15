@@ -1,2 +1,0 @@
-m_EditorVersion: 2022.3.62f2
-m_EditorVersionWithRevision: 2022.3.62f2 (7670c08855a9)
