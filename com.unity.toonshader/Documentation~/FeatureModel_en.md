@@ -2,164 +2,164 @@
 
 ### 1. Modes
 
-| Function                                                                                         | Built-In  	           | URP 	   | HDRP 	          |
+| Function                                                                                         | Built-In              | URP       | HDRP             |
 |--------------------------------------------------------------------------------------------------|-----------------------|-----------|---------------------|
-| Standard	                                                                                      | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| With Advanced Control Map 	                                                                   | :heavy_check_mark: 	               | :heavy_check_mark:	       | :heavy_check_mark: 	             |
+| Standard                                                                                        | :heavy_check_mark:                 | :heavy_check_mark:        | :heavy_check_mark:                  |
+| With Advanced Control Map                                                                        | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
 
 ### 2. Shader Settings
 
-| Function                                                                                         | Built-In  	           | URP 	   | HDRP 	          |
+| Function                                                                                         | Built-In              | URP       | HDRP             |
 |--------------------------------------------------------------------------------------------------|-----------------------|-----------|---------------------|
-| Culling  	                                                                                       | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Stencil  	                                                                                       | :heavy_check_mark: 	               | :heavy_check_mark: 	   |  	             |
-| Stencil Value 	                                                                               | :heavy_check_mark: 	               | :heavy_check_mark: 	   |  	             |
-| Clipping 	                                                                                       | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark:	                 |
-| Clipping Mask                                                                                    | :heavy_check_mark: 	               | :heavy_check_mark:	       | :heavy_check_mark: 	             |
-| Invert  Clipping Mask 	                                                                       | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Use Base Map Alpha as Clipping Mask 	                                                           | :heavy_check_mark: 	               | :heavy_check_mark:	       | :heavy_check_mark:	                 |
+| Culling                                                                                          | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Stencil                                                                                          | :heavy_check_mark:                    | :heavy_check_mark:        |                 |
+| Stencil Value                                                                                    | :heavy_check_mark:                    | :heavy_check_mark:        |                 |
+| Clipping                                                                                         | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Clipping Mask                                                                                    | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Invert  Clipping Mask                                                                            | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Use Base Map Alpha as Clipping Mask                                                              | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
 
 ### 3. Three Color Map and Control Map Settings
 
-| Function                                                                                         | Built-In  	           | URP 	   | HDRP 	          |
+| Function                                                                                         | Built-In              | URP       | HDRP             |
 |--------------------------------------------------------------------------------------------------|-----------------------|-----------|---------------------|
-| Base Map                                                                                         | :heavy_check_mark: 	               | :heavy_check_mark:	       | :heavy_check_mark: 	             |
-| 1st Shading Map	                                                                               | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark:	                 |
-| 2nd Shading Map	                                                                               | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Normal Map	                                                                                   | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Shadow Control Maps	                                                                           | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
+| Base Map                                                                                         | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| 1st Shading Map                                                                                  | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| 2nd Shading Map                                                                                  | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Normal Map                                                                                       | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Shadow Control Maps                                                                              | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
 
 ### 4. Shading Steps and Feather Settings
 
-| Function                                                                                         | Built-In  	           | URP 	   | HDRP 	          |
+| Function                                                                                         | Built-In              | URP       | HDRP             |
 |--------------------------------------------------------------------------------------------------|-----------------------|-----------|---------------------|
-| Base Color Step	                                                                               | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Base Shading Feather                                                                             | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Shading Color Step 	                                                                           | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Point Light Step Offset	                                                                       | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Filter Point Light Highlights 	                                                               | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
+| Base Color Step                                                                                  | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Base Shading Feather                                                                             | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Shading Color Step                                                                               | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Point Light Step Offset                                                                          | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Filter Point Light Highlights                                                                    | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
 
 ### 5. Highlight Settings
 
-| Function                                                                                         | Built-In  	           | URP 	   | HDRP 	          |
+| Function                                                                                         | Built-In              | URP       | HDRP             |
 |--------------------------------------------------------------------------------------------------|-----------------------|-----------|---------------------|
-| Highlight Power                                                                                  | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Specular Mode 	                                                                               | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Color Blending Mode 	                                                                           | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Highlight Blending on Shadows 	                                                               | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Highlight Mask	                                                                               | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Highlight Mask Level	                                                                           | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
+| Highlight Power                                                                                  | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Specular Mode                                                                                    | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Color Blending Mode                                                                              | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Highlight Blending on Shadows                                                                    | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Highlight Mask                                                                                   | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Highlight Mask Level                                                                             | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
 
 ### 6. Rim Light Settings
 
-| Function                                                                                         | Built-In  	           | URP 	   | HDRP 	          |
+| Function                                                                                         | Built-In              | URP       | HDRP             |
 |--------------------------------------------------------------------------------------------------|-----------------------|-----------|---------------------|
-| Rim Light Color	                                                                               | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Rim Light Level	                                                                               | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Adjust Rim Light Area 	                                                                       | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Inverted Light Direction Rim Light 	                                                           | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Rim Light Mask	                                                                               | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
+| Rim Light Color                                                                                  | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Rim Light Level                                                                                  | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Adjust Rim Light Area                                                                            | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Inverted Light Direction Rim Light                                                               | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Rim Light Mask                                                                                   | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
 
 ### 7. Material Capture (MatCap) Settings
 
-| Function                                                                                         | Built-In  	           | URP 	   | HDRP 	          |
+| Function                                                                                         | Built-In              | URP       | HDRP             |
 |--------------------------------------------------------------------------------------------------|-----------------------|-----------|---------------------|
-| MatCap Map 	                                                                                   | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| MatCap Blur Level	                                                                               | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Color Blending Mode 	                                                                           | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Scale MatCap UV	                                                                               | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Rotate MatCap UV	                                                                               | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Stabilize Camera Rolling	                                                                       | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Normal Map	                                                                                   | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Rotate Normal Map UV 	                                                                           | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| MatCap Blending on Shadows 	                                                                   | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| MatCap Camera Mode	                                                                           | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| MatCap Mask	                                                                                   | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| MatCap Mask Level 	                                                                           | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Invert MatCap Mask	                                                                           | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
+| MatCap Map                                                                                       | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| MatCap Blur Level                                                                                | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Color Blending Mode                                                                              | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Scale MatCap UV                                                                                  | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Rotate MatCap UV                                                                                 | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Stabilize Camera Rolling                                                                         | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Normal Map                                                                                       | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Rotate Normal Map UV                                                                             | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| MatCap Blending on Shadows                                                                       | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| MatCap Camera Mode                                                                               | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| MatCap Mask                                                                                      | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| MatCap Mask Level                                                                                | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Invert MatCap Mask                                                                               | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
 
 ### 8. Emission Settings
 
-| Function                                                                                         | Built-In  	           | URP 	   | HDRP 	          |
+| Function                                                                                         | Built-In              | URP       | HDRP             |
 |--------------------------------------------------------------------------------------------------|-----------------------|-----------|---------------------|
-| Emission Map 	                                                                                   | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Use the alpha channel of Emissive Map as a Clipping mask 	                                       | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Emission Map Animation	                                                                       | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Base Speed (Time)	                                                                               | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Animation Mode	                                                                               | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Scroll U/X direction 	                                                                           | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Scroll V/Y direction	                                                                           | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Rotate around UV center 	                                                                       | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Ping-pong moves for base 	                                                                       | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Color Shifting with Time 	                                                                       | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Color Shifting with View Angle	                                                               | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
+| Emission Map                                                                                     | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Use the alpha channel of Emissive Map as a Clipping mask                                         | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Emission Map Animation                                                                           | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Base Speed (Time)                                                                                | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Animation Mode                                                                                   | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Scroll U/X direction                                                                             | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Scroll V/Y direction                                                                             | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Rotate around UV center                                                                          | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Ping-pong moves for base                                                                         | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Color Shifting with Time                                                                         | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Color Shifting with View Angle                                                                   | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
 
 ### 9. Angel Ring Projection Settings
 
-| Function                                                                                         | Built-In  	           | URP 	   | HDRP 	          |
+| Function                                                                                         | Built-In              | URP       | HDRP             |
 |--------------------------------------------------------------------------------------------------|-----------------------|-----------|---------------------|
-| Angel Ring	                                                                                   | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Offset U/V	                                                                                   | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Alpha Channel as Clipping Mask	                                                               | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
+| Angel Ring                                                                                       | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Offset U/V                                                                                       | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Alpha Channel as Clipping Mask                                                                   | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
 
 | ***10. [Scene Light Effectiveness Settings](SceneLight.md) for all UTS color properties ***                | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  | 
 
 ### 11. Metaverse Settings
 
-| Function                                                                                         | Built-In  	           | URP 	   | HDRP 	          |
+| Function                                                                                         | Built-In              | URP       | HDRP             |
 |--------------------------------------------------------------------------------------------------|-----------------------|-----------|---------------------|
-| Metaverse Light 	                                                                               | :heavy_check_mark: 	               | :heavy_check_mark: 	   |  	             |
-| Metaverse Light Intensity	                                                                       | :heavy_check_mark: 	               | :heavy_check_mark: 	   |  	             |
-| Metaverse Light Direction	                                                                       | :heavy_check_mark: 	               | :heavy_check_mark:        |  	             |
+| Metaverse Light                                                                                  | :heavy_check_mark:                    | :heavy_check_mark:        |                 |
+| Metaverse Light Intensity                                                                        | :heavy_check_mark:                    | :heavy_check_mark:        |                 |
+| Metaverse Light Direction                                                                        | :heavy_check_mark:                    | :heavy_check_mark:        |                 |
 
 ### 12. Outline Settings
 
-| Function                                                                                         | Built-In  	           | URP 	   | HDRP 	          |
+| Function                                                                                         | Built-In              | URP       | HDRP             |
 |--------------------------------------------------------------------------------------------------|-----------------------|-----------|---------------------|
-| Outline Mode 	                                                                                   | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Outline Width 	                                                                               | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Outline Color	                                                                                   | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Blend Base Color to Outline	                                                                   | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Offset Outline with Camera Z-axis	                                                               | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Camera Distance for Outline Width 	                                                           | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Outline Color Map	                                                                               | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Rotate around UV center 	                                                                       | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Ping-pong moves for base 	                                                                       | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Color Shifting with Time 	                                                                       | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
-| Color Shifting with View Angle	                                                               | :heavy_check_mark: 	               | :heavy_check_mark: 	   | :heavy_check_mark: 	             |
+| Outline Mode                                                                                     | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Outline Width                                                                                    | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Outline Color                                                                                    | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Blend Base Color to Outline                                                                      | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Offset Outline with Camera Z-axis                                                                | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Camera Distance for Outline Width                                                                | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Outline Color Map                                                                                | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Rotate around UV center                                                                          | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Ping-pong moves for base                                                                         | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Color Shifting with Time                                                                         | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Color Shifting with View Angle                                                                   | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
 
 ### 13.Tessellation Settings
 
-| Function                                                                                         | Built-In  	           | URP 	   | HDRP 	          |
+| Function                                                                                         | Built-In              | URP       | HDRP             |
 |--------------------------------------------------------------------------------------------------|-----------------------|-----------|---------------------|
-| Tessellation Settings 	                                                                       | DX11/Vulkan/Metal 	   | :x: 	   | DX11/Vulkan/Metal 	 |
+| Tessellation Settings                                                                            | DX11/Vulkan/Metal     | :x:       | DX11/Vulkan/Metal   |
 
 ### 14. EV Adjustment
 
-| Function                                                                                         | Built-In  	           | URP 	   | HDRP 	          |
+| Function                                                                                         | Built-In              | URP       | HDRP             |
 |--------------------------------------------------------------------------------------------------|-----------------------|-----------|---------------------|
-| EV Adjustment in high intensity light scenes	 	                                               | :x:	               | :x:	   | :heavy_check_mark:	                 |
+| EV Adjustment in high intensity light scenes                                                     | :x:                   | :x:       | :heavy_check_mark:                  |
 
 ### 15. Render pipeline built-in ray-traced shadows
 
-| Function                                                                                         | Built-In  	           | URP 	   | HDRP 	          |
+| Function                                                                                         | Built-In              | URP       | HDRP             |
 |--------------------------------------------------------------------------------------------------|-----------------------|-----------|---------------------|
-| DXR shadow                                                                                      | :x:	               | :x:	   | :heavy_check_mark:	                 |
+| DXR shadow                                                                                      | :x:                | :x:       | :heavy_check_mark:                  |
 
 ### 16. [Box Light](HDRPBoxLight.md)
 
-| Function                                                                                         | Built-In  	           | URP 	   | HDRP 	          |
+| Function                                                                                         | Built-In              | URP       | HDRP             |
 |--------------------------------------------------------------------------------------------------|-----------------------|-----------|---------------------|
-| Substitute for directional light 	                                                               | :x:	               | :x:	   | :heavy_check_mark:	                 |
+| Substitute for directional light                                                                 | :x:                   | :x:       | :heavy_check_mark:                  |
 
 ### ***17. Rendering Paths***
 
-| Function             | Built-In  	       | URP 	   | HDRP 	          |
+| Function             | Built-In          | URP       | HDRP             |
 |----------------------|-----------------------|-----------|---------------------|
-| Forward 	            | :heavy_check_mark:   | :heavy_check_mark:	       | :heavy_check_mark:	                 |
-| Forward+ 	        | :x:	               | :heavy_check_mark:	       | :x:	             |
-| Deferred 	        | 	                   | 	       | :heavy_check_mark:	                 |
-| Deferred+ 	        | :x:	               | 	       | :x:	             |
+| Forward               | :heavy_check_mark:   | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Forward+          | :x:                  | :heavy_check_mark:        | :x:                 |
+| Deferred          |                      |           | :heavy_check_mark:                  |
+| Deferred+             | :x:                  |           | :x:                 |
 
 Notes:
 * :heavy_check_mark: : Supported
