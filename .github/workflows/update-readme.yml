@@ -67,7 +67,7 @@ jobs:
         uses: unity3d-jp/actions/append-md-local-url@main
         with:
           filepath: 'README.md'
-          prefix: 'Documentation~/'
+          prefix: 'com.unity.toonshader/Documentation~/'
       - name: git setting
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
