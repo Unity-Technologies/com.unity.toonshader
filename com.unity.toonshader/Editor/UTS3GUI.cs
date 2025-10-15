@@ -1891,7 +1891,7 @@ namespace UnityEditor.Rendering.Toon {
             }
 
             if (m_autoRenderQueue == 1) {
-                SetReqnderQueueAuto(material);
+                SetRenderQueueAuto(material);
             }
             else {
                 material.renderQueue = m_renderQueue;
@@ -1901,7 +1901,7 @@ namespace UnityEditor.Rendering.Toon {
             material.SetOverrideTag(IGNOREPROJECTION, ignoreProjection);
         }
 
-        void SetReqnderQueueAuto(Material material) {
+        void SetRenderQueueAuto(Material material) {
             const int transparent = (int)UnityEngine.Rendering.RenderQueue.Transparent;
             const int alphaTest = (int)UnityEngine.Rendering.RenderQueue.AlphaTest;
             const int alphaTestMinusOne = (int)UnityEngine.Rendering.RenderQueue.AlphaTest - 1;
