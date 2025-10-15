@@ -2,42 +2,42 @@
 
 ### 1. Modes
 
-| Function                                                                                         | Built-In              | URP       | HDRP             |
-|--------------------------------------------------------------------------------------------------|-----------------------|-----------|---------------------|
-| Standard                                                                                        | :heavy_check_mark:                 | :heavy_check_mark:        | :heavy_check_mark:                  |
-| With Advanced Control Map                                                                        | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Function                      | Built-In              | URP                  | HDRP                |
+|-------------------------------|-----------------------|----------------------|---------------------|
+| Standard                      | :heavy_check_mark:    | :heavy_check_mark:   | :heavy_check_mark:  |
+| With Advanced Control Map     | :heavy_check_mark:    | :heavy_check_mark:   | :heavy_check_mark:  |
 
 ### 2. Shader Settings
 
-| Function                                                                                         | Built-In              | URP       | HDRP             |
-|--------------------------------------------------------------------------------------------------|-----------------------|-----------|---------------------|
-| Culling                                                                                          | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
-| Stencil                                                                                          | :heavy_check_mark:                    | :heavy_check_mark:        |                 |
-| Stencil Value                                                                                    | :heavy_check_mark:                    | :heavy_check_mark:        |                 |
-| Clipping                                                                                         | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
-| Clipping Mask                                                                                    | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
-| Invert  Clipping Mask                                                                            | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
-| Use Base Map Alpha as Clipping Mask                                                              | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Function                                | Built-In              | URP                  | HDRP               |
+|-----------------------------------------|-----------------------|----------------------|--------------------|
+| Culling                                 | :heavy_check_mark:    | :heavy_check_mark:   | :heavy_check_mark: |
+| Stencil                                 | :heavy_check_mark:    | :heavy_check_mark:   |                    |
+| Stencil Value                           | :heavy_check_mark:    | :heavy_check_mark:   |                    |
+| Clipping                                | :heavy_check_mark:    | :heavy_check_mark:   | :heavy_check_mark: |
+| Clipping Mask                           | :heavy_check_mark:    | :heavy_check_mark:   | :heavy_check_mark: |
+| Invert  Clipping Mask                   | :heavy_check_mark:    | :heavy_check_mark:   | :heavy_check_mark: |
+| Use Base Map Alpha as Clipping Mask     | :heavy_check_mark:    | :heavy_check_mark:   | :heavy_check_mark: |
 
 ### 3. Three Color Map and Control Map Settings
 
-| Function                                                                                         | Built-In              | URP       | HDRP             |
-|--------------------------------------------------------------------------------------------------|-----------------------|-----------|---------------------|
-| Base Map                                                                                         | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
-| 1st Shading Map                                                                                  | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
-| 2nd Shading Map                                                                                  | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
-| Normal Map                                                                                       | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
-| Shadow Control Maps                                                                              | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Function              | Built-In              | URP                  | HDRP                  |
+|-----------------------|-----------------------|----------------------|-----------------------|
+| Base Map              | :heavy_check_mark:    | :heavy_check_mark:   | :heavy_check_mark:    |
+| 1st Shading Map       | :heavy_check_mark:    | :heavy_check_mark:   | :heavy_check_mark:    |
+| 2nd Shading Map       | :heavy_check_mark:    | :heavy_check_mark:   | :heavy_check_mark:    |
+| Normal Map            | :heavy_check_mark:    | :heavy_check_mark:   | :heavy_check_mark:    |
+| Shadow Control Maps   | :heavy_check_mark:    | :heavy_check_mark:   | :heavy_check_mark:    |
 
 ### 4. Shading Steps and Feather Settings
 
-| Function                                                                                         | Built-In              | URP       | HDRP             |
-|--------------------------------------------------------------------------------------------------|-----------------------|-----------|---------------------|
-| Base Color Step                                                                                  | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
-| Base Shading Feather                                                                             | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
-| Shading Color Step                                                                               | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
-| Point Light Step Offset                                                                          | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
-| Filter Point Light Highlights                                                                    | :heavy_check_mark:                    | :heavy_check_mark:        | :heavy_check_mark:                  |
+| Function                       | Built-In              | URP                   | HDRP               |
+|--------------------------------|-----------------------|-----------------------|--------------------|
+| Base Color Step                | :heavy_check_mark:    | :heavy_check_mark:    | :heavy_check_mark: |
+| Base Shading Feather           | :heavy_check_mark:    | :heavy_check_mark:    | :heavy_check_mark: |
+| Shading Color Step             | :heavy_check_mark:    | :heavy_check_mark:    | :heavy_check_mark: |
+| Point Light Step Offset        | :heavy_check_mark:    | :heavy_check_mark:    | :heavy_check_mark: |
+| Filter Point Light Highlights  | :heavy_check_mark:    | :heavy_check_mark:    | :heavy_check_mark: |
 
 ### 5. Highlight Settings
 
