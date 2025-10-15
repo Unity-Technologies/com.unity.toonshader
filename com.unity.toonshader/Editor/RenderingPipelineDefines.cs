@@ -3,7 +3,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
-using UnityEngine;
+using UnityEditor.Build;
 using UnityEngine.Rendering;
 
 [InitializeOnLoad]
@@ -97,8 +97,7 @@ internal class RenderingPipelineDefines
     /// <summary>
     /// Remove a custom define
     /// </summary>
-    /// <param name="_define"></param>
-    /// <param name="_buildTargetGroup"></param>
+    /// <param name="define"></param>
     public static void RemoveDefine(string define)
     {
         var definesList = GetDefines();
@@ -109,19 +108,20 @@ internal class RenderingPipelineDefines
         }
     }
 
-    public static List<string> GetDefines()
-    {
-        var target = EditorUserBuildSettings.activeBuildTarget;
-        var buildTargetGroup = BuildPipeline.GetBuildTargetGroup(target);
-        var defines = PlayerSettings.GetScriptingDefineSymbolsForGroup(buildTargetGroup);
+    static List<string> GetDefines() {
+        BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
+        BuildTargetGroup buildTargetGroup = BuildPipeline.GetBuildTargetGroup(target);
+        NamedBuildTarget namedBuildTarget = NamedBuildTarget.FromBuildTargetGroup(buildTargetGroup);
+        
+        string defines = PlayerSettings.GetScriptingDefineSymbols(namedBuildTarget);
         return defines.Split(';').ToList();
     }
 
-    public static void SetDefines(List<string> definesList)
-    {
-        var target = EditorUserBuildSettings.activeBuildTarget;
-        var buildTargetGroup = BuildPipeline.GetBuildTargetGroup(target);
-        var defines = string.Join(";", definesList.ToArray());
-        PlayerSettings.SetScriptingDefineSymbolsForGroup(buildTargetGroup, defines);
+    static void SetDefines(List<string> definesList) {
+        BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
+        BuildTargetGroup buildTargetGroup = BuildPipeline.GetBuildTargetGroup(target);
+        string defines = string.Join(";", definesList.ToArray());
+        NamedBuildTarget namedBuildTarget = NamedBuildTarget.FromBuildTargetGroup(buildTargetGroup);
+        PlayerSettings.SetScriptingDefineSymbols(namedBuildTarget, defines);
     }
 }
