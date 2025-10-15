@@ -85,8 +85,7 @@
 | Ping-pong moves for base                                                                   | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark:     |
 | Color Shifting with Time                                                                   | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark:     |
 | Color Shifting with View Angle                                                             | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark:     |
-| ***13.Tessellation Settings***                                                             |                        |                    |                        |
-| Tessellation Settings                                                                      | DX11/DX12/Vulkan/Metal | :x:                | DX11/DX12/Vulkan/Metal |
+| ***13.Tessellation Settings***                                                             | DX11/DX12/Vulkan/Metal | :x:                | DX11/DX12/Vulkan/Metal |
 | ***14. EV Adjustment in high intensity light scenes***                                     | :x:                    | :x:                | :heavy_check_mark:     |
 | ***15. DXR (ray-traced) shadows***                                                         | :x:                    | :x:                | :heavy_check_mark:     |
 | ***16. [Box Light](HDRPBoxLight.md)***                                                     | :x:                    | :x:                | :heavy_check_mark:     |
