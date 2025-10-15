@@ -1,0 +1,81 @@
+name: Update Readme
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'AutoGenerateParts/Readme*.md'
+      - 'Documentation~/index.md'
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  update-readme:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+      - name: Read header
+        id: read-header
+        uses: unity3d-jp/actions/read-file@main
+        with:
+          filepath: 'AutoGenerateParts/ReadmeHeader.md'
+      - name: Read Documentation Index
+        id: read-doc-index
+        uses: unity3d-jp/actions/read-file@main
+        with:
+          filepath: 'Documentation~/index.md'
+      - name: Overwrite Readme with Index
+        id: overwrite-readme-with-index
+        run: |
+          cat <<"EOF" > README.md
+          ${{ steps.read-doc-index.outputs.content }}
+          EOF
+          echo "$(<README.md )"
+
+      - name: Read footer
+        id: read-footer
+        uses: unity3d-jp/actions/read-file@main
+        with:
+          filepath: 'AutoGenerateParts/ReadmeFooter.md'
+      - name: Update README file
+        id: update-readme-file
+        run: |
+          mv README.md temp.md
+          
+          generated_file='README.md';
+          cat <<"EOF" > $generated_file
+          ${{ steps.read-header.outputs.content }}
+          EOF
+          
+          cat temp.md >> $generated_file
+          rm temp.md
+
+          cat <<"EOF" >> $generated_file
+          ${{ steps.read-footer.outputs.content }}
+          EOF
+          
+          printf "\n\n\n" >> $generated_file
+          echo -e "*Auto-generated on $(date)*" >> $generated_file
+      - name: Append Documentation~ to local URLs
+        id: append-url
+        uses: unity3d-jp/actions/append-md-local-url@main
+        with:
+          filepath: 'README.md'
+          prefix: 'Documentation~/'
+      - name: git setting
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+      - name: Commit files
+        run: |
+          git add .
+          git commit -m "ga: update README (executed by update_readme.yml)" -m "[skip ci]" -a
+          git pull
+          git push -u 
+        
