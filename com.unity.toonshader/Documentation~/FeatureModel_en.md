@@ -100,7 +100,6 @@
 | Deferred+                                                                                  | :x:                |                    | :x:                |
 
 Notes:
-
 * :heavy_check_mark: : Supported
 * :x: : Not supported (e.g. limitations in the render pipeline, etc)
 * (blank) : Potential future support (not currently available)
