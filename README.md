@@ -29,6 +29,9 @@ Three basic colors—**base color**, **1st shading color**, and **2nd shading co
 Besides the three basic colors, the **Unity Toon Shader** provides a wide variety of features such as [Highlight](Highlight.md), [Rim Light](Rimlight.md), [Emission](Emission.md), [Angel Ring](AngelRing.md), [Material Capture (MatCap)](com.unity.toonshader/Documentation~/MatCap.md), and some special maps.
 
 To get started with cel-shading, see [Getting Started](com.unity.toonshader/Documentation~/GettingStarted.md).
+
+# Table of Contents
+
 * [Unity Toon Shader](com.unity.toonshader/Documentation~/index.md)
 * [Requirements](com.unity.toonshader/Documentation~/System-Requirements.md)
 * [Installation](com.unity.toonshader/Documentation~/installation.md)
@@ -91,4 +94,4 @@ git config --global core.symlinks true
 
 
 
-*Auto-generated on Wed Oct 15 13:48:28 UTC 2025*
+*Auto-generated on Wed Oct 15 14:06:35 UTC 2025*
