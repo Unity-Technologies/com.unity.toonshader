@@ -6,8 +6,8 @@ The steps for simple cel-shading are:
 * [Make sure at least one directional light is in the scene](#put-a-directional-light-in-the-scene).
 * [Create materials for cel-shading and set the appropriate shader](#creating-a-new-material-and-applying-unity-toon-shader).
 * [Set up three basic colors](#setting-up-three-basic-colors).
-* [Determine the character's visual style](#adjusting-edge-of-three-basic-color-region).
-* [Set up the outline](#set-outline).
+* [Determine the character's visual style](#adjusting-the-edges-of-the-three-basic-color-regions).
+* [Set up the outline](#set-up-the-outline).
 
 After mastering the basics, you might want to explore:
 * [Advanced techniques](#advanced-techniques).
