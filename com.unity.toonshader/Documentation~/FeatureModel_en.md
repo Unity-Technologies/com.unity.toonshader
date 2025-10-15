@@ -1,4 +1,4 @@
-## Functional Differences in Each Render Pipeline
+## Feature Differences in Each Render Pipeline
 
 | Function                                                                                         | Built-In  	           | URP 	   | HDRP 	          |
 |--------------------------------------------------------------------------------------------------|-----------------------|-----------|---------------------|
@@ -99,11 +99,7 @@
 | Deferred 	                                                                                       | 	                   | 	       | :heavy_check_mark:	                 |
 | Deferred+ 	                                                                                   | :x:	               | 	       | :x:	             |
 
-
 Notes:
 * :heavy_check_mark: : Supported
-* :x: : Impossible to support (no support from the render pipeline package, etc)
-* empty : May be supported in the future
-
-
-
+* :x: : Not supported (e.g. limitations in the render pipeline, etc)
+* (blank) : Potential future support (not currently available)
