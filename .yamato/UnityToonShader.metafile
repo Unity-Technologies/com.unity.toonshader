@@ -71,3 +71,13 @@ win_test_platform:
 test_editors:
   - version: 2022.3
   - version: 6000.0
+  
+test_platforms:
+  - name: win
+    type: Unity::VM
+    image: package-ci/win10:v4
+    flavor: b1.large
+  - name: mac
+    type: Unity::VM::osx
+    image: package-ci/macos-13:v4
+    flavor: m1.mac  
