@@ -61,6 +61,8 @@ jobs:
           cat temp.md >> $generated_file
           rm temp.md
 
+          echo -e "\n# Table of Contents\n" >> $generated_file
+
           cat <<"EOF" >> $generated_file
           ${{ steps.read-doc-toc.outputs.content }}
           EOF
