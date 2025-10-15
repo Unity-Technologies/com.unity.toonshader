@@ -2341,11 +2341,11 @@ namespace UnityEditor.Rendering.Toon {
             EditorGUI.EndDisabledGroup();
         }
 
-        public void DoPopup(GUIContent label, MaterialProperty property, string[] options) {
+        void DoPopup(GUIContent label, MaterialProperty property, string[] options) {
             DoPopup(label, property, options, m_MaterialEditor);
         }
 
-        public static void DoPopup(GUIContent label, MaterialProperty property, string[] options, MaterialEditor materialEditor) {
+        static void DoPopup(GUIContent label, MaterialProperty property, string[] options, MaterialEditor materialEditor) {
             if (property == null)
                 throw new System.ArgumentNullException("property");
 
