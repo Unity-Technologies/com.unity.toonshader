@@ -65,7 +65,7 @@ GraphicsSettings:
   m_ShaderBuildSettings:
     keywordDeclarationOverrides: []
   m_LightsUseLinearIntensity: 1
-  m_LightsUseColorTemperature: 0
+  m_LightsUseColorTemperature: 1
   m_LogWhenShaderIsCompiled: 0
   m_LightProbeOutsideHullStrategy: 0
   m_CameraRelativeLightCulling: 0
