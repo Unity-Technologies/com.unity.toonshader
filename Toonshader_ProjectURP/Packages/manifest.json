@@ -1,8 +1,8 @@
 {
   "dependencies": {
+    "com.unity.feature.2d": "2.0.1",
     "com.unity.ide.rider": "3.0.38",
-    "com.unity.ide.visualstudio": "2.0.23",
-    "com.unity.raytracedhardshadow": "https://github.com/unity3d-jp/RaytracedHardShadow.git#bbba12aaf3e7c6fb1c198746ef9a0fcf408b79b9",
+    "com.unity.ide.visualstudio": "2.0.25",
     "com.unity.render-pipelines.universal": "17.3.0",
     "com.unity.test-framework": "1.6.0",
     "com.unity.toonshader": "file:../../com.unity.toonshader",
