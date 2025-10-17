@@ -30,7 +30,22 @@ publish:
     {% assign platform_type = platform.platform_type %}    
     - .yamato/{{ yamato_name }}-test-package.yml#test_{{ platform_type.name }}_{{ editor.version }}
     {% endfor %}
+    {% endfor %}    
+    # OSX Metal projects
+    {% for test_project in osx_test_projects %}
+    {% for unity_editor in test_project.unity_editors %}
+    {% assign project_name = test_project.project_prefix | append: '-' | concat: unity_editor.version %}
+    - .yamato/{{ yamato_name }}-test-projects.yml#{{ project_name }}_OSX_Metal_playmode_mono_Linear    
     {% endfor %}
+    {% endfor %}
+    # Win projects
+    {% for test_project in win_test_projects %}
+    {% for unity_editor in test_project.unity_editors %}
+    {% assign project_name = test_project.project_prefix | append: '-' | concat: unity_editor.version %}
+    - .yamato/{{ yamato_name }}-test-projects.yml#{{ project_name }}{{ test_project.key_postfix}}_Win_playmode    
+    {% endfor %}
+    {% endfor %}
+    
 
     
 publish_dry_run:
@@ -56,6 +71,20 @@ publish_dry_run:
     {% for platform in platforms %}
     {% assign platform_type = platform.platform_type %}    
     - .yamato/{{ yamato_name }}-test-package.yml#test_{{ platform_type.name }}_{{ editor.version }}
+    {% endfor %}
+    {% endfor %}    
+    # OSX Metal projects
+    {% for test_project in osx_test_projects %}
+    {% for unity_editor in test_project.unity_editors %}
+    {% assign project_name = test_project.project_prefix | append: '-' | concat: unity_editor.version %}
+    - .yamato/{{ yamato_name }}-test-projects.yml#{{ project_name }}_OSX_Metal_playmode_mono_Linear    
+    {% endfor %}
+    {% endfor %}
+    # Win projects
+    {% for test_project in win_test_projects %}
+    {% for unity_editor in test_project.unity_editors %}
+    {% assign project_name = test_project.project_prefix | append: '-' | concat: unity_editor.version %}
+    - .yamato/{{ yamato_name }}-test-projects.yml#{{ project_name }}{{ test_project.key_postfix}}_Win_playmode    
     {% endfor %}
     {% endfor %}
 
