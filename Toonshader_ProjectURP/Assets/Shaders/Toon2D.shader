@@ -129,6 +129,127 @@ half3 ShadeSH9(half4 normal)
     return res;
 }
 
+
+//----------------------------------------------------------------------------------------------------------------------
+
+half4 CombinedShapeLightShared2(in SurfaceData2D surfaceData, in InputData2D inputData)
+{
+    #if defined(DEBUG_DISPLAY)
+    half4 debugColor = 0;
+
+    if (CanDebugOverrideOutputColor(surfaceData, inputData, debugColor))
+    {
+        return debugColor;
+    }
+    #endif
+
+    half alpha = surfaceData.alpha;
+    half4 color = half4(surfaceData.albedo, alpha);
+    const half4 mask = surfaceData.mask;
+    const half2 lightingUV = inputData.lightingUV;
+
+    if (alpha == 0.0)
+        discard;
+
+#if USE_SHAPE_LIGHT_TYPE_0
+    half4 shapeLight0 = SAMPLE_TEXTURE2D(_ShapeLightTexture0, sampler_ShapeLightTexture0, lightingUV);
+
+    if (any(_ShapeLightMaskFilter0))
+    {
+        half4 processedMask = (1 - _ShapeLightInvertedFilter0) * mask + _ShapeLightInvertedFilter0 * (1 - mask);
+        shapeLight0 *= dot(processedMask, _ShapeLightMaskFilter0);
+    }
+
+    half4 shapeLight0Modulate = shapeLight0 * _ShapeLightBlendFactors0.x;
+    half4 shapeLight0Additive = shapeLight0 * _ShapeLightBlendFactors0.y;
+#else
+    half4 shapeLight0Modulate = 0;
+    half4 shapeLight0Additive = 0;
+#endif
+
+#if USE_SHAPE_LIGHT_TYPE_1
+    half4 shapeLight1 = SAMPLE_TEXTURE2D(_ShapeLightTexture1, sampler_ShapeLightTexture1, lightingUV);
+
+    if (any(_ShapeLightMaskFilter1))
+    {
+        half4 processedMask = (1 - _ShapeLightInvertedFilter1) * mask + _ShapeLightInvertedFilter1 * (1 - mask);
+        shapeLight1 *= dot(processedMask, _ShapeLightMaskFilter1);
+    }
+
+    half4 shapeLight1Modulate = shapeLight1 * _ShapeLightBlendFactors1.x;
+    half4 shapeLight1Additive = shapeLight1 * _ShapeLightBlendFactors1.y;
+#else
+    half4 shapeLight1Modulate = 0;
+    half4 shapeLight1Additive = 0;
+#endif
+
+#if USE_SHAPE_LIGHT_TYPE_2
+    half4 shapeLight2 = SAMPLE_TEXTURE2D(_ShapeLightTexture2, sampler_ShapeLightTexture2, lightingUV);
+
+    if (any(_ShapeLightMaskFilter2))
+    {
+        half4 processedMask = (1 - _ShapeLightInvertedFilter2) * mask + _ShapeLightInvertedFilter2 * (1 - mask);
+        shapeLight2 *= dot(processedMask, _ShapeLightMaskFilter2);
+    }
+
+    half4 shapeLight2Modulate = shapeLight2 * _ShapeLightBlendFactors2.x;
+    half4 shapeLight2Additive = shapeLight2 * _ShapeLightBlendFactors2.y;
+#else
+    half4 shapeLight2Modulate = 0;
+    half4 shapeLight2Additive = 0;
+#endif
+
+#if USE_SHAPE_LIGHT_TYPE_3
+    half4 shapeLight3 = SAMPLE_TEXTURE2D(_ShapeLightTexture3, sampler_ShapeLightTexture3, lightingUV);
+
+    if (any(_ShapeLightMaskFilter3))
+    {
+        half4 processedMask = (1 - _ShapeLightInvertedFilter3) * mask + _ShapeLightInvertedFilter3 * (1 - mask);
+        shapeLight3 *= dot(processedMask, _ShapeLightMaskFilter3);
+    }
+
+    half4 shapeLight3Modulate = shapeLight3 * _ShapeLightBlendFactors3.x;
+    half4 shapeLight3Additive = shapeLight3 * _ShapeLightBlendFactors3.y;
+#else
+    half4 shapeLight3Modulate = 0;
+    half4 shapeLight3Additive = 0;
+#endif
+
+    half4 finalOutput;
+#if !USE_SHAPE_LIGHT_TYPE_0 && !USE_SHAPE_LIGHT_TYPE_1 && !USE_SHAPE_LIGHT_TYPE_2 && ! USE_SHAPE_LIGHT_TYPE_3
+    finalOutput = color;
+#else
+    half4 finalModulate = shapeLight0Modulate + shapeLight1Modulate + shapeLight2Modulate + shapeLight3Modulate;
+    half4 finalAdditve = shapeLight0Additive + shapeLight1Additive + shapeLight2Additive + shapeLight3Additive;
+    finalOutput = _HDREmulationScale * (color * finalModulate + finalAdditve);
+#endif
+
+    finalOutput.a = alpha;
+
+    return max(0, finalOutput);
+}
+            
+half4 CommonLitFragment2(Varyings input, half4 color)
+{
+    const half4 main = color * SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, input.uv);
+    const half4 mask = SAMPLE_TEXTURE2D(_MaskTex, sampler_MaskTex, input.uv);
+    const half3 normalTS = UnpackNormal(SAMPLE_TEXTURE2D(_NormalMap, sampler_NormalMap, input.uv));
+    
+    SurfaceData2D surfaceData;
+    InputData2D inputData;
+
+    InitializeSurfaceData(main.rgb, main.a, mask, normalTS, surfaceData);
+    InitializeInputData(input.uv, input.lightingUV, inputData);
+
+#if defined(DEBUG_DISPLAY)
+    SETUP_DEBUG_TEXTURE_DATA_2D_NO_TS(inputData, input.positionWS, input.positionCS, _MainTex);
+    surfaceData.normalWS = input.normalWS;
+#endif
+
+    return CombinedShapeLightShared2(surfaceData, inputData);
+}
+
+            
 //----------------------------------------------------------------------------------------------------------------------
             half4 LitFragment(Varyings input) : SV_Target
             {
@@ -172,10 +293,10 @@ half3 ShadeSH9(half4 normal)
                 // float3 Set_FinalBaseColor = lerp(Set_BaseColor,lerp(Set_1st_ShadeColor,Set_2nd_ShadeColor,saturate((1.0 + ( (_HalfLambert_var - (_ShadeColor_Step-_1st2nd_Shades_Feather)) * ((1.0 - _Set_2nd_ShadePosition_var.rgb).r - 1.0) ) / (_ShadeColor_Step - (_ShadeColor_Step-_1st2nd_Shades_Feather))))),Set_FinalShadowMask); // Final Color
 
 
-                return float4(Set_BaseColor,1); 
+                //return float4(Set_BaseColor,1); 
 
                 
-                return CommonLitFragment(input, _White);
+                return CommonLitFragment2(input, _White);
             }
             ENDHLSL
         }
