@@ -69,7 +69,6 @@ win_test_platform:
   flavor: b1.large
 
 test_editors:
-  - version: 2022.3
   - version: 6000.0
   
 test_platforms:
