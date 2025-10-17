@@ -5,14 +5,18 @@
 #
   
 ---
+
 {% for editor in test_editors %}
-{% for platform in test_platforms %}
-promotion_test_{{ platform.name }}_{{ editor.version }}:
-  name : {{ yamato_name }} Promotion Test {{ editor.version }} on {{ platform.name }}
+{% for platform in platforms %}
+
+{% assign platform_type = platform.platform_type %}
+
+promotion_test_{{ platform_type.name }}_{{ editor.version }}:
+  name : Test {{ yamato_name }} Promotion {{ editor.version }} on {{ platform_type.name }}
   agent:
-    type: {{ platform.type }}
-    image: {{ platform.image }}
-    flavor: {{ platform.flavor}}
+    type: {{ platform_type.type }}
+    image: {{ platform_type.image }}
+    flavor: {{ platform_type.flavor}}
   variables:
     UPMCI_PROMOTION: 1
   commands:
@@ -30,9 +34,10 @@ promotion_test_{{ platform.name }}_{{ editor.version }}:
 promote:
   name: Promote {{ yamato_name }} to Production
   agent:
-    type: Unity::VM
-    image: package-ci/win10:v4
-    flavor: b1.large
+  
+    type:   {{ promote_platform.type }}
+    image:  {{ promote_platform.image }}
+    flavor: {{ promote_platform.flavor }}
   variables:
     UPMCI_PROMOTION: 1
   commands:
@@ -47,9 +52,10 @@ promote:
       paths:
         - "upm-ci~/packages/*.tgz"
   dependencies:
-    - .yamato/upm-ci-{{ yamato_name }}.yml#pack
+    - .yamato/{{ yamato_name }}-pack.yml#pack  
 {% for editor in test_editors %}
-{% for platform in test_platforms %}
-    - .yamato/{{ yamato_name }}-promotion.yml#promotion_test_{{ platform.name }}_{{ editor.version }}
+{% for platform in platforms %}
+{% assign platform_type = platform.platform_type %}
+    - .yamato/{{ yamato_name }}-promotion.yml#promotion_test_{{ platform_type.name }}_{{ editor.version }}
 {% endfor %}
 {% endfor %}
