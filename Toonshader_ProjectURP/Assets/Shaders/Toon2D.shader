@@ -1,8 +1,14 @@
 Shader "Toon2D" {
     Properties {
-        _MainTex("Diffuse", 2D) = "white" {}
+        _BaseColor ("BaseColor", Color) = (1,1,1,1)
+        _MainTex ("BaseMap", 2D) = "white" {}
         _MaskTex("Mask", 2D) = "white" {}
         _NormalMap("Normal Map", 2D) = "bump" {}
+        _Unlit_Intensity ("Unlit_Intensity", Range(0, 4)) = 0
+        
+        [Toggle(_)] _Is_Filter_LightColor ("VRChat : SceneLights HiCut_Filter", Float ) = 1
+        [Toggle(_)] _Is_LightColor_Base ("Is_LightColor_Base", Float ) = 1
+        
         [HideInInspector] _White("Tint", Color) = (1,1,1,1)  // Added to break SRP batching. Work around for issue with SRP Batching
     }
 
@@ -13,6 +19,8 @@ Shader "Toon2D" {
         Blend SrcAlpha OneMinusSrcAlpha, One OneMinusSrcAlpha
         Cull Back
         ZWrite On
+
+
 
         Stencil {
             Ref 128 // Put this in the last bit of our stencil value for maximum compatibility with sprite mask
@@ -50,16 +58,101 @@ Shader "Toon2D" {
 
             #include "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/Lit2DCommon.hlsl"
 
+            CBUFFER_START(UnityPerMaterial)
+            half4 _BaseColor;
+            float _Unlit_Intensity;
+            float _Is_Filter_LightColor;
+            float _Is_LightColor_Base;
+
+            
+
+            CBUFFER_END
+
+//----------------------------------------------------------------------------------------------------------------------            
+            float4 _MainTex_ST;
+
+            //TEXTURE2D(_MainTex); SAMPLER(sampler_MainTex);
+
+            
             Varyings LitVertex(Attributes input)
             {
                 return CommonLitVertex(input);
             }
 
+//----------------------------------------------------------------------------------------------------------------------
+            
+// normal should be normalized, w=1.0
+half3 SHEvalLinearL0L1(half4 normal)
+{
+    half3 x;
+
+    // Linear (L1) + constant (L0) polynomial terms
+    x.r = dot(unity_SHAr, normal);
+    x.g = dot(unity_SHAg, normal);
+    x.b = dot(unity_SHAb, normal);
+
+    return x;
+}
+
+// normal should be normalized, w=1.0
+half3 SHEvalLinearL2(half4 normal)
+{
+    half3 x1, x2;
+    // 4 of the quadratic (L2) polynomials
+    half4 vB = normal.xyzz * normal.yzzx;
+    x1.r = dot(unity_SHBr, vB);
+    x1.g = dot(unity_SHBg, vB);
+    x1.b = dot(unity_SHBb, vB);
+
+    // Final (5th) quadratic (L2) polynomial
+    half vC = normal.x*normal.x - normal.y*normal.y;
+    x2 = unity_SHC.rgb * vC;
+
+    return x1 + x2;
+}
+
+            
+// normal should be normalized, w=1.0
+// output in active color space
+half3 ShadeSH9(half4 normal)
+{
+    // Linear + constant polynomial terms
+    half3 res = SHEvalLinearL0L1(normal);
+
+    // Quadratic polynomials
+    res += SHEvalLinearL2(normal);
+
+#   ifdef UNITY_COLORSPACE_GAMMA
+    res = LinearToGammaSpace(res);
+#   endif
+
+    return res;
+}
+
+//----------------------------------------------------------------------------------------------------------------------
             half4 LitFragment(Varyings input) : SV_Target
             {
 
-                // float3 Set_LightColor = lightColor.rgb;
-                // float3 Set_BaseColor = lerp( (_BaseColor.rgb*_MainTex_var.rgb), ((_BaseColor.rgb*_MainTex_var.rgb)*Set_LightColor), _Is_LightColor_Base );
+                float3 defaultLightDirection = normalize(UNITY_MATRIX_V[2].xyz + UNITY_MATRIX_V[1].xyz);
+                float2 Set_UV0 = input.uv;
+                float3 mainLightColor = float3(1,1,1);
+
+                
+                // //v.2.0.5
+                float3 defaultLightColor = saturate(max(half3(0.05,0.05,0.05)*_Unlit_Intensity,max(ShadeSH9(half4(0.0, 0.0, 0.0, 1.0)),ShadeSH9(half4(0.0, -1.0, 0.0, 1.0)).rgb)*_Unlit_Intensity));
+                // float3 customLightDirection = normalize(mul( GetObjectToWorldMatrix(), float4(((float3(1.0,0.0,0.0)*_Offset_X_Axis_BLD*10)+(float3(0.0,1.0,0.0)*_Offset_Y_Axis_BLD*10)+(float3(0.0,0.0,-1.0)*lerp(-1.0,1.0,_Inverse_Z_Axis_BLD))),0)).xyz);
+                // float3 lightDirection = normalize(lerp(defaultLightDirection, mainLight.direction.xyz,any(mainLight.direction.xyz)));
+                // lightDirection = lerp(lightDirection, customLightDirection, _Is_BLD);
+                // //v.2.0.5: 
+                //
+                half3 originalLightColor = mainLightColor.rgb;
+                float3 lightColor = lerp(max(defaultLightColor, originalLightColor), max(defaultLightColor, saturate(originalLightColor)), _Is_Filter_LightColor);
+                float3 Set_LightColor = lightColor.rgb;
+                
+                float4 _MainTex_var = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex));
+                float3 Set_BaseColor = lerp( (_BaseColor.rgb*_MainTex_var.rgb), ((_BaseColor.rgb*_MainTex_var.rgb)*Set_LightColor), _Is_LightColor_Base );
+
+                
                 // //v.2.0.5
                 // float4 _1st_ShadeMap_var = lerp(SAMPLE_TEXTURE2D(_1st_ShadeMap,sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex)),_MainTex_var,_Use_BaseAs1st);
                 // float3 Set_1st_ShadeColor = lerp( (_1st_ShadeColor.rgb*_1st_ShadeMap_var.rgb), ((_1st_ShadeColor.rgb*_1st_ShadeMap_var.rgb)*Set_LightColor), _Is_LightColor_1st_Shade );
@@ -79,7 +172,7 @@ Shader "Toon2D" {
                 // float3 Set_FinalBaseColor = lerp(Set_BaseColor,lerp(Set_1st_ShadeColor,Set_2nd_ShadeColor,saturate((1.0 + ( (_HalfLambert_var - (_ShadeColor_Step-_1st2nd_Shades_Feather)) * ((1.0 - _Set_2nd_ShadePosition_var.rgb).r - 1.0) ) / (_ShadeColor_Step - (_ShadeColor_Step-_1st2nd_Shades_Feather))))),Set_FinalShadowMask); // Final Color
 
 
-                return float4(1,0,0,1); 
+                return float4(Set_BaseColor,1); 
 
                 
                 return CommonLitFragment(input, _White);
