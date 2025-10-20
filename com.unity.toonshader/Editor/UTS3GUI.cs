@@ -280,9 +280,7 @@ namespace UnityEditor.Rendering.Toon {
         }
 
         [Flags]
-#if UNITY_2021_1_OR_NEWER
         [UTS3InspectorHelpURL("instruction")]
-#endif // UNITY_2021_1_OR_NEWER
         protected enum Expandable {
             Shader = 1 << 0,
             Basic = 1 << 1,
