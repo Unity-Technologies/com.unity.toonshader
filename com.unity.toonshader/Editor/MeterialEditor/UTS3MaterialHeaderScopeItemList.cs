@@ -44,11 +44,7 @@ namespace UnityEditor.Rendering.Toon
                 headerTitle = title,
                 expandable = Convert.ToUInt32(expandable),
                 drawMaterialScope = action,
-#if UNITY_2021_1_OR_NEWER
                 url = UTS3DocumentationUtils.GetHelpURL<TEnum>(expandable),
-#else
-                url = string.Empty,
-#endif
                 workflowMode = workflowMode,
                 transparentEnabled = isTransparent,
                 tessellationEnabled = isTessellation
