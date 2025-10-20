@@ -54,6 +54,7 @@ promote_platform: *pack_platform_linux
 trigger_platform: *pack_platform_linux
 
 
+### test projects section ###
 metal_platform: 
   name: metal
   type: Unity::metal::macmini
@@ -70,18 +71,7 @@ win_test_platform:
 
 test_editors:
   - version: 6000.0
-  
-# unused ?
-test_platforms:
-  - name: win
-    type: Unity::VM
-    image: package-ci/win10:v4
-    flavor: b1.large
-  - name: mac
-    type: Unity::VM::osx
-    image: package-ci/macos-13:v4
-    flavor: m1.mac  
-    
+     
 
 osx_test_projects:
   - project_prefix: HdrpGraphicsTest
