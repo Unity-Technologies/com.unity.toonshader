@@ -74,7 +74,7 @@ public class UTSGraphicsTestsNonXR  {
             // Always wait one frame for scene load
             yield return null;
 
-            var cameras = GameObject.FindGameObjectsWithTag("MainCamera").Select(x => x.GetComponent<Camera>());
+            Camera mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
             UTS_GraphicsTestSettings settings = Object.FindFirstObjectByType<UTS_GraphicsTestSettings>();
             Assert.IsNotNull(settings, "Invalid test scene, couldn't find UTS_GraphicsTestSettings");
 
@@ -88,8 +88,7 @@ public class UTSGraphicsTestsNonXR  {
             
             int waitFrames = settings.WaitFrames;
 
-            if (settings.ImageComparisonSettings.UseBackBuffer && settings.WaitFrames < 1)
-            {
+            if (settings.ImageComparisonSettings.UseBackBuffer && settings.WaitFrames < 1) {
                 waitFrames = 1;
             }
 
@@ -97,12 +96,11 @@ public class UTSGraphicsTestsNonXR  {
             for (int i = 0; i < waitFrames; i++)
                 yield return new WaitForEndOfFrame();
 
-            ImageAssert.AreEqual(testCase.ReferenceImage, cameras.Where(x => x != null), 
+            ImageAssert.AreEqual(testCase.ReferenceImage, mainCamera,
                 settings.ImageComparisonSettings, testCase.ReferenceImagePathLog);
 
             // Does it allocate memory when it renders what's on the main camera?
             bool allocatesMemory = false;
-            var mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
 
             if (settings == null || settings.CheckMemoryAllocation)
             {
