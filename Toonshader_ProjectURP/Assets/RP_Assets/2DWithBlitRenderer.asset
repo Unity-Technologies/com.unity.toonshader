@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 11145981673336645838492a2d98e247, type: 3}
-  m_Name: Renderer2D
+  m_Name: 2DWithBlitRenderer
   m_EditorClassIdentifier: 
   debugShaders:
     debugReplacementPS: {fileID: 4800000, guid: cf852408f2e174538bcd9b7fda1c5ae7,
@@ -34,7 +34,8 @@ MonoBehaviour:
     probeVolumeBlendStatesCS: {fileID: 0}
   m_RendererFeatures:
   - {fileID: 90138282318566881}
-  m_RendererFeatureMap: e115434a4a3c4001
+  - {fileID: 4305729315816112803}
+  m_RendererFeatureMap: e115434a4a3c4001a38234000006c13b
   m_UseNativeRenderPass: 0
   m_LayerMask:
     serializedVersion: 2
@@ -79,6 +80,20 @@ MonoBehaviour:
   m_Name: BlitFromExternalTexture
   m_EditorClassIdentifier: Assembly-CSharp::BlitFromExternalTexture
   m_Active: 1
-  textureToUse: {fileID: 8400000, guid: 67ad705e569ea6c4492980f61418d902, type: 2}
-  texture2DToUse: {fileID: 2800000, guid: cec083feb1104e9bb3e282339acfe384, type: 3}
-  renderPassEvent: 210
+  m_textureToBlit: {fileID: 0}
+  m_renderPassEvent: 0
+--- !u!114 &4305729315816112803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60eefc24acbf4f3448929f044cdd8ae8, type: 3}
+  m_Name: BlitTextureRendererFeature
+  m_EditorClassIdentifier: Assembly-CSharp::BlitTextureRendererFeature
+  m_Active: 1
+  m_textureToBlit: {fileID: 8400000, guid: 05daaa774e709ff4cae5d7b4d4c8e9be, type: 2}
+  m_renderPassEvent: 0
