@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 using UnityEditor.SceneManagement;
-using Tests;
 using System.Linq;
+using Unity.ToonShader.GraphicsTest;
 
 namespace UnityEditor.Rendering.Toon
 {

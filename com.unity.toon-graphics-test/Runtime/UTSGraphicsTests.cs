@@ -1,16 +1,14 @@
 ﻿using System.Collections;
-using System.Linq;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.TestTools.Graphics;
 using UnityEngine.SceneManagement;
 using System.IO;
-using Unity.ToonShader.GraphicsTest;
 using UnityEditor;
 
 
-namespace Tests
+namespace Unity.ToonShader.GraphicsTest
 {
 #if UNITY_EDITOR
 public class UTSGraphicsTestsXR {

@@ -1,6 +1,6 @@
 ﻿using UnityEngine.TestTools.Graphics;
 
-namespace Tests
+namespace Unity.ToonShader.GraphicsTest
 {
     public class UTSGraphicsTestSettings : GraphicsTestSettings
     {
