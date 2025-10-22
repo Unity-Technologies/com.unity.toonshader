@@ -4,7 +4,7 @@ This tool helps maintain consistency between `UnityToon.shader` and `UnityToonTe
 
 ## Files
 
-- **CommonProperties.txt**: Contains all shared properties between the two shader files
+- **CommonPropertiesWithComments.txt**: Contains all shared properties between the two shader files with original comments preserved
 - **TessellationProperties.txt**: Contains tessellation-specific properties only present in the tessellation shader
 - **ShaderGenerator.cs**: Unity Editor script that generates the shader files from the property files
 
@@ -15,7 +15,7 @@ This tool helps maintain consistency between `UnityToon.shader` and `UnityToonTe
    - This opens the Shader Generator window
 
 2. **Edit Properties**:
-   - Click "Open Common Properties File" to edit shared properties
+   - Click "Open Common Properties File" to edit shared properties (includes all original comments)
    - Click "Open Tessellation Properties File" to edit tessellation-specific properties
    - Make your changes to the property files
 
@@ -43,7 +43,8 @@ _BaseColor ("BaseColor", Color) = (1,1,1,1)
 - **Consistency**: Ensures both shader files have identical shared properties
 - **Maintainability**: Easy to add, remove, or modify properties across both shaders
 - **Backup Safety**: Original files are automatically backed up before generation
-- **Preservation**: All non-Properties content is preserved during generation
+- **Preservation**: All non-Properties content and comments are preserved during generation
+- **Comment Preservation**: All original comments from the Properties blocks are maintained
 
 ## Manual Generation (Alternative)
 
@@ -71,8 +72,8 @@ com.unity.toonshader/
 │   ├── ShaderGenerator.cs          # Unity Editor script
 │   └── README_ShaderGenerator.md   # This file
 └── Runtime/Integrated/Shaders/
-    ├── CommonProperties.txt        # Shared properties
-    ├── TessellationProperties.txt  # Tessellation-specific properties
-    ├── UnityToon.shader           # Generated shader (regular)
-    └── UnityToonTessellation.shader # Generated shader (tessellation)
+    ├── CommonPropertiesWithComments.txt # Shared properties with comments
+    ├── TessellationProperties.txt       # Tessellation-specific properties
+    ├── UnityToon.shader                # Generated shader (regular)
+    └── UnityToonTessellation.shader    # Generated shader (tessellation)
 ```

@@ -14,7 +14,7 @@ namespace UnityEditor.Rendering.Toon
     /// </summary>
     public class ShaderGenerator : EditorWindow
     {
-        private const string COMMON_PROPERTIES_PATH = "Assets/com.unity.toonshader/Runtime/Integrated/Shaders/CommonProperties.txt";
+        private const string COMMON_PROPERTIES_PATH = "Assets/com.unity.toonshader/Runtime/Integrated/Shaders/CommonPropertiesWithComments.txt";
         private const string TESSELATION_PROPERTIES_PATH = "Assets/com.unity.toonshader/Runtime/Integrated/Shaders/TessellationProperties.txt";
         private const string UNITY_TOON_SHADER_PATH = "Assets/com.unity.toonshader/Runtime/Integrated/Shaders/UnityToon.shader";
         private const string UNITY_TOON_TESSELATION_SHADER_PATH = "Assets/com.unity.toonshader/Runtime/Integrated/Shaders/UnityToonTessellation.shader";
@@ -183,10 +183,13 @@ namespace UnityEditor.Rendering.Toon
             int propertyCount = 0;
             foreach (string line in commonLines)
             {
-                if (!string.IsNullOrWhiteSpace(line) && !line.TrimStart().StartsWith("//"))
+                if (!string.IsNullOrWhiteSpace(line))
                 {
                     newProperties.AppendLine($"        {line.Trim()}");
-                    propertyCount++;
+                    if (!line.TrimStart().StartsWith("//"))
+                    {
+                        propertyCount++;
+                    }
                 }
             }
             
@@ -198,10 +201,13 @@ namespace UnityEditor.Rendering.Toon
                 string[] tessellationLines = tessellationProperties.Split('\n');
                 foreach (string line in tessellationLines)
                 {
-                    if (!string.IsNullOrWhiteSpace(line) && !line.TrimStart().StartsWith("//"))
+                    if (!string.IsNullOrWhiteSpace(line))
                     {
                         newProperties.AppendLine($"        {line.Trim()}");
-                        propertyCount++;
+                        if (!line.TrimStart().StartsWith("//"))
+                        {
+                            propertyCount++;
+                        }
                     }
                 }
             }

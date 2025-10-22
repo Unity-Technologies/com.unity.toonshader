@@ -7,7 +7,7 @@ import shutil
 def generate_shader_files():
     try:
         # Read the common properties file
-        common_properties_path = "com.unity.toonshader/Runtime/Integrated/Shaders/CommonProperties.txt"
+        common_properties_path = "com.unity.toonshader/Runtime/Integrated/Shaders/CommonPropertiesWithComments.txt"
         with open(common_properties_path, 'r') as f:
             common_properties = f.read()
         
@@ -103,9 +103,10 @@ def generate_shader(shader_path, common_properties, tessellation_properties):
         common_lines = common_properties.split('\n')
         property_count = 0
         for line in common_lines:
-            if line.strip() and not line.strip().startswith("//"):
+            if line.strip():
                 new_properties.append(f"        {line.strip()}")
-                property_count += 1
+                if not line.strip().startswith("//"):
+                    property_count += 1
         
         # Add tessellation properties if provided
         if tessellation_properties:
@@ -113,9 +114,10 @@ def generate_shader(shader_path, common_properties, tessellation_properties):
             new_properties.append("        // Tessellation-specific properties")
             tessellation_lines = tessellation_properties.split('\n')
             for line in tessellation_lines:
-                if line.strip() and not line.strip().startswith("//"):
+                if line.strip():
                     new_properties.append(f"        {line.strip()}")
-                    property_count += 1
+                    if not line.strip().startswith("//"):
+                        property_count += 1
         
         new_properties.append("    }")
         
