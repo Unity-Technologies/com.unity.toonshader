@@ -74,7 +74,7 @@ public class UTSGraphicsTestsNonXR  {
             yield return null;
 
             Camera mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-            UTS_GraphicsTestSettings settings = Object.FindFirstObjectByType<UTS_GraphicsTestSettings>();
+            UTSGraphicsTestSettings settings = Object.FindFirstObjectByType<UTSGraphicsTestSettings>();
             Assert.IsNotNull(settings, "Invalid test scene, couldn't find UTS_GraphicsTestSettings");
 
             if (isXR) {
