@@ -29,6 +29,7 @@ MonoBehaviour:
   m_Name: HDShadowSettings
   m_EditorClassIdentifier: 
   active: 1
+  interCascadeBorders: 1
   maxShadowDistance:
     m_OverrideState: 1
     m_Value: 500
@@ -74,9 +75,7 @@ MonoBehaviour:
   active: 1
   diffusionProfiles:
     m_OverrideState: 1
-    m_Value:
-    - {fileID: 11400000, guid: f35d1ac29f01482291c276feff307837, type: 2}
-    - {fileID: 11400000, guid: ce53e96619ea4c1ca6bc391d0792f801, type: 2}
+    m_Value: []
 --- !u!114 &2091858464068491981
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -117,3 +116,6 @@ MonoBehaviour:
   cullingDistance:
     m_OverrideState: 0
     m_Value: 1000
+  minSolidAngle:
+    m_OverrideState: 0
+    m_Value: 4
