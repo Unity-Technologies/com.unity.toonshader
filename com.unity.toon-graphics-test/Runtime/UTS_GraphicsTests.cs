@@ -46,7 +46,6 @@ public class UTSGraphicsTestsXR {
         Assert.IsTrue(File.Exists(xrImagePath),$"XR Reference image not found at: {xrImagePath}");
         testCase.ReferenceImage = AssetDatabase.LoadAssetAtPath<Texture2D>(xrImagePath);
         
-        //Unity.ToonShader.GraphicsTest.SetupUTSGraphicsXRTestCases.Setup();
         yield return UTS_GraphicsTests.RunInternal(testCase, isXR:true);
         
         XRUtility.DisableXR();
