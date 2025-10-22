@@ -61,12 +61,6 @@ public class UTSGraphicsTestsNonXR  {
     [UseGraphicsTestCases(UTSGraphicsTestConstants.ReferenceImagePath)]
     [Timeout(3600000)] //1 hour
     public IEnumerator Run(GraphicsTestCase testCase) {
-        //[TODO-sin: 2025-7-2] Hack for now to disable XR for non-Stereo projects
-        string projectName = Path.GetFileName(Path.GetDirectoryName(UnityEngine.Application.dataPath));
-        if (!string.IsNullOrEmpty(projectName) && !projectName.Contains("Stereo")) {
-            XRUtility.DisableXR();
-        }
-        
         yield return UTS_GraphicsTests.RunInternal(testCase);
     }
 } 
@@ -124,22 +118,6 @@ public class UTSGraphicsTestsNonXR  {
                     Assert.Fail("Allocated memory when rendering what is on main camera");
             }
         }
-
-        public static Texture2D LoadPNG(string filePath)
-        {
-
-            Texture2D tex2D = null;
-            byte[] fileData;
-
-            if (File.Exists(filePath))
-            {
-                fileData = File.ReadAllBytes(filePath);
-                tex2D = new Texture2D(2, 2);
-                tex2D.LoadImage(fileData);
-            }
-            return tex2D;
-        }
     }
-
 
 }
