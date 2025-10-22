@@ -46,7 +46,7 @@ public class UTSGraphicsTestsXR {
         Assert.IsTrue(File.Exists(xrImagePath),$"XR Reference image not found at: {xrImagePath}");
         testCase.ReferenceImage = AssetDatabase.LoadAssetAtPath<Texture2D>(xrImagePath);
         
-        yield return UTS_GraphicsTests.RunInternal(testCase, isXR:true);
+        yield return UTSGraphicsTests.RunInternal(testCase, isXR:true);
         
         XRUtility.DisableXR();
     }
@@ -60,13 +60,13 @@ public class UTSGraphicsTestsNonXR  {
     [UseGraphicsTestCases(UTSGraphicsTestConstants.ReferenceImagePath)]
     [Timeout(3600000)] //1 hour
     public IEnumerator Run(GraphicsTestCase testCase) {
-        yield return UTS_GraphicsTests.RunInternal(testCase);
+        yield return UTSGraphicsTests.RunInternal(testCase);
     }
 } 
 
 //----------------------------------------------------------------------------------------------------------------------
 
-    public class UTS_GraphicsTests {
+    public static class UTSGraphicsTests {
         internal static IEnumerator RunInternal(GraphicsTestCase testCase, bool isXR = false) {
             SceneManager.LoadScene(testCase.ScenePath);
 
