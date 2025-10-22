@@ -1,0 +1,248 @@
+using System;
+using System.IO;
+using System.Text;
+using System.Text.RegularExpressions;
+using UnityEditor;
+using UnityEngine;
+
+namespace UnityEditor.Rendering.Toon
+{
+    /// <summary>
+    /// Shader generator for Unity Toon Shader that creates shader files from common properties.
+    /// This helps maintain consistency between UnityToon.shader and UnityToonTessellation.shader
+    /// by using a single source of truth for shared properties.
+    /// </summary>
+    public class ShaderGenerator : EditorWindow
+    {
+        private const string COMMON_PROPERTIES_PATH = "Assets/com.unity.toonshader/Runtime/Integrated/Shaders/CommonProperties.txt";
+        private const string TESSELATION_PROPERTIES_PATH = "Assets/com.unity.toonshader/Runtime/Integrated/Shaders/TessellationProperties.txt";
+        private const string UNITY_TOON_SHADER_PATH = "Assets/com.unity.toonshader/Runtime/Integrated/Shaders/UnityToon.shader";
+        private const string UNITY_TOON_TESSELATION_SHADER_PATH = "Assets/com.unity.toonshader/Runtime/Integrated/Shaders/UnityToonTessellation.shader";
+        
+        [MenuItem("Tools/Unity Toon Shader/Generate Shader Files")]
+        public static void ShowWindow()
+        {
+            GetWindow<ShaderGenerator>("Shader Generator");
+        }
+        
+        private void OnGUI()
+        {
+            GUILayout.Label("Unity Toon Shader Generator", EditorStyles.boldLabel);
+            GUILayout.Space(10);
+            
+            GUILayout.Label("This tool generates UnityToon.shader and UnityToonTessellation.shader from common property files.", EditorStyles.helpBox);
+            GUILayout.Space(10);
+            
+            if (GUILayout.Button("Generate Shader Files", GUILayout.Height(30)))
+            {
+                GenerateShaderFiles();
+            }
+            
+            GUILayout.Space(10);
+            
+            if (GUILayout.Button("Open Common Properties File"))
+            {
+                var asset = AssetDatabase.LoadAssetAtPath<TextAsset>(COMMON_PROPERTIES_PATH);
+                if (asset != null)
+                {
+                    Selection.activeObject = asset;
+                    EditorGUIUtility.PingObject(asset);
+                }
+            }
+            
+            if (GUILayout.Button("Open Tessellation Properties File"))
+            {
+                var asset = AssetDatabase.LoadAssetAtPath<TextAsset>(TESSELATION_PROPERTIES_PATH);
+                if (asset != null)
+                {
+                    Selection.activeObject = asset;
+                    EditorGUIUtility.PingObject(asset);
+                }
+            }
+        }
+        
+        private void GenerateShaderFiles()
+        {
+            try
+            {
+                // Read common properties
+                string commonProperties = ReadFile(COMMON_PROPERTIES_PATH);
+                if (string.IsNullOrEmpty(commonProperties))
+                {
+                    Debug.LogError($"Failed to read common properties from {COMMON_PROPERTIES_PATH}");
+                    return;
+                }
+                
+                // Read tessellation properties
+                string tessellationProperties = ReadFile(TESSELATION_PROPERTIES_PATH);
+                if (string.IsNullOrEmpty(tessellationProperties))
+                {
+                    Debug.LogError($"Failed to read tessellation properties from {TESSELATION_PROPERTIES_PATH}");
+                    return;
+                }
+                
+                // Generate UnityToon.shader
+                GenerateUnityToonShader(commonProperties);
+                
+                // Generate UnityToonTessellation.shader
+                GenerateUnityToonTessellationShader(commonProperties, tessellationProperties);
+                
+                AssetDatabase.Refresh();
+                Debug.Log("Shader files generated successfully!");
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"Error generating shader files: {e.Message}");
+            }
+        }
+        
+        private void GenerateUnityToonShader(string commonProperties)
+        {
+            // Read the original shader file to preserve the rest of the content
+            string originalContent = ReadFile(UNITY_TOON_SHADER_PATH);
+            if (string.IsNullOrEmpty(originalContent))
+            {
+                Debug.LogError($"Failed to read original shader from {UNITY_TOON_SHADER_PATH}");
+                return;
+            }
+            
+            // Create backup
+            CreateBackup(UNITY_TOON_SHADER_PATH);
+            
+            // Replace the Properties block
+            string newContent = ReplacePropertiesBlock(originalContent, commonProperties, "");
+            WriteFile(UNITY_TOON_SHADER_PATH, newContent);
+        }
+        
+        private void GenerateUnityToonTessellationShader(string commonProperties, string tessellationProperties)
+        {
+            // Read the original shader file to preserve the rest of the content
+            string originalContent = ReadFile(UNITY_TOON_TESSELATION_SHADER_PATH);
+            if (string.IsNullOrEmpty(originalContent))
+            {
+                Debug.LogError($"Failed to read original tessellation shader from {UNITY_TOON_TESSELATION_SHADER_PATH}");
+                return;
+            }
+            
+            // Create backup
+            CreateBackup(UNITY_TOON_TESSELATION_SHADER_PATH);
+            
+            // Replace the Properties block
+            string newContent = ReplacePropertiesBlock(originalContent, commonProperties, tessellationProperties);
+            WriteFile(UNITY_TOON_TESSELATION_SHADER_PATH, newContent);
+        }
+        
+        private string ReplacePropertiesBlock(string originalContent, string commonProperties, string tessellationProperties)
+        {
+            // Find the Properties block using a more robust regex that handles nested braces
+            string propertiesPattern = @"Properties\s*\{";
+            Match startMatch = Regex.Match(originalContent, propertiesPattern);
+            
+            if (!startMatch.Success)
+            {
+                Debug.LogError("Could not find Properties block start in shader file");
+                return originalContent;
+            }
+            
+            // Find the matching closing brace
+            int startIndex = startMatch.Index;
+            int braceCount = 0;
+            int endIndex = startIndex;
+            bool foundStart = false;
+            
+            for (int i = startIndex; i < originalContent.Length; i++)
+            {
+                if (originalContent[i] == '{')
+                {
+                    braceCount++;
+                    foundStart = true;
+                }
+                else if (originalContent[i] == '}')
+                {
+                    braceCount--;
+                    if (foundStart && braceCount == 0)
+                    {
+                        endIndex = i;
+                        break;
+                    }
+                }
+            }
+            
+            if (braceCount != 0)
+            {
+                Debug.LogError("Could not find matching closing brace for Properties block");
+                return originalContent;
+            }
+            
+            // Build new Properties block
+            StringBuilder newProperties = new StringBuilder();
+            newProperties.AppendLine("    Properties {");
+            
+            // Add common properties
+            string[] commonLines = commonProperties.Split('\n');
+            int propertyCount = 0;
+            foreach (string line in commonLines)
+            {
+                if (!string.IsNullOrWhiteSpace(line) && !line.TrimStart().StartsWith("//"))
+                {
+                    newProperties.AppendLine($"        {line.Trim()}");
+                    propertyCount++;
+                }
+            }
+            
+            // Add tessellation properties if provided
+            if (!string.IsNullOrEmpty(tessellationProperties))
+            {
+                newProperties.AppendLine();
+                newProperties.AppendLine("        // Tessellation-specific properties");
+                string[] tessellationLines = tessellationProperties.Split('\n');
+                foreach (string line in tessellationLines)
+                {
+                    if (!string.IsNullOrWhiteSpace(line) && !line.TrimStart().StartsWith("//"))
+                    {
+                        newProperties.AppendLine($"        {line.Trim()}");
+                        propertyCount++;
+                    }
+                }
+            }
+            
+            newProperties.AppendLine("    }");
+            
+            Debug.Log($"Generated Properties block with {propertyCount} properties");
+            
+            // Replace the Properties block in the original content
+            return originalContent.Substring(0, startIndex) + newProperties.ToString() + originalContent.Substring(endIndex + 1);
+        }
+        
+        private void CreateBackup(string filePath)
+        {
+            string backupPath = filePath + ".backup";
+            if (File.Exists(filePath))
+            {
+                File.Copy(filePath, backupPath, true);
+                Debug.Log($"Created backup at {backupPath}");
+            }
+        }
+        
+        private string ReadFile(string path)
+        {
+            if (File.Exists(path))
+            {
+                return File.ReadAllText(path);
+            }
+            return null;
+        }
+        
+        private void WriteFile(string path, string content)
+        {
+            // Ensure directory exists
+            string directory = Path.GetDirectoryName(path);
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+            
+            File.WriteAllText(path, content);
+        }
+    }
+}
