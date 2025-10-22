@@ -45,13 +45,13 @@ EditorBuildSettings:
     path: Assets/Scenes/ShaderBall_LightCulling.unity
     guid: c191f97b7ca94f30b931bf6e1bcd304d
   - enabled: 1
-    path: Assets/Scenes/ToonShader(DXRShadow).unity
+    path: Assets/ScenesAdditional/ToonShader(DXRShadow)/ToonShader(DXRShadow).unity
     guid: 755a8c5824424c9193dc830b61e064ab
   - enabled: 1
-    path: Assets/Scenes/ToonShader_CelLook(DXRShadow).unity
+    path: Assets/ScenesAdditional/ToonShader_CelLook(SRPBatcher)/ToonShader_CelLook(DXRShadow).unity
     guid: 4053d545db384258abb1e221dadf452e
   - enabled: 1
-    path: Assets/Scenes/ToonShader_CelLook(SRPBatcher).unity
+    path: Assets/ScenesAdditional/ToonShader_CelLook(SRPBatcher)/ToonShader_CelLook(SRPBatcher).unity
     guid: 4ab6ef769e4fab64aaa4a75b1575acb7
   - enabled: 1
     path: Assets/Scenes/ToonShader_CelLook(Tessellation).unity
