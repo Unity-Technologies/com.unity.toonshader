@@ -51,9 +51,6 @@ EditorBuildSettings:
     path: Assets/Scenes/ToonShader_CelLook.unity
     guid: 4053d545db384258abb1e221dadf452e
   - enabled: 1
-    path: Assets/Scenes/ToonShader_CelLook(SameKeywords).unity
-    guid: 4ab6ef769e4fab64aaa4a75b1575acb7
-  - enabled: 1
     path: Assets/Scenes/ToonShader_CelLook(Tessellation).unity
     guid: 75ce7273e30d480fbf891f62eaf37702
   - enabled: 1
