@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/AngelRing.unity
     guid: c24086d9a98047e0942e8833fb4c9213
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/BoxProjection.unity
     guid: 6e471ed006d9491e9dde5d9963fbae86
   - enabled: 1
@@ -17,13 +17,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/EmissiveAnimation.unity
     guid: 78a2ca88832c4e838052ce8e7b6436da
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/LightAndShadows_BakedLight.unity
     guid: cb9cd012102546509011eec8aa6f7d26
   - enabled: 1
     path: Assets/Scenes/MatCapMask.unity
     guid: d52835c5a06d483e9fb9f920344112b7
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/MirrorTest.unity
     guid: 8e8190a88fc14c63bfd0533ebee7efd9
   - enabled: 1
@@ -62,7 +62,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MetaverseOutlineLighting/OutlineLighting02_Gradient.unity
     guid: 3c1be7dfdc1fd6e4ebfcf76cdbaf4717
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/MetaverseOutlineLighting/OutlineLighting01_Skybox.unity
     guid: 5047ff20b5c6df041aaea05829075248
   m_configObjects:
