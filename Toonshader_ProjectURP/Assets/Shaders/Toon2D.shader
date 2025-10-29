@@ -2,24 +2,25 @@ Shader "Toon2D"{
     Properties{
         _BaseColor ("BaseColor", Color) = (1,1,1,1)
         _MainTex ("BaseMap", 2D) = "white" {}
+        _BaseColor_Step ("BaseColor_Step", Range(0, 1)) = 0.5
+        _BaseShade_Feather ("Base/Shade_Feather", Range(0.0001, 1)) = 0.0001
 
         _1st_ShadeMap ("1st_ShadeMap", 2D) = "white" {}
         [Toggle(_)] _Use_BaseAs1st ("Use BaseMap as 1st_ShadeMap", Float ) = 0
         _1st_ShadeColor ("1st_ShadeColor", Color) = (1,1,1,1)
-        [Toggle(_)] _Is_LightColor_1st_Shade ("Is_LightColor_1st_Shade", Float ) = 1
+        
         _2nd_ShadeMap ("2nd_ShadeMap", 2D) = "white" {}
         [Toggle(_)] _Use_1stAs2nd ("Use 1st_ShadeMap as 2nd_ShadeMap", Float ) = 0
         _2nd_ShadeColor ("2nd_ShadeColor", Color) = (1,1,1,1)
 
+        _ShadeColor_Step ("ShadeColor_Step", Range(0, 1)) = 0
+        _1st2nd_Shades_Feather ("1st/2nd_Shades_Feather", Range(0.0001, 1)) = 0.0001
 
 
         _MaskTex("Mask", 2D) = "white" {}
         _NormalMap("Normal Map", 2D) = "bump" {}
         _Unlit_Intensity ("Unlit_Intensity", Range(0, 4)) = 0
-
-        [Toggle(_)] _Is_Filter_LightColor ("VRChat : SceneLights HiCut_Filter", Float ) = 1
-        [Toggle(_)] _Is_LightColor_Base ("Is_LightColor_Base", Float ) = 1
-
+        
         [HideInInspector] _White("Tint", Color) = (1,1,1,1) // Added to break SRP batching. Work around for issue with SRP Batching
     }
 
@@ -74,8 +75,6 @@ Shader "Toon2D"{
             CBUFFER_START(UnityPerMaterial)
                 half4 _BaseColor;
                 float _Unlit_Intensity;
-                float _Is_Filter_LightColor;
-                float _Is_LightColor_Base;
 
                 float _Use_BaseAs1st;
                 float _Use_1stAs2nd;
@@ -83,6 +82,9 @@ Shader "Toon2D"{
                 float4 _1st_ShadeColor;
                 float4 _2nd_ShadeColor;
 
+                float _BaseColor_Step;
+                float _BaseShade_Feather;
+            
                 float _ShadeColor_Step;
                 float _1st2nd_Shades_Feather;
 
@@ -190,7 +192,7 @@ Shader "Toon2D"{
 
 
                 float4 _MainTex_var = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, uv);
-                float3 baseColor = surfaceData.albedo.rgb * shapeLight0 * _ShapeLightBlendFactors0.x;
+                float3 baseColor = surfaceData.albedo.rgb;
 
                 // //v.2.0.5
                 float4 _1st_ShadeMap_var = lerp(
@@ -216,8 +218,14 @@ Shader "Toon2D"{
                 // //
                 // //Composition: 3 Basic Colors as Set_FinalBaseColor
 
+                float4 _Set_1st_ShadePosition_var = float4(1, 1, 1, 1);
                 float4 _Set_2nd_ShadePosition_var = float4(1, 1, 1, 1);
-                float Set_FinalShadowMask = 1;
+
+
+                float _SystemShadowsLevel_var = 0.5f;
+                float _Set_SystemShadowsToBase = 1.0f;
+                float Set_FinalShadowMask = saturate((1.0 + ( (lerp( _HalfLambert_var, _HalfLambert_var*saturate(_SystemShadowsLevel_var), _Set_SystemShadowsToBase ) - (_BaseColor_Step-_BaseShade_Feather)) * ((1.0 - _Set_1st_ShadePosition_var.rgb).r - 1.0) ) / (_BaseColor_Step - (_BaseColor_Step-_BaseShade_Feather))));
+                
 
                 float innerLerpOp = saturate((1.0 + ((_HalfLambert_var - (_ShadeColor_Step - _1st2nd_Shades_Feather)) * ((1.0 - _Set_2nd_ShadePosition_var.rgb).r - 1.0)) / ( _ShadeColor_Step - ( _ShadeColor_Step - _1st2nd_Shades_Feather))));
                 
@@ -225,6 +233,10 @@ Shader "Toon2D"{
                                                                  innerLerpOp),
                                                  Set_FinalShadowMask);
 
+                //test
+                //Set_FinalBaseColor = firstShadeColor;
+
+                Set_FinalBaseColor = Set_FinalBaseColor * shapeLight0 * _ShapeLightBlendFactors0.x;
                 half4 shapeLight0Modulate = half4(Set_FinalBaseColor, alpha);
                 half4 shapeLight0Additive = shapeLight0 * _ShapeLightBlendFactors0.y;
 
@@ -287,15 +299,11 @@ Shader "Toon2D"{
                 // //v.2.0.5: 
                 //
                 half3 originalLightColor = mainLightColor.rgb;
-                float3 lightColor = lerp(max(defaultLightColor, originalLightColor),
-                              max(defaultLightColor, saturate(originalLightColor)),
-                              _Is_Filter_LightColor);
+                float3 lightColor = max(defaultLightColor, saturate(originalLightColor));
                 float3 Set_LightColor = lightColor.rgb;
 
                 float4 _MainTex_var = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex));
-                float3 Set_BaseColor = lerp((_BaseColor.rgb * _MainTex_var.rgb),
-                                                               ((_BaseColor.rgb * _MainTex_var.rgb) * Set_LightColor),
-                                                               _Is_LightColor_Base);
+                float3 Set_BaseColor = ((_BaseColor.rgb * _MainTex_var.rgb) * Set_LightColor);
 
 
                 // //v.2.0.5
