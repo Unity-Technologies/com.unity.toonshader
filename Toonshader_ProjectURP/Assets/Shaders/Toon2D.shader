@@ -219,16 +219,11 @@ Shader "Toon2D"{
                 float4 _Set_2nd_ShadePosition_var = float4(1, 1, 1, 1);
                 float Set_FinalShadowMask = 1;
 
+                float innerLerpOp = saturate((1.0 + ((_HalfLambert_var - (_ShadeColor_Step - _1st2nd_Shades_Feather)) * ((1.0 - _Set_2nd_ShadePosition_var.rgb).r - 1.0)) / ( _ShadeColor_Step - ( _ShadeColor_Step - _1st2nd_Shades_Feather))));
+                
                 float3 Set_FinalBaseColor = lerp(baseColor, lerp(firstShadeColor, secondShadeColor,
-                                                                 saturate(
-                                                                     (1.0 + ((_HalfLambert_var - (_ShadeColor_Step -
-                                                                         _1st2nd_Shades_Feather)) * ((1.0
-                                                                         - _Set_2nd_ShadePosition_var.rgb).r - 1.0)) / (
-                                                                         _ShadeColor_Step - (
-                                                                             _ShadeColor_Step -
-                                                                             _1st2nd_Shades_Feather))))),
+                                                                 innerLerpOp),
                                                  Set_FinalShadowMask);
-
 
                 half4 shapeLight0Modulate = half4(Set_FinalBaseColor, alpha);
                 half4 shapeLight0Additive = shapeLight0 * _ShapeLightBlendFactors0.y;
