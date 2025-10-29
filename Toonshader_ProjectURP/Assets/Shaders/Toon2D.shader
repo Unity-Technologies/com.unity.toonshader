@@ -1,7 +1,5 @@
-Shader "Toon2D"
-{
-    Properties
-    {
+Shader "Toon2D"{
+    Properties{
         _BaseColor ("BaseColor", Color) = (1,1,1,1)
         _MainTex ("BaseMap", 2D) = "white" {}
 
@@ -25,10 +23,8 @@ Shader "Toon2D"
         [HideInInspector] _White("Tint", Color) = (1,1,1,1) // Added to break SRP batching. Work around for issue with SRP Batching
     }
 
-    SubShader
-    {
-        Tags
-        {
+    SubShader{
+        Tags{
             "Queue" = "Transparent" "RenderType" = "Transparent" "RenderPipeline" = "UniversalPipeline"
         }
 
@@ -38,17 +34,14 @@ Shader "Toon2D"
 
 
 
-        Stencil
-        {
+        Stencil{
             Ref 128 // Put this in the last bit of our stencil value for maximum compatibility with sprite mask
             Comp always
             Pass replace
         }
 
-        Pass
-        {
-            Tags
-            {
+        Pass{
+            Tags{
                 "LightMode" = "Universal2D"
             }
 
@@ -227,10 +220,14 @@ Shader "Toon2D"
                 float Set_FinalShadowMask = 1;
 
                 float3 Set_FinalBaseColor = lerp(baseColor, lerp(firstShadeColor, secondShadeColor,
-                           saturate(
-                               (1.0 + ((_HalfLambert_var - (_ShadeColor_Step - _1st2nd_Shades_Feather)) * ((1.0
-                                   - _Set_2nd_ShadePosition_var.rgb).r - 1.0)) / (_ShadeColor_Step - (
-                                   _ShadeColor_Step - _1st2nd_Shades_Feather))))), Set_FinalShadowMask);
+                                                                 saturate(
+                                                                     (1.0 + ((_HalfLambert_var - (_ShadeColor_Step -
+                                                                         _1st2nd_Shades_Feather)) * ((1.0
+                                                                         - _Set_2nd_ShadePosition_var.rgb).r - 1.0)) / (
+                                                                         _ShadeColor_Step - (
+                                                                             _ShadeColor_Step -
+                                                                             _1st2nd_Shades_Feather))))),
+                                                 Set_FinalShadowMask);
 
 
                 half4 shapeLight0Modulate = half4(Set_FinalBaseColor, alpha);
@@ -286,9 +283,9 @@ Shader "Toon2D"
 
                 // //v.2.0.5
                 float3 defaultLightColor = saturate(max(half3(0.05, 0.05, 0.05) * _Unlit_Intensity,
-                                         max(ShadeSH9(half4(0.0, 0.0, 0.0, 1.0)),
-                                             ShadeSH9(half4(0.0, -1.0, 0.0, 1.0)).rgb) *
-                                         _Unlit_Intensity));
+                    max(ShadeSH9(half4(0.0, 0.0, 0.0, 1.0)),
+                        ShadeSH9(half4(0.0, -1.0, 0.0, 1.0)).rgb) *
+                    _Unlit_Intensity));
                 // float3 customLightDirection = normalize(mul( GetObjectToWorldMatrix(), float4(((float3(1.0,0.0,0.0)*_Offset_X_Axis_BLD*10)+(float3(0.0,1.0,0.0)*_Offset_Y_Axis_BLD*10)+(float3(0.0,0.0,-1.0)*lerp(-1.0,1.0,_Inverse_Z_Axis_BLD))),0)).xyz);
                 // float3 lightDirection = normalize(lerp(defaultLightDirection, mainLight.direction.xyz,any(mainLight.direction.xyz)));
                 // lightDirection = lerp(lightDirection, customLightDirection, _Is_BLD);
@@ -296,13 +293,14 @@ Shader "Toon2D"
                 //
                 half3 originalLightColor = mainLightColor.rgb;
                 float3 lightColor = lerp(max(defaultLightColor, originalLightColor),
-                    max(defaultLightColor, saturate(originalLightColor)),
-                    _Is_Filter_LightColor);
+                              max(defaultLightColor, saturate(originalLightColor)),
+                              _Is_Filter_LightColor);
                 float3 Set_LightColor = lightColor.rgb;
 
                 float4 _MainTex_var = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex));
                 float3 Set_BaseColor = lerp((_BaseColor.rgb * _MainTex_var.rgb),
-              ((_BaseColor.rgb * _MainTex_var.rgb) * Set_LightColor), _Is_LightColor_Base);
+                                                               ((_BaseColor.rgb * _MainTex_var.rgb) * Set_LightColor),
+                                                               _Is_LightColor_Base);
 
 
                 // //v.2.0.5
@@ -332,10 +330,8 @@ Shader "Toon2D"
             ENDHLSL
         }
 
-        Pass
-        {
-            Tags
-            {
+        Pass{
+            Tags{
                 "LightMode" = "NormalsRendering"
             }
 
@@ -374,10 +370,8 @@ Shader "Toon2D"
             ENDHLSL
         }
 
-        Pass
-        {
-            Tags
-            {
+        Pass{
+            Tags{
                 "LightMode" = "UniversalForward" "Queue"="Transparent" "RenderType"="Transparent"
             }
 
