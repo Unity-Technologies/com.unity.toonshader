@@ -132,7 +132,7 @@ half3 ShadeSH9(half4 normal)
 
 //----------------------------------------------------------------------------------------------------------------------
 
-half4 CombinedShapeLightShared2(in SurfaceData2D surfaceData, in InputData2D inputData)
+half4 CombinedShapeLightShared2(in SurfaceData2D surfaceData, in InputData2D inputData, in float2 uv)
 {
     #if defined(DEBUG_DISPLAY)
     half4 debugColor = 0;
@@ -151,6 +151,31 @@ half4 CombinedShapeLightShared2(in SurfaceData2D surfaceData, in InputData2D inp
     if (alpha == 0.0)
         discard;
 
+    
+
+    
+    // //v.2.0.5
+    // float4 _1st_ShadeMap_var = lerp(SAMPLE_TEXTURE2D(_1st_ShadeMap,sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex)),_MainTex_var,_Use_BaseAs1st);
+    // float3 Set_1st_ShadeColor = lerp( (_1st_ShadeColor.rgb*_1st_ShadeMap_var.rgb), ((_1st_ShadeColor.rgb*_1st_ShadeMap_var.rgb)*Set_LightColor), _Is_LightColor_1st_Shade );
+    // //v.2.0.5
+    // float4 _2nd_ShadeMap_var = lerp(SAMPLE_TEXTURE2D(_2nd_ShadeMap, sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex)),_1st_ShadeMap_var,_Use_1stAs2nd);
+    // float3 Set_2nd_ShadeColor = lerp( (_2nd_ShadeColor.rgb*_2nd_ShadeMap_var.rgb), ((_2nd_ShadeColor.rgb*_2nd_ShadeMap_var.rgb)*Set_LightColor), _Is_LightColor_2nd_Shade );
+    // float _HalfLambert_var = 0.5*dot(lerp( i.normalDir, normalDirection, _Is_NormalMapToBase ),lightDirection)+0.5;
+    //
+    // float4 _Set_2nd_ShadePosition_var = tex2D(_Set_2nd_ShadePosition, TRANSFORM_TEX(Set_UV0, _Set_2nd_ShadePosition));
+    // float4 _Set_1st_ShadePosition_var = tex2D(_Set_1st_ShadePosition, TRANSFORM_TEX(Set_UV0, _Set_1st_ShadePosition));
+    // //v.2.0.6
+    // //Minmimum value is same as the Minimum Feather's value with the Minimum Step's value as threshold.
+    // float _SystemShadowsLevel_var = (shadowAttenuation*0.5)+0.5+_Tweak_SystemShadowsLevel > 0.001 ? (shadowAttenuation*0.5)+0.5+_Tweak_SystemShadowsLevel : 0.0001;
+    // float Set_FinalShadowMask = saturate((1.0 + ( (lerp( _HalfLambert_var, _HalfLambert_var*saturate(_SystemShadowsLevel_var), _Set_SystemShadowsToBase ) - (_BaseColor_Step-_BaseShade_Feather)) * ((1.0 - _Set_1st_ShadePosition_var.rgb).r - 1.0) ) / (_BaseColor_Step - (_BaseColor_Step-_BaseShade_Feather))));
+    // //
+    // //Composition: 3 Basic Colors as Set_FinalBaseColor
+    // float3 Set_FinalBaseColor = lerp(Set_BaseColor,lerp(Set_1st_ShadeColor,Set_2nd_ShadeColor,saturate((1.0 + ( (_HalfLambert_var - (_ShadeColor_Step-_1st2nd_Shades_Feather)) * ((1.0 - _Set_2nd_ShadePosition_var.rgb).r - 1.0) ) / (_ShadeColor_Step - (_ShadeColor_Step-_1st2nd_Shades_Feather))))),Set_FinalShadowMask); // Final Color
+
+
+    //return float4(Set_BaseColor,1); 
+
+                
 #if USE_SHAPE_LIGHT_TYPE_0
     half4 shapeLight0 = SAMPLE_TEXTURE2D(_ShapeLightTexture0, sampler_ShapeLightTexture0, lightingUV);
 
@@ -160,8 +185,14 @@ half4 CombinedShapeLightShared2(in SurfaceData2D surfaceData, in InputData2D inp
         shapeLight0 *= dot(processedMask, _ShapeLightMaskFilter0);
     }
 
-    half4 shapeLight0Modulate = shapeLight0 * _ShapeLightBlendFactors0.x;
+
+                
+    float4 _MainTex_var = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, uv);
+    float3 baseColor = surfaceData.albedo.rgb *  shapeLight0 * _ShapeLightBlendFactors0.x;
+
+    half4 shapeLight0Modulate = half4(baseColor, alpha);
     half4 shapeLight0Additive = shapeLight0 * _ShapeLightBlendFactors0.y;
+                
 #else
     half4 shapeLight0Modulate = 0;
     half4 shapeLight0Additive = 0;
@@ -171,9 +202,9 @@ half4 CombinedShapeLightShared2(in SurfaceData2D surfaceData, in InputData2D inp
 #if !USE_SHAPE_LIGHT_TYPE_0 && !USE_SHAPE_LIGHT_TYPE_1 && !USE_SHAPE_LIGHT_TYPE_2 && ! USE_SHAPE_LIGHT_TYPE_3
     finalOutput = color;
 #else
-    half4 finalModulate = shapeLight0Modulate + shapeLight1Modulate + shapeLight2Modulate + shapeLight3Modulate;
-    half4 finalAdditve = shapeLight0Additive + shapeLight1Additive + shapeLight2Additive + shapeLight3Additive;
-    finalOutput = _HDREmulationScale * (color * finalModulate + finalAdditve);
+    half4 finalModulate = shapeLight0Modulate;
+    half4 finalAdditve = shapeLight0Additive;
+    finalOutput = _HDREmulationScale * ( finalModulate + finalAdditve);
 #endif
 
     finalOutput.a = alpha;
@@ -198,7 +229,7 @@ half4 CommonLitFragment2(Varyings input, half4 color)
     surfaceData.normalWS = input.normalWS;
 #endif
 
-    return CombinedShapeLightShared2(surfaceData, inputData);
+    return CombinedShapeLightShared2(surfaceData, inputData, input.uv);
 }
 
             
