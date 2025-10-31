@@ -6,34 +6,35 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/AngelRing.unity
+    path: Assets/Scenes/AngelRing/AngelRing.unity
     guid: c24086d9a98047e0942e8833fb4c9213
   - enabled: 1
-    path: Assets/Scenes/Cube_HardEdge.unity
+    path: Assets/Scenes/Cube_HardEdge/Cube_HardEdge.unity
     guid: 26d7b7fc97994621b455b0a15f718b73
   - enabled: 1
-    path: Assets/Scenes/EmissiveAnimation.unity
+    path: Assets/Scenes/EmissiveAnimation/EmissiveAnimation.unity
     guid: 78a2ca88832c4e838052ce8e7b6436da
   - enabled: 1
-    path: Assets/Scenes/LightAndShadows.unity
+    path: Assets/Scenes/LightAndShadows/LightAndShadows.unity
     guid: 330dfaaf05df42d389985f9ebaecf095
   - enabled: 1
-    path: Assets/Scenes/MatCapMask.unity
+    path: Assets/Scenes/MatCapMask/MatCapMask.unity
     guid: d52835c5a06d483e9fb9f920344112b7
   - enabled: 1
     path: Assets/Scenes/NormalMap/NormalMap.unity
     guid: b08adbe797f04343b28ddafefbf6719b
   - enabled: 1
-    path: Assets/Scenes/PointLightTest.unity
+    path: Assets/Scenes/PointLightTest/PointLightTest.unity
     guid: 3fd1bd19f29d41b3938f1bc8d4b702e7
   - enabled: 1
-    path: Assets/Scenes/Sample.unity
+    path: Assets/Scenes/Sample/Sample.unity
     guid: 84e407fe6ccc4b6291f02236f927d15e
   - enabled: 1
-    path: Assets/Scenes/SceneLights Hi-Cut_Filter Test.unity
+    path: Assets/Scenes/SceneLights Hi-Cut_Filter Test/SceneLights Hi-Cut_Filter
+      Test.unity
     guid: 8cf67b5156354863a2bac9b3c9b8f30c
   - enabled: 1
-    path: Assets/Scenes/ShaderBall.unity
+    path: Assets/Scenes/ShaderBall/ShaderBall.unity
     guid: ca770347e2c945bcb2a16a2cd2ef000f
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: cf2afb40cc2d9db4ea3770686df52896,
