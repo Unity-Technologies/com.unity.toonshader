@@ -23,10 +23,4 @@ Shader "Hidden/UnityToon/TessellationPropertiesPart"
         _TessPhongStrength("DX11 Tess : Phong Strength", Range(0, 1)) = 0.5
         _TessExtrusionAmount("DX11 Tess : Extrusion Amount", Range(-0.005, 0.005)) = 0.0
     }
-
-    SubShader
-    {
-        Tags { "RenderType"="Opaque" }
-        Pass { }
-    }
 }

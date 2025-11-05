@@ -499,10 +499,4 @@ Shader "Hidden/UnityToon/CommonPropertiesPart"
         //////////////////// End of HDRP material default values. ////////////////////
         //////////////////////////////////////////////////////////////////////////////
     }
-
-    SubShader
-    {
-        Tags { "RenderType"="Opaque" }
-        Pass { }
-    }
 }
