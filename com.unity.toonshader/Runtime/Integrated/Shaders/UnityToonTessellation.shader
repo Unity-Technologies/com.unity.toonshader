@@ -1,4 +1,4 @@
-//Auto-generated on Wed Nov 05 06:07:09 UTC 2025
+//Auto-generated on Wed Nov 05 06:16:34 UTC 2025
 ﻿//Unity Toon Shader
 //nobuyuki@unity3d.com
 //toshiyuki@unity3d.com (Intengrated) 
@@ -47,7 +47,8 @@ Shader "Toon(Tessellation)" {
         _IsBaseMapAlphaAsClippingMask("IsBaseMapAlphaAsClippingMask", Float) = 0
         //
         [Toggle(_)] _Inverse_Clipping("Inverse_Clipping", Float) = 0
-        _TessExtrusionAmount("DX11 Tess : Extrusion Amount", Range(-0.005, 0.005)) = 0.0
+        _Clipping_Level("Clipping_Level", Range(0, 1)) = 0
+        _Tweak_transparency("Tweak_transparency", Range(-1, 1)) = 0
         // ClippingMask paramaters to Here.
 
         // Base Color Properties
@@ -76,13 +77,24 @@ Shader "Toon(Tessellation)" {
 
         // Normal Map Properties
         _NormalMap ("NormalMap", 2D) = "bump" {}
+        _BumpScale ("Normal Scale", Range(0, 1)) = 1
         [Toggle(_)] _Is_NormalMapToBase ("Is_NormalMapToBase", Float ) = 0
         //v.2.0.4.4
         [Toggle(_)] _Set_SystemShadowsToBase ("Set_SystemShadowsToBase", Float ) = 1
+        _Tweak_SystemShadowsLevel ("Tweak_SystemShadowsLevel", Range(-0.5, 0.5)) = 0
 
         // Shading Properties
         //v.2.0.6
+        _BaseColor_Step ("BaseColor_Step", Range(0, 1)) = 0.5
+        _BaseShade_Feather ("Base/Shade_Feather", Range(0.0001, 1)) = 0.0001
+        _ShadeColor_Step ("ShadeColor_Step", Range(0, 1)) = 0
+        _1st2nd_Shades_Feather ("1st/2nd_Shades_Feather", Range(0.0001, 1)) = 0.0001
+        _1st_ShadeColor_Step ("1st_ShadeColor_Step", Range(0, 1)) = 0.5
+        _1st_ShadeColor_Feather ("1st_ShadeColor_Feather", Range(0.0001, 1)) = 0.0001
+        _2nd_ShadeColor_Step ("2nd_ShadeColor_Step", Range(0, 1)) = 0
+        _2nd_ShadeColor_Feather ("2nd_ShadeColor_Feather", Range(0.0001, 1)) = 0.0001
         //v.2.0.5
+        _StepOffset ("Step_Offset (ForwardAdd Only)", Range(-0.5, 0.5)) = 0
         [Toggle(_)] _Is_Filter_HiCutPointLightColor ("PointLights HiCut_Filter (ForwardAdd Only)", Float ) = 1
 
         // Shading Grade Map Properties
@@ -90,6 +102,8 @@ Shader "Toon(Tessellation)" {
         _Set_2nd_ShadePosition ("Set_2nd_ShadePosition", 2D) = "white" {}
         _ShadingGradeMap("ShadingGradeMap", 2D) = "white" {}
         //v.2.0.6
+        _Tweak_ShadingGradeMapLevel("Tweak_ShadingGradeMapLevel", Range(-0.5, 0.5)) = 0
+        _BlurLevelSGM("Blur Level of ShadingGradeMap", Range(0, 10)) = 0
 
         // High Color Properties
         _HighColor ("HighColor", Color) = (0,0,0,1)
@@ -97,41 +111,56 @@ Shader "Toon(Tessellation)" {
         _HighColor_Tex ("HighColor_Tex", 2D) = "white" {}
         [Toggle(_)] _Is_LightColor_HighColor ("Is_LightColor_HighColor", Float ) = 1
         [Toggle(_)] _Is_NormalMapToHighColor ("Is_NormalMapToHighColor", Float ) = 0
+        _HighColor_Power ("HighColor_Power", Range(0, 1)) = 0
         [Toggle(_)] _Is_SpecularToHighColor ("Is_SpecularToHighColor", Float ) = 0
         [Toggle(_)] _Is_BlendAddToHiColor ("Is_BlendAddToHiColor", Float ) = 0
         [Toggle(_)] _Is_UseTweakHighColorOnShadow ("Is_UseTweakHighColorOnShadow", Float ) = 0
+        _TweakHighColorOnShadow ("TweakHighColorOnShadow", Range(0, 1)) = 0
         //HiColorMask
         _Set_HighColorMask ("Set_HighColorMask", 2D) = "white" {}
+        _Tweak_HighColorMaskLevel ("Tweak_HighColorMaskLevel", Range(-1, 1)) = 0
 
         // Rim Light Properties
         [Toggle(_)] _RimLight ("RimLight", Float ) = 0
         _RimLightColor ("RimLightColor", Color) = (1,1,1,1)
         [Toggle(_)] _Is_LightColor_RimLight ("Is_LightColor_RimLight", Float ) = 1
         [Toggle(_)] _Is_NormalMapToRimLight ("Is_NormalMapToRimLight", Float ) = 0
+        _RimLight_Power ("RimLight_Power", Range(0, 1)) = 0.1
+        _RimLight_InsideMask ("RimLight_InsideMask", Range(0.0001, 1)) = 0.0001
         [Toggle(_)] _RimLight_FeatherOff ("RimLight_FeatherOff", Float ) = 0
         //RimLight
         [Toggle(_)] _LightDirection_MaskOn ("LightDirection_MaskOn", Float ) = 0
+        _Tweak_LightDirection_MaskLevel ("Tweak_LightDirection_MaskLevel", Range(0, 0.5)) = 0
         [Toggle(_)] _Add_Antipodean_RimLight ("Add_Antipodean_RimLight", Float ) = 0
         _Ap_RimLightColor ("Ap_RimLightColor", Color) = (1,1,1,1)
         [Toggle(_)] _Is_LightColor_Ap_RimLight ("Is_LightColor_Ap_RimLight", Float ) = 1
+        _Ap_RimLight_Power ("Ap_RimLight_Power", Range(0, 1)) = 0.1
         [Toggle(_)] _Ap_RimLight_FeatherOff ("Ap_RimLight_FeatherOff", Float ) = 0
         //RimLightMask
         _Set_RimLightMask ("Set_RimLightMask", 2D) = "white" {}
+        _Tweak_RimLightMaskLevel ("Tweak_RimLightMaskLevel", Range(-1, 1)) = 0
 
         // MatCap Properties
         [Toggle(_)] _MatCap ("MatCap", Float ) = 0
         _MatCap_Sampler ("MatCap_Sampler", 2D) = "black" {}
         //v.2.0.6
+        _BlurLevelMatcap ("Blur Level of MatCap_Sampler", Range(0, 10)) = 0
         _MatCapColor ("MatCapColor", Color) = (1,1,1,1)
         [Toggle(_)] _Is_LightColor_MatCap ("Is_LightColor_MatCap", Float ) = 1
         [Toggle(_)] _Is_BlendAddToMatCap ("Is_BlendAddToMatCap", Float ) = 1
+        _Tweak_MatCapUV ("Tweak_MatCapUV", Range(-0.5, 0.5)) = 0
+        _Rotate_MatCapUV ("Rotate_MatCapUV", Range(-1, 1)) = 0
         //v.2.0.6
         [Toggle(_)] _CameraRolling_Stabilizer ("Activate CameraRolling_Stabilizer", Float ) = 0
         [Toggle(_)] _Is_NormalMapForMatCap ("Is_NormalMapForMatCap", Float ) = 0
         _NormalMapForMatCap ("NormalMapForMatCap", 2D) = "bump" {}
+        _BumpScaleMatcap ("Scale for NormalMapforMatCap", Range(0, 1)) = 1
+        _Rotate_NormalMapForMatCapUV ("Rotate_NormalMapForMatCapUV", Range(-1, 1)) = 0
         [Toggle(_)] _Is_UseTweakMatCapOnShadow ("Is_UseTweakMatCapOnShadow", Float ) = 0
+        _TweakMatCapOnShadow ("TweakMatCapOnShadow", Range(0, 1)) = 0
         //MatcapMask
         _Set_MatcapMask ("Set_MatcapMask", 2D) = "white" {}
+        _Tweak_MatcapMaskLevel ("Tweak_MatcapMaskLevel", Range(-1, 1)) = 0
         [Toggle(_)] _Inverse_MatcapMask ("Inverse_MatcapMask", Float ) = 0
         //v.2.0.5
         [Toggle(_)] _Is_Ortho ("Orthographic Projection for MatCap", Float ) = 0
@@ -142,6 +171,8 @@ Shader "Toon(Tessellation)" {
         _AngelRing_Sampler("AngelRing_Sampler", 2D) = "black" {}
         _AngelRing_Color("AngelRing_Color", Color) = (1, 1, 1, 1)
         [Toggle(_)] _Is_LightColor_AR("Is_LightColor_AR", Float) = 1
+        _AR_OffsetU("AR_OffsetU", Range(0, 0.5)) = 0
+        _AR_OffsetV("AR_OffsetV", Range(0, 1)) = 0.3
         [Toggle(_)] _ARSampler_AlphaOn("ARSampler_AlphaOn", Float) = 0
 
         // Emissive Properties
@@ -150,6 +181,8 @@ Shader "Toon(Tessellation)" {
         _Emissive_Tex ("Emissive_Tex", 2D) = "white" {}
         [HDR]_Emissive_Color ("Emissive_Color", Color) = (0,0,0,1)
         _Base_Speed ("Base_Speed", Float ) = 0
+        _Scroll_EmissiveU ("Scroll_EmissiveU", Range(-1, 1)) = 0
+        _Scroll_EmissiveV ("Scroll_EmissiveV", Range(-1, 1)) = 0
         _Rotate_EmissiveUV ("Rotate_EmissiveUV", Float ) = 0
         [Toggle(_)] _Is_PingPong_Base ("Is_PingPong_Base", Float ) = 0
         [Toggle(_)] _Is_ColorShift ("Activate ColorShift", Float ) = 0
@@ -178,11 +211,15 @@ Shader "Toon(Tessellation)" {
         [Toggle(_)] _Is_BakedNormal ("Is_BakedNormal", Float ) = 0
         _BakedNormal ("Baked Normal for Outline", 2D) = "white" {}
         //GI Intensity
+        _GI_Intensity ("GI_Intensity", Range(0, 1)) = 0
         //For VR Chat under No effective light objects
+        _Unlit_Intensity ("Unlit_Intensity", Range(0, 4)) = 0
         //v.2.0.5
         [Toggle(_)] _Is_Filter_LightColor ("VRChat : SceneLights HiCut_Filter", Float ) = 1
         //Built-in Light Direction
         [Toggle(_)] _Is_BLD ("Advanced : Activate Built-in Light Direction", Float ) = 0
+        _Offset_X_Axis_BLD (" Offset X-Axis (Built-in Light Direction)", Range(-1, 1)) = -0.05
+        _Offset_Y_Axis_BLD (" Offset Y-Axis (Built-in Light Direction)", Range(-1, 1)) = 0.09
         [Toggle(_)] _Inverse_Z_Axis_BLD (" Inverse Z-Axis (Built-in Light Direction)", Float ) = 1
 
         // HDRP Matte Properties
@@ -236,6 +273,8 @@ Shader "Toon(Tessellation)" {
         _BaseColorMap("BaseColorMap", 2D) = "white" {}
         [HideInInspector] _BaseColorMap_MipInfo("_BaseColorMap_MipInfo", Vector) = (0, 0, 0, 0)
 
+        _Metallic("_Metallic", Range(0.0, 1.0)) = 0
+        _Smoothness("Smoothness", Range(0.0, 1.0)) = 0.5
         _MaskMap("MaskMap", 2D) = "white" {}
         _SmoothnessRemapMin("SmoothnessRemapMin", Float) = 0.0
         _SmoothnessRemapMax("SmoothnessRemapMax", Float) = 1.0
@@ -247,6 +286,7 @@ Shader "Toon(Tessellation)" {
         // Normal Maps
         //////////////  _NormalMap("NormalMap", 2D) = "bump" {}     // Tangent space normal map
         _NormalMapOS("NormalMapOS", 2D) = "white" {} // Object space normal map - no good default value
+        _NormalScale("_NormalScale", Range(0.0, 8.0)) = 1
 
         _BentNormalMap("_BentNormalMap", 2D) = "bump" {}
         _BentNormalMapOS("_BentNormalMapOS", 2D) = "white" {}
@@ -256,6 +296,7 @@ Shader "Toon(Tessellation)" {
         // Caution: Default value of _HeightAmplitude must be (_HeightMax - _HeightMin) * 0.01
         // Those two properties are computed from the ones exposed in the UI and depends on the displaement mode so they are separate because we don't want to lose information upon displacement mode change.
         [HideInInspector] _HeightAmplitude("Height Amplitude", Float) = 0.02 // In world units. This will be computed in the UI.
+        [HideInInspector] _HeightCenter("Height Center", Range(0.0, 1.0)) = 0.5 // In texture space
 
         [Enum(MinMax, 0, Amplitude, 1)] _HeightMapParametrization("Heightmap Parametrization", Int) = 0
         // These parameters are for vertex displacement/Tessellation
@@ -265,32 +306,43 @@ Shader "Toon(Tessellation)" {
         _HeightMax("Heightmap Max", Float) = 1
         // Amplitude mode
         _HeightTessAmplitude("Amplitude", Float) = 2.0 // in Centimeters
+        _HeightTessCenter("Height Center", Range(0.0, 1.0)) = 0.5 // In texture space
 
         // These parameters are for pixel displacement
         _HeightPoMAmplitude("Height Amplitude", Float) = 2.0 // In centimeters
 
         // Detail Maps
         _DetailMap("DetailMap", 2D) = "linearGrey" {}
+        _DetailAlbedoScale("_DetailAlbedoScale", Range(0.0, 2.0)) = 1
+        _DetailNormalScale("_DetailNormalScale", Range(0.0, 2.0)) = 1
+        _DetailSmoothnessScale("_DetailSmoothnessScale", Range(0.0, 2.0)) = 1
 
         // Tangent Maps
         _TangentMap("TangentMap", 2D) = "bump" {}
         _TangentMapOS("TangentMapOS", 2D) = "white" {}
+        _Anisotropy("Anisotropy", Range(-1.0, 1.0)) = 0
         _AnisotropyMap("AnisotropyMap", 2D) = "white" {}
 
         // Diffusion Profile
         [HideInInspector] _DiffusionProfile("Obsolete, kept for migration purpose", Int) = 0
         [HideInInspector] _DiffusionProfileAsset("Diffusion Profile Asset", Vector) = (0, 0, 0, 0)
         [HideInInspector] _DiffusionProfileHash("Diffusion Profile Hash", Float) = 0
+        _SubsurfaceMask("Subsurface Radius", Range(0.0, 1.0)) = 1.0
         _SubsurfaceMaskMap("Subsurface Radius Map", 2D) = "white" {}
+        _TransmissionMask("Transmission Mask", Range(0.0, 1.0)) = 1.0
+        _Thickness("Thickness", Range(0.0, 1.0)) = 1.0
         _ThicknessMap("Thickness Map", 2D) = "white" {}
         _ThicknessRemap("Thickness Remap", Vector) = (0, 1, 0, 0)
 
         // Iridescence
+        _IridescenceThickness("Iridescence Thickness", Range(0.0, 1.0)) = 1.0
         _IridescenceThicknessMap("Iridescence Thickness Map", 2D) = "white" {}
         _IridescenceThicknessRemap("Iridescence Thickness Remap", Vector) = (0, 1, 0, 0)
+        _IridescenceMask("Iridescence Mask", Range(0.0, 1.0)) = 1.0
         _IridescenceMaskMap("Iridescence Mask Map", 2D) = "white" {}
 
         // Coat
+        _CoatMask("Coat Mask", Range(0.0, 1.0)) = 0.0
         _CoatMaskMap("CoatMaskMap", 2D) = "white" {}
 
         // Specular
@@ -312,6 +364,7 @@ Shader "Toon(Tessellation)" {
         [HideInInspector] _EmissiveIntensityUnit("Emissive Mode", Int) = 0
         [ToggleUI] _UseEmissiveIntensity("Use Emissive Intensity", Int) = 0
         _EmissiveIntensity("Emissive Intensity", Float) = 1
+        _EmissiveExposureWeight("Emissive Pre Exposure", Range(0.0, 1.0)) = 1.0
 
         // Distortion
         _DistortionVectorMap("DistortionVectorMap", 2D) = "black" {}
@@ -333,6 +386,10 @@ Shader "Toon(Tessellation)" {
         // Alpha and Transparency
         [ToggleUI]  _UseShadowThreshold("_UseShadowThreshold", Float) = 0.0
         [ToggleUI]  _AlphaCutoffEnable("Alpha Cutoff Enable", Float) = 0.0
+        _AlphaCutoff("Alpha Cutoff", Range(0.0, 1.0)) = 0.5
+        _AlphaCutoffShadow("_AlphaCutoffShadow", Range(0.0, 1.0)) = 0.5
+        _AlphaCutoffPrepass("_AlphaCutoffPrepass", Range(0.0, 1.0)) = 0.5
+        _AlphaCutoffPostpass("_AlphaCutoffPostpass", Range(0.0, 1.0)) = 0.5
         [ToggleUI] _TransparentDepthPrepassEnable("_TransparentDepthPrepassEnable", Float) = 0.0
         [ToggleUI] _TransparentBackfaceEnable("_TransparentBackfaceEnable", Float) = 0.0
         [ToggleUI] _TransparentDepthPostpassEnable("_TransparentDepthPostpassEnable", Float) = 0.0
@@ -341,6 +398,7 @@ Shader "Toon(Tessellation)" {
         // Transparency
         [Enum(None, 0, Box, 1, Sphere, 2, Thin, 3)]_RefractionModel("Refraction Model", Int) = 0
         [Enum(Proxy, 1, HiZ, 2)]_SSRefractionProjectionModel("Refraction Projection Model", Int) = 0
+        _Ior("Index Of Refraction", Range(1.0, 2.5)) = 1.0
         _ThicknessMultiplier("Thickness Multiplier", Float) = 1.0
         _TransmittanceColor("Transmittance Color", Color) = (1.0, 1.0, 1.0)
         _TransmittanceColorMap("TransmittanceColorMap", 2D) = "white" {}
@@ -406,7 +464,12 @@ Shader "Toon(Tessellation)" {
         [ToggleUI] _DepthOffsetEnable("Depth Offset View space", Float) = 0.0
 
         [ToggleUI] _EnableGeometricSpecularAA("EnableGeometricSpecularAA", Float) = 0.0
+        _SpecularAAScreenSpaceVariance("SpecularAAScreenSpaceVariance", Range(0.0, 1.0)) = 0.1
+        _SpecularAAThreshold("SpecularAAThreshold", Range(0.0, 1.0)) = 0.2
 
+        _PPDMinSamples("Min sample for POM", Range(1.0, 64.0)) = 5
+        _PPDMaxSamples("Max sample for POM", Range(1.0, 64.0)) = 15
+        _PPDLodThreshold("Start lod to fade out the POM effect", Range(0.0, 16.0)) = 5
         _PPDPrimitiveLength("Primitive length for POM", Float) = 1
         _PPDPrimitiveWidth("Primitive width for POM", Float) = 1
         [HideInInspector] _InvPrimScale("Inverse primitive scale for non-planar POM", Vector) = (1, 1, 0, 0)
@@ -428,6 +491,7 @@ Shader "Toon(Tessellation)" {
 
         // HACK: GI Baking system relies on some properties existing in the shader ("_MainTex", "_Cutoff" and "_Color") for opacity handling, so we need to store our version of those parameters in the hard-coded name the GI baking system recognizes.
         ////////// _MainTex("BaseMap", 2D) = "white" {}
+        _Cutoff("Alpha Cutoff", Range(0.0, 1.0)) = 0.5
 
         [ToggleUI] _SupportDecals("Support Decals", Float) = 1.0
         [ToggleUI] _ReceivesSSR("Receives SSR", Float) = 1.0
@@ -442,14 +506,20 @@ Shader "Toon(Tessellation)" {
 
         // Tessellation specific
         [Enum(None, 0, Phong, 1)] _TessellationMode("Tessellation mode", Float) = 0
+        _TessellationFactor("Tessellation Factor", Range(0.0, 64.0)) = 4.0
         _TessellationFactorMinDistance("Tessellation start fading distance", Float) = 20.0
         _TessellationFactorMaxDistance("Tessellation end fading distance", Float) = 50.0
         _TessellationFactorTriangleSize("Tessellation triangle size", Float) = 100.0
+        _TessellationShapeFactor("Tessellation shape factor", Range(0.0, 1.0)) = 0.75 // Only use with Phong
+        _TessellationBackFaceCullEpsilon("Tessellation back face epsilon", Range(-1.0, 0.0)) = -0.25
 
         // HDRP material tessellation values
 
         // Legacy material tessellation values
         //Tessellation
+        _TessEdgeLength("DX11 Tess : Edge length", Range(2, 50)) = 5
+        _TessPhongStrength("DX11 Tess : Phong Strength", Range(0, 1)) = 0.5
+        _TessExtrusionAmount("DX11 Tess : Extrusion Amount", Range(-0.005, 0.005)) = 0.0
     } 
 
     HLSLINCLUDE

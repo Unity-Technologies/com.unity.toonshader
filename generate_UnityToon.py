@@ -3,7 +3,7 @@
 import re
 from datetime import datetime, timezone
 
-PROPERTY_NAME_PATTERN = re.compile(r'([A-Za-z_][A-Za-z0-9_]*)\s*\(')
+PROPERTY_NAME_PATTERN = re.compile(r'(?:\]\s*|^)([A-Za-z_][A-Za-z0-9_]*)\s*\(')
 
 
 def extract_properties_from_shader_content(content):

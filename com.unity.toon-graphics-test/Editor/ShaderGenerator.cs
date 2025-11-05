@@ -16,7 +16,7 @@ namespace UnityEditor.Rendering.Toon
     /// </summary>
     public class ShaderGenerator : EditorWindow
     {
-        private static readonly Regex PropertyNameRegex = new Regex(@"([A-Za-z_][A-Za-z0-9_]*)\s*\(", RegexOptions.Compiled);
+        private static readonly Regex PropertyNameRegex = new Regex(@"(?:\]\s*|^)([A-Za-z_][A-Za-z0-9_]*)\s*\(", RegexOptions.Compiled);
         private const string COMMON_PROPERTIES_PATH = "Packages/com.unity.toonshader/Runtime/Integrated/Shaders/CommonPropertiesPart.shader";
         private const string TESSELATION_PROPERTIES_PATH = "Packages/com.unity.toonshader/Runtime/Integrated/Shaders/TessellationPropertiesPart.shader";
         private const string UNITY_TOON_SHADER_PATH = "Packages/com.unity.toonshader/Runtime/Integrated/Shaders/UnityToon.shader";
