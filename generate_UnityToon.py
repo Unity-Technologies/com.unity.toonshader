@@ -180,46 +180,48 @@ def generate_shader(shader_path, common_properties, tessellation_properties, aut
         property_count = 0
         new_properties.append(f"{base_indent}Properties {{")
 
-        # Add common properties
-        common_lines = common_properties.split('\n')
-        for line in common_lines:
-            stripped_line = line.strip()
-            if stripped_line:
-                new_line = f"{block_indent}{stripped_line}"
-                property_name = get_property_name(stripped_line)
-                if property_name:
-                    if property_name in property_map:
-                        new_properties[property_map[property_name]] = new_line
-                    else:
-                        property_map[property_name] = len(new_properties)
-                        property_count += 1
-                        new_properties.append(new_line)
-                else:
-                    new_properties.append(new_line)
-            else:
+        def append_property_line(stripped_line, allow_override):
+            nonlocal property_count
+
+            if not stripped_line:
                 new_properties.append("")
+                return
+
+            property_name = get_property_name(stripped_line)
+            new_line = f"{block_indent}{stripped_line}"
+
+            if not property_name:
+                new_properties.append(new_line)
+                return
+
+            if property_name in property_map:
+                if allow_override:
+                    new_properties[property_map[property_name]] = new_line
+                    return
+
+                existing_line = new_properties[property_map[property_name]]
+                existing_hidden = existing_line.strip().startswith("[HideInInspector]")
+                new_hidden = stripped_line.startswith("[HideInInspector]")
+
+                if existing_hidden and not new_hidden:
+                    new_properties[property_map[property_name]] = new_line
+                # otherwise keep existing definition
+                return
+
+            property_map[property_name] = len(new_properties)
+            property_count += 1
+            new_properties.append(new_line)
+
+        # Add common properties
+        for line in common_properties.split('\n'):
+            append_property_line(line.strip(), allow_override=False)
 
         # Add tessellation properties if provided
         if tessellation_properties:
             new_properties.append("")
             new_properties.append(f"{block_indent}// Tessellation-specific properties")
-            tessellation_lines = tessellation_properties.split('\n')
-            for line in tessellation_lines:
-                stripped_line = line.strip()
-                if stripped_line:
-                    new_line = f"{block_indent}{stripped_line}"
-                    property_name = get_property_name(stripped_line)
-                    if property_name:
-                        if property_name in property_map:
-                            new_properties[property_map[property_name]] = new_line
-                        else:
-                            property_map[property_name] = len(new_properties)
-                            property_count += 1
-                            new_properties.append(new_line)
-                    else:
-                        new_properties.append(new_line)
-                else:
-                    new_properties.append("")
+            for line in tessellation_properties.split('\n'):
+                append_property_line(line.strip(), allow_override=True)
 
         new_properties.append(f"{base_indent}}}")
 

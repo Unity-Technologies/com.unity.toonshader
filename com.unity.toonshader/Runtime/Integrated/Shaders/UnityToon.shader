@@ -1,4 +1,4 @@
-//Auto-generated on Wed Nov 05 05:42:38 UTC 2025
+//Auto-generated on Wed Nov 05 06:07:09 UTC 2025
 ﻿//Unity Toon Shader
 //nobuyuki@unity3d.com
 //toshiyuki@unity3d.com (Intengrated) 
@@ -35,7 +35,7 @@ Shader "Toon" {
         [Enum(OFF, 0, ON, 1, TRANSMODE, 2)] _ClippingMode("CliippingMode", int) = 0
 
         // Cull and ZWrite Properties
-        [HideInInspector] _CullMode("__cullmode", Float) = 2.0
+        [Enum(OFF, 0, FRONT, 1, BACK, 2)] _CullMode("Cull Mode", int) = 2  //OFF/FRONT/BACK
         [Enum(OFF, 0, ONT, 1)]	_ZWriteMode("ZWrite Mode", int) = 1  //OFF/ON
         [Enum(OFF, 0, ONT, 1)]	_ZOverDrawMode("ZOver Draw Mode", Float) = 0  //OFF/ON
         _SPRDefaultUnlitColorMask("SPRDefaultUnlit Path Color Mask", int) = 15
@@ -47,7 +47,7 @@ Shader "Toon" {
         _IsBaseMapAlphaAsClippingMask("IsBaseMapAlphaAsClippingMask", Float) = 0
         //
         [Toggle(_)] _Inverse_Clipping("Inverse_Clipping", Float) = 0
-        _Cutoff("Alpha Cutoff", Range(0.0, 1.0)) = 0.5
+        _Clipping_Level("Clipping_Level", Range(0, 1)) = 0
         // ClippingMask paramaters to Here.
 
         // Base Color Properties
@@ -56,7 +56,7 @@ Shader "Toon" {
         _BaseColor ("BaseColor", Color) = (1,1,1,1)
         //v.2.0.5 : Clipping/TransClipping for SSAO Problems in PostProcessing Stack.
         //If you want to go back the former SSAO results, comment out the below line.
-        _Color("Color", Color) = (1,1,1,1)
+        _Color ("Color", Color) = (1,1,1,1)
         //
         [Toggle(_)] _Is_LightColor_Base ("Is_LightColor_Base", Float ) = 1
 

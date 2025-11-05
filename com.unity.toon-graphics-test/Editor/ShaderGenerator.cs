@@ -198,74 +198,59 @@ namespace UnityEditor.Rendering.Toon
 
             newProperties.Add($"{baseIndent}Properties {{");
 
-            // Add common properties
-            string[] commonLines = commonProperties.Split('\n');
-            foreach (string line in commonLines)
+            void AppendPropertyLine(string trimmedLine, bool allowOverride)
             {
-                string trimmed = line.Trim();
-                if (trimmed.Length == 0)
+                if (string.IsNullOrEmpty(trimmedLine))
                 {
                     newProperties.Add(string.Empty);
-                    continue;
+                    return;
                 }
 
-                string propertyLine = $"{blockIndent}{trimmed}";
-                string propertyName = GetPropertyName(trimmed);
+                string propertyLine = $"{blockIndent}{trimmedLine}";
+                string propertyName = GetPropertyName(trimmedLine);
 
-                if (propertyName != null)
+                if (propertyName == null)
                 {
-                    if (propertyLineIndices.TryGetValue(propertyName, out int existingIndex))
+                    newProperties.Add(propertyLine);
+                    return;
+                }
+
+                if (propertyLineIndices.TryGetValue(propertyName, out int existingIndex))
+                {
+                    if (allowOverride)
+                    {
+                        newProperties[existingIndex] = propertyLine;
+                        return;
+                    }
+
+                    string existingLine = newProperties[existingIndex];
+                    bool existingHidden = existingLine.Trim().StartsWith("[HideInInspector]", StringComparison.Ordinal);
+                    bool newHidden = trimmedLine.StartsWith("[HideInInspector]", StringComparison.Ordinal);
+
+                    if (existingHidden && !newHidden)
                     {
                         newProperties[existingIndex] = propertyLine;
                     }
-                    else
-                    {
-                        propertyLineIndices[propertyName] = newProperties.Count;
-                        propertyCount++;
-                        newProperties.Add(propertyLine);
-                    }
+                    return;
                 }
-                else
-                {
-                    newProperties.Add(propertyLine);
-                }
+
+                propertyLineIndices[propertyName] = newProperties.Count;
+                propertyCount++;
+                newProperties.Add(propertyLine);
             }
 
-            // Add tessellation properties if provided
+            foreach (string line in commonProperties.Split('\n'))
+            {
+                AppendPropertyLine(line.Trim(), allowOverride: false);
+            }
+
             if (!string.IsNullOrEmpty(tessellationProperties))
             {
                 newProperties.Add(string.Empty);
                 newProperties.Add($"{blockIndent}// Tessellation-specific properties");
-                string[] tessellationLines = tessellationProperties.Split('\n');
-                foreach (string line in tessellationLines)
+                foreach (string line in tessellationProperties.Split('\n'))
                 {
-                    string trimmed = line.Trim();
-                    if (trimmed.Length == 0)
-                    {
-                        newProperties.Add(string.Empty);
-                        continue;
-                    }
-
-                    string propertyLine = $"{blockIndent}{trimmed}";
-                    string propertyName = GetPropertyName(trimmed);
-
-                    if (propertyName != null)
-                    {
-                        if (propertyLineIndices.TryGetValue(propertyName, out int existingIndex))
-                        {
-                            newProperties[existingIndex] = propertyLine;
-                        }
-                        else
-                        {
-                            propertyLineIndices[propertyName] = newProperties.Count;
-                            propertyCount++;
-                            newProperties.Add(propertyLine);
-                        }
-                    }
-                    else
-                    {
-                        newProperties.Add(propertyLine);
-                    }
+                    AppendPropertyLine(line.Trim(), allowOverride: true);
                 }
             }
 
