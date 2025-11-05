@@ -1,9 +1,10 @@
+//Auto-generated (test output)
 ﻿//Unity Toon Shader
 //nobuyuki@unity3d.com
 //toshiyuki@unity3d.com (Intengrated) 
 
 Shader "Toon" {
-                        Properties {
+        Properties {
         [HideInInspector] _simpleUI ("SimpleUI", Int ) = 0
         [HideInInspector][Enum(OFF, 0, ON, 1)] _isUnityToonshader("Material is touched by Unity Toon Shader", Int) = 1
         [HideInInspector] _utsVersionX("VersionX", Float) = 0

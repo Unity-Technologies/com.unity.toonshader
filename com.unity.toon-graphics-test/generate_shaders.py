@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import re
-import shutil
+from datetime import datetime, timezone
 
 
 def extract_properties_from_shader_content(content):
@@ -60,26 +60,37 @@ def load_properties_from_shader(shader_path, descriptor):
 def generate_shader_files():
     try:
         # Read the common properties shader
-        common_properties_path = "com.unity.toonshader/Runtime/Integrated/Shaders/CommonProperties.shader"
+        common_properties_path = "com.unity.toonshader/Runtime/Integrated/Shaders/CommonPropertiesPart.shader"
         common_properties = load_properties_from_shader(common_properties_path, "common")
         if not common_properties:
             return False
 
         # Read the tessellation properties shader
-        tessellation_properties_path = "com.unity.toonshader/Runtime/Integrated/Shaders/TessellationProperties.shader"
+        tessellation_properties_path = "com.unity.toonshader/Runtime/Integrated/Shaders/TessellationPropertiesPart.shader"
         tessellation_properties = load_properties_from_shader(tessellation_properties_path, "tessellation")
         if tessellation_properties is None:
             return False
         
+        timestamp = datetime.now(timezone.utc).strftime("%a %b %d %H:%M:%S UTC %Y")
+        auto_comment_line = f"//Auto-generated on {timestamp}"
+
         # Generate UnityToon.shader
         print("\nGenerating UnityToon.shader...")
-        success1 = generate_shader("com.unity.toonshader/Runtime/Integrated/Shaders/UnityToon.shader", 
-                                 common_properties, "")
+        success1 = generate_shader(
+            "com.unity.toonshader/Runtime/Integrated/Shaders/UnityToon.shader",
+            common_properties,
+            "",
+            auto_comment_line,
+        )
         
         # Generate UnityToonTessellation.shader
         print("\nGenerating UnityToonTessellation.shader...")
-        success2 = generate_shader("com.unity.toonshader/Runtime/Integrated/Shaders/UnityToonTessellation.shader", 
-                                 common_properties, tessellation_properties)
+        success2 = generate_shader(
+            "com.unity.toonshader/Runtime/Integrated/Shaders/UnityToonTessellation.shader",
+            common_properties,
+            tessellation_properties,
+            auto_comment_line,
+        )
         
         if success1 and success2:
             print("\nBoth shader files generated successfully!")
@@ -94,7 +105,7 @@ def generate_shader_files():
         traceback.print_exc()
         return False
 
-def generate_shader(shader_path, common_properties, tessellation_properties):
+def generate_shader(shader_path, common_properties, tessellation_properties, auto_comment_line):
     try:
         # Read the original shader file
         with open(shader_path, 'r') as f:
@@ -138,43 +149,51 @@ def generate_shader(shader_path, common_properties, tessellation_properties):
         
         print(f"Found Properties block end at position {end_index}")
         
+        # Determine indentation
+        line_start = original_content.rfind('\n', 0, start_index)
+        if line_start == -1:
+            line_start = 0
+        else:
+            line_start += 1
+        base_indent = "    "
+        block_indent = base_indent + "    "
+
         # Build new Properties block
         new_properties = []
-        new_properties.append("    Properties {")
+        new_properties.append(f"{base_indent}Properties {{")
         
         # Add common properties
         common_lines = common_properties.split('\n')
         property_count = 0
         for line in common_lines:
-            if line.strip():
-                new_properties.append(f"        {line.strip()}")
-                if not line.strip().startswith("//"):
+            stripped_line = line.strip()
+            if stripped_line:
+                new_properties.append(f"{block_indent}{stripped_line}")
+                if not stripped_line.startswith("//"):
                     property_count += 1
         
         # Add tessellation properties if provided
         if tessellation_properties:
             new_properties.append("")
-            new_properties.append("        // Tessellation-specific properties")
+            new_properties.append(f"{block_indent}// Tessellation-specific properties")
             tessellation_lines = tessellation_properties.split('\n')
             for line in tessellation_lines:
-                if line.strip():
-                    new_properties.append(f"        {line.strip()}")
-                    if not line.strip().startswith("//"):
+                stripped_line = line.strip()
+                if stripped_line:
+                    new_properties.append(f"{block_indent}{stripped_line}")
+                    if not stripped_line.startswith("//"):
                         property_count += 1
         
-        new_properties.append("    }")
+        new_properties.append(f"{base_indent}}}")
         
         new_properties_text = '\n'.join(new_properties)
         
         print(f"Generated new Properties block with {property_count} properties. Length: {len(new_properties_text)} characters")
         
-        # Create backup of original file
-        backup_path = shader_path + ".backup"
-        shutil.copy2(shader_path, backup_path)
-        print(f"Created backup at {backup_path}")
-        
         # Replace the Properties block
-        new_content = original_content[:start_index] + new_properties_text + original_content[end_index + 1:]
+        new_content = original_content[:line_start] + new_properties_text + original_content[end_index + 1:]
+
+        new_content = apply_auto_generated_comment(new_content, auto_comment_line)
         
         print(f"Generated new shader content. Original length: {len(original_content)}, New length: {len(new_content)}")
         
@@ -188,6 +207,21 @@ def generate_shader(shader_path, common_properties, tessellation_properties):
     except Exception as e:
         print(f"ERROR generating {shader_path}: {e}")
         return False
+
+
+def apply_auto_generated_comment(content, comment_line):
+    auto_prefix = "//Auto-generated on "
+    lines = content.splitlines()
+
+    if lines and lines[0].startswith(auto_prefix):
+        lines[0] = comment_line
+    else:
+        lines.insert(0, comment_line)
+
+    joined = "\n".join(lines)
+    if not joined.endswith("\n"):
+        joined += "\n"
+    return joined
 
 if __name__ == "__main__":
     success = generate_shader_files()

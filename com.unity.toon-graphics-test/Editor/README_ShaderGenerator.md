@@ -4,9 +4,9 @@ This tool helps maintain consistency between `UnityToon.shader` and `UnityToonTe
 
 ## Files
 
-- **CommonProperties.shader**: Hidden shader asset that contains the shared `Properties` block for both shaders, with original comments preserved
-- **TessellationProperties.shader**: Hidden shader asset that contains tessellation-specific properties only present in the tessellation shader
-- **ShaderGenerator.cs**: Unity Editor script that generates the shader files from the property files
+- **CommonPropertiesPart.shader**: Hidden shader asset that contains the shared `Properties` block for both shaders, with original comments preserved
+- **TessellationPropertiesPart.shader**: Hidden shader asset that contains tessellation-specific properties only present in the tessellation shader
+- **ShaderGenerator.cs**: Unity Editor script (now located in the graphics test package) that generates the shader files from the property assets
 
 ## How to Use
 
@@ -22,7 +22,6 @@ This tool helps maintain consistency between `UnityToon.shader` and `UnityToonTe
 3. **Generate Shader Files**:
    - Click "Generate Shader Files" button
    - The tool will automatically:
-     - Create backups of the original shader files (`.backup` extension)
      - Replace the Properties blocks in both shader files
      - Preserve all other shader content (HLSLINCLUDE, SubShaders, etc.)
 
@@ -31,7 +30,7 @@ This tool helps maintain consistency between `UnityToon.shader` and `UnityToonTe
 The property files are valid ShaderLab assets that wrap the shared definitions in a minimal hidden shader. The generator extracts only the body of the `Properties` block.
 
 ```
-Shader "Hidden/UnityToon/CommonProperties"
+Shader "Hidden/UnityToon/CommonPropertiesPart"
 {
     Properties
     {
@@ -56,9 +55,9 @@ Inside the `Properties` block you can use the same syntax as in any ShaderLab sh
 - **Single Source of Truth**: All shared properties are defined in one place
 - **Consistency**: Ensures both shader files have identical shared properties
 - **Maintainability**: Easy to add, remove, or modify properties across both shaders
-- **Backup Safety**: Original files are automatically backed up before generation
 - **Preservation**: All non-Properties content and comments are preserved during generation
 - **Comment Preservation**: All original comments from the Properties blocks are maintained
+- **Traceability**: Each generated shader receives an `//Auto-generated on ...` timestamp banner at the top
 
 ## Manual Generation (Alternative)
 
@@ -66,7 +65,7 @@ If you prefer to generate shaders manually or from command line, you can use the
 
 ```bash
 cd /workspace
-python3 generate_shaders.py
+python3 com.unity.toon-graphics-test/generate_shaders.py
 ```
 
 This will generate both shader files from the property shader assets.
@@ -76,18 +75,22 @@ This will generate both shader files from the property shader assets.
 - **Properties block not found**: Ensure the shader files have a valid `Properties { }` block
 - **File not found errors**: Check that the property files exist in the correct paths
 - **Generation fails**: Check the Unity Console for detailed error messages
-- **Restore from backup**: If generation fails, you can restore from the `.backup` files
 
 ## File Structure
 
 ```
-com.unity.toonshader/
+com.unity.toon-graphics-test/
 ├── Editor/
 │   ├── ShaderGenerator.cs          # Unity Editor script
+│   ├── ShaderGeneratorTest.cs      # Editor test harness
 │   └── README_ShaderGenerator.md   # This file
-└── Runtime/Integrated/Shaders/
-    ├── CommonProperties.shader         # Shared properties with comments (hidden shader asset)
-    ├── TessellationProperties.shader   # Tessellation-specific properties (hidden shader asset)
-    ├── UnityToon.shader                # Generated shader (regular)
-    └── UnityToonTessellation.shader    # Generated shader (tessellation)
+├── generate_shaders.py             # Python generator
+├── test_generation.py              # Python smoke test
+└── test_shader_generation.cs       # .NET console smoke test
+
+com.unity.toonshader/Runtime/Integrated/Shaders/
+├── CommonPropertiesPart.shader     # Shared properties with comments (hidden shader asset)
+├── TessellationPropertiesPart.shader # Tessellation-specific properties (hidden shader asset)
+├── UnityToon.shader                # Generated shader (regular)
+└── UnityToonTessellation.shader    # Generated shader (tessellation)
 ```

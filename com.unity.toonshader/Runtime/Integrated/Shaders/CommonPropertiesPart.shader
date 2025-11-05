@@ -1,4 +1,4 @@
-Shader "Hidden/UnityToon/CommonProperties"
+Shader "Hidden/UnityToon/CommonPropertiesPart"
 {
     Properties
     {

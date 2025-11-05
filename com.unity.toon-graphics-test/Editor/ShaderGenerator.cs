@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -14,8 +15,8 @@ namespace UnityEditor.Rendering.Toon
     /// </summary>
     public class ShaderGenerator : EditorWindow
     {
-        private const string COMMON_PROPERTIES_PATH = "Assets/com.unity.toonshader/Runtime/Integrated/Shaders/CommonProperties.shader";
-        private const string TESSELATION_PROPERTIES_PATH = "Assets/com.unity.toonshader/Runtime/Integrated/Shaders/TessellationProperties.shader";
+        private const string COMMON_PROPERTIES_PATH = "Assets/com.unity.toonshader/Runtime/Integrated/Shaders/CommonPropertiesPart.shader";
+        private const string TESSELATION_PROPERTIES_PATH = "Assets/com.unity.toonshader/Runtime/Integrated/Shaders/TessellationPropertiesPart.shader";
         private const string UNITY_TOON_SHADER_PATH = "Assets/com.unity.toonshader/Runtime/Integrated/Shaders/UnityToon.shader";
         private const string UNITY_TOON_TESSELATION_SHADER_PATH = "Assets/com.unity.toonshader/Runtime/Integrated/Shaders/UnityToonTessellation.shader";
         
@@ -94,12 +95,15 @@ namespace UnityEditor.Rendering.Toon
                     return;
                 }
                 Debug.Log($"Extracted tessellation properties block. Length: {tessellationProperties.Length} characters");
-                
+
+                string timestamp = DateTime.UtcNow.ToString("ddd MMM dd HH:mm:ss 'UTC' yyyy", CultureInfo.InvariantCulture);
+                string autoCommentLine = $"//Auto-generated on {timestamp}";
+
                 // Generate UnityToon.shader
-                GenerateUnityToonShader(commonProperties);
-                
+                GenerateUnityToonShader(commonProperties, autoCommentLine);
+
                 // Generate UnityToonTessellation.shader
-                GenerateUnityToonTessellationShader(commonProperties, tessellationProperties);
+                GenerateUnityToonTessellationShader(commonProperties, tessellationProperties, autoCommentLine);
                 
                 AssetDatabase.Refresh();
                 Debug.Log("Shader files generated successfully!");
@@ -110,7 +114,7 @@ namespace UnityEditor.Rendering.Toon
             }
         }
         
-        private void GenerateUnityToonShader(string commonProperties)
+        private void GenerateUnityToonShader(string commonProperties, string autoCommentLine)
         {
             // Read the original shader file to preserve the rest of the content
             string originalContent = ReadFile(UNITY_TOON_SHADER_PATH);
@@ -119,16 +123,12 @@ namespace UnityEditor.Rendering.Toon
                 Debug.LogError($"Failed to read original shader from {UNITY_TOON_SHADER_PATH}");
                 return;
             }
-            
-            // Create backup
-            CreateBackup(UNITY_TOON_SHADER_PATH);
-            
             // Replace the Properties block
-            string newContent = ReplacePropertiesBlock(originalContent, commonProperties, "");
+            string newContent = ReplacePropertiesBlock(originalContent, commonProperties, string.Empty, autoCommentLine);
             WriteFile(UNITY_TOON_SHADER_PATH, newContent);
         }
         
-        private void GenerateUnityToonTessellationShader(string commonProperties, string tessellationProperties)
+        private void GenerateUnityToonTessellationShader(string commonProperties, string tessellationProperties, string autoCommentLine)
         {
             // Read the original shader file to preserve the rest of the content
             string originalContent = ReadFile(UNITY_TOON_TESSELATION_SHADER_PATH);
@@ -137,16 +137,12 @@ namespace UnityEditor.Rendering.Toon
                 Debug.LogError($"Failed to read original tessellation shader from {UNITY_TOON_TESSELATION_SHADER_PATH}");
                 return;
             }
-            
-            // Create backup
-            CreateBackup(UNITY_TOON_TESSELATION_SHADER_PATH);
-            
             // Replace the Properties block
-            string newContent = ReplacePropertiesBlock(originalContent, commonProperties, tessellationProperties);
+            string newContent = ReplacePropertiesBlock(originalContent, commonProperties, tessellationProperties, autoCommentLine);
             WriteFile(UNITY_TOON_TESSELATION_SHADER_PATH, newContent);
         }
         
-        private string ReplacePropertiesBlock(string originalContent, string commonProperties, string tessellationProperties)
+        private string ReplacePropertiesBlock(string originalContent, string commonProperties, string tessellationProperties, string autoCommentLine)
         {
             // Find the Properties block using a more robust regex that handles nested braces
             string propertiesPattern = @"Properties\s*\{";
@@ -188,9 +184,14 @@ namespace UnityEditor.Rendering.Toon
                 return originalContent;
             }
             
+            int lineStartIndex = originalContent.LastIndexOf('\n', startIndex - 1);
+            int baseIndentStart = lineStartIndex == -1 ? 0 : lineStartIndex + 1;
+            string baseIndent = "    ";
+            string blockIndent = baseIndent + "    ";
+
             // Build new Properties block
             StringBuilder newProperties = new StringBuilder();
-            newProperties.AppendLine("    Properties {");
+            newProperties.AppendLine($"{baseIndent}Properties {{");
             
             // Add common properties
             string[] commonLines = commonProperties.Split('\n');
@@ -199,8 +200,9 @@ namespace UnityEditor.Rendering.Toon
             {
                 if (!string.IsNullOrWhiteSpace(line))
                 {
-                    newProperties.AppendLine($"        {line.Trim()}");
-                    if (!line.TrimStart().StartsWith("//"))
+                    string trimmed = line.Trim();
+                    newProperties.AppendLine($"{blockIndent}{trimmed}");
+                    if (!trimmed.StartsWith("//", StringComparison.Ordinal))
                     {
                         propertyCount++;
                     }
@@ -211,14 +213,15 @@ namespace UnityEditor.Rendering.Toon
             if (!string.IsNullOrEmpty(tessellationProperties))
             {
                 newProperties.AppendLine();
-                newProperties.AppendLine("        // Tessellation-specific properties");
+                newProperties.AppendLine($"{blockIndent}// Tessellation-specific properties");
                 string[] tessellationLines = tessellationProperties.Split('\n');
                 foreach (string line in tessellationLines)
                 {
                     if (!string.IsNullOrWhiteSpace(line))
                     {
-                        newProperties.AppendLine($"        {line.Trim()}");
-                        if (!line.TrimStart().StartsWith("//"))
+                        string trimmed = line.Trim();
+                        newProperties.AppendLine($"{blockIndent}{trimmed}");
+                        if (!trimmed.StartsWith("//", StringComparison.Ordinal))
                         {
                             propertyCount++;
                         }
@@ -226,12 +229,12 @@ namespace UnityEditor.Rendering.Toon
                 }
             }
             
-            newProperties.AppendLine("    }");
+            newProperties.AppendLine($"{baseIndent}}");
             
             Debug.Log($"Generated Properties block with {propertyCount} properties");
-            
-            // Replace the Properties block in the original content
-            return originalContent.Substring(0, startIndex) + newProperties.ToString() + originalContent.Substring(endIndex + 1);
+
+            string updatedContent = originalContent.Substring(0, baseIndentStart) + newProperties.ToString() + originalContent.Substring(endIndex + 1);
+            return ApplyAutoGeneratedComment(updatedContent, autoCommentLine);
         }
         
         private string ExtractPropertiesBlockContent(string shaderContent)
@@ -319,16 +322,6 @@ namespace UnityEditor.Rendering.Toon
             return result.ToString();
         }
 
-        private void CreateBackup(string filePath)
-        {
-            string backupPath = filePath + ".backup";
-            if (File.Exists(filePath))
-            {
-                File.Copy(filePath, backupPath, true);
-                Debug.Log($"Created backup at {backupPath}");
-            }
-        }
-        
         private string ReadFile(string path)
         {
             if (File.Exists(path))
@@ -348,6 +341,32 @@ namespace UnityEditor.Rendering.Toon
             }
             
             File.WriteAllText(path, content);
+        }
+
+        private string ApplyAutoGeneratedComment(string content, string commentLine)
+        {
+            const string autoPrefix = "//Auto-generated on ";
+            string[] lines = content.Split(new[] { "\n" }, StringSplitOptions.None);
+
+            if (lines.Length > 0 && lines[0].StartsWith(autoPrefix, StringComparison.Ordinal))
+            {
+                lines[0] = commentLine;
+            }
+            else
+            {
+                var updatedLines = new string[lines.Length + 1];
+                updatedLines[0] = commentLine;
+                Array.Copy(lines, 0, updatedLines, 1, lines.Length);
+                lines = updatedLines;
+            }
+
+            string result = string.Join("\n", lines);
+            if (!result.EndsWith("\n", StringComparison.Ordinal))
+            {
+                result += "\n";
+            }
+
+            return result;
         }
     }
 }

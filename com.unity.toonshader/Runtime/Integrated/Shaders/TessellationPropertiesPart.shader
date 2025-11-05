@@ -1,4 +1,4 @@
-Shader "Hidden/UnityToon/TessellationProperties"
+Shader "Hidden/UnityToon/TessellationPropertiesPart"
 {
     Properties
     {
