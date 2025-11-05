@@ -59,6 +59,17 @@ Inside the `Properties` block you can use the same syntax as in any ShaderLab sh
 - **Comment Preservation**: All original comments from the Properties blocks are maintained
 - **Traceability**: Each generated shader receives an `//Auto-generated on ...` timestamp banner at the top
 
+## Manual Generation (Alternative)
+
+If you prefer to generate shaders manually, you can run the Python helper from the repository root:
+
+```bash
+cd /workspace
+python3 com.unity.toon-graphics-test/generate_shaders.py
+```
+
+Convenience launchers are provided as `generate_shaders.sh` and `generate_shaders.bat`.
+
 ## Troubleshooting
 
 - **Properties block not found**: Ensure the shader files have a valid `Properties { }` block
@@ -69,14 +80,19 @@ Inside the `Properties` block you can use the same syntax as in any ShaderLab sh
 
 ```
 com.unity.toon-graphics-test/
-└── Editor/
-    ├── ShaderGenerator.cs          # Unity Editor script
-    ├── ShaderGeneratorTest.cs      # Editor test harness
-    └── README_ShaderGenerator.md   # This file
+├── Editor/
+│   ├── ShaderGenerator.cs          # Unity Editor script
+│   ├── ShaderGeneratorTest.cs      # Editor test harness
+│   └── README_ShaderGenerator.md   # This file
+├── generate_shaders.py             # Python generator
+├── test_generation.py              # Python smoke test
+└── test_shader_generation.cs       # .NET console smoke test
 
 com.unity.toonshader/Runtime/Integrated/Shaders/
 ├── CommonPropertiesPart.shader     # Shared properties with comments (hidden shader asset)
 ├── TessellationPropertiesPart.shader # Tessellation-specific properties (hidden shader asset)
 ├── UnityToon.shader                # Generated shader (regular)
 └── UnityToonTessellation.shader    # Generated shader (tessellation)
+
+generate_shaders.sh / generate_shaders.bat  # Platform launchers for the Python generator
 ```
