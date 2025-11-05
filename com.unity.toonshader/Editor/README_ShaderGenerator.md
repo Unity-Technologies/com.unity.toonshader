@@ -4,8 +4,8 @@ This tool helps maintain consistency between `UnityToon.shader` and `UnityToonTe
 
 ## Files
 
-- **CommonPropertiesWithComments.txt**: Contains all shared properties between the two shader files with original comments preserved
-- **TessellationProperties.txt**: Contains tessellation-specific properties only present in the tessellation shader
+- **CommonProperties.shader**: Hidden shader asset that contains the shared `Properties` block for both shaders, with original comments preserved
+- **TessellationProperties.shader**: Hidden shader asset that contains tessellation-specific properties only present in the tessellation shader
 - **ShaderGenerator.cs**: Unity Editor script that generates the shader files from the property files
 
 ## How to Use
@@ -15,9 +15,9 @@ This tool helps maintain consistency between `UnityToon.shader` and `UnityToonTe
    - This opens the Shader Generator window
 
 2. **Edit Properties**:
-   - Click "Open Common Properties File" to edit shared properties (includes all original comments)
-   - Click "Open Tessellation Properties File" to edit tessellation-specific properties
-   - Make your changes to the property files
+   - Click "Open Common Properties File" to edit the shared properties shader (includes all original comments)
+   - Click "Open Tessellation Properties File" to edit the tessellation-specific properties shader
+   - Make your changes directly in the shader assets
 
 3. **Generate Shader Files**:
    - Click "Generate Shader Files" button
@@ -28,14 +28,28 @@ This tool helps maintain consistency between `UnityToon.shader` and `UnityToonTe
 
 ## Property File Format
 
-The property files use the same format as ShaderLab Properties blocks, but without the `Properties { }` wrapper:
+The property files are valid ShaderLab assets that wrap the shared definitions in a minimal hidden shader. The generator extracts only the body of the `Properties` block.
 
 ```
-// Comments are supported
-[HideInInspector] _simpleUI ("SimpleUI", Int ) = 0
-[Enum(OFF, 0, ON, 1)] _isUnityToonshader("Material is touched by Unity Toon Shader", Int) = 1
-_BaseColor ("BaseColor", Color) = (1,1,1,1)
+Shader "Hidden/UnityToon/CommonProperties"
+{
+    Properties
+    {
+        // Comments are preserved
+        [HideInInspector] _simpleUI ("SimpleUI", Int ) = 0
+        [Enum(OFF, 0, ON, 1)] _isUnityToonshader("Material is touched by Unity Toon Shader", Int) = 1
+        _BaseColor ("BaseColor", Color) = (1,1,1,1)
+    }
+
+    SubShader
+    {
+        Tags { "RenderType"="Opaque" }
+        Pass { }
+    }
+}
 ```
+
+Inside the `Properties` block you can use the same syntax as in any ShaderLab shader. Comments and blank lines are preserved.
 
 ## Benefits
 
@@ -55,7 +69,7 @@ cd /workspace
 python3 generate_shaders.py
 ```
 
-This will generate both shader files from the property files.
+This will generate both shader files from the property shader assets.
 
 ## Troubleshooting
 
@@ -72,8 +86,8 @@ com.unity.toonshader/
 │   ├── ShaderGenerator.cs          # Unity Editor script
 │   └── README_ShaderGenerator.md   # This file
 └── Runtime/Integrated/Shaders/
-    ├── CommonPropertiesWithComments.txt # Shared properties with comments
-    ├── TessellationProperties.txt       # Tessellation-specific properties
+    ├── CommonProperties.shader         # Shared properties with comments (hidden shader asset)
+    ├── TessellationProperties.shader   # Tessellation-specific properties (hidden shader asset)
     ├── UnityToon.shader                # Generated shader (regular)
     └── UnityToonTessellation.shader    # Generated shader (tessellation)
 ```

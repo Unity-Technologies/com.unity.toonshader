@@ -3,7 +3,7 @@
 //toshiyuki@unity3d.com (Intengrated) 
 
 Shader "Toon" {
-                Properties {
+                    Properties {
         // Common Properties for Unity Toon Shader
         // This file contains all shared properties between UnityToon.shader and UnityToonTessellation.shader
         // with comments preserved from the original files

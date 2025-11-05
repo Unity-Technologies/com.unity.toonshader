@@ -1,32 +1,75 @@
 #!/usr/bin/env python3
 
 import re
-import os
 import shutil
+
+
+def extract_properties_from_shader_content(content):
+    properties_match = re.search(r"Properties\s*\{", content)
+    if not properties_match:
+        return None
+
+    open_brace_index = content.find('{', properties_match.start())
+    if open_brace_index == -1:
+        return None
+
+    brace_count = 1
+    close_brace_index = -1
+
+    for index in range(open_brace_index + 1, len(content)):
+        char = content[index]
+        if char == '{':
+            brace_count += 1
+        elif char == '}':
+            brace_count -= 1
+            if brace_count == 0:
+                close_brace_index = index
+                break
+
+    if close_brace_index == -1:
+        return None
+
+    block = content[open_brace_index + 1:close_brace_index]
+    lines = block.split('\n')
+    cleaned_lines = [line.strip() for line in lines]
+
+    while cleaned_lines and cleaned_lines[0] == "":
+        cleaned_lines.pop(0)
+    while cleaned_lines and cleaned_lines[-1] == "":
+        cleaned_lines.pop()
+
+    return '\n'.join(cleaned_lines)
+
+
+def load_properties_from_shader(shader_path, descriptor):
+    with open(shader_path, 'r') as f:
+        shader_content = f.read()
+
+    if not shader_content:
+        print(f"ERROR: {descriptor} shader file is empty or could not be read")
+        return None
+
+    properties = extract_properties_from_shader_content(shader_content)
+    if not properties:
+        print(f"ERROR: Could not extract {descriptor} properties from {shader_path}")
+        return None
+
+    print(f"Successfully extracted {descriptor} properties. Length: {len(properties)} characters")
+    return properties
 
 def generate_shader_files():
     try:
-        # Read the common properties file
-        common_properties_path = "com.unity.toonshader/Runtime/Integrated/Shaders/CommonPropertiesWithComments.txt"
-        with open(common_properties_path, 'r') as f:
-            common_properties = f.read()
-        
+        # Read the common properties shader
+        common_properties_path = "com.unity.toonshader/Runtime/Integrated/Shaders/CommonProperties.shader"
+        common_properties = load_properties_from_shader(common_properties_path, "common")
         if not common_properties:
-            print("ERROR: Common properties file is empty or could not be read")
             return False
-        
-        print(f"Successfully read common properties file. Length: {len(common_properties)} characters")
-        
-        # Read the tessellation properties file
-        tessellation_properties_path = "com.unity.toonshader/Runtime/Integrated/Shaders/TessellationProperties.txt"
-        with open(tessellation_properties_path, 'r') as f:
-            tessellation_properties = f.read()
-        
-        if not tessellation_properties:
-            print("ERROR: Tessellation properties file is empty or could not be read")
+
+        # Read the tessellation properties shader
+        tessellation_properties_path = "com.unity.toonshader/Runtime/Integrated/Shaders/TessellationProperties.shader"
+        tessellation_properties = load_properties_from_shader(tessellation_properties_path, "tessellation")
+        if tessellation_properties is None:
             return False
-        
-        print(f"Successfully read tessellation properties file. Length: {len(tessellation_properties)} characters")
         
         # Generate UnityToon.shader
         print("\nGenerating UnityToon.shader...")

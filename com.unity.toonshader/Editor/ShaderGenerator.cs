@@ -14,8 +14,8 @@ namespace UnityEditor.Rendering.Toon
     /// </summary>
     public class ShaderGenerator : EditorWindow
     {
-        private const string COMMON_PROPERTIES_PATH = "Assets/com.unity.toonshader/Runtime/Integrated/Shaders/CommonPropertiesWithComments.txt";
-        private const string TESSELATION_PROPERTIES_PATH = "Assets/com.unity.toonshader/Runtime/Integrated/Shaders/TessellationProperties.txt";
+        private const string COMMON_PROPERTIES_PATH = "Assets/com.unity.toonshader/Runtime/Integrated/Shaders/CommonProperties.shader";
+        private const string TESSELATION_PROPERTIES_PATH = "Assets/com.unity.toonshader/Runtime/Integrated/Shaders/TessellationProperties.shader";
         private const string UNITY_TOON_SHADER_PATH = "Assets/com.unity.toonshader/Runtime/Integrated/Shaders/UnityToon.shader";
         private const string UNITY_TOON_TESSELATION_SHADER_PATH = "Assets/com.unity.toonshader/Runtime/Integrated/Shaders/UnityToonTessellation.shader";
         
@@ -42,7 +42,7 @@ namespace UnityEditor.Rendering.Toon
             
             if (GUILayout.Button("Open Common Properties File"))
             {
-                var asset = AssetDatabase.LoadAssetAtPath<TextAsset>(COMMON_PROPERTIES_PATH);
+                var asset = AssetDatabase.LoadAssetAtPath<Shader>(COMMON_PROPERTIES_PATH);
                 if (asset != null)
                 {
                     Selection.activeObject = asset;
@@ -52,7 +52,7 @@ namespace UnityEditor.Rendering.Toon
             
             if (GUILayout.Button("Open Tessellation Properties File"))
             {
-                var asset = AssetDatabase.LoadAssetAtPath<TextAsset>(TESSELATION_PROPERTIES_PATH);
+                var asset = AssetDatabase.LoadAssetAtPath<Shader>(TESSELATION_PROPERTIES_PATH);
                 if (asset != null)
                 {
                     Selection.activeObject = asset;
@@ -66,20 +66,34 @@ namespace UnityEditor.Rendering.Toon
             try
             {
                 // Read common properties
-                string commonProperties = ReadFile(COMMON_PROPERTIES_PATH);
-                if (string.IsNullOrEmpty(commonProperties))
+                string commonPropertiesShader = ReadFile(COMMON_PROPERTIES_PATH);
+                if (string.IsNullOrEmpty(commonPropertiesShader))
                 {
                     Debug.LogError($"Failed to read common properties from {COMMON_PROPERTIES_PATH}");
                     return;
                 }
+                string commonProperties = ExtractPropertiesBlockContent(commonPropertiesShader);
+                if (string.IsNullOrEmpty(commonProperties))
+                {
+                    Debug.LogError($"Failed to extract common properties block from {COMMON_PROPERTIES_PATH}");
+                    return;
+                }
+                Debug.Log($"Extracted common properties block. Length: {commonProperties.Length} characters");
                 
                 // Read tessellation properties
-                string tessellationProperties = ReadFile(TESSELATION_PROPERTIES_PATH);
-                if (string.IsNullOrEmpty(tessellationProperties))
+                string tessellationPropertiesShader = ReadFile(TESSELATION_PROPERTIES_PATH);
+                if (string.IsNullOrEmpty(tessellationPropertiesShader))
                 {
                     Debug.LogError($"Failed to read tessellation properties from {TESSELATION_PROPERTIES_PATH}");
                     return;
                 }
+                string tessellationProperties = ExtractPropertiesBlockContent(tessellationPropertiesShader);
+                if (string.IsNullOrEmpty(tessellationProperties))
+                {
+                    Debug.LogError($"Failed to extract tessellation properties block from {TESSELATION_PROPERTIES_PATH}");
+                    return;
+                }
+                Debug.Log($"Extracted tessellation properties block. Length: {tessellationProperties.Length} characters");
                 
                 // Generate UnityToon.shader
                 GenerateUnityToonShader(commonProperties);
@@ -220,6 +234,91 @@ namespace UnityEditor.Rendering.Toon
             return originalContent.Substring(0, startIndex) + newProperties.ToString() + originalContent.Substring(endIndex + 1);
         }
         
+        private string ExtractPropertiesBlockContent(string shaderContent)
+        {
+            if (string.IsNullOrEmpty(shaderContent))
+            {
+                return null;
+            }
+
+            string propertiesPattern = @"Properties\s*\{";
+            Match startMatch = Regex.Match(shaderContent, propertiesPattern);
+            if (!startMatch.Success)
+            {
+                return null;
+            }
+
+            int openBraceIndex = shaderContent.IndexOf('{', startMatch.Index);
+            if (openBraceIndex == -1)
+            {
+                return null;
+            }
+
+            int braceCount = 1;
+            int closeBraceIndex = -1;
+
+            for (int i = openBraceIndex + 1; i < shaderContent.Length; i++)
+            {
+                char c = shaderContent[i];
+                if (c == '{')
+                {
+                    braceCount++;
+                }
+                else if (c == '}')
+                {
+                    braceCount--;
+                    if (braceCount == 0)
+                    {
+                        closeBraceIndex = i;
+                        break;
+                    }
+                }
+            }
+
+            if (closeBraceIndex == -1)
+            {
+                return null;
+            }
+
+            string block = shaderContent.Substring(openBraceIndex + 1, closeBraceIndex - openBraceIndex - 1);
+            string[] rawLines = block.Split(new[] { "\r\n", "\n", "\r" }, StringSplitOptions.None);
+
+            for (int i = 0; i < rawLines.Length; i++)
+            {
+                rawLines[i] = rawLines[i].Trim();
+            }
+
+            int start = 0;
+            int end = rawLines.Length - 1;
+
+            while (start <= end && string.IsNullOrEmpty(rawLines[start]))
+            {
+                start++;
+            }
+
+            while (end >= start && string.IsNullOrEmpty(rawLines[end]))
+            {
+                end--;
+            }
+
+            if (start > end)
+            {
+                return string.Empty;
+            }
+
+            StringBuilder result = new StringBuilder();
+            for (int i = start; i <= end; i++)
+            {
+                result.Append(rawLines[i]);
+                if (i < end)
+                {
+                    result.Append('\n');
+                }
+            }
+
+            return result.ToString();
+        }
+
         private void CreateBackup(string filePath)
         {
             string backupPath = filePath + ".backup";

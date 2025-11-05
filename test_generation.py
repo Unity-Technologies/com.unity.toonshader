@@ -3,29 +3,41 @@
 import re
 import os
 
+from generate_shaders import extract_properties_from_shader_content
+
 def test_shader_generation():
     try:
-        # Test reading the common properties file
-        common_properties_path = "com.unity.toonshader/Runtime/Integrated/Shaders/CommonProperties.txt"
+        # Test reading the common properties shader
+        common_properties_path = "com.unity.toonshader/Runtime/Integrated/Shaders/CommonProperties.shader"
         with open(common_properties_path, 'r') as f:
-            common_properties = f.read()
+            common_properties_shader = f.read()
         
+        if not common_properties_shader:
+            print("ERROR: Common properties shader file is empty or could not be read")
+            return
+        
+        common_properties = extract_properties_from_shader_content(common_properties_shader)
         if not common_properties:
-            print("ERROR: Common properties file is empty or could not be read")
+            print("ERROR: Failed to extract common properties from shader")
             return
         
-        print(f"Successfully read common properties file. Length: {len(common_properties)} characters")
+        print(f"Successfully extracted common properties. Length: {len(common_properties)} characters")
         
-        # Test reading the tessellation properties file
-        tessellation_properties_path = "com.unity.toonshader/Runtime/Integrated/Shaders/TessellationProperties.txt"
+        # Test reading the tessellation properties shader
+        tessellation_properties_path = "com.unity.toonshader/Runtime/Integrated/Shaders/TessellationProperties.shader"
         with open(tessellation_properties_path, 'r') as f:
-            tessellation_properties = f.read()
+            tessellation_properties_shader = f.read()
         
-        if not tessellation_properties:
-            print("ERROR: Tessellation properties file is empty or could not be read")
+        if not tessellation_properties_shader:
+            print("ERROR: Tessellation properties shader file is empty or could not be read")
             return
         
-        print(f"Successfully read tessellation properties file. Length: {len(tessellation_properties)} characters")
+        tessellation_properties = extract_properties_from_shader_content(tessellation_properties_shader)
+        if not tessellation_properties:
+            print("ERROR: Failed to extract tessellation properties from shader")
+            return
+        
+        print(f"Successfully extracted tessellation properties. Length: {len(tessellation_properties)} characters")
         
         # Test reading the original shader files
         unity_toon_path = "com.unity.toonshader/Runtime/Integrated/Shaders/UnityToon.shader"
