@@ -74,18 +74,25 @@ public class UTSGraphicsTestsNonXR  {
             Camera mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
             UTSGraphicsTestSettings settings = Object.FindFirstObjectByType<UTSGraphicsTestSettings>();
             Assert.IsNotNull(settings, "Invalid test scene, couldn't find UTS_GraphicsTestSettings");
+            
+            UTSGraphicsTestSettingsSO settingsSO = settings.SO;
+            Assert.IsNotNull(settingsSO);
+            
+            ImageComparisonSettings imageComparisonSettings = settingsSO.ImageComparisonSettings;
+            Assert.IsNotNull(imageComparisonSettings);
+            
 
             if (isXR) {
-                settings.ImageComparisonSettings.UseBackBuffer = true; //results using both eyes need backbuffer 
+                imageComparisonSettings.UseBackBuffer = true; //results using both eyes need backbuffer 
 
                 //[TODO-sin: 2025-7-9] Hack for now. The resolution will be set to this later
-                settings.ImageComparisonSettings.ImageResolution = ImageComparisonSettings.Resolution.w1920h1080;
+                imageComparisonSettings.ImageResolution = ImageComparisonSettings.Resolution.w1920h1080;
             }
 
             
-            int waitFrames = settings.WaitFrames;
+            int waitFrames = settingsSO.WaitFrames;
 
-            if (settings.ImageComparisonSettings.UseBackBuffer && settings.WaitFrames < 1) {
+            if (imageComparisonSettings.UseBackBuffer && settingsSO.WaitFrames < 1) {
                 waitFrames = 1;
             }
 
@@ -94,7 +101,7 @@ public class UTSGraphicsTestsNonXR  {
                 yield return new WaitForEndOfFrame();
 
             ImageAssert.AreEqual(testCase.ReferenceImage, mainCamera,
-                settings.ImageComparisonSettings, testCase.ReferenceImagePathLog);
+                imageComparisonSettings, testCase.ReferenceImagePathLog);
 
             // Does it allocate memory when it renders what's on the main camera?
             bool allocatesMemory = false;
@@ -103,7 +110,7 @@ public class UTSGraphicsTestsNonXR  {
             {
                 try
                 {
-                    ImageAssert.AllocatesMemory(mainCamera, settings.ImageComparisonSettings);
+                    ImageAssert.AllocatesMemory(mainCamera, imageComparisonSettings);
                 }
                 catch (AssertionException)
                 {
