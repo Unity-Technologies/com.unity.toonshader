@@ -419,7 +419,6 @@ Shader "Toon(Tessellation)" {
         [Enum(Subsurface Scattering, 0, Standard, 1, Anisotropy, 2, Iridescence, 3, Specular Color, 4, Translucent, 5)] _MaterialID("MaterialId", Int) = 1 // MaterialId.Standard
 
         [ToggleUI] _DisplacementLockObjectScale("displacement lock object scale", Float) = 1.0
-        [ToggleUI] _DisplacementLockTilingScale("displacement lock tiling scale", Float) = 1.0
         [ToggleUI] _DepthOffsetEnable("Depth Offset View space", Float) = 0.0
 
         [ToggleUI] _EnableGeometricSpecularAA("EnableGeometricSpecularAA", Float) = 0.0
@@ -472,7 +471,6 @@ Shader "Toon(Tessellation)" {
 	//////////////////// Start of HDRP material tessellation values. ///////////// 
 	//////////////////////////////////////////////////////////////////////////////
 
-        [ToggleUI] _DisplacementLockTilingScale("displacement lock tiling scale", Float) = 1.0
         [ToggleUI] _DepthOffsetEnable("Depth Offset View space", Float) = 0.0
 	//////////////////////////////////////////////////////////////////////////////
 	//////////////////// End of HDRP material tessellation values.   ///////////// 
