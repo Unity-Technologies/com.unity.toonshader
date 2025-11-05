@@ -1,6 +1,4 @@
 ﻿//Unity Toon Shader
-//nobuyuki@unity3d.com
-//toshiyuki@unity3d.com (Intengrated) 
 
 Shader "Toon" {
     Properties {
