@@ -3,6 +3,8 @@
 import re
 from datetime import datetime, timezone
 
+PROPERTY_NAME_PATTERN = re.compile(r'([A-Za-z_][A-Za-z0-9_]*)\s*\(')
+
 
 def extract_properties_from_shader_content(content):
     properties_match = re.search(r"Properties\s*\{", content)
@@ -39,6 +41,18 @@ def extract_properties_from_shader_content(content):
         cleaned_lines.pop()
 
     return '\n'.join(cleaned_lines)
+
+
+def get_property_name(line: str):
+    if not line or line.startswith("//"):
+        return None
+    matches = PROPERTY_NAME_PATTERN.findall(line)
+    if not matches:
+        return None
+    candidate = matches[-1]
+    if candidate.startswith('['):
+        return None
+    return candidate
 
 
 def load_properties_from_shader(shader_path, descriptor):
@@ -162,17 +176,28 @@ def generate_shader(shader_path, common_properties, tessellation_properties, aut
 
         # Build new Properties block
         new_properties = []
+        property_map = {}
+        property_count = 0
         new_properties.append(f"{base_indent}Properties {{")
 
         # Add common properties
         common_lines = common_properties.split('\n')
-        property_count = 0
         for line in common_lines:
             stripped_line = line.strip()
             if stripped_line:
-                new_properties.append(f"{block_indent}{stripped_line}")
-                if not stripped_line.startswith("//"):
-                    property_count += 1
+                new_line = f"{block_indent}{stripped_line}"
+                property_name = get_property_name(stripped_line)
+                if property_name:
+                    if property_name in property_map:
+                        new_properties[property_map[property_name]] = new_line
+                    else:
+                        property_map[property_name] = len(new_properties)
+                        property_count += 1
+                        new_properties.append(new_line)
+                else:
+                    new_properties.append(new_line)
+            else:
+                new_properties.append("")
 
         # Add tessellation properties if provided
         if tessellation_properties:
@@ -182,9 +207,19 @@ def generate_shader(shader_path, common_properties, tessellation_properties, aut
             for line in tessellation_lines:
                 stripped_line = line.strip()
                 if stripped_line:
-                    new_properties.append(f"{block_indent}{stripped_line}")
-                    if not stripped_line.startswith("//"):
-                        property_count += 1
+                    new_line = f"{block_indent}{stripped_line}"
+                    property_name = get_property_name(stripped_line)
+                    if property_name:
+                        if property_name in property_map:
+                            new_properties[property_map[property_name]] = new_line
+                        else:
+                            property_map[property_name] = len(new_properties)
+                            property_count += 1
+                            new_properties.append(new_line)
+                    else:
+                        new_properties.append(new_line)
+                else:
+                    new_properties.append("")
 
         new_properties.append(f"{base_indent}}}")
 

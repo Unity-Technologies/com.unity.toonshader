@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
@@ -15,6 +16,7 @@ namespace UnityEditor.Rendering.Toon
     /// </summary>
     public class ShaderGenerator : EditorWindow
     {
+        private static readonly Regex PropertyNameRegex = new Regex(@"([A-Za-z_][A-Za-z0-9_]*)\s*\(", RegexOptions.Compiled);
         private const string COMMON_PROPERTIES_PATH = "Assets/com.unity.toonshader/Runtime/Integrated/Shaders/CommonPropertiesPart.shader";
         private const string TESSELATION_PROPERTIES_PATH = "Assets/com.unity.toonshader/Runtime/Integrated/Shaders/TessellationPropertiesPart.shader";
         private const string UNITY_TOON_SHADER_PATH = "Assets/com.unity.toonshader/Runtime/Integrated/Shaders/UnityToon.shader";
@@ -190,50 +192,90 @@ namespace UnityEditor.Rendering.Toon
             string blockIndent = baseIndent + "    ";
 
             // Build new Properties block
-            StringBuilder newProperties = new StringBuilder();
-            newProperties.AppendLine($"{baseIndent}Properties {{");
-            
+            List<string> newProperties = new List<string>();
+            Dictionary<string, int> propertyLineIndices = new Dictionary<string, int>(StringComparer.Ordinal);
+            int propertyCount = 0;
+
+            newProperties.Add($"{baseIndent}Properties {{");
+
             // Add common properties
             string[] commonLines = commonProperties.Split('\n');
-            int propertyCount = 0;
             foreach (string line in commonLines)
             {
-                if (!string.IsNullOrWhiteSpace(line))
+                string trimmed = line.Trim();
+                if (trimmed.Length == 0)
                 {
-                    string trimmed = line.Trim();
-                    newProperties.AppendLine($"{blockIndent}{trimmed}");
-                    if (!trimmed.StartsWith("//", StringComparison.Ordinal))
+                    newProperties.Add(string.Empty);
+                    continue;
+                }
+
+                string propertyLine = $"{blockIndent}{trimmed}";
+                string propertyName = GetPropertyName(trimmed);
+
+                if (propertyName != null)
+                {
+                    if (propertyLineIndices.TryGetValue(propertyName, out int existingIndex))
                     {
+                        newProperties[existingIndex] = propertyLine;
+                    }
+                    else
+                    {
+                        propertyLineIndices[propertyName] = newProperties.Count;
                         propertyCount++;
+                        newProperties.Add(propertyLine);
                     }
                 }
+                else
+                {
+                    newProperties.Add(propertyLine);
+                }
             }
-            
+
             // Add tessellation properties if provided
             if (!string.IsNullOrEmpty(tessellationProperties))
             {
-                newProperties.AppendLine();
-                newProperties.AppendLine($"{blockIndent}// Tessellation-specific properties");
+                newProperties.Add(string.Empty);
+                newProperties.Add($"{blockIndent}// Tessellation-specific properties");
                 string[] tessellationLines = tessellationProperties.Split('\n');
                 foreach (string line in tessellationLines)
                 {
-                    if (!string.IsNullOrWhiteSpace(line))
+                    string trimmed = line.Trim();
+                    if (trimmed.Length == 0)
                     {
-                        string trimmed = line.Trim();
-                        newProperties.AppendLine($"{blockIndent}{trimmed}");
-                        if (!trimmed.StartsWith("//", StringComparison.Ordinal))
+                        newProperties.Add(string.Empty);
+                        continue;
+                    }
+
+                    string propertyLine = $"{blockIndent}{trimmed}";
+                    string propertyName = GetPropertyName(trimmed);
+
+                    if (propertyName != null)
+                    {
+                        if (propertyLineIndices.TryGetValue(propertyName, out int existingIndex))
                         {
-                            propertyCount++;
+                            newProperties[existingIndex] = propertyLine;
                         }
+                        else
+                        {
+                            propertyLineIndices[propertyName] = newProperties.Count;
+                            propertyCount++;
+                            newProperties.Add(propertyLine);
+                        }
+                    }
+                    else
+                    {
+                        newProperties.Add(propertyLine);
                     }
                 }
             }
-            
-            newProperties.AppendLine($"{baseIndent}}");
-            
+
+            newProperties.Add($"{baseIndent}}");
+
             Debug.Log($"Generated Properties block with {propertyCount} properties");
 
-            string updatedContent = originalContent.Substring(0, baseIndentStart) + newProperties.ToString() + originalContent.Substring(endIndex + 1);
+            string newPropertiesText = string.Join("\n", newProperties);
+
+            string updatedContent = originalContent.Substring(0, baseIndentStart) + newPropertiesText + originalContent.Substring(endIndex + 1);
             return ApplyAutoGeneratedComment(updatedContent, autoCommentLine);
         }
         
@@ -320,6 +362,29 @@ namespace UnityEditor.Rendering.Toon
             }
 
             return result.ToString();
+        }
+
+        private string GetPropertyName(string line)
+        {
+            line = line.Trim();
+            if (string.IsNullOrEmpty(line) || line.StartsWith("//", StringComparison.Ordinal))
+            {
+                return null;
+            }
+
+            MatchCollection matches = PropertyNameRegex.Matches(line);
+            if (matches.Count == 0)
+            {
+                return null;
+            }
+
+            string candidate = matches[matches.Count - 1].Groups[1].Value;
+            if (string.IsNullOrEmpty(candidate) || candidate.StartsWith("[", StringComparison.Ordinal))
+            {
+                return null;
+            }
+
+            return candidate;
         }
 
         private string ReadFile(string path)
