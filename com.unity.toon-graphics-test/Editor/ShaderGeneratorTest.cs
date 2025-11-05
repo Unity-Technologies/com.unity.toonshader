@@ -12,7 +12,7 @@ namespace UnityEditor.Rendering.Toon
     /// </summary>
     public class ShaderGeneratorTest
     {
-        [MenuItem("Tools/Unity Toon Shader/Test Shader Generation")]
+        [MenuItem("Unity Toon Shader/Test Shader Generation")]
         public static void TestShaderGeneration()
         {
             try

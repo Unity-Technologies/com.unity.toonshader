@@ -11,7 +11,7 @@ This tool helps maintain consistency between `UnityToon.shader` and `UnityToonTe
 ## How to Use
 
 1. **Open the Shader Generator Window**:
-   - In Unity, go to `Tools > Unity Toon Shader > Generate Shader Files`
+   - In Unity, go to `Unity Toon Shader > Generate Shader Files`
    - This opens the Shader Generator window
 
 2. **Edit Properties**:
@@ -59,17 +59,6 @@ Inside the `Properties` block you can use the same syntax as in any ShaderLab sh
 - **Comment Preservation**: All original comments from the Properties blocks are maintained
 - **Traceability**: Each generated shader receives an `//Auto-generated on ...` timestamp banner at the top
 
-## Manual Generation (Alternative)
-
-If you prefer to generate shaders manually or from command line, you can use the Python script:
-
-```bash
-cd /workspace
-python3 com.unity.toon-graphics-test/generate_shaders.py
-```
-
-This will generate both shader files from the property shader assets.
-
 ## Troubleshooting
 
 - **Properties block not found**: Ensure the shader files have a valid `Properties { }` block
@@ -80,13 +69,10 @@ This will generate both shader files from the property shader assets.
 
 ```
 com.unity.toon-graphics-test/
-├── Editor/
-│   ├── ShaderGenerator.cs          # Unity Editor script
-│   ├── ShaderGeneratorTest.cs      # Editor test harness
-│   └── README_ShaderGenerator.md   # This file
-├── generate_shaders.py             # Python generator
-├── test_generation.py              # Python smoke test
-└── test_shader_generation.cs       # .NET console smoke test
+└── Editor/
+    ├── ShaderGenerator.cs          # Unity Editor script
+    ├── ShaderGeneratorTest.cs      # Editor test harness
+    └── README_ShaderGenerator.md   # This file
 
 com.unity.toonshader/Runtime/Integrated/Shaders/
 ├── CommonPropertiesPart.shader     # Shared properties with comments (hidden shader asset)

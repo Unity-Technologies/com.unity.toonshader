@@ -20,7 +20,7 @@ namespace UnityEditor.Rendering.Toon
         private const string UNITY_TOON_SHADER_PATH = "Assets/com.unity.toonshader/Runtime/Integrated/Shaders/UnityToon.shader";
         private const string UNITY_TOON_TESSELATION_SHADER_PATH = "Assets/com.unity.toonshader/Runtime/Integrated/Shaders/UnityToonTessellation.shader";
         
-        [MenuItem("Tools/Unity Toon Shader/Generate Shader Files")]
+        [MenuItem("Unity Toon Shader/Generate Shader Files")]
         public static void ShowWindow()
         {
             GetWindow<ShaderGenerator>("Shader Generator");
