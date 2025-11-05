@@ -1,4 +1,4 @@
-//Auto-generated on Wed Nov 05 05:23:38 UTC 2025
+//Auto-generated on Wed Nov 05 05:42:38 UTC 2025
 ﻿//Unity Toon Shader
 //nobuyuki@unity3d.com
 //toshiyuki@unity3d.com (Intengrated) 

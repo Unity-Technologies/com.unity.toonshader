@@ -133,6 +133,17 @@ class Program
 
             Console.WriteLine($"Test shader written to {testPath}");
             Console.WriteLine("Shader generation test completed successfully!");
+
+            try
+            {
+                File.Delete(testPath);
+            }
+            catch (IOException)
+            {
+            }
+            catch (UnauthorizedAccessException)
+            {
+            }
         }
         catch (Exception e)
         {

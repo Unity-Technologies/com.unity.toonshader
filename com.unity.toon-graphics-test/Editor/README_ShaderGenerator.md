@@ -65,10 +65,10 @@ If you prefer to generate shaders manually, you can run the Python helper from t
 
 ```bash
 cd /workspace
-python3 com.unity.toon-graphics-test/generate_shaders.py
+python3 generate_UnityToon.py
 ```
 
-Convenience launchers are provided as `generate_shaders.sh` and `generate_shaders.bat`.
+Convenience launchers are provided as `generate_UnityToon.sh` and `generate_UnityToon.bat`.
 
 ## Troubleshooting
 
@@ -80,13 +80,10 @@ Convenience launchers are provided as `generate_shaders.sh` and `generate_shader
 
 ```
 com.unity.toon-graphics-test/
-├── Editor/
-│   ├── ShaderGenerator.cs          # Unity Editor script
-│   ├── ShaderGeneratorTest.cs      # Editor test harness
-│   └── README_ShaderGenerator.md   # This file
-├── generate_shaders.py             # Python generator
-├── test_generation.py              # Python smoke test
-└── test_shader_generation.cs       # .NET console smoke test
+└── Editor/
+    ├── ShaderGenerator.cs          # Unity Editor script
+    ├── ShaderGeneratorTest.cs      # Editor test harness
+    └── README_ShaderGenerator.md   # This file
 
 com.unity.toonshader/Runtime/Integrated/Shaders/
 ├── CommonPropertiesPart.shader     # Shared properties with comments (hidden shader asset)
@@ -94,5 +91,8 @@ com.unity.toonshader/Runtime/Integrated/Shaders/
 ├── UnityToon.shader                # Generated shader (regular)
 └── UnityToonTessellation.shader    # Generated shader (tessellation)
 
-generate_shaders.sh / generate_shaders.bat  # Platform launchers for the Python generator
+generate_UnityToon.py                 # Python generator (root)
+test_generate_UnityToon.py            # Python smoke test (root)
+test_shader_generation.cs             # .NET console smoke test (root)
+generate_UnityToon.sh / .bat          # Platform launchers for the Python generator
 ```

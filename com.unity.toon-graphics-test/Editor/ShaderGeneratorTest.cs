@@ -18,7 +18,7 @@ namespace UnityEditor.Rendering.Toon
             try
             {
                 // Test reading the common properties file
-                string commonPropertiesPath = "Assets/com.unity.toonshader/Runtime/Integrated/Shaders/CommonPropertiesPart.shader";
+                string commonPropertiesPath = "Packages/com.unity.toonshader/Runtime/Integrated/Shaders/CommonPropertiesPart.shader";
                 string commonPropertiesShader = File.ReadAllText(commonPropertiesPath);
                 
                 if (string.IsNullOrEmpty(commonPropertiesShader))
@@ -36,7 +36,7 @@ namespace UnityEditor.Rendering.Toon
                 Debug.Log($"Successfully extracted common properties. Length: {commonProperties.Length} characters");
                 
                 // Test reading the tessellation properties file
-                string tessellationPropertiesPath = "Assets/com.unity.toonshader/Runtime/Integrated/Shaders/TessellationPropertiesPart.shader";
+                string tessellationPropertiesPath = "Packages/com.unity.toonshader/Runtime/Integrated/Shaders/TessellationPropertiesPart.shader";
                 string tessellationPropertiesShader = File.ReadAllText(tessellationPropertiesPath);
                 
                 if (string.IsNullOrEmpty(tessellationPropertiesShader))
@@ -54,7 +54,7 @@ namespace UnityEditor.Rendering.Toon
                 Debug.Log($"Successfully extracted tessellation properties. Length: {tessellationProperties.Length} characters");
                 
                 // Test reading the original shader files
-                string unityToonPath = "Assets/com.unity.toonshader/Runtime/Integrated/Shaders/UnityToon.shader";
+                string unityToonPath = "Packages/com.unity.toonshader/Runtime/Integrated/Shaders/UnityToon.shader";
                 string unityToonContent = File.ReadAllText(unityToonPath);
                 
                 if (string.IsNullOrEmpty(unityToonContent))
@@ -99,11 +99,17 @@ namespace UnityEditor.Rendering.Toon
                     Debug.Log($"Generated new shader content. Original length: {unityToonContent.Length}, New length: {newContent.Length}");
                     
                     // Write test file
-                    string testPath = "Assets/com.unity.toonshader/Runtime/Integrated/Shaders/UnityToon_Generated_Test.shader";
+                    string testPath = "Packages/com.unity.toonshader/Runtime/Integrated/Shaders/UnityToon_Generated_Test.shader";
                     File.WriteAllText(testPath, newContent);
                     AssetDatabase.Refresh();
                     
                     Debug.Log($"Test shader written to {testPath}");
+
+                    if (File.Exists(testPath))
+                    {
+                        File.Delete(testPath);
+                        AssetDatabase.Refresh();
+                    }
                 }
                 else
                 {

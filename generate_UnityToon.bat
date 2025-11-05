@@ -4,7 +4,7 @@ echo ==========================
 echo.
 
 echo Generating shader files from common properties...
-python3 com.unity.toon-graphics-test/generate_shaders.py
+python3 generate_UnityToon.py
 
 if %ERRORLEVEL% EQU 0 (
     echo.

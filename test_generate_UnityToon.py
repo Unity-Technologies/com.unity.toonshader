@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 
+import os
 import re
 
-from generate_shaders import (
+from generate_UnityToon import (
     extract_properties_from_shader_content,
     apply_auto_generated_comment,
 )
@@ -116,6 +117,12 @@ def test_shader_generation():
 
         print(f"Test shader written to {test_path}")
         print("Shader generation test completed successfully!")
+
+        try:
+            import os
+            os.remove(test_path)
+        except OSError:
+            pass
 
     except Exception as e:
         print(f"ERROR: {e}")

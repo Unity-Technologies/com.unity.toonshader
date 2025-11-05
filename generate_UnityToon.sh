@@ -5,7 +5,7 @@ echo "=========================="
 echo
 
 echo "Generating shader files from common properties..."
-python3 com.unity.toon-graphics-test/generate_shaders.py
+python3 generate_UnityToon.py
 
 if [ $? -eq 0 ]; then
     echo
