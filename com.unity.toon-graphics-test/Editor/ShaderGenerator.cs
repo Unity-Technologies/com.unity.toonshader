@@ -275,13 +275,13 @@ namespace UnityEditor.Rendering.Toon
             Match startMatch = Regex.Match(shaderContent, propertiesPattern);
             if (!startMatch.Success)
             {
-                return null;
+                return shaderContent.Trim();
             }
 
             int openBraceIndex = shaderContent.IndexOf('{', startMatch.Index);
             if (openBraceIndex == -1)
             {
-                return null;
+                return shaderContent.Trim();
             }
 
             int braceCount = 1;
@@ -307,7 +307,7 @@ namespace UnityEditor.Rendering.Toon
 
             if (closeBraceIndex == -1)
             {
-                return null;
+                return shaderContent.Trim();
             }
 
             string block = shaderContent.Substring(openBraceIndex + 1, closeBraceIndex - openBraceIndex - 1);

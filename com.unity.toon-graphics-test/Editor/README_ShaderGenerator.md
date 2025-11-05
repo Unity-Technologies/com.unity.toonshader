@@ -4,8 +4,8 @@ This tool helps maintain consistency between `UnityToon.shader` and `UnityToonTe
 
 ## Files
 
-- **CommonPropertiesPart.shader**: Hidden shader asset that contains the shared `Properties` block for both shaders, with original comments preserved
-- **TessellationPropertiesPart.shader**: Hidden shader asset that contains tessellation-specific properties only present in the tessellation shader
+- **CommonPropertiesPart.shader**: Plain text list of shared property definitions (no Shader wrapper) with original comments preserved
+- **TessellationPropertiesPart.shader**: Plain text list of tessellation-only property definitions (no Shader wrapper)
 - **ShaderGenerator.cs**: Unity Editor script (now located in the graphics test package) that generates the shader files from the property assets
 
 ## How to Use
@@ -27,28 +27,16 @@ This tool helps maintain consistency between `UnityToon.shader` and `UnityToonTe
 
 ## Property File Format
 
-The property files are valid ShaderLab assets that wrap the shared definitions in a minimal hidden shader. The generator extracts only the body of the `Properties` block.
+Each property file is plain text containing only property declarations, e.g.
 
 ```
-Shader "Hidden/UnityToon/CommonPropertiesPart"
-{
-    Properties
-    {
-        // Comments are preserved
-        [HideInInspector] _simpleUI ("SimpleUI", Int ) = 0
-        [Enum(OFF, 0, ON, 1)] _isUnityToonshader("Material is touched by Unity Toon Shader", Int) = 1
-        _BaseColor ("BaseColor", Color) = (1,1,1,1)
-    }
-
-    SubShader
-    {
-        Tags { "RenderType"="Opaque" }
-        Pass { }
-    }
-}
+// Comments are preserved
+[HideInInspector] _simpleUI ("SimpleUI", Int ) = 0
+[Enum(OFF, 0, ON, 1)] _isUnityToonshader("Material is touched by Unity Toon Shader", Int) = 1
+_BaseColor ("BaseColor", Color) = (1,1,1,1)
 ```
 
-Inside the `Properties` block you can use the same syntax as in any ShaderLab shader. Comments and blank lines are preserved.
+You can use the usual ShaderLab property syntax, including comments and blank lines. The generator indents/layers them into the target shaders automatically.
 
 ## Benefits
 
@@ -86,8 +74,8 @@ com.unity.toon-graphics-test/
     └── README_ShaderGenerator.md   # This file
 
 com.unity.toonshader/Runtime/Integrated/Shaders/
-├── CommonPropertiesPart.shader     # Shared properties with comments (hidden shader asset)
-├── TessellationPropertiesPart.shader # Tessellation-specific properties (hidden shader asset)
+├── CommonPropertiesPart.shader     # Shared properties (plain text)
+├── TessellationPropertiesPart.shader # Tessellation-specific properties (plain text)
 ├── UnityToon.shader                # Generated shader (regular)
 └── UnityToonTessellation.shader    # Generated shader (tessellation)
 

@@ -9,11 +9,11 @@ PROPERTY_NAME_PATTERN = re.compile(r'(?:\]\s*|^)([A-Za-z_][A-Za-z0-9_]*)\s*\(')
 def extract_properties_from_shader_content(content):
     properties_match = re.search(r"Properties\s*\{", content)
     if not properties_match:
-        return None
+        return content.strip()
 
     open_brace_index = content.find('{', properties_match.start())
     if open_brace_index == -1:
-        return None
+        return content.strip()
 
     brace_count = 1
     close_brace_index = -1
@@ -29,7 +29,7 @@ def extract_properties_from_shader_content(content):
                 break
 
     if close_brace_index == -1:
-        return None
+        return content.strip()
 
     block = content[open_brace_index + 1:close_brace_index]
     lines = block.split('\n')
