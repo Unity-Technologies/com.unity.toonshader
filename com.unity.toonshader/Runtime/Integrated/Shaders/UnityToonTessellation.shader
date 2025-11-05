@@ -417,7 +417,6 @@ Shader "Toon(Tessellation)" {
         // so we use this enum as "material ID" which can be interpreted as preset of bitfield of material feature
         // The only material feature flag that can be added in all cases is clear coat
         [Enum(Subsurface Scattering, 0, Standard, 1, Anisotropy, 2, Iridescence, 3, Specular Color, 4, Translucent, 5)] _MaterialID("MaterialId", Int) = 1 // MaterialId.Standard
-        [ToggleUI] _TransmissionEnable("_TransmissionEnable", Float) = 1.0
 
         [ToggleUI] _DisplacementLockObjectScale("displacement lock object scale", Float) = 1.0
         [ToggleUI] _DisplacementLockTilingScale("displacement lock tiling scale", Float) = 1.0
@@ -472,7 +471,6 @@ Shader "Toon(Tessellation)" {
 	//////////////////////////////////////////////////////////////////////////////
 	//////////////////// Start of HDRP material tessellation values. ///////////// 
 	//////////////////////////////////////////////////////////////////////////////
-        [ToggleUI] _TransmissionEnable("_TransmissionEnable", Float) = 1.0
 
         [ToggleUI] _DisplacementLockObjectScale("displacement lock object scale", Float) = 1.0
         [ToggleUI] _DisplacementLockTilingScale("displacement lock tiling scale", Float) = 1.0
