@@ -84,6 +84,6 @@ Shader "Custom/TwoPasses"{
         }
     }
 
-    CustomEditor "TwoPassesGUI"
+    CustomEditor "TwoPassesShaderGUI"
 
 }

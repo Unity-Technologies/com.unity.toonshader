@@ -1,13 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-internal class TwoPassesGUI : UnityEditor.ShaderGUI {
-
-    void OnOpenGUI(Material material, MaterialEditor materialEditor, MaterialProperty[] props) {
-        
-        Debug.Log("OnOpenGUI())");
-    }
-
+internal class TwoPassesShaderGUI : UnityEditor.ShaderGUI {
     public override void OnGUI(MaterialEditor materialEditor, MaterialProperty[] props) {
         
         Material material = materialEditor.target as Material;
