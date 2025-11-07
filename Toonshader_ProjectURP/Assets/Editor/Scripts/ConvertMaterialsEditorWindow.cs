@@ -10,15 +10,11 @@ public class ConvertMaterialsEditorWindow : EditorWindow {
         GetWindow<ConvertMaterialsEditorWindow>("Convert Materials");
     }
 
-    private GameObject m_targetObject;
-    private Shader m_sourceShader;
-    private Shader m_targetShader;
-    private string m_targetFolder = "Assets/ConvertedMaterials";
-
     void OnGUI() {
         m_targetObject = (GameObject)EditorGUILayout.ObjectField("Target Object", m_targetObject, typeof(GameObject), true);
         m_sourceShader = (Shader)EditorGUILayout.ObjectField("Source Shader", m_sourceShader, typeof(Shader), false);
         m_targetShader = (Shader)EditorGUILayout.ObjectField("Target Shader", m_targetShader, typeof(Shader), false);
+        m_newMaterialsSuffix = EditorGUILayout.TextField("New Materials Suffix", m_newMaterialsSuffix);
         m_targetFolder = EditorGUILayout.TextField("Target Folder", m_targetFolder);
 
         if (GUILayout.Button("Convert Materials")) {
@@ -45,7 +41,7 @@ public class ConvertMaterialsEditorWindow : EditorWindow {
                 Material mat = renderer.sharedMaterials[i];
                 if (mat != null && mat.shader == m_sourceShader) {
                     Material newMat = new Material(m_targetShader);
-                    newMat.name = mat.name + "_Converted";
+                    newMat.name = mat.name + m_newMaterialsSuffix;
                     CopyMaterialProperties(mat, newMat);
                     string path = AssetDatabase.GenerateUniqueAssetPath(uniqueFolder + "/" + newMat.name + ".mat");
                     AssetDatabase.CreateAsset(newMat, path);
@@ -90,4 +86,11 @@ public class ConvertMaterialsEditorWindow : EditorWindow {
             }
         }
     }
+    
+    private GameObject m_targetObject;
+    private Shader m_sourceShader;
+    private Shader m_targetShader;
+    private string m_targetFolder = "Assets/ConvertedMaterials";
+    private string m_newMaterialsSuffix = "_Converted";
+    
 }
