@@ -1,0 +1,17 @@
+// Tessellation-specific Properties for Unity Toon Shader Tessellation
+// These properties are only present in the tessellation shader
+
+// Tessellation specific
+[Enum(None, 0, Phong, 1)] _TessellationMode("Tessellation mode", Float) = 0
+_TessellationFactor("Tessellation Factor", Range(0.0, 64.0)) = 4.0
+_TessellationFactorMinDistance("Tessellation start fading distance", Float) = 20.0
+_TessellationFactorMaxDistance("Tessellation end fading distance", Float) = 50.0
+_TessellationFactorTriangleSize("Tessellation triangle size", Float) = 100.0
+_TessellationShapeFactor("Tessellation shape factor", Range(0.0, 1.0)) = 0.75 // Only use with Phong
+_TessellationBackFaceCullEpsilon("Tessellation back face epsilon", Range(-1.0, 0.0)) = -0.25
+
+// Legacy material tessellation values
+//Tessellation
+_TessEdgeLength("DX11 Tess : Edge length", Range(2, 50)) = 5
+_TessPhongStrength("DX11 Tess : Phong Strength", Range(0, 1)) = 0.5
+_TessExtrusionAmount("DX11 Tess : Extrusion Amount", Range(-0.005, 0.005)) = 0.0
