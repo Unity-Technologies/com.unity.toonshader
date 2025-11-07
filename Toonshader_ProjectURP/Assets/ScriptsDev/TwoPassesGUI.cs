@@ -18,15 +18,16 @@ internal class TwoPassesGUI : UnityEditor.ShaderGUI {
         base.OnGUI(materialEditor, props);
 
         // Checkbox for SecondPass
-        bool enabled = material.GetShaderPassEnabled("SRPDefaultUnlit");
+        string lightModeName = "SRPDefaultUnlit";
+        bool enabled = material.GetShaderPassEnabled(lightModeName);
         EditorGUI.BeginChangeCheck();
         bool newEnabled = EditorGUILayout.Toggle("Enable Second Pass", enabled);
         if (EditorGUI.EndChangeCheck())
         {
-            material.SetShaderPassEnabled("SRPDefaultUnlit", newEnabled);
+            material.SetShaderPassEnabled(lightModeName, newEnabled);
             
             EditorUtility.SetDirty(material);
-            Debug.Log(material.GetShaderPassEnabled("SRPDefaultUnlit"));
+            Debug.Log(material.GetShaderPassEnabled(lightModeName));
         }        
     }
 
