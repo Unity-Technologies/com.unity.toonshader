@@ -415,7 +415,7 @@ Shader "Toon2D"{
             }
 
             half4 OutlineFragment(Varyings input) : SV_Target {
-                return float4(1,0,1,1);
+                return float4(0,0,1,1);
             }
             
             
