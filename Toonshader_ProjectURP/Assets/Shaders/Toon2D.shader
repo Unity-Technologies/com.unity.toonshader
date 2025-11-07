@@ -22,6 +22,9 @@ Shader "Toon2D"{
         _Unlit_Intensity ("Unlit_Intensity", Range(0, 4)) = 0
         
         [HideInInspector] _White("Tint", Color) = (1,1,1,1) // Added to break SRP batching. Work around for issue with SRP Batching
+        
+		_OutlineExtrusion("Outline Extrusion", float) = 0.02
+        
     }
 
     SubShader{
@@ -91,7 +94,7 @@ Shader "Toon2D"{
 
             CBUFFER_END
 
-            //----------------------------------------------------------------------------------------------------------------------            
+//----------------------------------------------------------------------------------------------------------------------            
             float4 _MainTex_ST;
 
             //TEXTURE2D(_MainTex); SAMPLER(sampler_MainTex);
@@ -104,7 +107,7 @@ Shader "Toon2D"{
                 return CommonLitVertex(input);
             }
 
-            //----------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------
 
             // normal should be normalized, w=1.0
             half3 SHEvalLinearL0L1(half4 normal)
@@ -280,7 +283,7 @@ Shader "Toon2D"{
             }
 
 
-            //----------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------
             half4 LitFragment(Varyings input) : SV_Target
             {
                 float3 defaultLightDirection = normalize(UNITY_MATRIX_V[2].xyz + UNITY_MATRIX_V[1].xyz);
@@ -333,6 +336,94 @@ Shader "Toon2D"{
             ENDHLSL
         }
 
+//----------------------------------------------------------------------------------------------------------------------
+        Pass {
+            Name "Outline"
+            Tags {
+//                "LightMode" = "Universal2D"
+            }
+//            Cull [_SRPDefaultUnlitColMode]
+//            ColorMask [_SPRDefaultUnlitColorMask]
+//            Blend SrcAlpha OneMinusSrcAlpha
+//            Stencil
+//            {
+//                Ref[_StencilNo]
+//                Comp[_StencilComp]
+//                Pass[_StencilOpPass]
+//                Fail[_StencilOpFail]
+//
+//            }
+//
+            HLSLPROGRAM
+            #pragma target 2.0
+            #pragma vertex OutlineVertex
+            #pragma fragment OutlineFragment
+
+
+            #pragma multi_compile _IS_OUTLINE_CLIPPING_NO _IS_OUTLINE_CLIPPING_YES
+            #pragma multi_compile _OUTLINE_NML _OUTLINE_POS
+            // Outline is implemented in UniversalToonOutline.hlsl.
+            // #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+            // #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/Core2D.hlsl"
+
+            struct Attributes
+            {
+                COMMON_2D_INPUTS
+            };
+
+            struct Varyings
+            {
+                COMMON_2D_LIT_OUTPUTS
+            };
+            
+            #include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DOTS.hlsl"
+			float _OutlineExtrusion;
+
+// #ifdef UNIVERSAL_PIPELINE_CORE_INCLUDED
+//             #include "../../UniversalRP/Shaders/UniversalToonInput.hlsl"
+//             #include "../../UniversalRP/Shaders/UniversalToonHead.hlsl"
+//             #include "../../UniversalRP/Shaders/UniversalToonOutline.hlsl"
+// #endif
+            #include "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/Lit2DCommon.hlsl"
+
+            Varyings CommonLitVertex2(Attributes input)
+            {
+                Varyings o = (Varyings) 0;
+                UNITY_SETUP_INSTANCE_ID(input);
+                UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
+
+                
+				float3 newPos = input.positionOS;
+				
+				// normal extrusion technique
+				float3 normal = normalize(input.normal);
+				newPos += float3(normal) * _OutlineExtrusion;
+                
+
+                o.positionCS = TransformObjectToHClip(newPos);
+                o.uv = input.uv;
+                o.lightingUV = half2(ComputeScreenPos(o.positionCS / o.positionCS.w).xy);
+                return o;
+            }
+
+            
+            Varyings OutlineVertex(Attributes input)
+            {
+                
+                return CommonLitVertex2(input);
+            }
+
+            half4 OutlineFragment(Varyings input) : SV_Target {
+                return float4(1,0,1,1);
+            }
+            
+            
+            ENDHLSL
+        }
+
+
+//----------------------------------------------------------------------------------------------------------------------
         Pass{
             Tags{
                 "LightMode" = "NormalsRendering"
@@ -412,5 +503,6 @@ Shader "Toon2D"{
             }
             ENDHLSL
         }
+        
     }
 }
