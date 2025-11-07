@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.TestTools.Graphics;
 
 namespace Unity.ToonShader.GraphicsTest
 {
