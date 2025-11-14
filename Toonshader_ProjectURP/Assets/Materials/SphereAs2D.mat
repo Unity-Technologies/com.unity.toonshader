@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Toon2D
+  m_Name: SphereAs2D
   m_Shader: {fileID: 4800000, guid: 60d646244f75ab84f8eb12819a6d87ff, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
