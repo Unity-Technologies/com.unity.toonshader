@@ -28,7 +28,11 @@ internal static class ToonConstants {
     internal static readonly int SHADER_PROPERTY_OUTLINE_MASK_COLOR      = Shader.PropertyToID("_OutlineMaskColor");
 
     internal const string GBUFFER_PASS_NAME = "GBuffer";
+
+    internal const string PACKAGE_PATH = "Packages/com.unity.toonshader";
     
+    internal const string SHADER_KEYWORD_URP      = "UTS_URP";
+    internal const string SHADER_KEYWORD_HDRP     = "UTS_HDRP";
 }
 
 
