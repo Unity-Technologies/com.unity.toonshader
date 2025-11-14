@@ -89,12 +89,12 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         for (int i = 0; i < numProperties; ++i) {
             MaterialUIElement propInfo = m_materialUIElements[i];
             
-            MaterialPropertyInfo mainProp = new MaterialPropertyInfo(propInfo.mainPropertyName, allProps);
+            MaterialPropertyInfo mainProp = MaterialNameToPropertyInfo(propInfo.mainPropertyName, allProps);
             MaterialPropertyInfo extraProperty1 = null!= propInfo.extraPropertyName1 ? 
-                new MaterialPropertyInfo(propInfo.extraPropertyName1, allProps) : null;
+                MaterialNameToPropertyInfo(propInfo.extraPropertyName1, allProps) : null;
 
             MaterialPropertyInfo extraProperty2 = null!= propInfo.extraPropertyName2 ? 
-                new MaterialPropertyInfo(propInfo.extraPropertyName2, allProps) : null;
+                MaterialNameToPropertyInfo(propInfo.extraPropertyName2, allProps) : null;
             
 
             MaterialPropertyUIElement newElement10 = new MaterialPropertyUIElement {
@@ -111,35 +111,14 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     
 //----------------------------------------------------------------------------------------------------------------------
 
-    class MaterialPropertyInfo {
-        public readonly MaterialProperty prop;
-        public readonly int id;
-
-        public MaterialPropertyInfo(MaterialName m, MaterialProperty[] allProps) {
-            prop = FindProperty(m.name, allProps); id = m.nameID;
-        }
+    MaterialPropertyInfo MaterialNameToPropertyInfo(MaterialName m, MaterialProperty[] allProps) {
+        MaterialPropertyInfo info = new MaterialPropertyInfo();
+        info.prop = FindProperty(m.name, allProps); 
+        info.id = m.nameID;
+        return info;
     }
 
-    class MaterialPropertyUIElement {
-        public GUIContent label;
-        public MaterialPropertyInfo mainProperty;
-        public MaterialPropertyInfo extraProperty1;
-        public MaterialPropertyInfo extraProperty2;
-    }
-
-    class MaterialName {
-        public readonly string name;
-        public readonly int nameID;
-        public MaterialName(string s) { name = s; nameID = Shader.PropertyToID(s); }
-    }
-
-    
-    struct MaterialUIElement {
-        public GUIContent label;
-        public MaterialName mainPropertyName;
-        public MaterialName extraPropertyName1;
-        public MaterialName extraPropertyName2;
-    }
+//----------------------------------------------------------------------------------------------------------------------
 
     private readonly Dictionary<string, MaterialPropertyUIElement> m_materialPropertyUIElements = new Dictionary<string, MaterialPropertyUIElement>();
 
