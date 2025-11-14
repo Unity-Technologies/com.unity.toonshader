@@ -6,11 +6,11 @@ Shader "Toon2D"{
         _BaseShade_Feather ("Base/Shade_Feather", Range(0.0001, 1)) = 0.0001
 
         _1st_ShadeMap ("1st_ShadeMap", 2D) = "white" {}
-        [Toggle(_)] _Use_BaseAs1st ("Use BaseMap as 1st_ShadeMap", Float ) = 0
+        [Toggle(_)] _Use_BaseAs1st ("Use BaseMap as 1st_ShadeMap", Integer ) = 0
         _1st_ShadeColor ("1st_ShadeColor", Color) = (1,1,1,1)
         
         _2nd_ShadeMap ("2nd_ShadeMap", 2D) = "white" {}
-        [Toggle(_)] _Use_1stAs2nd ("Use 1st_ShadeMap as 2nd_ShadeMap", Float ) = 0
+        [Toggle(_)] _Use_1stAs2nd ("Use 1st_ShadeMap as 2nd_ShadeMap", Integer ) = 0
         _2nd_ShadeColor ("2nd_ShadeColor", Color) = (1,1,1,1)
 
         _ShadeColor_Step ("ShadeColor_Step", Range(0, 1)) = 0
@@ -79,8 +79,8 @@ Shader "Toon2D"{
                 half4 _BaseColor;
                 float _Unlit_Intensity;
 
-                float _Use_BaseAs1st;
-                float _Use_1stAs2nd;
+                int _Use_BaseAs1st;
+                int _Use_1stAs2nd;
 
                 float4 _1st_ShadeColor;
                 float4 _2nd_ShadeColor;
@@ -340,7 +340,7 @@ Shader "Toon2D"{
         Pass {
             Name "Outline"
             Tags {
-//                "LightMode" = "Universal2D"
+                "LightMode" = "SRPDefaultUnlit"
             }
 //            Cull [_SRPDefaultUnlitColMode]
 //            ColorMask [_SPRDefaultUnlitColorMask]
@@ -353,7 +353,7 @@ Shader "Toon2D"{
 //                Fail[_StencilOpFail]
 //
 //            }
-//
+
             HLSLPROGRAM
             #pragma target 2.0
             #pragma vertex OutlineVertex
@@ -395,7 +395,7 @@ Shader "Toon2D"{
 
                 
 				float3 newPos = input.positionOS;
-				
+				newPos.x += 0.1;
 				// normal extrusion technique
 				float3 normal = normalize(input.normal);
 				newPos += float3(normal) * _OutlineExtrusion;
@@ -505,4 +505,7 @@ Shader "Toon2D"{
         }
         
     }
+
+    CustomEditor "UnityToon3Das2DGUI"
+
 }
