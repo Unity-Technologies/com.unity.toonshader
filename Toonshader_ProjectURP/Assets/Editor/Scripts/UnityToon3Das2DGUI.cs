@@ -15,6 +15,18 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         
         EditorGUI.BeginChangeCheck();
         GUI_BasicThreeColors(materialEditor, material, m_materialPropertyUIElements);
+        
+        //Doc: Use this LightMode tag value to draw an extra Pass when rendering objects.
+        string lightModeName = "SRPDefaultUnlit";  
+        bool enabled = material.GetShaderPassEnabled(lightModeName);
+        EditorGUI.BeginChangeCheck();
+        bool newEnabled = EditorGUILayout.Toggle("Outline", enabled);
+        if (EditorGUI.EndChangeCheck())
+        {
+            material.SetShaderPassEnabled(lightModeName, newEnabled);
+            EditorUtility.SetDirty(material);
+        }        
+        
 
         if (EditorGUI.EndChangeCheck()) {
             materialEditor.PropertiesChanged();
