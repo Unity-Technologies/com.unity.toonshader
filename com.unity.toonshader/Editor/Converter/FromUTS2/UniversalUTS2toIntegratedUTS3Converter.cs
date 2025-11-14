@@ -13,13 +13,13 @@ namespace UnityEditor.Rendering.Toon
         public override string info => "This tool converts project materials from Universal Toon Shader to Unity Toon Shader " + UTS3GUI.versionString;
         public override int priority => -9000;
 
-        public override void SetupConverter() 
+        public override void SetupConverter()
         {
             SetupConverterCommon(kOrgShaderGUID, kOrgTessShaderGUID);
         }
-        public override void Convert() 
-        { 
-            CommonConvert(); 
+        public override void Convert()
+        {
+            CommonConvert();
             SendAnalyticsEvent();
         }
         public override void PostConverting() { }

@@ -10,7 +10,7 @@ using UnityObject = UnityEngine.Object;
 namespace Unity.Rendering.Toon
 {
 
-     
+
     [ExecuteAlways]
     [DisallowMultipleComponent]
     [UTSHelpURL("ToonEVAdjustment")]
@@ -94,7 +94,7 @@ namespace Unity.Rendering.Toon
 
             // Fail safe in case the curve is deleted / has 0 point
             var curve = m_AnimationCurve;
-            
+
 
             if (curve == null || curve.length == 0)
             {
@@ -122,7 +122,7 @@ namespace Unity.Rendering.Toon
                 // on compile begin
                 m_isCompiling = true;
                 //                Release(); no need
-                return; // 
+                return; //
             }
             else if (!EditorApplication.isCompiling && m_isCompiling)
             {

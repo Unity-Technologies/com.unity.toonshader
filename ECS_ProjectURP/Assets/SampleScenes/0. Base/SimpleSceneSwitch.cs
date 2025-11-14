@@ -25,7 +25,7 @@ public class SimpleSceneSwitch : MonoBehaviour
     }
 
     void Update()
-    {       
+    {
         if(useInputButton)
         {
             if (Input.GetButtonDown("Fire1"))
@@ -47,7 +47,7 @@ public class SimpleSceneSwitch : MonoBehaviour
             customButton = new GUIStyle("button");
             customButton.fontSize = GUI.skin.label.fontSize;
         }
-        
+
         GUI.skin.label.fontSize = Mathf.RoundToInt ( 16 * scale );
         GUI.color = new Color(1, 1, 1, 1);
         float w = 410 * scale;
@@ -111,7 +111,7 @@ public class SimpleSceneSwitch : MonoBehaviour
             bool isSubscene = entityManager.HasComponent<SubScene>(entities[i]);
             bool isSceneSection = entityManager.HasComponent<SceneSection>(entities[i]);
 
-            //Runtime generated entities requires manual deletion, 
+            //Runtime generated entities requires manual deletion,
             //but we need to skip for some specific entities otherwise there will be spamming error
             if( ename != "SceneSectionStreamingSingleton" && !isSubscene && !isSceneSection && !ename.Contains("GameObject Scene:") )
             {

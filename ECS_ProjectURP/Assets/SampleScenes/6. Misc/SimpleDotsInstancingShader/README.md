@@ -18,5 +18,5 @@ render in one SRP batch with DOTS_INSTANCING_ON.
 2. Enter Play mode
 3. Go to: **Window > Analysis > Frame Debugger**
 4. In the Frame Debugger, click Enable
-5. Select the **DrawOpaqueObjects** event and expand it 
+5. Select the **DrawOpaqueObjects** event and expand it
 6. Observe there is only one SRP Batch, and the number of draw calls is eight. The keywords show DOTS_INSTANCING_ON

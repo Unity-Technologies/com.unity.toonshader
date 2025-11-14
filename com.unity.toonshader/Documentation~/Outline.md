@@ -16,7 +16,7 @@ Outlines are one of the most important elements that affect the impression of ce
   * [Outline Color Map](#outline-color-map)
   * [Baked Normal Map](#baked-normal-map)
 
-## Outline 
+## Outline
 A checkbox to enable the outline.
 
 <canvas class="image-comparison" role="img" aria-label="A chibi-style character model with rabbit ears. The first image has no outline. The second image has an outline.">
@@ -29,7 +29,7 @@ A checkbox to enable the outline.
 Specifies how the inverted-outline objects spawn.
 
 | Outline Mode | Description |
-| -- | -- | 
+| -- | -- |
 | Normal Direction | Stretches polygons in the normal direction. |
 | Position Scaling | Applies a scale value to the mesh. |
 
@@ -42,7 +42,7 @@ Specifies the width of the outline. This value depends on the scale when importi
 Specifies the color of the outline.
 
 ### Blend Base Color to Outline
-Blends **Base Color** into the outline color. 
+Blends **Base Color** into the outline color.
 
 <canvas class="image-comparison" role="img" aria-label="A chibi-style character model with a thick outline. With Blend Base Color to Outline disabled, the outline is black. With Blend Base Color to Outline enabled, the outline matches the colors of the adjacent texture.">
     <img src="images/BlendBaseColorToOutlineOff.png" title="Blend Base Color to Outline disabled">
@@ -71,7 +71,7 @@ An example of a Base Map.
 The Outline Width Map applied above.
 
 ### Offset Outline with Camera Z-axis
-Offsets the outline in the depth (Z) direction of the camera. UTS outline is implemented by either extending polygons in the normal direction or applying a scale value. Sometimes, offsetting the position of the generated polygons in the Z (depth) direction can improve their appearance. 
+Offsets the outline in the depth (Z) direction of the camera. UTS outline is implemented by either extending polygons in the normal direction or applying a scale value. Sometimes, offsetting the position of the generated polygons in the Z (depth) direction can improve their appearance.
 
 <canvas class="image-comparison" role="img" aria-label="A spiky pink ball. In the first image, the outline is a consistent thickness. In the second image, the outline is only visible at the edges.">
     <img src="images/OffsetZ02.png" title="Without z-axis offset">
@@ -92,4 +92,4 @@ Specifies the closest distance where the outline width changes with the distance
 Apply a texture as the outline color map.
 
 ### Baked Normal Map
-Normal maps with vertex normals baked in from other models can be loaded as an addition when setting up normal inversion outlines. 
+Normal maps with vertex normals baked in from other models can be loaded as an addition when setting up normal inversion outlines.

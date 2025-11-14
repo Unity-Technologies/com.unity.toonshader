@@ -1,6 +1,6 @@
-﻿//Unity Toon Shader/HDRP
+//Unity Toon Shader/HDRP
 //nobuyuki@unity3d.com
-//toshiyuki@unity3d.com (Universal RP/HDRP) 
+//toshiyuki@unity3d.com (Universal RP/HDRP)
 
 
 #if 1

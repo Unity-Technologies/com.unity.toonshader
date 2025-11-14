@@ -1,7 +1,7 @@
 # Scene Light Effectiveness Settings
 
 The **Unity Toon Shader** provides a way to control the effectiveness of lights in the scene per material. There are times when you want to eliminate or limit the effect of lighting on a material type.
-UTS allows you to control each area color regardless of the actual light color. While this feature is fundamental to professional cel-shading, sometimes it's necessary to apply actual light colors. 
+UTS allows you to control each area color regardless of the actual light color. While this feature is fundamental to professional cel-shading, sometimes it's necessary to apply actual light colors.
 UTS provides a way to determine whether the actual light color affects the material or not.
 
 * [Light Color Effectiveness Settings](#light-color-effectiveness)

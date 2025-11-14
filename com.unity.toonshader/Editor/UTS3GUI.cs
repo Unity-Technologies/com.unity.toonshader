@@ -12,7 +12,7 @@ namespace UnityEditor.Rendering.Toon {
 
         internal static string versionString => "0.11.0-preview";
 
-        // Render Pipelines UTS supports are the followings 
+        // Render Pipelines UTS supports are the followings
         internal enum RenderPipeline {
             Legacy,
             Universal,

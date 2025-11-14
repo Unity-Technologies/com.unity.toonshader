@@ -102,7 +102,7 @@ namespace UnityEditor.Rendering.Toon
         bool m_InitAndConvert;
 
 
- 
+
 
         SerializedObject m_SerializedObject;
 

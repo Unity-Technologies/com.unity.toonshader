@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
@@ -52,7 +52,7 @@ namespace UnityEditor.Rendering.Toon
             }
 
 
-            // scroll view 
+            // scroll view
             m_scrollPos =
                  EditorGUILayout.BeginScrollView(m_scrollPos, GUILayout.Width(position.width - 4));
             EditorGUILayout.BeginVertical();

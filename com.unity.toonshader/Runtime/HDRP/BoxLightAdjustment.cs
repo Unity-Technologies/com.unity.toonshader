@@ -89,7 +89,7 @@ namespace Unity.Rendering.HighDefinition.Toon
                 // on compile begin
                 m_isCompiling = true;
                 //                Release(); no need
-                return; // 
+                return; //
             }
             else if (!EditorApplication.isCompiling && m_isCompiling)
             {
@@ -283,7 +283,7 @@ namespace Unity.Rendering.HighDefinition.Toon
                 m_PositionOffset = m_targetBoxLight.transform.position - m_GameObjects[0].transform.position;
                 m_RotationOffset = Quaternion.Inverse(m_GameObjects[0].transform.rotation) * m_targetBoxLight.transform.rotation;
             }
-            
+
             m_initialized = true;
         }
 

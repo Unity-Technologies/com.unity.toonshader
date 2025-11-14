@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using UnityEngine;
 using UnityEngine.TestTools.Graphics;
 
 namespace Unity.ToonShader.GraphicsTest {
-    
+
     [CreateAssetMenu(fileName = "UTSGraphicsSettings", menuName = "Toon Shader/UTSGraphicsSettings")]
     [Serializable]
     public class UTSGraphicsTestSettingsSO : ScriptableObject {

@@ -1,6 +1,6 @@
-﻿//Unity Toon Shader/Legacy
+//Unity Toon Shader/Legacy
 //nobuyuki@unity3d.com
-//toshiyuki@unity3d.com (Intengrated) 
+//toshiyuki@unity3d.com (Intengrated)
 
 // ※Tessellation support
 //   The corresponding code was adapted from Nora's https://github.com/Stereoarts/UnityChanToonShaderVer2_Tess.
@@ -99,7 +99,7 @@ struct VertexOutput {
                 TRANSFER_VERTEX_TO_FRAGMENT(o)
                 return o;
             }
-            
+
 //Tessellation ON
 #ifdef TESSELLATION_ON
 #ifdef UNITY_CAN_COMPILE_TESSELLATION
@@ -115,7 +115,7 @@ struct VertexOutput {
             float4 frag(VertexOutput i, fixed facing : VFACE) : SV_TARGET {
                 UNITY_SETUP_INSTANCE_ID(i);
                 UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i);
-		
+
                 i.normalDir = normalize(i.normalDir);
                 float3x3 tangentTransform = float3x3( i.tangentDir, i.bitangentDir, i.normalDir);
                 float3 viewDirection = normalize(_WorldSpaceCameraPos.xyz - i.posWorld.xyz);
@@ -151,11 +151,11 @@ struct VertexOutput {
                 float3 customLightDirection = normalize(mul( unity_ObjectToWorld, float4(((float3(1.0,0.0,0.0)*_Offset_X_Axis_BLD*10)+(float3(0.0,1.0,0.0)*_Offset_Y_Axis_BLD*10)+(float3(0.0,0.0,-1.0)*lerp(-1.0,1.0,_Inverse_Z_Axis_BLD))),0)).xyz);
                 float3 lightDirection = normalize(lerp(defaultLightDirection,_WorldSpaceLightPos0.xyz,any(_WorldSpaceLightPos0.xyz)));
                 lightDirection = lerp(lightDirection, customLightDirection, _Is_BLD);
-                //v.2.0.5: 
+                //v.2.0.5:
                 float3 lightColor = lerp(max(defaultLightColor,_LightColor0.rgb),max(defaultLightColor,saturate(_LightColor0.rgb)),_Is_Filter_LightColor);
 #elif _IS_PASS_FWDDELTA
                 float3 lightDirection = normalize(lerp(_WorldSpaceLightPos0.xyz, _WorldSpaceLightPos0.xyz - i.posWorld.xyz,_WorldSpaceLightPos0.w));
-                //v.2.0.5: 
+                //v.2.0.5:
                 float3 addPassLightColor = (0.5*dot(lerp( i.normalDir, normalDirection, _Is_NormalMapToBase ), lightDirection)+0.5) * _LightColor0.rgb * attenuation;
                 float pureIntencity = max(0.001,(0.299*_LightColor0.r + 0.587*_LightColor0.g + 0.114*_LightColor0.b));
                 float3 lightColor = max(float3(0,0,0), lerp(addPassLightColor, lerp(float3(0,0,0),min(addPassLightColor,addPassLightColor/pureIntencity),_WorldSpaceLightPos0.w),_Is_Filter_LightColor));
@@ -242,7 +242,7 @@ struct VertexOutput {
                 float3 viewNormal = (mul(UNITY_MATRIX_V, float4(lerp( i.normalDir, mul( _NormalMapForMatCap_var.rgb, tangentTransform ).rgb, _Is_NormalMapForMatCap ),0))).rgb;
                 float3 NormalBlend_MatcapUV_Detail = viewNormal.rgb * float3(-1,-1,1);
                 float3 NormalBlend_MatcapUV_Base = (mul( UNITY_MATRIX_V, float4(viewDirection,0) ).rgb*float3(-1,-1,1)) + float3(0,0,1);
-                float3 noSknewViewNormal = NormalBlend_MatcapUV_Base*dot(NormalBlend_MatcapUV_Base, NormalBlend_MatcapUV_Detail)/NormalBlend_MatcapUV_Base.b - NormalBlend_MatcapUV_Detail;                
+                float3 noSknewViewNormal = NormalBlend_MatcapUV_Base*dot(NormalBlend_MatcapUV_Base, NormalBlend_MatcapUV_Detail)/NormalBlend_MatcapUV_Base.b - NormalBlend_MatcapUV_Detail;
                 float2 _ViewNormalAsMatCapUV = (lerp(noSknewViewNormal,viewNormal,_Is_Ortho).rg*0.5)+0.5;
                 //
                 //v.2.0.7
@@ -295,7 +295,7 @@ struct VertexOutput {
                 float emissiveMask = _Emissive_Tex_var.a;
                 emissive = _Emissive_Tex_var.rgb * _Emissive_Color.rgb * emissiveMask;
 #elif _EMISSIVE_ANIMATION
-                //v.2.0.7 Calculation View Coord UV for Scroll 
+                //v.2.0.7 Calculation View Coord UV for Scroll
                 float3 viewNormal_Emissive = (mul(UNITY_MATRIX_V, float4(i.normalDir,0))).xyz;
                 float3 NormalBlend_Emissive_Detail = viewNormal_Emissive * float3(-1,-1,1);
                 float3 NormalBlend_Emissive_Base = (mul( UNITY_MATRIX_V, float4(viewDirection,0)).xyz*float3(-1,-1,1)) + float3(0,0,1);
@@ -387,7 +387,7 @@ struct VertexOutput {
                 fixed4 finalRGBA = fixed4(finalColor,0);
 #  endif
 #elif _IS_TRANSCLIPPING_ON
-	                float Set_Opacity = saturate((_Inverse_Clipping_var+_Tweak_transparency));
+                    float Set_Opacity = saturate((_Inverse_Clipping_var+_Tweak_transparency));
 #  ifdef _IS_PASS_FWDBASE
                 fixed4 finalRGBA = fixed4(finalColor,Set_Opacity);
 #  elif _IS_PASS_FWDDELTA

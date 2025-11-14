@@ -93,7 +93,7 @@ float _Rotate_NormalMapForMatCapUV;
 fixed _Is_UseTweakMatCapOnShadow;
 float _TweakMatCapOnShadow;
 //MatcapMask
-// 
+//
 float4 _Set_MatcapMask_ST;
 float _Tweak_MatcapMaskLevel;
 
@@ -120,7 +120,7 @@ float _ColorShift_Speed;
 fixed _Is_ColorShift;
 fixed _Is_ViewShift;
 float3 emissive;
-// 
+//
 
 float _Unlit_Intensity;
 
@@ -149,7 +149,7 @@ float _AR_OffsetU;
 float _AR_OffsetV;
 fixed _ARSampler_AlphaOn;
 
-// OUTLINE 
+// OUTLINE
 
 
 fixed _Is_LightColor_Outline;
@@ -171,7 +171,7 @@ fixed _Is_BakedNormal;
 float _ZOverDrawMode;
 
 //
-// 
+//
 //
 float4 _BaseMap_ST;
 half4 _BaseColor;
@@ -197,7 +197,7 @@ TEXTURE2D(_1st_ShadeMap);
 TEXTURE2D(_2nd_ShadeMap);
 TEXTURE2D(_NormalMap);
 
-sampler2D _Set_1st_ShadePosition; 
+sampler2D _Set_1st_ShadePosition;
 sampler2D _Set_2nd_ShadePosition;
 sampler2D _ShadingGradeMap;
 sampler2D _HighColor_Tex;

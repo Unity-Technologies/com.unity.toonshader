@@ -2,13 +2,13 @@
 
 ## Capability
 
-**Unity Toon Shader Material Converter** handles not only the **Unity Toon Shader** materials, but also [Unity-chan Toon Shader materials](https://github.com/unity3d-jp/UnityChanToonShaderVer2_Project) and [Univeral Toon Shader materials](https://github.com/unity3d-jp/UnityChanToonShaderVer2_Project/tree/release/urp/2.5.1). 
+**Unity Toon Shader Material Converter** handles not only the **Unity Toon Shader** materials, but also [Unity-chan Toon Shader materials](https://github.com/unity3d-jp/UnityChanToonShaderVer2_Project) and [Univeral Toon Shader materials](https://github.com/unity3d-jp/UnityChanToonShaderVer2_Project/tree/release/urp/2.5.1).
 
 
 Note: Unity-Chan Toon Shader materials saved with older than 2.0.6 have to be re-saved using 2.0.7 or newer.
 
 ## How to convert
-All you have to do to convert toon shader materials to the **Unity Toon Shader materials** are: 
+All you have to do to convert toon shader materials to the **Unity Toon Shader materials** are:
 * [Launch converter](#launching-converter)
 * [Select render pipeline and shaders in your project](#selecting-the-converter)
 * [Press **Scan** button](#pressing-scan-button).
@@ -17,7 +17,7 @@ All you have to do to convert toon shader materials to the **Unity Toon Shader m
 Please make sure to back up the project since this converting process is irreversible.
 
 ## Launching Converter
-Launch the converter from menu. 
+Launch the converter from menu.
 Window -> Rendering -> Unity Toon Shader Converter
 
    ![MaterialConverterMenu](images/MaterialConverterMenu.png)

@@ -78,12 +78,12 @@ namespace UnityEditor.Rendering.Toon
         internal string GetConstructorString()
         {
             StringBuilder sb = new StringBuilder("new UTS2INFO(", 1024);
-            sb.AppendFormat("\"{0}\",\"{1}\",\"{2}\",UTS2RenderQueue.{3},UTS3GUI.UTS_StencilMode.{4},{5},tessellation:{6}", 
-                m_Guid, 
-                m_ShaderName, 
-                m_renderType, 
+            sb.AppendFormat("\"{0}\",\"{1}\",\"{2}\",UTS2RenderQueue.{3},UTS3GUI.UTS_StencilMode.{4},{5},tessellation:{6}",
+                m_Guid,
+                m_ShaderName,
+                m_renderType,
                 m_renderQueue,
-                m_stencilMode, 
+                m_stencilMode,
                 m_clippingMode,
                 m_Tessellation ? "true" : "false");
             sb.Append("),");

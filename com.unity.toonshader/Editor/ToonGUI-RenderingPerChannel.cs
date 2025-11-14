@@ -1,6 +1,6 @@
-﻿//Unity Toon Shader
+//Unity Toon Shader
 //nobuyuki@unity3d.com
-//toshiyuki@unity3d.com (Universal RP/HDRP) 
+//toshiyuki@unity3d.com (Universal RP/HDRP)
 
 using System.Collections.Generic;
 using UnityEditorInternal;

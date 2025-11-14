@@ -86,11 +86,11 @@ public class ConvertMaterialsEditorWindow : EditorWindow {
             }
         }
     }
-    
+
     private GameObject m_targetObject;
     private Shader m_sourceShader;
     private Shader m_targetShader;
     private string m_targetFolder = "Assets/ConvertedMaterials";
     private string m_newMaterialsSuffix = "_Converted";
-    
+
 }

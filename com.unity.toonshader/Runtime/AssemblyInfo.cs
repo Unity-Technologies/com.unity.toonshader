@@ -1,4 +1,4 @@
-﻿using System.Runtime.CompilerServices;
+using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("Unity.ToonShader.Editor")]
 [assembly: InternalsVisibleTo("Unity.VisualCompositor")]
 [assembly: InternalsVisibleTo("Unity.VisualCompositor.Tests")]

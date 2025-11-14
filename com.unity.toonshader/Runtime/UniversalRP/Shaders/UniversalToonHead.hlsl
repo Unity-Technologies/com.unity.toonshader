@@ -1,6 +1,6 @@
 //Unity Toon Shader/Universal
 //nobuyuki@unity3d.com
-//toshiyuki@unity3d.com (Universal RP/HDRP) 
+//toshiyuki@unity3d.com (Universal RP/HDRP)
 
 // https://forum.unity.com/threads/globally-suppress-pow-f-e-negative-f-warning.963488/
 // https://docs.microsoft.com/en-us/windows/win32/direct3dhlsl/hlsl-errors-and-warnings
@@ -44,7 +44,7 @@
 #undef FOG_EXP2
 #endif
 
-//#include "UCTS_AutoLight.cginc" 
+//#include "UCTS_AutoLight.cginc"
 #if 1
 
 // Legacy for compatibility with existing shaders

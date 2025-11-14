@@ -27,7 +27,7 @@ namespace Unity.Rendering.Toon
         internal bool m_enableOutlineDebugging = false;
 
 
-  
+
         const string kDebugShadowmapDefine = "UTS_DEBUG_SHADOWMAP";
         const string kDebugSelfShadowDefine = "UTS_DEBUG_SELFSHADOW";
         const string kDebugDefineNoOutline = "UTS_DEBUG_SHADOWMAP_NO_OUTLINE";
@@ -78,7 +78,7 @@ namespace Unity.Rendering.Toon
                 // on compile begin
                 m_isCompiling = true;
                 //                Release(); no need
-                return; // 
+                return; //
             }
             else if (!EditorApplication.isCompiling && m_isCompiling)
             {
@@ -187,7 +187,7 @@ namespace Unity.Rendering.Toon
                 DisableSelfShadowKeyword();
             }
 
-            
+
             if (m_enableOutlineDebugging)
             {
                 EnableOutlineKeyword();

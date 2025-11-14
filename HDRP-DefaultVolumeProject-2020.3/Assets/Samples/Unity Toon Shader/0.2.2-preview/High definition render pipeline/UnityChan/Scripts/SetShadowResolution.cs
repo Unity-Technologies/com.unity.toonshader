@@ -1,17 +1,17 @@
 //
 // SetShadowResolution.cs
 // シャドウマップにカスタムレゾリューションを設定するスクリプト.
-// メインライトにアタッチすること. 
+// メインライトにアタッチすること.
 //
 using UnityEngine;
 
 namespace UnityEngine.Rendering.Toon.HDRP.Samples
 {
-	public class SetShadowResolution : MonoBehaviour {
-		public int resolution;
-		
-		void Update () {
-				GetComponent<Light>().shadowCustomResolution = resolution;
-		}
-	}
+    public class SetShadowResolution : MonoBehaviour {
+        public int resolution;
+
+        void Update () {
+                GetComponent<Light>().shadowCustomResolution = resolution;
+        }
+    }
 }

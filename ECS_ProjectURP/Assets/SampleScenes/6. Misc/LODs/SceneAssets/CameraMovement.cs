@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.Transforms;
 using UnityEngine;
@@ -29,7 +29,7 @@ public class CameraMovement : MonoBehaviour
 
         // Make speed comparable to the distance to make the LOD transitions happen quicker
         float speed = SpeedFactor * distance;
-        
+
         Vector3 translation = speed * Time.deltaTime * m_direction;
         transform.Translate(translation, Space.World);
     }

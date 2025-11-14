@@ -20,7 +20,7 @@ namespace Unity.Rendering.ToonShader.Tests {
                 Shader shader = AssetDatabase.LoadAssetAtPath<Shader>(curAssetPath);
                 AssetDatabase.ImportAsset(curAssetPath); //Recompile the shader to make sure there are no compile errors
 
-                Debug.Assert(shader.isSupported);     
+                Debug.Assert(shader.isSupported);
                 shaderHasError = ShaderUtil.ShaderHasError(shader);
                 Debug.Assert(shaderHasError == false);
             }

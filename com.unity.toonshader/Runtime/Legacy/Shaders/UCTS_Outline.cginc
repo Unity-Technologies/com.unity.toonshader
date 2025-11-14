@@ -1,6 +1,6 @@
-﻿//Unity Toon Shader/Legacy
+//Unity Toon Shader/Legacy
 //nobuyuki@unity3d.com
-//toshiyuki@unity3d.com (Intengrated) 
+//toshiyuki@unity3d.com (Intengrated)
 //
 
 #include "UCTS_Input.cginc"

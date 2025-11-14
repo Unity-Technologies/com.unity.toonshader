@@ -96,7 +96,7 @@ Drag the slider to compare the images.
 
 ### Rim Light Mask
 Rim Light Mask : a gray scale texture(linear). The white part of the texture represents **Rim Light**, and the black part masks.
- 
+
 ![A square checkerboard pattern of black and gray squares. Each square has a plus symbol at its center.](images/UVCheckGrid.png)<br/>
 Grayscale texture example.
 

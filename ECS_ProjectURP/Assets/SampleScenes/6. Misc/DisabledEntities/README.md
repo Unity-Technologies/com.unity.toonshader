@@ -14,5 +14,5 @@ Disabling an entity disables everything. To stop rendering the entity using an E
 
 1. In the Hierarchy, open the Subscenes
 2. Select the disabled Cube
-3. In the Inspector, note that the Cube object is disabled. 
+3. In the Inspector, note that the Cube object is disabled.
 

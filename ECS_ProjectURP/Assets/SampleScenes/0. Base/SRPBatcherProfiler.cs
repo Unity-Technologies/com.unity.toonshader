@@ -12,7 +12,7 @@ namespace UnityEngine.Experimental.Rendering
         public bool m_Enable = true;
         private const float kAverageStatDuration = 1.0f;            // stats refresh each second
         private int m_frameCount;
-		private float m_AccDeltaTime;
+        private float m_AccDeltaTime;
         private string m_statsLabel;
         private GUIStyle m_style;
         private bool m_oldBatcherEnable;
@@ -26,26 +26,26 @@ namespace UnityEngine.Experimental.Rendering
             public Recorder recorder;
         };
 
-		enum SRPBMarkers
-		{
-			kStdRenderDraw,
-			kStdShadowDraw,
-			kSRPBRenderDraw,
-			kSRPBShadowDraw,
-			kRenderThreadIdle,
-			kStdRenderApplyShader,
-			kStdShadowApplyShader,
-			kSRPBRenderApplyShader,
-			kSRPBShadowApplyShader,
-			kPrepareBatchRendererGroupNodes,
+        enum SRPBMarkers
+        {
+            kStdRenderDraw,
+            kStdShadowDraw,
+            kSRPBRenderDraw,
+            kSRPBShadowDraw,
+            kRenderThreadIdle,
+            kStdRenderApplyShader,
+            kStdShadowApplyShader,
+            kSRPBRenderApplyShader,
+            kSRPBShadowApplyShader,
+            kPrepareBatchRendererGroupNodes,
             kRenderLoopPrepare,
             kRenderLoopSort,
             kRenderShadowSort,
         };
-		
+
         RecorderEntry[] recordersList =
         {
-			// Warning: Keep that list in the exact same order than SRPBMarkers enum
+            // Warning: Keep that list in the exact same order than SRPBMarkers enum
             new RecorderEntry() { name="RenderLoop.Draw" },
             new RecorderEntry() { name="Shadows.Draw" },
             new RecorderEntry() { name="RenderLoop.DrawSRPBatcher", oldName="RenderLoopNewBatcher.Draw" },
@@ -68,12 +68,12 @@ namespace UnityEngine.Experimental.Rendering
                 var sampler = Sampler.Get(recordersList[i].name);
                 if (sampler.isValid)
                     recordersList[i].recorder = sampler.GetRecorder();
-				else if ( recordersList[i].oldName != null )
-				{
-					sampler = Sampler.Get(recordersList[i].oldName);
-					if (sampler.isValid)
-						recordersList[i].recorder = sampler.GetRecorder();
-				}
+                else if ( recordersList[i].oldName != null )
+                {
+                    sampler = Sampler.Get(recordersList[i].oldName);
+                    if (sampler.isValid)
+                        recordersList[i].recorder = sampler.GetRecorder();
+                }
             }
 
             m_style =new GUIStyle();
@@ -97,10 +97,10 @@ namespace UnityEngine.Experimental.Rendering
 
         void    ResetStats()
         {
-			m_statsLabel = "Gathering data...";
+            m_statsLabel = "Gathering data...";
             RazCounters();
         }
-        
+
         void ToggleStats()
         {
             m_Enable = !m_Enable;
@@ -126,52 +126,52 @@ namespace UnityEngine.Experimental.Rendering
                 ToggleStats();
             }
 
-			if (m_Enable)
-			{
+            if (m_Enable)
+            {
 
-				bool SRPBatcher = GraphicsSettings.useScriptableRenderPipelineBatching;
+                bool SRPBatcher = GraphicsSettings.useScriptableRenderPipelineBatching;
 
-				m_AccDeltaTime += Time.unscaledDeltaTime;
-				m_frameCount++;
+                m_AccDeltaTime += Time.unscaledDeltaTime;
+                m_frameCount++;
 
-				// get timing & update average accumulators
-				for (int i = 0; i < recordersList.Length; i++)
-				{
-					if ( recordersList[i].recorder != null )
-					{
-						recordersList[i].accTime += recordersList[i].recorder.elapsedNanoseconds / 1000000.0f;      // acc time in ms
-						recordersList[i].callCount += recordersList[i].recorder.sampleBlockCount;
-					}
-				}
+                // get timing & update average accumulators
+                for (int i = 0; i < recordersList.Length; i++)
+                {
+                    if ( recordersList[i].recorder != null )
+                    {
+                        recordersList[i].accTime += recordersList[i].recorder.elapsedNanoseconds / 1000000.0f;      // acc time in ms
+                        recordersList[i].callCount += recordersList[i].recorder.sampleBlockCount;
+                    }
+                }
 
-				if (m_AccDeltaTime >= kAverageStatDuration)
-				{
+                if (m_AccDeltaTime >= kAverageStatDuration)
+                {
 
-					float ooFrameCount = 1.0f / (float)m_frameCount;
+                    float ooFrameCount = 1.0f / (float)m_frameCount;
 
-					float avgStdRender = recordersList[(int)SRPBMarkers.kStdRenderDraw].accTime * ooFrameCount;
-					float avgStdShadow = recordersList[(int)SRPBMarkers.kStdShadowDraw].accTime * ooFrameCount;
-					float avgSRPBRender = recordersList[(int)SRPBMarkers.kSRPBRenderDraw].accTime * ooFrameCount;
-					float avgSRPBShadow = recordersList[(int)SRPBMarkers.kSRPBShadowDraw].accTime * ooFrameCount;
-					float RTIdleTime = recordersList[(int)SRPBMarkers.kRenderThreadIdle].accTime * ooFrameCount;
-					float avgPIRPrepareGroupNodes = recordersList[(int)SRPBMarkers.kPrepareBatchRendererGroupNodes].accTime * ooFrameCount;
+                    float avgStdRender = recordersList[(int)SRPBMarkers.kStdRenderDraw].accTime * ooFrameCount;
+                    float avgStdShadow = recordersList[(int)SRPBMarkers.kStdShadowDraw].accTime * ooFrameCount;
+                    float avgSRPBRender = recordersList[(int)SRPBMarkers.kSRPBRenderDraw].accTime * ooFrameCount;
+                    float avgSRPBShadow = recordersList[(int)SRPBMarkers.kSRPBShadowDraw].accTime * ooFrameCount;
+                    float RTIdleTime = recordersList[(int)SRPBMarkers.kRenderThreadIdle].accTime * ooFrameCount;
+                    float avgPIRPrepareGroupNodes = recordersList[(int)SRPBMarkers.kPrepareBatchRendererGroupNodes].accTime * ooFrameCount;
 
                     float avgRenderLoopPrepare = recordersList[(int)SRPBMarkers.kRenderLoopPrepare].accTime * ooFrameCount;
                     float avgRenderLoopSort = recordersList[(int)SRPBMarkers.kRenderLoopSort].accTime * ooFrameCount;
                     float avgRenderShadowSort = recordersList[(int)SRPBMarkers.kRenderShadowSort].accTime * ooFrameCount;
 
-					m_statsLabel = string.Format("Accumulated time for RenderLoop.Draw and ShadowLoop.Draw (all threads)\n{0:F2}ms CPU Rendering time ( incl {1:F2}ms RT idle )\n", avgStdRender + avgStdShadow + avgSRPBRender + avgSRPBShadow + avgPIRPrepareGroupNodes, RTIdleTime);
-					if (SRPBatcher)
-					{
-						m_statsLabel += string.Format("  {0:F2}ms SRP Batcher code path\n", avgSRPBRender + avgSRPBShadow);
-						m_statsLabel += string.Format("    {0:F2}ms All objects ( {1} ApplyShader calls )\n", avgSRPBRender, recordersList[(int)SRPBMarkers.kSRPBRenderApplyShader].callCount / m_frameCount);
-						m_statsLabel += string.Format("    {0:F2}ms Shadows ( {1} ApplyShader calls )\n", avgSRPBShadow, recordersList[(int)SRPBMarkers.kSRPBShadowApplyShader].callCount / m_frameCount);
-					}
-					m_statsLabel += string.Format("  {0:F2}ms Standard code path\n", avgStdRender + avgStdShadow);
-					m_statsLabel += string.Format("    {0:F2}ms All objects ( {1} ApplyShader calls )\n", avgStdRender, recordersList[(int)SRPBMarkers.kStdRenderApplyShader].callCount / m_frameCount);
-					m_statsLabel += string.Format("    {0:F2}ms Shadows ( {1} ApplyShader calls )\n", avgStdShadow, recordersList[(int)SRPBMarkers.kStdShadowApplyShader].callCount / m_frameCount);
-					m_statsLabel += string.Format("  {0:F2}ms PIR Prepare Group Nodes ( {1} calls )\n", avgPIRPrepareGroupNodes, recordersList[(int)SRPBMarkers.kPrepareBatchRendererGroupNodes].callCount / m_frameCount);
-					m_statsLabel += string.Format("Global Main Loop: {0:F2}ms ({1} FPS)\n", m_AccDeltaTime * 1000.0f * ooFrameCount, (int)(((float)m_frameCount) / m_AccDeltaTime));
+                    m_statsLabel = string.Format("Accumulated time for RenderLoop.Draw and ShadowLoop.Draw (all threads)\n{0:F2}ms CPU Rendering time ( incl {1:F2}ms RT idle )\n", avgStdRender + avgStdShadow + avgSRPBRender + avgSRPBShadow + avgPIRPrepareGroupNodes, RTIdleTime);
+                    if (SRPBatcher)
+                    {
+                        m_statsLabel += string.Format("  {0:F2}ms SRP Batcher code path\n", avgSRPBRender + avgSRPBShadow);
+                        m_statsLabel += string.Format("    {0:F2}ms All objects ( {1} ApplyShader calls )\n", avgSRPBRender, recordersList[(int)SRPBMarkers.kSRPBRenderApplyShader].callCount / m_frameCount);
+                        m_statsLabel += string.Format("    {0:F2}ms Shadows ( {1} ApplyShader calls )\n", avgSRPBShadow, recordersList[(int)SRPBMarkers.kSRPBShadowApplyShader].callCount / m_frameCount);
+                    }
+                    m_statsLabel += string.Format("  {0:F2}ms Standard code path\n", avgStdRender + avgStdShadow);
+                    m_statsLabel += string.Format("    {0:F2}ms All objects ( {1} ApplyShader calls )\n", avgStdRender, recordersList[(int)SRPBMarkers.kStdRenderApplyShader].callCount / m_frameCount);
+                    m_statsLabel += string.Format("    {0:F2}ms Shadows ( {1} ApplyShader calls )\n", avgStdShadow, recordersList[(int)SRPBMarkers.kStdShadowApplyShader].callCount / m_frameCount);
+                    m_statsLabel += string.Format("  {0:F2}ms PIR Prepare Group Nodes ( {1} calls )\n", avgPIRPrepareGroupNodes, recordersList[(int)SRPBMarkers.kPrepareBatchRendererGroupNodes].callCount / m_frameCount);
+                    m_statsLabel += string.Format("Global Main Loop: {0:F2}ms ({1} FPS)\n", m_AccDeltaTime * 1000.0f * ooFrameCount, (int)(((float)m_frameCount) / m_AccDeltaTime));
 
                     m_statsLabel += string.Format("  {0:F2}ms RenderLoop Prepare ( {1} calls )\n", avgRenderLoopPrepare, recordersList[(int)SRPBMarkers.kRenderLoopPrepare].callCount / m_frameCount);
                     m_statsLabel += string.Format("  {0:F2}ms RenderLoop Sort ( {1} calls )\n", avgRenderLoopSort, recordersList[(int)SRPBMarkers.kRenderLoopSort].callCount / m_frameCount);
@@ -179,9 +179,9 @@ namespace UnityEngine.Experimental.Rendering
 
 
                     RazCounters();
-				}
+                }
 
-			}
+            }
         }
 
         void OnGUI()

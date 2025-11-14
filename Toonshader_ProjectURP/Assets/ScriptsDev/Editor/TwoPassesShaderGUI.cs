@@ -3,7 +3,7 @@ using UnityEngine;
 
 internal class TwoPassesShaderGUI : UnityEditor.ShaderGUI {
     public override void OnGUI(MaterialEditor materialEditor, MaterialProperty[] props) {
-        
+
         Material material = materialEditor.target as Material;
         if (material == null)
             return;
@@ -12,7 +12,7 @@ internal class TwoPassesShaderGUI : UnityEditor.ShaderGUI {
         base.OnGUI(materialEditor, props);
 
         //Doc: Use this LightMode tag value to draw an extra Pass when rendering objects.
-        string lightModeName = "SRPDefaultUnlit";  
+        string lightModeName = "SRPDefaultUnlit";
         bool enabled = material.GetShaderPassEnabled(lightModeName);
         EditorGUI.BeginChangeCheck();
         bool newEnabled = EditorGUILayout.Toggle("Enable Second Pass", enabled);
@@ -20,7 +20,7 @@ internal class TwoPassesShaderGUI : UnityEditor.ShaderGUI {
         {
             material.SetShaderPassEnabled(lightModeName, newEnabled);
             EditorUtility.SetDirty(material);
-        }        
+        }
     }
 
 

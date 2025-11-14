@@ -1,4 +1,4 @@
-﻿//UCTS_Tess.cginc
+//UCTS_Tess.cginc
 //nobuyuki@unity3d.com
 //https://github.com/unity3d-jp/UnityChanToonShaderVer2_Project
 //(C)Unity Technologies Japan/UCL

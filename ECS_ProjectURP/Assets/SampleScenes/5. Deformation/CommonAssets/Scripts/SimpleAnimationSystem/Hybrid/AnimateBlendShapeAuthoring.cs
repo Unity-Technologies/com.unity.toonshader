@@ -13,5 +13,5 @@ public class AnimateBlendShapeAuthoring : MonoBehaviour
 
     [Range(0f, 1f)]
     [Tooltip("Phase shift as a percentage (0 to 1.0)")]
-    public float Offset; 
+    public float Offset;
 }

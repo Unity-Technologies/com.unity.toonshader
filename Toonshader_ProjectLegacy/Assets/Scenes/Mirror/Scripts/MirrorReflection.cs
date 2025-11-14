@@ -45,7 +45,7 @@ namespace UnityEngine.Rendering.Toon.Samples
             if (!cam)
                 return;
 
-            // Safeguard from recursive reflections.        
+            // Safeguard from recursive reflections.
             if (s_InsideRendering)
                 return;
             s_InsideRendering = true;

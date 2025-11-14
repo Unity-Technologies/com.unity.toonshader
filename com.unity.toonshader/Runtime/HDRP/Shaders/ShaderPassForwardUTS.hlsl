@@ -1,6 +1,6 @@
 //Unity Toon Shader/HDRP
 //nobuyuki@unity3d.com
-//toshiyuki@unity3d.com (Universal RP/HDRP) 
+//toshiyuki@unity3d.com (Universal RP/HDRP)
 
 #if SHADERPASS != SHADERPASS_FORWARD
 #error SHADERPASS_is_not_correctly_define
@@ -121,7 +121,7 @@ bool UtsUseScreenSpaceShadow(DirectionalLightData light, float3 normalWS)
     return (validScreenSpaceShadow && ((rayTracedShadow && visibleLight) || !rayTracedShadow));
 #else
     return ( (light.screenSpaceShadowIndex & SCREEN_SPACE_SHADOW_INDEX_MASK) != INVALID_SCREEN_SPACE_SHADOW);
-#endif    
+#endif
 }
 
 #ifdef UNITY_VIRTUAL_TEXTURING
@@ -165,7 +165,7 @@ void Frag(PackedVaryingsToPS packedInput,
 #endif
 
     UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(packedInput);
-    
+
     FragInputs input = UnpackVaryingsMeshToFragInputs(packedInput.vmesh);
 #if defined(PLATFORM_SUPPORTS_PRIMITIVE_ID_IN_PIXEL_SHADER) && SHADER_STAGE_FRAGMENT
 #if (defined(VARYINGS_NEED_PRIMITIVEID) || (SHADERPASS == SHADERPASS_FULL_SCREEN_DEBUG))
@@ -230,7 +230,7 @@ void Frag(PackedVaryingsToPS packedInput,
 #if defined(DEBUG_DISPLAY) && !defined(UTS_DEBUG_SHADOWMAP) && !defined(UTS_DEBUG_SELFSHADOW)
     // In Unity's SceneView, the Unlit mode is internally handled using the DEBUG_DISPLAY define.
     // In official HDRP shaders, this macro is often combined with other debug macros to display various kinds of debug information,
-    // However, UTS currently does not implement these advanced debug visualizations. 
+    // However, UTS currently does not implement these advanced debug visualizations.
     // Therefore, if no other debug macros (e.g., UTS_DEBUG_SHADOWMAP, UTS_DEBUG_SELFSHADOW) are defined, we treat this as SceneView's Unlit mode and simply output the main texture color.
 
     float4 _MainTex_var = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, TRANSFORM_TEX(input.texCoord0, _MainTex));
@@ -244,7 +244,7 @@ void Frag(PackedVaryingsToPS packedInput,
     #endif
     return;
 #endif
-    
+
     // With XR single-pass and camera-relative: offset position to do lighting computations from the combined center view (original camera matrix).
     // This is required because there is only one list of lights generated on the CPU. Shadows are also generated once and shared between the instanced views.
     ApplyCameraRelativeXR(posInput.positionWS);
@@ -311,7 +311,7 @@ void Frag(PackedVaryingsToPS packedInput,
 
                 }
 #if defined (UTS_USE_RAYTRACING_SHADOW)
-                else 
+                else
                 {
                     float r = UNITY_SAMPLE_SCREEN_SHADOW(_RaytracedHardShadow, float4(posInput.positionNDC.xy, 0.0, 1));
                     context.shadowValue = r;
@@ -322,9 +322,9 @@ void Frag(PackedVaryingsToPS packedInput,
         }
 
 
-	// because of light culling or light layer, we can not adopt this
-	// https://unity.slack.com/archives/C06V7HDDW/p1580959470180800
-	// int mainLightIndex = _DirectionalShadowIndex;
+    // because of light culling or light layer, we can not adopt this
+    // https://unity.slack.com/archives/C06V7HDDW/p1580959470180800
+    // int mainLightIndex = _DirectionalShadowIndex;
         mainLightIndex = GetUtsMainLightIndex(builtinData);
         DirectionalLightData lightData;
         ZERO_INITIALIZE(DirectionalLightData, lightData);
@@ -336,11 +336,11 @@ void Frag(PackedVaryingsToPS packedInput,
         float3 lightColor = ApplyCurrentExposureMultiplier(lightData.color);
         float3 lightDirection = -lightData.forward;
 
-                
+
 #if defined(UTS_DEBUG_SELFSHADOW)
         if (_DirectionalShadowIndex >= 0)
             finalColor = UTS_SelfShdowMainLight(context, input, _DirectionalShadowIndex);
-#elif defined(_SHADINGGRADEMAP)|| defined(UTS_DEBUG_SHADOWMAP) 
+#elif defined(_SHADINGGRADEMAP)|| defined(UTS_DEBUG_SHADOWMAP)
         finalColor = UTS_MainLightShadingGrademap(context, input, lightDirection, lightColor, inverseClipping, channelAlpha, utsData);
 #else
         finalColor = UTS_MainLight(context, input, lightDirection, lightColor, inverseClipping, channelAlpha, utsData);
@@ -356,7 +356,7 @@ void Frag(PackedVaryingsToPS packedInput,
             {
                 if (mainLightIndex != i)
                 {
-                    
+
                     float3 lightColor = ApplyCurrentExposureMultiplier(_DirectionalLightDatas[i].color);
                     float3 lightDirection = -_DirectionalLightDatas[i].forward;
                     float notDirectional = 0.0f;
@@ -411,7 +411,7 @@ void Frag(PackedVaryingsToPS packedInput,
         uint v_lightListOffset = 0;
         uint v_lightIdx = lightStart;
         float channelAlpha = 0.0f;
-	[loop] // vulkan shader compiler can not unroll.
+    [loop] // vulkan shader compiler can not unroll.
         while (v_lightListOffset < lightCount)
         {
             v_lightIdx = FetchIndex(lightStart, v_lightListOffset);
@@ -447,7 +447,7 @@ void Frag(PackedVaryingsToPS packedInput,
 
 #if defined(UTS_DEBUG_SELFSHADOW)
 
-#elif defined(_SHADINGGRADEMAP) || defined(UTS_DEBUG_SHADOWMAP) 
+#elif defined(_SHADINGGRADEMAP) || defined(UTS_DEBUG_SHADOWMAP)
                     if (mainLightIndex == -1 && s_lightData.lightType == GPULIGHTTYPE_PROJECTOR_BOX)
                     {
                         float shadow = (float)EvaluateShadow_Punctual(context, posInput, s_lightData, builtinData, GetNormalForShadowBias(bsdfData), L, distances);
@@ -485,7 +485,7 @@ void Frag(PackedVaryingsToPS packedInput,
     float emissiveMask = _Emissive_Tex_var.a;
     emissive = _Emissive_Tex_var.rgb * _Emissive_Color.rgb * emissiveMask;
 #elif _EMISSIVE_ANIMATION
-                //v.2.0.7 Calculation View Coord UV for Scroll 
+                //v.2.0.7 Calculation View Coord UV for Scroll
     float3 viewNormal_Emissive = (mul(UNITY_MATRIX_V, float4(i_normalDir, 0))).xyz;
     float3 NormalBlend_Emissive_Detail = viewNormal_Emissive * float3(-1, -1, 1);
     float3 NormalBlend_Emissive_Base = (mul(UNITY_MATRIX_V, float4(utsData.viewDirection, 0)).xyz * float3(-1, -1, 1)) + float3(0, 0, 1);
@@ -545,7 +545,7 @@ void Frag(PackedVaryingsToPS packedInput,
   #endif
 
 #else //#if defined(_SHADINGGRADEMAP)
-  
+
   #ifdef _IS_CLIPPING_OFF
     //DoubleShadeWithFeather
 

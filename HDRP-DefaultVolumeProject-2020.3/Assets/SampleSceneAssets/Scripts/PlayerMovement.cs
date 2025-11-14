@@ -1,4 +1,4 @@
-#if ENABLE_INPUT_SYSTEM 
+#if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 #endif
 
@@ -38,11 +38,11 @@ public class PlayerMovement : MonoBehaviour
             .With("Left", "<Keyboard>/leftArrow")
             .With("Right", "<Keyboard>/d")
             .With("Right", "<Keyboard>/rightArrow");
-        
+
         jump = new InputAction("PlayerJump", binding: "<Gamepad>/a");
         jump.AddBinding("<Keyboard>/space");
 
- 
+
         movement.Enable();
         jump.Enable();
 

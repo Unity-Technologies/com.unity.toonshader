@@ -1,6 +1,6 @@
-﻿//Unity Toon Shader/Legacy
+//Unity Toon Shader/Legacy
 //nobuyuki@unity3d.com
-//toshiyuki@unity3d.com (Intengrated) 
+//toshiyuki@unity3d.com (Intengrated)
 // ※Tessellation support
 //   The corresponding code was adapted from Nora's https://github.com/Stereoarts/UnityChanToonShaderVer2_Tess.
 //
@@ -28,10 +28,10 @@ struct VertexOutput {
 //---------------------------------------------------------------------------------------------------------------------
 #include "UCTS_Input.cginc"
 #ifdef TESSELLATION_ON
-			#include "UCTS_Tess.cginc"
+            #include "UCTS_Tess.cginc"
 #endif
 #ifndef TESSELLATION_ON
-			uniform float4 _LightColor0;
+            uniform float4 _LightColor0;
 #endif
 
             VertexOutput vert (VertexInput v) {
@@ -65,7 +65,7 @@ struct VertexOutput {
                 #endif
 //v2.0.4
 #ifdef _OUTLINE_NML
-                //v.2.0.4.3 baked Normal Texture for Outline                
+                //v.2.0.4.3 baked Normal Texture for Outline
                 o.pos = UnityObjectToClipPos(lerp(float4(v.vertex.xyz + v.normal*Set_Outline_Width,1), float4(v.vertex.xyz + _BakedNormalDir*Set_Outline_Width,1),_Is_BakedNormal));
 #elif _OUTLINE_POS
                 Set_Outline_Width = Set_Outline_Width*2;

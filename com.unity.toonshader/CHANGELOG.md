@@ -62,7 +62,7 @@
 
 ## [0.9.6-preview] - 2023-09-24
 ### Updated
-* URP Shader is comaptible with DECAL.	(Thanks to Hum9183Hum9183)
+* URP Shader is comaptible with DECAL.    (Thanks to Hum9183Hum9183)
 * Installation manual is suitable for new than Unity 2021.
 ### Fixed:
 * A invalid reqnder queue when when Clipping is "On" or "Clip Transparency". (Thanks to TakeshiMiyakawaCR)

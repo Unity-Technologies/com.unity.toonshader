@@ -7,7 +7,7 @@ namespace UnityEditor.Rendering.Toon
 {
     internal class UTS2Table
     {
-        static internal readonly UTS2INFO[] tables =  
+        static internal readonly UTS2INFO[] tables =
         {
              new UTS2INFO("9baf30ce95c751649b14d96da3a4b4d5","Toon_DoubleShadeWithFeather.shader","Opaque",UTS2RenderQueue.None,UTS3GUI.UTS_StencilMode.Off,0,tessellation:false),
              new UTS2INFO("96d4d9f975e6c8849bd1a5c06acfae84","ToonColor_DoubleShadeWithFeather.shader","Opaque",UTS2RenderQueue.None,UTS3GUI.UTS_StencilMode.Off,0,tessellation:false),

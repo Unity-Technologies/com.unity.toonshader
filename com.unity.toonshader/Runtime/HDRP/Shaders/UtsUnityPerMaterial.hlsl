@@ -96,7 +96,7 @@ float _ColorShift_Speed;
 fixed _Is_ColorShift;
 fixed _Is_ViewShift;
 float3 emissive;
-// 
+//
 float _Unlit_Intensity;
 
 fixed _Is_Filter_HiCutPointLightColor;

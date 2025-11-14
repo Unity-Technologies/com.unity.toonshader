@@ -38,7 +38,7 @@ namespace UnityChan.ImageEffects
         public override void OnInspectorGUI () {
             serObj.Update ();
             GUILayout.Label("Detects spatial or color differences and converts into outlines", EditorStyles.miniBoldLabel);
-            //GUILayout.Label("Recommend to use in LDR Mode", EditorStyles.miniBoldLabel);            
+            //GUILayout.Label("Recommend to use in LDR Mode", EditorStyles.miniBoldLabel);
             EditorGUILayout.PropertyField (mode, new GUIContent("Mode"));
             EditorGUILayout.PropertyField(edgesColor, new GUIContent("Edges Color"));
             if(mode.intValue < 2){
@@ -53,7 +53,7 @@ namespace UnityChan.ImageEffects
                 EditorGUILayout.PropertyField (sensitivityDepth, new GUIContent(" Depth Sensitivity"));
                 EditorGUILayout.PropertyField (sensitivityNormals, new GUIContent(" Normals Sensitivity"));
             }
-            
+
             else{
                 GUILayout.Label ("Sobel Color Options");
                 filterPower.floatValue = EditorGUILayout.Slider(" Color Filter Power", filterPower.floatValue, 0.0f,1.0f);

@@ -132,7 +132,7 @@ namespace Unity.Rendering.Toon
                 // on compile begin
                 m_isCompiling = true;
                 //                Release(); no need
-                return; // 
+                return; //
             }
             else if (!EditorApplication.isCompiling && m_isCompiling)
             {
@@ -249,7 +249,7 @@ namespace Unity.Rendering.Toon
             }
             if (rendererCount != 0)
             {
- 
+
                 m_MaterialPropertyBlocks = new MaterialPropertyBlock[rendererCount];
                 m_Renderers = rendererList.ToArray();
 

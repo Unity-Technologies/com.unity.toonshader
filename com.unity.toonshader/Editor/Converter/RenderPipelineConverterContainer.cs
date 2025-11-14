@@ -108,7 +108,7 @@ namespace UnityEditor.Rendering.Toon
             {
                 m_materialGuids = AssetDatabase.FindAssets("t:Material", null);
             }
-            // CheckSourceShaderInstalled(); // Not necessary? 
+            // CheckSourceShaderInstalled(); // Not necessary?
         }
 
         protected string GetShaderIDinMaterial(string path)
@@ -214,7 +214,7 @@ namespace UnityEditor.Rendering.Toon
             if (customRenderQueue.Length < 2)
             {
                 Error(path);
-                return renderQueue; 
+                return renderQueue;
             }
             var queueNumber = customRenderQueue[1];
             while (queueNumber.StartsWith(" "))
@@ -222,7 +222,7 @@ namespace UnityEditor.Rendering.Toon
                 queueNumber = queueNumber.TrimStart(' ');
             }
             renderQueue = int.Parse(queueNumber);
-            return renderQueue; 
+            return renderQueue;
         }
         string GetRenderType(string path, string[] lines)
         {

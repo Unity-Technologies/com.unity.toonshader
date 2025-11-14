@@ -7,7 +7,7 @@ namespace UnityChan.ImageEffects
     [ExecuteInEditMode]
     [RequireComponent (typeof(Camera))]
     public class PostEffectsBase : MonoBehaviour
-	{
+    {
         protected bool  supportHDRTextures = true;
         protected bool  supportDX11 = false;
         protected bool  isSupported = true;
@@ -15,9 +15,9 @@ namespace UnityChan.ImageEffects
         private List<Material> createdMaterials = new List<Material> ();
 
         protected Material CheckShaderAndCreateMaterial ( Shader s, Material m2Create)
-		{
+        {
             if (!s)
-			{
+            {
                 Debug.Log("Missing shader in " + ToString ());
                 enabled = false;
                 return null;
@@ -27,7 +27,7 @@ namespace UnityChan.ImageEffects
                 return m2Create;
 
             if (!s.isSupported)
-			{
+            {
                 NotSupported ();
                 Debug.Log("The shader " + s.ToString() + " on effect "+ToString()+" is not supported on this platform!");
                 return null;
@@ -38,13 +38,13 @@ namespace UnityChan.ImageEffects
             m2Create.hideFlags = HideFlags.DontSave;
 
             return m2Create;
-		}
+        }
 
 
         protected Material CreateMaterial (Shader s, Material m2Create)
-		{
+        {
             if (!s)
-			{
+            {
                 Debug.Log ("Missing shader in " + ToString ());
                 return null;
             }
@@ -53,25 +53,25 @@ namespace UnityChan.ImageEffects
                 return m2Create;
 
             if (!s.isSupported)
-			{
+            {
                 return null;
             }
 
             m2Create = new Material (s);
             createdMaterials.Add (m2Create);
             m2Create.hideFlags = HideFlags.DontSave;
-                
+
             return m2Create;
-		}
+        }
 
         void OnEnable ()
-		{
+        {
             isSupported = true;
         }
 
         void OnDestroy ()
         {
-            RemoveCreatedMaterials ();    
+            RemoveCreatedMaterials ();
         }
 
         private void RemoveCreatedMaterials ()
@@ -89,37 +89,37 @@ namespace UnityChan.ImageEffects
         }
 
         protected bool CheckSupport ()
-		{
+        {
             return CheckSupport (false);
         }
 
 
         public virtual bool CheckResources ()
-		{
+        {
             Debug.LogWarning ("CheckResources () for " + ToString() + " should be overwritten.");
             return isSupported;
         }
 
 
         protected void Start ()
-		{
+        {
             CheckResources ();
         }
 
         protected bool CheckSupport (bool needDepth)
-		{
+        {
             isSupported = true;
             supportHDRTextures = SystemInfo.SupportsRenderTextureFormat(RenderTextureFormat.ARGBHalf);
             supportDX11 = SystemInfo.graphicsShaderLevel >= 50 && SystemInfo.supportsComputeShaders;
 
             if (!SystemInfo.supportsImageEffects)
-			{
+            {
                 NotSupported ();
                 return false;
             }
 
             if (needDepth && !SystemInfo.SupportsRenderTextureFormat (RenderTextureFormat.Depth))
-			{
+            {
                 NotSupported ();
                 return false;
             }
@@ -131,12 +131,12 @@ namespace UnityChan.ImageEffects
         }
 
         protected bool CheckSupport (bool needDepth,  bool needHdr)
-		{
+        {
             if (!CheckSupport(needDepth))
                 return false;
 
             if (needHdr && !supportHDRTextures)
-			{
+            {
                 NotSupported ();
                 return false;
             }
@@ -146,34 +146,34 @@ namespace UnityChan.ImageEffects
 
 
         public bool Dx11Support ()
-		{
+        {
             return supportDX11;
         }
 
 
         protected void ReportAutoDisable ()
-		{
+        {
             Debug.LogWarning ("The image effect " + ToString() + " has been disabled as it's not supported on the current platform.");
         }
 
         // deprecated but needed for old effects to survive upgrading
         bool CheckShader (Shader s)
-		{
+        {
             Debug.Log("The shader " + s.ToString () + " on effect "+ ToString () + " is not part of the Unity 3.2+ effects suite anymore. For best performance and quality, please ensure you are using the latest Standard Assets Image Effects (Pro only) package.");
             if (!s.isSupported)
-			{
+            {
                 NotSupported ();
                 return false;
             }
             else
-			{
+            {
                 return false;
             }
         }
 
 
         protected void NotSupported ()
-		{
+        {
             enabled = false;
             isSupported = false;
             return;
@@ -181,7 +181,7 @@ namespace UnityChan.ImageEffects
 
 
         protected void DrawBorder (RenderTexture dest, Material material)
-		{
+        {
             float x1;
             float x2;
             float y1;

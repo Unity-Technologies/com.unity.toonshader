@@ -1,6 +1,6 @@
-﻿//Unity Toon Shader/Legacy
+//Unity Toon Shader/Legacy
 //nobuyuki@unity3d.com
-//toshiyuki@unity3d.com (Intengrated) 
+//toshiyuki@unity3d.com (Intengrated)
 
 
 #include "UCTS_Input.cginc"
@@ -38,7 +38,7 @@
                 UNITY_SETUP_INSTANCE_ID(v);
                 UNITY_TRANSFER_INSTANCE_ID(v, o);
                 UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
-		
+
 #ifdef _IS_CLIPPING_MODE
 //_Clipping
                 o.uv0 = v.texcoord0;

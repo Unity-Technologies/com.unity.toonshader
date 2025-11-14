@@ -1,14 +1,14 @@
-﻿
+
 using UnityEngine;
 
 namespace Unity.Rendering.Toon {
 
 internal static class ToonConstants {
-    
+
     internal const string SHADER_KEYWORD_IS_CLIPPING_MATTE = "_IS_CLIPPING_MATTE";
-    
-    internal static readonly int SHADER_PROPERTY_CLIPPING_MATTE_MODE = Shader.PropertyToID("_ClippingMatteMode");    
-    
+
+    internal static readonly int SHADER_PROPERTY_CLIPPING_MATTE_MODE = Shader.PropertyToID("_ClippingMatteMode");
+
     internal static readonly int SHADER_PROPERTY_BASE_COLOR_VISIBLE   = Shader.PropertyToID("_BaseColorVisible");
     internal static readonly int SHADER_PROPERTY_FIRST_SHADE_VISIBLE  = Shader.PropertyToID("_FirstShadeVisible");
     internal static readonly int SHADER_PROPERTY_SECOND_SHADE_VISIBLE = Shader.PropertyToID("_SecondShadeVisible");
@@ -18,7 +18,7 @@ internal static class ToonConstants {
     internal static readonly int SHADER_PROPERTY_OUTLINE_VISIBLE      = Shader.PropertyToID("_OutlineVisible");
 
     internal static readonly int SHADER_PROPERTY_COMPOSER_MASK_MODE = Shader.PropertyToID("_ComposerMaskMode");
-    
+
     internal static readonly int SHADER_PROPERTY_BASE_COLOR_MASK_COLOR   = Shader.PropertyToID("_BaseColorMaskColor");
     internal static readonly int SHADER_PROPERTY_FIRST_SHADE_MASK_COLOR  = Shader.PropertyToID("_FirstShadeMaskColor");
     internal static readonly int SHADER_PROPERTY_SECOND_SHADE_MASK_COLOR = Shader.PropertyToID("_SecondShadeMaskColor");
@@ -28,7 +28,7 @@ internal static class ToonConstants {
     internal static readonly int SHADER_PROPERTY_OUTLINE_MASK_COLOR      = Shader.PropertyToID("_OutlineMaskColor");
 
     internal const string GBUFFER_PASS_NAME = "GBuffer";
-    
+
 }
 
 

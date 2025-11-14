@@ -2,7 +2,7 @@
 This Project includes feature sample Scenes for URP Entities Graphics.
 
 ## Feature sample Scenes
-The feature sample Scenes are in the _SampleScenes_ folder split into different folders depending on topic. Most of these Scenes include GameObjects in a SubScene. 
+The feature sample Scenes are in the _SampleScenes_ folder split into different folders depending on topic. Most of these Scenes include GameObjects in a SubScene.
 
 Unity renders GameObjects with Entities Graphics when a corresponding entity exists, and without Entities Graphics when a corresponding entity does not exist. For the GameObjects in the SubScene, this means that Unity renders them with Entities Graphics at all times; in Edit Mode, in Play Mode, and in the built player.
 

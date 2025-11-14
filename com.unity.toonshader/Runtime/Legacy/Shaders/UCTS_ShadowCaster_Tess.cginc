@@ -1,6 +1,6 @@
-﻿//Unity Toon Shader/Legacy
+//Unity Toon Shader/Legacy
 //nobuyuki@unity3d.com
-//toshiyuki@unity3d.com (Intengrated) 
+//toshiyuki@unity3d.com (Intengrated)
 //https://github.com/unity3d-jp/UnityChanToonShaderVer2_Project
 // ※Tessellation support
 //   The corresponding code was adapted from Nora's https://github.com/Stereoarts/UnityChanToonShaderVer2_Tess.
@@ -45,7 +45,7 @@
                 UNITY_SETUP_INSTANCE_ID(v);
                 UNITY_TRANSFER_INSTANCE_ID(v, o);
                 UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
-        		
+
 #ifdef _IS_CLIPPING_MODE
 //_Clipping
                 o.uv0 = v.texcoord0;
@@ -74,7 +74,7 @@
 #endif // TESSELLATION_ON
 
             float4 frag(VertexOutput i) : SV_TARGET {
-                UNITY_SETUP_INSTANCE_ID(i);	    
+                UNITY_SETUP_INSTANCE_ID(i);
 #ifdef _IS_CLIPPING_MODE
 //_Clipping
                 float2 Set_UV0 = i.uv0;

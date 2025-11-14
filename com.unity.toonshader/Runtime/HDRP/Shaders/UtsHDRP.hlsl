@@ -1,4 +1,4 @@
-﻿
+
 
     //-------------------------------------------------------------------------------------
     // Define
@@ -6,7 +6,7 @@
 
     // This shader support vertex modification
     #define HAVE_VERTEX_MODIFICATION
- 
+
     // If we use subsurface scattering, enable output split lighting (for forward pass)
     #if defined(_MATERIAL_FEATURE_SUBSURFACE_SCATTERING) && !defined(_SURFACE_TYPE_TRANSPARENT)
     #define OUTPUT_SPLIT_LIGHTING
@@ -33,4 +33,4 @@
     //-------------------------------------------------------------------------------------
 
     #include "UtsHdrpProperties.hlsl"
-    #include "UtsTextures.hlsl"    
+    #include "UtsTextures.hlsl"

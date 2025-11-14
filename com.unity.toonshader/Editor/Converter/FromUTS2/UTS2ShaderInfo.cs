@@ -5,8 +5,8 @@ using System.IO;
 using System.Text;
 using UnityEngine;
 namespace UnityEditor.Rendering.Toon
-{ 
-    internal class UTS2ShaderInfo 
+{
+    internal class UTS2ShaderInfo
     {
         // Start is called before the first frame update
 
@@ -259,7 +259,7 @@ namespace UnityEditor.Rendering.Toon
 
                     // stencil
                     // first of all we need to locate shaders set stencil mode in others
-                    // 
+                    //
                     foreach (var line in lines)
                     {
                         string[] words = line.Split(RenderPipelineConverterContainer.wordSepeators, StringSplitOptions.None);
@@ -574,9 +574,9 @@ namespace UnityEditor.Rendering.Toon
                                 parsingTagsInSubShader = false;
                             }
                         }
-                        
+
                         lineNo++;
-                    } // 
+                    } //
                     Debug.Assert(!parsingShaderBlock);
                     if (balanceLevel != 0)
                     {

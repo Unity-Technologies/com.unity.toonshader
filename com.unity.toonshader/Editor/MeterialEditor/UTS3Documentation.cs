@@ -42,7 +42,7 @@ namespace UnityEditor.Rendering.Toon
 #elif USE_UTS_DOC_LINK
         const string url = "https://docs.unity3d.com/Packages/{0}@{1}/manual/";
 #else
-        
+
         const string url = "https://docs.unity3d.com/Packages/{0}@{1}/manual/{2}.html";
 #endif
         /// <summary>

@@ -1,4 +1,4 @@
-﻿using UnityEngine.TestTools.Graphics;
+using UnityEngine.TestTools.Graphics;
 
 namespace Tests
 {

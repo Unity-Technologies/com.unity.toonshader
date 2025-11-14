@@ -1,10 +1,10 @@
-﻿
+
 
 # Post-Cloning Setup on Windows
 
-This repository utilizes symbolic links to share code across multiple projects. 
-On Windows 10 or later, symbolic link creation is restricted by default for regular users, 
-which can lead to issues when working with this repository. 
+This repository utilizes symbolic links to share code across multiple projects.
+On Windows 10 or later, symbolic link creation is restricted by default for regular users,
+which can lead to issues when working with this repository.
 
 To resolve this, follow the steps below to enable symbolic link creation and configure Git appropriately.
 

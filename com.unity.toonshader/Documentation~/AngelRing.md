@@ -5,7 +5,7 @@ The Angel Ring effect for UTS expresses shine or luster in hair. This effect alw
 
 ![The head of a chibi-style character with feathered hair and cat ears. The head is oriented from three angles: side, front, and back. In each angle, two bright highlights appear in the same place on the left and right.](images/AR_Image.png)
 
-- [Angel Ring Projection](#angel-ring-projection) 
+- [Angel Ring Projection](#angel-ring-projection)
   - [Angel Ring](#angel-ring)
   - [Offset U](#offset-u)
   - [Offset V](#offset-v)
@@ -15,7 +15,7 @@ The Angel Ring effect for UTS expresses shine or luster in hair. This effect alw
 Enable the Angel Ring effect for UTS, which expresses shine or luster in hair.
 
 
-### Angel Ring 
+### Angel Ring
 Angel Ring: Texture(sRGB) × Color(RGB). Default: Black.
 By default, the **Unity Toon Shader** adds the color to the lighting results. The texture alpha channel has no effect.
 Please refer to [Alpha Channel as Clipping Mask](#alpha-channel-as-clipping-mask) when alpha clipping is desirable.

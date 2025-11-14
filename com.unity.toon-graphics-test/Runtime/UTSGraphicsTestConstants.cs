@@ -1,4 +1,4 @@
-﻿namespace Unity.ToonShader.GraphicsTest
+namespace Unity.ToonShader.GraphicsTest
 {
 public class UTSGraphicsTestConstants {
 #if UTS_TEST_USE_HDRP

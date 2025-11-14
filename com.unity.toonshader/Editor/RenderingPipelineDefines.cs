@@ -1,4 +1,4 @@
-﻿// RenderingPipelineDefines.cs
+// RenderingPipelineDefines.cs
 // https://gist.github.com/cjaube/944b0d5221808c2a761d616f29deaf49
 using System.Collections.Generic;
 using System.Linq;
@@ -112,7 +112,7 @@ internal class RenderingPipelineDefines
         BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
         BuildTargetGroup buildTargetGroup = BuildPipeline.GetBuildTargetGroup(target);
         NamedBuildTarget namedBuildTarget = NamedBuildTarget.FromBuildTargetGroup(buildTargetGroup);
-        
+
         string defines = PlayerSettings.GetScriptingDefineSymbols(namedBuildTarget);
         return defines.Split(';').ToList();
     }

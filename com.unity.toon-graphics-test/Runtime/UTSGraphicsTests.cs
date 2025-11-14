@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -12,7 +12,7 @@ namespace Unity.ToonShader.GraphicsTest
 {
 #if UNITY_EDITOR
 public class UTSGraphicsTestsXR {
-    
+
     [UnityTest]
     [UseGraphicsTestCases(UTSGraphicsTestConstants.ReferenceImagePath)]
     [Timeout(3600000)] //1 hour
@@ -22,17 +22,17 @@ public class UTSGraphicsTestsXR {
         if (!string.IsNullOrEmpty(projectName) && projectName.Contains("ECS")) {
             Assert.Ignore();
         }
-        
+
         //Enable XR
         XRUtility.EnableXRInEditor();
-        
+
         //Rendering both eyes in XR requires backbuffer, which depends on the game view resolution
         object gameViewSizeObj = UnityEditor.TestTools.Graphics.GameViewSize.SetCustomSize(1920, 1080);
         Assert.IsNotNull(gameViewSizeObj, "Failed to add custom game view size for XR tests.");
         UnityEditor.TestTools.Graphics.GameViewSize.SelectSize(gameViewSizeObj);
-        
+
         string loadedXRDevice = UseGraphicsTestCasesAttribute.LoadedXRDevice;
-        
+
         //Manually load the reference image for XR. Ex: URP/Linear/WindowsEditor/Vulkan/None/AngelRing.png
         Assert.IsNotNull(testCase.ReferenceImage);
         string imagePath = AssetDatabase.GetAssetPath(testCase.ReferenceImage);
@@ -43,12 +43,12 @@ public class UTSGraphicsTestsXR {
         testCase.ReferenceImagePathLog = xrImagePath;
         Assert.IsTrue(File.Exists(xrImagePath),$"XR Reference image not found at: {xrImagePath}");
         testCase.ReferenceImage = AssetDatabase.LoadAssetAtPath<Texture2D>(xrImagePath);
-        
+
         yield return UTSGraphicsTests.RunInternal(testCase, isXR:true);
-        
+
         XRUtility.DisableXR();
     }
-   
+
 }
 
 #endif //UNITY_EDITOR
@@ -60,7 +60,7 @@ public class UTSGraphicsTestsNonXR  {
     public IEnumerator Run(GraphicsTestCase testCase) {
         yield return UTSGraphicsTests.RunInternal(testCase);
     }
-} 
+}
 
 //----------------------------------------------------------------------------------------------------------------------
 
@@ -74,22 +74,22 @@ public class UTSGraphicsTestsNonXR  {
             Camera mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
             UTSGraphicsTestSettings settings = Object.FindFirstObjectByType<UTSGraphicsTestSettings>();
             Assert.IsNotNull(settings, "Invalid test scene, couldn't find UTS_GraphicsTestSettings");
-            
+
             UTSGraphicsTestSettingsSO settingsSO = settings.SO;
             Assert.IsNotNull(settingsSO);
-            
+
             ImageComparisonSettings imageComparisonSettings = settingsSO.ImageComparisonSettings;
             Assert.IsNotNull(imageComparisonSettings);
-            
+
 
             if (isXR) {
-                imageComparisonSettings.UseBackBuffer = true; //results using both eyes need backbuffer 
+                imageComparisonSettings.UseBackBuffer = true; //results using both eyes need backbuffer
 
                 //[TODO-sin: 2025-7-9] Hack for now. The resolution will be set to this later
                 imageComparisonSettings.ImageResolution = ImageComparisonSettings.Resolution.w1920h1080;
             }
 
-            
+
             int waitFrames = settingsSO.WaitFrames;
 
             if (imageComparisonSettings.UseBackBuffer && settingsSO.WaitFrames < 1) {

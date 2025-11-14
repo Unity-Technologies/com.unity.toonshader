@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
 using UnityEngine.XR.Management;
@@ -8,7 +8,7 @@ using UnityEditor;
 #endif
 
 namespace Unity.ToonShader.GraphicsTest {
-    
+
 public static class XRUtility {
 
 #if UNITY_EDITOR
@@ -18,7 +18,7 @@ public static void EnableXRInEditor() {
         XRGeneralSettings.Instance = AssetDatabase.LoadAssetAtPath<XRGeneralSettings>(
             "Assets/XR/XRGeneralSettingsPerBuildTarget.asset");
     }
-    
+
     //Disable everything first
     if (XRGeneralSettings.Instance.Manager.activeLoader ||
         XRGeneralSettings.Instance.Manager.isInitializationComplete)
@@ -29,21 +29,21 @@ public static void EnableXRInEditor() {
     if (!XRGeneralSettings.Instance.Manager.activeLoader) {
         XRGeneralSettings.Instance.Manager.InitializeLoaderSync();
     }
-    
-    
-    if (XRGeneralSettings.Instance.Manager.activeLoader 
+
+
+    if (XRGeneralSettings.Instance.Manager.activeLoader
         && XRGeneralSettings.Instance.Manager.isInitializationComplete)
     {
         XRGeneralSettings.Instance.Manager.StartSubsystems();
     }
-    
+
     List<XRDisplaySubsystem> xrDisplaySubsystems = new List<XRDisplaySubsystem>();
     SubsystemManager.GetSubsystems<XRDisplaySubsystem>(xrDisplaySubsystems);
     int count = xrDisplaySubsystems.Count;
     for (int i = 0; i < count; i++) {
         xrDisplaySubsystems[i].Start();
     }
-    
+
 }
 
 #endif //UNITY_EDITOR
@@ -56,8 +56,8 @@ public static void DisableXR() {
         xrManager.StopSubsystems();
         xrManager.DeinitializeLoader();
     }
-    
-    
+
+
     List<XRDisplaySubsystem> xrDisplaySubsystems = new List<XRDisplaySubsystem>();
     SubsystemManager.GetSubsystems<XRDisplaySubsystem>(xrDisplaySubsystems);
     int count = xrDisplaySubsystems.Count;
@@ -65,7 +65,7 @@ public static void DisableXR() {
         xrDisplaySubsystems[i].Stop();
     }
 }
-    
+
 }
 
 } //end namespace

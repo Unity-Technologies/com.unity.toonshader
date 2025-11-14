@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using UnityEngine.TestTools;
 namespace Unity.Rendering.ToonShader.Tests {
     internal class ShaderCompileTest
     {
-        
+
         [Test]
         public void CompileLegacyToonShadersDefault() {
             string[] guids      = AssetDatabase.FindAssets("t:Shader", new[] { LEGACY_SHADERS_PATH});
@@ -20,10 +20,10 @@ namespace Unity.Rendering.ToonShader.Tests {
                 Shader shader = AssetDatabase.LoadAssetAtPath<Shader>(curAssetPath);
                 AssetDatabase.ImportAsset(curAssetPath); //Recompile the shader to make sure there are no compile errors
 
-//                Assert.True(shader.isSupported);     
+//                Assert.True(shader.isSupported);
                 shaderHasError = ShaderUtil.ShaderHasError(shader);
-                Assert.False(shaderHasError);             
-                
+                Assert.False(shaderHasError);
+
             }
         }
 

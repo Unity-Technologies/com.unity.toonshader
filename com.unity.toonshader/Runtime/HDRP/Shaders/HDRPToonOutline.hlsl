@@ -1,10 +1,10 @@
-﻿//Unity Toon Shader/HDRP
+//Unity Toon Shader/HDRP
 //nobuyuki@unity3d.com
-//toshiyuki@unity3d.com (Universal RP/HDRP) 
+//toshiyuki@unity3d.com (Universal RP/HDRP)
 
 
-#undef unity_ObjectToWorld 
-#undef unity_WorldToObject 
+#undef unity_ObjectToWorld
+#undef unity_WorldToObject
 
 float4 _LightColor0; // not referenced in c# code ??
 
@@ -129,7 +129,7 @@ void Frag(PackedVaryingsToPS packedInput,
     discard;
 #endif
 
-    
+
 
     //v.2.0.5
     if (_ZOverDrawMode > 0.99f)
@@ -177,9 +177,9 @@ void Frag(PackedVaryingsToPS packedInput,
     float3 Set_Outline_Color = lerp(_Is_BlendBaseColor_var, _OutlineTex_var.rgb*_Outline_Color.rgb*lightColor, _Is_OutlineTex );
     if (_OutlineVisible < 0.1)
     {
-        // Todo. 
+        // Todo.
         // without this, something is drawn even if _OutlineVisible = 0, in AngelRing(HDRP)
-        discard; 
+        discard;
     }
     Set_Outline_Color = lerp(Set_Outline_Color, overridingColor.xyz, maskEnabled);
     outColor =float4(Set_Outline_Color, _OutlineVisible );

@@ -6,7 +6,7 @@
 
 ## Scene Toon EV Adjustment
 
-Over the scene, **Scene Toon EV Adjustment** can control exposure level by applying EV curve for **Unity Toon Shader**. 
+Over the scene, **Scene Toon EV Adjustment** can control exposure level by applying EV curve for **Unity Toon Shader**.
 
 ### The way to enable **Scene Toon EV Adjustment**
 1. `GameObject/Toon Shader/Scene Toon EV Adjustment` from the Unity Editor menu to create  **Scene Toon EV Adjustment Component** component.
@@ -23,6 +23,6 @@ Just one **Scene Toon EV Adjustment Component** can be placed in a scene.
 
 | Property| Description |
 |:-------------------|:-------------------|
-| Ignore Volume Exposure | Ignore the automatic corrections built into HDRP. If this checkbox is On, lights brighter than 1 will result in more blown whites and a much more exaggerated Bloom. But, this method is suitable if you are using Light Culling or similar to shine independent lights of 1 lux or less on your character.| 
-| Light High Cut  Filter | Clips up to 1 lux of light hitting objects with Toon Shader materials.| 
-| Toon EV adjustment curve | The correction applied with an editable curve; since it would be impossible for an artist to draw a curve that controls from 0 lux to 130000 lux, **Toon EV Adjustment** adopted EV to express the brightness unit in this screen. The default curve ranges from –10 EV to –1.32 EV.| 
+| Ignore Volume Exposure | Ignore the automatic corrections built into HDRP. If this checkbox is On, lights brighter than 1 will result in more blown whites and a much more exaggerated Bloom. But, this method is suitable if you are using Light Culling or similar to shine independent lights of 1 lux or less on your character.|
+| Light High Cut  Filter | Clips up to 1 lux of light hitting objects with Toon Shader materials.|
+| Toon EV adjustment curve | The correction applied with an editable curve; since it would be impossible for an artist to draw a curve that controls from 0 lux to 130000 lux, **Toon EV Adjustment** adopted EV to express the brightness unit in this screen. The default curve ranges from –10 EV to –1.32 EV.|

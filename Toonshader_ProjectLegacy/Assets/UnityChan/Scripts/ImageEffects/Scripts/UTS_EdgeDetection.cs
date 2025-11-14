@@ -29,10 +29,10 @@ namespace UnityChan.ImageEffects
 //Attach UTS_EdgeDetect.shader
         public Shader edgeDetectShader;
         private Material edgeDetectMaterial = null;
-        private EdgeDetectMode oldMode = EdgeDetectMode.SobelColor; 
+        private EdgeDetectMode oldMode = EdgeDetectMode.SobelColor;
 
         public override bool CheckResources ()
-		{
+        {
             CheckSupport (true);
 
             edgeDetectMaterial = CheckShaderAndCreateMaterial (edgeDetectShader,edgeDetectMaterial);
@@ -47,30 +47,30 @@ namespace UnityChan.ImageEffects
         }
 
         new void Start ()
-		{
-            oldMode	= mode;
+        {
+            oldMode    = mode;
         }
 
         void SetCameraFlag ()
-		{
-            if(mode == EdgeDetectMode.SobelDepth || mode == EdgeDetectMode.SobelDepthThin){ 
+        {
+            if(mode == EdgeDetectMode.SobelDepth || mode == EdgeDetectMode.SobelDepthThin){
                 GetComponent<Camera>().depthTextureMode = DepthTextureMode.Depth;
             }
             else if (mode == EdgeDetectMode.RobertsCrossDepthNormals){
                 GetComponent<Camera>().depthTextureMode = DepthTextureMode.DepthNormals;
-            }    
+            }
         }
 
         void OnEnable ()
-		{
+        {
             SetCameraFlag();
         }
 
         [ImageEffectOpaque]
         void OnRenderImage (RenderTexture source, RenderTexture destination)
-		{
+        {
              if (CheckResources () == false)
-			 {
+             {
                  Graphics.Blit (source, destination);
                  return;
              }

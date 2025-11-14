@@ -1,6 +1,6 @@
 //Unity Toon Shader/HDRP
 //nobuyuki@unity3d.com
-//toshiyuki@unity3d.com (Universal RP/HDRP) 
+//toshiyuki@unity3d.com (Universal RP/HDRP)
 
 float3 UTS_MainLight(LightLoopContext lightLoopContext, FragInputs input, float3 mainLihgtDirection, float3 mainLightColor, out float inverseClipping, out float channelOutAlpha, out UTSData utsData)
 {
@@ -29,19 +29,19 @@ float3 UTS_MainLight(LightLoopContext lightLoopContext, FragInputs input, float3
     float4 Set_UV0 = input.texCoord0;
     float3x3 tangentTransform = input.tangentToWorld;
     //UnpackNormalmapRGorAG(SAMPLE_TEXTURE2D(_NormalMap, sampler_NormalMap, texCoords))
-    float4 n = SAMPLE_TEXTURE2D(_NormalMap, sampler_NormalMap, Set_UV0.xy); 
+    float4 n = SAMPLE_TEXTURE2D(_NormalMap, sampler_NormalMap, Set_UV0.xy);
 //    float3 _NormalMap_var = UnpackNormalScale(tex2D(_NormalMap, TRANSFORM_TEX(Set_UV0, _NormalMap)), _BumpScale);
     float3 _NormalMap_var = UnpackNormalScale(n, _BumpScale);
     float3 normalLocal = _NormalMap_var.rgb;
     utsData.normalDirection = normalize(mul(normalLocal, tangentTransform)); // Perturbed normals
-	
+
     float4 _MainTex_var = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex));
     float3 i_normalDir = surfaceData.normalWS;
     utsData.viewDirection = V;
     /* to here todo. these should be put int a struct */
 
     //v.2.0.4
-#if defined(_IS_CLIPPING_MODE) 
+#if defined(_IS_CLIPPING_MODE)
 //DoubleShadeWithFeather_Clipping
     float4 _ClippingMask_var = SAMPLE_TEXTURE2D(_ClippingMask, sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex));
     float Set_Clipping = saturate((lerp(_ClippingMask_var.r, (1.0 - _ClippingMask_var.r), _Inverse_Clipping) + _Clipping_Level));
@@ -163,7 +163,7 @@ float3 UTS_MainLight(LightLoopContext lightLoopContext, FragInputs input, float3
     float3 Set_FinalBaseColor = lerp(Set_BaseColor, lerp(Set_1st_ShadeColor, Set_2nd_ShadeColor, saturate((1.0 + ((_HalfLambert_var - (_ShadeColor_Step - _2ndColorFeatherForMask)) * ((1.0 - _Set_2nd_ShadePosition_var.rgb).r - 1.0)) / (_ShadeColor_Step - (_ShadeColor_Step - _2ndColorFeatherForMask))))), Set_FinalShadowMask); // Final Color
     channelOutAlpha = lerp(Set_BaseColorAlpha, lerp(Set_1st_ShadeAlpha, Set_2nd_ShadeAlpha, saturate((1.0 + ((_HalfLambert_var - (_ShadeColor_Step - _2ndColorFeatherForMask)) * ((1.0 - _Set_2nd_ShadePosition_var.rgb).r - 1.0)) / (_ShadeColor_Step - (_ShadeColor_Step - _2ndColorFeatherForMask))))), Set_FinalShadowMask);
     float4 _Set_HighColorMask_var = tex2D(_Set_HighColorMask, TRANSFORM_TEX(Set_UV0, _Set_HighColorMask));
-    float _Specular_var = 0.5 * dot(halfDirection, lerp(i_normalDir, utsData.normalDirection, _Is_NormalMapToHighColor)) + 0.5; //  Specular                
+    float _Specular_var = 0.5 * dot(halfDirection, lerp(i_normalDir, utsData.normalDirection, _Is_NormalMapToHighColor)) + 0.5; //  Specular
     float _TweakHighColorMask_var = (saturate((_Set_HighColorMask_var.g + _Tweak_HighColorMaskLevel)) * lerp((1.0 - step(_Specular_var, (1.0 - pow(_HighColor_Power, 5)))), pow(abs(_Specular_var), exp2(lerp(11, 1, _HighColor_Power))), _Is_SpecularToHighColor));
     float4 _HighColor_Tex_var = tex2D(_HighColor_Tex, TRANSFORM_TEX(Set_UV0, _HighColor_Tex));
     float3 _HighColorWithOutTweak_var = lerp((_HighColor_Tex_var.rgb * _HighColor.rgb), ((_HighColor_Tex_var.rgb * _HighColor.rgb) * Set_LightColor), _Is_LightColor_HighColor);

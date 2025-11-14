@@ -2,11 +2,11 @@
 
 ![An image from the toon-shaded film The Phantom Knowledge in the Scene view of the Unity Editor. A close-up of a girl raising a weapon with a ruined cityscape in the background.](images/TPK_04.png)
 
-The **Unity Toon Shader** (UTS3) is a set of toon shaders designed to meet the needs of creators working on cel-shaded 3D-CG animations. 
+The **Unity Toon Shader** (UTS3) is a set of toon shaders designed to meet the needs of creators working on cel-shaded 3D-CG animations.
 
 The **Unity Toon Shader** is compatible with all render pipelines: the **Built-in Render Pipeline**, the **Universal Render Pipeline (URP)**, and the **High Definition Render Pipeline (HDRP)**. However, there are some differences in the features supported by different render pipelines. Please refer to [Feature Difference](FeatureModel_en.md) for details about each render pipeline.
 
-**Unity Toon Shader** is the successor to **Unity-chan Toon Shader ver 2.0 (UTS2)**, which was popular for years in games and animations. However, UTS2 was designed solely for the **Built-in Render Pipeline**, consisted of many different shaders, could not be installed through the [Package Manager window](https://docs.unity3d.com/Manual/upm-ui.html), and had a different license from other Unity software. 
+**Unity Toon Shader** is the successor to **Unity-chan Toon Shader ver 2.0 (UTS2)**, which was popular for years in games and animations. However, UTS2 was designed solely for the **Built-in Render Pipeline**, consisted of many different shaders, could not be installed through the [Package Manager window](https://docs.unity3d.com/Manual/upm-ui.html), and had a different license from other Unity software.
 
 ## Features of Unity Toon Shader
 

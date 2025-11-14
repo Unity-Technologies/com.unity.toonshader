@@ -33,8 +33,8 @@ Shader "Toon" {
 
         // Cull and ZWrite Properties
         [Enum(OFF, 0, FRONT, 1, BACK, 2)] _CullMode("Cull Mode", int) = 2  //OFF/FRONT/BACK
-        [Enum(OFF, 0, ONT, 1)]	_ZWriteMode("ZWrite Mode", int) = 1  //OFF/ON
-        [Enum(OFF, 0, ONT, 1)]	_ZOverDrawMode("ZOver Draw Mode", Float) = 0  //OFF/ON
+        [Enum(OFF, 0, ONT, 1)]    _ZWriteMode("ZWrite Mode", int) = 1  //OFF/ON
+        [Enum(OFF, 0, ONT, 1)]    _ZOverDrawMode("ZOver Draw Mode", Float) = 0  //OFF/ON
         _SPRDefaultUnlitColorMask("SPRDefaultUnlit Path Color Mask", int) = 15
         [Enum(OFF, 0, FRONT, 1, BACK, 2)] _SRPDefaultUnlitColMode("SPRDefaultUnlit  Cull Mode", int) = 1  //OFF/FRONT/BACK
 
@@ -491,7 +491,7 @@ Shader "Toon" {
         //////////////////// End of HDRP material default values. ////////////////////
         //////////////////////////////////////////////////////////////////////////////
     }
- 
+
 
     HLSLINCLUDE
 
@@ -587,7 +587,7 @@ Shader "Toon" {
         PackageRequirements
         {
            "com.unity.render-pipelines.high-definition": "10.5.0"
-        }    
+        }
         // This tags allow to use the shader replacement features
         Tags{ "RenderPipeline"="HDRenderPipeline" }
 
@@ -600,7 +600,7 @@ Shader "Toon" {
 
             HLSLPROGRAM
             #pragma only_renderers d3d11 playstation xboxone xboxseries vulkan metal switch
-            #pragma target 4.5	    
+            #pragma target 4.5
             #include "../../HDRP/Shaders/UtsHDRP.hlsl"
             // Note: Require _ObjectId and _PassValue variables
 
@@ -640,7 +640,7 @@ Shader "Toon" {
 
             HLSLPROGRAM
             #pragma only_renderers d3d11 playstation xboxone xboxseries vulkan metal switch
-            #pragma target 4.5	    
+            #pragma target 4.5
             #include "../../HDRP/Shaders/UtsHDRP.hlsl"
 
             #pragma only_renderers d3d11 playstation xboxone xboxseries vulkan metal switch
@@ -692,7 +692,7 @@ Shader "Toon" {
 
             HLSLPROGRAM
             #pragma only_renderers d3d11 playstation xboxone xboxseries vulkan metal switch
-            #pragma target 4.5	    
+            #pragma target 4.5
             #include "../../HDRP/Shaders/UtsHDRP.hlsl"
             // Lightmap memo
             // DYNAMICLIGHTMAP_ON is used when we have an "enlighten lightmap" ie a lightmap updated at runtime by enlighten.This lightmap contain indirect lighting from realtime lights and realtime emissive material.Offline baked lighting(from baked material / light,
@@ -726,7 +726,7 @@ Shader "Toon" {
 
             HLSLPROGRAM
             #pragma only_renderers d3d11 playstation xboxone xboxseries vulkan metal switch
-            #pragma target 4.5	    
+            #pragma target 4.5
             #include "../../HDRP/Shaders/UtsHDRP.hlsl"
 
             #define SHADERPASS SHADERPASS_SHADOWS
@@ -762,7 +762,7 @@ Shader "Toon" {
 
             HLSLPROGRAM
             #pragma only_renderers d3d11 playstation xboxone xboxseries vulkan metal switch
-            #pragma target 4.5	    
+            #pragma target 4.5
             #include "../../HDRP/Shaders/UtsHDRP.hlsl"
             // In deferred, depth only pass don't output anything.
             // In forward it output the normal buffer
@@ -808,7 +808,7 @@ Shader "Toon" {
 
             HLSLPROGRAM
             #pragma only_renderers d3d11 playstation xboxone xboxseries vulkan metal switch
-            #pragma target 4.5	    
+            #pragma target 4.5
             #include "../../HDRP/Shaders/UtsHDRP.hlsl"
             #pragma multi_compile _ WRITE_NORMAL_BUFFER
             #pragma multi_compile _ WRITE_MSAA_DEPTH
@@ -851,7 +851,7 @@ Shader "Toon" {
 
             HLSLPROGRAM
             #pragma only_renderers d3d11 playstation xboxone xboxseries vulkan metal switch
-            #pragma target 4.5	    
+            #pragma target 4.5
             #include "../../HDRP/Shaders/UtsHDRP.hlsl"
             #define SHADERPASS SHADERPASS_DISTORTION
             #include "Packages/com.unity.render-pipelines.high-definition/Runtime/Material/Material.hlsl"
@@ -877,7 +877,7 @@ Shader "Toon" {
 
             HLSLPROGRAM
             #pragma only_renderers d3d11 playstation xboxone xboxseries vulkan metal switch
-            #pragma target 4.5	    
+            #pragma target 4.5
             #include "../../HDRP/Shaders/UtsHDRP.hlsl"
             #define SHADERPASS SHADERPASS_DEPTH_ONLY
             #define CUTOFF_TRANSPARENT_DEPTH_PREPASS
@@ -907,7 +907,7 @@ Shader "Toon" {
 
             HLSLPROGRAM
             #pragma only_renderers d3d11 playstation xboxone xboxseries vulkan metal switch
-            #pragma target 4.5	    
+            #pragma target 4.5
             #include "../../HDRP/Shaders/UtsHDRP.hlsl"
             #pragma multi_compile _ DEBUG_DISPLAY
             #pragma multi_compile _ LIGHTMAP_ON
@@ -930,7 +930,7 @@ Shader "Toon" {
             #define DIRECTIONAL_SHADOW_MEDIUM
             #endif
             #endif
-            
+
             #ifdef SHADOW_HIGH
             #ifndef PUNCTUAL_SHADOW_HIGH
             #define PUNCTUAL_SHADOW_HIGH
@@ -939,7 +939,7 @@ Shader "Toon" {
             #define DIRECTIONAL_SHADOW_HIGH
             #endif
             #endif
-        #endif	
+        #endif
             #define USE_CLUSTERED_LIGHTLIST // There is not FPTL lighting when using transparent
             #define AREA_SHADOW_LOW
             #define SHADERPASS SHADERPASS_FORWARD
@@ -977,7 +977,7 @@ Shader "Toon" {
         {
 
             Name "ForwardOnly"
-            Tags { "LightMode" = "ForwardOnly" } 
+            Tags { "LightMode" = "ForwardOnly" }
 
             ZWrite[_ZWriteMode]
             Cull[_CullMode]
@@ -996,7 +996,7 @@ Shader "Toon" {
 
             HLSLPROGRAM
             #pragma only_renderers d3d11 playstation xboxone xboxseries vulkan metal switch
-            #pragma target 4.5	    
+            #pragma target 4.5
             #include "../../HDRP/Shaders/UtsHDRP.hlsl"
 //            #pragma multi_compile _ UTS_DEBUG_SHADOWMAP_BINALIZATION
             #pragma multi_compile _ DEBUG_DISPLAY
@@ -1021,7 +1021,7 @@ Shader "Toon" {
             #define DIRECTIONAL_SHADOW_MEDIUM
             #endif
             #endif
-            
+
             #ifdef SHADOW_HIGH
             #ifndef PUNCTUAL_SHADOW_HIGH
             #define PUNCTUAL_SHADOW_HIGH
@@ -1030,9 +1030,9 @@ Shader "Toon" {
             #define DIRECTIONAL_SHADOW_HIGH
             #endif
             #endif
-        #endif	    
+        #endif
             #define LIGHTLOOP_DISABLE_TILE_AND_CLUSTER
-//	    #pragma multi_compile USE_FPTL_LIGHTLIST USE_CLUSTERED_LIGHTLIST
+//        #pragma multi_compile USE_FPTL_LIGHTLIST USE_CLUSTERED_LIGHTLIST
             #define AREA_SHADOW_LOW
             #define SHADERPASS SHADERPASS_FORWARD
             // In case of opaque we don't want to perform the alpha test, it is done in depth prepass and we use depth equal for ztest (setup from UI)
@@ -1044,7 +1044,7 @@ Shader "Toon" {
             // used in ShadingGradeMap
             #pragma shader_feature _IS_TRANSCLIPPING_OFF _IS_TRANSCLIPPING_ON
             #pragma shader_feature _IS_ANGELRING_OFF _IS_ANGELRING_ON
-            // used in Shadow calculation 
+            // used in Shadow calculation
             #pragma shader_feature_local _ UTS_USE_RAYTRACING_SHADOW
             // used in DoubleShadeWithFeather
             #pragma shader_feature _IS_CLIPPING_OFF _IS_CLIPPING_MODE _IS_CLIPPING_TRANSMODE
@@ -1096,7 +1096,7 @@ Shader "Toon" {
 
             HLSLPROGRAM
             #pragma only_renderers d3d11 playstation xboxone xboxseries vulkan metal switch
-            #pragma target 4.5	    
+            #pragma target 4.5
             #include "../../HDRP/Shaders/UtsHDRP.hlsl"
             #define SHADERPASS SHADERPASS_DEPTH_ONLY
             #define CUTOFF_TRANSPARENT_DEPTH_POSTPASS
@@ -1134,7 +1134,7 @@ Shader "Toon" {
 
             HLSLPROGRAM
             #pragma only_renderers d3d11 playstation xboxone xboxseries vulkan metal switch
-            #pragma target 4.5	    
+            #pragma target 4.5
             #include "../../HDRP/Shaders/UtsHDRP.hlsl"
             #define AREA_SHADOW_LOW
             #define SHADERPASS SHADERPASS_FORWARD
@@ -1188,12 +1188,12 @@ Shader "Toon" {
     // *************************** //
     // ****** URP Subshader  ***** //
     // *************************** //
-    SubShader 
+    SubShader
     {
         PackageRequirements
         {
              "com.unity.render-pipelines.universal": "10.5.0"
-        }    
+        }
         Tags {
             "RenderType"="Opaque"
             "RenderPipeline" = "UniversalPipeline"
@@ -1287,7 +1287,7 @@ Shader "Toon" {
         #endif
 
             #define _IS_PASS_FWDBASE
-            // DoubleShadeWithFeather and ShadingGradeMap use different fragment shader.  
+            // DoubleShadeWithFeather and ShadingGradeMap use different fragment shader.
             #pragma shader_feature_local _ _SHADINGGRADEMAP
 
 
@@ -1295,7 +1295,7 @@ Shader "Toon" {
             #pragma shader_feature _IS_TRANSCLIPPING_OFF _IS_TRANSCLIPPING_ON
             #pragma shader_feature _IS_ANGELRING_OFF _IS_ANGELRING_ON
 
-            // used in Shadow calculation 
+            // used in Shadow calculation
             #pragma shader_feature_local _ UTS_USE_RAYTRACING_SHADOW
             // used in DoubleShadeWithFeather
             #pragma shader_feature _IS_CLIPPING_OFF _IS_CLIPPING_MODE _IS_CLIPPING_TRANSMODE
@@ -1310,7 +1310,7 @@ Shader "Toon" {
             #include "../../UniversalRP/Shaders/UniversalToonBody.hlsl"
 #endif
             ENDHLSL
-            
+
         }
 
         Pass {
@@ -1408,7 +1408,7 @@ Shader "Toon" {
 
             HLSLPROGRAM
             #pragma target 2.0
-	    
+
             // Required to compile gles 2.0 with standard srp library
             #pragma prefer_hlslcc gles
             #pragma exclude_renderers d3d11_9x
@@ -1443,7 +1443,7 @@ Shader "Toon" {
 
             HLSLPROGRAM
             #pragma target 2.0
-	    
+
             // Required to compile gles 2.0 with standard srp library
             #pragma prefer_hlslcc gles
             #pragma exclude_renderers d3d11_9x
@@ -1479,7 +1479,7 @@ Shader "Toon" {
             Cull[_Cull]
 
             HLSLPROGRAM
-            #pragma target 2.0	    
+            #pragma target 2.0
 #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Version.hlsl"
 
 
@@ -1552,7 +1552,7 @@ Shader "Toon" {
             #pragma only_renderers d3d9 d3d11 glcore gles gles3 playstation xboxone xboxseries vulkan metal switch
 
             #pragma target 3.0
-            // DoubleShadeWithFeather and ShadingGradeMap use different fragment shader.  
+            // DoubleShadeWithFeather and ShadingGradeMap use different fragment shader.
             #pragma shader_feature_local _ _SHADINGGRADEMAP
             // used in ShadingGradeMap
             #pragma shader_feature _IS_TRANSCLIPPING_OFF _IS_TRANSCLIPPING_ON
@@ -1621,8 +1621,8 @@ Shader "Toon" {
 
             Blend One One
             Cull[_CullMode]
-            
-            
+
+
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
@@ -1636,7 +1636,7 @@ Shader "Toon" {
             #pragma only_renderers d3d9 d3d11 glcore gles gles3 playstation xboxone xboxseries vulkan metal switch
 
             #pragma target 3.0
-            // DoubleShadeWithFeather and ShadingGradeMap use different fragment shader.  
+            // DoubleShadeWithFeather and ShadingGradeMap use different fragment shader.
             #pragma shader_feature_local _ _SHADINGGRADEMAP
             // used in ShadingGradeMap
             #pragma shader_feature _IS_TRANSCLIPPING_OFF _IS_TRANSCLIPPING_ON
@@ -1670,7 +1670,7 @@ Shader "Toon" {
             }
             Offset 1, 1
             Cull Off
-            
+
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor.SceneManagement;
 using System.Linq;
@@ -19,8 +19,8 @@ namespace UnityEditor.Rendering.Toon {
 
             if (!proceed)
                 return;
-            
-            string testSettingsSOPath = "Packages/com.unity.toon-graphics-test/Runtime/UTSGraphicsSettings.asset"; 
+
+            string testSettingsSOPath = "Packages/com.unity.toon-graphics-test/Runtime/UTSGraphicsSettings.asset";
             UTSGraphicsTestSettingsSO testSettingsSO = AssetDatabase.LoadAssetAtPath<UTSGraphicsTestSettingsSO>(
                 testSettingsSOPath);
 
@@ -28,16 +28,16 @@ namespace UnityEditor.Rendering.Toon {
                 Debug.LogError("Test settings not found: " + testSettingsSOPath);
                 return;
             }
-            
+
             foreach (EditorBuildSettingsScene sceneSettings in EditorBuildSettings.scenes) {
                 Scene scene = EditorSceneManager.OpenScene(sceneSettings.path);
-                
+
                 Camera mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
                 UTSGraphicsTestSettings testSettings = mainCamera.GetComponent<UTSGraphicsTestSettings>();
                 testSettings.SO = testSettingsSO;
                 EditorSceneManager.SaveScene(scene);
             }
         }
-        
+
     }
 }

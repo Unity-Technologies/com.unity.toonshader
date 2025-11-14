@@ -8,7 +8,7 @@
   * [1st Shading map](#1st-shading-map)
     * [Apply to 2nd Shading Map](#apply-to-2nd-shading-map)
   * [2nd Shading Map](#2nd-shading-map)
-  * [Example of Three Color Map Operation](#example-of-Three-color-map-operation) 
+  * [Example of Three Color Map Operation](#example-of-Three-color-map-operation)
 <br><br>
 
 
@@ -21,7 +21,7 @@
 ## Three Basic Color Maps
 
 ## Base Map
-Base Color: Texture(sRGB) × Color(RGB). The default color is white. The base color represents the color of the unshaded areas of objects or characters. 
+Base Color: Texture(sRGB) × Color(RGB). The default color is white. The base color represents the color of the unshaded areas of objects or characters.
 
 |  Base Color Map (Face) | (Hair) | Result  |
 | ---- | ---- |---- |
@@ -53,10 +53,10 @@ The map used for the darker portions of the shadow. Texture(sRGB) × Color(RGB).
 
 
 ## Shadow Control Maps
-Textures that dictate the fixed shadows of the material. 
+Textures that dictate the fixed shadows of the material.
 
 ### 1st Shading Position Map
-Specifies the position of fixed shadows that fall in 1st shade color areas in UV coordinates. **1st Position Map**: Texture(linear). 
+Specifies the position of fixed shadows that fall in 1st shade color areas in UV coordinates. **1st Position Map**: Texture(linear).
 
 ### 2nd Shading Position Map
 Specifies the position of fixed shadows that fall in 2nd shade color areas in UV coordinates. **2nd Position Map**: Texture(linear).

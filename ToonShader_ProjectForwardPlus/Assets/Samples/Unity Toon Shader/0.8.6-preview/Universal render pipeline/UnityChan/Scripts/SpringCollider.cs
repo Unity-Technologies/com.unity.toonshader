@@ -1,4 +1,4 @@
-﻿//
+//
 //SpringCollider for unity-chan!
 //
 //Original Script is here:
@@ -11,15 +11,15 @@ using System.Collections;
 
 namespace UnityEngine.Rendering.Toon.Universal.Samples
 {
-	public class SpringCollider : MonoBehaviour
-	{
-		//半径
-		public float radius = 0.5f;
+    public class SpringCollider : MonoBehaviour
+    {
+        //半径
+        public float radius = 0.5f;
 
-		private void OnDrawGizmosSelected ()
-		{
-			Gizmos.color = Color.green;
-			Gizmos.DrawWireSphere (transform.position, radius);
-		}
-	}
+        private void OnDrawGizmosSelected ()
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere (transform.position, radius);
+        }
+    }
 }

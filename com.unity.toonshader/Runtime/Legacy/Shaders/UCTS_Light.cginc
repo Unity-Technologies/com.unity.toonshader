@@ -1,4 +1,4 @@
-﻿//Note: requires VertexOutput to be defined before including this file
+//Note: requires VertexOutput to be defined before including this file
 
 #ifndef __UCTS_LIGHT__
 #define __UCTS_LIGHT__

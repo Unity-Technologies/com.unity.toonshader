@@ -26,7 +26,7 @@ Shader "Unlit/FaceOrientation"
 
             fixed4 frag (fixed facing : VFACE) : SV_Target
             {
-                // VFACE 
+                // VFACE
                 // The input is a negative value in the frontal direction and a negative value in the reverse direction.
                 // Output one of the two colors depending on its value.
                 return facing > 0 ? _ColorFront : _ColorBack;

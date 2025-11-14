@@ -1,4 +1,4 @@
-﻿
+
 namespace Unity.Rendering.Toon {
 
 internal enum ClippingMatteMode {
@@ -7,7 +7,7 @@ internal enum ClippingMatteMode {
     FirstShade,
     SecondShade,
     Highlight,
-    AngelRing,        
+    AngelRing,
 }
 
 

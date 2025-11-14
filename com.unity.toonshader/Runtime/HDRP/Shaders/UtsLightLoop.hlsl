@@ -1,6 +1,6 @@
 //Unity Toon Shader/HDRP
 //nobuyuki@unity3d.com
-//toshiyuki@unity3d.com (Universal RP/HDRP) 
+//toshiyuki@unity3d.com (Universal RP/HDRP)
 
 #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Macros.hlsl"
 #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/PhysicalCamera.hlsl"
@@ -76,7 +76,7 @@ float WeightSample(PositionInputs positionInput)
 
 float3 ApplyCompensation(float3 originalColor)
 {
-    float3 ev100_Color = ConvertToEV100(originalColor) +_ToonEvAdjustmentCompensation * 0.5f; 
+    float3 ev100_Color = ConvertToEV100(originalColor) +_ToonEvAdjustmentCompensation * 0.5f;
 
 
     float3 resultColor = max(0, ConvertFromEV100(ev100_Color));
@@ -162,7 +162,7 @@ int GetUtsMainLightIndex(BuiltinData builtinData)
                 mainLightIndex = i;
                 lightAttenuation = currentLightAttenuation;
                 lightColor = currentLightColor;
-            } 
+            }
         }
     }
 
@@ -180,7 +180,7 @@ int GetUtsMainLightIndex(BuiltinData builtinData)
 
 
 
-#if defined(_SHADINGGRADEMAP)|| defined(UTS_DEBUG_SHADOWMAP) 
+#if defined(_SHADINGGRADEMAP)|| defined(UTS_DEBUG_SHADOWMAP)
 # include "ShadingGrademapMainLight.hlsl"
 #else
 # include "DoubleShadeWithFeatherMainLight.hlsl"

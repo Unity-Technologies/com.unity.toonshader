@@ -105,7 +105,7 @@ namespace UnityEditor.Rendering.Toon
             }
 
         }
-        public override void Convert() 
+        public override void Convert()
         {
             ConvertBuiltInUTS2Materials(m_materialGuids);
             SendAnalyticsEvent();
@@ -117,7 +117,7 @@ namespace UnityEditor.Rendering.Toon
 
         bool CheckUTS2VersionError()
         {
-            
+
             int materialCount = 0;
 
             for (int ii = 0; ii < m_materialGuids.Length; ii++)
@@ -225,13 +225,13 @@ namespace UnityEditor.Rendering.Toon
                     return utsGuid;
                 }
             }
-            
+
 #endif
             return null;
         }
 
 
-        public override int CountErrors(bool addToScrollView) 
+        public override int CountErrors(bool addToScrollView)
         {
             Debug.Assert(UTS3Converter.scrollView != null);
 
@@ -571,7 +571,7 @@ namespace UnityEditor.Rendering.Toon
             return UTS3GUI.MaterialGetInt(material, UTS3GUI.ShaderPropUtsTechniqe) == (int)UTS3GUI.UTS_Mode.ShadingGradeMap;
         }
 
- 
+
         void ApplyMatCapMode(Material material)
         {
             if (UTS3GUI.MaterialGetInt(material, UTS3GUI.ShaderPropClippingMode) == 0)

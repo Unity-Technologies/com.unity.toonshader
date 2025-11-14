@@ -1,6 +1,6 @@
-﻿//Unity Toon Shader/Universal
+//Unity Toon Shader/Universal
 //nobuyuki@unity3d.com
-//toshiyuki@unity3d.com (Universal RP/HDRP) 
+//toshiyuki@unity3d.com (Universal RP/HDRP)
 
 #if (SHADER_LIBRARY_VERSION_MAJOR ==7 && SHADER_LIBRARY_VERSION_MINOR >= 3) || (SHADER_LIBRARY_VERSION_MAJOR >= 8)
 
@@ -12,7 +12,7 @@
 # endif
 #else
 # ifdef _MAIN_LIGHT_SHADOWS
-//#  if !defined(_MAIN_LIGHT_SHADOWS_CASCADE) 
+//#  if !defined(_MAIN_LIGHT_SHADOWS_CASCADE)
 #   ifndef REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR
 #    define REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR
 #   endif
@@ -51,7 +51,7 @@
     #define UTS_LIGHT_LOOP_END }
 #endif
 
-             
+
 
 
 // RaytracedHardShadow
@@ -83,12 +83,12 @@
                 outSurfaceData = (SurfaceData)0;
                 // half4 albedoAlpha = SampleAlbedoAlpha(uv, TEXTURE2D_ARGS(_BaseMap, sampler_BaseMap));
                 half4 albedoAlpha = half4(1.0,1.0,1.0,1.0);
- 
+
                 outSurfaceData.alpha = Alpha(albedoAlpha.a, _BaseColor, _Cutoff);
-            
+
                 half4 specGloss = SampleMetallicSpecGloss(uv, albedoAlpha.a);
                 outSurfaceData.albedo = albedoAlpha.rgb * _BaseColor.rgb;
-            
+
             #if _SPECULAR_SETUP
                 outSurfaceData.metallic = 1.0h;
                 outSurfaceData.specular = specGloss.rgb;
@@ -96,7 +96,7 @@
                 outSurfaceData.metallic = specGloss.r;
                 outSurfaceData.specular = half3(0.0h, 0.0h, 0.0h);
             #endif
-            
+
                 outSurfaceData.smoothness = specGloss.a;
                 outSurfaceData.normalTS = SampleNormal(uv, TEXTURE2D_ARGS(_BumpMap, sampler_BumpMap), _BumpScale);
                 outSurfaceData.occlusion = SampleOcclusion(uv);
@@ -124,7 +124,7 @@
 #else
                 half3 indirectSpecular = GlossyEnvironmentReflection(reflectVector, brdfData.perceptualRoughness, occlusion);
 #endif
-                return EnvironmentBRDF(brdfData, indirectDiffuse, indirectSpecular, fresnelTerm);     
+                return EnvironmentBRDF(brdfData, indirectDiffuse, indirectSpecular, fresnelTerm);
             }
 #if UNITY_VERSION >= 202120
             void ApplyDecalToSurfaceDataUTS(float4 positionCS, inout float3 albedo, inout SurfaceData surfaceData, inout float3 normalWS)
@@ -181,8 +181,8 @@
 #if defined(_ADDITIONAL_LIGHTS_VERTEX) || (VERSION_LOWER(12, 0))
             half4 fogFactorAndVertexLight   : TEXCOORD7; // x: fogFactor, yzw: vertex light
 #else
-            half  fogFactor            	: TEXCOORD7; 
-#endif 
+            half  fogFactor                : TEXCOORD7;
+#endif
 
 # ifndef _MAIN_LIGHT_SHADOWS
             float4 positionCS               : TEXCOORD8;
@@ -209,8 +209,8 @@
 #if defined(_ADDITIONAL_LIGHTS_VERTEX) || (VERSION_LOWER(12, 0))
                 half4 fogFactorAndVertexLight   : TEXCOORD8; // x: fogFactor, yzw: vertex light
 #else
-            half  fogFactor            	: TEXCOORD8; // x: fogFactor, yzw: vertex light
-#endif 
+            half  fogFactor                : TEXCOORD8; // x: fogFactor, yzw: vertex light
+#endif
 # ifndef _MAIN_LIGHT_SHADOWS
                 float4 positionCS               : TEXCOORD9;
                 int   mainLightID              : TEXCOORD10;
@@ -228,7 +228,7 @@
                 //
 
             };
- 
+
             // Abstraction over Light shading data.
             struct UtsLight
             {
@@ -521,12 +521,12 @@
                 OUTPUT_SH(o.normalDir.xyz, o.vertexSH);
 #endif
 
-#if defined(_ADDITIONAL_LIGHTS_VERTEX) ||  (VERSION_LOWER(12, 0))  
+#if defined(_ADDITIONAL_LIGHTS_VERTEX) ||  (VERSION_LOWER(12, 0))
             o.fogFactorAndVertexLight = half4(fogFactor, vertexLight);
 #else
             o.fogFactor = fogFactor;
-#endif 
-                
+#endif
+
                 o.positionCS = positionCS;
 #if defined(_MAIN_LIGHT_SHADOWS) && !defined(_RECEIVE_SHADOWS_OFF)
     #if SHADOWS_SCREEN
@@ -539,7 +539,7 @@
                 o.mainLightID = DetermineUTS_MainLightIndex(o.posWorld.xyz, 0, positionCS);
 #endif
 
-		
+
                 return o;
             }
 
