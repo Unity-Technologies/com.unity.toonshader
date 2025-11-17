@@ -23,7 +23,24 @@ Shader "Toon2D"{
         
         [HideInInspector] _White("Tint", Color) = (1,1,1,1) // Added to break SRP batching. Work around for issue with SRP Batching
         
+        
+        //Outline
+        _OutlineMode("Outline Mode", Integer) = 0
+        _OutlineWidth ("Outline Width", Float ) = 0
+        _OutlineWidthMap ("Outline Width Map", 2D) = "white" {}
+        _OutlineColor ("Outline Color", Color) = (0,0,0,1)
+        _OutlineTex ("Outline Tex", 2D) = "black" {}
+        _Outline_BlendBaseColor ("Blend Base Color to Outline", Integer ) = 0
+        _OutlineOffsetZ ("Outline Z Offset", Float) = 0
+        _OutlineNear ("Outline Near", Float ) = 0.5
+        _OutlineFar ("Outline Far", Float ) = 100
+        _Outline_UseCustomNormalMap ("Use Custom Normal Map", Integer ) = 0
+        _Outline_CustomNormalMap ("Custom Normal Map", 2D) = "white" {}
+
+        //Test
 		_OutlineExtrusion("Outline Extrusion", float) = 0.02
+        
+        
         
     }
 
