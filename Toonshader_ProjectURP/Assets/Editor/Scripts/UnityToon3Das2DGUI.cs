@@ -217,6 +217,14 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         Rect toggleRect = new Rect(foldoutRect.xMax, lineRect.y, 16, lineRect.height);
         Rect labelRect = new Rect(toggleRect.xMax + 2, lineRect.y, lineRect.width - 34, lineRect.height);
 
+        const float BG_COLOR = 0.20f;
+        EditorGUI.DrawRect(lineRect, new Color(BG_COLOR, BG_COLOR, BG_COLOR, 1f)); //BG
+
+        // Draw top border
+        Rect topBorderRect = new Rect(lineRect.x, lineRect.y, lineRect.width, 1);
+        EditorGUI.DrawRect(topBorderRect, new Color(0.12f, 0.12f, 0.12f, 1f));
+        
+        
         foldoutState = EditorGUI.Foldout(foldoutRect, foldoutState, GUIContent.none, true, foldoutStyle);
         toggleEnabled = EditorGUI.Toggle(toggleRect, toggleEnabled);
         EditorGUI.LabelField(labelRect, label);
