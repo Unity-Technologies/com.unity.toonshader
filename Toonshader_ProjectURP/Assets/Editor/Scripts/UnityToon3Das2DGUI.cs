@@ -79,7 +79,6 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
 
     static void DrawColorPropertyGUI(MaterialEditor materialEditor, MaterialPropertyUIElement element) {
         materialEditor.ColorProperty(element.mainProperty.prop, element.label.text);
-        
     }
     
     static bool DrawToggleGUI(MaterialEditor materialEditor, Material material, MaterialPropertyUIElement element) {
@@ -179,7 +178,7 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     private static readonly List<MaterialUIElement> m_materialUIElements = new List<MaterialUIElement>() {
         new MaterialUIElement {
             mainPropertyName = new MaterialName(ShaderPropMainTex),
-            label = new GUIContent("Base Map", "Base Color : Texture(sRGB) × Color(RGB) Default:White"),
+            label = new GUIContent("Base Map", "Base Color : Texture(sRGB) × Color(RGB)."),
             extraPropertyName1 = new MaterialName(ShaderProp_BaseColor), 
         },
         new MaterialUIElement {
