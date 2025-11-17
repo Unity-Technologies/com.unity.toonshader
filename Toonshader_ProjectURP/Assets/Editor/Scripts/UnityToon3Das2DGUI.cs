@@ -63,6 +63,9 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
             materialEditor.RegisterPropertyChangeUndo("Outline");
             material.SetShaderPassEnabled(LIGHT_MODE_NAME_FOR_OUTLINE, isOutlineEnabled);
         }
+        
+        if (!m_outlineFoldout)
+            return;
 
         //Outline Settings
         EditorGUI.BeginDisabledGroup(!isOutlineEnabled);
