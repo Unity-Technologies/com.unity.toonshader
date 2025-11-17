@@ -227,15 +227,7 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         
         Rect lineRect = EditorGUILayout.GetControlRect(false, 16);
 
-        float initialPadding = lineRect.x;
-        Rect bgRect = new Rect(0, lineRect.y, lineRect.width + initialPadding, lineRect.height);
-
-        const float BG_COLOR = 0.20f;
-        EditorGUI.DrawRect(bgRect, new Color(BG_COLOR, BG_COLOR, BG_COLOR, 1f)); //BG
-
-        // Draw top border
-        Rect topBorderRect = new Rect(bgRect.x, bgRect.y, bgRect.width, 1);
-        EditorGUI.DrawRect(topBorderRect, new Color(0.12f, 0.12f, 0.12f, 1f));
+        DrawBGRect(lineRect);
         
         EditorGUI.BeginChangeCheck();
         state = EditorGUI.Foldout(lineRect, state, label);
@@ -257,12 +249,7 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         Rect toggleRect = new Rect(foldoutRect.xMax, lineRect.y, 16, lineRect.height);
         Rect labelRect = new Rect(toggleRect.xMax + 2, lineRect.y, lineRect.width - 34, lineRect.height);
 
-        const float BG_COLOR = 0.20f;
-        EditorGUI.DrawRect(lineRect, new Color(BG_COLOR, BG_COLOR, BG_COLOR, 1f)); //BG
-
-        // Draw top border
-        Rect topBorderRect = new Rect(lineRect.x, lineRect.y, lineRect.width, 1);
-        EditorGUI.DrawRect(topBorderRect, new Color(0.12f, 0.12f, 0.12f, 1f));
+        DrawBGRect(lineRect);
         
         EditorGUI.BeginChangeCheck();
         foldoutState = EditorGUI.Foldout(foldoutRect, foldoutState, GUIContent.none, true, foldoutStyle);
@@ -275,6 +262,26 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         }
 
         return false;
+    }
+    
+    static void DrawBGRect(Rect lineRect) {
+        
+        float initialPadding = lineRect.x;
+        Rect bgRect = new Rect(0, lineRect.y, lineRect.width + initialPadding, lineRect.height);
+
+        Color bgColor = GetBGColor();
+        EditorGUI.DrawRect(bgRect, bgColor); 
+
+        // Draw top border
+        Rect topBorderRect = new Rect(bgRect.x, bgRect.y, bgRect.width, 1);
+        EditorGUI.DrawRect(topBorderRect, new Color(0.12f, 0.12f, 0.12f, 1f));
+    }
+
+    static Color GetBGColor() {
+        
+        return !EditorGUIUtility.isProSkin
+            ? new Color(0.6f, 0.6f, 0.6f, 1.0f)
+            : new Color(0.20f, 0.20f, 0.20f, 1.0f);
     }
     
 //----------------------------------------------------------------------------------------------------------------------
