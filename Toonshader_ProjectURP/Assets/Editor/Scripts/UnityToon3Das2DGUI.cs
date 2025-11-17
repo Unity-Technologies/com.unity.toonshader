@@ -92,8 +92,50 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
 
         return ret;
     }
-    
 
+    static float DrawFloatFieldGUI(MaterialEditor materialEditor, Material material, MaterialPropertyUIElement element) {
+        
+        float ret = material.GetFloat(element.mainProperty.id);
+        EditorGUI.BeginChangeCheck();
+        ret = EditorGUILayout.FloatField(element.label, ret);
+        
+        if (EditorGUI.EndChangeCheck()) {
+            materialEditor.RegisterPropertyChangeUndo(element.label.text);
+            material.SetFloat(element.mainProperty.id, ret);
+        }
+        return ret;
+    }
+
+    static Color DrawColorFieldGUI(MaterialEditor materialEditor, Material material, MaterialPropertyUIElement element) {
+        
+        Color ret = material.GetColor(element.mainProperty.id);
+        EditorGUI.BeginChangeCheck();
+        ret = EditorGUILayout.ColorField(element.label, ret);
+        
+        if (EditorGUI.EndChangeCheck()) {
+            materialEditor.RegisterPropertyChangeUndo(element.label.text);
+            material.SetColor(element.mainProperty.id, ret);
+        }
+        return ret;
+    }
+
+    //Return the index
+    static int DrawIntPopupGUI(MaterialEditor materialEditor, Material material, MaterialPropertyUIElement element,
+        GUIContent[] displayedOptions, int[] optionValues)
+    {
+        int propValue = material.GetInteger(element.mainProperty.id);
+        
+        EditorGUI.BeginChangeCheck();
+        int ret = EditorGUILayout.IntPopup(element.label, propValue, displayedOptions, optionValues);
+        
+        if (EditorGUI.EndChangeCheck()) {
+            materialEditor.RegisterPropertyChangeUndo(element.label.text);
+            material.SetInteger(element.mainProperty.id, ret);
+        }
+
+        return ret;
+    }
+    
 //----------------------------------------------------------------------------------------------------------------------
 
     void InitMaterialPropertyUIElements(MaterialProperty[] allProps) {
