@@ -96,29 +96,19 @@ public class UTSGraphicsTestsNonXR  {
                 waitFrames = 1;
             }
 
-
             for (int i = 0; i < waitFrames; i++)
                 yield return new WaitForEndOfFrame();
 
             ImageAssert.AreEqual(testCase.ReferenceImage, mainCamera,
                 imageComparisonSettings, testCase.ReferenceImagePathLog);
 
-            // Does it allocate memory when it renders what's on the main camera?
-            bool allocatesMemory = false;
-
-            if (settings == null || settings.CheckMemoryAllocation)
-            {
-                try
-                {
-                    ImageAssert.AllocatesMemory(mainCamera, imageComparisonSettings);
-                }
-                catch (AssertionException)
-                {
-                    allocatesMemory = true;
-                }
-                if (allocatesMemory)
-                    Assert.Fail("Allocated memory when rendering what is on main camera");
+            //test if we are allocating memory when it renders what's on the main camera
+            try {
+                ImageAssert.AllocatesMemory(mainCamera, imageComparisonSettings);
+            } catch (AssertionException) {
+                Assert.Fail("Allocated memory when rendering what is on main camera");
             }
+            
         }
     }
 
