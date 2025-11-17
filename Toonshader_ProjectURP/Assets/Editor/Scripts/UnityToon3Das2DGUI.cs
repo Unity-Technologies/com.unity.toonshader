@@ -19,6 +19,7 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
 
         DrawNormalMapGUI(materialEditor, m_materialPropertyUIElements);
         DrawOutlineGUI(materialEditor, material, m_materialPropertyUIElements);
+        DrawSpecularGUI(materialEditor, material, m_materialPropertyUIElements);
         
 
         if (EditorGUI.EndChangeCheck()) {
@@ -50,7 +51,7 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         bool isOutlineEnabled = material.GetShaderPassEnabled(LIGHT_MODE_NAME_FOR_OUTLINE);
 
 
-        if (DrawFoldoutWithToggleGUI(materialEditor, material, ref m_outlineFoldout, ref isOutlineEnabled, "Outline")) 
+        if (DrawFoldoutWithToggleGUI(materialEditor, ref m_outlineFoldout, ref isOutlineEnabled, "Outline")) 
         {
             material.SetShaderPassEnabled(LIGHT_MODE_NAME_FOR_OUTLINE, isOutlineEnabled);
         }
@@ -153,6 +154,22 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         }
     }
     
+    void DrawSpecularGUI(MaterialEditor materialEditor, Material material, 
+        Dictionary<string, MaterialPropertyUIElement> uiElements) {
+
+        DrawFoldoutWithToggleGUI(materialEditor, material, uiElements[ShaderPropUnlit_Specular_UseDirectionalLight],
+            ref m_specularFoldout);
+
+        
+        if (!m_specularFoldout)
+            return;
+
+        DrawColorFieldGUI(materialEditor, material, uiElements[ShaderPropUnlit_Specular_Color]);
+        DrawFloatFieldGUI(materialEditor, material, uiElements[ShaderPropUnlit_Specular_Intensity]);
+        DrawVector3FieldGUI(materialEditor, material, uiElements[ShaderPropUnlit_Specular_LightDirection]);
+    }
+    
+    
 //----------------------------------------------------------------------------------------------------------------------
     static void DrawTexturePropertySingleLineGUI(MaterialEditor materialEditor, MaterialPropertyUIElement element) {
         if (null!= element.extraProperty2)
@@ -204,6 +221,19 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         return ret;
     }
 
+    static Vector3 DrawVector3FieldGUI(MaterialEditor materialEditor, Material material, MaterialPropertyUIElement element) {
+        
+        Vector3 ret = material.GetVector(element.mainProperty.id);
+        EditorGUI.BeginChangeCheck();
+        ret = EditorGUILayout.Vector3Field(element.label, ret);
+        
+        if (EditorGUI.EndChangeCheck()) {
+            materialEditor.RegisterPropertyChangeUndo(element.label.text);
+            material.SetVector(element.mainProperty.id, ret);
+        }
+        return ret;
+    }
+    
     //Return the index
     static int DrawIntPopupGUI(MaterialEditor materialEditor, Material material, MaterialPropertyUIElement element,
         GUIContent[] displayedOptions, int[] optionValues)
@@ -240,7 +270,7 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     }
     
     //return true if changed, false otherwise
-    static bool DrawFoldoutWithToggleGUI(MaterialEditor materialEditor, Material material, 
+    static bool DrawFoldoutWithToggleGUI(MaterialEditor materialEditor,  
         ref bool foldoutState, ref bool toggleEnabled, string label) 
     {
         GUIStyle foldoutStyle = new GUIStyle(EditorStyles.foldout);
@@ -263,6 +293,20 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
 
         return false;
     }
+    
+    static bool DrawFoldoutWithToggleGUI(MaterialEditor materialEditor, Material material, MaterialPropertyUIElement element,
+        ref bool foldoutState)
+    {
+        bool enabled = material.GetInteger(element.mainProperty.id) !=0;
+        bool ret = DrawFoldoutWithToggleGUI(materialEditor, ref foldoutState, ref enabled, element.label.text);
+        if (ret) {
+            material.SetInteger(element.mainProperty.id, enabled ? 1 : 0);
+        } 
+
+        return ret;
+
+    }
+    
     
     static void DrawBGRect(Rect lineRect) {
         
@@ -409,9 +453,31 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
                 "Custom normal map (linear) for outline. "),
         },
         //Outline End
-        
+
+        //Custom Directional Light
+        new MaterialUIElement {
+            mainPropertyName = new MaterialName(ShaderPropUnlit_Specular_UseDirectionalLight),
+            label = new GUIContent("Specular",
+                "Applies specular color by using a custom directional light."),
+        },
+        new MaterialUIElement {
+            mainPropertyName = new MaterialName(ShaderPropUnlit_Specular_Color),
+            label = new GUIContent("Specular Color",
+                "The specular color. "),
+        },
+        new MaterialUIElement {
+            mainPropertyName = new MaterialName(ShaderPropUnlit_Specular_Intensity),
+            label = new GUIContent("Specular Intensity",
+                "The specular intensity. "),
+        },
+        new MaterialUIElement {
+            mainPropertyName = new MaterialName(ShaderPropUnlit_Specular_LightDirection),
+            label = new GUIContent("Light Direction",
+                "The direction of the light for specular. "),
+        },
     };
-   
+
+    
     //Common constants
     internal const string ShaderPropMainTex = "_MainTex";
     internal const string ShaderPropUse_BaseAs1st = "_Use_BaseAs1st";
@@ -438,6 +504,18 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     internal const string ShaderProp_Outline_UseCustomNormalMap = "_Outline_UseCustomNormalMap";
     internal const string ShaderProp_Outline_CustomNormalMap    = "_Outline_CustomNormalMap";
 
+    internal const string ShaderPropUnlit_Specular_UseDirectionalLight = "_Specular_UseDirectionalLight";
+    internal const string ShaderPropUnlit_Specular_Color = "_Specular_Color";
+    internal const string ShaderPropUnlit_Specular_Intensity  = "_Specular_Intensity";
+    internal const string ShaderPropUnlit_Specular_LightDirection  = "_Specular_LightDirection";
+    
+    // GUI_RangeProperty(material, Styles.metaverseOffsettXaxisText);
+    // GUI_RangeProperty(material, Styles.metaverseOffsettYaxisText);
+    //
+    // GUI_Toggle(material, Styles.invertZaxisDirection, ShaderPropInverse_Z_Axis_BLD, MaterialGetInt(material, ShaderPropInverse_Z_Axis_BLD) != 0);
+    
+    
+
 
     internal enum OutlineMode {
         NormalDirection,
@@ -449,6 +527,7 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
 
     bool m_normalMapFoldout = false;
     bool m_outlineFoldout = false;
+    bool m_specularFoldout = false;
     
 }
 
