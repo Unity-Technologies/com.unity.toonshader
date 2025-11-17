@@ -25,13 +25,101 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         {
             material.SetShaderPassEnabled(lightModeName, newEnabled);
             EditorUtility.SetDirty(material);
-        }        
+        }
+        
+        DrawOutlineGUI(materialEditor, material, m_materialPropertyUIElements);
         
 
         if (EditorGUI.EndChangeCheck()) {
             materialEditor.PropertiesChanged();
         }
     }
+
+    
+    void DrawOutlineGUI(MaterialEditor materialEditor, Material material, 
+        Dictionary<string, MaterialPropertyUIElement> uiElements) 
+    {
+        const string LIGHT_MODE_NAME_FOR_OUTLINE = "SRPDefaultUnlit";
+        bool isOutlineEnabled = material.GetShaderPassEnabled(LIGHT_MODE_NAME_FOR_OUTLINE);
+
+        EditorGUI.BeginChangeCheck();
+//        isOutlineEnabled = EditorGUILayout.Toggle(kOutline, isOutlineEnabled);
+        
+// Get a horizontal rect for all controls
+        GUIStyle foldoutStyle = new GUIStyle(EditorStyles.foldout);
+        Rect lineRect = EditorGUILayout.GetControlRect(false, 16);
+
+// Calculate rects for each control
+        Rect foldoutRect = new Rect(lineRect.x, lineRect.y, 16, lineRect.height);
+        Rect toggleRect = new Rect(foldoutRect.xMax, lineRect.y, 16, lineRect.height);
+        Rect labelRect = new Rect(toggleRect.xMax + 2, lineRect.y, lineRect.width - 34, lineRect.height);
+
+        m_outlineFoldout = EditorGUI.Foldout(foldoutRect, m_outlineFoldout, GUIContent.none, true, foldoutStyle);
+        isOutlineEnabled = EditorGUI.Toggle(toggleRect, isOutlineEnabled);
+        EditorGUI.LabelField(labelRect, "Outline");
+        
+        
+        if (EditorGUI.EndChangeCheck()) {
+            materialEditor.RegisterPropertyChangeUndo("Outline");
+            material.SetShaderPassEnabled(LIGHT_MODE_NAME_FOR_OUTLINE, isOutlineEnabled);
+        }
+
+        //Outline Settings
+        EditorGUI.BeginDisabledGroup(!isOutlineEnabled);
+
+        int outlineMode = DrawIntPopupGUI(materialEditor, material, uiElements[ShaderProp_OutlineMode], 
+            m_outlineModeEnums, m_outlineModeIndices);
+        
+        const string OUTLINE_NORMAL_KEYWORD = "_OUTLINE_NML";;
+        const string OUTLINE_POSITION_KEYWORD = "_OUTLINE_POS";
+        
+        switch (outlineMode) {
+            case (int) OutlineMode.NormalDirection:
+                material.EnableKeyword(OUTLINE_NORMAL_KEYWORD);
+                material.DisableKeyword(OUTLINE_POSITION_KEYWORD);
+                break;
+            case (int) OutlineMode.PositionScaling:
+                material.EnableKeyword(OUTLINE_POSITION_KEYWORD);
+                material.DisableKeyword(OUTLINE_NORMAL_KEYWORD);
+                break;
+        }
+
+
+        EditorGUI.BeginDisabledGroup(outlineMode != (int) OutlineMode.NormalDirection);
+        {
+            bool useCustom = DrawToggleGUI(materialEditor, material, uiElements[ShaderProp_Outline_UseCustomNormalMap]);
+            EditorGUI.BeginDisabledGroup(!useCustom);
+            DrawTexturePropertySingleLineGUI(materialEditor,uiElements[ShaderProp_Outline_CustomNormalMap]);
+            EditorGUI.EndDisabledGroup();
+        }
+        EditorGUI.EndDisabledGroup();
+        
+
+        DrawFloatFieldGUI(materialEditor, material, uiElements[ShaderProp_OutlineWidth]);
+        
+        DrawTexturePropertySingleLineGUI(materialEditor, uiElements[ShaderProp_OutlineTex]);
+        DrawToggleGUI(materialEditor, material, uiElements[ShaderProp_Outline_BlendBaseColor]);
+        
+        DrawTexturePropertySingleLineGUI(materialEditor, uiElements[ShaderProp_OutlineWidthMap]);
+        
+        DrawFloatFieldGUI(materialEditor, material, uiElements[ShaderProp_OutlineOffsetZ]);
+
+
+        EditorGUILayout.Space();
+        {
+            EditorGUILayout.LabelField("Camera Distance for Outline Width");
+            EditorGUI.indentLevel++;
+            DrawFloatFieldGUI(materialEditor, material, uiElements[ShaderProp_OutlineNear]);
+            DrawFloatFieldGUI(materialEditor, material, uiElements[ShaderProp_OutlineFar]);
+            EditorGUI.indentLevel--;
+
+            
+        }
+        EditorGUI.EndDisabledGroup(); //!isOutlineEnabled
+
+        EditorGUILayout.Space();
+    }
+    
     
 //----------------------------------------------------------------------------------------------------------------------    
     
@@ -68,6 +156,7 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         }
     }
     
+//----------------------------------------------------------------------------------------------------------------------
     static void DrawTexturePropertySingleLineGUI(MaterialEditor materialEditor, MaterialPropertyUIElement element) {
         if (null!= element.extraProperty2)
             materialEditor.TexturePropertySingleLine(element.label, element.mainProperty.prop,element.extraProperty1.prop, element.extraProperty2.prop);
@@ -212,9 +301,9 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
                 "Outline Width Map (grayscale, linear): White = full width, Black = 0 width."),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(ShaderProp_OutlineColor),
-            label = new GUIContent("Outline Color",
-                "The color of outline."),
+            mainPropertyName = new MaterialName(ShaderProp_OutlineTex),
+            label = new GUIContent("Outline Color", "The color of outline."),
+            extraPropertyName1 = new MaterialName(ShaderProp_OutlineColor), 
         },
         new MaterialUIElement {
             mainPropertyName = new MaterialName(ShaderProp_Outline_BlendBaseColor),
@@ -266,14 +355,15 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     internal const string ShaderProp_2nd_ShadeMap = "_2nd_ShadeMap";
     internal const string ShaderProp_2nd_ShadeColor = "_2nd_ShadeColor";
     
-    internal const string ShaderProp_OutlineWidthMap = "_OutlineSampler";
+    internal const string ShaderProp_OutlineMode = "_OutlineMode";
     internal const string ShaderProp_OutlineWidth = "_OutlineWidth";
+    internal const string ShaderProp_OutlineWidthMap = "_OutlineWidthMap";
+    internal const string ShaderProp_OutlineTex = "_OutlineTex";
     internal const string ShaderProp_OutlineColor = "_OutlineColor";
     internal const string ShaderProp_Outline_BlendBaseColor = "_Outline_BlendBaseColor";
     internal const string ShaderProp_OutlineOffsetZ = "_OutlineOffsetZ";
     internal const string ShaderProp_OutlineNear = "_OutlineNear";
     internal const string ShaderProp_OutlineFar = "_OutlineFar";
-    internal const string ShaderProp_OutlineMode = "_OutlineMode";
 
     internal const string ShaderProp_Outline_UseCustomNormalMap = "_Outline_UseCustomNormalMap";
     internal const string ShaderProp_Outline_CustomNormalMap    = "_Outline_CustomNormalMap";
