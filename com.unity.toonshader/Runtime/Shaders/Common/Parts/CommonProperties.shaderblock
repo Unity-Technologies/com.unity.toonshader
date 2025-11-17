@@ -29,8 +29,8 @@ _StencilOpFail("Stencil Operation", Float) = 0
 
 // Cull and ZWrite Properties
 [Enum(OFF, 0, FRONT, 1, BACK, 2)] _CullMode("Cull Mode", int) = 2  //OFF/FRONT/BACK
-[Enum(OFF, 0, ONT, 1)]	_ZWriteMode("ZWrite Mode", int) = 1  //OFF/ON
-[Enum(OFF, 0, ONT, 1)]	_ZOverDrawMode("ZOver Draw Mode", Float) = 0  //OFF/ON
+[Enum(OFF, 0, ONT, 1)]    _ZWriteMode("ZWrite Mode", int) = 1  //OFF/ON
+[Enum(OFF, 0, ONT, 1)]    _ZOverDrawMode("ZOver Draw Mode", Float) = 0  //OFF/ON
 _SPRDefaultUnlitColorMask("SPRDefaultUnlit Path Color Mask", int) = 15
 [Enum(OFF, 0, FRONT, 1, BACK, 2)] _SRPDefaultUnlitColMode("SPRDefaultUnlit  Cull Mode", int) = 1  //OFF/FRONT/BACK
 
@@ -207,7 +207,7 @@ _BakedNormal ("Baked Normal for Outline", 2D) = "white" {}
 _GI_Intensity ("GI_Intensity", Range(0, 1)) = 0
 //For VR Chat under No effective light objects
 _Unlit_Intensity ("Unlit_Intensity", Range(0, 4)) = 0
-//v.2.0.5 
+//v.2.0.5
 [Toggle(_)] _Is_Filter_LightColor ("VRChat : SceneLights HiCut_Filter", Float ) = 1
 //Built-in Light Direction
 [Toggle(_)] _Is_BLD ("Advanced : Activate Built-in Light Direction", Float ) = 0
