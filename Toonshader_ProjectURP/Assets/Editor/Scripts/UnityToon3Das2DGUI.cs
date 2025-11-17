@@ -200,17 +200,63 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
             mainPropertyName = new MaterialName(ShaderPropUse_1stAs2nd),
             label = new GUIContent("Apply to 2nd shading map", "Apply Base map or the 1st shading map to the 2st shading map."),
         },
+        
+        //Outline Start
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(ShaderPropUse_1stAs2nd),
-            label = new GUIContent("Apply to 2nd shading map", "Apply Base map or the 1st shading map to the 2st shading map."),
+            mainPropertyName = new MaterialName(ShaderProp_OutlineWidth),
+            label = new GUIContent("Outline Width",
+                "The width of the outline."),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(ShaderPropUse_1stAs2nd),
-            label = new GUIContent("Apply to 2nd shading map", "Apply Base map or the 1st shading map to the 2st shading map."),
+            mainPropertyName = new MaterialName(ShaderProp_OutlineWidthMap),
+            label = new GUIContent("Outline Width Map",
+                "Outline Width Map (grayscale, linear): White = full width, Black = 0 width."),
         },
+        new MaterialUIElement {
+            mainPropertyName = new MaterialName(ShaderProp_OutlineColor),
+            label = new GUIContent("Outline Color",
+                "The color of outline."),
+        },
+        new MaterialUIElement {
+            mainPropertyName = new MaterialName(ShaderProp_Outline_BlendBaseColor),
+            label = new GUIContent("Blend Base Color to Outline",
+                "Blend base color to outline color."),
+        },
+        new MaterialUIElement {
+            mainPropertyName = new MaterialName(ShaderProp_OutlineOffsetZ),
+            label = new GUIContent("Z Offset",
+                "Offsets the outline in the depth (Z) direction of the camera."),
+        },
+        new MaterialUIElement {
+            mainPropertyName = new MaterialName(ShaderProp_OutlineNear),
+            label = new GUIContent("Near",
+                "Nearest distance for maximum outline width."),
+        },
+        new MaterialUIElement {
+            mainPropertyName = new MaterialName(ShaderProp_OutlineFar),
+            label = new GUIContent("Far",
+                "Furthest distance where outline fades to zero width."),
+        },
+        new MaterialUIElement {
+            mainPropertyName = new MaterialName(ShaderProp_OutlineMode),
+            label = new GUIContent("Outline Mode",
+                "Specifies how the outline is generated."),
+        },
+        new MaterialUIElement {
+            mainPropertyName = new MaterialName(ShaderProp_Outline_UseCustomNormalMap),
+            label = new GUIContent("Use Custom Normal Map",
+                "Use a custom normal map for outline."),
+        },
+        
+        new MaterialUIElement {
+            mainPropertyName = new MaterialName(ShaderProp_Outline_CustomNormalMap),
+            label = new GUIContent("Custom Normal Map",
+                "Custom normal map (linear) for outline. "),
+        },
+        //Outline End
+        
     };
-
-
+   
     //Common constants
     internal const string ShaderPropMainTex = "_MainTex";
     internal const string ShaderPropUse_BaseAs1st = "_Use_BaseAs1st";
@@ -220,6 +266,29 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     internal const string ShaderProp_1st_ShadeColor = "_1st_ShadeColor";
     internal const string ShaderProp_2nd_ShadeMap = "_2nd_ShadeMap";
     internal const string ShaderProp_2nd_ShadeColor = "_2nd_ShadeColor";
+    
+    internal const string ShaderProp_OutlineWidthMap = "_OutlineSampler";
+    internal const string ShaderProp_OutlineWidth = "_OutlineWidth";
+    internal const string ShaderProp_OutlineColor = "_OutlineColor";
+    internal const string ShaderProp_Outline_BlendBaseColor = "_Outline_BlendBaseColor";
+    internal const string ShaderProp_OutlineOffsetZ = "_OutlineOffsetZ";
+    internal const string ShaderProp_OutlineNear = "_OutlineNear";
+    internal const string ShaderProp_OutlineFar = "_OutlineFar";
+    internal const string ShaderProp_OutlineMode = "_OutlineMode";
+
+    internal const string ShaderProp_Outline_UseCustomNormalMap = "_Outline_UseCustomNormalMap";
+    internal const string ShaderProp_Outline_CustomNormalMap    = "_Outline_CustomNormalMap";
+
+
+    internal enum OutlineMode {
+        NormalDirection,
+        PositionScaling
+    }
+    
+    private static readonly GUIContent[] m_outlineModeEnums= EnumUtility.ToInspectorNamesAsGUIContent(typeof(OutlineMode));
+    private static readonly int[] m_outlineModeIndices = EnumUtility.ToIndices(typeof(OutlineMode));
+
+    bool m_outlineFoldout = false;
     
 }
 
