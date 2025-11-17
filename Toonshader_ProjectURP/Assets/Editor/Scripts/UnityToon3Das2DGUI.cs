@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEditor;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
@@ -15,7 +16,8 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         
         EditorGUI.BeginChangeCheck();
         GUI_BasicThreeColors(materialEditor, material, m_materialPropertyUIElements);
-        
+
+        DrawNormalMapGUI(materialEditor, m_materialPropertyUIElements);
         DrawOutlineGUI(materialEditor, material, m_materialPropertyUIElements);
         
 
@@ -23,7 +25,22 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
             materialEditor.PropertiesChanged();
         }
     }
+    public static readonly GUIContent normalMapFoldout = EditorGUIUtility.TrTextContent("Normal Map Settings",
+        "Normal Map settings. Normal Map itself and its effectiveness to some areas.");
 
+    void DrawNormalMapGUI(MaterialEditor materialEditor,  
+        Dictionary<string, MaterialPropertyUIElement> uiElements) {
+
+        DrawFoldoutGUI(ref m_normalMapFoldout, normalMapFoldout);
+        if (!m_normalMapFoldout) 
+            return;
+        
+        DrawTexturePropertySingleLineGUI(materialEditor, uiElements[ShaderProp_NormalMap]);
+        materialEditor.TextureScaleOffsetProperty(uiElements[ShaderProp_NormalMap].mainProperty.prop);
+        
+        EditorGUILayout.Space();
+    }
+    
     
     void DrawOutlineGUI(MaterialEditor materialEditor, Material material, 
         Dictionary<string, MaterialPropertyUIElement> uiElements) 
@@ -32,9 +49,6 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         const string LIGHT_MODE_NAME_FOR_OUTLINE = "SRPDefaultUnlit";
         bool isOutlineEnabled = material.GetShaderPassEnabled(LIGHT_MODE_NAME_FOR_OUTLINE);
 
-        EditorGUI.BeginChangeCheck();
-        
-        //Draw custom foldout with toggle
 
         if (DrawFoldoutWithToggleGUI(materialEditor, material, ref m_outlineFoldout, ref isOutlineEnabled, "Outline")) 
         {
@@ -207,6 +221,32 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         return ret;
     }
 
+
+    //return true if changed, false otherwise
+    static bool DrawFoldoutGUI(ref bool state, GUIContent label) {
+        
+        Rect lineRect = EditorGUILayout.GetControlRect(false, 16);
+
+        float initialPadding = lineRect.x;
+        Rect bgRect = new Rect(0, lineRect.y, lineRect.width + initialPadding, lineRect.height);
+
+        const float BG_COLOR = 0.20f;
+        EditorGUI.DrawRect(bgRect, new Color(BG_COLOR, BG_COLOR, BG_COLOR, 1f)); //BG
+
+        // Draw top border
+        Rect topBorderRect = new Rect(bgRect.x, bgRect.y, bgRect.width, 1);
+        EditorGUI.DrawRect(topBorderRect, new Color(0.12f, 0.12f, 0.12f, 1f));
+        
+        EditorGUI.BeginChangeCheck();
+        state = EditorGUI.Foldout(lineRect, state, label);
+        if (EditorGUI.EndChangeCheck()) {
+            return true;
+        }
+
+        return false;
+
+    }
+    
     //return true if changed, false otherwise
     static bool DrawFoldoutWithToggleGUI(MaterialEditor materialEditor, Material material, 
         ref bool foldoutState, ref bool toggleEnabled, string label) 
@@ -224,7 +264,7 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         Rect topBorderRect = new Rect(lineRect.x, lineRect.y, lineRect.width, 1);
         EditorGUI.DrawRect(topBorderRect, new Color(0.12f, 0.12f, 0.12f, 1f));
         
-        
+        EditorGUI.BeginChangeCheck();
         foldoutState = EditorGUI.Foldout(foldoutRect, foldoutState, GUIContent.none, true, foldoutStyle);
         toggleEnabled = EditorGUI.Toggle(toggleRect, toggleEnabled);
         EditorGUI.LabelField(labelRect, label);
@@ -302,6 +342,12 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
             label = new GUIContent("Apply to 2nd shading map", "Apply Base map or the 1st shading map to the 2st shading map."),
         },
         
+        //Normal Map
+        new MaterialUIElement {
+            mainPropertyName = new MaterialName(ShaderProp_NormalMap),
+            label = new GUIContent("Normal Map", "A texture that specifies the bumpiness of the material."),
+        },
+        
         //Outline Start
         new MaterialUIElement {
             mainPropertyName = new MaterialName(ShaderProp_OutlineWidth),
@@ -367,6 +413,8 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     internal const string ShaderProp_1st_ShadeColor = "_1st_ShadeColor";
     internal const string ShaderProp_2nd_ShadeMap = "_2nd_ShadeMap";
     internal const string ShaderProp_2nd_ShadeColor = "_2nd_ShadeColor";
+
+    internal const string ShaderProp_NormalMap = "_NormalMap";
     
     internal const string ShaderProp_OutlineMode = "_OutlineMode";
     internal const string ShaderProp_OutlineWidth = "_OutlineWidth";
@@ -390,6 +438,7 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     private static readonly GUIContent[] m_outlineModeEnums= EnumUtility.ToInspectorNamesAsGUIContent(typeof(OutlineMode));
     private static readonly int[] m_outlineModeIndices = EnumUtility.ToIndices(typeof(OutlineMode));
 
+    bool m_normalMapFoldout = false;
     bool m_outlineFoldout = false;
     
 }
