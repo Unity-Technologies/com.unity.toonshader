@@ -21,7 +21,6 @@ Shader "Toon2D"{
         _NormalMap("Normal Map", 2D) = "bump" {}
         _BumpScale ("Normal Scale", Range(0, 1)) = 1
         
-        _Unlit_Intensity ("Unlit_Intensity", Range(0, 4)) = 0
         
         [HideInInspector] _White("Tint", Color) = (1,1,1,1) // Added to break SRP batching. Work around for issue with SRP Batching
         
@@ -39,8 +38,15 @@ Shader "Toon2D"{
         _Outline_UseCustomNormalMap ("Use Custom Normal Map", Integer ) = 0
         _Outline_CustomNormalMap ("Custom Normal Map", 2D) = "white" {}
 
+        //Specular
+        _Specular_UseDirectionalLight ("Specular Intensity", Integer) = 0
+        _Specular_Color ("Specular Color", Color) = (1,1,1,1)
+        _Specular_Intensity ("Specular Intensity", float) = 0
+        _Specular_LightDirection ("Specular Light Direction", Vector) = (0,-1,0,0)
+        
         //Test
 		_OutlineExtrusion("Outline Extrusion", float) = 0.02
+        
         
         
         
