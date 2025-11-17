@@ -16,17 +16,6 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         EditorGUI.BeginChangeCheck();
         GUI_BasicThreeColors(materialEditor, material, m_materialPropertyUIElements);
         
-        //Doc: Use this LightMode tag value to draw an extra Pass when rendering objects.
-        string lightModeName = "SRPDefaultUnlit";  
-        bool enabled = material.GetShaderPassEnabled(lightModeName);
-        EditorGUI.BeginChangeCheck();
-        bool newEnabled = EditorGUILayout.Toggle("Outline", enabled);
-        if (EditorGUI.EndChangeCheck())
-        {
-            material.SetShaderPassEnabled(lightModeName, newEnabled);
-            EditorUtility.SetDirty(material);
-        }
-        
         DrawOutlineGUI(materialEditor, material, m_materialPropertyUIElements);
         
 
@@ -39,35 +28,25 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     void DrawOutlineGUI(MaterialEditor materialEditor, Material material, 
         Dictionary<string, MaterialPropertyUIElement> uiElements) 
     {
+        //Doc: Use this LightMode tag value to draw an extra Pass when rendering objects.
         const string LIGHT_MODE_NAME_FOR_OUTLINE = "SRPDefaultUnlit";
         bool isOutlineEnabled = material.GetShaderPassEnabled(LIGHT_MODE_NAME_FOR_OUTLINE);
 
         EditorGUI.BeginChangeCheck();
-//        isOutlineEnabled = EditorGUILayout.Toggle(kOutline, isOutlineEnabled);
         
-// Get a horizontal rect for all controls
-        GUIStyle foldoutStyle = new GUIStyle(EditorStyles.foldout);
-        Rect lineRect = EditorGUILayout.GetControlRect(false, 16);
+        //Draw custom foldout with toggle
 
-// Calculate rects for each control
-        Rect foldoutRect = new Rect(lineRect.x, lineRect.y, 16, lineRect.height);
-        Rect toggleRect = new Rect(foldoutRect.xMax, lineRect.y, 16, lineRect.height);
-        Rect labelRect = new Rect(toggleRect.xMax + 2, lineRect.y, lineRect.width - 34, lineRect.height);
-
-        m_outlineFoldout = EditorGUI.Foldout(foldoutRect, m_outlineFoldout, GUIContent.none, true, foldoutStyle);
-        isOutlineEnabled = EditorGUI.Toggle(toggleRect, isOutlineEnabled);
-        EditorGUI.LabelField(labelRect, "Outline");
-        
-        
-        if (EditorGUI.EndChangeCheck()) {
-            materialEditor.RegisterPropertyChangeUndo("Outline");
+        if (DrawFoldoutWithToggleGUI(materialEditor, material, ref m_outlineFoldout, ref isOutlineEnabled, "Outline")) 
+        {
             material.SetShaderPassEnabled(LIGHT_MODE_NAME_FOR_OUTLINE, isOutlineEnabled);
         }
+        
         
         if (!m_outlineFoldout)
             return;
 
         //Outline Settings
+        EditorGUI.indentLevel++;
         EditorGUI.BeginDisabledGroup(!isOutlineEnabled);
 
         int outlineMode = DrawIntPopupGUI(materialEditor, material, uiElements[ShaderProp_OutlineMode], 
@@ -119,6 +98,7 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
             
         }
         EditorGUI.EndDisabledGroup(); //!isOutlineEnabled
+        EditorGUI.indentLevel--;
 
         EditorGUILayout.Space();
     }
@@ -225,6 +205,28 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         }
 
         return ret;
+    }
+
+    //return true if changed, false otherwise
+    static bool DrawFoldoutWithToggleGUI(MaterialEditor materialEditor, Material material, 
+        ref bool foldoutState, ref bool toggleEnabled, string label) 
+    {
+        GUIStyle foldoutStyle = new GUIStyle(EditorStyles.foldout);
+        Rect lineRect = EditorGUILayout.GetControlRect(false, 16);
+        Rect foldoutRect = new Rect(lineRect.x, lineRect.y, 16, lineRect.height);
+        Rect toggleRect = new Rect(foldoutRect.xMax, lineRect.y, 16, lineRect.height);
+        Rect labelRect = new Rect(toggleRect.xMax + 2, lineRect.y, lineRect.width - 34, lineRect.height);
+
+        foldoutState = EditorGUI.Foldout(foldoutRect, foldoutState, GUIContent.none, true, foldoutStyle);
+        toggleEnabled = EditorGUI.Toggle(toggleRect, toggleEnabled);
+        EditorGUI.LabelField(labelRect, label);
+        
+        if (EditorGUI.EndChangeCheck()) {
+            materialEditor.RegisterPropertyChangeUndo(label);
+            return true;
+        }
+
+        return false;
     }
     
 //----------------------------------------------------------------------------------------------------------------------
