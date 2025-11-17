@@ -346,6 +346,7 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         new MaterialUIElement {
             mainPropertyName = new MaterialName(ShaderProp_NormalMap),
             label = new GUIContent("Normal Map", "A texture that specifies the bumpiness of the material."),
+            extraPropertyName1 = new MaterialName(ShaderProp_BumpScale),
         },
         
         //Outline Start
@@ -415,6 +416,7 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     internal const string ShaderProp_2nd_ShadeColor = "_2nd_ShadeColor";
 
     internal const string ShaderProp_NormalMap = "_NormalMap";
+    internal const string ShaderProp_BumpScale = "_BumpScale";
     
     internal const string ShaderProp_OutlineMode = "_OutlineMode";
     internal const string ShaderProp_OutlineWidth = "_OutlineWidth";
