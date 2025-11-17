@@ -19,6 +19,8 @@ Shader "Toon2D"{
 
         _MaskTex("Mask", 2D) = "white" {}
         _NormalMap("Normal Map", 2D) = "bump" {}
+        _BumpScale ("Normal Scale", Range(0, 1)) = 1
+        
         _Unlit_Intensity ("Unlit_Intensity", Range(0, 4)) = 0
         
         [HideInInspector] _White("Tint", Color) = (1,1,1,1) // Added to break SRP batching. Work around for issue with SRP Batching
