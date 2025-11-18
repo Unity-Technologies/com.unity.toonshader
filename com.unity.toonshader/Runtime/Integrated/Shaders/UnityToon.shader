@@ -1,4 +1,4 @@
-//Auto-generated on Fri Nov 07 05:27:25 UTC 2025
+//Auto-generated on Tue Nov 18 11:05:20 UTC 2025
 Shader "Toon" {
     Properties
     {
@@ -1044,8 +1044,6 @@ Shader "Toon" {
             // used in ShadingGradeMap
             #pragma shader_feature _IS_TRANSCLIPPING_OFF _IS_TRANSCLIPPING_ON
             #pragma shader_feature _IS_ANGELRING_OFF _IS_ANGELRING_ON
-            // used in Shadow calculation
-            #pragma shader_feature_local _ UTS_USE_RAYTRACING_SHADOW
             // used in DoubleShadeWithFeather
             #pragma shader_feature _IS_CLIPPING_OFF _IS_CLIPPING_MODE _IS_CLIPPING_TRANSMODE
             // controlling mask rendering
@@ -1295,8 +1293,6 @@ Shader "Toon" {
             #pragma shader_feature _IS_TRANSCLIPPING_OFF _IS_TRANSCLIPPING_ON
             #pragma shader_feature _IS_ANGELRING_OFF _IS_ANGELRING_ON
 
-            // used in Shadow calculation
-            #pragma shader_feature_local _ UTS_USE_RAYTRACING_SHADOW
             // used in DoubleShadeWithFeather
             #pragma shader_feature _IS_CLIPPING_OFF _IS_CLIPPING_MODE _IS_CLIPPING_TRANSMODE
 
@@ -1562,8 +1558,6 @@ Shader "Toon" {
             #pragma shader_feature _EMISSIVE_SIMPLE _EMISSIVE_ANIMATION
             #pragma multi_compile _IS_PASS_FWDBASE
 
-            //
-            #pragma shader_feature_local UTS_USE_RAYTRACING_SHADOW
 #if defined(_SHADINGGRADEMAP)
 
 #include "../../Legacy/Shaders/UCTS_ShadingGradeMap.cginc"
@@ -1647,7 +1641,6 @@ Shader "Toon" {
             //v.2.0.4
 
             #pragma multi_compile _IS_PASS_FWDDELTA
-            #pragma shader_feature_local UTS_USE_RAYTRACING_SHADOW
 
 #if defined(_SHADINGGRADEMAP)
 
