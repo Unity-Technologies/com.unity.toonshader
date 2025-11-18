@@ -263,7 +263,7 @@ void Frag(PackedVaryingsToPS packedInput,
         if (_DirectionalShadowIndex >= 0)
         {
             DirectionalLightData light = _DirectionalLightDatas[_DirectionalShadowIndex];
-#if defined(SCREEN_SPACE_SHADOWS_ON) && !defined(_SURFACE_TYPE_TRANSPARENT) && !defined(UTS_USE_RAYTRACING_SHADOW)
+#if defined(SCREEN_SPACE_SHADOWS_ON) && !defined(_SURFACE_TYPE_TRANSPARENT) 
             if (UtsUseScreenSpaceShadow(light, bsdfData.normalWS))
             {
                 // HDRP Contact Shadow
@@ -281,42 +281,15 @@ void Frag(PackedVaryingsToPS packedInput,
                     !ShouldEvaluateThickObjectTransmission(V, L, preLightData, bsdfData, light.shadowIndex))
                 {
 
-#if defined(UTS_USE_RAYTRACING_SHADOW)
-                    {
-                        /*
-                        struct PositionInputs
-                        {
-                            float3 positionWS;  // World space position (could be camera-relative)
-                            float2 positionNDC; // Normalized screen coordinates within the viewport    : [0, 1) (with the half-pixel offset)
-                            uint2  positionSS;  // Screen space pixel coordinates                       : [0, NumPixels)
-                            uint2  tileCoord;   // Screen tile coordinates                              : [0, NumTiles)
-                            float  deviceDepth; // Depth from the depth buffer                          : [0, 1] (typically reversed)
-                            float  linearDepth; // View space Z coordinate                              : [Near, Far]
-                        };
-                        float4 size = _RaytracedHardShadow_TexelSize;
-                        */
-
-                        float r = UNITY_SAMPLE_SCREEN_SHADOW(_RaytracedHardShadow, float4(posInput.positionNDC.xy, 0.0, 1));
-                        context.shadowValue = r;
-                    }
-#else
                     {
                         context.shadowValue = GetDirectionalShadowAttenuation(context.shadowContext,
                             posInput.positionSS, posInput.positionWS, GetNormalForShadowBias(bsdfData),
                             light.shadowIndex, L);
 
                     }
-#endif // UTS_USE_RAYTRACING_SHADOW
 
 
                 }
-#if defined (UTS_USE_RAYTRACING_SHADOW)
-                else
-                {
-                    float r = UNITY_SAMPLE_SCREEN_SHADOW(_RaytracedHardShadow, float4(posInput.positionNDC.xy, 0.0, 1));
-                    context.shadowValue = r;
-                }
-#endif // UTS_USE_RAYTRACING_SHADOW
             }
 
         }
