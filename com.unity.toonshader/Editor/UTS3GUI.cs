@@ -79,7 +79,6 @@ namespace UnityEditor.Rendering.Toon {
         internal const string ShaderDefineSHADINGGRADEMAP = "_SHADINGGRADEMAP";
         internal const string ShaderDefineANGELRING_ON = "_IS_ANGELRING_ON";
         internal const string ShaderDefineANGELRING_OFF = "_IS_ANGELRING_OFF";
-        internal const string ShaderDefineUTS_USE_RAYTRACING_SHADOW = "UTS_USE_RAYTRACING_SHADOW";
         internal const string ShaderPropAngelRing = "_AngelRing";
         internal const string ShaderPropMatCap = "_MatCap";
         internal const string ShaderPropMainTex = "_MainTex";
