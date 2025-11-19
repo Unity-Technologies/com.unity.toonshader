@@ -199,36 +199,33 @@ inline float3 UnityObjectToWorldNormal(in float3 norm)
                         mask);
                     shapeLight0 *= dot(processedMask, _ShapeLightMaskFilter0);
                 }
-                
+
+                const float3 diffuseLightFactor = (shapeLight0.rgb * _DirectionalLight_2DLightFactor)
+                    + (_DirectionalLight_Color * _DirectionalLight_DiffuseFactor);
                 
                 float4 _MainTex_var = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, uv);
-                float3 baseColor = surfaceData.albedo.rgb;
+                float3 baseColor = surfaceData.albedo.rgb * diffuseLightFactor;
 
                 // //v.2.0.5
                 float4 _1st_ShadeMap_var = lerp(
                     SAMPLE_TEXTURE2D(_1st_ShadeMap, sampler_MainTex, TRANSFORM_TEX(uv, _MainTex)), _MainTex_var,
                     _Use_BaseAs1st);
-                float3 firstShadeColor = _1st_ShadeColor.rgb * _1st_ShadeMap_var.rgb * shapeLight0.rgb;
+                const float3 firstShadeAlbedo = _1st_ShadeColor.rgb * _1st_ShadeMap_var.rgb; 
+                float3 firstShadeColor = firstShadeAlbedo * diffuseLightFactor;
 
                 float4 _2nd_ShadeMap_var = lerp(
                     SAMPLE_TEXTURE2D(_2nd_ShadeMap, sampler_MainTex, TRANSFORM_TEX(uv, _MainTex)), _1st_ShadeMap_var,
                     _Use_1stAs2nd);
-                float3 secondShadeColor = _2nd_ShadeColor.rgb * _2nd_ShadeMap_var.rgb * shapeLight0.rgb;
+                const float3 secondShadeAlbedo = _2nd_ShadeColor.rgb * _2nd_ShadeMap_var.rgb;
+                float3 secondShadeColor = secondShadeAlbedo * diffuseLightFactor;
 
-                const float light2d_intensity = max(shapeLight0.r, max(shapeLight0.g, shapeLight0.b)); 
+                const float light2dDiffuse = max(shapeLight0.r, max(shapeLight0.g, shapeLight0.b)); 
+                const float directionalDiffuse = 0.5 * dot( perturbedNormalWS, _DirectionalLight_Direction) + 0.5;
 
-                
-                //float _HalfLambert_var = max(shapeLight0.r, max(shapeLight0.g, shapeLight0.b));
+                float _HalfLambert_var = (light2dDiffuse * _DirectionalLight_2DLightFactor)
+                    + (directionalDiffuse * _DirectionalLight_DiffuseFactor);
 
-                float _HalfLambert_var = 0.5 * dot( perturbedNormalWS, _DirectionalLight_Direction) + 0.5;
 
-                //return float4(_DirectionalLight_Direction.rgb,1);
-                float t = _HalfLambert_var;
-                
-                
-
-                //float _HalfLambert_var = 0.5*dot(lerp( i.normalDir, normalDirection, _Is_NormalMapToBase ),lightDirection)+0.5;
-                //
                 // //Minmimum value is same as the Minimum Feather's value with the Minimum Step's value as threshold.
                 // float Set_FinalShadowMask = saturate((1.0 + ( (lerp( _HalfLambert_var, _HalfLambert_var * saturate(_SystemShadowsLevel_var), _Set_SystemShadowsToBase ) - (_BaseColor_Step - _BaseShade_Feather)) * ((1.0 - _Set_1st_ShadePosition_var.rgb).r - 1.0) ) / (_BaseColor_Step - (_BaseColor_Step-_BaseShade_Feather))));
                 // //
