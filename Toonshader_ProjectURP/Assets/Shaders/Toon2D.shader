@@ -31,8 +31,8 @@ Shader "Toon2D"{
         _OutlineWidthMap ("Outline Width Map", 2D) = "white" {}
         _OutlineColor ("Outline Color", Color) = (0.1,0.1,0.1,1)
         _OutlineTex ("Outline Tex", 2D) = "white" {}
-        _Outline_BaseColorBlend ("Blend Base Color to Outline", Float ) = 0.5
-        _Outline_LightColorBlend ("Blend Light Color to Outline", Float ) = 0.5
+        _Outline_BaseColorBlend ("Blend Base Color to Outline", Range(0,1) ) = 0.5
+        _Outline_LightColorBlend ("Blend Light Color to Outline", Range(0,1) ) = 0.5
         _OutlineOffsetZ ("Outline Z Offset", Float) = 0
         _OutlineNear ("Outline Near", Float ) = 0.5
         _OutlineFar ("Outline Far", Float ) = 100
@@ -568,7 +568,6 @@ inline float3 UnityObjectToWorldNormal(in float3 norm)
                 //Blend
                 const float3 outlineBaseBlend = lerp(outlineAlbedo, outlineAlbedo * Set_BaseColor, _Outline_BaseColorBlend);
                 const float3 outlineBaseAndLightBlend = lerp(outlineBaseBlend, outlineBaseBlend * lightColor, _Outline_LightColorBlend);
-
                 
 #ifdef _IS_OUTLINE_CLIPPING_NO
                 return float4(outlineBaseAndLightBlend,1.0);
