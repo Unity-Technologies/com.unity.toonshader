@@ -189,9 +189,9 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         ToonEditorGUIUtility.DrawVector3FieldGUI(mEditor, mats, uiElements[Toon3Das2DConstants.ShaderPropUnlit_DirectionalLight_Direction]);
         ToonEditorGUIUtility.DrawColorFieldGUI(mEditor, uiElements[Toon3Das2DConstants.ShaderPropUnlit_DirectionalLight_Color]);
         ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[Toon3Das2DConstants.ShaderPropUnlit_DirectionalLight_Intensity]);
-        ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[ShaderPropUnlit_DirectionalLight_2DLightFactor]);
-        ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[ShaderPropUnlit_DirectionalLight_DiffuseFactor]);
-        ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[ShaderPropUnlit_DirectionalLight_SpecularFactor]);
+        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[ShaderPropUnlit_DirectionalLight_2DLightFactor]);
+        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[ShaderPropUnlit_DirectionalLight_DiffuseFactor]);
+        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[ShaderPropUnlit_DirectionalLight_SpecularFactor]);
     }
     
 //----------------------------------------------------------------------------------------------------------------------
