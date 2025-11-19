@@ -18,18 +18,18 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
             mats[i] = mEditor.targets[i] as Material;
         }
 
-        if (mats[0] != m_lastMaterial) {
-            RefreshFoldouts(mats[0]);
-        }
-
         InitMaterialPropertyUIElements(props);
+
+        if (mats[0] != m_lastMaterial) {
+            RefreshFoldouts(mats[0], m_materialPropertyUIElements);
+        }
         
         EditorGUI.BeginChangeCheck();
         DrawThreeColorsGUI(mEditor, mats, m_materialPropertyUIElements);
 
         DrawNormalMapGUI(mEditor, m_materialPropertyUIElements, ref m_normalMapFoldout);
         DrawOutlineGUI(mEditor, mats, m_materialPropertyUIElements, ref m_outlineFoldout);
-        DrawDirectionalLightGUI(mEditor, mats, m_materialPropertyUIElements, ref m_specularFoldout);
+        DrawDirectionalLightGUI(mEditor, mats, m_materialPropertyUIElements, ref m_directionalLightFoldout);
         
 
         if (EditorGUI.EndChangeCheck()) {
@@ -39,11 +39,14 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         m_lastMaterial = mats[0];
     }
     
-    void RefreshFoldouts(Material mat) {
+    void RefreshFoldouts(Material mat, Dictionary<string, MaterialPropertyUIElement> uiElements) {
         
         m_normalMapFoldout = true;
         m_outlineFoldout = mat.GetShaderPassEnabled(LIGHT_MODE_NAME_FOR_OUTLINE);
-        m_specularFoldout = false;
+
+        bool lightEnabled = mat.GetInteger(uiElements[ShaderPropUnlit_DirectionalLight_Use].mainProperty.id) !=0;
+        m_directionalLightFoldout = lightEnabled;
+        
     }
     
 //----------------------------------------------------------------------------------------------------------------------
@@ -141,7 +144,6 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         EditorGUILayout.Space();
     }
     
-    
 //----------------------------------------------------------------------------------------------------------------------    
     
     static void DrawThreeColorsGUI(MaterialEditor mEditor, Material[] mats,
@@ -180,7 +182,6 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
 
         ToonEditorGUIUtility.DrawFoldoutWithToggleGUI(mEditor, mats, uiElements[ShaderPropUnlit_DirectionalLight_Use],
             ref foldout);
-
         
         if (!foldout)
             return;
@@ -419,7 +420,7 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
 
     bool m_normalMapFoldout = false;
     bool m_outlineFoldout = false;
-    bool m_specularFoldout = false;
+    bool m_directionalLightFoldout = false;
     
 }
 
