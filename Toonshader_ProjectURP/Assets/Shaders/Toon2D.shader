@@ -378,13 +378,19 @@ Shader "Toon2D"{
             // #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/Core2D.hlsl"
 
-            struct Attributes {
-                COMMON_2D_INPUTS
-            };
+
+           struct OutlineVertexInput {
+                float4 vertex : POSITION;
+                float3 normal : NORMAL;
+                float4 tangent : TANGENT;
+                float2 texcoord0 : TEXCOORD0;
+                UNITY_VERTEX_INPUT_INSTANCE_ID
+           };
             
-            struct Varyings {
-                COMMON_2D_LIT_OUTPUTS
-            };
+            struct OutlineVertexOutput {
+                 float4 pos : SV_POSITION;
+                 float2 uv0 : TEXCOORD0;
+            };            
 
             // struct Attributes {
             //     float4 vertex : POSITION;
@@ -426,7 +432,6 @@ Shader "Toon2D"{
 //             #include "../../UniversalRP/Shaders/UniversalToonHead.hlsl"
 //             #include "../../UniversalRP/Shaders/UniversalToonOutline.hlsl"
 // #endif
-            #include "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/Lit2DCommon.hlsl"
 
 
 inline float4 UnityObjectToClipPosInstanced(in float3 pos) {
@@ -446,22 +451,21 @@ inline float3 UnityObjectToWorldNormal(in float3 norm)
 #endif
 }
             
-            Varyings OutlineVertex(Attributes v) {
-                Varyings o = (Varyings) 0;
+            OutlineVertexOutput OutlineVertex(OutlineVertexInput v) {
+                OutlineVertexOutput o = (OutlineVertexOutput) 0;
                 UNITY_SETUP_INSTANCE_ID(input);
                 UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
                 
-				float3 newPos = v.positionOS;
+				float3 newPos = v.vertex;
 				newPos.x += 0.1;
 				// normal extrusion technique
 				float3 normal = normalize(v.normal);
 				newPos += float3(normal) * _OutlineExtrusion;
                 
     
-                o.positionCS = TransformObjectToHClip(newPos);
-                o.uv = v.uv;
-                o.lightingUV = half2(ComputeScreenPos(o.positionCS / o.positionCS.w).xy);
+                o.pos = TransformObjectToHClip(newPos);
+                o.uv0 = v.texcoord0;
 
 //                 const float2 uv = v.texcoord0;
 //                 o.uv0 = v.texcoord0;
@@ -494,7 +498,7 @@ inline float3 UnityObjectToWorldNormal(in float3 norm)
 
             
 
-            half4 OutlineFragment(Varyings input) : SV_Target {
+            half4 OutlineFragment(OutlineVertexOutput input) : SV_Target {
 
 
 #if (UNITY_VERSION >= 202230)
