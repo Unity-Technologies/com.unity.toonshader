@@ -40,26 +40,8 @@ internal static class ToonEditorGUIUtility {
         return true;
     }
 
-    internal static bool DrawFloatFieldGUI(MaterialEditor mEditor, Material[] mats, MaterialPropertyUIElement element) 
-    {
-
-        return DrawFloatFieldGUI(mEditor, mats, element, out float _);
-    }
-    
-    internal static bool DrawFloatFieldGUI(MaterialEditor mEditor, Material[] mats, 
-        MaterialPropertyUIElement element, out float newValue) 
-    {
-        float prevValue = mats[0].GetFloat(element.mainProperty.id);
-        EditorGUI.BeginChangeCheck();
-        newValue = EditorGUILayout.FloatField(element.label, prevValue);
-
-        if (!EditorGUI.EndChangeCheck()) 
-            return false;
-        
-        mEditor.RegisterPropertyChangeUndo(element.label.text);
-        foreach (Material m in mats)
-            m.SetFloat(element.mainProperty.id, newValue);
-        return true;
+    internal static void DrawFloatFieldGUI(MaterialEditor mEditor, MaterialPropertyUIElement element) {
+        mEditor.FloatProperty(element.mainProperty.prop, element.label.text);
     }
 
     internal static bool DrawColorFieldGUI(MaterialEditor materialEditor, Material[] mats, 

@@ -103,22 +103,22 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         EditorGUI.EndDisabledGroup();
         
 
-        ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, mats, uiElements[ShaderProp_OutlineWidth]);
+        ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[ShaderProp_OutlineWidth]);
         
         ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[ShaderProp_OutlineTex]);
         ToonEditorGUIUtility.DrawToggleGUI(mEditor, mats, uiElements[ShaderProp_Outline_BlendBaseColor]);
         
         ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[ShaderProp_OutlineWidthMap]);
         
-        ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, mats, uiElements[ShaderProp_OutlineOffsetZ]);
+        ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[ShaderProp_OutlineOffsetZ]);
 
 
         EditorGUILayout.Space();
         {
             EditorGUILayout.LabelField("Camera Distance for Outline Width");
             EditorGUI.indentLevel++;
-            ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, mats, uiElements[ShaderProp_OutlineNear]);
-            ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, mats, uiElements[ShaderProp_OutlineFar]);
+            ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[ShaderProp_OutlineNear]);
+            ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[ShaderProp_OutlineFar]);
             EditorGUI.indentLevel--;
 
             
@@ -173,7 +173,7 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
             return;
 
         ToonEditorGUIUtility.DrawColorFieldGUI(mEditor, mats, uiElements[ShaderPropUnlit_Specular_Color], out Color _);
-        ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, mats, uiElements[ShaderPropUnlit_Specular_Intensity], out float _);
+        ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[ShaderPropUnlit_Specular_Intensity]);
         ToonEditorGUIUtility.DrawVector3FieldGUI(mEditor, mats, uiElements[ShaderPropUnlit_Specular_LightDirection], out Vector3 _);
     }
     
