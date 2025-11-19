@@ -308,7 +308,7 @@ inline float3 UnityObjectToWorldNormal(in float3 norm)
                 #endif
 
                 return CombinedShapeLightShared2(surfaceData, inputData, input.uv,
-                    normalWS, tangentWS, bitangentWS);
+                    tangentWS, bitangentWS, normalWS);
             }
 
 
