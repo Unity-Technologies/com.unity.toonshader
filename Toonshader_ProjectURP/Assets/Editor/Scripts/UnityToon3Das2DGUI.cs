@@ -186,9 +186,9 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         if (!foldout)
             return;
 
-        ToonEditorGUIUtility.DrawVector3FieldGUI(mEditor, mats, uiElements[ShaderPropUnlit_DirectionalLight_Direction]);
-        ToonEditorGUIUtility.DrawColorFieldGUI(mEditor, uiElements[ShaderPropUnlit_DirectionalLight_Color]);
-        ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[ShaderPropUnlit_DirectionalLight_Intensity]);
+        ToonEditorGUIUtility.DrawVector3FieldGUI(mEditor, mats, uiElements[Toon3Das2DConstants.ShaderPropUnlit_DirectionalLight_Direction]);
+        ToonEditorGUIUtility.DrawColorFieldGUI(mEditor, uiElements[Toon3Das2DConstants.ShaderPropUnlit_DirectionalLight_Color]);
+        ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[Toon3Das2DConstants.ShaderPropUnlit_DirectionalLight_Intensity]);
         ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[ShaderPropUnlit_DirectionalLight_2DLightFactor]);
         ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[ShaderPropUnlit_DirectionalLight_DiffuseFactor]);
         ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[ShaderPropUnlit_DirectionalLight_SpecularFactor]);
@@ -340,17 +340,17 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
                 "Apply a custom directional light."),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(ShaderPropUnlit_DirectionalLight_Direction),
+            mainPropertyName = new MaterialName(Toon3Das2DConstants.ShaderPropUnlit_DirectionalLight_Direction),
             label = new GUIContent("Light Direction",
                 "The direction of the custom directional light. "),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(ShaderPropUnlit_DirectionalLight_Color),
+            mainPropertyName = new MaterialName(Toon3Das2DConstants.ShaderPropUnlit_DirectionalLight_Color),
             label = new GUIContent("Light Color",
                 "The color of the custom directional light. "),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(ShaderPropUnlit_DirectionalLight_Intensity),
+            mainPropertyName = new MaterialName(Toon3Das2DConstants.ShaderPropUnlit_DirectionalLight_Intensity),
             label = new GUIContent("Light Intensity",
                 "The intensity of the custom directional light. "),
         },
@@ -400,9 +400,6 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     internal const string ShaderProp_Outline_CustomNormalMap    = "_Outline_CustomNormalMap";
 
     internal const string ShaderPropUnlit_DirectionalLight_Use = "_DirectionalLight_Use";
-    internal const string ShaderPropUnlit_DirectionalLight_Direction = "_DirectionalLight_Direction";
-    internal const string ShaderPropUnlit_DirectionalLight_Color  = "_DirectionalLight_Color";
-    internal const string ShaderPropUnlit_DirectionalLight_Intensity  = "_DirectionalLight_Intensity";
     internal const string ShaderPropUnlit_DirectionalLight_2DLightFactor  = "_DirectionalLight_2DLightFactor";
     internal const string ShaderPropUnlit_DirectionalLight_DiffuseFactor  = "_DirectionalLight_DiffuseFactor";
     internal const string ShaderPropUnlit_DirectionalLight_SpecularFactor = "_DirectionalLight_SpecularFactor";
