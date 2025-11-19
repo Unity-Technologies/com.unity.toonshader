@@ -27,10 +27,10 @@ Shader "Toon2D"{
         
         //Outline
         _OutlineMode("Outline Mode", Integer) = 0
-        _OutlineWidth ("Outline Width", Float ) = 0
+        _OutlineWidth ("Outline Width", Float ) = 5
         _OutlineWidthMap ("Outline Width Map", 2D) = "white" {}
         _OutlineColor ("Outline Color", Color) = (0,0,0,1)
-        _OutlineTex ("Outline Tex", 2D) = "black" {}
+        _OutlineTex ("Outline Tex", 2D) = "white" {}
         _Outline_BlendBaseColor ("Blend Base Color to Outline", Integer ) = 0
         _OutlineOffsetZ ("Outline Z Offset", Float) = 0
         _OutlineNear ("Outline Near", Float ) = 0.5
@@ -397,6 +397,10 @@ Shader "Toon2D"{
             #include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DOTS.hlsl"
 			float _OutlineExtrusion;
 
+            TEXTURE2D(_MainTex);
+            SAMPLER(sampler_MainTex);
+            float4 _MainTex_ST;
+            
             TEXTURE2D(_OutlineTex);
             SAMPLER(sampler_OutlineTex);
             float4 _OutlineTex_ST;
@@ -406,11 +410,17 @@ Shader "Toon2D"{
             float4 _Outline_CustomNormalMap_ST;
             int    _Outline_UseCustomNormalMap;
 
-            float _OutlineOffsetZ;
-            float _OutlineWidth; 
-            float _OutlineNear; 
-            float _OutlineFar;
-
+            CBUFFER_START(UnityPerMaterial)
+                half4 _BaseColor;
+                float _OutlineOffsetZ;
+                float _OutlineWidth; 
+                float _OutlineNear; 
+                float _OutlineFar;
+                float4 _OutlineColor;
+                int _Outline_BlendBaseColor;
+                
+            CBUFFER_END
+            
 // #ifdef UNIVERSAL_PIPELINE_CORE_INCLUDED
 //             #include "../../UniversalRP/Shaders/UniversalToonInput.hlsl"
 //             #include "../../UniversalRP/Shaders/UniversalToonHead.hlsl"
@@ -520,9 +530,39 @@ inline float3 UnityObjectToWorldNormal(in float3 norm)
 
             
 
-            half4 OutlineFragment(OutlineVertexOutput input) : SV_Target {
+            half4 OutlineFragment(OutlineVertexOutput i) : SV_Target {
+
+                //find lightColor
+                //half4 shapeLight0 = SAMPLE_TEXTURE2D(_ShapeLightTexture0, sampler_ShapeLightTexture0, lightingUV);
+
+                //lightColor = lerp(half3(1.0,1.0,1.0), lightColor, _Is_LightColor_Outline);
+                
+                float3 lightColor = float3(0,0,0);
+
+                
+                const float2 Set_UV0 = i.uv0;
+                float4 _MainTex_var = SAMPLE_TEXTURE2D(_MainTex,sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex));
+                float3 Set_BaseColor = _BaseColor.rgb*_MainTex_var.rgb;
+                float3 _Is_BlendBaseColor_var = lerp( _OutlineColor.rgb*lightColor, (_OutlineColor.rgb*Set_BaseColor*Set_BaseColor*lightColor), _Outline_BlendBaseColor );
+                //
+                float3 _OutlineTex_var = tex2D(sampler_OutlineTex,TRANSFORM_TEX(Set_UV0, _OutlineTex)).rgb;
+                
+#ifdef _IS_OUTLINE_CLIPPING_NO
+                float3 Set_Outline_Color = _OutlineTex_var.rgb * _OutlineColor.rgb * lightColor;
+                return float4(Set_Outline_Color,1.0);
+#elif _IS_OUTLINE_CLIPPING_YES
+                float4 _ClippingMask_var = SAMPLE_TEXTURE2D(_ClippingMask, sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex));
+                float Set_MainTexAlpha = _MainTex_var.a;
+                float _IsBaseMapAlphaAsClippingMask_var = lerp( _ClippingMask_var.r, Set_MainTexAlpha, _IsBaseMapAlphaAsClippingMask );
+                float _Inverse_Clipping_var = lerp( _IsBaseMapAlphaAsClippingMask_var, (1.0 - _IsBaseMapAlphaAsClippingMask_var), _Inverse_Clipping );
+                float Set_Clipping = saturate((_Inverse_Clipping_var+_Clipping_Level));
+                clip(Set_Clipping - 0.5);
+                float4 Set_Outline_Color = lerp( float4(_Is_BlendBaseColor_var,Set_Clipping), float4((_OutlineTex_var.rgb*_Outline_Color.rgb*lightColor),Set_Clipping), _Is_OutlineTex );
+                return Set_Outline_Color;
+#endif
 
 
+                
 #if (UNITY_VERSION >= 202230)
                 return float4(0,1,1,1);
 #else
