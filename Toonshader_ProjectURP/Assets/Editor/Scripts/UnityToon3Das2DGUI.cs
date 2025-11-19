@@ -4,6 +4,7 @@ using UnityEditor.Rendering;
 using UnityEngine;
 
 class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
+    private Material m_lastMaterial;
     
     public override void OnGUI(MaterialEditor mEditor, MaterialProperty[] props) {
 
@@ -16,11 +17,11 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         for (int i = 0; i < numTargets; ++i) {
             mats[i] = mEditor.targets[i] as Material;
         }
-        
-        Material material = mEditor.target as Material;
-        if (material == null)
-            return;
-        
+
+        if (mats[0] != m_lastMaterial) {
+            RefreshFoldouts(mats[0]);
+        }
+
         InitMaterialPropertyUIElements(props);
         
         EditorGUI.BeginChangeCheck();
@@ -34,8 +35,18 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         if (EditorGUI.EndChangeCheck()) {
             mEditor.PropertiesChanged();
         }
-    }
 
+        m_lastMaterial = mats[0];
+    }
+    
+    void RefreshFoldouts(Material mat) {
+        
+        m_normalMapFoldout = false;
+        m_outlineFoldout = mat.GetShaderPassEnabled(LIGHT_MODE_NAME_FOR_OUTLINE);
+        m_specularFoldout = false;
+    }
+    
+//----------------------------------------------------------------------------------------------------------------------
     static void DrawNormalMapGUI(MaterialEditor mEditor, Dictionary<string, MaterialPropertyUIElement> uiElements, 
         ref bool foldout) {
 
@@ -53,8 +64,6 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     static void DrawOutlineGUI(MaterialEditor mEditor, Material[] mats, Dictionary<string, 
         MaterialPropertyUIElement> uiElements, ref bool foldout) 
     {
-        //Doc: Use this LightMode tag value to draw an extra Pass when rendering objects.
-        const string LIGHT_MODE_NAME_FOR_OUTLINE = "SRPDefaultUnlit";
         bool isOutlineEnabled = mats[0].GetShaderPassEnabled(LIGHT_MODE_NAME_FOR_OUTLINE);
 
 
@@ -369,13 +378,8 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     internal const string ShaderPropUnlit_Specular_Intensity  = "_Specular_Intensity";
     internal const string ShaderPropUnlit_Specular_LightDirection  = "_Specular_LightDirection";
     
-    // GUI_RangeProperty(material, Styles.metaverseOffsettXaxisText);
-    // GUI_RangeProperty(material, Styles.metaverseOffsettYaxisText);
-    //
-    // GUI_Toggle(material, Styles.invertZaxisDirection, ShaderPropInverse_Z_Axis_BLD, MaterialGetInt(material, ShaderPropInverse_Z_Axis_BLD) != 0);
-    
-    
-
+    //Doc: Use this LightMode tag value to draw an extra Pass when rendering objects.
+    const string LIGHT_MODE_NAME_FOR_OUTLINE = "SRPDefaultUnlit";
 
     internal enum OutlineMode {
         NormalDirection,
