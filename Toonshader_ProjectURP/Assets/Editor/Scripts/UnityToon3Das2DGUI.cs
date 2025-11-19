@@ -41,7 +41,7 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     
     void RefreshFoldouts(Material mat) {
         
-        m_normalMapFoldout = false;
+        m_normalMapFoldout = true;
         m_outlineFoldout = mat.GetShaderPassEnabled(LIGHT_MODE_NAME_FOR_OUTLINE);
         m_specularFoldout = false;
     }
