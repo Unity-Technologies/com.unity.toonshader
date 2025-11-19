@@ -497,11 +497,11 @@ inline float3 UnityObjectToWorldNormal(in float3 norm)
                 
                 float4 objPos = mul (GetObjectToWorldMatrix(), float4(0,0,0,1) );
                 float4 _Outline_Sampler_var = tex2Dlod(sampler_OutlineTex,float4(TRANSFORM_TEX(uv, _OutlineTex),0.0,0));
-                o.normalDir = UnityObjectToWorldNormal(v.normal);
+                const float3 normalDir = UnityObjectToWorldNormal(v.normal);
 
                 const float3 tangentDir = normalize( mul( GetObjectToWorldMatrix(), float4( v.tangent.xyz, 0.0 ) ).xyz );
-                const float3 bitangentDir = normalize(cross(o.normalDir, tangentDir) * v.tangent.w);
-                float3x3 tangentTransform = float3x3(tangentDir, bitangentDir, o.normalDir);
+                const float3 bitangentDir = normalize(cross(normalDir, tangentDir) * v.tangent.w);
+                float3x3 tangentTransform = float3x3(tangentDir, bitangentDir, normalDir);
 
                 //UnpackNormal() can't be used, and so as follows. Do not specify a bump for the texture to be used.
                 float4 _BakedNormal_var = (tex2Dlod(sampler_Outline_CustomNormalMap,float4(TRANSFORM_TEX(uv, _Outline_CustomNormalMap),0.0,0)) * 2 - 1);
