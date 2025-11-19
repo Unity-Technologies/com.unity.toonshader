@@ -29,7 +29,7 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
 
         DrawNormalMapGUI(mEditor, m_materialPropertyUIElements, ref m_normalMapFoldout);
         DrawOutlineGUI(mEditor, mats, m_materialPropertyUIElements, ref m_outlineFoldout);
-        DrawSpecularGUI(mEditor, mats, m_materialPropertyUIElements, ref m_specularFoldout);
+        DrawDirectionalLightGUI(mEditor, mats, m_materialPropertyUIElements, ref m_specularFoldout);
         
 
         if (EditorGUI.EndChangeCheck()) {
@@ -175,19 +175,22 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         }
     }
     
-    static void DrawSpecularGUI(MaterialEditor mEditor, Material[] mats, 
+    static void DrawDirectionalLightGUI(MaterialEditor mEditor, Material[] mats, 
         Dictionary<string, MaterialPropertyUIElement> uiElements, ref bool foldout) {
 
-        ToonEditorGUIUtility.DrawFoldoutWithToggleGUI(mEditor, mats, uiElements[ShaderPropUnlit_Specular_UseDirectionalLight],
+        ToonEditorGUIUtility.DrawFoldoutWithToggleGUI(mEditor, mats, uiElements[ShaderPropUnlit_DirectionalLight_Use],
             ref foldout);
 
         
         if (!foldout)
             return;
 
-        ToonEditorGUIUtility.DrawColorFieldGUI(mEditor, uiElements[ShaderPropUnlit_Specular_Color]);
-        ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[ShaderPropUnlit_Specular_Intensity]);
-        ToonEditorGUIUtility.DrawVector3FieldGUI(mEditor, mats, uiElements[ShaderPropUnlit_Specular_LightDirection], out Vector3 _);
+        ToonEditorGUIUtility.DrawVector3FieldGUI(mEditor, mats, uiElements[ShaderPropUnlit_DirectionalLight_Direction]);
+        ToonEditorGUIUtility.DrawColorFieldGUI(mEditor, uiElements[ShaderPropUnlit_DirectionalLight_Color]);
+        ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[ShaderPropUnlit_DirectionalLight_Intensity]);
+        ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[ShaderPropUnlit_DirectionalLight_2DLightFactor]);
+        ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[ShaderPropUnlit_DirectionalLight_DiffuseFactor]);
+        ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[ShaderPropUnlit_DirectionalLight_SpecularFactor]);
     }
     
 //----------------------------------------------------------------------------------------------------------------------
@@ -331,24 +334,39 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
 
         //Custom Directional Light
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(ShaderPropUnlit_Specular_UseDirectionalLight),
-            label = new GUIContent("Specular",
-                "Applies specular color by using a custom directional light."),
+            mainPropertyName = new MaterialName(ShaderPropUnlit_DirectionalLight_Use),
+            label = new GUIContent("Custom Directional Light",
+                "Apply a custom directional light."),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(ShaderPropUnlit_Specular_Color),
-            label = new GUIContent("Specular Color",
-                "The specular color. "),
-        },
-        new MaterialUIElement {
-            mainPropertyName = new MaterialName(ShaderPropUnlit_Specular_Intensity),
-            label = new GUIContent("Specular Intensity",
-                "The specular intensity. "),
-        },
-        new MaterialUIElement {
-            mainPropertyName = new MaterialName(ShaderPropUnlit_Specular_LightDirection),
+            mainPropertyName = new MaterialName(ShaderPropUnlit_DirectionalLight_Direction),
             label = new GUIContent("Light Direction",
-                "The direction of the light for specular. "),
+                "The direction of the custom directional light. "),
+        },
+        new MaterialUIElement {
+            mainPropertyName = new MaterialName(ShaderPropUnlit_DirectionalLight_Color),
+            label = new GUIContent("Light Color",
+                "The color of the custom directional light. "),
+        },
+        new MaterialUIElement {
+            mainPropertyName = new MaterialName(ShaderPropUnlit_DirectionalLight_Intensity),
+            label = new GUIContent("Light Intensity",
+                "The intensity of the custom directional light. "),
+        },
+        new MaterialUIElement {
+            mainPropertyName = new MaterialName(ShaderPropUnlit_DirectionalLight_2DLightFactor),
+            label = new GUIContent("2D Light Factor",
+                "Multiplier for the 2D light contribution."),
+        },
+        new MaterialUIElement {
+            mainPropertyName = new MaterialName(ShaderPropUnlit_DirectionalLight_DiffuseFactor),
+            label = new GUIContent("Diffuse Factor",
+                "Multiplier for the diffuse lighting contribution."),
+        },
+        new MaterialUIElement {
+            mainPropertyName = new MaterialName(ShaderPropUnlit_DirectionalLight_SpecularFactor),
+            label = new GUIContent("Specular Factor",
+                "Multiplier for the specular lighting contribution."),
         },
     };
 
@@ -380,10 +398,13 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     internal const string ShaderProp_Outline_UseCustomNormalMap = "_Outline_UseCustomNormalMap";
     internal const string ShaderProp_Outline_CustomNormalMap    = "_Outline_CustomNormalMap";
 
-    internal const string ShaderPropUnlit_Specular_UseDirectionalLight = "_Specular_UseDirectionalLight";
-    internal const string ShaderPropUnlit_Specular_Color = "_Specular_Color";
-    internal const string ShaderPropUnlit_Specular_Intensity  = "_Specular_Intensity";
-    internal const string ShaderPropUnlit_Specular_LightDirection  = "_Specular_LightDirection";
+    internal const string ShaderPropUnlit_DirectionalLight_Use = "_DirectionalLight_Use";
+    internal const string ShaderPropUnlit_DirectionalLight_Direction = "_DirectionalLight_Direction";
+    internal const string ShaderPropUnlit_DirectionalLight_Color  = "_DirectionalLight_Color";
+    internal const string ShaderPropUnlit_DirectionalLight_Intensity  = "_DirectionalLight_Intensity";
+    internal const string ShaderPropUnlit_DirectionalLight_2DLightFactor  = "_DirectionalLight_2DLightFactor";
+    internal const string ShaderPropUnlit_DirectionalLight_DiffuseFactor  = "_DirectionalLight_DiffuseFactor";
+    internal const string ShaderPropUnlit_DirectionalLight_SpecularFactor = "_DirectionalLight_SpecularFactor";
     
     //Doc: Use this LightMode tag value to draw an extra Pass when rendering objects.
     const string LIGHT_MODE_NAME_FOR_OUTLINE = "SRPDefaultUnlit";
