@@ -378,18 +378,48 @@ Shader "Toon2D"{
             // #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/Core2D.hlsl"
 
-            struct Attributes
-            {
+            struct Attributes {
                 COMMON_2D_INPUTS
             };
-
-            struct Varyings
-            {
+            
+            struct Varyings {
                 COMMON_2D_LIT_OUTPUTS
             };
+
+            // struct Attributes {
+            //     float4 vertex : POSITION;
+            //     float3 normal : NORMAL;
+            //     float4 tangent : TANGENT;
+            //     float2 texcoord0 : TEXCOORD0;
+            //
+            //     UNITY_VERTEX_INPUT_INSTANCE_ID
+            // };
+            // struct Varyings {
+            //     float4 pos : SV_POSITION;
+            //     float2 uv0 : TEXCOORD0;
+            //     float3 normalDir : TEXCOORD1;
+            //     float3 tangentDir : TEXCOORD2;
+            //     float3 bitangentDir : TEXCOORD3;
+            //
+            //     UNITY_VERTEX_OUTPUT_STEREO
+            // };            
             
             #include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DOTS.hlsl"
 			float _OutlineExtrusion;
+
+            TEXTURE2D(_OutlineTex);
+            SAMPLER(sampler_OutlineTex);
+            float4 _OutlineTex_ST;
+
+            TEXTURE2D(_Outline_CustomNormalMap);
+            SAMPLER(sampler_Outline_CustomNormalMap);
+            float4 _Outline_CustomNormalMap_ST;
+            int    _Outline_UseCustomNormalMap;
+
+            float _OutlineOffsetZ;
+            float _OutlineWidth; 
+            float _OutlineNear; 
+            float _OutlineFar;
 
 // #ifdef UNIVERSAL_PIPELINE_CORE_INCLUDED
 //             #include "../../UniversalRP/Shaders/UniversalToonInput.hlsl"
@@ -398,35 +428,80 @@ Shader "Toon2D"{
 // #endif
             #include "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/Lit2DCommon.hlsl"
 
-            Varyings CommonLitVertex2(Attributes input)
-            {
+
+inline float4 UnityObjectToClipPosInstanced(in float3 pos) {
+    return mul(UNITY_MATRIX_VP, mul(GetObjectToWorldMatrix(), float4(pos, 1.0)));
+}
+#define UnityObjectToClipPos UnityObjectToClipPosInstanced
+            
+
+            
+inline float3 UnityObjectToWorldNormal(in float3 norm)
+{
+#ifdef UNITY_ASSUME_UNIFORM_SCALING
+    return UnityObjectToWorldDir(norm);
+#else
+    // mul(IT_M, norm) => mul(norm, I_M) => {dot(norm, I_M.col0), dot(norm, I_M.col1), dot(norm, I_M.col2)}
+    return normalize(mul(norm, (float3x3)GetWorldToObjectMatrix()));
+#endif
+}
+            
+            Varyings OutlineVertex(Attributes v) {
                 Varyings o = (Varyings) 0;
                 UNITY_SETUP_INSTANCE_ID(input);
                 UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
                 
-				float3 newPos = input.positionOS;
+				float3 newPos = v.positionOS;
 				newPos.x += 0.1;
 				// normal extrusion technique
-				float3 normal = normalize(input.normal);
+				float3 normal = normalize(v.normal);
 				newPos += float3(normal) * _OutlineExtrusion;
                 
-
+    
                 o.positionCS = TransformObjectToHClip(newPos);
-                o.uv = input.uv;
+                o.uv = v.uv;
                 o.lightingUV = half2(ComputeScreenPos(o.positionCS / o.positionCS.w).xy);
+
+//                 const float2 uv = v.texcoord0;
+//                 o.uv0 = v.texcoord0;
+//                 
+//                 float4 objPos = mul (GetObjectToWorldMatrix(), float4(0,0,0,1) );
+//                 float4 _Outline_Sampler_var = tex2Dlod(sampler_OutlineTex,float4(TRANSFORM_TEX(uv, _OutlineTex),0.0,0));
+//                 o.normalDir = UnityObjectToWorldNormal(v.normal);
+//                 o.tangentDir = normalize( mul( GetObjectToWorldMatrix(), float4( v.tangent.xyz, 0.0 ) ).xyz );
+//                 o.bitangentDir = normalize(cross(o.normalDir, o.tangentDir) * v.tangent.w);
+//                 float3x3 tangentTransform = float3x3( o.tangentDir, o.bitangentDir, o.normalDir);
+//
+//                 //UnpackNormal() can't be used, and so as follows. Do not specify a bump for the texture to be used.
+//                 float4 _BakedNormal_var = (tex2Dlod(sampler_Outline_CustomNormalMap,float4(TRANSFORM_TEX(uv, _Outline_CustomNormalMap),0.0,0)) * 2 - 1);
+//                 float3 _BakedNormalDir = normalize(mul(_BakedNormal_var.rgb, tangentTransform));
+//     
+//                 float Set_Outline_Width = (_OutlineWidth*0.001*smoothstep( _OutlineFar, _OutlineNear, distance(objPos.rgb,_WorldSpaceCameraPos) )*_Outline_Sampler_var.rgb).r;
+//                 float4 _ClipCameraPos = mul(UNITY_MATRIX_VP, float4(_WorldSpaceCameraPos.xyz, 1));
+//                 _OutlineOffsetZ = _OutlineOffsetZ * -0.01;
+//
+// #ifdef _OUTLINE_NML
+//                 o.pos = UnityObjectToClipPos(lerp(float4(v.vertex.xyz + v.normal*Set_Outline_Width,1), float4(v.vertex.xyz + _BakedNormalDir*Set_Outline_Width,1),_Outline_UseCustomNormalMap));
+// #elif _OUTLINE_POS
+//                 Set_Outline_Width = Set_Outline_Width*2;
+//                 float signVar = dot(normalize(v.vertex.xyz),normalize(v.normal))<0 ? -1 : 1;
+//                 o.pos = UnityObjectToClipPos(float4(v.vertex.xyz + signVar*normalize(v.vertex)*Set_Outline_Width, 1));
+// #endif
+//                 o.pos.z = o.pos.z + _OutlineOffsetZ * _ClipCameraPos.z;
                 return o;
             }
 
             
-            Varyings OutlineVertex(Attributes input)
-            {
-                
-                return CommonLitVertex2(input);
-            }
 
             half4 OutlineFragment(Varyings input) : SV_Target {
-                return float4(0,0,1,1);
+
+
+#if (UNITY_VERSION >= 202230)
+                return float4(0,1,1,1);
+#else
+                return float4(1,0,0,1);
+#endif                
             }
             
             
