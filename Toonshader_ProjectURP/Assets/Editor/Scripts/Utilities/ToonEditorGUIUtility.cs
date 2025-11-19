@@ -51,6 +51,12 @@ internal static class ToonEditorGUIUtility {
         mEditor.ColorProperty(element.mainProperty.prop, element.label.text);
     }
 
+    internal static bool DrawVector3FieldGUI(MaterialEditor mEditor, Material[] mats, 
+        MaterialPropertyUIElement element) 
+    {
+        return DrawVector3FieldGUI(mEditor, mats, element, out Vector3 _);
+    }
+
     //return true if changed, false otherwise
     internal static bool DrawVector3FieldGUI(MaterialEditor mEditor, Material[] mats, 
         MaterialPropertyUIElement element, out Vector3 newValue) 
