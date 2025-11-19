@@ -14,7 +14,7 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         InitMaterialPropertyUIElements(props);
         
         EditorGUI.BeginChangeCheck();
-        GUI_BasicThreeColors(mEditor, material, m_materialPropertyUIElements);
+        DrawThreeColorsGUI(mEditor, material, m_materialPropertyUIElements);
 
         DrawNormalMapGUI(mEditor, m_materialPropertyUIElements);
         DrawOutlineGUI(mEditor, material, m_materialPropertyUIElements);
@@ -117,7 +117,7 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     
 //----------------------------------------------------------------------------------------------------------------------    
     
-    static void GUI_BasicThreeColors(MaterialEditor mEditor, Material m,
+    static void DrawThreeColorsGUI(MaterialEditor mEditor, Material m,
         Dictionary<string, MaterialPropertyUIElement> uiElements) 
     {
         ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[ShaderPropMainTex]);
