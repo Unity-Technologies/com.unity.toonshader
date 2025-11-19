@@ -1,4 +1,4 @@
-Shader "Toon2D"{
+Shader "Toon3Das2D"{
     Properties{
         _BaseColor ("BaseColor", Color) = (1,1,1,1)
         _MainTex ("BaseMap", 2D) = "white" {}
@@ -82,11 +82,20 @@ Shader "Toon2D"{
             #pragma multi_compile _ DEBUG_DISPLAY
 
             struct Attributes {
-                COMMON_2D_INPUTS
+                float3 positionOS   : POSITION; 
+                float2 uv           : TEXCOORD0;
+                float3 normal       : NORMAL;  
+                float4 tangent      : TANGENT;  
+                UNITY_VERTEX_INPUT_INSTANCE_ID
             };
 
             struct Varyings {
-                COMMON_2D_LIT_OUTPUTS
+                float4 positionCS   : SV_POSITION;
+                float2 uv           : TEXCOORD0;  
+                half2 lightingUV    : TEXCOORD1;
+                float3 normalWS    : TEXCOORD2;
+                float4 tangentWS   : TEXCOORD3;
+                UNITY_VERTEX_OUTPUT_STEREO
             };
 
             float4 _White;
@@ -95,7 +104,7 @@ Shader "Toon2D"{
 
             CBUFFER_START(UnityPerMaterial)
                 half4 _BaseColor;
-                float _Unlit_Intensity;
+                float _BumpScale;
 
                 int _Use_BaseAs1st;
                 int _Use_1stAs2nd;
@@ -116,12 +125,42 @@ Shader "Toon2D"{
             TEXTURE2D(_1st_ShadeMap);
             TEXTURE2D(_2nd_ShadeMap);
 
+inline float3 UnityObjectToWorldNormal(in float3 norm)
+{
+#ifdef UNITY_ASSUME_UNIFORM_SCALING
+    return UnityObjectToWorldDir(norm);
+#else
+    // mul(IT_M, norm) => mul(norm, I_M) => {dot(norm, I_M.col0), dot(norm, I_M.col1), dot(norm, I_M.col2)}
+    return normalize(mul(norm, (float3x3)GetWorldToObjectMatrix()));
+#endif
+}
+            
             Varyings LitVertex(Attributes input) {
-                return CommonLitVertex(input);
+
+                Varyings o = (Varyings) 0;
+                UNITY_SETUP_INSTANCE_ID(input);
+                UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
+
+                o.positionCS = TransformObjectToHClip(input.positionOS);
+                const float3 normalWS = TransformObjectToWorldDir(input.normal);
+    
+                #if defined(DEBUG_DISPLAY)
+                o.positionWS = TransformObjectToWorld(input.positionOS);
+                o.normalWS = normalWS;
+                #endif
+                o.uv = input.uv;
+                o.lightingUV = half2(ComputeScreenPos(o.positionCS / o.positionCS.w).xy);
+                o.normalWS = normalWS;
+
+                const float3 tangentWS = normalize( mul( GetObjectToWorldMatrix(), float4( input.tangent.xyz, 0 ) ).xyz); 
+                o.tangentWS = float4(tangentWS, input.tangent.w);
+                
+                return o;
             }
 
 
-            half4 CombinedShapeLightShared2(in SurfaceData2D surfaceData, in InputData2D inputData, in float2 uv)
+            half4 CombinedShapeLightShared2(in SurfaceData2D surfaceData, in InputData2D inputData, in float2 uv,
+                in float3 tangentWS, in float3 bitangentWS, in float3 normalWS)
             {
                 #if defined(DEBUG_DISPLAY)
                 half4 debugColor = 0;
@@ -139,6 +178,11 @@ Shader "Toon2D"{
                 if (alpha == 0.0)
                     discard;
 
+                float3x3 tangentTransform = float3x3( tangentWS, bitangentWS, normalWS);
+                const float3 normalTS = surfaceData.normalTS;
+                float3 perturbedNormalWS = normalize(mul( normalTS, tangentTransform )); // Perturbed normals
+                return float4(perturbedNormalWS,1);
+
 
                 #if USE_SHAPE_LIGHT_TYPE_0
                 half4 shapeLight0 = SAMPLE_TEXTURE2D(_ShapeLightTexture0, sampler_ShapeLightTexture0, lightingUV);
@@ -149,7 +193,8 @@ Shader "Toon2D"{
                         mask);
                     shapeLight0 *= dot(processedMask, _ShapeLightMaskFilter0);
                 }
-
+                
+                
                 float4 _MainTex_var = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, uv);
                 float3 baseColor = surfaceData.albedo.rgb;
 
@@ -165,6 +210,8 @@ Shader "Toon2D"{
                 float3 secondShadeColor = _2nd_ShadeColor.rgb * _2nd_ShadeMap_var.rgb;
 
                 float _HalfLambert_var = max(shapeLight0.r, max(shapeLight0.g, shapeLight0.b));
+
+                
 
                 //float _HalfLambert_var = 0.5*dot(lerp( i.normalDir, normalDirection, _Is_NormalMapToBase ),lightDirection)+0.5;
                 //
@@ -222,11 +269,16 @@ Shader "Toon2D"{
             {
                 const half4 main = color * SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, input.uv);
                 const half4 mask = SAMPLE_TEXTURE2D(_MaskTex, sampler_MaskTex, input.uv);
-                const half3 normalTS = UnpackNormal(SAMPLE_TEXTURE2D(_NormalMap, sampler_NormalMap, input.uv));
+                const half3 normalTS = UnpackNormalScale(SAMPLE_TEXTURE2D(_NormalMap, sampler_NormalMap, input.uv), _BumpScale);
 
+    
                 SurfaceData2D surfaceData;
                 InputData2D inputData;
 
+                const float3 normalWS = normalize(input.normalWS);
+                const float3 tangentWS = normalize(input.tangentWS);
+                const float3 bitangentWS = normalize(cross(normalWS, tangentWS) * input.tangentWS.w);
+                
                 InitializeSurfaceData(main.rgb, main.a, mask, normalTS, surfaceData);
                 InitializeInputData(input.uv, input.lightingUV, inputData);
 
@@ -235,12 +287,13 @@ Shader "Toon2D"{
                 surfaceData.normalWS = input.normalWS;
                 #endif
 
-                return CombinedShapeLightShared2(surfaceData, inputData, input.uv);
+                return CombinedShapeLightShared2(surfaceData, inputData, input.uv,
+                    normalWS, tangentWS, bitangentWS);
             }
 
 
 //----------------------------------------------------------------------------------------------------------------------
-            half4 LitFragment(Varyings input) : SV_Target
+            float4 LitFragment(Varyings input) : SV_Target
             {
                 float3 defaultLightDirection = normalize(UNITY_MATRIX_V[2].xyz + UNITY_MATRIX_V[1].xyz);
                 float2 Set_UV0 = input.uv;
