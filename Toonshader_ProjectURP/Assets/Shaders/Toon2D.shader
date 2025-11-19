@@ -38,15 +38,16 @@ Shader "Toon3Das2D"{
         _OutlineFar ("Outline Far", Float ) = 100
         _Outline_UseCustomNormalMap ("Use Custom Normal Map", Integer ) = 0
         _Outline_CustomNormalMap ("Custom Normal Map", 2D) = "white" {}
-
-        //Specular
-        _Specular_UseDirectionalLight ("Specular Intensity", Integer) = 0
-        _Specular_Color ("Specular Color", Color) = (1,1,1,1)
-        _Specular_Intensity ("Specular Intensity", float) = 0
-        _Specular_LightDirection ("Specular Light Direction", Vector) = (0,-1,0,0)
         
-        //Test
-		_OutlineExtrusion("Outline Extrusion", float) = 0.02
+        //Directional Light
+        _DirectionalLight_Use ("Use Directional Light", Integer) = 0
+        _DirectionalLight_Direction ("Specular Light Direction", Vector) = (0,-1,0,0)
+        _DirectionalLight_Color("Directional Light Color", Color) = (1,1,1,1)
+        _DirectionalLight_Intensity ("Directional Light Intensity", float) = 0.5
+        _DirectionalLight_2DLightFactor ("Directional Light: 2D Light Factor", Range(0,1)) = 1
+        _DirectionalLight_DiffuseFactor ("Directional Light: Diffuse Factor", Range(0,1)) = 0.5
+        _DirectionalLight_SpecularFactor ("Directional Light: Specular Factor", Range(0,1)) = 0.5
+        
     }
 
     SubShader{
