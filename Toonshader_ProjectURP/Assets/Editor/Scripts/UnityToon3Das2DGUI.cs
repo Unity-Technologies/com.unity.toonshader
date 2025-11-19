@@ -26,9 +26,9 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         EditorGUI.BeginChangeCheck();
         DrawThreeColorsGUI(mEditor, mats, m_materialPropertyUIElements);
 
-        DrawNormalMapGUI(mEditor, m_materialPropertyUIElements);
-        DrawOutlineGUI(mEditor, mats, m_materialPropertyUIElements);
-        DrawSpecularGUI(mEditor, mats, m_materialPropertyUIElements);
+        DrawNormalMapGUI(mEditor, m_materialPropertyUIElements, ref m_normalMapFoldout);
+        DrawOutlineGUI(mEditor, mats, m_materialPropertyUIElements, ref m_outlineFoldout);
+        DrawSpecularGUI(mEditor, mats, m_materialPropertyUIElements, ref m_specularFoldout);
         
 
         if (EditorGUI.EndChangeCheck()) {
@@ -36,10 +36,11 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         }
     }
 
-    void DrawNormalMapGUI(MaterialEditor mEditor, Dictionary<string, MaterialPropertyUIElement> uiElements) {
+    static void DrawNormalMapGUI(MaterialEditor mEditor, Dictionary<string, MaterialPropertyUIElement> uiElements, 
+        ref bool foldout) {
 
-        ToonEditorGUIUtility.DrawFoldoutGUI(ref m_normalMapFoldout, uiElements[ShaderProp_NormalMap].label);
-        if (!m_normalMapFoldout) 
+        ToonEditorGUIUtility.DrawFoldoutGUI(ref foldout, uiElements[ShaderProp_NormalMap].label);
+        if (!foldout) 
             return;
         
         ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[ShaderProp_NormalMap]);
@@ -49,21 +50,22 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     }
     
     
-    void DrawOutlineGUI(MaterialEditor mEditor, Material[] mats, Dictionary<string, MaterialPropertyUIElement> uiElements) 
+    static void DrawOutlineGUI(MaterialEditor mEditor, Material[] mats, Dictionary<string, 
+        MaterialPropertyUIElement> uiElements, ref bool foldout) 
     {
         //Doc: Use this LightMode tag value to draw an extra Pass when rendering objects.
         const string LIGHT_MODE_NAME_FOR_OUTLINE = "SRPDefaultUnlit";
         bool isOutlineEnabled = mats[0].GetShaderPassEnabled(LIGHT_MODE_NAME_FOR_OUTLINE);
 
 
-        if (ToonEditorGUIUtility.DrawFoldoutWithToggleGUI(mEditor, ref m_outlineFoldout, ref isOutlineEnabled, "Outline")) 
+        if (ToonEditorGUIUtility.DrawFoldoutWithToggleGUI(mEditor, ref foldout, ref isOutlineEnabled, "Outline")) 
         {
             foreach (Material m in mats)
                 m.SetShaderPassEnabled(LIGHT_MODE_NAME_FOR_OUTLINE, isOutlineEnabled);
         }
         
         
-        if (!m_outlineFoldout)
+        if (!foldout)
             return;
 
         //Outline Settings
@@ -163,13 +165,14 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         }
     }
     
-    void DrawSpecularGUI(MaterialEditor mEditor, Material[] mats, Dictionary<string, MaterialPropertyUIElement> uiElements) {
+    static void DrawSpecularGUI(MaterialEditor mEditor, Material[] mats, 
+        Dictionary<string, MaterialPropertyUIElement> uiElements, ref bool foldout) {
 
         ToonEditorGUIUtility.DrawFoldoutWithToggleGUI(mEditor, mats, uiElements[ShaderPropUnlit_Specular_UseDirectionalLight],
-            ref m_specularFoldout);
+            ref foldout);
 
         
-        if (!m_specularFoldout)
+        if (!foldout)
             return;
 
         ToonEditorGUIUtility.DrawColorFieldGUI(mEditor, uiElements[ShaderPropUnlit_Specular_Color]);
