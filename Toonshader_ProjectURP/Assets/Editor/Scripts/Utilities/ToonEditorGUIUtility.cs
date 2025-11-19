@@ -26,8 +26,6 @@ internal static class ToonEditorGUIUtility {
     internal static bool DrawToggleGUI(MaterialEditor mEditor, Material[] mats, 
         MaterialPropertyUIElement element, out bool newValue) 
     {
-        
-        
         bool prevValue = mats[0].GetInteger(element.mainProperty.id) !=0;
         EditorGUI.BeginChangeCheck();
         newValue = EditorGUILayout.Toggle(element.label, prevValue);
@@ -44,27 +42,14 @@ internal static class ToonEditorGUIUtility {
         mEditor.FloatProperty(element.mainProperty.prop, element.label.text);
     }
 
-    internal static bool DrawColorFieldGUI(MaterialEditor materialEditor, Material[] mats, 
-        MaterialPropertyUIElement element, out Color newValue) {
-        
-        Color prevValue = mats[0].GetColor(element.mainProperty.id);
-        EditorGUI.BeginChangeCheck();
-        newValue = EditorGUILayout.ColorField(element.label, prevValue);
-
-        if (!EditorGUI.EndChangeCheck()) 
-            return false;
-        
-        materialEditor.RegisterPropertyChangeUndo(element.label.text);
-        foreach (Material m in mats)
-            m.SetColor(element.mainProperty.id, newValue);
-        return true;
-
+    internal static void DrawColorFieldGUI(MaterialEditor mEditor, MaterialPropertyUIElement element) {
+        mEditor.ColorProperty(element.mainProperty.prop, element.label.text);
     }
 
     //return true if changed, false otherwise
     internal static bool DrawVector3FieldGUI(MaterialEditor mEditor, Material[] mats, 
-        MaterialPropertyUIElement element, out Vector3 newValue) {
-        
+        MaterialPropertyUIElement element, out Vector3 newValue) 
+    {
         Vector3 prevValue = mats[0].GetVector(element.mainProperty.id);
         EditorGUI.BeginChangeCheck();
         newValue = EditorGUILayout.Vector3Field(element.label, prevValue);
