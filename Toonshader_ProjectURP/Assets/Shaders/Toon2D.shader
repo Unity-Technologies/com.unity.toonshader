@@ -120,58 +120,6 @@ Shader "Toon2D"{
                 return CommonLitVertex(input);
             }
 
-//----------------------------------------------------------------------------------------------------------------------
-
-            // normal should be normalized, w=1.0
-            half3 SHEvalLinearL0L1(half4 normal)
-            {
-                half3 x;
-
-                // Linear (L1) + constant (L0) polynomial terms
-                x.r = dot(unity_SHAr, normal);
-                x.g = dot(unity_SHAg, normal);
-                x.b = dot(unity_SHAb, normal);
-
-                return x;
-            }
-
-            // normal should be normalized, w=1.0
-            half3 SHEvalLinearL2(half4 normal)
-            {
-                half3 x1, x2;
-                // 4 of the quadratic (L2) polynomials
-                half4 vB = normal.xyzz * normal.yzzx;
-                x1.r = dot(unity_SHBr, vB);
-                x1.g = dot(unity_SHBg, vB);
-                x1.b = dot(unity_SHBb, vB);
-
-                // Final (5th) quadratic (L2) polynomial
-                half vC = normal.x * normal.x - normal.y * normal.y;
-                x2 = unity_SHC.rgb * vC;
-
-                return x1 + x2;
-            }
-
-
-            // normal should be normalized, w=1.0
-            // output in active color space
-            half3 ShadeSH9(half4 normal)
-            {
-                // Linear + constant polynomial terms
-                half3 res = SHEvalLinearL0L1(normal);
-
-                // Quadratic polynomials
-                res += SHEvalLinearL2(normal);
-
-                #   ifdef UNITY_COLORSPACE_GAMMA
-                res = LinearToGammaSpace(res);
-                #   endif
-
-                return res;
-            }
-
-
-//----------------------------------------------------------------------------------------------------------------------
 
             half4 CombinedShapeLightShared2(in SurfaceData2D surfaceData, in InputData2D inputData, in float2 uv)
             {
@@ -297,13 +245,13 @@ Shader "Toon2D"{
                 float3 defaultLightDirection = normalize(UNITY_MATRIX_V[2].xyz + UNITY_MATRIX_V[1].xyz);
                 float2 Set_UV0 = input.uv;
                 float3 mainLightColor = float3(1, 1, 1);
-
+                float3 defaultLightColor = float3(1, 1, 1);
 
                 // //v.2.0.5
-                float3 defaultLightColor = saturate(max(half3(0.05, 0.05, 0.05) * _Unlit_Intensity,
-                    max(ShadeSH9(half4(0.0, 0.0, 0.0, 1.0)),
-                        ShadeSH9(half4(0.0, -1.0, 0.0, 1.0)).rgb) *
-                    _Unlit_Intensity));
+                // float3 defaultLightColor = saturate(max(half3(0.05, 0.05, 0.05) * _Unlit_Intensity,
+                //     max(ShadeSH9(half4(0.0, 0.0, 0.0, 1.0)),
+                //         ShadeSH9(half4(0.0, -1.0, 0.0, 1.0)).rgb) *
+                //     _Unlit_Intensity));
                 // float3 customLightDirection = normalize(mul( GetObjectToWorldMatrix(), float4(((float3(1.0,0.0,0.0)*_Offset_X_Axis_BLD*10)+(float3(0.0,1.0,0.0)*_Offset_Y_Axis_BLD*10)+(float3(0.0,0.0,-1.0)*lerp(-1.0,1.0,_Inverse_Z_Axis_BLD))),0)).xyz);
                 // float3 lightDirection = normalize(lerp(defaultLightDirection, mainLight.direction.xyz,any(mainLight.direction.xyz)));
                 // lightDirection = lerp(lightDirection, customLightDirection, _Is_BLD);
@@ -431,52 +379,6 @@ inline float4 UnityObjectToClipPosInstanced(in float3 pos) {
     return mul(UNITY_MATRIX_VP, mul(GetObjectToWorldMatrix(), float4(pos, 1.0)));
 }
 #define UnityObjectToClipPos UnityObjectToClipPosInstanced
-            
-
-            // normal should be normalized, w=1.0
-            half3 SHEvalLinearL0L1(half4 normal)
-            {
-                half3 x;
-
-                // Linear (L1) + constant (L0) polynomial terms
-                x.r = dot(unity_SHAr, normal);
-                x.g = dot(unity_SHAg, normal);
-                x.b = dot(unity_SHAb, normal);
-
-                return x;
-            }
-
-            // normal should be normalized, w=1.0
-            half3 SHEvalLinearL2(half4 normal)
-            {
-                half3 x1, x2;
-                // 4 of the quadratic (L2) polynomials
-                half4 vB = normal.xyzz * normal.yzzx;
-                x1.r = dot(unity_SHBr, vB);
-                x1.g = dot(unity_SHBg, vB);
-                x1.b = dot(unity_SHBb, vB);
-
-                // Final (5th) quadratic (L2) polynomial
-                half vC = normal.x * normal.x - normal.y * normal.y;
-                x2 = unity_SHC.rgb * vC;
-
-                return x1 + x2;
-            }
-            
-            half3 ShadeSH9(half4 normal)
-            {
-                // Linear + constant polynomial terms
-                half3 res = SHEvalLinearL0L1(normal);
-
-                // Quadratic polynomials
-                res += SHEvalLinearL2(normal);
-
-                #   ifdef UNITY_COLORSPACE_GAMMA
-                res = LinearToGammaSpace(res);
-                #   endif
-
-                return res;
-            }
             
             
 inline float3 UnityObjectToWorldNormal(in float3 norm)
