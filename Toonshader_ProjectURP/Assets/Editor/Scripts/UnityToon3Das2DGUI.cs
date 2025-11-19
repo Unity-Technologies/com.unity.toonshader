@@ -216,9 +216,17 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
             extraPropertyName1 = new MaterialName(ShaderProp_1st_ShadeColor), 
         },
         new MaterialUIElement {
+            mainPropertyName = new MaterialName(ShaderProp_1st_ShadeColor),
+            label = new GUIContent("1st Shading Map", "The map used for the brighter portions of the shadow."),
+        },
+        new MaterialUIElement {
             mainPropertyName = new MaterialName(ShaderProp_2nd_ShadeMap),
             label = new GUIContent("2nd Shading Map", "The map used for the darker portions of the shadow."),
             extraPropertyName1 = new MaterialName(ShaderProp_2nd_ShadeColor) 
+        },
+        new MaterialUIElement {
+            mainPropertyName = new MaterialName(ShaderProp_2nd_ShadeColor),
+            label = new GUIContent("2nd Shading Map", "The map used for the darker portions of the shadow."),
         },
         new MaterialUIElement {
             mainPropertyName = new MaterialName(ShaderPropUse_BaseAs1st),
