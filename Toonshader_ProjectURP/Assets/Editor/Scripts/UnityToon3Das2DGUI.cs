@@ -117,7 +117,8 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[ShaderProp_OutlineWidth]);
         
         ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[ShaderProp_OutlineTex]);
-        ToonEditorGUIUtility.DrawToggleGUI(mEditor, mats, uiElements[ShaderProp_Outline_BlendBaseColor]);
+        ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[ShaderProp_Outline_BaseColorBlend]);
+        ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[ShaderProp_Outline_LightColorBlend]);
         
         ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[ShaderProp_OutlineWidthMap]);
         
@@ -286,9 +287,14 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
             extraPropertyName1 = new MaterialName(ShaderProp_OutlineColor), 
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(ShaderProp_Outline_BlendBaseColor),
+            mainPropertyName = new MaterialName(ShaderProp_Outline_BaseColorBlend),
             label = new GUIContent("Blend Base Color to Outline",
                 "Blend base color to outline color."),
+        },
+        new MaterialUIElement {
+            mainPropertyName = new MaterialName(ShaderProp_Outline_LightColorBlend),
+            label = new GUIContent("Blend Light Color to Outline",
+                "Blend light color to outline color."),
         },
         new MaterialUIElement {
             mainPropertyName = new MaterialName(ShaderProp_OutlineOffsetZ),
@@ -365,7 +371,8 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     internal const string ShaderProp_OutlineWidthMap = "_OutlineWidthMap";
     internal const string ShaderProp_OutlineTex = "_OutlineTex";
     internal const string ShaderProp_OutlineColor = "_OutlineColor";
-    internal const string ShaderProp_Outline_BlendBaseColor = "_Outline_BlendBaseColor";
+    internal const string ShaderProp_Outline_BaseColorBlend  = "_Outline_BaseColorBlend";
+    internal const string ShaderProp_Outline_LightColorBlend = "_Outline_LightColorBlend";
     internal const string ShaderProp_OutlineOffsetZ = "_OutlineOffsetZ";
     internal const string ShaderProp_OutlineNear = "_OutlineNear";
     internal const string ShaderProp_OutlineFar = "_OutlineFar";
