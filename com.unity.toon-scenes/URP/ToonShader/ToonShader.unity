@@ -537,7 +537,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f5863a4df974b248ba17a691a493177, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ImageComparisonSettings:
+    TargetWidth: 960
+    TargetHeight: 540
+    TargetMSAASamples: 1
+    PerPixelCorrectnessThreshold: 0.005
+    PerPixelGammaThreshold: 0.003921569
+    PerPixelAlphaThreshold: 0.003921569
+    RMSEThreshold: 0
+    AverageCorrectnessThreshold: 0.005
+    IncorrectPixelsThreshold: 0.0000038146973
+    UseHDR: 0
+    UseBackBuffer: 0
+    ImageResolution: 3
+    ActiveImageTests: 1
+    ActivePixelTests: 7
   SO: {fileID: 11400000, guid: 38185e5fc3dea1e47b68a1e60de13007, type: 2}
+  WaitFrames: 480
   CheckMemoryAllocation: 0
 --- !u!1 &882377317
 GameObject:
@@ -1052,10 +1068,6 @@ PrefabInstance:
       value: ToonShader_SD_unitychan_humanoid_Illust
       objectReference: {fileID: 0}
     - target: {fileID: 1876290136638650, guid: 7031be6ceda342c8a3854d3a674ee636, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1952355653899426, guid: 7031be6ceda342c8a3854d3a674ee636, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
