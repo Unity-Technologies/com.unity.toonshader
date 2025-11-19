@@ -17,71 +17,98 @@ internal static class ToonEditorGUIUtility {
         materialEditor.ColorProperty(element.mainProperty.prop, element.label.text);
     }
     
-    internal static bool DrawToggleGUI(MaterialEditor materialEditor, Material material, MaterialPropertyUIElement element) {
-        EditorGUI.BeginChangeCheck();
-        bool ret = EditorGUILayout.Toggle(element.label, material.GetInteger(element.mainProperty.id) !=0);
-        if (EditorGUI.EndChangeCheck()) {
-            materialEditor.RegisterPropertyChangeUndo(element.label.text);
-            material.SetInteger(element.mainProperty.id, ret ? 1 : 0);
-        }
-
-        return ret;
+    internal static bool DrawToggleGUI(MaterialEditor materialEditor, Material material, 
+        MaterialPropertyUIElement element) 
+    {
+        return DrawToggleGUI(materialEditor, material, element, out bool _);
     }
 
-    internal static float DrawFloatFieldGUI(MaterialEditor materialEditor, Material material, MaterialPropertyUIElement element) {
-        
-        float ret = material.GetFloat(element.mainProperty.id);
+    internal static bool DrawToggleGUI(MaterialEditor materialEditor, Material material, 
+        MaterialPropertyUIElement element, out bool newValue) 
+    {
+        bool prevValue = material.GetInteger(element.mainProperty.id) !=0;
         EditorGUI.BeginChangeCheck();
-        ret = EditorGUILayout.FloatField(element.label, ret);
-        
+        newValue = EditorGUILayout.Toggle(element.label, prevValue);
         if (EditorGUI.EndChangeCheck()) {
             materialEditor.RegisterPropertyChangeUndo(element.label.text);
-            material.SetFloat(element.mainProperty.id, ret);
+            material.SetInteger(element.mainProperty.id, newValue ? 1 : 0);
+            return true;
         }
-        return ret;
+        return false;
     }
 
-    internal static Color DrawColorFieldGUI(MaterialEditor materialEditor, Material material, MaterialPropertyUIElement element) {
-        
-        Color ret = material.GetColor(element.mainProperty.id);
-        EditorGUI.BeginChangeCheck();
-        ret = EditorGUILayout.ColorField(element.label, ret);
-        
-        if (EditorGUI.EndChangeCheck()) {
-            materialEditor.RegisterPropertyChangeUndo(element.label.text);
-            material.SetColor(element.mainProperty.id, ret);
-        }
-        return ret;
-    }
+    internal static bool DrawFloatFieldGUI(MaterialEditor materialEditor, Material material, 
+        MaterialPropertyUIElement element) 
+    {
 
-    internal static Vector3 DrawVector3FieldGUI(MaterialEditor materialEditor, Material material, MaterialPropertyUIElement element) {
-        
-        Vector3 ret = material.GetVector(element.mainProperty.id);
-        EditorGUI.BeginChangeCheck();
-        ret = EditorGUILayout.Vector3Field(element.label, ret);
-        
-        if (EditorGUI.EndChangeCheck()) {
-            materialEditor.RegisterPropertyChangeUndo(element.label.text);
-            material.SetVector(element.mainProperty.id, ret);
-        }
-        return ret;
+        return DrawFloatFieldGUI(materialEditor, material, element, out float _);
     }
     
-    //Return the index
-    internal static int DrawIntPopupGUI(MaterialEditor materialEditor, Material material, MaterialPropertyUIElement element,
-        GUIContent[] displayedOptions, int[] optionValues)
-    {
-        int propValue = material.GetInteger(element.mainProperty.id);
+    internal static bool DrawFloatFieldGUI(MaterialEditor materialEditor, Material material, 
+        MaterialPropertyUIElement element, out float newValue) {
         
+        float prevValue = material.GetFloat(element.mainProperty.id);
         EditorGUI.BeginChangeCheck();
-        int ret = EditorGUILayout.IntPopup(element.label, propValue, displayedOptions, optionValues);
+        newValue = EditorGUILayout.FloatField(element.label, prevValue);
         
         if (EditorGUI.EndChangeCheck()) {
             materialEditor.RegisterPropertyChangeUndo(element.label.text);
-            material.SetInteger(element.mainProperty.id, ret);
+            material.SetFloat(element.mainProperty.id, newValue);
+            return true;
+        }
+        return false;
+    }
+
+    internal static bool DrawColorFieldGUI(MaterialEditor materialEditor, Material material, 
+        MaterialPropertyUIElement element, out Color newValue) {
+        
+        Color prevValue = material.GetColor(element.mainProperty.id);
+        EditorGUI.BeginChangeCheck();
+        newValue = EditorGUILayout.ColorField(element.label, prevValue);
+        
+        if (EditorGUI.EndChangeCheck()) {
+            materialEditor.RegisterPropertyChangeUndo(element.label.text);
+            material.SetColor(element.mainProperty.id, newValue);
+            return true;
         }
 
-        return ret;
+        return false;
+    }
+
+    //return true if changed, false otherwise
+    internal static bool DrawVector3FieldGUI(MaterialEditor materialEditor, Material material, 
+        MaterialPropertyUIElement element, out Vector3 newValue) {
+        
+        Vector3 prevValue = material.GetVector(element.mainProperty.id);
+        EditorGUI.BeginChangeCheck();
+        newValue = EditorGUILayout.Vector3Field(element.label, prevValue);
+        
+        if (EditorGUI.EndChangeCheck()) {
+            materialEditor.RegisterPropertyChangeUndo(element.label.text);
+            material.SetVector(element.mainProperty.id, newValue);
+            return true;
+        }
+
+        return false;
+    }
+    
+    //return true if changed, false otherwise
+    internal static bool DrawIntPopupGUI(MaterialEditor materialEditor, Material material, 
+        MaterialPropertyUIElement element, GUIContent[] displayedOptions, int[] optionValues, out int newValue)
+    {
+        int prevValue = material.GetInteger(element.mainProperty.id);
+        
+        EditorGUI.BeginChangeCheck();
+        newValue = EditorGUILayout.IntPopup(element.label, prevValue, displayedOptions, optionValues);
+        
+        if (EditorGUI.EndChangeCheck()) {
+            materialEditor.RegisterPropertyChangeUndo(element.label.text);
+            material.SetInteger(element.mainProperty.id, newValue);
+            return true;
+        }
+
+        return false;
+        
     }
 
 
@@ -127,8 +154,9 @@ internal static class ToonEditorGUIUtility {
         return false;
     }
     
-    internal static bool DrawFoldoutWithToggleGUI(MaterialEditor materialEditor, Material material, MaterialPropertyUIElement element,
-        ref bool foldoutState)
+    //return true if changed, false otherwise
+    internal static bool DrawFoldoutWithToggleGUI(MaterialEditor materialEditor, Material material, 
+        MaterialPropertyUIElement element, ref bool foldoutState)
     {
         bool enabled = material.GetInteger(element.mainProperty.id) !=0;
         bool ret = DrawFoldoutWithToggleGUI(materialEditor, ref foldoutState, ref enabled, element.label.text);
