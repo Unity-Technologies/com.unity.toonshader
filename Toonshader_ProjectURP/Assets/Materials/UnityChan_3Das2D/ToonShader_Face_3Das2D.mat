@@ -11,7 +11,8 @@ Material:
   m_Shader: {fileID: 4800000, guid: 60d646244f75ab84f8eb12819a6d87ff, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _OUTLINE_NML
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -56,6 +57,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints:
+    - _DirectionalLight_Use: 0
+    - _Directional_Use: 0
     - _OutlineMode: 0
     - _Outline_BlendBaseColor: 0
     - _Outline_UseCustomNormalMap: 0
@@ -67,18 +70,26 @@ Material:
     - _BaseColor_Step: 0.353
     - _BaseShade_Feather: 0.121
     - _BumpScale: 1
+    - _DirectionalLight_2DLightFactor: 0
+    - _DirectionalLight_DiffuseFactor: 0
+    - _DirectionalLight_Intensity: 0.83
+    - _DirectionalLight_SpecularFactor: 0
     - _OutlineExtrusion: 0.02
     - _OutlineFar: 100
     - _OutlineNear: 0.5
-    - _OutlineOffsetZ: 0
-    - _OutlineWidth: 0
+    - _OutlineOffsetZ: 1
+    - _OutlineWidth: 24.95
+    - _Outline_BaseColorBlend: 0.804
+    - _Outline_LightColorBlend: 1
     - _ShadeColor_Step: 0
     - _Specular_Intensity: 0
     m_Colors:
     - _1st_ShadeColor: {r: 1, g: 1, b: 1, a: 1}
     - _2nd_ShadeColor: {r: 0.7490196, g: 0.69411767, b: 0.88235295, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
+    - _DirectionalLight_Color: {r: 1, g: 1, b: 1, a: 1}
+    - _DirectionalLight_Direction: {r: 0.3213938, g: 0.76604444, b: -0.5566705, a: 0}
+    - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
     - _Specular_Color: {r: 1, g: 1, b: 1, a: 1}
     - _Specular_LightDirection: {r: 0, g: -1, b: 0, a: 0}
     - _White: {r: 1, g: 1, b: 1, a: 1}
