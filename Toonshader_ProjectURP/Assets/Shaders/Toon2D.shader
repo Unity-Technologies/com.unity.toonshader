@@ -191,9 +191,6 @@ Shader "Toon2D"{
                     discard;
 
 
-                //return float4(Set_BaseColor,1); 
-
-
                 #if USE_SHAPE_LIGHT_TYPE_0
                 half4 shapeLight0 = SAMPLE_TEXTURE2D(_ShapeLightTexture0, sampler_ShapeLightTexture0, lightingUV);
 
@@ -203,7 +200,6 @@ Shader "Toon2D"{
                         mask);
                     shapeLight0 *= dot(processedMask, _ShapeLightMaskFilter0);
                 }
-
 
                 float4 _MainTex_var = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, uv);
                 float3 baseColor = surfaceData.albedo.rgb;
@@ -378,28 +374,29 @@ Shader "Toon2D"{
             // #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/Core2D.hlsl"
 
+            #include_with_pragmas "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/ShapeLightShared.hlsl"
 
-           struct OutlineVertexInput {
+            struct OutlineVertexInput {
                 float4 vertex : POSITION;
                 float3 normal : NORMAL;
                 float4 tangent : TANGENT;
                 float2 texcoord0 : TEXCOORD0;
                 UNITY_VERTEX_INPUT_INSTANCE_ID
-           };
+            };
             
             struct OutlineVertexOutput {
                 float4 pos : SV_POSITION;
                 float2 uv0 : TEXCOORD0;
-                float3 normalDir : TEXCOORD1;
+                half2 lightingUV  : TEXCOORD1;
                 UNITY_VERTEX_OUTPUT_STEREO
             };            
-            
-            #include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DOTS.hlsl"
-			float _OutlineExtrusion;
 
             TEXTURE2D(_MainTex);
             SAMPLER(sampler_MainTex);
             float4 _MainTex_ST;
+
+            TEXTURE2D(_MaskTex);
+            SAMPLER(sampler_MaskTex);
             
             TEXTURE2D(_OutlineTex);
             SAMPLER(sampler_OutlineTex);
@@ -524,25 +521,51 @@ inline float3 UnityObjectToWorldNormal(in float3 norm)
                 o.pos = UnityObjectToClipPos(float4(v.vertex.xyz + signVar*normalize(v.vertex)*Set_Outline_Width, 1));
 #endif
                 o.pos.z = o.pos.z + _OutlineOffsetZ * _ClipCameraPos.z;
+
+                o.lightingUV = half2(ComputeScreenPos(o.pos / o.pos.w).xy);
+                
     
                 return o;
             }
 
-            
 
+            //SHAPE_LIGHT macros
+            #include_with_pragmas "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/ShapeLightShared.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/LightingUtility.hlsl"
+            
             half4 OutlineFragment(OutlineVertexOutput i) : SV_Target {
 
                 //find lightColor
-                //half4 shapeLight0 = SAMPLE_TEXTURE2D(_ShapeLightTexture0, sampler_ShapeLightTexture0, lightingUV);
-
                 //lightColor = lerp(half3(1.0,1.0,1.0), lightColor, _Is_LightColor_Outline);
-                
-                float3 lightColor = float3(0,0,0);
 
+                InputData2D inputData;
+
+                InitializeInputData(i.uv0, i.lightingUV, inputData);
+
+                half4 shapeLight0 = half4(0,0,0,0);
+
+                const half4 mask = SAMPLE_TEXTURE2D(_MaskTex, sampler_MaskTex, i.uv0);
+                const half2 lightingUV = inputData.lightingUV;
+
+                #if USE_SHAPE_LIGHT_TYPE_0
+                shapeLight0 = SAMPLE_TEXTURE2D(_ShapeLightTexture0, sampler_ShapeLightTexture0, lightingUV);
+                if (any(_ShapeLightMaskFilter0))
+                {
+                    half4 processedMask = (1 - _ShapeLightInvertedFilter0) * mask + _ShapeLightInvertedFilter0 * (1 -
+                        mask);
+                    shapeLight0 *= dot(processedMask, _ShapeLightMaskFilter0);
+                }
+                #endif
+
+                float3 lightColor = shapeLight0.rgb;
                 
                 const float2 Set_UV0 = i.uv0;
                 float4 _MainTex_var = SAMPLE_TEXTURE2D(_MainTex,sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex));
                 float3 Set_BaseColor = _BaseColor.rgb*_MainTex_var.rgb;
+
+                //blend base color
+                //blend lightColor
+                
                 float3 _Is_BlendBaseColor_var = lerp( _OutlineColor.rgb*lightColor, (_OutlineColor.rgb*Set_BaseColor*Set_BaseColor*lightColor), _Outline_BlendBaseColor );
                 //
                 float3 _OutlineTex_var = tex2D(sampler_OutlineTex,TRANSFORM_TEX(Set_UV0, _OutlineTex)).rgb;
