@@ -137,7 +137,7 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         }
 
         EditorGUI.indentLevel += 2;
-        ToonEditorGUIUtility.DrawToggleGUI(materialEditor, material, uiElements[ShaderPropUse_1stAs2nd], out bool applyTo2nd);        
+        ToonEditorGUIUtility.DrawToggleGUI(materialEditor, material, uiElements[ShaderPropUse_1stAs2nd], out bool applyTo2nd);
         EditorGUI.indentLevel -= 2;
 
 
