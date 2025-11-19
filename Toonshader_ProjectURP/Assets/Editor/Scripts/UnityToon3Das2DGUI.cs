@@ -4,7 +4,6 @@ using UnityEditor.Rendering;
 using UnityEngine;
 
 class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
-
     
     public override void OnGUI(MaterialEditor materialEditor, MaterialProperty[] props) {
         
@@ -26,17 +25,15 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
             materialEditor.PropertiesChanged();
         }
     }
-    public static readonly GUIContent normalMapFoldout = EditorGUIUtility.TrTextContent("Normal Map Settings",
-        "Normal Map settings. Normal Map itself and its effectiveness to some areas.");
 
     void DrawNormalMapGUI(MaterialEditor materialEditor,  
         Dictionary<string, MaterialPropertyUIElement> uiElements) {
 
-        DrawFoldoutGUI(ref m_normalMapFoldout, normalMapFoldout);
+        ToonEditorGUIUtility.DrawFoldoutGUI(ref m_normalMapFoldout, uiElements[ShaderProp_NormalMap].label);
         if (!m_normalMapFoldout) 
             return;
         
-        DrawTexturePropertySingleLineGUI(materialEditor, uiElements[ShaderProp_NormalMap]);
+        ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(materialEditor, uiElements[ShaderProp_NormalMap]);
         materialEditor.TextureScaleOffsetProperty(uiElements[ShaderProp_NormalMap].mainProperty.prop);
         
         EditorGUILayout.Space();
@@ -51,7 +48,7 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         bool isOutlineEnabled = material.GetShaderPassEnabled(LIGHT_MODE_NAME_FOR_OUTLINE);
 
 
-        if (DrawFoldoutWithToggleGUI(materialEditor, ref m_outlineFoldout, ref isOutlineEnabled, "Outline")) 
+        if (ToonEditorGUIUtility.DrawFoldoutWithToggleGUI(materialEditor, ref m_outlineFoldout, ref isOutlineEnabled, "Outline")) 
         {
             material.SetShaderPassEnabled(LIGHT_MODE_NAME_FOR_OUTLINE, isOutlineEnabled);
         }
@@ -64,8 +61,8 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         EditorGUI.indentLevel++;
         EditorGUI.BeginDisabledGroup(!isOutlineEnabled);
 
-        int outlineMode = DrawIntPopupGUI(materialEditor, material, uiElements[ShaderProp_OutlineMode], 
-            m_outlineModeEnums, m_outlineModeIndices);
+        ToonEditorGUIUtility.DrawIntPopupGUI(materialEditor, material, uiElements[ShaderProp_OutlineMode], 
+            m_outlineModeEnums, m_outlineModeIndices, out int outlineMode);
         
         const string OUTLINE_NORMAL_KEYWORD = "_OUTLINE_NML";;
         const string OUTLINE_POSITION_KEYWORD = "_OUTLINE_POS";
@@ -84,30 +81,31 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
 
         EditorGUI.BeginDisabledGroup(outlineMode != (int) OutlineMode.NormalDirection);
         {
-            bool useCustom = DrawToggleGUI(materialEditor, material, uiElements[ShaderProp_Outline_UseCustomNormalMap]);
+            ToonEditorGUIUtility.DrawToggleGUI(materialEditor, material, uiElements[ShaderProp_Outline_UseCustomNormalMap], 
+                out bool useCustom);
             EditorGUI.BeginDisabledGroup(!useCustom);
-            DrawTexturePropertySingleLineGUI(materialEditor,uiElements[ShaderProp_Outline_CustomNormalMap]);
+            ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(materialEditor,uiElements[ShaderProp_Outline_CustomNormalMap]);
             EditorGUI.EndDisabledGroup();
         }
         EditorGUI.EndDisabledGroup();
         
 
-        DrawFloatFieldGUI(materialEditor, material, uiElements[ShaderProp_OutlineWidth]);
+        ToonEditorGUIUtility.DrawFloatFieldGUI(materialEditor, material, uiElements[ShaderProp_OutlineWidth]);
         
-        DrawTexturePropertySingleLineGUI(materialEditor, uiElements[ShaderProp_OutlineTex]);
-        DrawToggleGUI(materialEditor, material, uiElements[ShaderProp_Outline_BlendBaseColor]);
+        ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(materialEditor, uiElements[ShaderProp_OutlineTex]);
+        ToonEditorGUIUtility.DrawToggleGUI(materialEditor, material, uiElements[ShaderProp_Outline_BlendBaseColor]);
         
-        DrawTexturePropertySingleLineGUI(materialEditor, uiElements[ShaderProp_OutlineWidthMap]);
+        ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(materialEditor, uiElements[ShaderProp_OutlineWidthMap]);
         
-        DrawFloatFieldGUI(materialEditor, material, uiElements[ShaderProp_OutlineOffsetZ]);
+        ToonEditorGUIUtility.DrawFloatFieldGUI(materialEditor, material, uiElements[ShaderProp_OutlineOffsetZ]);
 
 
         EditorGUILayout.Space();
         {
             EditorGUILayout.LabelField("Camera Distance for Outline Width");
             EditorGUI.indentLevel++;
-            DrawFloatFieldGUI(materialEditor, material, uiElements[ShaderProp_OutlineNear]);
-            DrawFloatFieldGUI(materialEditor, material, uiElements[ShaderProp_OutlineFar]);
+            ToonEditorGUIUtility.DrawFloatFieldGUI(materialEditor, material, uiElements[ShaderProp_OutlineNear]);
+            ToonEditorGUIUtility.DrawFloatFieldGUI(materialEditor, material, uiElements[ShaderProp_OutlineFar]);
             EditorGUI.indentLevel--;
 
             
@@ -124,208 +122,46 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     static void GUI_BasicThreeColors(MaterialEditor materialEditor, Material material, 
         Dictionary<string, MaterialPropertyUIElement> uiElements) 
     {
-        DrawTexturePropertySingleLineGUI(materialEditor, uiElements[ShaderPropMainTex]);
+        ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(materialEditor, uiElements[ShaderPropMainTex]);
 
         EditorGUI.indentLevel += 2;
-        bool applyTo1st = DrawToggleGUI(materialEditor, material, uiElements[ShaderPropUse_BaseAs1st]);        
+        ToonEditorGUIUtility.DrawToggleGUI(materialEditor, material, uiElements[ShaderPropUse_BaseAs1st], out bool applyTo1st );
         EditorGUI.indentLevel -= 2;
 
         if (applyTo1st) {
             EditorGUI.indentLevel += 2;
-            DrawColorPropertyGUI(materialEditor, uiElements[ShaderProp_1st_ShadeColor]);
+            ToonEditorGUIUtility.DrawColorPropertyGUI(materialEditor, uiElements[ShaderProp_1st_ShadeColor]);
             EditorGUI.indentLevel -= 2;
-        }
-        else {
-            DrawTexturePropertySingleLineGUI(materialEditor, uiElements[ShaderProp_1st_ShadeMap]);
+        } else {
+            ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(materialEditor, uiElements[ShaderProp_1st_ShadeMap]);
         }
 
         EditorGUI.indentLevel += 2;
-        bool applyTo2nd = DrawToggleGUI(materialEditor, material, uiElements[ShaderPropUse_1stAs2nd]);        
+        ToonEditorGUIUtility.DrawToggleGUI(materialEditor, material, uiElements[ShaderPropUse_1stAs2nd], out bool applyTo2nd);        
         EditorGUI.indentLevel -= 2;
 
 
         if (applyTo2nd) {
             EditorGUI.indentLevel += 2;
-            DrawColorPropertyGUI(materialEditor, uiElements[ShaderProp_2nd_ShadeColor]);
+            ToonEditorGUIUtility.DrawColorPropertyGUI(materialEditor, uiElements[ShaderProp_2nd_ShadeColor]);
             EditorGUI.indentLevel -= 2;
-        }
-        else {
-            DrawTexturePropertySingleLineGUI(materialEditor, uiElements[ShaderProp_2nd_ShadeMap]);
+        } else {
+            ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(materialEditor, uiElements[ShaderProp_2nd_ShadeMap]);
         }
     }
     
-    void DrawSpecularGUI(MaterialEditor materialEditor, Material material, 
-        Dictionary<string, MaterialPropertyUIElement> uiElements) {
+    void DrawSpecularGUI(MaterialEditor mEditor, Material m, Dictionary<string, MaterialPropertyUIElement> uiElements) {
 
-        DrawFoldoutWithToggleGUI(materialEditor, material, uiElements[ShaderPropUnlit_Specular_UseDirectionalLight],
+        ToonEditorGUIUtility.DrawFoldoutWithToggleGUI(mEditor, m, uiElements[ShaderPropUnlit_Specular_UseDirectionalLight],
             ref m_specularFoldout);
 
         
         if (!m_specularFoldout)
             return;
 
-        DrawColorFieldGUI(materialEditor, material, uiElements[ShaderPropUnlit_Specular_Color]);
-        DrawFloatFieldGUI(materialEditor, material, uiElements[ShaderPropUnlit_Specular_Intensity]);
-        DrawVector3FieldGUI(materialEditor, material, uiElements[ShaderPropUnlit_Specular_LightDirection]);
-    }
-    
-    
-//----------------------------------------------------------------------------------------------------------------------
-    static void DrawTexturePropertySingleLineGUI(MaterialEditor materialEditor, MaterialPropertyUIElement element) {
-        if (null!= element.extraProperty2)
-            materialEditor.TexturePropertySingleLine(element.label, element.mainProperty.prop,element.extraProperty1.prop, element.extraProperty2.prop);
-        else if (null!= element.extraProperty1)
-            materialEditor.TexturePropertySingleLine(element.label, element.mainProperty.prop,element.extraProperty1.prop);
-        else
-            materialEditor.TexturePropertySingleLine(element.label, element.mainProperty.prop);
-    }
-
-    static void DrawColorPropertyGUI(MaterialEditor materialEditor, MaterialPropertyUIElement element) {
-        materialEditor.ColorProperty(element.mainProperty.prop, element.label.text);
-    }
-    
-    static bool DrawToggleGUI(MaterialEditor materialEditor, Material material, MaterialPropertyUIElement element) {
-        EditorGUI.BeginChangeCheck();
-        bool ret = EditorGUILayout.Toggle(element.label, material.GetInteger(element.mainProperty.id) !=0);
-        if (EditorGUI.EndChangeCheck()) {
-            materialEditor.RegisterPropertyChangeUndo(element.label.text);
-            material.SetInteger(element.mainProperty.id, ret ? 1 : 0);
-        }
-
-        return ret;
-    }
-
-    static float DrawFloatFieldGUI(MaterialEditor materialEditor, Material material, MaterialPropertyUIElement element) {
-        
-        float ret = material.GetFloat(element.mainProperty.id);
-        EditorGUI.BeginChangeCheck();
-        ret = EditorGUILayout.FloatField(element.label, ret);
-        
-        if (EditorGUI.EndChangeCheck()) {
-            materialEditor.RegisterPropertyChangeUndo(element.label.text);
-            material.SetFloat(element.mainProperty.id, ret);
-        }
-        return ret;
-    }
-
-    static Color DrawColorFieldGUI(MaterialEditor materialEditor, Material material, MaterialPropertyUIElement element) {
-        
-        Color ret = material.GetColor(element.mainProperty.id);
-        EditorGUI.BeginChangeCheck();
-        ret = EditorGUILayout.ColorField(element.label, ret);
-        
-        if (EditorGUI.EndChangeCheck()) {
-            materialEditor.RegisterPropertyChangeUndo(element.label.text);
-            material.SetColor(element.mainProperty.id, ret);
-        }
-        return ret;
-    }
-
-    static Vector3 DrawVector3FieldGUI(MaterialEditor materialEditor, Material material, MaterialPropertyUIElement element) {
-        
-        Vector3 ret = material.GetVector(element.mainProperty.id);
-        EditorGUI.BeginChangeCheck();
-        ret = EditorGUILayout.Vector3Field(element.label, ret);
-        
-        if (EditorGUI.EndChangeCheck()) {
-            materialEditor.RegisterPropertyChangeUndo(element.label.text);
-            material.SetVector(element.mainProperty.id, ret);
-        }
-        return ret;
-    }
-    
-    //Return the index
-    static int DrawIntPopupGUI(MaterialEditor materialEditor, Material material, MaterialPropertyUIElement element,
-        GUIContent[] displayedOptions, int[] optionValues)
-    {
-        int propValue = material.GetInteger(element.mainProperty.id);
-        
-        EditorGUI.BeginChangeCheck();
-        int ret = EditorGUILayout.IntPopup(element.label, propValue, displayedOptions, optionValues);
-        
-        if (EditorGUI.EndChangeCheck()) {
-            materialEditor.RegisterPropertyChangeUndo(element.label.text);
-            material.SetInteger(element.mainProperty.id, ret);
-        }
-
-        return ret;
-    }
-
-
-    //return true if changed, false otherwise
-    static bool DrawFoldoutGUI(ref bool state, GUIContent label) {
-        
-        Rect lineRect = EditorGUILayout.GetControlRect(false, 16);
-
-        DrawBGRect(lineRect);
-        
-        EditorGUI.BeginChangeCheck();
-        state = EditorGUI.Foldout(lineRect, state, label);
-        if (EditorGUI.EndChangeCheck()) {
-            return true;
-        }
-
-        return false;
-
-    }
-    
-    //return true if changed, false otherwise
-    static bool DrawFoldoutWithToggleGUI(MaterialEditor materialEditor,  
-        ref bool foldoutState, ref bool toggleEnabled, string label) 
-    {
-        GUIStyle foldoutStyle = new GUIStyle(EditorStyles.foldout);
-        Rect lineRect = EditorGUILayout.GetControlRect(false, 16);
-        Rect foldoutRect = new Rect(lineRect.x, lineRect.y, 16, lineRect.height);
-        Rect toggleRect = new Rect(foldoutRect.xMax, lineRect.y, 16, lineRect.height);
-        Rect labelRect = new Rect(toggleRect.xMax + 2, lineRect.y, lineRect.width - 34, lineRect.height);
-
-        DrawBGRect(lineRect);
-        
-        EditorGUI.BeginChangeCheck();
-        foldoutState = EditorGUI.Foldout(foldoutRect, foldoutState, GUIContent.none, true, foldoutStyle);
-        toggleEnabled = EditorGUI.Toggle(toggleRect, toggleEnabled);
-        EditorGUI.LabelField(labelRect, label);
-        
-        if (EditorGUI.EndChangeCheck()) {
-            materialEditor.RegisterPropertyChangeUndo(label);
-            return true;
-        }
-
-        return false;
-    }
-    
-    static bool DrawFoldoutWithToggleGUI(MaterialEditor materialEditor, Material material, MaterialPropertyUIElement element,
-        ref bool foldoutState)
-    {
-        bool enabled = material.GetInteger(element.mainProperty.id) !=0;
-        bool ret = DrawFoldoutWithToggleGUI(materialEditor, ref foldoutState, ref enabled, element.label.text);
-        if (ret) {
-            material.SetInteger(element.mainProperty.id, enabled ? 1 : 0);
-        } 
-
-        return ret;
-
-    }
-    
-    
-    static void DrawBGRect(Rect lineRect) {
-        
-        float initialPadding = lineRect.x;
-        Rect bgRect = new Rect(0, lineRect.y, lineRect.width + initialPadding, lineRect.height);
-
-        Color bgColor = GetBGColor();
-        EditorGUI.DrawRect(bgRect, bgColor); 
-
-        // Draw top border
-        Rect topBorderRect = new Rect(bgRect.x, bgRect.y, bgRect.width, 1);
-        EditorGUI.DrawRect(topBorderRect, new Color(0.12f, 0.12f, 0.12f, 1f));
-    }
-
-    static Color GetBGColor() {
-        
-        return !EditorGUIUtility.isProSkin
-            ? new Color(0.6f, 0.6f, 0.6f, 1.0f)
-            : new Color(0.20f, 0.20f, 0.20f, 1.0f);
+        ToonEditorGUIUtility.DrawColorFieldGUI(mEditor, m, uiElements[ShaderPropUnlit_Specular_Color], out Color _);
+        ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, m, uiElements[ShaderPropUnlit_Specular_Intensity], out float _);
+        ToonEditorGUIUtility.DrawVector3FieldGUI(mEditor, m, uiElements[ShaderPropUnlit_Specular_LightDirection], out Vector3 _);
     }
     
 //----------------------------------------------------------------------------------------------------------------------
