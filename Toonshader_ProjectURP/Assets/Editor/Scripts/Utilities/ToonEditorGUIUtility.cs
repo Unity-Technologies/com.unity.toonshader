@@ -16,6 +16,11 @@ internal static class ToonEditorGUIUtility {
     internal static void DrawColorPropertyGUI(MaterialEditor mEditor, MaterialPropertyUIElement element) {
         mEditor.ColorProperty(element.mainProperty.prop, element.label.text);
     }
+
+    internal static void DrawRangePropertyGUI(MaterialEditor mEditor, MaterialPropertyUIElement element) {
+        mEditor.RangeProperty(element.mainProperty.prop, element.label.text);
+    }
+    
     
     internal static bool DrawToggleGUI(MaterialEditor mEditor, Material[] mats, 
         MaterialPropertyUIElement element) 
