@@ -46,10 +46,6 @@ Shader "Toon2D"{
         
         //Test
 		_OutlineExtrusion("Outline Extrusion", float) = 0.02
-        
-        
-        
-        
     }
 
     SubShader{
@@ -60,8 +56,6 @@ Shader "Toon2D"{
         Blend SrcAlpha OneMinusSrcAlpha, One OneMinusSrcAlpha
         Cull Back
         ZWrite On
-
-
 
         Stencil{
             Ref 128 // Put this in the last bit of our stencil value for maximum compatibility with sprite mask
@@ -86,13 +80,11 @@ Shader "Toon2D"{
             #pragma multi_compile_instancing
             #pragma multi_compile _ DEBUG_DISPLAY
 
-            struct Attributes
-            {
+            struct Attributes {
                 COMMON_2D_INPUTS
             };
 
-            struct Varyings
-            {
+            struct Varyings {
                 COMMON_2D_LIT_OUTPUTS
             };
 
@@ -115,20 +107,15 @@ Shader "Toon2D"{
             
                 float _ShadeColor_Step;
                 float _1st2nd_Shades_Feather;
-
-
             CBUFFER_END
 
 //----------------------------------------------------------------------------------------------------------------------            
             float4 _MainTex_ST;
 
-            //TEXTURE2D(_MainTex); SAMPLER(sampler_MainTex);
             TEXTURE2D(_1st_ShadeMap);
             TEXTURE2D(_2nd_ShadeMap);
 
-
-            Varyings LitVertex(Attributes input)
-            {
+            Varyings LitVertex(Attributes input) {
                 return CommonLitVertex(input);
             }
 
@@ -183,15 +170,14 @@ Shader "Toon2D"{
             }
 
 
-            //----------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------
 
             half4 CombinedShapeLightShared2(in SurfaceData2D surfaceData, in InputData2D inputData, in float2 uv)
             {
                 #if defined(DEBUG_DISPLAY)
                 half4 debugColor = 0;
 
-                if (CanDebugOverrideOutputColor(surfaceData, inputData, debugColor))
-                {
+                if (CanDebugOverrideOutputColor(surfaceData, inputData, debugColor)) {
                     return debugColor;
                 }
                 #endif
@@ -503,13 +489,11 @@ Shader "Toon2D"{
             // GPU Instancing
             #pragma multi_compile_instancing
 
-            struct Attributes
-            {
+            struct Attributes {
                 COMMON_2D_INPUTS
             };
 
-            struct Varyings
-            {
+            struct Varyings {
                 COMMON_2D_OUTPUTS
             };
 
