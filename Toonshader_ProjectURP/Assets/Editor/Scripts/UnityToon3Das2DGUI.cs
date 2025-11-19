@@ -172,7 +172,7 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         if (!m_specularFoldout)
             return;
 
-        ToonEditorGUIUtility.DrawColorFieldGUI(mEditor, mats, uiElements[ShaderPropUnlit_Specular_Color], out Color _);
+        ToonEditorGUIUtility.DrawColorFieldGUI(mEditor, uiElements[ShaderPropUnlit_Specular_Color]);
         ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[ShaderPropUnlit_Specular_Intensity]);
         ToonEditorGUIUtility.DrawVector3FieldGUI(mEditor, mats, uiElements[ShaderPropUnlit_Specular_LightDirection], out Vector3 _);
     }
