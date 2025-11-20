@@ -1125,7 +1125,7 @@ Shader "Toon(Tessellation)" {
 
             #pragma multi_compile _IS_PASS_FWDBASE //[TODO-sin:2025-11-20] Check if this is used.
 
-            #include "../../Shaders/BuiltIn/BuiltInToonMode.hlsl"
+            #include_with_pragmas  "../../Shaders/BuiltIn/BuiltInToonMode.hlsl"
 
             ENDCG
         }
@@ -1211,7 +1211,7 @@ Shader "Toon(Tessellation)" {
 
             #pragma multi_compile _IS_PASS_FWDDELTA //[TODO-sin:2025-11-20] Check if this is used.
 
-            #include "../../Shaders/BuiltIn/BuiltInToonMode.hlsl"
+            #include_with_pragmas  "../../Shaders/BuiltIn/BuiltInToonMode.hlsl"
 
             ENDCG
         }
