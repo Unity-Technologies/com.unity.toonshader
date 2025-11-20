@@ -17,11 +17,19 @@ public class UTSGraphicsTestsXR {
     [UseGraphicsTestCases(UTSGraphicsTestConstants.ReferenceImagePath)]
     [Timeout(3600000)] //1 hour
     public IEnumerator Run(GraphicsTestCase testCase) {
+        
         //[TODO-sin: 2025-7-18] ECS projects were never tested with XR, and currently they don't support XR.
         string projectName = Path.GetFileName(Path.GetDirectoryName(UnityEngine.Application.dataPath));
         if (!string.IsNullOrEmpty(projectName) && projectName.Contains("ECS")) {
             Assert.Ignore();
         }
+
+        //Ignore XR tests for 2D scenes
+        string sceneFileName = Path.GetFileNameWithoutExtension(testCase.ScenePath);
+        if (sceneFileName.EndsWith("2D")) {
+            Assert.Ignore();
+        }
+        
 
         //Enable XR
         XRUtility.EnableXRInEditor();
