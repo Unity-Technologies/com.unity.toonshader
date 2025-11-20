@@ -1,4 +1,4 @@
-//Auto-generated on Tue Nov 18 11:05:20 UTC 2025
+//Auto-generated on Thu Nov 20 05:37:18 UTC 2025
 Shader "Toon(Tessellation)" {
     Properties
     {
@@ -1626,27 +1626,10 @@ Shader "Toon(Tessellation)" {
 //            #pragma multi_compile_fog
             #pragma only_renderers d3d9 d3d11 glcore gles gles3 playstation xboxone xboxseries vulkan metal switch
             #pragma target 5.0
-            // DoubleShadeWithFeather and ShadingGradeMap use different fragment shader.
-            #pragma shader_feature_local _ _SHADINGGRADEMAP
-            // used in ShadingGradeMap
-            #pragma shader_feature _IS_TRANSCLIPPING_OFF _IS_TRANSCLIPPING_ON
-            #pragma shader_feature _IS_ANGELRING_OFF _IS_ANGELRING_ON
-            // used in DoubleShadeWithFeather
-            #pragma shader_feature _IS_CLIPPING_OFF _IS_CLIPPING_MODE _IS_CLIPPING_TRANSMODE
-            #pragma shader_feature _EMISSIVE_SIMPLE _EMISSIVE_ANIMATION
-            #pragma multi_compile _IS_PASS_FWDBASE
 
-#if defined(_SHADINGGRADEMAP)
+            #pragma multi_compile _IS_PASS_FWDBASE //[TODO-sin:2025-11-20] Check if this is used.
 
-#include "../../Legacy/Shaders/UCTS_ShadingGradeMap.cginc"
-
-
-#else //#if defined(_SHADINGGRADEMAP)
-
-#include "../../Legacy/Shaders/UCTS_DoubleShadeWithFeather.cginc"
-
-
-#endif //#if defined(_SHADINGGRADEMAP)
+            #include_with_pragmas  "../../Shaders/BuiltIn/BuiltInToonMode.hlsl"
 
             ENDCG
         }
@@ -1730,19 +1713,9 @@ Shader "Toon(Tessellation)" {
             #pragma shader_feature _EMISSIVE_SIMPLE _EMISSIVE_ANIMATION
             //v.2.0.4
 
-            #pragma multi_compile _IS_PASS_FWDDELTA
+            #pragma multi_compile _IS_PASS_FWDDELTA //[TODO-sin:2025-11-20] Check if this is used.
 
-#if defined(_SHADINGGRADEMAP)
-
-#include "../../Legacy/Shaders/UCTS_ShadingGradeMap.cginc"
-
-
-#else //#if defined(_SHADINGGRADEMAP)
-
-#include "../../Legacy/Shaders/UCTS_DoubleShadeWithFeather.cginc"
-
-
-#endif //#if defined(_SHADINGGRADEMAP)
+            #include_with_pragmas  "../../Shaders/BuiltIn/BuiltInToonMode.hlsl"
 
             ENDCG
         }
