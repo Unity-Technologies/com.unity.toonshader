@@ -297,8 +297,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e6e7f331e21a42f1a701a56ac4ba068c, type: 2}
-  - {fileID: 2100000, guid: 3ce76fdfad5541a199a40d37b170a117, type: 2}
+  - {fileID: 2100000, guid: cfd18cac14d973f4995cc7c18a7ebac9, type: 2}
+  - {fileID: 2100000, guid: 61d90ef68478e9e4096b4ff96fc22a29, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -406,8 +406,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: cda25858bd6049258c1d98ed4f6d05e9, type: 2}
-  - {fileID: 2100000, guid: 6cd924ba35894608b7291fe7e9242f2a, type: 2}
+  - {fileID: 2100000, guid: 68dc75673a8bfa64aa53d9527b02f99c, type: 2}
+  - {fileID: 2100000, guid: 85d14566480bf144a91dc1592fbabf31, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -515,7 +515,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 81d243e34814440aaf4fb52e6be108b7, type: 2}
+  - {fileID: 2100000, guid: 0ff4d5132f420f14e872aaaed1b06fd0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -655,7 +655,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d959a291932d4baa953802e4f29bf188, type: 2}
+  - {fileID: 2100000, guid: e3509bced565acb498943647bc04e3b9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -784,7 +784,7 @@ PrefabInstance:
     - target: {fileID: 2300000, guid: a8934ab2a8594472998bddbcbf8beb44, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 27674d8f23ee43a6b7ef8ca71fc5bbbf, type: 2}
+      objectReference: {fileID: 2100000, guid: 6111e35a9b187c842a08ae22ac1f59e2, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -965,23 +965,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f5863a4df974b248ba17a691a493177, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ImageComparisonSettings:
-    TargetWidth: 960
-    TargetHeight: 540
-    TargetMSAASamples: 1
-    PerPixelCorrectnessThreshold: 0.005
-    PerPixelGammaThreshold: 0.003921569
-    PerPixelAlphaThreshold: 0.003921569
-    RMSEThreshold: 0
-    AverageCorrectnessThreshold: 0.005
-    IncorrectPixelsThreshold: 0.0000038146973
-    UseHDR: 0
-    UseBackBuffer: 0
-    ImageResolution: 3
-    ActiveImageTests: 1
-    ActivePixelTests: 7
   SO: {fileID: 11400000, guid: 38185e5fc3dea1e47b68a1e60de13007, type: 2}
-  WaitFrames: 480
   CheckMemoryAllocation: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
