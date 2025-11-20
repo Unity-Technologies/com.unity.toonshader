@@ -2,5 +2,10 @@
 	"name": "com.unity.toon-graphics-test",
 	"displayName":"Unity Toon Shader Graphics Test",
 	"version": "0.1.0",
-	"unity": "2021.3"
+	"unity": "2021.3",
+	"dependencies":
+	{
+        "com.unity.testframework.graphics": "8.12.0-exp.2"
+	}
+    
 }
