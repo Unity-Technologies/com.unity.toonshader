@@ -66,6 +66,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MetaverseOutlineLighting/OutlineLighting01_Skybox.unity
     guid: 5047ff20b5c6df041aaea05829075248
+  - enabled: 1
+    path: Assets/ScenesDev/Sample2D/Sample2D.unity
+    guid: fef52238fd46cc04dbfdd02e7820de9f
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: cf2afb40cc2d9db4ea3770686df52896,
       type: 2}
