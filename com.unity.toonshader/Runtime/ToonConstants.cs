@@ -31,6 +31,8 @@ internal static class ToonConstants {
 
     internal const string GBUFFER_PASS_NAME = "GBuffer";
 
+    internal const string SHADER_KEYWORD_RP_BUILTIN = "UTS_RP_BUILTIN";
+    
 }
 
 
