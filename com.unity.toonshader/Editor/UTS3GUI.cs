@@ -1,6 +1,7 @@
 //#define USE_SIMPLE_UI
 
 using System;
+using Unity.Rendering.Toon;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -403,6 +404,14 @@ namespace UnityEditor.Rendering.Toon {
             material.SetFloat(ShaderPropUtsVersionX, kVersionX);
             material.SetFloat(ShaderPropUtsVersionY, kVersionY);
             material.SetFloat(ShaderPropUtsVersionZ, kVersionZ);
+            
+            
+#if !(HDRP_IS_INSTALLED_FOR_UTS || URP_IS_INSTALLED_FOR_UTS)
+            material.EnableKeyword(ToonConstants.SHADER_KEYWORD_RP_BUILTIN);
+#else
+            material.DisableKeyword(ToonConstants.SHADER_KEYWORD_RP_BUILTIN);
+#endif
+
         }
 
 
