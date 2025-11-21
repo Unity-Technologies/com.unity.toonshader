@@ -1,6 +1,8 @@
+using System.IO;
 using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
+using Unity.Rendering.Toon;
 
 namespace Unity.ToonShader.EditorTests {
 internal class ShaderCompileTest
@@ -24,7 +26,7 @@ internal class ShaderCompileTest
 
 //----------------------------------------------------------------------------------------------------------------------
 
-    private const string SHADERS_PATH = "Packages/com.unity.toonshader/Runtime/Integrated/Shaders";
+    private static readonly string SHADERS_PATH = Path.Combine("Packages", ToonConstants.PACKAGE_NAME,"Runtime/Integrated/Shaders");
 
 }
 
