@@ -1,4 +1,4 @@
-//Auto-generated on Thu Nov 20 05:37:18 UTC 2025
+//Auto-generated on Fri Nov 21 06:08:20 UTC 2025
 Shader "Toon(Tessellation)" {
     Properties
     {
@@ -1629,6 +1629,7 @@ Shader "Toon(Tessellation)" {
 
             #pragma multi_compile _IS_PASS_FWDBASE //[TODO-sin:2025-11-20] Check if this is used.
 
+            #pragma shader_feature_local UTS_RP_BUILTIN
             #include_with_pragmas  "../../Shaders/BuiltIn/BuiltInToonMode.hlsl"
 
             ENDCG
@@ -1715,6 +1716,7 @@ Shader "Toon(Tessellation)" {
 
             #pragma multi_compile _IS_PASS_FWDDELTA //[TODO-sin:2025-11-20] Check if this is used.
 
+            #pragma shader_feature_local UTS_RP_BUILTIN
             #include_with_pragmas  "../../Shaders/BuiltIn/BuiltInToonMode.hlsl"
 
             ENDCG
