@@ -3,30 +3,31 @@ using UnityEditor;
 using UnityEngine;
 
 namespace Unity.ToonShader.EditorTests {
-    internal class ShaderCompileTest
-    {
+internal class ShaderCompileTest
+{
 
-        [Test]
-        public void CompileLegacyToonShadersDefault() {
-            string[] guids      = AssetDatabase.FindAssets("t:Shader", new[] { LEGACY_SHADERS_PATH});
-            int      numShaders = guids.Length;
-            Assert.Greater(numShaders,0);
-            bool shaderHasError = false;
-            for (int i=0;i<numShaders && !shaderHasError;++i) {
-                string curAssetPath = AssetDatabase.GUIDToAssetPath(guids[i]);
-                Shader shader = AssetDatabase.LoadAssetAtPath<Shader>(curAssetPath);
-                AssetDatabase.ImportAsset(curAssetPath); //Recompile the shader to make sure there are no compile errors
+    [Test]
+    public void CompileLegacyToonShadersDefault() {
+        string[] guids      = AssetDatabase.FindAssets("t:Shader", new[] { SHADERS_PATH});
+        int      numShaders = guids.Length;
+        Assert.Greater(numShaders,0);
+        bool shaderHasError = false;
+        for (int i=0;i<numShaders && !shaderHasError;++i) {
+            string curAssetPath = AssetDatabase.GUIDToAssetPath(guids[i]);
+            Shader shader = AssetDatabase.LoadAssetAtPath<Shader>(curAssetPath);
+            AssetDatabase.ImportAsset(curAssetPath); //Recompile the shader to make sure there are no compile errors
 
-                Assert.True(shader.isSupported);
-                shaderHasError = ShaderUtil.ShaderHasError(shader);
-                Assert.False(shaderHasError, "[UTS] Shader Compile Error: " + shader.name);
+            Assert.True(shader.isSupported);
+            shaderHasError = ShaderUtil.ShaderHasError(shader);
+            Assert.False(shaderHasError, "[UTS] Shader Compile Error: " + shader.name);
 
-            }
         }
-
-
-
-        private const string LEGACY_SHADERS_PATH = "Packages/com.unity.toonshader/Runtime/Integrated/Shaders";
-
     }
+
+//----------------------------------------------------------------------------------------------------------------------
+
+    private const string SHADERS_PATH = "Packages/com.unity.toonshader/Runtime/Integrated/Shaders";
+
+}
+
 } //end namespace
