@@ -87,12 +87,13 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.film-internal-utilities": {
-      "version": "0.19.2-preview",
+      "version": "0.20.0-preview",
       "depth": 1,
       "source": "registry",
       "dependencies": {
         "com.unity.timeline": "1.2.18",
-        "com.unity.modules.uielements": "1.0.0"
+        "com.unity.modules.uielements": "1.0.0",
+        "com.unity.modules.imageconversion": "1.0.0"
       },
       "url": "https://packages.unity.com"
     },
@@ -291,7 +292,9 @@
       "version": "file:../../../com.unity.toon-graphics-test",
       "depth": 0,
       "source": "local",
-      "dependencies": {}
+      "dependencies": {
+        "com.unity.testframework.graphics": "8.12.0-exp.2"
+      }
     },
     "com.unity.toon-reference-images": {
       "version": "file:../../../com.unity.toon-reference-images",
@@ -304,7 +307,7 @@
       "depth": 0,
       "source": "local",
       "dependencies": {
-        "com.unity.film-internal-utilities": "0.19.2-preview",
+        "com.unity.film-internal-utilities": "0.20.0-preview",
         "com.unity.render-pipelines.core": "10.0.0"
       }
     },

@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.unity.addressables": {
-      "version": "2.7.2",
+      "version": "2.7.3",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -11,7 +11,7 @@
         "com.unity.modules.jsonserialize": "1.0.0",
         "com.unity.modules.imageconversion": "1.0.0",
         "com.unity.modules.unitywebrequest": "1.0.0",
-        "com.unity.scriptablebuildpipeline": "2.4.1",
+        "com.unity.scriptablebuildpipeline": "2.4.2",
         "com.unity.modules.unitywebrequestassetbundle": "1.0.0"
       },
       "url": "https://packages.unity.com"
@@ -26,7 +26,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.burst": {
-      "version": "1.8.24",
+      "version": "1.8.25",
       "depth": 2,
       "source": "registry",
       "dependencies": {
@@ -63,12 +63,13 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.film-internal-utilities": {
-      "version": "0.19.2-preview",
+      "version": "0.20.0-preview",
       "depth": 1,
       "source": "registry",
       "dependencies": {
         "com.unity.timeline": "1.2.18",
-        "com.unity.modules.uielements": "1.0.0"
+        "com.unity.modules.uielements": "1.0.0",
+        "com.unity.modules.imageconversion": "1.0.0"
       },
       "url": "https://packages.unity.com"
     },
@@ -186,7 +187,7 @@
       }
     },
     "com.unity.scriptablebuildpipeline": {
-      "version": "2.4.1",
+      "version": "2.4.2",
       "depth": 2,
       "source": "registry",
       "dependencies": {
@@ -219,7 +220,7 @@
       }
     },
     "com.unity.test-framework": {
-      "version": "1.5.1",
+      "version": "1.6.0",
       "depth": 0,
       "source": "builtin",
       "dependencies": {
@@ -229,7 +230,7 @@
       }
     },
     "com.unity.test-framework.performance": {
-      "version": "3.1.0",
+      "version": "3.2.0",
       "depth": 2,
       "source": "registry",
       "dependencies": {
@@ -239,7 +240,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.testframework.graphics": {
-      "version": "8.9.1-exp.1",
+      "version": "8.12.0-exp.2",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -281,7 +282,9 @@
       "version": "file:../../../com.unity.toon-graphics-test",
       "depth": 0,
       "source": "local",
-      "dependencies": {}
+      "dependencies": {
+        "com.unity.testframework.graphics": "8.12.0-exp.2"
+      }
     },
     "com.unity.toon-reference-images": {
       "version": "file:../../../com.unity.toon-reference-images",
@@ -294,7 +297,7 @@
       "depth": 0,
       "source": "local",
       "dependencies": {
-        "com.unity.film-internal-utilities": "0.19.2-preview",
+        "com.unity.film-internal-utilities": "0.20.0-preview",
         "com.unity.render-pipelines.core": "10.0.0"
       }
     },
