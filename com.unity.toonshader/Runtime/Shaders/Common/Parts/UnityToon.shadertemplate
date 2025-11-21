@@ -1062,6 +1062,7 @@ Shader "Toon" {
             #pragma target 3.0
             #pragma multi_compile _IS_PASS_FWDBASE //[TODO-sin:2025-11-20] Check if this is used.
 
+            #shader_feature_local UTS_RP_BUILTIN
             #include_with_pragmas  "../../Shaders/BuiltIn/BuiltInToonMode.hlsl"
 
             ENDCG
@@ -1127,6 +1128,7 @@ Shader "Toon" {
 
             #pragma multi_compile _IS_PASS_FWDDELTA //[TODO-sin:2025-11-20] Check if this is used.
 
+            #shader_feature_local UTS_RP_BUILTIN
             #include_with_pragmas  "../../Shaders/BuiltIn/BuiltInToonMode.hlsl"
 
             ENDCG

@@ -7,6 +7,8 @@
 #pragma shader_feature _IS_CLIPPING_OFF _IS_CLIPPING_MODE _IS_CLIPPING_TRANSMODE
 #pragma shader_feature _EMISSIVE_SIMPLE _EMISSIVE_ANIMATION
 
+#if defined(UTS_RP_BUILTIN)
+
 #if defined(_SHADINGGRADEMAP)
 
 #include "../../Legacy/Shaders/UCTS_ShadingGradeMap.cginc"
@@ -18,3 +20,9 @@
 
 
 #endif //#if defined(_SHADINGGRADEMAP)
+
+#else
+#include "../Common/Error.hlsl"
+
+
+#endif
