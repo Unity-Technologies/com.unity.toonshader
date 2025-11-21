@@ -5,6 +5,8 @@ namespace Unity.Rendering.Toon {
 
 internal static class ToonConstants {
 
+    internal const string PACKAGE_NAME = "com.unity.toonshader";
+    
     internal const string SHADER_KEYWORD_IS_CLIPPING_MATTE = "_IS_CLIPPING_MATTE";
 
     internal static readonly int SHADER_PROPERTY_CLIPPING_MATTE_MODE = Shader.PropertyToID("_ClippingMatteMode");
