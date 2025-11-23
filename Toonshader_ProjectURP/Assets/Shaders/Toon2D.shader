@@ -72,8 +72,8 @@ Shader "Toon3Das2D"{
             HLSLPROGRAM
             #include "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/Core2D.hlsl"
 
-            #pragma vertex LitVertex
-            #pragma fragment LitFragment
+            #pragma vertex ToonVertex
+            #pragma fragment ToonFragment
 
             #include_with_pragmas "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/ShapeLightShared.hlsl"
 
@@ -136,7 +136,7 @@ Shader "Toon3Das2D"{
 
             #include "ObjectTransform.hlsl"
             
-            Varyings LitVertex(Attributes input) {
+            Varyings ToonVertex(Attributes input) {
 
                 Varyings o = (Varyings) 0;
                 UNITY_SETUP_INSTANCE_ID(input);
@@ -251,8 +251,6 @@ Shader "Toon3Das2D"{
 
                 Set_FinalBaseColor = Set_FinalBaseColor * _ShapeLightBlendFactors0.x;
 
-    
-    
                 half4 shapeLight0Modulate = half4(Set_FinalBaseColor, alpha);
                 half4 shapeLight0Additive = shapeLight0 * _ShapeLightBlendFactors0.y;
 
@@ -275,9 +273,8 @@ Shader "Toon3Das2D"{
                 return max(0, finalOutput);
             }
 
-            half4 CommonLitFragment2(Varyings input, half4 color)
-            {
-                const half4 main = color * SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, input.uv);
+            half4 ToonFragment(Varyings input) : SV_Target {
+                const half4 main = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, input.uv);
                 const half4 mask = SAMPLE_TEXTURE2D(_MaskTex, sampler_MaskTex, input.uv);
                 const half3 normalTS = UnpackNormalScale(SAMPLE_TEXTURE2D(_NormalMap, sampler_NormalMap, input.uv), _BumpScale);
 
@@ -302,56 +299,6 @@ Shader "Toon3Das2D"{
             }
 
 
-//----------------------------------------------------------------------------------------------------------------------
-            float4 LitFragment(Varyings input) : SV_Target
-            {
-                float3 defaultLightDirection = normalize(UNITY_MATRIX_V[2].xyz + UNITY_MATRIX_V[1].xyz);
-                float2 Set_UV0 = input.uv;
-                float3 mainLightColor = float3(1, 1, 1);
-                float3 defaultLightColor = float3(1, 1, 1);
-
-                // //v.2.0.5
-                // float3 defaultLightColor = saturate(max(half3(0.05, 0.05, 0.05) * _Unlit_Intensity,
-                //     max(ShadeSH9(half4(0.0, 0.0, 0.0, 1.0)),
-                //         ShadeSH9(half4(0.0, -1.0, 0.0, 1.0)).rgb) *
-                //     _Unlit_Intensity));
-                // float3 customLightDirection = normalize(mul( GetObjectToWorldMatrix(), float4(((float3(1.0,0.0,0.0)*_Offset_X_Axis_BLD*10)+(float3(0.0,1.0,0.0)*_Offset_Y_Axis_BLD*10)+(float3(0.0,0.0,-1.0)*lerp(-1.0,1.0,_Inverse_Z_Axis_BLD))),0)).xyz);
-                // float3 lightDirection = normalize(lerp(defaultLightDirection, mainLight.direction.xyz,any(mainLight.direction.xyz)));
-                // lightDirection = lerp(lightDirection, customLightDirection, _Is_BLD);
-                // //v.2.0.5: 
-                //
-                half3 originalLightColor = mainLightColor.rgb;
-                float3 lightColor = max(defaultLightColor, saturate(originalLightColor));
-                float3 Set_LightColor = lightColor.rgb;
-
-                float4 _MainTex_var = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex));
-                float3 Set_BaseColor = ((_BaseColor.rgb * _MainTex_var.rgb) * Set_LightColor);
-
-
-                // //v.2.0.5
-                // float4 _1st_ShadeMap_var = lerp(SAMPLE_TEXTURE2D(_1st_ShadeMap,sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex)),_MainTex_var,_Use_BaseAs1st);
-                // float3 Set_1st_ShadeColor = lerp( (_1st_ShadeColor.rgb*_1st_ShadeMap_var.rgb), ((_1st_ShadeColor.rgb*_1st_ShadeMap_var.rgb)*Set_LightColor), _Is_LightColor_1st_Shade );
-                // //v.2.0.5
-                // float4 _2nd_ShadeMap_var = lerp(SAMPLE_TEXTURE2D(_2nd_ShadeMap, sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex)),_1st_ShadeMap_var,_Use_1stAs2nd);
-                // float3 Set_2nd_ShadeColor = lerp( (_2nd_ShadeColor.rgb*_2nd_ShadeMap_var.rgb), ((_2nd_ShadeColor.rgb*_2nd_ShadeMap_var.rgb)*Set_LightColor), _Is_LightColor_2nd_Shade );
-                // float _HalfLambert_var = 0.5*dot(lerp( i.normalDir, normalDirection, _Is_NormalMapToBase ),lightDirection)+0.5;
-                //
-                // float4 _Set_2nd_ShadePosition_var = tex2D(_Set_2nd_ShadePosition, TRANSFORM_TEX(Set_UV0, _Set_2nd_ShadePosition));
-                // float4 _Set_1st_ShadePosition_var = tex2D(_Set_1st_ShadePosition, TRANSFORM_TEX(Set_UV0, _Set_1st_ShadePosition));
-                // //v.2.0.6
-                // //Minmimum value is same as the Minimum Feather's value with the Minimum Step's value as threshold.
-                // float _SystemShadowsLevel_var = (shadowAttenuation*0.5)+0.5+_Tweak_SystemShadowsLevel > 0.001 ? (shadowAttenuation*0.5)+0.5+_Tweak_SystemShadowsLevel : 0.0001;
-                // float Set_FinalShadowMask = saturate((1.0 + ( (lerp( _HalfLambert_var, _HalfLambert_var*saturate(_SystemShadowsLevel_var), _Set_SystemShadowsToBase ) - (_BaseColor_Step-_BaseShade_Feather)) * ((1.0 - _Set_1st_ShadePosition_var.rgb).r - 1.0) ) / (_BaseColor_Step - (_BaseColor_Step-_BaseShade_Feather))));
-                // //
-                // //Composition: 3 Basic Colors as Set_FinalBaseColor
-                // float3 Set_FinalBaseColor = lerp(Set_BaseColor,lerp(Set_1st_ShadeColor,Set_2nd_ShadeColor,saturate((1.0 + ( (_HalfLambert_var - (_ShadeColor_Step-_1st2nd_Shades_Feather)) * ((1.0 - _Set_2nd_ShadePosition_var.rgb).r - 1.0) ) / (_ShadeColor_Step - (_ShadeColor_Step-_1st2nd_Shades_Feather))))),Set_FinalShadowMask); // Final Color
-
-
-                //return float4(Set_BaseColor,1); 
-
-
-                return CommonLitFragment2(input, _White);
-            }
             ENDHLSL
         }
 
