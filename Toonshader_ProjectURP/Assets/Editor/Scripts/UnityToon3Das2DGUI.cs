@@ -44,7 +44,7 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         m_normalMapFoldout = true;
         m_outlineFoldout = mat.GetShaderPassEnabled(LIGHT_MODE_NAME_FOR_OUTLINE);
 
-        bool lightEnabled = mat.GetInteger(uiElements[ShaderPropUnlit_DirectionalLight_Use].mainProperty.id) !=0;
+        bool lightEnabled = mat.GetInteger(uiElements[SHADER_PROP_DIRECTIONAL_LIGHT_USE].mainProperty.id) !=0;
         m_directionalLightFoldout = lightEnabled;
         
     }
@@ -53,12 +53,12 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     static void DrawNormalMapGUI(MaterialEditor mEditor, Dictionary<string, MaterialPropertyUIElement> uiElements, 
         ref bool foldout) {
 
-        ToonEditorGUIUtility.DrawFoldoutGUI(ref foldout, uiElements[ShaderProp_NormalMap].label);
+        ToonEditorGUIUtility.DrawFoldoutGUI(ref foldout, uiElements[SHADER_PROP_NORMAL_MAP].label);
         if (!foldout) 
             return;
         
-        ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[ShaderProp_NormalMap]);
-        mEditor.TextureScaleOffsetProperty(uiElements[ShaderProp_NormalMap].mainProperty.prop);
+        ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[SHADER_PROP_NORMAL_MAP]);
+        mEditor.TextureScaleOffsetProperty(uiElements[SHADER_PROP_NORMAL_MAP].mainProperty.prop);
         
         EditorGUILayout.Space();
     }
@@ -84,7 +84,7 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         EditorGUI.indentLevel++;
         EditorGUI.BeginDisabledGroup(!isOutlineEnabled);
 
-        ToonEditorGUIUtility.DrawIntPopupGUI(mEditor, mats, uiElements[ShaderProp_OutlineMode], 
+        ToonEditorGUIUtility.DrawIntPopupGUI(mEditor, mats, uiElements[SHADER_PROP_OUTLINE_MODE], 
             m_outlineModeEnums, m_outlineModeIndices, out int outlineMode);
         
         const string OUTLINE_NORMAL_KEYWORD = "_OUTLINE_NML";;
@@ -108,32 +108,32 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
 
         EditorGUI.BeginDisabledGroup(outlineMode != (int) OutlineMode.NormalDirection);
         {
-            ToonEditorGUIUtility.DrawToggleGUI(mEditor, mats, uiElements[ShaderProp_Outline_UseCustomNormalMap], 
+            ToonEditorGUIUtility.DrawToggleGUI(mEditor, mats, uiElements[SHADER_PROP_OUTLINE_USE_CUSTOM_NORMAL_MAP], 
                 out bool useCustom);
             EditorGUI.BeginDisabledGroup(!useCustom);
-            ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor,uiElements[ShaderProp_Outline_CustomNormalMap]);
+            ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor,uiElements[SHADER_PROP_OUTLINE_CUSTOM_NORMAL_MAP]);
             EditorGUI.EndDisabledGroup();
         }
         EditorGUI.EndDisabledGroup();
         
 
-        ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[ShaderProp_OutlineWidth]);
+        ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[SHADER_PROP_OUTLINE_WIDTH]);
         
-        ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[ShaderProp_OutlineTex]);
-        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[ShaderProp_Outline_BaseColorBlend]);
-        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[ShaderProp_Outline_LightColorBlend]);
+        ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[SHADER_PROP_OUTLINE_TEX]);
+        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_OUTLINE_BASE_COLOR_BLEND]);
+        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_OUTLINE_LIGHT_COLOR_BLEND]);
         
-        ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[ShaderProp_OutlineWidthMap]);
+        ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[SHADER_PROP_OUTLINE_WIDTH_MAP]);
         
-        ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[ShaderProp_OutlineOffsetZ]);
+        ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[SHADER_PROP_OUTLINE_OFFSET_Z]);
 
 
         EditorGUILayout.Space();
         {
             EditorGUILayout.LabelField("Camera Distance for Outline Width");
             EditorGUI.indentLevel++;
-            ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[ShaderProp_OutlineNear]);
-            ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[ShaderProp_OutlineFar]);
+            ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[SHADER_PROP_OUTLINE_NEAR]);
+            ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[SHADER_PROP_OUTLINE_FAR]);
             EditorGUI.indentLevel--;
 
             
@@ -149,38 +149,38 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     static void DrawThreeColorsGUI(MaterialEditor mEditor, Material[] mats,
         Dictionary<string, MaterialPropertyUIElement> uiElements) 
     {
-        ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[ShaderPropMainTex]);
+        ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[SHADER_PROP_MAIN_TEX]);
 
         EditorGUI.indentLevel += 2;
-        ToonEditorGUIUtility.DrawToggleGUI(mEditor, mats, uiElements[ShaderPropUse_BaseAs1st], out bool applyTo1st );
+        ToonEditorGUIUtility.DrawToggleGUI(mEditor, mats, uiElements[SHADER_PROP_USE_BASE_AS1_ST], out bool applyTo1st );
         EditorGUI.indentLevel -= 2;
 
         if (applyTo1st) {
             EditorGUI.indentLevel += 2;
-            ToonEditorGUIUtility.DrawColorPropertyGUI(mEditor, uiElements[ShaderProp_1st_ShadeColor]);
+            ToonEditorGUIUtility.DrawColorPropertyGUI(mEditor, uiElements[SHADER_PROP_1_ST_SHADE_COLOR]);
             EditorGUI.indentLevel -= 2;
         } else {
-            ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[ShaderProp_1st_ShadeMap]);
+            ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[SHADER_PROP_1_ST_SHADE_MAP]);
         }
 
         EditorGUI.indentLevel += 2;
-        ToonEditorGUIUtility.DrawToggleGUI(mEditor, mats, uiElements[ShaderPropUse_1stAs2nd], out bool applyTo2nd);
+        ToonEditorGUIUtility.DrawToggleGUI(mEditor, mats, uiElements[SHADER_PROP_USE_1_ST_AS2_ND], out bool applyTo2nd);
         EditorGUI.indentLevel -= 2;
 
 
         if (applyTo2nd) {
             EditorGUI.indentLevel += 2;
-            ToonEditorGUIUtility.DrawColorPropertyGUI(mEditor, uiElements[ShaderProp_2nd_ShadeColor]);
+            ToonEditorGUIUtility.DrawColorPropertyGUI(mEditor, uiElements[SHADER_PROP_2_ND_SHADE_COLOR]);
             EditorGUI.indentLevel -= 2;
         } else {
-            ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[ShaderProp_2nd_ShadeMap]);
+            ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[SHADER_PROP_2_ND_SHADE_MAP]);
         }
     }
     
     static void DrawDirectionalLightGUI(MaterialEditor mEditor, Material[] mats, 
         Dictionary<string, MaterialPropertyUIElement> uiElements, ref bool foldout) {
 
-        ToonEditorGUIUtility.DrawFoldoutWithToggleGUI(mEditor, mats, uiElements[ShaderPropUnlit_DirectionalLight_Use],
+        ToonEditorGUIUtility.DrawFoldoutWithToggleGUI(mEditor, mats, uiElements[SHADER_PROP_DIRECTIONAL_LIGHT_USE],
             ref foldout);
         
         if (!foldout)
@@ -189,9 +189,9 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         ToonEditorGUIUtility.DrawVector3FieldGUI(mEditor, mats, uiElements[Toon3Das2DConstants.ShaderPropUnlit_DirectionalLight_Direction]);
         ToonEditorGUIUtility.DrawColorFieldGUI(mEditor, uiElements[Toon3Das2DConstants.ShaderPropUnlit_DirectionalLight_Color]);
         ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[Toon3Das2DConstants.ShaderPropUnlit_DirectionalLight_Intensity]);
-        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[ShaderPropUnlit_DirectionalLight_2DLightFactor]);
-        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[ShaderPropUnlit_DirectionalLight_DiffuseFactor]);
-        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[ShaderPropUnlit_DirectionalLight_SpecularFactor]);
+        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_DIRECTIONAL_LIGHT_2D_LIGHT_FACTOR]);
+        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_DIRECTIONAL_LIGHT_DIFFUSE_FACTOR]);
+        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_DIRECTIONAL_LIGHT_SPECULAR_FACTOR]);
     }
     
 //----------------------------------------------------------------------------------------------------------------------
@@ -236,98 +236,98 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
 
     private static readonly List<MaterialUIElement> m_materialUIElements = new List<MaterialUIElement>() {
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(ShaderPropMainTex),
+            mainPropertyName = new MaterialName(SHADER_PROP_MAIN_TEX),
             label = new GUIContent("Base Map", "Base Color : Texture(sRGB) × Color(RGB)."),
-            extraPropertyName1 = new MaterialName(ShaderProp_BaseColor), 
+            extraPropertyName1 = new MaterialName(SHADER_PROP_BASE_COLOR), 
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(ShaderProp_1st_ShadeMap),
+            mainPropertyName = new MaterialName(SHADER_PROP_1_ST_SHADE_MAP),
             label = new GUIContent("1st Shading Map", "The map used for the brighter portions of the shadow."),
-            extraPropertyName1 = new MaterialName(ShaderProp_1st_ShadeColor), 
+            extraPropertyName1 = new MaterialName(SHADER_PROP_1_ST_SHADE_COLOR), 
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(ShaderProp_1st_ShadeColor),
+            mainPropertyName = new MaterialName(SHADER_PROP_1_ST_SHADE_COLOR),
             label = new GUIContent("1st Shading Map", "The map used for the brighter portions of the shadow."),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(ShaderProp_2nd_ShadeMap),
+            mainPropertyName = new MaterialName(SHADER_PROP_2_ND_SHADE_MAP),
             label = new GUIContent("2nd Shading Map", "The map used for the darker portions of the shadow."),
-            extraPropertyName1 = new MaterialName(ShaderProp_2nd_ShadeColor) 
+            extraPropertyName1 = new MaterialName(SHADER_PROP_2_ND_SHADE_COLOR) 
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(ShaderProp_2nd_ShadeColor),
+            mainPropertyName = new MaterialName(SHADER_PROP_2_ND_SHADE_COLOR),
             label = new GUIContent("2nd Shading Map", "The map used for the darker portions of the shadow."),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(ShaderPropUse_BaseAs1st),
+            mainPropertyName = new MaterialName(SHADER_PROP_USE_BASE_AS1_ST),
             label = new GUIContent("Apply to 1st shading map", "Apply Base map to the 1st shading map."),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(ShaderPropUse_1stAs2nd),
+            mainPropertyName = new MaterialName(SHADER_PROP_USE_1_ST_AS2_ND),
             label = new GUIContent("Apply to 2nd shading map", "Apply Base map or the 1st shading map to the 2st shading map."),
         },
         
         //Normal Map
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(ShaderProp_NormalMap),
+            mainPropertyName = new MaterialName(SHADER_PROP_NORMAL_MAP),
             label = new GUIContent("Normal Map", "A texture that specifies the bumpiness of the material."),
-            extraPropertyName1 = new MaterialName(ShaderProp_BumpScale),
+            extraPropertyName1 = new MaterialName(SHADER_PROP_BUMP_SCALE),
         },
         
         //Outline Start
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(ShaderProp_OutlineWidth),
+            mainPropertyName = new MaterialName(SHADER_PROP_OUTLINE_WIDTH),
             label = new GUIContent("Outline Width",
                 "The width of the outline."),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(ShaderProp_OutlineWidthMap),
+            mainPropertyName = new MaterialName(SHADER_PROP_OUTLINE_WIDTH_MAP),
             label = new GUIContent("Outline Width Map",
                 "Outline Width Map (grayscale, linear): White = full width, Black = 0 width."),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(ShaderProp_OutlineTex),
+            mainPropertyName = new MaterialName(SHADER_PROP_OUTLINE_TEX),
             label = new GUIContent("Outline Color", "The color of outline."),
-            extraPropertyName1 = new MaterialName(ShaderProp_OutlineColor), 
+            extraPropertyName1 = new MaterialName(SHADER_PROP_OUTLINE_COLOR), 
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(ShaderProp_Outline_BaseColorBlend),
+            mainPropertyName = new MaterialName(SHADER_PROP_OUTLINE_BASE_COLOR_BLEND),
             label = new GUIContent("Blend Base Color to Outline",
                 "Blend base color to outline color."),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(ShaderProp_Outline_LightColorBlend),
+            mainPropertyName = new MaterialName(SHADER_PROP_OUTLINE_LIGHT_COLOR_BLEND),
             label = new GUIContent("Blend Light Color to Outline",
                 "Blend light color to outline color."),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(ShaderProp_OutlineOffsetZ),
+            mainPropertyName = new MaterialName(SHADER_PROP_OUTLINE_OFFSET_Z),
             label = new GUIContent("Z Offset",
                 "Offsets the outline in the depth (Z) direction of the camera."),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(ShaderProp_OutlineNear),
+            mainPropertyName = new MaterialName(SHADER_PROP_OUTLINE_NEAR),
             label = new GUIContent("Near",
                 "Nearest distance for maximum outline width."),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(ShaderProp_OutlineFar),
+            mainPropertyName = new MaterialName(SHADER_PROP_OUTLINE_FAR),
             label = new GUIContent("Far",
                 "Furthest distance where outline fades to zero width."),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(ShaderProp_OutlineMode),
+            mainPropertyName = new MaterialName(SHADER_PROP_OUTLINE_MODE),
             label = new GUIContent("Outline Mode",
                 "Specifies how the outline is generated."),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(ShaderProp_Outline_UseCustomNormalMap),
+            mainPropertyName = new MaterialName(SHADER_PROP_OUTLINE_USE_CUSTOM_NORMAL_MAP),
             label = new GUIContent("Use Custom Normal Map",
                 "Use a custom normal map for outline."),
         },
         
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(ShaderProp_Outline_CustomNormalMap),
+            mainPropertyName = new MaterialName(SHADER_PROP_OUTLINE_CUSTOM_NORMAL_MAP),
             label = new GUIContent("Custom Normal Map",
                 "Custom normal map (linear) for outline. "),
         },
@@ -335,7 +335,7 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
 
         //Custom Directional Light
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(ShaderPropUnlit_DirectionalLight_Use),
+            mainPropertyName = new MaterialName(SHADER_PROP_DIRECTIONAL_LIGHT_USE),
             label = new GUIContent("Custom Directional Light",
                 "Apply a custom directional light."),
         },
@@ -355,17 +355,17 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
                 "The intensity of the custom directional light. "),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(ShaderPropUnlit_DirectionalLight_2DLightFactor),
+            mainPropertyName = new MaterialName(SHADER_PROP_DIRECTIONAL_LIGHT_2D_LIGHT_FACTOR),
             label = new GUIContent("2D Light Factor",
                 "Multiplier for the 2D light contribution."),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(ShaderPropUnlit_DirectionalLight_DiffuseFactor),
+            mainPropertyName = new MaterialName(SHADER_PROP_DIRECTIONAL_LIGHT_DIFFUSE_FACTOR),
             label = new GUIContent("Diffuse Factor",
                 "Multiplier for the diffuse lighting contribution."),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(ShaderPropUnlit_DirectionalLight_SpecularFactor),
+            mainPropertyName = new MaterialName(SHADER_PROP_DIRECTIONAL_LIGHT_SPECULAR_FACTOR),
             label = new GUIContent("Specular Factor",
                 "Multiplier for the specular lighting contribution."),
         },
@@ -373,36 +373,36 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
 
     
     //Common constants
-    internal const string ShaderPropMainTex = "_MainTex";
-    internal const string ShaderPropUse_BaseAs1st = "_Use_BaseAs1st";
-    internal const string ShaderPropUse_1stAs2nd = "_Use_1stAs2nd";
-    internal const string ShaderProp_BaseColor = "_BaseColor";
-    internal const string ShaderProp_1st_ShadeMap = "_1st_ShadeMap";
-    internal const string ShaderProp_1st_ShadeColor = "_1st_ShadeColor";
-    internal const string ShaderProp_2nd_ShadeMap = "_2nd_ShadeMap";
-    internal const string ShaderProp_2nd_ShadeColor = "_2nd_ShadeColor";
+    internal const string SHADER_PROP_MAIN_TEX = "_MainTex";
+    internal const string SHADER_PROP_USE_BASE_AS1_ST = "_Use_BaseAs1st";
+    internal const string SHADER_PROP_USE_1_ST_AS2_ND = "_Use_1stAs2nd";
+    internal const string SHADER_PROP_BASE_COLOR = "_BaseColor";
+    internal const string SHADER_PROP_1_ST_SHADE_MAP = "_1st_ShadeMap";
+    internal const string SHADER_PROP_1_ST_SHADE_COLOR = "_1st_ShadeColor";
+    internal const string SHADER_PROP_2_ND_SHADE_MAP = "_2nd_ShadeMap";
+    internal const string SHADER_PROP_2_ND_SHADE_COLOR = "_2nd_ShadeColor";
 
-    internal const string ShaderProp_NormalMap = "_NormalMap";
-    internal const string ShaderProp_BumpScale = "_BumpScale";
+    internal const string SHADER_PROP_NORMAL_MAP = "_NormalMap";
+    internal const string SHADER_PROP_BUMP_SCALE = "_BumpScale";
     
-    internal const string ShaderProp_OutlineMode = "_OutlineMode";
-    internal const string ShaderProp_OutlineWidth = "_OutlineWidth";
-    internal const string ShaderProp_OutlineWidthMap = "_OutlineWidthMap";
-    internal const string ShaderProp_OutlineTex = "_OutlineTex";
-    internal const string ShaderProp_OutlineColor = "_OutlineColor";
-    internal const string ShaderProp_Outline_BaseColorBlend  = "_Outline_BaseColorBlend";
-    internal const string ShaderProp_Outline_LightColorBlend = "_Outline_LightColorBlend";
-    internal const string ShaderProp_OutlineOffsetZ = "_OutlineOffsetZ";
-    internal const string ShaderProp_OutlineNear = "_OutlineNear";
-    internal const string ShaderProp_OutlineFar = "_OutlineFar";
+    internal const string SHADER_PROP_OUTLINE_MODE = "_OutlineMode";
+    internal const string SHADER_PROP_OUTLINE_WIDTH = "_OutlineWidth";
+    internal const string SHADER_PROP_OUTLINE_WIDTH_MAP = "_OutlineWidthMap";
+    internal const string SHADER_PROP_OUTLINE_TEX = "_OutlineTex";
+    internal const string SHADER_PROP_OUTLINE_COLOR = "_OutlineColor";
+    internal const string SHADER_PROP_OUTLINE_BASE_COLOR_BLEND  = "_Outline_BaseColorBlend";
+    internal const string SHADER_PROP_OUTLINE_LIGHT_COLOR_BLEND = "_Outline_LightColorBlend";
+    internal const string SHADER_PROP_OUTLINE_OFFSET_Z = "_OutlineOffsetZ";
+    internal const string SHADER_PROP_OUTLINE_NEAR = "_OutlineNear";
+    internal const string SHADER_PROP_OUTLINE_FAR = "_OutlineFar";
 
-    internal const string ShaderProp_Outline_UseCustomNormalMap = "_Outline_UseCustomNormalMap";
-    internal const string ShaderProp_Outline_CustomNormalMap    = "_Outline_CustomNormalMap";
+    internal const string SHADER_PROP_OUTLINE_USE_CUSTOM_NORMAL_MAP = "_Outline_UseCustomNormalMap";
+    internal const string SHADER_PROP_OUTLINE_CUSTOM_NORMAL_MAP    = "_Outline_CustomNormalMap";
 
-    internal const string ShaderPropUnlit_DirectionalLight_Use = "_DirectionalLight_Use";
-    internal const string ShaderPropUnlit_DirectionalLight_2DLightFactor  = "_DirectionalLight_2DLightFactor";
-    internal const string ShaderPropUnlit_DirectionalLight_DiffuseFactor  = "_DirectionalLight_DiffuseFactor";
-    internal const string ShaderPropUnlit_DirectionalLight_SpecularFactor = "_DirectionalLight_SpecularFactor";
+    internal const string SHADER_PROP_DIRECTIONAL_LIGHT_USE = "_DirectionalLight_Use";
+    internal const string SHADER_PROP_DIRECTIONAL_LIGHT_2D_LIGHT_FACTOR  = "_DirectionalLight_2DLightFactor";
+    internal const string SHADER_PROP_DIRECTIONAL_LIGHT_DIFFUSE_FACTOR  = "_DirectionalLight_DiffuseFactor";
+    internal const string SHADER_PROP_DIRECTIONAL_LIGHT_SPECULAR_FACTOR = "_DirectionalLight_SpecularFactor";
     
     //Doc: Use this LightMode tag value to draw an extra Pass when rendering objects.
     const string LIGHT_MODE_NAME_FOR_OUTLINE = "SRPDefaultUnlit";
