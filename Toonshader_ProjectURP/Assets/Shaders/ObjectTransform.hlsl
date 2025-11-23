@@ -1,3 +1,4 @@
+#pragma once
 
 inline float4 UnityObjectToClipPosInstanced(in float3 pos) {
     return mul(UNITY_MATRIX_VP, mul(GetObjectToWorldMatrix(), float4(pos, 1.0)));
