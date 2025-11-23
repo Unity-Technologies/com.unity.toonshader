@@ -133,15 +133,15 @@ internal static class ToonEditorGUIUtility {
     }
     
     //return true if changed, false otherwise
-    internal static bool DrawFoldoutWithToggleGUI(MaterialEditor mEditor, Material[] mats, 
-        MaterialPropertyUIElement element, ref bool foldoutState)
+    internal static bool DrawFoldoutWithToggleGUI(MaterialEditor mEditor, Material[] mats,
+        MaterialPropertyUIElement element, ref bool foldoutState, out bool toggleEnabled)
     {
-        bool enabled = mats[0].GetInteger(element.mainProperty.id) !=0;
-        bool ret = DrawFoldoutWithToggleGUI(mEditor, ref foldoutState, ref enabled, element.label.text);
+        toggleEnabled = mats[0].GetInteger(element.mainProperty.id) !=0;
+        bool ret = DrawFoldoutWithToggleGUI(mEditor, ref foldoutState, ref toggleEnabled, element.label.text);
         if (!ret) 
             return false;
         foreach (Material m in mats)
-            m.SetInteger(element.mainProperty.id, enabled ? 1 : 0);
+            m.SetInteger(element.mainProperty.id, toggleEnabled ? 1 : 0);
 
         return true;
     }
