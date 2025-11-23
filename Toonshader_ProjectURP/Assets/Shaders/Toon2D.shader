@@ -118,6 +118,7 @@ Shader "Toon3Das2D"{
                 float _ShadeColor_Step;
                 float _1st2nd_Shades_Feather;
 
+                int _DirectionalLight_Use;
                 float3 _DirectionalLight_Direction;
                 float4 _DirectionalLight_Color;
                 float _DirectionalLight_Intensity;
@@ -193,7 +194,7 @@ Shader "Toon3Das2D"{
                 }
 
                 const float3 diffuseLightFactor = (shapeLight0.rgb * _DirectionalLight_2DLightFactor)
-                    + (_DirectionalLight_Color * _DirectionalLight_DiffuseFactor);
+                    + (_DirectionalLight_Color * _DirectionalLight_DiffuseFactor * _DirectionalLight_Use);
                 
                 float4 _MainTex_var = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, uv);
                 float3 baseColor = surfaceData.albedo.rgb * diffuseLightFactor;
