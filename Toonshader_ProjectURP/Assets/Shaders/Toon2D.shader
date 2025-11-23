@@ -1,22 +1,24 @@
-Shader "Toon3Das2D"{
+Shader "Toon/Toon 3D as 2D"{
     Properties{
-        _BaseColor ("BaseColor", Color) = (1,1,1,1)
-        _MainTex ("BaseMap", 2D) = "white" {}
-        _BaseColor_Step ("BaseColor_Step", Range(0, 1)) = 0.5
-        _BaseShade_Feather ("Base/Shade_Feather", Range(0.0001, 1)) = 0.0001
-
-        _1st_ShadeMap ("1st_ShadeMap", 2D) = "white" {}
-        [Toggle(_)] _Use_BaseAs1st ("Use BaseMap as 1st_ShadeMap", Integer ) = 0
-        _1st_ShadeColor ("1st_ShadeColor", Color) = (1,1,1,1)
         
-        _2nd_ShadeMap ("2nd_ShadeMap", 2D) = "white" {}
-        [Toggle(_)] _Use_1stAs2nd ("Use 1st_ShadeMap as 2nd_ShadeMap", Integer ) = 0
-        _2nd_ShadeColor ("2nd_ShadeColor", Color) = (1,1,1,1)
+        _BaseColor ("Base Color", Color) = (1,1,1,1)
+        _MainTex ("Main Texture", 2D) = "white" {}
 
-        _ShadeColor_Step ("ShadeColor_Step", Range(0, 1)) = 0
-        _1st2nd_Shades_Feather ("1st/2nd_Shades_Feather", Range(0.0001, 1)) = 0.0001
+        //Three Colors
+        _1st_ShadeColor ("1st Shade Color", Color) = (0.5,0.5,0.5,1)
+        _1st_ShadeMap ("1st Shade Map", 2D) = "white" {}
+        [Toggle(_)] _Use_BaseAs1st ("Use BaseMap as 1st_ShadeMap", Integer ) = 0
+        _2nd_ShadeColor ("2nd Shade Color", Color) = (0.1,0.1,0.1,1)
+        _2nd_ShadeMap ("2nd Shade Map", 2D) = "white" {}
+        [Toggle(_)] _Use_1stAs2nd ("Use 1st ShadeMap as 2nd ShadeMap", Integer ) = 0
+        
+        //Start and Feather
+        _BaseTo1st_ShadeStart ("Base to 1st Shade Start", Range(0, 1)) = 0.5
+        _BaseTo1st_ShadeFeather ("Base to 1st Shade Feather", Range(0, 1)) = 0.1
+        _1stTo2nd_ShadeStart ("1st to 2nd Shade Start", Range(0, 1)) = 0.25
+        _1stTo2nd_ShadeFeather ("1st to 2nd Shade Feather", Range(0, 1)) = 0.1
+        
         _2DLightStrength ("2D Light Strength", Range(0,1)) = 1
-
 
         _MaskTex("Mask", 2D) = "white" {}
         _NormalMap("Normal Map", 2D) = "bump" {}
@@ -106,19 +108,20 @@ Shader "Toon3Das2D"{
                 half4 _BaseColor;
                 float _BumpScale;
 
+                //Three colors
+                float4 _1st_ShadeColor;
                 int _Use_BaseAs1st;
+                float4 _2nd_ShadeColor;
                 int _Use_1stAs2nd;
 
-                float4 _1st_ShadeColor;
-                float4 _2nd_ShadeColor;
-
-                float _BaseColor_Step;
-                float _BaseShade_Feather;
+                //Start and Feather
+                float _BaseTo1st_ShadeStart;
+                float _BaseTo1st_ShadeFeather;
+                float _1stTo2nd_ShadeStart;
+                float _1stTo2nd_ShadeFeather;
             
-                float _ShadeColor_Step;
-                float _1st2nd_Shades_Feather;
                 float _2DLightStrength;
-
+            
                 int _DirectionalLight_Use;
                 float3 _DirectionalLight_Direction;
                 float4 _DirectionalLight_Color;
@@ -220,7 +223,7 @@ Shader "Toon3Das2D"{
 
 
                 // //Minmimum value is same as the Minimum Feather's value with the Minimum Step's value as threshold.
-                // float Set_FinalShadowMask = saturate((1.0 + ( (lerp( _HalfLambert_var, _HalfLambert_var * saturate(_SystemShadowsLevel_var), _Set_SystemShadowsToBase ) - (_BaseColor_Step - _BaseShade_Feather)) * ((1.0 - _Set_1st_ShadePosition_var.rgb).r - 1.0) ) / (_BaseColor_Step - (_BaseColor_Step-_BaseShade_Feather))));
+                // float Set_FinalShadowMask = saturate((1.0 + ( (lerp( _HalfLambert_var, _HalfLambert_var * saturate(_SystemShadowsLevel_var), _Set_SystemShadowsToBase ) - (_BaseTo1st_ShadeStart - _BaseTo1st_ShadeFeather)) * ((1.0 - _Set_1st_ShadePosition_var.rgb).r - 1.0) ) / (_BaseTo1st_ShadeStart - (_BaseTo1st_ShadeStart-_BaseTo1st_ShadeFeather))));
                 // //
                 // //Composition: 3 Basic Colors as Set_FinalBaseColor
 
@@ -228,10 +231,10 @@ Shader "Toon3Das2D"{
                 float4 _Set_2nd_ShadePosition_var = float4(1, 1, 1, 1); //used in DoubleShadeWithFeather, default:  white
 
 
-                float Set_FinalShadowMask = saturate((1.0 + ( ( _HalfLambert_var - (_BaseColor_Step-_BaseShade_Feather)) * ((1.0 - _Set_1st_ShadePosition_var.rgb).r - 1.0) ) / (_BaseColor_Step - (_BaseColor_Step-_BaseShade_Feather))));
+                float Set_FinalShadowMask = saturate((1.0 + ( ( _HalfLambert_var - (_BaseTo1st_ShadeStart-_BaseTo1st_ShadeFeather)) * ((1.0 - _Set_1st_ShadePosition_var.rgb).r - 1.0) ) / (_BaseTo1st_ShadeStart - (_BaseTo1st_ShadeStart-_BaseTo1st_ShadeFeather))));
                 
 
-                float innerLerpOp = saturate((1.0 + ((_HalfLambert_var - (_ShadeColor_Step - _1st2nd_Shades_Feather)) * ((1.0 - _Set_2nd_ShadePosition_var.rgb).r - 1.0)) / ( _ShadeColor_Step - ( _ShadeColor_Step - _1st2nd_Shades_Feather))));
+                float innerLerpOp = saturate((1.0 + ((_HalfLambert_var - (_1stTo2nd_ShadeStart - _1stTo2nd_ShadeFeather)) * ((1.0 - _Set_2nd_ShadePosition_var.rgb).r - 1.0)) / ( _1stTo2nd_ShadeStart - ( _1stTo2nd_ShadeStart - _1stTo2nd_ShadeFeather))));
                 
                 float3 Set_FinalBaseColor = lerp(baseColor, lerp(firstShadeColor, secondShadeColor,
                                                                  innerLerpOp),
