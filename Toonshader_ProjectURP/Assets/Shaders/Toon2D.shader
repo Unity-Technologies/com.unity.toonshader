@@ -473,7 +473,6 @@ Shader "Toon3Das2D"{
                 return o;
             }
 
-
             //SHAPE_LIGHT macros
             #include_with_pragmas "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/ShapeLightShared.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/LightingUtility.hlsl"
@@ -525,13 +524,6 @@ Shader "Toon3Das2D"{
                 return Set_Outline_Color;
 #endif
 
-
-                
-#if (UNITY_VERSION >= 202230)
-                return float4(0,1,1,1);
-#else
-                return float4(1,0,0,1);
-#endif                
             }
             
             
@@ -554,13 +546,11 @@ Shader "Toon3Das2D"{
             // GPU Instancing
             #pragma multi_compile_instancing
 
-            struct Attributes
-            {
+            struct Attributes {
                 COMMON_2D_NORMALS_INPUTS
             };
 
-            struct Varyings
-            {
+            struct Varyings {
                 COMMON_2D_NORMALS_OUTPUTS
             };
 
@@ -568,13 +558,11 @@ Shader "Toon3Das2D"{
 
             #include "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/Normals2DCommon.hlsl"
 
-            Varyings NormalsRenderingVertex(Attributes input)
-            {
+            Varyings NormalsRenderingVertex(Attributes input) {
                 return CommonNormalsVertex(input);
             }
 
-            half4 NormalsRenderingFragment(Varyings input) : SV_Target
-            {
+            half4 NormalsRenderingFragment(Varyings input) : SV_Target {
                 return CommonNormalsFragment(input, _White);
             }
             ENDHLSL
@@ -606,13 +594,11 @@ Shader "Toon3Das2D"{
 
             #include "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/2DCommon.hlsl"
 
-            Varyings UnlitVertex(Attributes input)
-            {
+            Varyings UnlitVertex(Attributes input) {
                 return CommonUnlitVertex(input);
             }
 
-            half4 UnlitFragment(Varyings input) : SV_Target
-            {
+            half4 UnlitFragment(Varyings input) : SV_Target {
                 return CommonUnlitFragment(input, _White);
             }
             ENDHLSL
