@@ -307,8 +307,10 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         //Shading
         new MaterialUIElement {
             mainPropertyName = new MaterialName(SHADER_PROP_BASE_TO_1ST_SHADE_START),
-            label = new GUIContent("Start", "The threshold for transitioning to the 1st shade color. 0: starts transition immediately, 1: never transition."),
-            //
+            label = new GUIContent("Start",
+                "The threshold for transitioning to the 1st shade color. " +
+                "0: use the base color (no transition), " +
+                "1: starts transitioning immediately."),
         },
         new MaterialUIElement {
             mainPropertyName = new MaterialName(SHADER_PROP_BASE_TO_1ST_SHADE_FEATHER),
@@ -316,7 +318,10 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         },
         new MaterialUIElement {
             mainPropertyName = new MaterialName(SHADER_PROP_1ST_TO_2ND_SHADE_START),
-            label = new GUIContent("Start", "The threshold for transitioning to the 2nd shade color. 0: starts transition immediately, 1: never transition."),
+            label = new GUIContent("Start",
+                "The threshold for transitioning to the 2nd shade color. " +
+                "0: use the 1st shade color (no transition), " +
+                "1: starts transitioning immediately."),
         },
         new MaterialUIElement {
             mainPropertyName = new MaterialName(SHADER_PROP_1ST_TO_2ND_SHADE_FEATHER),
