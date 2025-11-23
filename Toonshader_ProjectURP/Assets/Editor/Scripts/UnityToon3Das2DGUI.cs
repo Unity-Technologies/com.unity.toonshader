@@ -175,6 +175,9 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         } else {
             ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[SHADER_PROP_2_ND_SHADE_MAP]);
         }
+        
+        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_2D_LIGHT_STRENGTH]);
+        
     }
     
     static void DrawDirectionalLightGUI(MaterialEditor mEditor, Material[] mats, 
@@ -189,7 +192,6 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         ToonEditorGUIUtility.DrawVector3FieldGUI(mEditor, mats, uiElements[Toon3Das2DConstants.ShaderPropUnlit_DirectionalLight_Direction]);
         ToonEditorGUIUtility.DrawColorFieldGUI(mEditor, uiElements[Toon3Das2DConstants.ShaderPropUnlit_DirectionalLight_Color]);
         ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[Toon3Das2DConstants.ShaderPropUnlit_DirectionalLight_Intensity]);
-        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_DIRECTIONAL_LIGHT_2D_LIGHT_FACTOR]);
         ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_DIRECTIONAL_LIGHT_DIFFUSE_FACTOR]);
         ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_DIRECTIONAL_LIGHT_SPECULAR_FACTOR]);
     }
@@ -355,7 +357,7 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
                 "The intensity of the custom directional light. "),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(SHADER_PROP_DIRECTIONAL_LIGHT_2D_LIGHT_FACTOR),
+            mainPropertyName = new MaterialName(SHADER_PROP_2D_LIGHT_STRENGTH),
             label = new GUIContent("2D Light Factor",
                 "Multiplier for the 2D light contribution."),
         },
@@ -381,6 +383,7 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     internal const string SHADER_PROP_1_ST_SHADE_COLOR = "_1st_ShadeColor";
     internal const string SHADER_PROP_2_ND_SHADE_MAP = "_2nd_ShadeMap";
     internal const string SHADER_PROP_2_ND_SHADE_COLOR = "_2nd_ShadeColor";
+    internal const string SHADER_PROP_2D_LIGHT_STRENGTH  = "_2DLightStrength";
 
     internal const string SHADER_PROP_NORMAL_MAP = "_NormalMap";
     internal const string SHADER_PROP_BUMP_SCALE = "_BumpScale";
@@ -400,7 +403,6 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     internal const string SHADER_PROP_OUTLINE_CUSTOM_NORMAL_MAP    = "_Outline_CustomNormalMap";
 
     internal const string SHADER_PROP_DIRECTIONAL_LIGHT_USE = "_DirectionalLight_Use";
-    internal const string SHADER_PROP_DIRECTIONAL_LIGHT_2D_LIGHT_FACTOR  = "_DirectionalLight_2DLightFactor";
     internal const string SHADER_PROP_DIRECTIONAL_LIGHT_DIFFUSE_FACTOR  = "_DirectionalLight_DiffuseFactor";
     internal const string SHADER_PROP_DIRECTIONAL_LIGHT_SPECULAR_FACTOR = "_DirectionalLight_SpecularFactor";
     
