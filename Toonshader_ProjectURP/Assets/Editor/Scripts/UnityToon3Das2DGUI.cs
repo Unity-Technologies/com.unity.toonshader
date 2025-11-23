@@ -25,7 +25,8 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         }
         
         EditorGUI.BeginChangeCheck();
-        DrawThreeColorsGUI(mEditor, mats, m_materialPropertyUIElements);
+        DrawThreeColorsGUI(mEditor, mats, m_materialPropertyUIElements, ref m_colorsFoldout);
+        DrawShadingGUI(mEditor, mats, m_materialPropertyUIElements, ref m_shadingFoldout);
         DrawDirectionalLightGUI(mEditor, mats, m_materialPropertyUIElements, ref m_directionalLightFoldout);
 
         DrawNormalMapGUI(mEditor, m_materialPropertyUIElements, ref m_normalMapFoldout);
@@ -41,12 +42,78 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     
     void RefreshFoldouts(Material mat, Dictionary<string, MaterialPropertyUIElement> uiElements) {
         
+        m_colorsFoldout = true;
+        m_shadingFoldout = true;
+
         m_normalMapFoldout = true;
         m_outlineFoldout = mat.GetShaderPassEnabled(LIGHT_MODE_NAME_FOR_OUTLINE);
 
         bool lightEnabled = mat.GetInteger(uiElements[SHADER_PROP_DIRECTIONAL_LIGHT_USE].mainProperty.id) !=0;
         m_directionalLightFoldout = lightEnabled;
         
+    }
+
+//----------------------------------------------------------------------------------------------------------------------
+    static void DrawThreeColorsGUI(MaterialEditor mEditor, Material[] mats,
+        Dictionary<string, MaterialPropertyUIElement> uiElements, ref bool foldout) 
+    {
+        
+        ToonEditorGUIUtility.DrawFoldoutGUI(ref foldout, COLORS_FOLDOUT);
+        if (!foldout) 
+            return;
+        
+        ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[SHADER_PROP_MAIN_TEX]);
+
+        EditorGUI.indentLevel += 2;
+        ToonEditorGUIUtility.DrawToggleGUI(mEditor, mats, uiElements[SHADER_PROP_USE_BASE_AS1_ST], out bool applyTo1st );
+        EditorGUI.indentLevel -= 2;
+
+        if (applyTo1st) {
+            EditorGUI.indentLevel += 2;
+            ToonEditorGUIUtility.DrawColorPropertyGUI(mEditor, uiElements[SHADER_PROP_1_ST_SHADE_COLOR]);
+            EditorGUI.indentLevel -= 2;
+        } else {
+            ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[SHADER_PROP_1_ST_SHADE_MAP]);
+        }
+
+        EditorGUI.indentLevel += 2;
+        ToonEditorGUIUtility.DrawToggleGUI(mEditor, mats, uiElements[SHADER_PROP_USE_1ST_AS_2ND], out bool applyTo2nd);
+        EditorGUI.indentLevel -= 2;
+
+
+        if (applyTo2nd) {
+            EditorGUI.indentLevel += 2;
+            ToonEditorGUIUtility.DrawColorPropertyGUI(mEditor, uiElements[SHADER_PROP_2ND_SHADE_COLOR]);
+            EditorGUI.indentLevel -= 2;
+        } else {
+            ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[SHADER_PROP_2ND_SHADE_MAP]);
+        }
+        
+        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_2D_LIGHT_STRENGTH]);
+        EditorGUILayout.Space();
+    }
+
+    static void DrawShadingGUI(MaterialEditor mEditor, Material[] mats,
+        Dictionary<string, MaterialPropertyUIElement> uiElements, ref bool foldout) 
+    {
+        
+        ToonEditorGUIUtility.DrawFoldoutGUI(ref foldout, SHADING_FOLDOUT);
+        if (!foldout) 
+            return;
+        
+        EditorGUILayout.LabelField("Base to 1st Shade");
+        EditorGUI.indentLevel += INDENT_SIZE;
+        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_BASE_TO_1ST_SHADE_START]);
+        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_BASE_TO_1ST_SHADE_FEATHER]);
+        EditorGUI.indentLevel -= INDENT_SIZE;
+
+        EditorGUILayout.LabelField("1st to 2nd Shade");
+        EditorGUI.indentLevel += INDENT_SIZE;
+        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_1ST_TO_2ND_SHADE_START]);
+        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_1ST_TO_2ND_SHADE_FEATHER]);
+        EditorGUI.indentLevel -= INDENT_SIZE;
+        
+        EditorGUILayout.Space();
     }
     
 //----------------------------------------------------------------------------------------------------------------------
@@ -146,40 +213,6 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     
 //----------------------------------------------------------------------------------------------------------------------    
     
-    static void DrawThreeColorsGUI(MaterialEditor mEditor, Material[] mats,
-        Dictionary<string, MaterialPropertyUIElement> uiElements) 
-    {
-        ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[SHADER_PROP_MAIN_TEX]);
-
-        EditorGUI.indentLevel += 2;
-        ToonEditorGUIUtility.DrawToggleGUI(mEditor, mats, uiElements[SHADER_PROP_USE_BASE_AS1_ST], out bool applyTo1st );
-        EditorGUI.indentLevel -= 2;
-
-        if (applyTo1st) {
-            EditorGUI.indentLevel += 2;
-            ToonEditorGUIUtility.DrawColorPropertyGUI(mEditor, uiElements[SHADER_PROP_1_ST_SHADE_COLOR]);
-            EditorGUI.indentLevel -= 2;
-        } else {
-            ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[SHADER_PROP_1_ST_SHADE_MAP]);
-        }
-
-        EditorGUI.indentLevel += 2;
-        ToonEditorGUIUtility.DrawToggleGUI(mEditor, mats, uiElements[SHADER_PROP_USE_1_ST_AS2_ND], out bool applyTo2nd);
-        EditorGUI.indentLevel -= 2;
-
-
-        if (applyTo2nd) {
-            EditorGUI.indentLevel += 2;
-            ToonEditorGUIUtility.DrawColorPropertyGUI(mEditor, uiElements[SHADER_PROP_2_ND_SHADE_COLOR]);
-            EditorGUI.indentLevel -= 2;
-        } else {
-            ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[SHADER_PROP_2_ND_SHADE_MAP]);
-        }
-        
-        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_2D_LIGHT_STRENGTH]);
-        
-    }
-    
     static void DrawDirectionalLightGUI(MaterialEditor mEditor, Material[] mats, 
         Dictionary<string, MaterialPropertyUIElement> uiElements, ref bool foldout) {
 
@@ -254,12 +287,12 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
             label = new GUIContent("1st Shading Map", "The map used for the brighter portions of the shadow."),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(SHADER_PROP_2_ND_SHADE_MAP),
+            mainPropertyName = new MaterialName(SHADER_PROP_2ND_SHADE_MAP),
             label = new GUIContent("2nd Shading Map", "The map used for the darker portions of the shadow."),
-            extraPropertyName1 = new MaterialName(SHADER_PROP_2_ND_SHADE_COLOR) 
+            extraPropertyName1 = new MaterialName(SHADER_PROP_2ND_SHADE_COLOR) 
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(SHADER_PROP_2_ND_SHADE_COLOR),
+            mainPropertyName = new MaterialName(SHADER_PROP_2ND_SHADE_COLOR),
             label = new GUIContent("2nd Shading Map", "The map used for the darker portions of the shadow."),
         },
         new MaterialUIElement {
@@ -267,8 +300,27 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
             label = new GUIContent("Apply to 1st shading map", "Apply Base map to the 1st shading map."),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(SHADER_PROP_USE_1_ST_AS2_ND),
+            mainPropertyName = new MaterialName(SHADER_PROP_USE_1ST_AS_2ND),
             label = new GUIContent("Apply to 2nd shading map", "Apply Base map or the 1st shading map to the 2st shading map."),
+        },
+        
+        //Shading
+        new MaterialUIElement {
+            mainPropertyName = new MaterialName(SHADER_PROP_BASE_TO_1ST_SHADE_START),
+            label = new GUIContent("Start", "The threshold for transitioning to the 1st shade color. 0: starts transition immediately, 1: never transition."),
+            //
+        },
+        new MaterialUIElement {
+            mainPropertyName = new MaterialName(SHADER_PROP_BASE_TO_1ST_SHADE_FEATHER),
+            label = new GUIContent("Feather", "Controls feathering to the 1st shade color. 0: sharp transition, 1: fully feathered."),
+        },
+        new MaterialUIElement {
+            mainPropertyName = new MaterialName(SHADER_PROP_1ST_TO_2ND_SHADE_START),
+            label = new GUIContent("Start", "The threshold for transitioning to the 2nd shade color. 0: starts transition immediately, 1: never transition."),
+        },
+        new MaterialUIElement {
+            mainPropertyName = new MaterialName(SHADER_PROP_1ST_TO_2ND_SHADE_FEATHER),
+            label = new GUIContent("Feather", "Controls feathering to the 2nd shade color. 0: sharp transition, 1: fully feathered."),
         },
         
         //Normal Map
@@ -377,16 +429,25 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
 
     
     //Common constants
-    internal const string SHADER_PROP_MAIN_TEX = "_MainTex";
-    internal const string SHADER_PROP_USE_BASE_AS1_ST = "_Use_BaseAs1st";
-    internal const string SHADER_PROP_USE_1_ST_AS2_ND = "_Use_1stAs2nd";
+    //Colors
     internal const string SHADER_PROP_BASE_COLOR = "_BaseColor";
-    internal const string SHADER_PROP_1_ST_SHADE_MAP = "_1st_ShadeMap";
-    internal const string SHADER_PROP_1_ST_SHADE_COLOR = "_1st_ShadeColor";
-    internal const string SHADER_PROP_2_ND_SHADE_MAP = "_2nd_ShadeMap";
-    internal const string SHADER_PROP_2_ND_SHADE_COLOR = "_2nd_ShadeColor";
-    internal const string SHADER_PROP_2D_LIGHT_STRENGTH  = "_2DLightStrength";
+    internal const string SHADER_PROP_MAIN_TEX = "_MainTex";
 
+    internal const string SHADER_PROP_1_ST_SHADE_COLOR = "_1st_ShadeColor";
+    internal const string SHADER_PROP_1_ST_SHADE_MAP = "_1st_ShadeMap";
+    internal const string SHADER_PROP_USE_BASE_AS1_ST = "_Use_BaseAs1st";
+    
+    internal const string SHADER_PROP_2ND_SHADE_COLOR = "_2nd_ShadeColor";
+    internal const string SHADER_PROP_2ND_SHADE_MAP = "_2nd_ShadeMap";
+    internal const string SHADER_PROP_USE_1ST_AS_2ND = "_Use_1stAs2nd";
+    
+    //Shading
+    internal const string SHADER_PROP_BASE_TO_1ST_SHADE_START  = "_BaseTo1st_ShadeStart";
+    internal const string SHADER_PROP_BASE_TO_1ST_SHADE_FEATHER  = "_BaseTo1st_ShadeFeather";
+    internal const string SHADER_PROP_1ST_TO_2ND_SHADE_START  = "_1stTo2nd_ShadeStart";
+    internal const string SHADER_PROP_1ST_TO_2ND_SHADE_FEATHER  = "_1stTo2nd_ShadeFeather";
+
+    internal const string SHADER_PROP_2D_LIGHT_STRENGTH  = "_2DLightStrength";
     internal const string SHADER_PROP_NORMAL_MAP = "_NormalMap";
     internal const string SHADER_PROP_BUMP_SCALE = "_BumpScale";
     
@@ -419,9 +480,19 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     private static readonly GUIContent[] m_outlineModeEnums= EnumUtility.ToInspectorNamesAsGUIContent(typeof(OutlineMode));
     private static readonly int[] m_outlineModeIndices = EnumUtility.ToIndices(typeof(OutlineMode));
 
+    public static readonly GUIContent COLORS_FOLDOUT = EditorGUIUtility.TrTextContent("Colors",
+        "Colors for basic cel-shading settings in Unity Toon Shader.");
+
+    public static readonly GUIContent SHADING_FOLDOUT =
+        EditorGUIUtility.TrTextContent("Shading", "Shading settings.");
+    
+    bool m_colorsFoldout = true;
+    bool m_shadingFoldout = true;
     bool m_normalMapFoldout = false;
     bool m_outlineFoldout = false;
     bool m_directionalLightFoldout = false;
-    
+
+    private const int INDENT_SIZE = 2;
+
 }
 
