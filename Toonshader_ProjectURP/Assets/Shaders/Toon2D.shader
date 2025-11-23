@@ -133,15 +133,7 @@ Shader "Toon3Das2D"{
             TEXTURE2D(_1st_ShadeMap);
             TEXTURE2D(_2nd_ShadeMap);
 
-inline float3 UnityObjectToWorldNormal(in float3 norm)
-{
-#ifdef UNITY_ASSUME_UNIFORM_SCALING
-    return UnityObjectToWorldDir(norm);
-#else
-    // mul(IT_M, norm) => mul(norm, I_M) => {dot(norm, I_M.col0), dot(norm, I_M.col1), dot(norm, I_M.col2)}
-    return normalize(mul(norm, (float3x3)GetWorldToObjectMatrix()));
-#endif
-}
+            #include "ObjectTransform.hlsl"
             
             Varyings LitVertex(Attributes input) {
 
@@ -437,29 +429,8 @@ inline float3 UnityObjectToWorldNormal(in float3 norm)
                 float _Outline_LightColorBlend;
                 
             CBUFFER_END
-            
-// #ifdef UNIVERSAL_PIPELINE_CORE_INCLUDED
-//             #include "../../UniversalRP/Shaders/UniversalToonInput.hlsl"
-//             #include "../../UniversalRP/Shaders/UniversalToonHead.hlsl"
-//             #include "../../UniversalRP/Shaders/UniversalToonOutline.hlsl"
-// #endif
 
-
-inline float4 UnityObjectToClipPosInstanced(in float3 pos) {
-    return mul(UNITY_MATRIX_VP, mul(GetObjectToWorldMatrix(), float4(pos, 1.0)));
-}
-#define UnityObjectToClipPos UnityObjectToClipPosInstanced
-            
-            
-inline float3 UnityObjectToWorldNormal(in float3 norm)
-{
-#ifdef UNITY_ASSUME_UNIFORM_SCALING
-    return UnityObjectToWorldDir(norm);
-#else
-    // mul(IT_M, norm) => mul(norm, I_M) => {dot(norm, I_M.col0), dot(norm, I_M.col1), dot(norm, I_M.col2)}
-    return normalize(mul(norm, (float3x3)GetWorldToObjectMatrix()));
-#endif
-}
+            #include "ObjectTransform.hlsl"
             
             OutlineVertexOutput OutlineVertex(OutlineVertexInput v) {
                 OutlineVertexOutput o = (OutlineVertexOutput) 0;
