@@ -57,7 +57,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints:
-    - _DirectionalLight_Use: 0
+    - _DirectionalLight_Use: 1
     - _Directional_Use: 0
     - _OutlineMode: 0
     - _Outline_BlendBaseColor: 0
@@ -67,11 +67,16 @@ Material:
     - _Use_BaseAs1st: 0
     m_Floats:
     - _1st2nd_Shades_Feather: 0.08
+    - _1stTo2nd_ShadeFeather: 0.1
+    - _1stTo2nd_ShadeStart: 0.25
+    - _2DLightStrength: 0
     - _BaseColor_Step: 0.841
     - _BaseShade_Feather: 0.074
+    - _BaseTo1st_ShadeFeather: 0.1
+    - _BaseTo1st_ShadeStart: 0.5
     - _BumpScale: 1
     - _DirectionalLight_2DLightFactor: 0
-    - _DirectionalLight_DiffuseFactor: 0
+    - _DirectionalLight_DiffuseFactor: 1
     - _DirectionalLight_Intensity: 0.83
     - _DirectionalLight_SpecularFactor: 0
     - _OutlineExtrusion: 0.02
