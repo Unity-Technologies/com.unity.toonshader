@@ -15,6 +15,7 @@ Shader "Toon3Das2D"{
 
         _ShadeColor_Step ("ShadeColor_Step", Range(0, 1)) = 0
         _1st2nd_Shades_Feather ("1st/2nd_Shades_Feather", Range(0.0001, 1)) = 0.0001
+        _2DLightStrength ("2D Light Strength", Range(0,1)) = 1
 
 
         _MaskTex("Mask", 2D) = "white" {}
@@ -43,7 +44,6 @@ Shader "Toon3Das2D"{
         _DirectionalLight_Direction ("Specular Light Direction", Vector) = (0,-1,0,0)
         _DirectionalLight_Color("Directional Light Color", Color) = (1,1,1,1)
         _DirectionalLight_Intensity ("Directional Light Intensity", float) = 0.5
-        _DirectionalLight_2DLightFactor ("Directional Light: 2D Light Factor", Range(0,1)) = 1
         _DirectionalLight_DiffuseFactor ("Directional Light: Diffuse Factor", Range(0,1)) = 0.5
         _DirectionalLight_SpecularFactor ("Directional Light: Specular Factor", Range(0,1)) = 0.5
         
@@ -117,12 +117,12 @@ Shader "Toon3Das2D"{
             
                 float _ShadeColor_Step;
                 float _1st2nd_Shades_Feather;
+                float _2DLightStrength;
 
                 int _DirectionalLight_Use;
                 float3 _DirectionalLight_Direction;
                 float4 _DirectionalLight_Color;
                 float _DirectionalLight_Intensity;
-                float _DirectionalLight_2DLightFactor;
                 float _DirectionalLight_DiffuseFactor;
                 float _DirectionalLight_SpecularFactor;
             
@@ -193,7 +193,7 @@ Shader "Toon3Das2D"{
                     shapeLight0 *= dot(processedMask, _ShapeLightMaskFilter0);
                 }
 
-                const float3 diffuseLightFactor = (shapeLight0.rgb * _DirectionalLight_2DLightFactor)
+                const float3 diffuseLightFactor = (shapeLight0.rgb * _2DLightStrength)
                     + (_DirectionalLight_Color * _DirectionalLight_DiffuseFactor * _DirectionalLight_Use);
                 
                 float4 _MainTex_var = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, uv);
@@ -215,7 +215,7 @@ Shader "Toon3Das2D"{
                 const float light2dDiffuse = max(shapeLight0.r, max(shapeLight0.g, shapeLight0.b)); 
                 const float directionalDiffuse = 0.5 * dot( perturbedNormalWS, _DirectionalLight_Direction) + 0.5;
 
-                float _HalfLambert_var = (light2dDiffuse * _DirectionalLight_2DLightFactor)
+                float _HalfLambert_var = (light2dDiffuse * _2DLightStrength)
                     + (directionalDiffuse * _DirectionalLight_DiffuseFactor);
 
 
