@@ -163,6 +163,30 @@ Shader "Toon/Toon 3D as 2D"{
             }
 
 
+            float3 ThreeColorsLinearShading(
+                float3 baseColor,
+                float3 firstColor,
+                float3 secondColor,
+                float3  baseTo1stStart,     // t=0: use base, t=1: transition
+                float3  baseTo1stFeather,
+                float3  firstToSecondStart, //t=0: use base, t=1: transition
+                float3  firstToSecondFeather,
+                float  dotNL) // dot(N.L)
+            {
+                const float t = saturate(1 - dotNL); //t = 0: light, t=1: dark shaded
+
+                const float invBaseTo1stStart = 1 - baseTo1stStart;
+                const float invBaseTo2ndStart = 1 - firstToSecondStart;
+                
+                const float s1 = smoothstep(invBaseTo1stStart, invBaseTo1stStart + baseTo1stFeather,t); //works
+                const float s2 = smoothstep(invBaseTo2ndStart, invBaseTo2ndStart + firstToSecondFeather,t); //works
+                
+                float3 c01 = lerp(baseColor,firstColor,  s1);
+                float3 c12 = lerp(c01, secondColor, s2);
+                return c12;
+            }
+
+
             half4 CombinedShapeLightShared2(in SurfaceData2D surfaceData, in InputData2D inputData, in float2 uv,
                 in float3 tangentWS, in float3 bitangentWS, in float3 normalWS)
             {
@@ -199,24 +223,24 @@ Shader "Toon/Toon 3D as 2D"{
                 const float3 diffuseLightFactor = (shapeLight0.rgb * _2DLightStrength)
                     + (_DirectionalLight_Color * _DirectionalLight_DiffuseFactor * _DirectionalLight_Use);
                 
-                float4 _MainTex_var = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, uv);
-                float3 baseColor = surfaceData.albedo.rgb * diffuseLightFactor;
+                const float4 _MainTex_var = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, uv);
+                const float3 baseColor = surfaceData.albedo.rgb * diffuseLightFactor;
 
-                // //v.2.0.5
+                //1st and 2nd Shade
                 float4 _1st_ShadeMap_var = lerp(
                     SAMPLE_TEXTURE2D(_1st_ShadeMap, sampler_MainTex, TRANSFORM_TEX(uv, _MainTex)), _MainTex_var,
                     _Use_BaseAs1st);
                 const float3 firstShadeAlbedo = _1st_ShadeColor.rgb * _1st_ShadeMap_var.rgb; 
-                float3 firstShadeColor = firstShadeAlbedo * diffuseLightFactor;
+                const float3 firstShadeColor = firstShadeAlbedo * diffuseLightFactor;
 
                 float4 _2nd_ShadeMap_var = lerp(
                     SAMPLE_TEXTURE2D(_2nd_ShadeMap, sampler_MainTex, TRANSFORM_TEX(uv, _MainTex)), _1st_ShadeMap_var,
                     _Use_1stAs2nd);
                 const float3 secondShadeAlbedo = _2nd_ShadeColor.rgb * _2nd_ShadeMap_var.rgb;
-                float3 secondShadeColor = secondShadeAlbedo * diffuseLightFactor;
+                const float3 secondShadeColor = secondShadeAlbedo * diffuseLightFactor;
 
                 const float light2dDiffuse = max(shapeLight0.r, max(shapeLight0.g, shapeLight0.b)); 
-                const float directionalDiffuse = 0.5 * dot( perturbedNormalWS, _DirectionalLight_Direction) + 0.5;
+                const float directionalDiffuse = 0.5 * dot( perturbedNormalWS, -_DirectionalLight_Direction) + 0.5;
 
                 float _HalfLambert_var = (light2dDiffuse * _2DLightStrength)
                     + (directionalDiffuse * _DirectionalLight_DiffuseFactor);
@@ -240,6 +264,10 @@ Shader "Toon/Toon 3D as 2D"{
                                                                  innerLerpOp),
                                                  Set_FinalShadowMask);
 
+                Set_FinalBaseColor = ThreeColorsLinearShading(baseColor,firstShadeColor, secondShadeColor,
+                    _BaseTo1st_ShadeStart, _BaseTo1st_ShadeFeather,
+                    _1stTo2nd_ShadeStart, _1stTo2nd_ShadeFeather, _HalfLambert_var);
+                
                 // float4 _Set_HighColorMask_var = tex2D(_Set_HighColorMask, TRANSFORM_TEX(Set_UV0, _Set_HighColorMask));
                 //
                 // float _Specular_var = 0.5*dot(halfDirection,lerp( i.normalDir, normalDirection, _Is_NormalMapToHighColor ))+0.5; // Specular
