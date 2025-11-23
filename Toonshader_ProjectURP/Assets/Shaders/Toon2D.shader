@@ -178,8 +178,8 @@ Shader "Toon/Toon 3D as 2D"{
                 const float invBaseTo1stStart = 1 - baseTo1stStart;
                 const float invBaseTo2ndStart = 1 - firstToSecondStart;
                 
-                const float s1 = smoothstep(invBaseTo1stStart, invBaseTo1stStart + baseTo1stFeather,t); //works
-                const float s2 = smoothstep(invBaseTo2ndStart, invBaseTo2ndStart + firstToSecondFeather,t); //works
+                const float s1 = smoothstep(invBaseTo1stStart, invBaseTo1stStart + baseTo1stFeather,t); 
+                const float s2 = smoothstep(invBaseTo2ndStart, invBaseTo2ndStart + firstToSecondFeather,t); 
                 
                 float3 c01 = lerp(baseColor,firstColor,  s1);
                 float3 c12 = lerp(c01, secondColor, s2);
@@ -224,7 +224,7 @@ Shader "Toon/Toon 3D as 2D"{
                     + (_DirectionalLight_Color * _DirectionalLight_DiffuseFactor * _DirectionalLight_Use);
                 
                 const float4 _MainTex_var = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, uv);
-                const float3 baseColor = surfaceData.albedo.rgb * diffuseLightFactor;
+                const float3 baseColor = _BaseColor.rgb * surfaceData.albedo.rgb * diffuseLightFactor;
 
                 //1st and 2nd Shade
                 float4 _1st_ShadeMap_var = lerp(
