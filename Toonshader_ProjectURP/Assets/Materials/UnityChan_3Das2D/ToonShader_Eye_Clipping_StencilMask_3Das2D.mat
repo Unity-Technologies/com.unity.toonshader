@@ -67,13 +67,13 @@ Material:
     - _Use_BaseAs1st: 0
     m_Floats:
     - _1st2nd_Shades_Feather: 0
-    - _1stTo2nd_ShadeFeather: 0.1
-    - _1stTo2nd_ShadeStart: 0.25
+    - _1stTo2nd_ShadeFeather: 0
+    - _1stTo2nd_ShadeStart: 0
     - _2DLightStrength: 0
     - _BaseColor_Step: 0.393
     - _BaseShade_Feather: 0.629
     - _BaseTo1st_ShadeFeather: 0.1
-    - _BaseTo1st_ShadeStart: 0.5
+    - _BaseTo1st_ShadeStart: 0.393
     - _BumpScale: 1
     - _DirectionalLight_2DLightFactor: 0
     - _DirectionalLight_DiffuseFactor: 1
