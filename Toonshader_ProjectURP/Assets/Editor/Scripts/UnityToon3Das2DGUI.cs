@@ -26,10 +26,10 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         
         EditorGUI.BeginChangeCheck();
         DrawThreeColorsGUI(mEditor, mats, m_materialPropertyUIElements);
+        DrawDirectionalLightGUI(mEditor, mats, m_materialPropertyUIElements, ref m_directionalLightFoldout);
 
         DrawNormalMapGUI(mEditor, m_materialPropertyUIElements, ref m_normalMapFoldout);
         DrawOutlineGUI(mEditor, mats, m_materialPropertyUIElements, ref m_outlineFoldout);
-        DrawDirectionalLightGUI(mEditor, mats, m_materialPropertyUIElements, ref m_directionalLightFoldout);
         
 
         if (EditorGUI.EndChangeCheck()) {
@@ -183,17 +183,19 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     static void DrawDirectionalLightGUI(MaterialEditor mEditor, Material[] mats, 
         Dictionary<string, MaterialPropertyUIElement> uiElements, ref bool foldout) {
 
-        ToonEditorGUIUtility.DrawFoldoutWithToggleGUI(mEditor, mats, uiElements[SHADER_PROP_DIRECTIONAL_LIGHT_USE],
-            ref foldout);
+        ToonEditorGUIUtility.DrawFoldoutWithToggleGUI(mEditor, mats, 
+            uiElements[SHADER_PROP_DIRECTIONAL_LIGHT_USE], ref foldout, out bool toggleEnabled);
         
         if (!foldout)
             return;
-
+        
+        EditorGUI.BeginDisabledGroup(!toggleEnabled);
         ToonEditorGUIUtility.DrawVector3FieldGUI(mEditor, mats, uiElements[Toon3Das2DConstants.ShaderPropUnlit_DirectionalLight_Direction]);
         ToonEditorGUIUtility.DrawColorFieldGUI(mEditor, uiElements[Toon3Das2DConstants.ShaderPropUnlit_DirectionalLight_Color]);
         ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[Toon3Das2DConstants.ShaderPropUnlit_DirectionalLight_Intensity]);
         ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_DIRECTIONAL_LIGHT_DIFFUSE_FACTOR]);
         ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_DIRECTIONAL_LIGHT_SPECULAR_FACTOR]);
+        EditorGUI.EndDisabledGroup();
     }
     
 //----------------------------------------------------------------------------------------------------------------------
