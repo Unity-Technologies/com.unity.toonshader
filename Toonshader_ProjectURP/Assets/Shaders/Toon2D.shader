@@ -343,7 +343,7 @@ Shader "Toon/Toon 3D as 2D"{
             }
 //            Cull [_SRPDefaultUnlitColMode]
 //            ColorMask [_SPRDefaultUnlitColorMask]
-//            Blend SrcAlpha OneMinusSrcAlpha
+            Blend SrcAlpha OneMinusSrcAlpha
 //            Stencil
 //            {
 //                Ref[_StencilNo]
@@ -359,8 +359,6 @@ Shader "Toon/Toon 3D as 2D"{
             #pragma vertex OutlineVertex
             #pragma fragment OutlineFragment
 
-
-            #pragma multi_compile _IS_OUTLINE_CLIPPING_NO _IS_OUTLINE_CLIPPING_YES
             #pragma multi_compile TOON_OUTLINE_NORMAL TOON_OUTLINE_POS
             // Outline is implemented in UniversalToonOutline.hlsl.
             // #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
@@ -512,19 +510,7 @@ Shader "Toon/Toon 3D as 2D"{
                 const float3 outlineBaseBlend = lerp(outlineAlbedo, outlineAlbedo * Set_BaseColor, _Outline_BaseColorBlend);
                 const float3 outlineBaseAndLightBlend = lerp(outlineBaseBlend, outlineBaseBlend * diffuseLightFactor, _Outline_LightColorBlend);
                 
-#ifdef _IS_OUTLINE_CLIPPING_NO
                 return float4(outlineBaseAndLightBlend,1.0);
-#elif _IS_OUTLINE_CLIPPING_YES
-                float4 _ClippingMask_var = SAMPLE_TEXTURE2D(_ClippingMask, sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex));
-                float Set_MainTexAlpha = _MainTex_var.a;
-                float _IsBaseMapAlphaAsClippingMask_var = lerp( _ClippingMask_var.r, Set_MainTexAlpha, _IsBaseMapAlphaAsClippingMask );
-                float _Inverse_Clipping_var = lerp( _IsBaseMapAlphaAsClippingMask_var, (1.0 - _IsBaseMapAlphaAsClippingMask_var), _Inverse_Clipping );
-                float Set_Clipping = saturate((_Inverse_Clipping_var+_Clipping_Level));
-                clip(Set_Clipping - 0.5);
-
-                return float4(outlineBaseAndLightBlend,Set_Clipping);
-#endif
-
             }
             
             
