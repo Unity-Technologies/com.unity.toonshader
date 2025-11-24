@@ -51,8 +51,8 @@ Shader "Toon/Toon 3D as 2D"{
         _OutlineOffsetZ ("Outline Z Offset", Float) = 0.75
         _OutlineNear ("Outline Near", Float ) = 0.5
         _OutlineFar ("Outline Far", Float ) = 100
-        _Outline_UseCustomNormalMap ("Use Custom Normal Map", Integer ) = 0
-        _Outline_CustomNormalMap ("Custom Normal Map", 2D) = "white" {}
+        _Outline_UseNormalMap ("Outline: Use Outline Normal Map", Integer ) = 0
+        _Outline_NormalMap ("Outline Normal Map", 2D) = "bump" {}
         
         
     }
@@ -399,10 +399,10 @@ Shader "Toon/Toon 3D as 2D"{
             SAMPLER(sampler_OutlineTex);
             float4 _OutlineTex_ST;
 
-            TEXTURE2D(_Outline_CustomNormalMap);
-            SAMPLER(sampler_Outline_CustomNormalMap);
-            float4 _Outline_CustomNormalMap_ST;
-            int    _Outline_UseCustomNormalMap;
+            TEXTURE2D(_Outline_NormalMap);
+            SAMPLER(sampler_Outline_NormalMap);
+            float4 _Outline_NormalMap_ST;
+            int    _Outline_UseNormalMap;
 
             CBUFFER_START(UnityPerMaterial)
 
@@ -447,7 +447,7 @@ Shader "Toon/Toon 3D as 2D"{
 
                 //custom normal map
                 const float4 customNormalMap = SAMPLE_TEXTURE2D_LOD(
-                    _Outline_CustomNormalMap, sampler_Outline_CustomNormalMap, TRANSFORM_TEX(uv, _Outline_CustomNormalMap),0);
+                    _Outline_NormalMap, sampler_Outline_NormalMap, TRANSFORM_TEX(uv, _Outline_NormalMap),0);
                 const float3 normalTS = UnpackNormal(customNormalMap);
                 float3 _BakedNormalDir = normalize(mul(normalTS.xyz, tangentTransform));
     
@@ -457,7 +457,7 @@ Shader "Toon/Toon 3D as 2D"{
 
 				float3 newPos;
 #ifdef _OUTLINE_NML
-                newPos = lerp(float4(v.vertex.xyz + v.normal*Set_Outline_Width,1), float4(v.vertex.xyz + _BakedNormalDir*Set_Outline_Width,1),_Outline_UseCustomNormalMap);
+                newPos = lerp(float4(v.vertex.xyz + v.normal*Set_Outline_Width,1), float4(v.vertex.xyz + _BakedNormalDir*Set_Outline_Width,1),_Outline_UseNormalMap);
                 o.pos = TransformObjectToHClip(newPos);
 #elif _OUTLINE_POS
                 Set_Outline_Width = Set_Outline_Width*2;
