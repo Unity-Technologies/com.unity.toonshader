@@ -74,7 +74,7 @@ Material:
     - _Outline_UseCustomNormalMap: 0
     - _Outline_UseNormalMap: 0
     - _Specular_UseDirectionalLight: 0
-    - _Use_1stAs2nd: 0
+    - _Use_1stAs2nd: 1
     - _Use_BaseAs1st: 0
     m_Floats:
     - _1st2nd_Shades_Feather: 0.064
@@ -108,7 +108,7 @@ Material:
     - _2nd_ShadeColor: {r: 0.6691177, g: 0.47672933, b: 0.27059904, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _DirectionalLight_Color: {r: 1, g: 1, b: 1, a: 1}
-    - _DirectionalLight_Direction: {r: 0, g: -0.6563298, b: 0.7544741, a: 0}
+    - _DirectionalLight_Direction: {r: 0.1626372, g: -0.5113381, b: 0.84384984, a: 0}
     - _DirectionalLight_ViewPosition: {r: 0, g: 0, b: 0, a: 0}
     - _HighlightColor: {r: 0.47058824, g: 0.47058824, b: 0.47058824, a: 1}
     - _OutlineColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
