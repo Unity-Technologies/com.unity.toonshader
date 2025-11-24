@@ -83,13 +83,14 @@ Material:
     - _2DLightStrength: 0.129
     - _BaseColor_Step: 0.393
     - _BaseShade_Feather: 0.629
-    - _BaseTo1st_ShadeFeather: 0.1
+    - _BaseTo1st_ShadeFeather: 0.629
     - _BaseTo1st_ShadeStart: 0.393
     - _BumpScale: 1
     - _DirectionalLight_2DLightFactor: 0
     - _DirectionalLight_DiffuseFactor: 1
     - _DirectionalLight_DiffuseStrength: 0.877
     - _DirectionalLight_HighlightPower: 0.3
+    - _DirectionalLight_HighlightSize: 0
     - _DirectionalLight_HighlightStrength: 0.5
     - _DirectionalLight_Intensity: 0.83
     - _DirectionalLight_SpecularFactor: 0
@@ -98,8 +99,8 @@ Material:
     - _OutlineNear: 0.5
     - _OutlineOffsetZ: 0.75
     - _OutlineWidth: 5
-    - _Outline_BaseColorBlend: 1
-    - _Outline_LightColorBlend: 0
+    - _Outline_BaseColorBlend: 0
+    - _Outline_LightColorBlend: 1
     - _ShadeColor_Step: 0
     - _Specular_Intensity: 0
     m_Colors:
@@ -109,8 +110,8 @@ Material:
     - _DirectionalLight_Color: {r: 1, g: 1, b: 1, a: 1}
     - _DirectionalLight_Direction: {r: 0, g: -0.6563298, b: 0.7544741, a: 0}
     - _DirectionalLight_ViewPosition: {r: 0, g: 0, b: 0, a: 0}
-    - _HighlightColor: {r: 1, g: 1, b: 1, a: 1}
-    - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
+    - _HighlightColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
     - _Specular_Color: {r: 1, g: 1, b: 1, a: 1}
     - _Specular_LightDirection: {r: 0, g: -1, b: 0, a: 0}
     - _White: {r: 1, g: 1, b: 1, a: 1}
