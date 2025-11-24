@@ -228,12 +228,12 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         
 
         ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[SHADER_PROP_OUTLINE_WIDTH]);
+        ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[SHADER_PROP_OUTLINE_WIDTH_MAP]);
         
         ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[SHADER_PROP_OUTLINE_TEX]);
         ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_OUTLINE_BASE_COLOR_BLEND]);
         ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_OUTLINE_LIGHT_COLOR_BLEND]);
         
-        ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[SHADER_PROP_OUTLINE_WIDTH_MAP]);
         
         ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[SHADER_PROP_OUTLINE_OFFSET_Z]);
 
