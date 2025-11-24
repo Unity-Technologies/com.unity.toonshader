@@ -48,7 +48,7 @@ Shader "Toon/Toon 3D as 2D"{
         _OutlineTex ("Outline Tex", 2D) = "white" {}
         _Outline_BaseColorBlend ("Blend Base Color to Outline", Range(0,1) ) = 0.5
         _Outline_LightColorBlend ("Blend Light Color to Outline", Range(0,1) ) = 0.5
-        _OutlineOffsetZ ("Outline Z Offset", Float) = 0
+        _OutlineOffsetZ ("Outline Z Offset", Float) = 0.75
         _OutlineNear ("Outline Near", Float ) = 0.5
         _OutlineFar ("Outline Far", Float ) = 100
         _Outline_UseCustomNormalMap ("Use Custom Normal Map", Integer ) = 0
@@ -353,8 +353,9 @@ Shader "Toon/Toon 3D as 2D"{
 //
 //            }
 
+            
             HLSLPROGRAM
-            #pragma target 2.0
+            #pragma target 3.0
             #pragma vertex OutlineVertex
             #pragma fragment OutlineFragment
 
@@ -433,7 +434,11 @@ Shader "Toon/Toon 3D as 2D"{
                 o.uv0 = v.texcoord0;
                 
                 float4 objPos = mul (GetObjectToWorldMatrix(), float4(0,0,0,1) );
-                float4 _Outline_Sampler_var = tex2Dlod(sampler_OutlineTex,float4(TRANSFORM_TEX(uv, _OutlineTex),0.0,0));
+
+                const float outlineWidthAlbedo = SAMPLE_TEXTURE2D_LOD(_OutlineWidthMap, sampler_OutlineWidthMap, TRANSFORM_TEX(uv, _OutlineWidthMap),0).r;
+                const float outlineWidth = _OutlineWidth * 0.001 * outlineWidthAlbedo;
+
+                
                 const float3 normalDir = UnityObjectToWorldNormal(v.normal);
 
                 const float3 tangentDir = normalize( mul( GetObjectToWorldMatrix(), float4( v.tangent.xyz, 0.0 ) ).xyz );
@@ -441,10 +446,12 @@ Shader "Toon/Toon 3D as 2D"{
                 float3x3 tangentTransform = float3x3(tangentDir, bitangentDir, normalDir);
 
                 //UnpackNormal() can't be used, and so as follows. Do not specify a bump for the texture to be used.
-                float4 _BakedNormal_var = (tex2Dlod(sampler_Outline_CustomNormalMap,float4(TRANSFORM_TEX(uv, _Outline_CustomNormalMap),0.0,0)) * 2 - 1);
+                const float4 customNormalMap = SAMPLE_TEXTURE2D_LOD(
+                    _Outline_CustomNormalMap, sampler_Outline_CustomNormalMap, TRANSFORM_TEX(uv, _Outline_CustomNormalMap),0);
+                float4 _BakedNormal_var = customNormalMap * 2 - 1;
                 float3 _BakedNormalDir = normalize(mul(_BakedNormal_var.rgb, tangentTransform));
     
-                float Set_Outline_Width = (_OutlineWidth*0.001*smoothstep( _OutlineFar, _OutlineNear, distance(objPos.rgb,_WorldSpaceCameraPos) )*_Outline_Sampler_var.rgb).r;
+                float Set_Outline_Width = outlineWidth * smoothstep( _OutlineFar, _OutlineNear, distance(objPos.rgb,_WorldSpaceCameraPos) );
                 float4 _ClipCameraPos = mul(UNITY_MATRIX_VP, float4(_WorldSpaceCameraPos.xyz, 1));
                 _OutlineOffsetZ = _OutlineOffsetZ * -0.01;
 
