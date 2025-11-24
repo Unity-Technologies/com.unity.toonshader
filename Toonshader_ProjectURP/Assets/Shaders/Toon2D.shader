@@ -38,7 +38,7 @@ Shader "Toon/Toon 3D as 2D"{
         _HighlightTex ("HighColor Map", 2D) = "white" {}
         _DirectionalLight_HighlightMode ("Directional Light: Highlight Mode", Integer) = 0 //0: Hard, 1: Soft
         _DirectionalLight_HighlightStrength ("Directional Light: Highlight Strength", Range(0,1)) = 0.5
-        _DirectionalLight_HighlightPower ("Directional Light: Highlight Power", Range(0,1)) = 0.3
+        _DirectionalLight_HighlightSize ("Directional Light: Highlight Size", Range(0,1)) = 0.3
         
         //Outline
         _OutlineMode("Outline Mode", Integer) = 0
@@ -139,7 +139,7 @@ Shader "Toon/Toon 3D as 2D"{
                 float4 _HighlightColor;
                 int _DirectionalLight_HighlightMode;
                 float _DirectionalLight_HighlightStrength;
-                float _DirectionalLight_HighlightPower;
+                float _DirectionalLight_HighlightSize;
 
             CBUFFER_END
 
@@ -201,7 +201,7 @@ Shader "Toon/Toon 3D as 2D"{
             }
 
 
-            half4 CombinedShapeLightShared2(in SurfaceData2D surfaceData, in InputData2D inputData, in float2 uv,
+            half4 CombinedShapeLightSharedWithToon(in SurfaceData2D surfaceData, in InputData2D inputData, in float2 uv,
                 in float3 tangentWS, in float3 bitangentWS, in float3 normalWS, in float3 positionWS)
             {
                 #if defined(DEBUG_DISPLAY)
@@ -271,8 +271,8 @@ Shader "Toon/Toon 3D as 2D"{
                 float dotHN_01 = 0.5 * dot(halfDirection,perturbedNormalWS) + 0.5;
 
                 const float highlight =
-                    lerp( (1.0 - step(dotHN_01,(1.0 - pow(abs(_DirectionalLight_HighlightPower),5)))),
-                        pow(abs(dotHN_01),exp2(lerp(11,1,_DirectionalLight_HighlightPower))),
+                    lerp( (1.0 - step(dotHN_01,(1.0 - pow(abs(_DirectionalLight_HighlightSize),5)))),
+                        pow(abs(dotHN_01),exp2(lerp(11,1,_DirectionalLight_HighlightSize))),
                         _DirectionalLight_HighlightMode );
                 
                 
@@ -327,7 +327,7 @@ Shader "Toon/Toon 3D as 2D"{
                 surfaceData.normalWS = input.normalWS;
                 #endif
 
-                return CombinedShapeLightShared2(surfaceData, inputData, input.uv,
+                return CombinedShapeLightSharedWithToon(surfaceData, inputData, input.uv,
                     tangentWS, bitangentWS, normalWS, input.positionWS);
             }
 
@@ -596,3 +596,7 @@ Shader "Toon/Toon 3D as 2D"{
     CustomEditor "UnityToon3Das2DGUI"
 
 }
+
+
+//[Note-sin: 2025-11-24] Texture that only needs one channel at the moment
+//1. _OutlineWidthMap
