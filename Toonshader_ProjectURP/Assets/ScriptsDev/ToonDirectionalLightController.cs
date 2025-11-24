@@ -14,7 +14,7 @@ internal class ToonDirectionalLightController : MonoBehaviour {
             return;
         }
 
-        Vector3 lightDir = -m_light.transform.forward; 
+        Vector3 lightDir = m_light.transform.forward; 
         Color lightColor = m_light.color;
         float lightIntensity = m_light.intensity;
         

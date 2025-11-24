@@ -240,7 +240,7 @@ Shader "Toon/Toon 3D as 2D"{
                 const float3 secondShadeColor = secondShadeAlbedo * diffuseLightFactor;
 
                 const float light2dDiffuse = max(shapeLight0.r, max(shapeLight0.g, shapeLight0.b)); 
-                const float directionalDiffuse = 0.5 * dot( perturbedNormalWS, _DirectionalLight_Direction) + 0.5;
+                const float directionalDiffuse = 0.5 * dot( perturbedNormalWS, -_DirectionalLight_Direction) + 0.5;
 
                 float lightFactor = (light2dDiffuse * _2DLightStrength)
                     + (directionalDiffuse * _DirectionalLight_DiffuseFactor);
