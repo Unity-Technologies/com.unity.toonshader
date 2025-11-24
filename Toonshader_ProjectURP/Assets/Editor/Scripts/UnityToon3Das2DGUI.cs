@@ -197,8 +197,8 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         ToonEditorGUIUtility.DrawIntPopupGUI(mEditor, mats, uiElements[SHADER_PROP_OUTLINE_MODE], 
             m_outlineModeEnums, m_outlineModeIndices, out int outlineMode);
         
-        const string OUTLINE_NORMAL_KEYWORD = "_OUTLINE_NML";;
-        const string OUTLINE_POSITION_KEYWORD = "_OUTLINE_POS";
+        const string OUTLINE_NORMAL_KEYWORD = "TOON_OUTLINE_NORMAL";;
+        const string OUTLINE_POSITION_KEYWORD = "TOON_OUTLINE_POS";
         
         switch (outlineMode) {
             case (int) OutlineMode.NormalDirection:

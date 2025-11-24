@@ -361,7 +361,7 @@ Shader "Toon/Toon 3D as 2D"{
 
 
             #pragma multi_compile _IS_OUTLINE_CLIPPING_NO _IS_OUTLINE_CLIPPING_YES
-            #pragma multi_compile _OUTLINE_NML _OUTLINE_POS
+            #pragma multi_compile TOON_OUTLINE_NORMAL TOON_OUTLINE_POS
             // Outline is implemented in UniversalToonOutline.hlsl.
             // #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             // #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
@@ -442,7 +442,7 @@ Shader "Toon/Toon 3D as 2D"{
                 float finalOutlineWidth = outlineWidth * smoothstep( _OutlineFar, _OutlineNear, distance(objPos.rgb,_WorldSpaceCameraPos) );
 
 				float3 newPos;
-#ifdef _OUTLINE_NML
+#ifdef TOON_OUTLINE_NORMAL
 
                 //TBN
                 const float3 normalDir = UnityObjectToWorldNormal(v.normal);
@@ -460,7 +460,7 @@ Shader "Toon/Toon 3D as 2D"{
                 
                 newPos = float4(v.vertex.xyz + outlineDir * finalOutlineWidth,1);
                 o.pos = TransformObjectToHClip(newPos);
-#elif _OUTLINE_POS
+#elif TOON_OUTLINE_POS
                 const float3 normalizedPos = normalize(v.vertex.xyz);
                 const float signPN = sign(dot(normalizedPos,normalize(v.normal)));
                 o.pos = UnityObjectToClipPos(float4(v.vertex.xyz + signPN * normalizedPos * finalOutlineWidth, 1));
