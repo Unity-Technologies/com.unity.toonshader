@@ -108,7 +108,7 @@ Material:
     - _2nd_ShadeColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _DirectionalLight_Color: {r: 1, g: 1, b: 1, a: 1}
-    - _DirectionalLight_Direction: {r: 0, g: -0.6563298, b: 0.7544741, a: 0}
+    - _DirectionalLight_Direction: {r: 0.1626372, g: -0.5113381, b: 0.84384984, a: 0}
     - _DirectionalLight_ViewPosition: {r: 0, g: 0, b: 0, a: 0}
     - _HighlightColor: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
