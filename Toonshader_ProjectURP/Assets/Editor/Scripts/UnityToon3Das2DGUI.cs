@@ -139,8 +139,8 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         ToonEditorGUIUtility.DrawVector3FieldGUI(mEditor, mats, uiElements[Toon3Das2DConstants.ShaderPropUnlit_DirectionalLight_Direction]);
         ToonEditorGUIUtility.DrawColorFieldGUI(mEditor, uiElements[Toon3Das2DConstants.ShaderPropUnlit_DirectionalLight_Color]);
         ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[Toon3Das2DConstants.ShaderPropUnlit_DirectionalLight_Intensity]);
-        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_DIRECTIONAL_LIGHT_DIFFUSE_FACTOR]);
-        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_DIRECTIONAL_LIGHT_SPECULAR_FACTOR]);
+        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_DIRECTIONAL_LIGHT_DIFFUSE_STRENGTH]);
+        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_DIRECTIONAL_LIGHT_SPECULAR_STRENGTH]);
         EditorGUI.EndDisabledGroup();
         
         EditorGUI.indentLevel-= INDENT_SIZE;
@@ -434,12 +434,12 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
                 "Multiplier for the 2D light contribution."),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(SHADER_PROP_DIRECTIONAL_LIGHT_DIFFUSE_FACTOR),
+            mainPropertyName = new MaterialName(SHADER_PROP_DIRECTIONAL_LIGHT_DIFFUSE_STRENGTH),
             label = new GUIContent("Diffuse Factor",
                 "Multiplier for the diffuse lighting contribution."),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(SHADER_PROP_DIRECTIONAL_LIGHT_SPECULAR_FACTOR),
+            mainPropertyName = new MaterialName(SHADER_PROP_DIRECTIONAL_LIGHT_SPECULAR_STRENGTH),
             label = new GUIContent("Specular Factor",
                 "Multiplier for the specular lighting contribution."),
         },
@@ -484,8 +484,8 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     internal const string SHADER_PROP_OUTLINE_CUSTOM_NORMAL_MAP    = "_Outline_CustomNormalMap";
 
     internal const string SHADER_PROP_DIRECTIONAL_LIGHT_USE = "_DirectionalLight_Use";
-    internal const string SHADER_PROP_DIRECTIONAL_LIGHT_DIFFUSE_FACTOR  = "_DirectionalLight_DiffuseFactor";
-    internal const string SHADER_PROP_DIRECTIONAL_LIGHT_SPECULAR_FACTOR = "_DirectionalLight_SpecularFactor";
+    internal const string SHADER_PROP_DIRECTIONAL_LIGHT_DIFFUSE_STRENGTH  = "_DirectionalLight_DiffuseStrength";
+    internal const string SHADER_PROP_DIRECTIONAL_LIGHT_SPECULAR_STRENGTH = "_DirectionalLight_SpecularStrength";
     
     //Doc: Use this LightMode tag value to draw an extra Pass when rendering objects.
     const string LIGHT_MODE_NAME_FOR_OUTLINE = "SRPDefaultUnlit";
