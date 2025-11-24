@@ -466,9 +466,8 @@ Shader "Toon/Toon 3D as 2D"{
                 o.pos = UnityObjectToClipPos(float4(v.vertex.xyz + signPN * normalizedPos * finalOutlineWidth, 1));
 #endif
                 const float scaledOutlineOffsetZ = _OutlineOffsetZ * -0.01;
-                const float4 clipCameraPos = mul(UNITY_MATRIX_VP, float4(_WorldSpaceCameraPos.xyz, 1));
-                o.pos.z = o.pos.z + scaledOutlineOffsetZ * clipCameraPos.z;
-
+                o.pos.z = o.pos.z + scaledOutlineOffsetZ;
+                
                 o.lightingUV = half2(ComputeScreenPos(o.pos / o.pos.w).xy);
                 return o;
             }
