@@ -476,6 +476,8 @@ Shader "Toon/Toon 3D as 2D"{
                 const half4 mask = SAMPLE_TEXTURE2D(_MaskTex, sampler_MaskTex, i.uv0);
                 const half2 lightingUV = inputData.lightingUV;
 
+                float3 diffuseLightFactor = float3(0,0,0);
+                
                 #if USE_SHAPE_LIGHT_TYPE_0
                 shapeLight0 = SAMPLE_TEXTURE2D(_ShapeLightTexture0, sampler_ShapeLightTexture0, lightingUV);
                 if (any(_ShapeLightMaskFilter0))
@@ -484,10 +486,9 @@ Shader "Toon/Toon 3D as 2D"{
                         mask);
                     shapeLight0 *= dot(processedMask, _ShapeLightMaskFilter0);
                 }
+                diffuseLightFactor = ToonDiffuseBlend(shapeLight0.rgb, _ShapeLightBlendFactors0.x);
                 #endif
 
-
-                const float3 diffuseLightFactor = ToonDiffuseBlend(shapeLight0.rgb, _ShapeLightBlendFactors0.x);
                 
                 const float2 Set_UV0 = i.uv0;
                 float4 _MainTex_var = SAMPLE_TEXTURE2D(_MainTex,sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex));
