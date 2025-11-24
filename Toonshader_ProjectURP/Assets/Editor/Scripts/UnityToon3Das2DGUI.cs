@@ -399,11 +399,11 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         },
         new MaterialUIElement {
             mainPropertyName = new MaterialName(SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_STRENGTH),
-            label = new GUIContent("Strength", "Multiplier for the highlight contribution."),
+            label = new GUIContent("Highlight Strength", "Multiplier for the highlight contribution."),
         },
         new MaterialUIElement {
             mainPropertyName = new MaterialName(SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_SIZE),
-            label = new GUIContent("Power", "Highlight power factor."),
+            label = new GUIContent("Highlight Size", "Highlight size."),
         },
         
         
