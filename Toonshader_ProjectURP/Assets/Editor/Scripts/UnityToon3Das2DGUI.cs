@@ -148,7 +148,7 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         ToonEditorGUIUtility.DrawIntPopupGUI(mEditor, mats, uiElements[SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_MODE],
             m_highlightModeEnums, m_highlightModeIndices,out int _);
         ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_STRENGTH]);
-        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_POWER]);
+        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_SIZE]);
         
         EditorGUI.indentLevel-= INDENT_SIZE;
         
@@ -402,7 +402,7 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
             label = new GUIContent("Strength", "Multiplier for the highlight contribution."),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_POWER),
+            mainPropertyName = new MaterialName(SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_SIZE),
             label = new GUIContent("Power", "Highlight power factor."),
         },
         
@@ -506,7 +506,7 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     internal const string SHADER_PROP_HIGHLIGHT_TEX = "_HighlightTex";
     internal const string SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_MODE = "_DirectionalLight_HighlightMode";
     internal const string SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_STRENGTH = "_DirectionalLight_HighlightStrength";
-    internal const string SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_POWER = "_DirectionalLight_HighlightPower";
+    internal const string SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_SIZE = "_DirectionalLight_HighlightSize";
     
     
     
