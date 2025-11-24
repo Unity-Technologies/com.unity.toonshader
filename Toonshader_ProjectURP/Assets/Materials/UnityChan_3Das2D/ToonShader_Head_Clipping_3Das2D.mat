@@ -54,7 +54,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OutlineWidthMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 6d7e50a99f93487aa7444c0f14286af7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Outline_CustomNormalMap:
@@ -66,7 +66,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints:
-    - _DirectionalLight_HighlightMode: 0
+    - _DirectionalLight_HighlightMode: 1
     - _DirectionalLight_Use: 1
     - _Directional_Use: 0
     - _OutlineMode: 0
@@ -90,6 +90,7 @@ Material:
     - _DirectionalLight_DiffuseFactor: 1
     - _DirectionalLight_DiffuseStrength: 0.877
     - _DirectionalLight_HighlightPower: 0.3
+    - _DirectionalLight_HighlightSize: 0.2
     - _DirectionalLight_HighlightStrength: 0.5
     - _DirectionalLight_Intensity: 0.83
     - _DirectionalLight_SpecularFactor: 0
@@ -97,9 +98,9 @@ Material:
     - _OutlineFar: 100
     - _OutlineNear: 0.5
     - _OutlineOffsetZ: 0.75
-    - _OutlineWidth: 5
+    - _OutlineWidth: 1
     - _Outline_BaseColorBlend: 1
-    - _Outline_LightColorBlend: 0
+    - _Outline_LightColorBlend: 1
     - _ShadeColor_Step: 0.722
     - _Specular_Intensity: 0
     m_Colors:
@@ -109,8 +110,8 @@ Material:
     - _DirectionalLight_Color: {r: 1, g: 1, b: 1, a: 1}
     - _DirectionalLight_Direction: {r: 0, g: -0.6563298, b: 0.7544741, a: 0}
     - _DirectionalLight_ViewPosition: {r: 0, g: 0, b: 0, a: 0}
-    - _HighlightColor: {r: 1, g: 1, b: 1, a: 1}
-    - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
+    - _HighlightColor: {r: 0.47058824, g: 0.47058824, b: 0.47058824, a: 1}
+    - _OutlineColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
     - _Specular_Color: {r: 1, g: 1, b: 1, a: 1}
     - _Specular_LightDirection: {r: 0, g: -1, b: 0, a: 0}
     - _White: {r: 1, g: 1, b: 1, a: 1}
