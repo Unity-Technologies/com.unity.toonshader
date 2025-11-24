@@ -27,7 +27,7 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         EditorGUI.BeginChangeCheck();
         DrawThreeColorsGUI(mEditor, mats, m_materialPropertyUIElements, ref m_colorsFoldout);
         DrawShadingGUI(mEditor, mats, m_materialPropertyUIElements, ref m_shadingFoldout);
-        DrawDirectionalLightGUI(mEditor, mats, m_materialPropertyUIElements, ref m_directionalLightFoldout);
+        DrawLightingGUI(mEditor, mats, m_materialPropertyUIElements, ref m_lightingFoldout);
 
         DrawNormalMapGUI(mEditor, m_materialPropertyUIElements, ref m_normalMapFoldout);
         DrawOutlineGUI(mEditor, mats, m_materialPropertyUIElements, ref m_outlineFoldout);
@@ -49,7 +49,7 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         m_outlineFoldout = mat.GetShaderPassEnabled(LIGHT_MODE_NAME_FOR_OUTLINE);
 
         bool lightEnabled = mat.GetInteger(uiElements[SHADER_PROP_DIRECTIONAL_LIGHT_USE].mainProperty.id) !=0;
-        m_directionalLightFoldout = lightEnabled;
+        m_lightingFoldout = lightEnabled;
         
     }
 
@@ -88,11 +88,10 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         } else {
             ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[SHADER_PROP_2ND_SHADE_MAP]);
         }
-        
-        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_2D_LIGHT_STRENGTH]);
         EditorGUILayout.Space();
     }
 
+//----------------------------------------------------------------------------------------------------------------------    
     static void DrawShadingGUI(MaterialEditor mEditor, Material[] mats,
         Dictionary<string, MaterialPropertyUIElement> uiElements, ref bool foldout) 
     {
@@ -114,6 +113,39 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         EditorGUI.indentLevel -= INDENT_SIZE;
         
         EditorGUILayout.Space();
+    }
+
+//----------------------------------------------------------------------------------------------------------------------    
+    
+    static void DrawLightingGUI(MaterialEditor mEditor, Material[] mats, 
+        Dictionary<string, MaterialPropertyUIElement> uiElements, ref bool foldout) {
+
+        ToonEditorGUIUtility.DrawFoldoutGUI(ref foldout, LIGHTING_FOLDOUT); 
+        
+        
+        
+        if (!foldout)
+            return;
+        
+        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_2D_LIGHT_STRENGTH]);
+        EditorGUILayout.Space();
+
+        ToonEditorGUIUtility.DrawToggleGUI(mEditor, mats, uiElements[SHADER_PROP_DIRECTIONAL_LIGHT_USE], 
+            out bool directionalLightEnabled);
+        
+        EditorGUI.indentLevel+= INDENT_SIZE;
+        
+        EditorGUI.BeginDisabledGroup(!directionalLightEnabled);
+        ToonEditorGUIUtility.DrawVector3FieldGUI(mEditor, mats, uiElements[Toon3Das2DConstants.ShaderPropUnlit_DirectionalLight_Direction]);
+        ToonEditorGUIUtility.DrawColorFieldGUI(mEditor, uiElements[Toon3Das2DConstants.ShaderPropUnlit_DirectionalLight_Color]);
+        ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[Toon3Das2DConstants.ShaderPropUnlit_DirectionalLight_Intensity]);
+        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_DIRECTIONAL_LIGHT_DIFFUSE_FACTOR]);
+        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_DIRECTIONAL_LIGHT_SPECULAR_FACTOR]);
+        EditorGUI.EndDisabledGroup();
+        
+        EditorGUI.indentLevel-= INDENT_SIZE;
+        EditorGUILayout.Space();
+        
     }
     
 //----------------------------------------------------------------------------------------------------------------------
@@ -211,25 +243,6 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         EditorGUILayout.Space();
     }
     
-//----------------------------------------------------------------------------------------------------------------------    
-    
-    static void DrawDirectionalLightGUI(MaterialEditor mEditor, Material[] mats, 
-        Dictionary<string, MaterialPropertyUIElement> uiElements, ref bool foldout) {
-
-        ToonEditorGUIUtility.DrawFoldoutWithToggleGUI(mEditor, mats, 
-            uiElements[SHADER_PROP_DIRECTIONAL_LIGHT_USE], ref foldout, out bool toggleEnabled);
-        
-        if (!foldout)
-            return;
-        
-        EditorGUI.BeginDisabledGroup(!toggleEnabled);
-        ToonEditorGUIUtility.DrawVector3FieldGUI(mEditor, mats, uiElements[Toon3Das2DConstants.ShaderPropUnlit_DirectionalLight_Direction]);
-        ToonEditorGUIUtility.DrawColorFieldGUI(mEditor, uiElements[Toon3Das2DConstants.ShaderPropUnlit_DirectionalLight_Color]);
-        ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[Toon3Das2DConstants.ShaderPropUnlit_DirectionalLight_Intensity]);
-        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_DIRECTIONAL_LIGHT_DIFFUSE_FACTOR]);
-        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_DIRECTIONAL_LIGHT_SPECULAR_FACTOR]);
-        EditorGUI.EndDisabledGroup();
-    }
     
 //----------------------------------------------------------------------------------------------------------------------
 
@@ -485,17 +498,19 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     private static readonly GUIContent[] m_outlineModeEnums= EnumUtility.ToInspectorNamesAsGUIContent(typeof(OutlineMode));
     private static readonly int[] m_outlineModeIndices = EnumUtility.ToIndices(typeof(OutlineMode));
 
-    public static readonly GUIContent COLORS_FOLDOUT = EditorGUIUtility.TrTextContent("Colors",
+    static readonly GUIContent COLORS_FOLDOUT = EditorGUIUtility.TrTextContent("Colors",
         "Colors for basic cel-shading settings in Unity Toon Shader.");
 
-    public static readonly GUIContent SHADING_FOLDOUT =
-        EditorGUIUtility.TrTextContent("Shading", "Shading settings.");
+    static readonly GUIContent SHADING_FOLDOUT = EditorGUIUtility.TrTextContent("Shading", "Shading settings.");
+
+    static readonly GUIContent LIGHTING_FOLDOUT 
+        = EditorGUIUtility.TrTextContent("Lighting", "Lighting settings.");
     
     bool m_colorsFoldout = true;
     bool m_shadingFoldout = true;
     bool m_normalMapFoldout = false;
     bool m_outlineFoldout = false;
-    bool m_directionalLightFoldout = false;
+    bool m_lightingFoldout = false;
 
     private const int INDENT_SIZE = 2;
 
