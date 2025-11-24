@@ -33,7 +33,7 @@ Shader "Toon/Toon 3D as 2D"{
         _DirectionalLight_Intensity ("Directional Light Intensity", float) = 0.5
         _DirectionalLight_DiffuseStrength ("Directional Light: Diffuse Strength", Range(0,1)) = 0.5
 
-        _ViewDirection ("Camera View Direction", Vector) = (0,0,1,0)
+        _DirectionalLight_ViewPosition ("Directional Light: View Position", Vector) = (0,0,1,0)
         _HighlightColor ("Highlight Color", Color) = (1,1,1,1)
         _HighlightTex ("HighColor Map", 2D) = "white" {}
         _DirectionalLight_HighlightMode ("Directional Light: Highlight Mode", Integer) = 0 //0: Hard, 1: Soft
@@ -103,6 +103,7 @@ Shader "Toon/Toon 3D as 2D"{
                 half2 lightingUV    : TEXCOORD1;
                 float3 normalWS    : TEXCOORD2;
                 float4 tangentWS   : TEXCOORD3;
+                float3 positionWS  : TEXCOORD4;
                 UNITY_VERTEX_OUTPUT_STEREO
             };
 
@@ -134,7 +135,7 @@ Shader "Toon/Toon 3D as 2D"{
                 float _DirectionalLight_Intensity;
                 float _DirectionalLight_DiffuseStrength;
 
-                float3 _ViewDirection;
+                float3 _DirectionalLight_ViewPosition;
                 float4 _HighlightColor;
                 int _DirectionalLight_HighlightMode;
                 float _DirectionalLight_HighlightStrength;
@@ -163,16 +164,13 @@ Shader "Toon/Toon 3D as 2D"{
                 o.positionCS = TransformObjectToHClip(input.positionOS);
                 const float3 normalWS = TransformObjectToWorldDir(input.normal);
     
-                #if defined(DEBUG_DISPLAY)
-                o.positionWS = TransformObjectToWorld(input.positionOS);
-                o.normalWS = normalWS;
-                #endif
                 o.uv = input.uv;
                 o.lightingUV = half2(ComputeScreenPos(o.positionCS / o.positionCS.w).xy);
                 o.normalWS = normalWS;
 
                 const float3 tangentWS = normalize( mul( GetObjectToWorldMatrix(), float4( input.tangent.xyz, 0 ) ).xyz); 
                 o.tangentWS = float4(tangentWS, input.tangent.w);
+                o.positionWS = TransformObjectToWorld(input.positionOS);
                 
                 return o;
             }
@@ -203,7 +201,7 @@ Shader "Toon/Toon 3D as 2D"{
 
 
             half4 CombinedShapeLightShared2(in SurfaceData2D surfaceData, in InputData2D inputData, in float2 uv,
-                in float3 tangentWS, in float3 bitangentWS, in float3 normalWS)
+                in float3 tangentWS, in float3 bitangentWS, in float3 normalWS, in float3 positionWS)
             {
                 #if defined(DEBUG_DISPLAY)
                 half4 debugColor = 0;
@@ -266,17 +264,17 @@ Shader "Toon/Toon 3D as 2D"{
                     _BaseTo1st_ShadeStart, _BaseTo1st_ShadeFeather,
                     _1stTo2nd_ShadeStart, _1stTo2nd_ShadeFeather, lightFactor);
                 
-                const float4 _Set_HighColorMask_var = float4(1,1,1,1);
-
-                
-                const float3 viewDirection = normalize(-_ViewDirection);
+                //Highlight
+                const float3 viewDirection = normalize(_DirectionalLight_ViewPosition - positionWS);
                 const float3 halfDirection = normalize(viewDirection + directionalLightDirection);
-                const float dotHN = 0.5*dot(halfDirection,perturbedNormalWS) + 0.5;
+                float dotHN_01 = 0.5 * dot(halfDirection,perturbedNormalWS) + 0.5;
+
 
                 float _TweakHighColorMask_var = 
-                    lerp( (1.0 - step(dotHN,(1.0 - pow(abs(_DirectionalLight_HighlightPower),5)))),
-                        pow(abs(dotHN),exp2(lerp(11,1,_DirectionalLight_HighlightPower))), _DirectionalLight_HighlightMode );
-
+                    lerp( (1.0 - step(dotHN_01,(1.0 - pow(abs(_DirectionalLight_HighlightPower),5)))),
+                        pow(abs(dotHN_01),exp2(lerp(11,1,_DirectionalLight_HighlightPower))), _DirectionalLight_HighlightMode );
+                
+                
                 const float4 highlightTex = SAMPLE_TEXTURE2D(_HighlightTex, sampler_HighlightTex, TRANSFORM_TEX(uv, _HighlightTex));
                 const float3 highlightAlbedo = highlightTex.rgb * _HighlightColor.rgb; 
                 const float3 highlightColor = highlightAlbedo * _DirectionalLight_HighlightStrength; 
@@ -284,9 +282,8 @@ Shader "Toon/Toon 3D as 2D"{
                 float3 _HighColor_var = highlightColor * _DirectionalLight_Color * _DirectionalLight_Use * _TweakHighColorMask_var;
                 
                 float3 Set_HighColor = Set_FinalBaseColor + _HighColor_var;
-                
 
-                Set_FinalBaseColor = Set_FinalBaseColor * _ShapeLightBlendFactors0.x;
+                Set_FinalBaseColor = (Set_FinalBaseColor ) * _ShapeLightBlendFactors0.x + _HighColor_var;
 
                 half4 shapeLight0Modulate = half4(Set_FinalBaseColor, alpha);
                 half4 shapeLight0Additive = shapeLight0 * _ShapeLightBlendFactors0.y;
@@ -315,7 +312,6 @@ Shader "Toon/Toon 3D as 2D"{
                 const half4 mask = SAMPLE_TEXTURE2D(_MaskTex, sampler_MaskTex, input.uv);
                 const half3 normalTS = UnpackNormalScale(SAMPLE_TEXTURE2D(_NormalMap, sampler_NormalMap, input.uv), _BumpScale);
 
-    
                 SurfaceData2D surfaceData;
                 InputData2D inputData;
 
@@ -332,7 +328,7 @@ Shader "Toon/Toon 3D as 2D"{
                 #endif
 
                 return CombinedShapeLightShared2(surfaceData, inputData, input.uv,
-                    tangentWS, bitangentWS, normalWS);
+                    tangentWS, bitangentWS, normalWS, input.positionWS);
             }
 
 
