@@ -449,26 +449,26 @@ Shader "Toon/Toon 3D as 2D"{
                 const float4 customNormalMap = SAMPLE_TEXTURE2D_LOD(
                     _Outline_NormalMap, sampler_Outline_NormalMap, TRANSFORM_TEX(uv, _Outline_NormalMap),0);
                 const float3 normalTS = UnpackNormal(customNormalMap);
-                float3 _BakedNormalDir = normalize(mul(normalTS.xyz, tangentTransform));
+                const float3 outlineNormalMapWS = normalize(mul(normalTS.xyz, tangentTransform));
     
-                float Set_Outline_Width = outlineWidth * smoothstep( _OutlineFar, _OutlineNear, distance(objPos.rgb,_WorldSpaceCameraPos) );
+                float finalOutlineWidth = outlineWidth * smoothstep( _OutlineFar, _OutlineNear, distance(objPos.rgb,_WorldSpaceCameraPos) );
                 float4 _ClipCameraPos = mul(UNITY_MATRIX_VP, float4(_WorldSpaceCameraPos.xyz, 1));
                 _OutlineOffsetZ = _OutlineOffsetZ * -0.01;
 
 				float3 newPos;
 #ifdef _OUTLINE_NML
-                newPos = lerp(float4(v.vertex.xyz + v.normal*Set_Outline_Width,1), float4(v.vertex.xyz + _BakedNormalDir*Set_Outline_Width,1),_Outline_UseNormalMap);
+                const float3 outlineDir = lerp(v.normal, outlineNormalMapWS, _Outline_UseNormalMap); 
+                
+                newPos = float4(v.vertex.xyz + outlineDir * finalOutlineWidth,1);
                 o.pos = TransformObjectToHClip(newPos);
 #elif _OUTLINE_POS
-                Set_Outline_Width = Set_Outline_Width*2;
-                float signVar = dot(normalize(v.vertex.xyz),normalize(v.normal))<0 ? -1 : 1;
-                o.pos = UnityObjectToClipPos(float4(v.vertex.xyz + signVar*normalize(v.vertex)*Set_Outline_Width, 1));
+                const float3 normalizedPos = normalize(v.vertex.xyz);
+                const float signPN = sign(dot(normalizedPos,normalize(v.normal)));
+                o.pos = UnityObjectToClipPos(float4(v.vertex.xyz + signPN * normalizedPos * finalOutlineWidth, 1));
 #endif
                 o.pos.z = o.pos.z + _OutlineOffsetZ * _ClipCameraPos.z;
 
                 o.lightingUV = half2(ComputeScreenPos(o.pos / o.pos.w).xy);
-                
-    
                 return o;
             }
 
