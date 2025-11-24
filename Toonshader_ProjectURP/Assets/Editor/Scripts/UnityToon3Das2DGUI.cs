@@ -140,7 +140,18 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         ToonEditorGUIUtility.DrawColorFieldGUI(mEditor, uiElements[Toon3Das2DConstants.ShaderPropUnlit_DirectionalLight_Color]);
         ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[Toon3Das2DConstants.ShaderPropUnlit_DirectionalLight_Intensity]);
         ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_DIRECTIONAL_LIGHT_DIFFUSE_STRENGTH]);
-        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_DIRECTIONAL_LIGHT_SPECULAR_STRENGTH]);
+        
+        EditorGUILayout.LabelField("Highlight Settings");
+        EditorGUI.indentLevel+= INDENT_SIZE;
+        ToonEditorGUIUtility.DrawVector3FieldGUI(mEditor, mats, uiElements[SHADER_PROP_VIEW_DIRECTION]);
+        ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[SHADER_PROP_HIGHLIGHT_TEX]);
+        ToonEditorGUIUtility.DrawIntPopupGUI(mEditor, mats, uiElements[SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_MODE],
+            m_highlightModeEnums, m_highlightModeIndices,out int _);
+        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_STRENGTH]);
+        ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_POWER]);
+        
+        EditorGUI.indentLevel-= INDENT_SIZE;
+        
         EditorGUI.EndDisabledGroup();
         
         EditorGUI.indentLevel-= INDENT_SIZE;
@@ -341,6 +352,61 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
             label = new GUIContent("Feather", "Controls feathering to the 2nd shade color. 0: sharp transition, 1: fully feathered."),
         },
         
+        //Lighting
+        new MaterialUIElement {
+            mainPropertyName = new MaterialName(SHADER_PROP_2D_LIGHT_STRENGTH),
+            label = new GUIContent("2D Light Factor",
+                "Multiplier for the 2D light contribution."),
+        },
+        //Custom Directional Light
+        new MaterialUIElement {
+            mainPropertyName = new MaterialName(SHADER_PROP_DIRECTIONAL_LIGHT_USE),
+            label = new GUIContent("Custom Directional Light",
+                "Apply a custom directional light."),
+        },
+        new MaterialUIElement {
+            mainPropertyName = new MaterialName(Toon3Das2DConstants.ShaderPropUnlit_DirectionalLight_Direction),
+            label = new GUIContent("Light Direction",
+                "The direction of the custom directional light. "),
+        },
+        new MaterialUIElement {
+            mainPropertyName = new MaterialName(Toon3Das2DConstants.ShaderPropUnlit_DirectionalLight_Color),
+            label = new GUIContent("Light Color",
+                "The color of the custom directional light. "),
+        },
+        new MaterialUIElement {
+            mainPropertyName = new MaterialName(Toon3Das2DConstants.ShaderPropUnlit_DirectionalLight_Intensity),
+            label = new GUIContent("Light Intensity",
+                "The intensity of the custom directional light. "),
+        },
+        new MaterialUIElement {
+            mainPropertyName = new MaterialName(SHADER_PROP_DIRECTIONAL_LIGHT_DIFFUSE_STRENGTH),
+            label = new GUIContent("Diffuse Strength",
+                "Multiplier for the diffuse contribution."),
+        },
+        new MaterialUIElement {
+            mainPropertyName = new MaterialName(SHADER_PROP_VIEW_DIRECTION),
+            label = new GUIContent("View Direction", "Camera View Direction"),
+        },
+        new MaterialUIElement {
+            mainPropertyName = new MaterialName(SHADER_PROP_HIGHLIGHT_TEX),
+            label = new GUIContent("Highlight Map", "Highlight Map."),
+            extraPropertyName1 = new MaterialName(SHADER_PROP_HIGHLIGHT_COLOR) 
+        },
+        new MaterialUIElement {
+            mainPropertyName = new MaterialName(SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_MODE),
+            label = new GUIContent("Mode", "Highlight mode."),
+        },
+        new MaterialUIElement {
+            mainPropertyName = new MaterialName(SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_STRENGTH),
+            label = new GUIContent("Strength", "Multiplier for the highlight contribution."),
+        },
+        new MaterialUIElement {
+            mainPropertyName = new MaterialName(SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_POWER),
+            label = new GUIContent("Power", "Highlight power factor."),
+        },
+        
+        
         //Normal Map
         new MaterialUIElement {
             mainPropertyName = new MaterialName(SHADER_PROP_NORMAL_MAP),
@@ -407,42 +473,6 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         },
         //Outline End
 
-        //Custom Directional Light
-        new MaterialUIElement {
-            mainPropertyName = new MaterialName(SHADER_PROP_DIRECTIONAL_LIGHT_USE),
-            label = new GUIContent("Custom Directional Light",
-                "Apply a custom directional light."),
-        },
-        new MaterialUIElement {
-            mainPropertyName = new MaterialName(Toon3Das2DConstants.ShaderPropUnlit_DirectionalLight_Direction),
-            label = new GUIContent("Light Direction",
-                "The direction of the custom directional light. "),
-        },
-        new MaterialUIElement {
-            mainPropertyName = new MaterialName(Toon3Das2DConstants.ShaderPropUnlit_DirectionalLight_Color),
-            label = new GUIContent("Light Color",
-                "The color of the custom directional light. "),
-        },
-        new MaterialUIElement {
-            mainPropertyName = new MaterialName(Toon3Das2DConstants.ShaderPropUnlit_DirectionalLight_Intensity),
-            label = new GUIContent("Light Intensity",
-                "The intensity of the custom directional light. "),
-        },
-        new MaterialUIElement {
-            mainPropertyName = new MaterialName(SHADER_PROP_2D_LIGHT_STRENGTH),
-            label = new GUIContent("2D Light Factor",
-                "Multiplier for the 2D light contribution."),
-        },
-        new MaterialUIElement {
-            mainPropertyName = new MaterialName(SHADER_PROP_DIRECTIONAL_LIGHT_DIFFUSE_STRENGTH),
-            label = new GUIContent("Diffuse Factor",
-                "Multiplier for the diffuse lighting contribution."),
-        },
-        new MaterialUIElement {
-            mainPropertyName = new MaterialName(SHADER_PROP_DIRECTIONAL_LIGHT_SPECULAR_STRENGTH),
-            label = new GUIContent("Specular Factor",
-                "Multiplier for the specular lighting contribution."),
-        },
     };
 
     
@@ -466,6 +496,21 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     internal const string SHADER_PROP_1ST_TO_2ND_SHADE_FEATHER  = "_1stTo2nd_ShadeFeather";
 
     internal const string SHADER_PROP_2D_LIGHT_STRENGTH  = "_2DLightStrength";
+    
+    //Lighting
+    internal const string SHADER_PROP_DIRECTIONAL_LIGHT_USE = "_DirectionalLight_Use";
+    internal const string SHADER_PROP_DIRECTIONAL_LIGHT_DIFFUSE_STRENGTH  = "_DirectionalLight_DiffuseStrength";
+
+
+    internal const string SHADER_PROP_VIEW_DIRECTION = "_ViewDirection";
+    internal const string SHADER_PROP_HIGHLIGHT_COLOR = "_HighlightColor";
+    internal const string SHADER_PROP_HIGHLIGHT_TEX = "_HighlightTex";
+    internal const string SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_MODE = "_DirectionalLight_HighlightMode";
+    internal const string SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_STRENGTH = "_DirectionalLight_HighlightStrength";
+    internal const string SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_POWER = "_DirectionalLight_HighlightPower";
+    
+    
+    
     internal const string SHADER_PROP_NORMAL_MAP = "_NormalMap";
     internal const string SHADER_PROP_BUMP_SCALE = "_BumpScale";
     
@@ -483,9 +528,7 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     internal const string SHADER_PROP_OUTLINE_USE_CUSTOM_NORMAL_MAP = "_Outline_UseCustomNormalMap";
     internal const string SHADER_PROP_OUTLINE_CUSTOM_NORMAL_MAP    = "_Outline_CustomNormalMap";
 
-    internal const string SHADER_PROP_DIRECTIONAL_LIGHT_USE = "_DirectionalLight_Use";
-    internal const string SHADER_PROP_DIRECTIONAL_LIGHT_DIFFUSE_STRENGTH  = "_DirectionalLight_DiffuseStrength";
-    internal const string SHADER_PROP_DIRECTIONAL_LIGHT_SPECULAR_STRENGTH = "_DirectionalLight_SpecularStrength";
+    
     
     //Doc: Use this LightMode tag value to draw an extra Pass when rendering objects.
     const string LIGHT_MODE_NAME_FOR_OUTLINE = "SRPDefaultUnlit";
@@ -494,10 +537,18 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         NormalDirection,
         PositionScaling
     }
+
+    internal enum HighlightMode {
+        Hard,
+        Soft,
+    }
     
     private static readonly GUIContent[] m_outlineModeEnums= EnumUtility.ToInspectorNamesAsGUIContent(typeof(OutlineMode));
     private static readonly int[] m_outlineModeIndices = EnumUtility.ToIndices(typeof(OutlineMode));
 
+    private static readonly GUIContent[] m_highlightModeEnums = EnumUtility.ToInspectorNamesAsGUIContent(typeof(HighlightMode));
+    private static readonly int[] m_highlightModeIndices = EnumUtility.ToIndices(typeof(HighlightMode));
+    
     static readonly GUIContent COLORS_FOLDOUT = EditorGUIUtility.TrTextContent("Colors",
         "Colors for basic cel-shading settings in Unity Toon Shader.");
 
