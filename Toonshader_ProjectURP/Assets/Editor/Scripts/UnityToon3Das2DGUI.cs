@@ -438,7 +438,7 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         new MaterialUIElement {
             mainPropertyName = new MaterialName(SHADER_PROP_OUTLINE_LIGHT_COLOR_BLEND),
             label = new GUIContent("Blend Light Color to Outline",
-                "Blend light color to outline color."),
+                "Blend the combined effect of 2D lighting and custom directional light to the outline color."),
         },
         new MaterialUIElement {
             mainPropertyName = new MaterialName(SHADER_PROP_OUTLINE_OFFSET_Z),
