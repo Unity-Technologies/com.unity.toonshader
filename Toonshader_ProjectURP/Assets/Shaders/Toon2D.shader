@@ -445,11 +445,11 @@ Shader "Toon/Toon 3D as 2D"{
                 const float3 bitangentDir = normalize(cross(normalDir, tangentDir) * v.tangent.w);
                 float3x3 tangentTransform = float3x3(tangentDir, bitangentDir, normalDir);
 
-                //UnpackNormal() can't be used, and so as follows. Do not specify a bump for the texture to be used.
+                //custom normal map
                 const float4 customNormalMap = SAMPLE_TEXTURE2D_LOD(
                     _Outline_CustomNormalMap, sampler_Outline_CustomNormalMap, TRANSFORM_TEX(uv, _Outline_CustomNormalMap),0);
-                float4 _BakedNormal_var = customNormalMap * 2 - 1;
-                float3 _BakedNormalDir = normalize(mul(_BakedNormal_var.rgb, tangentTransform));
+                const float3 normalTS = UnpackNormal(customNormalMap);
+                float3 _BakedNormalDir = normalize(mul(normalTS.xyz, tangentTransform));
     
                 float Set_Outline_Width = outlineWidth * smoothstep( _OutlineFar, _OutlineNear, distance(objPos.rgb,_WorldSpaceCameraPos) );
                 float4 _ClipCameraPos = mul(UNITY_MATRIX_VP, float4(_WorldSpaceCameraPos.xyz, 1));
