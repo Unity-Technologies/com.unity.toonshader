@@ -143,7 +143,7 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         
         EditorGUILayout.LabelField("Highlight Settings");
         EditorGUI.indentLevel+= INDENT_SIZE;
-        ToonEditorGUIUtility.DrawVector3FieldGUI(mEditor, mats, uiElements[Toon3Das2DConstants.SHADER_PROP_VIEW_DIRECTION]);
+        ToonEditorGUIUtility.DrawVector3FieldGUI(mEditor, mats, uiElements[SHADER_PROP_VIEW_DIRECTION]);
         ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[SHADER_PROP_HIGHLIGHT_TEX]);
         ToonEditorGUIUtility.DrawIntPopupGUI(mEditor, mats, uiElements[SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_MODE],
             m_highlightModeEnums, m_highlightModeIndices,out int _);
@@ -385,7 +385,7 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
                 "Multiplier for the diffuse contribution."),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(Toon3Das2DConstants.SHADER_PROP_VIEW_DIRECTION),
+            mainPropertyName = new MaterialName(SHADER_PROP_VIEW_DIRECTION),
             label = new GUIContent("View Direction", "Camera View Direction"),
         },
         new MaterialUIElement {
@@ -502,6 +502,7 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     internal const string SHADER_PROP_DIRECTIONAL_LIGHT_DIFFUSE_STRENGTH  = "_DirectionalLight_DiffuseStrength";
 
 
+    internal const string SHADER_PROP_VIEW_DIRECTION = "_ViewDirection";
     internal const string SHADER_PROP_HIGHLIGHT_COLOR = "_HighlightColor";
     internal const string SHADER_PROP_HIGHLIGHT_TEX = "_HighlightTex";
     internal const string SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_MODE = "_DirectionalLight_HighlightMode";
