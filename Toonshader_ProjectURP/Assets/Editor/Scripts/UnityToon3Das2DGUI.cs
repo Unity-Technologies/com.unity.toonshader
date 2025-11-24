@@ -218,10 +218,10 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
 
         EditorGUI.BeginDisabledGroup(outlineMode != (int) OutlineMode.NormalDirection);
         {
-            ToonEditorGUIUtility.DrawToggleGUI(mEditor, mats, uiElements[SHADER_PROP_OUTLINE_USE_CUSTOM_NORMAL_MAP], 
+            ToonEditorGUIUtility.DrawToggleGUI(mEditor, mats, uiElements[SHADER_PROP_OUTLINE_USE_NORMAL_MAP], 
                 out bool useCustom);
             EditorGUI.BeginDisabledGroup(!useCustom);
-            ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor,uiElements[SHADER_PROP_OUTLINE_CUSTOM_NORMAL_MAP]);
+            ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor,uiElements[SHADER_PROP_OUTLINE_NORMAL_MAP]);
             EditorGUI.EndDisabledGroup();
         }
         EditorGUI.EndDisabledGroup();
@@ -461,15 +461,15 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
                 "Specifies how the outline is generated."),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(SHADER_PROP_OUTLINE_USE_CUSTOM_NORMAL_MAP),
-            label = new GUIContent("Use Custom Normal Map",
-                "Use a custom normal map for outline."),
+            mainPropertyName = new MaterialName(SHADER_PROP_OUTLINE_USE_NORMAL_MAP),
+            label = new GUIContent("Use Normal Map",
+                "Use a normal map for outline."),
         },
         
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(SHADER_PROP_OUTLINE_CUSTOM_NORMAL_MAP),
-            label = new GUIContent("Custom Normal Map",
-                "Custom normal map (linear) for outline. "),
+            mainPropertyName = new MaterialName(SHADER_PROP_OUTLINE_NORMAL_MAP),
+            label = new GUIContent("Normal Map",
+                "Normal map for outline. "),
         },
         //Outline End
 
@@ -524,8 +524,8 @@ class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     internal const string SHADER_PROP_OUTLINE_NEAR = "_OutlineNear";
     internal const string SHADER_PROP_OUTLINE_FAR = "_OutlineFar";
 
-    internal const string SHADER_PROP_OUTLINE_USE_CUSTOM_NORMAL_MAP = "_Outline_UseCustomNormalMap";
-    internal const string SHADER_PROP_OUTLINE_CUSTOM_NORMAL_MAP    = "_Outline_CustomNormalMap";
+    internal const string SHADER_PROP_OUTLINE_USE_NORMAL_MAP = "_Outline_UseNormalMap";
+    internal const string SHADER_PROP_OUTLINE_NORMAL_MAP    = "_Outline_NormalMap";
 
     
     
