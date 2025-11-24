@@ -433,29 +433,29 @@ Shader "Toon/Toon 3D as 2D"{
                 const float2 uv = v.texcoord0;
                 o.uv0 = v.texcoord0;
                 
-                float4 objPos = mul (GetObjectToWorldMatrix(), float4(0,0,0,1) );
+                const float4 objPos = mul (GetObjectToWorldMatrix(), float4(0,0,0,1) );
 
-                const float outlineWidthAlbedo = SAMPLE_TEXTURE2D_LOD(_OutlineWidthMap, sampler_OutlineWidthMap, TRANSFORM_TEX(uv, _OutlineWidthMap),0).r;
+                const float outlineWidthAlbedo = SAMPLE_TEXTURE2D_LOD(_OutlineWidthMap, sampler_OutlineWidthMap,
+                    TRANSFORM_TEX(uv, _OutlineWidthMap),0).r;
                 const float outlineWidth = _OutlineWidth * 0.001 * outlineWidthAlbedo;
+    
+                float finalOutlineWidth = outlineWidth * smoothstep( _OutlineFar, _OutlineNear, distance(objPos.rgb,_WorldSpaceCameraPos) );
 
-                
+				float3 newPos;
+#ifdef _OUTLINE_NML
+
+                //TBN
                 const float3 normalDir = UnityObjectToWorldNormal(v.normal);
-
                 const float3 tangentDir = normalize( mul( GetObjectToWorldMatrix(), float4( v.tangent.xyz, 0.0 ) ).xyz );
                 const float3 bitangentDir = normalize(cross(normalDir, tangentDir) * v.tangent.w);
                 float3x3 tangentTransform = float3x3(tangentDir, bitangentDir, normalDir);
 
-                //custom normal map
+                //Outline normal map
                 const float4 customNormalMap = SAMPLE_TEXTURE2D_LOD(
                     _Outline_NormalMap, sampler_Outline_NormalMap, TRANSFORM_TEX(uv, _Outline_NormalMap),0);
                 const float3 normalTS = UnpackNormal(customNormalMap);
                 const float3 outlineNormalMapWS = normalize(mul(normalTS.xyz, tangentTransform));
-    
-                float finalOutlineWidth = outlineWidth * smoothstep( _OutlineFar, _OutlineNear, distance(objPos.rgb,_WorldSpaceCameraPos) );
-                float4 _ClipCameraPos = mul(UNITY_MATRIX_VP, float4(_WorldSpaceCameraPos.xyz, 1));
-
-				float3 newPos;
-#ifdef _OUTLINE_NML
+                
                 const float3 outlineDir = lerp(v.normal, outlineNormalMapWS, _Outline_UseNormalMap); 
                 
                 newPos = float4(v.vertex.xyz + outlineDir * finalOutlineWidth,1);
@@ -466,7 +466,8 @@ Shader "Toon/Toon 3D as 2D"{
                 o.pos = UnityObjectToClipPos(float4(v.vertex.xyz + signPN * normalizedPos * finalOutlineWidth, 1));
 #endif
                 const float scaledOutlineOffsetZ = _OutlineOffsetZ * -0.01;
-                o.pos.z = o.pos.z + scaledOutlineOffsetZ * _ClipCameraPos.z;
+                const float4 clipCameraPos = mul(UNITY_MATRIX_VP, float4(_WorldSpaceCameraPos.xyz, 1));
+                o.pos.z = o.pos.z + scaledOutlineOffsetZ * clipCameraPos.z;
 
                 o.lightingUV = half2(ComputeScreenPos(o.pos / o.pos.w).xy);
                 return o;
