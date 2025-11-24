@@ -390,6 +390,10 @@ Shader "Toon/Toon 3D as 2D"{
             TEXTURE2D(_MaskTex);
             SAMPLER(sampler_MaskTex);
             
+            TEXTURE2D(_OutlineWidthMap);
+            SAMPLER(sampler_OutlineWidthMap);
+            float4 _OutlineWidthMap_ST;
+
             TEXTURE2D(_OutlineTex);
             SAMPLER(sampler_OutlineTex);
             float4 _OutlineTex_ST;
