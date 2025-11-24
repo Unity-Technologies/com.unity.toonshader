@@ -46,8 +46,8 @@ Shader "Toon/Toon 3D as 2D"{
         _DirectionalLight_Direction ("Specular Light Direction", Vector) = (0,-1,0,0)
         _DirectionalLight_Color("Directional Light Color", Color) = (1,1,1,1)
         _DirectionalLight_Intensity ("Directional Light Intensity", float) = 0.5
-        _DirectionalLight_DiffuseFactor ("Directional Light: Diffuse Factor", Range(0,1)) = 0.5
-        _DirectionalLight_SpecularFactor ("Directional Light: Specular Factor", Range(0,1)) = 0.5
+        _DirectionalLight_DiffuseStrength ("Directional Light: Diffuse Strength", Range(0,1)) = 0.5
+        _DirectionalLight_SpecularStrength ("Directional Light: Specular Strength", Range(0,1)) = 0.5
         
     }
 
@@ -126,8 +126,8 @@ Shader "Toon/Toon 3D as 2D"{
                 float3 _DirectionalLight_Direction;
                 float4 _DirectionalLight_Color;
                 float _DirectionalLight_Intensity;
-                float _DirectionalLight_DiffuseFactor;
-                float _DirectionalLight_SpecularFactor;
+                float _DirectionalLight_DiffuseStrength;
+                float _DirectionalLight_SpecularStrength;
             
             CBUFFER_END
 
@@ -221,7 +221,7 @@ Shader "Toon/Toon 3D as 2D"{
                 }
 
                 const float3 diffuseLightFactor = (shapeLight0.rgb * _2DLightStrength)
-                    + (_DirectionalLight_Color * _DirectionalLight_DiffuseFactor * _DirectionalLight_Use);
+                    + (_DirectionalLight_Color * _DirectionalLight_DiffuseStrength * _DirectionalLight_Use);
                 
                 const float4 _MainTex_var = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, uv);
                 const float3 baseColor = _BaseColor.rgb * surfaceData.albedo.rgb * diffuseLightFactor;
@@ -239,19 +239,23 @@ Shader "Toon/Toon 3D as 2D"{
                 const float3 secondShadeAlbedo = _2nd_ShadeColor.rgb * _2nd_ShadeMap_var.rgb;
                 const float3 secondShadeColor = secondShadeAlbedo * diffuseLightFactor;
 
-                const float light2dDiffuse = max(shapeLight0.r, max(shapeLight0.g, shapeLight0.b)); 
-                const float directionalDiffuse = 0.5 * dot( perturbedNormalWS, -_DirectionalLight_Direction) + 0.5;
+                const float light2dDiffuse = max(shapeLight0.r, max(shapeLight0.g, shapeLight0.b));
+
+                const float3 directionalLightDirection = normalize(-_DirectionalLight_Direction);
+                const float directionalDiffuse = 0.5 * dot( perturbedNormalWS, directionalLightDirection) + 0.5;
 
                 float lightFactor = (light2dDiffuse * _2DLightStrength)
-                    + (directionalDiffuse * _DirectionalLight_DiffuseFactor);
+                    + (directionalDiffuse * _DirectionalLight_DiffuseStrength);
 
                 float3 Set_FinalBaseColor = ThreeColorsLinearShading(baseColor,firstShadeColor, secondShadeColor,
                     _BaseTo1st_ShadeStart, _BaseTo1st_ShadeFeather,
                     _1stTo2nd_ShadeStart, _1stTo2nd_ShadeFeather, lightFactor);
                 
-                // float4 _Set_HighColorMask_var = tex2D(_Set_HighColorMask, TRANSFORM_TEX(Set_UV0, _Set_HighColorMask));
-                //
-                // float _Specular_var = 0.5*dot(halfDirection,lerp( i.normalDir, normalDirection, _Is_NormalMapToHighColor ))+0.5; // Specular
+                const float4 _Set_HighColorMask_var = float4(1,1,1,1);
+
+                // const float3 halfDirection = normalize(viewDirection+lightDirection);
+                // const float directionalSpecular = 0.5*dot(halfDirection,perturbedNormalWS) + 0.5;
+                
                 // float _TweakHighColorMask_var = (
                 //   saturate((_Set_HighColorMask_var.g+_Tweak_HighColorMaskLevel))*lerp( (1.0 - step(_Specular_var,(1.0 - pow(abs(_HighColor_Power),5)))), pow(abs(_Specular_var),exp2(lerp(11,1,_HighColor_Power))), _Is_SpecularToHighColor ));
                 //
