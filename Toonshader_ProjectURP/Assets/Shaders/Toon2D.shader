@@ -212,7 +212,7 @@ Shader "Toon/Toon 3D as 2D"{
                 #endif
 
                 half alpha = surfaceData.alpha;
-                half4 color = half4(surfaceData.albedo, alpha);
+                half4 albedo = half4(surfaceData.albedo, alpha);
                 const half4 mask = surfaceData.mask;
                 const half2 lightingUV = inputData.lightingUV;
 
@@ -233,23 +233,24 @@ Shader "Toon/Toon 3D as 2D"{
                     shapeLight0 *= dot(processedMask, _ShapeLightMaskFilter0);
                 }
 
-                const float3 diffuseLightFactor = (shapeLight0.rgb * _2DLightStrength)
-                    + (_DirectionalLight_Color * _DirectionalLight_DiffuseStrength * _DirectionalLight_Use);
-                
-                const float4 _MainTex_var = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, uv);
-                const float3 baseColor = _BaseColor.rgb * surfaceData.albedo.rgb * diffuseLightFactor;
+                const float3 directionalLightColorAndUse = _DirectionalLight_Color * _DirectionalLight_Use; 
 
+                const float3 diffuseLightFactor = (shapeLight0.rgb * _ShapeLightBlendFactors0.x * _2DLightStrength )
+                    + (directionalLightColorAndUse * _DirectionalLight_DiffuseStrength);
+                
+                const float3 baseColor = _BaseColor.rgb * albedo.rgb * diffuseLightFactor;
+                
                 //1st and 2nd Shade
-                float4 _1st_ShadeMap_var = lerp(
-                    SAMPLE_TEXTURE2D(_1st_ShadeMap, sampler_MainTex, TRANSFORM_TEX(uv, _MainTex)), _MainTex_var,
+                const float4 firstShadeTex = lerp(
+                    SAMPLE_TEXTURE2D(_1st_ShadeMap, sampler_MainTex, TRANSFORM_TEX(uv, _MainTex)), albedo,
                     _Use_BaseAs1st);
-                const float3 firstShadeAlbedo = _1st_ShadeColor.rgb * _1st_ShadeMap_var.rgb; 
+                const float3 firstShadeAlbedo = _1st_ShadeColor.rgb * firstShadeTex.rgb; 
                 const float3 firstShadeColor = firstShadeAlbedo * diffuseLightFactor;
 
-                float4 _2nd_ShadeMap_var = lerp(
-                    SAMPLE_TEXTURE2D(_2nd_ShadeMap, sampler_MainTex, TRANSFORM_TEX(uv, _MainTex)), _1st_ShadeMap_var,
+                const float4 secondShadeTex = lerp(
+                    SAMPLE_TEXTURE2D(_2nd_ShadeMap, sampler_MainTex, TRANSFORM_TEX(uv, _MainTex)), firstShadeTex,
                     _Use_1stAs2nd);
-                const float3 secondShadeAlbedo = _2nd_ShadeColor.rgb * _2nd_ShadeMap_var.rgb;
+                const float3 secondShadeAlbedo = _2nd_ShadeColor.rgb * secondShadeTex.rgb;
                 const float3 secondShadeColor = secondShadeAlbedo * diffuseLightFactor;
 
                 const float light2dDiffuse = max(shapeLight0.r, max(shapeLight0.g, shapeLight0.b));
@@ -257,35 +258,34 @@ Shader "Toon/Toon 3D as 2D"{
                 const float3 directionalLightDirection = normalize(-_DirectionalLight_Direction);
                 const float directionalDiffuse = 0.5 * dot( perturbedNormalWS, directionalLightDirection) + 0.5;
 
-                float lightFactor = (light2dDiffuse * _2DLightStrength)
+                const float threeColorsT = (light2dDiffuse * _2DLightStrength)
                     + (directionalDiffuse * _DirectionalLight_DiffuseStrength);
 
-                float3 Set_FinalBaseColor = ThreeColorsLinearShading(baseColor,firstShadeColor, secondShadeColor,
+                const float3 finalDiffuseColor = ThreeColorsLinearShading(baseColor,firstShadeColor, secondShadeColor,
                     _BaseTo1st_ShadeStart, _BaseTo1st_ShadeFeather,
-                    _1stTo2nd_ShadeStart, _1stTo2nd_ShadeFeather, lightFactor);
+                    _1stTo2nd_ShadeStart, _1stTo2nd_ShadeFeather, threeColorsT);
                 
                 //Highlight
                 const float3 viewDirection = normalize(_DirectionalLight_ViewPosition - positionWS);
                 const float3 halfDirection = normalize(viewDirection + directionalLightDirection);
                 float dotHN_01 = 0.5 * dot(halfDirection,perturbedNormalWS) + 0.5;
 
-
-                float _TweakHighColorMask_var = 
+                const float highlight =
                     lerp( (1.0 - step(dotHN_01,(1.0 - pow(abs(_DirectionalLight_HighlightPower),5)))),
-                        pow(abs(dotHN_01),exp2(lerp(11,1,_DirectionalLight_HighlightPower))), _DirectionalLight_HighlightMode );
+                        pow(abs(dotHN_01),exp2(lerp(11,1,_DirectionalLight_HighlightPower))),
+                        _DirectionalLight_HighlightMode );
                 
                 
                 const float4 highlightTex = SAMPLE_TEXTURE2D(_HighlightTex, sampler_HighlightTex, TRANSFORM_TEX(uv, _HighlightTex));
                 const float3 highlightAlbedo = highlightTex.rgb * _HighlightColor.rgb; 
-                const float3 highlightColor = highlightAlbedo * _DirectionalLight_HighlightStrength; 
+                const float3 highlightFactor = directionalLightColorAndUse * _DirectionalLight_HighlightStrength; 
                 
-                float3 _HighColor_var = highlightColor * _DirectionalLight_Color * _DirectionalLight_Use * _TweakHighColorMask_var;
+                const float3 finalHighlightColor = highlightAlbedo * highlightFactor * highlight;
+
                 
-                float3 Set_HighColor = Set_FinalBaseColor + _HighColor_var;
+                float3 finalColor = finalDiffuseColor + finalHighlightColor;
 
-                Set_FinalBaseColor = (Set_FinalBaseColor ) * _ShapeLightBlendFactors0.x + _HighColor_var;
-
-                half4 shapeLight0Modulate = half4(Set_FinalBaseColor, alpha);
+                half4 shapeLight0Modulate = half4(finalColor, alpha);
                 half4 shapeLight0Additive = shapeLight0 * _ShapeLightBlendFactors0.y;
 
                 #else
@@ -295,7 +295,7 @@ Shader "Toon/Toon 3D as 2D"{
 
                 half4 finalOutput;
                 #if !USE_SHAPE_LIGHT_TYPE_0 && !USE_SHAPE_LIGHT_TYPE_1 && !USE_SHAPE_LIGHT_TYPE_2 && ! USE_SHAPE_LIGHT_TYPE_3
-                finalOutput = color;
+                finalOutput = albedo;
                 #else
                 half4 finalModulate = shapeLight0Modulate;
                 half4 finalAdditve = shapeLight0Additive;
