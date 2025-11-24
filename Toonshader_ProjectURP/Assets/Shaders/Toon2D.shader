@@ -26,6 +26,19 @@ Shader "Toon/Toon 3D as 2D"{
         
         [HideInInspector] _White("Tint", Color) = (1,1,1,1) // Added to break SRP batching. Work around for issue with SRP Batching
         
+        //Directional Light
+        _DirectionalLight_Use ("Use Directional Light", Integer) = 0
+        _DirectionalLight_Direction ("Directional Light Direction", Vector) = (0,-1,0,0)
+        _DirectionalLight_Color("Directional Light Color", Color) = (1,1,1,1)
+        _DirectionalLight_Intensity ("Directional Light Intensity", float) = 0.5
+        _DirectionalLight_DiffuseStrength ("Directional Light: Diffuse Strength", Range(0,1)) = 0.5
+
+        _ViewDirection ("Camera View Direction", Vector) = (0,0,1,0)
+        _HighlightColor ("Highlight Color", Color) = (1,1,1,1)
+        _HighlightTex ("HighColor Map", 2D) = "white" {}
+        _DirectionalLight_HighlightMode ("Directional Light: Highlight Mode", Integer) = 0 //0: Hard, 1: Soft
+        _DirectionalLight_HighlightStrength ("Directional Light: Highlight Strength", Range(0,1)) = 0.5
+        _DirectionalLight_HighlightPower ("Directional Light: Highlight Power", Range(0,1)) = 0.3
         
         //Outline
         _OutlineMode("Outline Mode", Integer) = 0
@@ -41,13 +54,6 @@ Shader "Toon/Toon 3D as 2D"{
         _Outline_UseCustomNormalMap ("Use Custom Normal Map", Integer ) = 0
         _Outline_CustomNormalMap ("Custom Normal Map", 2D) = "white" {}
         
-        //Directional Light
-        _DirectionalLight_Use ("Use Directional Light", Integer) = 0
-        _DirectionalLight_Direction ("Specular Light Direction", Vector) = (0,-1,0,0)
-        _DirectionalLight_Color("Directional Light Color", Color) = (1,1,1,1)
-        _DirectionalLight_Intensity ("Directional Light Intensity", float) = 0.5
-        _DirectionalLight_DiffuseStrength ("Directional Light: Diffuse Strength", Range(0,1)) = 0.5
-        _DirectionalLight_SpecularStrength ("Directional Light: Specular Strength", Range(0,1)) = 0.5
         
     }
 
@@ -127,8 +133,13 @@ Shader "Toon/Toon 3D as 2D"{
                 float4 _DirectionalLight_Color;
                 float _DirectionalLight_Intensity;
                 float _DirectionalLight_DiffuseStrength;
-                float _DirectionalLight_SpecularStrength;
-            
+
+                float3 _ViewDirection;
+                float4 _HighlightColor;
+                int _DirectionalLight_HighlightMode;
+                float _DirectionalLight_HighlightStrength;
+                float _DirectionalLight_HighlightPower;
+
             CBUFFER_END
 
 //----------------------------------------------------------------------------------------------------------------------            
@@ -136,6 +147,10 @@ Shader "Toon/Toon 3D as 2D"{
 
             TEXTURE2D(_1st_ShadeMap);
             TEXTURE2D(_2nd_ShadeMap);
+            
+            TEXTURE2D(_HighlightTex);
+            SAMPLER(sampler_HighlightTex);
+            float4 _HighlightTex_ST;
 
             #include "ObjectTransform.hlsl"
             
@@ -253,18 +268,23 @@ Shader "Toon/Toon 3D as 2D"{
                 
                 const float4 _Set_HighColorMask_var = float4(1,1,1,1);
 
-                // const float3 halfDirection = normalize(viewDirection+lightDirection);
-                // const float directionalSpecular = 0.5*dot(halfDirection,perturbedNormalWS) + 0.5;
                 
-                // float _TweakHighColorMask_var = (
-                //   saturate((_Set_HighColorMask_var.g+_Tweak_HighColorMaskLevel))*lerp( (1.0 - step(_Specular_var,(1.0 - pow(abs(_HighColor_Power),5)))), pow(abs(_Specular_var),exp2(lerp(11,1,_HighColor_Power))), _Is_SpecularToHighColor ));
-                //
-                // float4 _HighColor_Tex_var = tex2D(_HighColor_Tex, TRANSFORM_TEX(Set_UV0, _HighColor_Tex));
-                //
-                // float3 _HighColor_var = (lerp( (_HighColor_Tex_var.rgb*_HighColor.rgb), ((_HighColor_Tex_var.rgb*_HighColor.rgb)*Set_LightColor), _Is_LightColor_HighColor )*_TweakHighColorMask_var);
-                // //Composition: 3 Basic Colors and HighColor as Set_HighColor
-                // float3 Set_HighColor = (lerp(SATURATE_IF_SDR((Set_FinalBaseColor-_TweakHighColorMask_var)), Set_FinalBaseColor, lerp(_Is_BlendAddToHiColor,1.0,_Is_SpecularToHighColor) )+lerp( _HighColor_var, (_HighColor_var*((1.0 - Set_FinalShadowMask)+(Set_FinalShadowMask*_TweakHighColorOnShadow))), _Is_UseTweakHighColorOnShadow ));
-    
+                const float3 viewDirection = normalize(-_ViewDirection);
+                const float3 halfDirection = normalize(viewDirection + directionalLightDirection);
+                const float dotHN = 0.5*dot(halfDirection,perturbedNormalWS) + 0.5;
+
+                float _TweakHighColorMask_var = 
+                    lerp( (1.0 - step(dotHN,(1.0 - pow(abs(_DirectionalLight_HighlightPower),5)))),
+                        pow(abs(dotHN),exp2(lerp(11,1,_DirectionalLight_HighlightPower))), _DirectionalLight_HighlightMode );
+
+                const float4 highlightTex = SAMPLE_TEXTURE2D(_HighlightTex, sampler_HighlightTex, TRANSFORM_TEX(uv, _HighlightTex));
+                const float3 highlightAlbedo = highlightTex.rgb * _HighlightColor.rgb; 
+                const float3 highlightColor = highlightAlbedo * _DirectionalLight_HighlightStrength; 
+                
+                float3 _HighColor_var = highlightColor * _DirectionalLight_Color * _DirectionalLight_Use * _TweakHighColorMask_var;
+                
+                float3 Set_HighColor = Set_FinalBaseColor + _HighColor_var;
+                
 
                 Set_FinalBaseColor = Set_FinalBaseColor * _ShapeLightBlendFactors0.x;
 
