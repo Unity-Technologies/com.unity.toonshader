@@ -240,38 +240,20 @@ Shader "Toon/Toon 3D as 2D"{
                 const float3 secondShadeColor = secondShadeAlbedo * diffuseLightFactor;
 
                 const float light2dDiffuse = max(shapeLight0.r, max(shapeLight0.g, shapeLight0.b)); 
-                const float directionalDiffuse = 0.5 * dot( perturbedNormalWS, -_DirectionalLight_Direction) + 0.5;
+                const float directionalDiffuse = 0.5 * dot( perturbedNormalWS, _DirectionalLight_Direction) + 0.5;
 
-                float _HalfLambert_var = (light2dDiffuse * _2DLightStrength)
+                float lightFactor = (light2dDiffuse * _2DLightStrength)
                     + (directionalDiffuse * _DirectionalLight_DiffuseFactor);
 
-
-                // //Minmimum value is same as the Minimum Feather's value with the Minimum Step's value as threshold.
-                // float Set_FinalShadowMask = saturate((1.0 + ( (lerp( _HalfLambert_var, _HalfLambert_var * saturate(_SystemShadowsLevel_var), _Set_SystemShadowsToBase ) - (_BaseTo1st_ShadeStart - _BaseTo1st_ShadeFeather)) * ((1.0 - _Set_1st_ShadePosition_var.rgb).r - 1.0) ) / (_BaseTo1st_ShadeStart - (_BaseTo1st_ShadeStart-_BaseTo1st_ShadeFeather))));
-                // //
-                // //Composition: 3 Basic Colors as Set_FinalBaseColor
-
-                float4 _Set_1st_ShadePosition_var = float4(1, 1, 1, 1); //used in DoubleShadeWithFeather, default:  white
-                float4 _Set_2nd_ShadePosition_var = float4(1, 1, 1, 1); //used in DoubleShadeWithFeather, default:  white
-
-
-                float Set_FinalShadowMask = saturate((1.0 + ( ( _HalfLambert_var - (_BaseTo1st_ShadeStart-_BaseTo1st_ShadeFeather)) * ((1.0 - _Set_1st_ShadePosition_var.rgb).r - 1.0) ) / (_BaseTo1st_ShadeStart - (_BaseTo1st_ShadeStart-_BaseTo1st_ShadeFeather))));
-                
-
-                float innerLerpOp = saturate((1.0 + ((_HalfLambert_var - (_1stTo2nd_ShadeStart - _1stTo2nd_ShadeFeather)) * ((1.0 - _Set_2nd_ShadePosition_var.rgb).r - 1.0)) / ( _1stTo2nd_ShadeStart - ( _1stTo2nd_ShadeStart - _1stTo2nd_ShadeFeather))));
-                
-                float3 Set_FinalBaseColor = lerp(baseColor, lerp(firstShadeColor, secondShadeColor,
-                                                                 innerLerpOp),
-                                                 Set_FinalShadowMask);
-
-                Set_FinalBaseColor = ThreeColorsLinearShading(baseColor,firstShadeColor, secondShadeColor,
+                float3 Set_FinalBaseColor = ThreeColorsLinearShading(baseColor,firstShadeColor, secondShadeColor,
                     _BaseTo1st_ShadeStart, _BaseTo1st_ShadeFeather,
-                    _1stTo2nd_ShadeStart, _1stTo2nd_ShadeFeather, _HalfLambert_var);
+                    _1stTo2nd_ShadeStart, _1stTo2nd_ShadeFeather, lightFactor);
                 
                 // float4 _Set_HighColorMask_var = tex2D(_Set_HighColorMask, TRANSFORM_TEX(Set_UV0, _Set_HighColorMask));
                 //
                 // float _Specular_var = 0.5*dot(halfDirection,lerp( i.normalDir, normalDirection, _Is_NormalMapToHighColor ))+0.5; // Specular
-                // float _TweakHighColorMask_var = (saturate((_Set_HighColorMask_var.g+_Tweak_HighColorMaskLevel))*lerp( (1.0 - step(_Specular_var,(1.0 - pow(abs(_HighColor_Power),5)))), pow(abs(_Specular_var),exp2(lerp(11,1,_HighColor_Power))), _Is_SpecularToHighColor ));
+                // float _TweakHighColorMask_var = (
+                //   saturate((_Set_HighColorMask_var.g+_Tweak_HighColorMaskLevel))*lerp( (1.0 - step(_Specular_var,(1.0 - pow(abs(_HighColor_Power),5)))), pow(abs(_Specular_var),exp2(lerp(11,1,_HighColor_Power))), _Is_SpecularToHighColor ));
                 //
                 // float4 _HighColor_Tex_var = tex2D(_HighColor_Tex, TRANSFORM_TEX(Set_UV0, _HighColor_Tex));
                 //
