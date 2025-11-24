@@ -154,6 +154,7 @@ Shader "Toon/Toon 3D as 2D"{
             float4 _HighlightTex_ST;
 
             #include "ObjectTransform.hlsl"
+            #include "ToonBlend.hlsl"
             
             Varyings ToonVertex(Attributes input) {
 
@@ -235,9 +236,8 @@ Shader "Toon/Toon 3D as 2D"{
 
                 const float3 directionalLightColorAndUse = _DirectionalLight_Color * _DirectionalLight_Use; 
 
-                const float3 diffuseLightFactor = (shapeLight0.rgb * _ShapeLightBlendFactors0.x * _2DLightStrength )
-                    + (directionalLightColorAndUse * _DirectionalLight_DiffuseStrength);
-                
+                const float3 diffuseLightFactor = ToonDiffuseBlend(shapeLight0.rgb, _ShapeLightBlendFactors0.x);
+
                 const float3 baseColor = _BaseColor.rgb * albedo.rgb * diffuseLightFactor;
                 
                 //1st and 2nd Shade
@@ -400,6 +400,12 @@ Shader "Toon/Toon 3D as 2D"{
             int    _Outline_UseCustomNormalMap;
 
             CBUFFER_START(UnityPerMaterial)
+
+                float _2DLightStrength;
+                int _DirectionalLight_Use;
+                float4 _DirectionalLight_Color;
+                float _DirectionalLight_DiffuseStrength;
+            
                 half4 _BaseColor;
                 float _OutlineOffsetZ;
                 float _OutlineWidth; 
@@ -412,6 +418,7 @@ Shader "Toon/Toon 3D as 2D"{
             CBUFFER_END
 
             #include "ObjectTransform.hlsl"
+            #include "ToonBlend.hlsl"
             
             OutlineVertexOutput OutlineVertex(OutlineVertexInput v) {
                 OutlineVertexOutput o = (OutlineVertexOutput) 0;
@@ -479,7 +486,8 @@ Shader "Toon/Toon 3D as 2D"{
                 }
                 #endif
 
-                float3 lightColor = shapeLight0.rgb;
+
+                const float3 diffuseLightFactor = ToonDiffuseBlend(shapeLight0.rgb, _ShapeLightBlendFactors0.x);
                 
                 const float2 Set_UV0 = i.uv0;
                 float4 _MainTex_var = SAMPLE_TEXTURE2D(_MainTex,sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex));
@@ -490,7 +498,7 @@ Shader "Toon/Toon 3D as 2D"{
 
                 //Blend
                 const float3 outlineBaseBlend = lerp(outlineAlbedo, outlineAlbedo * Set_BaseColor, _Outline_BaseColorBlend);
-                const float3 outlineBaseAndLightBlend = lerp(outlineBaseBlend, outlineBaseBlend * lightColor, _Outline_LightColorBlend);
+                const float3 outlineBaseAndLightBlend = lerp(outlineBaseBlend, outlineBaseBlend * diffuseLightFactor, _Outline_LightColorBlend);
                 
 #ifdef _IS_OUTLINE_CLIPPING_NO
                 return float4(outlineBaseAndLightBlend,1.0);
