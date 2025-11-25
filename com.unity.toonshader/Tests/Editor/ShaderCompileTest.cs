@@ -8,7 +8,7 @@ namespace Unity.ToonShader.EditorTests {
 internal class ShaderCompileTest
 {
     [Test]
-    public void CompileLegacyToonShadersDefault() {
+    public void CompileToonShaders() {
         string[] guids      = AssetDatabase.FindAssets("t:Shader", new[] { SHADERS_PATH});
         int      numShaders = guids.Length;
         Assert.Greater(numShaders,0);
