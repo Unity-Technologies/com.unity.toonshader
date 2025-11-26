@@ -124,7 +124,7 @@ struct VertexOutput {
                 UTS_LIGHT_ATTENUATION(attenuation, i, i.posWorld.xyz);
 
 //v.2.0.4
-#ifdef _IS_PASS_FWDBASE
+#if defined(TOON_PASS_FWDBASE)
 
                 float3 defaultLightDirection = normalize(UNITY_MATRIX_V[2].xyz + UNITY_MATRIX_V[1].xyz);
                 //v.2.0.5
@@ -134,7 +134,7 @@ struct VertexOutput {
                 lightDirection = lerp(lightDirection, customLightDirection, _Is_BLD);
                 //v.2.0.5:
                 float3 lightColor = lerp(max(defaultLightColor,_LightColor0.rgb),max(defaultLightColor,saturate(_LightColor0.rgb)),_Is_Filter_LightColor);
-#elif _IS_PASS_FWDDELTA
+#elif defined(TOON_PASS_FWDDELTA)
                 float3 lightDirection = normalize(lerp(_WorldSpaceLightPos0.xyz, _WorldSpaceLightPos0.xyz - i.posWorld.xyz,_WorldSpaceLightPos0.w));
                 //v.2.0.5:
                 float3 addPassLightColor = (0.5*dot(lerp( i.normalDir, normalDirection, _Is_NormalMapToBase ), lightDirection)+0.5) * _LightColor0.rgb * attenuation;
@@ -146,7 +146,7 @@ struct VertexOutput {
                 //v.2.0.5
                 _Color = _BaseColor;
 
-#ifdef _IS_PASS_FWDBASE
+#if defined(TOON_PASS_FWDBASE)
                 float3 Set_LightColor = lightColor.rgb;
                 float3 Set_BaseColor = lerp( (_BaseColor.rgb*_MainTex_var.rgb), ((_BaseColor.rgb*_MainTex_var.rgb)*Set_LightColor), _Is_LightColor_Base );
                 //v.2.0.5
@@ -291,7 +291,7 @@ struct VertexOutput {
                 //Final Composition
                 finalColor =  saturate(finalColor) + (envLightColor*envLightIntensity*_GI_Intensity*smoothstep(1,0,envLightIntensity/2)) + emissive;
 
-#elif _IS_PASS_FWDDELTA
+#elif defined(TOON_PASS_FWDDELTA)
                 //v.2.0.5:
                 _BaseColor_Step = saturate(_BaseColor_Step + _StepOffset);
                 _ShadeColor_Step = saturate(_ShadeColor_Step + _StepOffset);
@@ -338,24 +338,24 @@ struct VertexOutput {
 //v.2.0.4
 #ifdef _IS_CLIPPING_OFF
 //DoubleShadeWithFeather
-    #ifdef _IS_PASS_FWDBASE
+    #if defined(TOON_PASS_FWDBASE)
                     fixed4 finalRGBA = fixed4(finalColor,1);
-    #elif _IS_PASS_FWDDELTA
+    #elif defined(TOON_PASS_FWDDELTA)
                     fixed4 finalRGBA = fixed4(finalColor,0);
     #endif
 #elif _IS_CLIPPING_MODE
 //DoubleShadeWithFeather_Clipping
-    #ifdef _IS_PASS_FWDBASE
+    #if defined(TOON_PASS_FWDBASE)
                     fixed4 finalRGBA = fixed4(finalColor,1);
-    #elif _IS_PASS_FWDDELTA
+    #elif defined(TOON_PASS_FWDDELTA)
                     fixed4 finalRGBA = fixed4(finalColor,0);
     #endif
 #elif _IS_CLIPPING_TRANSMODE
 //DoubleShadeWithFeather_TransClipping
         float Set_Opacity = saturate((_Inverse_Clipping_var+_Tweak_transparency));
-    #ifdef _IS_PASS_FWDBASE
+    #if defined(TOON_PASS_FWDBASE)
                     fixed4 finalRGBA = fixed4(finalColor,Set_Opacity);
-    #elif _IS_PASS_FWDDELTA
+    #elif defined(TOON_PASS_FWDDELTA)
                     fixed4 finalRGBA = fixed4(finalColor * Set_Opacity,0);
     #endif
 #endif

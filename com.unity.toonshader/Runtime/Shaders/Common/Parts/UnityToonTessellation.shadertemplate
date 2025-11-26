@@ -817,7 +817,7 @@ Shader "Toon(Tessellation)" {
             #pragma multi_compile _ DOTS_INSTANCING_ON
         #endif
 
-            #define _IS_PASS_FWDBASE
+            #define TOON_PASS_FWDBASE
             // DoubleShadeWithFeather and ShadingGradeMap use different fragment shader.
             #pragma shader_feature_local _ _SHADINGGRADEMAP
 
@@ -1123,7 +1123,7 @@ Shader "Toon(Tessellation)" {
             #pragma only_renderers d3d9 d3d11 glcore gles gles3 playstation xboxone xboxseries vulkan metal switch
             #pragma target 5.0
 
-            #define _IS_PASS_FWDBASE 
+            #define TOON_PASS_FWDBASE 
 
             #include_with_pragmas  "../../Shaders/BuiltIn/BuiltInToonMode.hlsl"
 
@@ -1209,7 +1209,7 @@ Shader "Toon(Tessellation)" {
             #pragma shader_feature _EMISSIVE_SIMPLE _EMISSIVE_ANIMATION
             //v.2.0.4
 
-            #define _IS_PASS_FWDDELTA 
+            #define TOON_PASS_FWDDELTA 
 
             #include_with_pragmas  "../../Shaders/BuiltIn/BuiltInToonMode.hlsl"
 
