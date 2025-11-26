@@ -166,7 +166,7 @@ Shader "Toon/Toon 3D as 2D"{
             float4 _HighlightTex_ST;
 
             #include "ObjectTransform.hlsl"
-            #include "ToonBlend.hlsl"
+            #include "ShapeLight2D.hlsl"
             
             Varyings ToonVertex(Attributes input) {
 
@@ -416,7 +416,7 @@ Shader "Toon/Toon 3D as 2D"{
             CBUFFER_END
 
             #include "ObjectTransform.hlsl"
-            #include "ToonBlend.hlsl"
+            #include "ShapeLight2D.hlsl"
             
             OutlineVertexOutput OutlineVertex(OutlineVertexInput v) {
                 OutlineVertexOutput o = (OutlineVertexOutput) 0;
