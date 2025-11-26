@@ -4,7 +4,8 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "Unity.Toonshader"
+        "Unity.Toonshader",
+        "Unity.FilmInternalUtilities.Editor"
     ],
     "includePlatforms": [
         "Editor"
