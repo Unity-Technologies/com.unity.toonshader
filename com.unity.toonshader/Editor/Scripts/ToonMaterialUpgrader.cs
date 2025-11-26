@@ -39,7 +39,7 @@ internal class ToonMaterialUpgrader : EditorWindow {
 
         HashSet<Shader> toonShaders = new HashSet<Shader>(FindToonShaders());
         if (toonShaders.Count<=0) {
-            Debug.LogError("[UTS] There is no toon shader.");
+            Debug.LogWarning("[UTS] No toon shaders detected.");
             return;
         }
 
