@@ -107,9 +107,6 @@ namespace UnityEditor.Rendering.Toon {
         internal const string ShaderPropStencilOpFail = "_StencilOpFail";
         internal const string ShaderPropStencilWriteMask = "_StencilWriteMask";
         internal const string ShaderPropStencilReadMask = "_StencilReadMask";
-        internal const string ShaderPropUtsVersionX = "_utsVersionX";
-        internal const string ShaderPropUtsVersionY = "_utsVersionY";
-        internal const string ShaderPropUtsVersionZ = "_utsVersionZ";
         internal const string ShaderPropIsUnityToonShader = "_isUnityToonshader";
         internal const string ShaderPropOutline = "_OUTLINE";
         internal const string ShaderPropNormalMapToHighColor = "_Is_NormalMapToHighColor";
@@ -397,13 +394,8 @@ namespace UnityEditor.Rendering.Toon {
         protected MaterialEditor m_MaterialEditor;
 
 
-        const int HDRPGeometryMin = 2650; // UnityEngine.Rendering.RenderQueue.Geometry;
-
         internal static void UpdateVersionInMaterial(Material material) {
             MaterialSetInt(material, ShaderPropIsUnityToonShader, 1);
-            material.SetFloat(ShaderPropUtsVersionX, kVersionX);
-            material.SetFloat(ShaderPropUtsVersionY, kVersionY);
-            material.SetFloat(ShaderPropUtsVersionZ, kVersionZ);
             
             ToonMaterialEditorUtility.ApplyRenderPipelineKeyword(material);
         }
