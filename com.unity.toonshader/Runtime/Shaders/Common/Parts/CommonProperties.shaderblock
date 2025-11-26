@@ -485,4 +485,4 @@ _Cutoff("Alpha Cutoff", Range(0.0, 1.0)) = 0.5
 //////////////////// End of HDRP material default values. ////////////////////
 //////////////////////////////////////////////////////////////////////////////
 
-[HideInInspector] _MaterialVersion ("MaterialVersion", Integer ) = 0
+[HideInInspector] _ToonMaterialVersion ("Toon Material Version", Integer ) = 0
