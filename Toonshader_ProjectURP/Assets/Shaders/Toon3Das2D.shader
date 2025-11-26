@@ -83,6 +83,7 @@ Shader "Toon/Toon 3D as 2D"{
             #pragma vertex ToonVertex
             #pragma fragment ToonFragment
 
+            //USE_SHAPE_LIGHT keywords
             #include_with_pragmas "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/ShapeLightShared.hlsl"
 
             // GPU Instancing
@@ -109,7 +110,18 @@ Shader "Toon/Toon 3D as 2D"{
 
             float4 _White;
 
-            #include "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/Lit2DCommon.hlsl"
+            //#include "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/Lit2DCommon.hlsl"
+
+            TEXTURE2D(_MainTex);
+            SAMPLER(sampler_MainTex);
+            UNITY_TEXTURE_STREAMING_DEBUG_VARS_FOR_TEX(_MainTex);
+
+            TEXTURE2D(_MaskTex);
+            SAMPLER(sampler_MaskTex);
+
+            TEXTURE2D(_NormalMap);
+            SAMPLER(sampler_NormalMap);
+            
 
             CBUFFER_START(UnityPerMaterial)
                 half4 _BaseColor;
@@ -201,69 +213,63 @@ Shader "Toon/Toon 3D as 2D"{
             }
 
 
-            half4 CombinedShapeLightSharedWithToon(in SurfaceData2D surfaceData, in InputData2D inputData, in float2 uv,
+            half4 CombinedShapeLightAndToon(ShapeLightResult shapeLightResult, SurfaceData2D surfaceData,
+                in float2 uv,
                 in float3 tangentWS, in float3 bitangentWS, in float3 normalWS, in float3 positionWS)
             {
-                #if defined(DEBUG_DISPLAY)
-                half4 debugColor = 0;
-
-                if (CanDebugOverrideOutputColor(surfaceData, inputData, debugColor)) {
-                    return debugColor;
-                }
-                #endif
-
-                half alpha = surfaceData.alpha;
-                half4 albedo = half4(surfaceData.albedo, alpha);
-                const half4 mask = surfaceData.mask;
-                const half2 lightingUV = inputData.lightingUV;
-
-                if (alpha == 0.0)
-                    discard;
-
+                const half alpha = surfaceData.alpha;
+                
                 float3x3 tangentTransform = float3x3( tangentWS, bitangentWS, normalWS);
                 const float3 normalTS = surfaceData.normalTS;
                 float3 perturbedNormalWS = normalize(mul( normalTS, tangentTransform )); // Perturbed normals
 
-                #if USE_SHAPE_LIGHT_TYPE_0
-                half4 shapeLight0 = SAMPLE_TEXTURE2D(_ShapeLightTexture0, sampler_ShapeLightTexture0, lightingUV);
+                half4 light2dMod = shapeLightResult.mod; 
+                half4 light2dAdd = shapeLightResult.add; 
 
-                if (any(_ShapeLightMaskFilter0))
-                {
-                    half4 processedMask = (1 - _ShapeLightInvertedFilter0) * mask + _ShapeLightInvertedFilter0 * (1 -
-                        mask);
-                    shapeLight0 *= dot(processedMask, _ShapeLightMaskFilter0);
-                }
-
-                const float3 directionalLightColorAndUse = _DirectionalLight_Color * _DirectionalLight_Use; 
-
-                const float3 diffuseLightFactor = ToonDiffuseBlend(shapeLight0.rgb, _ShapeLightBlendFactors0.x);
-
-                const float3 baseColor = _BaseColor.rgb * albedo.rgb * diffuseLightFactor;
+                const float light2dIntensity = max(
+                    light2dMod.r * light2dAdd.r, max(
+                        light2dMod.g + light2dAdd.g,
+                        light2dMod.b + light2dAdd.b));
                 
+                const half4 mainTex = half4(surfaceData.albedo, alpha);
+                const float3 baseAlbedo = _BaseColor.rgb * mainTex.rgb;
+
                 //1st and 2nd Shade
                 const float4 firstShadeTex = lerp(
-                    SAMPLE_TEXTURE2D(_1st_ShadeMap, sampler_MainTex, TRANSFORM_TEX(uv, _MainTex)), albedo,
+                    SAMPLE_TEXTURE2D(_1st_ShadeMap, sampler_MainTex, TRANSFORM_TEX(uv, _MainTex)), mainTex,
                     _Use_BaseAs1st);
                 const float3 firstShadeAlbedo = _1st_ShadeColor.rgb * firstShadeTex.rgb; 
-                const float3 firstShadeColor = firstShadeAlbedo * diffuseLightFactor;
 
                 const float4 secondShadeTex = lerp(
                     SAMPLE_TEXTURE2D(_2nd_ShadeMap, sampler_MainTex, TRANSFORM_TEX(uv, _MainTex)), firstShadeTex,
                     _Use_1stAs2nd);
                 const float3 secondShadeAlbedo = _2nd_ShadeColor.rgb * secondShadeTex.rgb;
-                const float3 secondShadeColor = secondShadeAlbedo * diffuseLightFactor;
-
-                const float light2dDiffuse = max(shapeLight0.r, max(shapeLight0.g, shapeLight0.b));
-
-                const float3 directionalLightDirection = normalize(-_DirectionalLight_Direction);
-                const float directionalDiffuse = 0.5 * dot( perturbedNormalWS, directionalLightDirection) + 0.5;
-
-                const float threeColorsT = (light2dDiffuse * _2DLightStrength)
-                    + (directionalDiffuse * _DirectionalLight_DiffuseStrength);
-
-                const float3 finalDiffuseColor = ThreeColorsLinearShading(baseColor,firstShadeColor, secondShadeColor,
+                
+                //perform 3 color linear shading with 2D colors and lights  
+                const float3 color2D = ThreeColorsLinearShading(
+                    baseAlbedo * light2dMod + light2dAdd,
+                    firstShadeAlbedo * light2dMod + light2dAdd,
+                    secondShadeAlbedo * light2dMod + light2dAdd,
                     _BaseTo1st_ShadeStart, _BaseTo1st_ShadeFeather,
-                    _1stTo2nd_ShadeStart, _1stTo2nd_ShadeFeather, threeColorsT);
+                    _1stTo2nd_ShadeStart, _1stTo2nd_ShadeFeather, light2dIntensity);
+                
+
+
+                //Toon Directional Light
+                const float3 directionalLightColorAndUse = _DirectionalLight_Color * _DirectionalLight_Use; 
+                const float3 directionalLightDirection = normalize(-_DirectionalLight_Direction);
+                const float dotNL = 0.5 * dot( perturbedNormalWS, directionalLightDirection) + 0.5;
+
+                const float3 toonDiffuseColor = ThreeColorsLinearShading(
+                    baseAlbedo * directionalLightColorAndUse,
+                    firstShadeAlbedo * directionalLightColorAndUse,
+                    secondShadeAlbedo * directionalLightColorAndUse,
+                    _BaseTo1st_ShadeStart, _BaseTo1st_ShadeFeather,
+                    _1stTo2nd_ShadeStart, _1stTo2nd_ShadeFeather,
+                    dotNL);
+
+                const float3 finalDiffuseColor = color2D * _2DLightStrength +
+                    toonDiffuseColor * _DirectionalLight_DiffuseStrength;
                 
                 //Highlight
                 const float3 viewDirection = normalize(_DirectionalLight_ViewPosition - positionWS);
@@ -285,49 +291,37 @@ Shader "Toon/Toon 3D as 2D"{
                 
                 float3 finalColor = finalDiffuseColor + finalHighlightColor;
 
-                half4 shapeLight0Modulate = half4(finalColor, alpha);
-                half4 shapeLight0Additive = shapeLight0 * _ShapeLightBlendFactors0.y;
-
-                #else
-                half4 shapeLight0Modulate = 0;
-                half4 shapeLight0Additive = 0;
-                #endif
-
-                half4 finalOutput;
-                #if !USE_SHAPE_LIGHT_TYPE_0 && !USE_SHAPE_LIGHT_TYPE_1 && !USE_SHAPE_LIGHT_TYPE_2 && ! USE_SHAPE_LIGHT_TYPE_3
-                finalOutput = albedo;
-                #else
-                half4 finalModulate = shapeLight0Modulate;
-                half4 finalAdditve = shapeLight0Additive;
-                finalOutput = _HDREmulationScale * (finalModulate + finalAdditve);
-                #endif
-
-                finalOutput.a = alpha;
-
-                return max(0, finalOutput);
+                return float4(finalColor,alpha);
             }
 
+            
             half4 ToonFragment(Varyings input) : SV_Target {
                 const half4 main = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, input.uv);
                 const half4 mask = SAMPLE_TEXTURE2D(_MaskTex, sampler_MaskTex, input.uv);
                 const half3 normalTS = UnpackNormalScale(SAMPLE_TEXTURE2D(_NormalMap, sampler_NormalMap, input.uv), _BumpScale);
 
                 SurfaceData2D surfaceData;
-                InputData2D inputData;
-
+  
                 const float3 normalWS = normalize(input.normalWS);
                 const float3 tangentWS = normalize(input.tangentWS);
                 const float3 bitangentWS = normalize(cross(normalWS, tangentWS) * input.tangentWS.w);
+
+                const float alpha = main.a;
                 
-                InitializeSurfaceData(main.rgb, main.a, mask, normalTS, surfaceData);
-                InitializeInputData(input.uv, input.lightingUV, inputData);
+                InitializeSurfaceData(main.rgb, alpha, mask, normalTS, surfaceData);
 
                 #if defined(DEBUG_DISPLAY)
                 SETUP_DEBUG_TEXTURE_DATA_2D_NO_TS(inputData, input.positionWS, input.positionCS, _MainTex);
                 surfaceData.normalWS = input.normalWS;
                 #endif
 
-                return CombinedShapeLightSharedWithToon(surfaceData, inputData, input.uv,
+                if (alpha == 0.0)
+                    discard;
+                
+                ShapeLightResult shapeLightResult = CombinedShapeLight(mask, input.lightingUV);
+
+                
+                return CombinedShapeLightAndToon(shapeLightResult, surfaceData, input.uv,
                     tangentWS, bitangentWS, normalWS, input.positionWS);
             }
 
@@ -365,6 +359,7 @@ Shader "Toon/Toon 3D as 2D"{
             // #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/Core2D.hlsl"
 
+            //USE_SHAPE_LIGHT keywords
             #include_with_pragmas "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/ShapeLightShared.hlsl"
 
             struct OutlineVertexInput {
@@ -470,34 +465,11 @@ Shader "Toon/Toon 3D as 2D"{
                 return o;
             }
 
-            //SHAPE_LIGHT macros
-            #include_with_pragmas "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/ShapeLightShared.hlsl"
-            #include "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/LightingUtility.hlsl"
             
             half4 OutlineFragment(OutlineVertexOutput i) : SV_Target {
 
-                InputData2D inputData;
-
-                InitializeInputData(i.uv0, i.lightingUV, inputData);
-
-                half4 shapeLight0 = half4(0,0,0,0);
-
                 const half4 mask = SAMPLE_TEXTURE2D(_MaskTex, sampler_MaskTex, i.uv0);
-                const half2 lightingUV = inputData.lightingUV;
-
-                float3 diffuseLightFactor = float3(0,0,0);
-                
-                #if USE_SHAPE_LIGHT_TYPE_0
-                shapeLight0 = SAMPLE_TEXTURE2D(_ShapeLightTexture0, sampler_ShapeLightTexture0, lightingUV);
-                if (any(_ShapeLightMaskFilter0))
-                {
-                    half4 processedMask = (1 - _ShapeLightInvertedFilter0) * mask + _ShapeLightInvertedFilter0 * (1 -
-                        mask);
-                    shapeLight0 *= dot(processedMask, _ShapeLightMaskFilter0);
-                }
-                diffuseLightFactor = ToonDiffuseBlend(shapeLight0.rgb, _ShapeLightBlendFactors0.x);
-                #endif
-
+                const half2 lightingUV = i.lightingUV;
                 
                 const float2 Set_UV0 = i.uv0;
                 float4 _MainTex_var = SAMPLE_TEXTURE2D(_MainTex,sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex));
@@ -506,9 +478,17 @@ Shader "Toon/Toon 3D as 2D"{
                 const float3 outlineTex = tex2D(sampler_OutlineTex,TRANSFORM_TEX(Set_UV0, _OutlineTex)).rgb;
                 const float3 outlineAlbedo = outlineTex * _OutlineColor.rgb;
 
-                //Blend
+                //Blend with baseColor
                 const float3 outlineBaseBlend = lerp(outlineAlbedo, outlineAlbedo * Set_BaseColor, _Outline_BaseColorBlend);
-                const float3 outlineBaseAndLightBlend = lerp(outlineBaseBlend, outlineBaseBlend * diffuseLightFactor, _Outline_LightColorBlend);
+
+                //Blend with light
+                ShapeLightResult shapeLightResult = CombinedShapeLight(mask, lightingUV);
+                const float3 color2D = (outlineBaseBlend.rgb * shapeLightResult.mod.rgb) + shapeLightResult.add.rgb;
+                const float3 colorToon = outlineBaseBlend.rgb * _DirectionalLight_Color.rgb * _DirectionalLight_Use;
+                const float3 outlineLightColor = (color2D * _2DLightStrength) +
+                    (colorToon * _DirectionalLight_DiffuseStrength);
+                
+                const float3 outlineBaseAndLightBlend = lerp(outlineBaseBlend, outlineLightColor, _Outline_LightColorBlend);
                 
                 return float4(outlineBaseAndLightBlend,1.0);
             }
