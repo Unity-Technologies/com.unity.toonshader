@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Unity.Rendering.Toon;
 using UnityEngine;
 
@@ -12,8 +11,17 @@ internal static class ToonMaterialEditorUtility {
         m.EnableKeyword(ToonConstants.SHADER_KEYWORD_RP_BUILTIN);
 #endif
     }
-    
-    
+
+    internal static int GetMaterialVersion(Material m) {
+
+        int curVersion = 0;
+
+        int id = ToonConstants.SHADER_PROPERTY_MATERIAL_VERSION;
+        if (m.HasProperty(id)) {
+            curVersion = m.GetInteger(id);
+        }
+        return curVersion;
+    }
     
 }
 }
