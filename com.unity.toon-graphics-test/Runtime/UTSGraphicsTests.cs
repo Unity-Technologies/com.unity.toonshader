@@ -92,9 +92,6 @@ public class UTSGraphicsTestsNonXR  {
 
             if (isXR) {
                 imageComparisonSettings.UseBackBuffer = true; //results using both eyes need backbuffer
-
-                //[TODO-sin: 2025-7-9] Hack for now. The resolution will be set to this later
-                imageComparisonSettings.ImageResolution = ImageComparisonSettings.Resolution.w1920h1080;
             }
 
 
