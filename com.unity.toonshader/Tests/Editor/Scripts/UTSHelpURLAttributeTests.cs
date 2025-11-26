@@ -28,9 +28,9 @@ internal class UTSHelpURLAttributeTests {
         }
         Assert.IsFalse(string.IsNullOrEmpty(packageVersion));
         
-        Assert.IsTrue(UTSHelpURLAttribute.version == packageVersion, 
+        Assert.IsTrue(ToonConstants.PACKAGE_VERSION_MAJOR_MINOR == packageVersion, 
             $"Incorrect package version in {nameof(UTSHelpURLAttribute)}. " +
-            $"Expected: " + packageVersion + " Actual: " + UTSHelpURLAttribute.version);
+            $"Expected: " + packageVersion + " Actual: " + ToonConstants.PACKAGE_VERSION_MAJOR_MINOR);
 
     }
 
