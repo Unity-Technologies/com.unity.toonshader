@@ -405,13 +405,7 @@ namespace UnityEditor.Rendering.Toon {
             material.SetFloat(ShaderPropUtsVersionY, kVersionY);
             material.SetFloat(ShaderPropUtsVersionZ, kVersionZ);
             
-            
-#if !(HDRP_IS_INSTALLED_FOR_UTS || URP_IS_INSTALLED_FOR_UTS)
-            material.EnableKeyword(ToonConstants.SHADER_KEYWORD_RP_BUILTIN);
-#else
-            material.DisableKeyword(ToonConstants.SHADER_KEYWORD_RP_BUILTIN);
-#endif
-
+            ToonMaterialEditorUtility.ApplyRenderPipelineKeyword(material);
         }
 
 
@@ -1240,8 +1234,6 @@ namespace UnityEditor.Rendering.Toon {
             ApplyTessellation(material);
             ApplyMatCapMode(material);
             ApplyQueueAndRenderType(m_WorkflowMode, material);
-
-            ToonMaterialEditorUtility.ApplyRenderPipelineKeyword(material);
 
             if (EditorGUI.EndChangeCheck()) {
                 m_MaterialEditor.PropertiesChanged();
