@@ -167,6 +167,9 @@ Shader "Toon/Toon 3D as 2D"{
 
             #include "ObjectTransform.hlsl"
             #include "ShapeLight2D.hlsl"
+
+            //_HDREmulationScale declaration
+            #include "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/ShapeLightVariables.hlsl" 
             
             Varyings ToonVertex(Attributes input) {
 
@@ -247,16 +250,16 @@ Shader "Toon/Toon 3D as 2D"{
                 
                 //perform 3 color linear shading with 2D colors and lights  
                 const float3 color2D = ThreeColorsLinearShading(
-                    baseAlbedo * light2dMod + light2dAdd,
-                    firstShadeAlbedo * light2dMod + light2dAdd,
-                    secondShadeAlbedo * light2dMod + light2dAdd,
+                    (baseAlbedo * light2dMod + light2dAdd).rgb,
+                    (firstShadeAlbedo * light2dMod + light2dAdd).rgb,
+                    (secondShadeAlbedo * light2dMod + light2dAdd).rgb,
                     _BaseTo1st_ShadeStart, _BaseTo1st_ShadeFeather,
                     _1stTo2nd_ShadeStart, _1stTo2nd_ShadeFeather, light2dIntensity);
                 
 
 
                 //Toon Directional Light
-                const float3 directionalLightColorAndUse = _DirectionalLight_Color * _DirectionalLight_Use; 
+                const float3 directionalLightColorAndUse = _DirectionalLight_Color.rgb * _DirectionalLight_Use; 
                 const float3 directionalLightDirection = normalize(-_DirectionalLight_Direction);
                 const float dotNL = 0.5 * dot( perturbedNormalWS, directionalLightDirection) + 0.5;
 
@@ -289,7 +292,7 @@ Shader "Toon/Toon 3D as 2D"{
                 const float3 finalHighlightColor = highlightAlbedo * highlightFactor * highlight;
 
                 
-                float3 finalColor = finalDiffuseColor + finalHighlightColor;
+                const float3 finalColor = _HDREmulationScale * (finalDiffuseColor + finalHighlightColor);
 
                 return float4(finalColor,alpha);
             }
