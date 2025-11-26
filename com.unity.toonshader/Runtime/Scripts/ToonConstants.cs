@@ -29,6 +29,8 @@ internal static class ToonConstants {
     internal static readonly int SHADER_PROPERTY_RIM_LIGHT_MASK_COLOR    = Shader.PropertyToID("_RimLightMaskColor");
     internal static readonly int SHADER_PROPERTY_OUTLINE_MASK_COLOR      = Shader.PropertyToID("_OutlineMaskColor");
 
+    internal static readonly int SHADER_PROPERTY_MATERIAL_VERSION = Shader.PropertyToID("_MaterialVersion");
+    
     internal const string GBUFFER_PASS_NAME = "GBuffer";
 
     internal const string SHADER_KEYWORD_RP_BUILTIN = "UTS_RP_BUILTIN";
