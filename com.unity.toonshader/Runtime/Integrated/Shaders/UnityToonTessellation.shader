@@ -1,4 +1,4 @@
-//Auto-generated on Fri Nov 21 06:08:20 UTC 2025
+//Auto-generated on Wed Nov 26 14:59:19 UTC 2025
 Shader "Toon(Tessellation)" {
     Properties
     {
@@ -490,6 +490,8 @@ Shader "Toon(Tessellation)" {
         //////////////////////////////////////////////////////////////////////////////
         //////////////////// End of HDRP material default values. ////////////////////
         //////////////////////////////////////////////////////////////////////////////
+
+        [HideInInspector] _MaterialVersion ("MaterialVersion", int ) = 0
 
         // Tessellation-specific properties
         // Tessellation-specific Properties for Unity Toon Shader Tessellation
