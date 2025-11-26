@@ -109,9 +109,7 @@ Shader "Toon/Toon 3D as 2D"{
             };
 
             float4 _White;
-
-            //#include "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/Lit2DCommon.hlsl"
-
+            
             TEXTURE2D(_MainTex);
             SAMPLER(sampler_MainTex);
             UNITY_TEXTURE_STREAMING_DEBUG_VARS_FOR_TEX(_MainTex);
@@ -290,7 +288,6 @@ Shader "Toon/Toon 3D as 2D"{
                 const float3 highlightFactor = directionalLightColorAndUse * _DirectionalLight_HighlightStrength; 
                 
                 const float3 finalHighlightColor = highlightAlbedo * highlightFactor * highlight;
-
                 
                 const float3 finalColor = _HDREmulationScale * (finalDiffuseColor + finalHighlightColor);
 
@@ -365,6 +362,9 @@ Shader "Toon/Toon 3D as 2D"{
             //USE_SHAPE_LIGHT keywords
             #include_with_pragmas "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/ShapeLightShared.hlsl"
 
+            //_HDREmulationScale declaration
+            #include "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/ShapeLightVariables.hlsl" 
+            
             struct OutlineVertexInput {
                 float4 vertex : POSITION;
                 float3 normal : NORMAL;
@@ -493,7 +493,7 @@ Shader "Toon/Toon 3D as 2D"{
                 
                 const float3 outlineBaseAndLightBlend = lerp(outlineBaseBlend, outlineLightColor, _Outline_LightColorBlend);
                 
-                return float4(outlineBaseAndLightBlend,1.0);
+                return float4(_HDREmulationScale * outlineBaseAndLightBlend,1.0);
             }
             
             
