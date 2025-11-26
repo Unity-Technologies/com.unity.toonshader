@@ -1241,6 +1241,7 @@ namespace UnityEditor.Rendering.Toon {
             ApplyMatCapMode(material);
             ApplyQueueAndRenderType(m_WorkflowMode, material);
 
+            ToonMaterialEditorUtility.ApplyRenderPipelineKeyword(material);
 
             if (EditorGUI.EndChangeCheck()) {
                 m_MaterialEditor.PropertiesChanged();
