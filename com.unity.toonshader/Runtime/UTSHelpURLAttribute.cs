@@ -7,7 +7,7 @@ namespace Unity.Rendering.Toon
         //[TODO-sin: 2025-10-20] Return the actual version
         private const string fallbackVersion = "0.7";
 
-        private static string version
+        internal static string version
         {
             get
             {
