@@ -2,15 +2,9 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class MaterialReferenceCheckerWindow : EditorWindow {
-    private string rootPath = "Assets/UnityChan/SD/Materials";
-    private Vector2 scroll;
-    private bool includeScenes = true;
-    private bool includePrefabs = true;
-    private bool includeOtherAssets = true;
+namespace UnityEditor.Rendering.Toon {
 
-    private Dictionary<string, List<string>> materialToReferencers = new Dictionary<string, List<string>>();
-    private bool hasScanned = false;
+internal class MaterialReferenceCheckerWindow : EditorWindow {
 
     [MenuItem("Tools/Material Reference Checker")]
     public static void ShowWindow() {
@@ -25,7 +19,7 @@ public class MaterialReferenceCheckerWindow : EditorWindow {
         EditorGUILayout.BeginHorizontal();
         rootPath = EditorGUILayout.TextField("Folder Path (under Assets)", rootPath);
         if (GUILayout.Button("Select...", GUILayout.Width(90))) {
-            string selected = EditorUtility.OpenFolderPanel("Select Assets Folder", "Assets/UnityChan/SD/Materials", "");
+            string selected = EditorUtility.OpenFolderPanel("Select Assets Folder", INITIAL_PATH, "");
             if (!string.IsNullOrEmpty(selected)) {
                 Debug.Log(selected);
                 string projectPath = Application.dataPath.Replace("/Assets", "");
@@ -227,4 +221,18 @@ public class MaterialReferenceCheckerWindow : EditorWindow {
             set.Add(path);
         }
     }
+
+//----------------------------------------------------------------------------------------------------------------------
+    private string rootPath = INITIAL_PATH;
+    private Vector2 scroll;
+    private bool includeScenes = true;
+    private bool includePrefabs = true;
+    private bool includeOtherAssets = true;
+
+    private Dictionary<string, List<string>> materialToReferencers = new Dictionary<string, List<string>>();
+    private bool hasScanned = false;
+
+    private const string INITIAL_PATH = "Assets/UnityChan/SD/Materials";
+
+}
 }
