@@ -2,6 +2,7 @@
   "dependencies": {
     "com.unity.ide.rider": "3.0.38",
     "com.unity.ide.visualstudio": "2.0.25",
+    "com.unity.inputsystem": "1.14.2",
     "com.unity.package-validation-suite": "0.73.0-preview",
     "com.unity.render-pipelines.high-definition": "17.0.4",
     "com.unity.render-pipelines.high-definition-config": "17.0.4",
