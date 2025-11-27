@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement class="block-root">
+        <ui:Toggle name="BodyUIToggle" text="Body UI" class="title" />
+        <ui:VisualElement name="BodyUIContainer">
+            <ui:VisualElement name="ButtonsContainer" class="button-list"/>
+            <ui:Toggle name="RandomBodyToggle" text="Random" class="toggle" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

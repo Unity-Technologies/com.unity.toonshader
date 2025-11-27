@@ -1,0 +1,42 @@
+
+
+.root {
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    display: flex;
+}
+
+.top-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: auto;
+}
+
+.left-block {
+    align-items: flex-start;
+    flex-direction: row;
+    padding-left: 1%;
+    padding-top: 1%;
+    
+}
+.right-block {
+    align-items: flex-start;
+    padding-right: 1%;
+    padding-top: 1%;
+}
+
+
+.bottom-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: auto;
+}
+
+.bottom-block {
+    width: 90%;
+    height: 60px;
+    background-color: #eee;
+}

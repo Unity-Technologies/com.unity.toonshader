@@ -1,0 +1,5 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement class="block-root">
+        <ui:Toggle name="Toggle" text="ToggleTitle" class="toggle" />
+    </ui:VisualElement>
+</ui:UXML>
