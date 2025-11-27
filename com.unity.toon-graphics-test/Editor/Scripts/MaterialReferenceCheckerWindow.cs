@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 namespace UnityEditor.Rendering.Toon {
@@ -17,14 +16,14 @@ internal class MaterialReferenceCheckerWindow : EditorWindow {
         EditorGUILayout.Space();
 
         EditorGUILayout.BeginHorizontal();
-        rootPath = EditorGUILayout.TextField("Folder Path (under Assets)", rootPath);
+        m_rootPath = EditorGUILayout.TextField("Folder Path (under Assets)", m_rootPath);
         if (GUILayout.Button("Select...", GUILayout.Width(90))) {
             string selected = EditorUtility.OpenFolderPanel("Select Assets Folder", INITIAL_PATH, "");
             if (!string.IsNullOrEmpty(selected)) {
                 Debug.Log(selected);
                 string projectPath = Application.dataPath.Replace("/Assets", "");
                 if (selected.StartsWith(projectPath)) {
-                    rootPath = "Assets" + selected.Substring(projectPath.Length).Replace('\\', '/');
+                    m_rootPath = "Assets" + selected.Substring(projectPath.Length).Replace('\\', '/');
                 } else {
                     EditorUtility.DisplayDialog("Invalid Folder", "Please select a folder inside the project's Assets directory.", "OK");
                 }
@@ -35,9 +34,9 @@ internal class MaterialReferenceCheckerWindow : EditorWindow {
 
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("Reference Sources", EditorStyles.boldLabel);
-        includeScenes = EditorGUILayout.ToggleLeft("Scenes", includeScenes);
-        includePrefabs = EditorGUILayout.ToggleLeft("Prefabs", includePrefabs);
-        includeOtherAssets = EditorGUILayout.ToggleLeft("Other Assets (scripts, textures, etc.)", includeOtherAssets);
+        m_includeScenes = EditorGUILayout.ToggleLeft("Scenes", m_includeScenes);
+        m_includePrefabs = EditorGUILayout.ToggleLeft("Prefabs", m_includePrefabs);
+        m_includeOtherAssets = EditorGUILayout.ToggleLeft("Other Assets (scripts, textures, etc.)", m_includeOtherAssets);
 
         EditorGUILayout.Space();
 
@@ -47,21 +46,21 @@ internal class MaterialReferenceCheckerWindow : EditorWindow {
 
         EditorGUILayout.Space();
 
-        if (hasScanned) {
+        if (m_hasScanned) {
             EditorGUILayout.LabelField("Results", EditorStyles.boldLabel);
 
             EditorGUILayout.HelpBox(
                 "Shows which assets reference each material. If a material has no referencers, it may be unused.",
                 MessageType.Info);
 
-            scroll = EditorGUILayout.BeginScrollView(scroll);
+            m_scroll = EditorGUILayout.BeginScrollView(m_scroll);
 
-            List<string> sortedKeys = new List<string>(materialToReferencers.Keys);
+            List<string> sortedKeys = new List<string>(m_materialToReferencers.Keys);
             sortedKeys.Sort();
 
             for (int i = 0; i < sortedKeys.Count; i++) {
                 string materialPath = sortedKeys[i];
-                List<string> referencers = materialToReferencers[materialPath];
+                List<string> referencers = m_materialToReferencers[materialPath];
 
                 EditorGUILayout.BeginVertical("box");
                 Material mat = AssetDatabase.LoadAssetAtPath<Material>(materialPath);
@@ -91,43 +90,43 @@ internal class MaterialReferenceCheckerWindow : EditorWindow {
     }
 
     private void ScanMaterials() {
-        materialToReferencers.Clear();
-        hasScanned = false;
+        m_materialToReferencers.Clear();
+        m_hasScanned = false;
 
-        if (string.IsNullOrEmpty(rootPath) || !rootPath.StartsWith("Assets")) {
+        if (string.IsNullOrEmpty(m_rootPath) || !m_rootPath.StartsWith("Assets")) {
             EditorUtility.DisplayDialog("Invalid Path", "Please enter a valid folder path under Assets.", "OK");
             return;
         }
 
-        string[] materialGUIDs = AssetDatabase.FindAssets("t:Material", new[] { rootPath });
+        string[] materialGUIDs = AssetDatabase.FindAssets("t:Material", new[] { m_rootPath });
         List<string> materialPaths = new List<string>();
         for (int i = 0; i < materialGUIDs.Length; i++) {
             string path = AssetDatabase.GUIDToAssetPath(materialGUIDs[i]);
             if (!string.IsNullOrEmpty(path)) {
                 materialPaths.Add(path);
-                materialToReferencers[path] = new List<string>();
+                m_materialToReferencers[path] = new List<string>();
             }
         }
 
         if (materialPaths.Count == 0) {
-            EditorUtility.DisplayDialog("No Materials Found", "No materials were found under: " + rootPath, "OK");
-            hasScanned = true;
+            EditorUtility.DisplayDialog("No Materials Found", "No materials were found under: " + m_rootPath, "OK");
+            m_hasScanned = true;
             return;
         }
 
         // Build candidate referencer set
         HashSet<string> candidatePaths = new HashSet<string>();
 
-        if (includeScenes) {
+        if (m_includeScenes) {
             AddPathsByType(candidatePaths, "t:Scene");
         }
 
-        if (includePrefabs) {
+        if (m_includePrefabs) {
             AddPathsByType(candidatePaths, "t:Prefab");
         }
 
-        if (includeOtherAssets) {
-            string[] allGuids = AssetDatabase.FindAssets("", new[] { rootPath });
+        if (m_includeOtherAssets) {
+            string[] allGuids = AssetDatabase.FindAssets("", new[] { m_rootPath });
             for (int i = 0; i < allGuids.Length; i++) {
                 string p = AssetDatabase.GUIDToAssetPath(allGuids[i]);
                 if (string.IsNullOrEmpty(p)) continue;
@@ -148,7 +147,7 @@ internal class MaterialReferenceCheckerWindow : EditorWindow {
             }
         }
 
-        if (!includeScenes && !includePrefabs && !includeOtherAssets) {
+        if (!m_includeScenes && !m_includePrefabs && !m_includeOtherAssets) {
             AddPathsByType(candidatePaths, "t:Scene");
             AddPathsByType(candidatePaths, "t:Prefab");
         }
@@ -158,7 +157,7 @@ internal class MaterialReferenceCheckerWindow : EditorWindow {
         int processed = 0;
         int total = candidatePaths.Count;
 
-        Debug.Log("rootPath: " + rootPath);
+        Debug.Log("rootPath: " + m_rootPath);
 
         try {
             foreach (string assetPath in candidatePaths) {
@@ -172,7 +171,7 @@ internal class MaterialReferenceCheckerWindow : EditorWindow {
                 string[] deps = AssetDatabase.GetDependencies(assetPath, true);
                 for (int d = 0; d < deps.Length; d++) {
                     string dep = deps[d];
-                    if (!materialToReferencers.ContainsKey(dep)) continue;
+                    if (!m_materialToReferencers.ContainsKey(dep)) continue;
 
                     List<string> list;
                     if (!dependencyToReferencers.TryGetValue(dep, out list)) {
@@ -203,13 +202,13 @@ internal class MaterialReferenceCheckerWindow : EditorWindow {
             List<string> refs;
             if (dependencyToReferencers.TryGetValue(matPath, out refs)) {
                 refs.Sort();
-                materialToReferencers[matPath] = refs;
+                m_materialToReferencers[matPath] = refs;
             } else {
-                materialToReferencers[matPath] = new List<string>();
+                m_materialToReferencers[matPath] = new List<string>();
             }
         }
 
-        hasScanned = true;
+        m_hasScanned = true;
     }
 
     private static void AddPathsByType(HashSet<string> set, string typeFilter) {
@@ -223,14 +222,14 @@ internal class MaterialReferenceCheckerWindow : EditorWindow {
     }
 
 //----------------------------------------------------------------------------------------------------------------------
-    private string rootPath = INITIAL_PATH;
-    private Vector2 scroll;
-    private bool includeScenes = true;
-    private bool includePrefabs = true;
-    private bool includeOtherAssets = true;
+    private string m_rootPath = INITIAL_PATH;
+    private Vector2 m_scroll;
+    private bool m_includeScenes = true;
+    private bool m_includePrefabs = true;
+    private bool m_includeOtherAssets = true;
 
-    private Dictionary<string, List<string>> materialToReferencers = new Dictionary<string, List<string>>();
-    private bool hasScanned = false;
+    private readonly Dictionary<string, List<string>> m_materialToReferencers = new Dictionary<string, List<string>>();
+    private bool m_hasScanned = false;
 
     private const string INITIAL_PATH = "Assets/UnityChan/SD/Materials";
 
