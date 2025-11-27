@@ -31,3 +31,8 @@ git config --local core.symlinks true
 git config --global core.symlinks true
 ```
 
+## License
+* Source Code: [Unity Companion License](com.unity.toonshader/LICENSE.md)
+* Unity-chan Assets: [Unity-Chan License](http://unity-chan.com/contents/guideline_en/)  
+  These assets can be located under, but not limited to, the following folder:
+    - `com.unity.toonshader/Samples~`
