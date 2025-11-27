@@ -1,4 +1,4 @@
-//Auto-generated on Fri Nov 21 06:08:20 UTC 2025
+//Auto-generated on Thu Nov 27 05:21:40 UTC 2025
 Shader "Toon" {
     Properties
     {
@@ -8,10 +8,6 @@ Shader "Toon" {
 
         // Basic UI and Version Properties
         [HideInInspector] _simpleUI ("SimpleUI", Int ) = 0
-        [HideInInspector][Enum(OFF, 0, ON, 1)] _isUnityToonshader("Material is touched by Unity Toon Shader", Int) = 1
-        [HideInInspector] _utsVersionX("VersionX", Float) = 0
-        [HideInInspector] _utsVersionY("VersionY", Float) = 11
-        [HideInInspector] _utsVersionZ("VersionZ", Float) = 0
         [HideInInspector] _utsTechnique ("Technique", int ) = 0 //DWF
         _AutoRenderQueue("Automatic Render Queue ", int) = 1
 
@@ -490,6 +486,8 @@ Shader "Toon" {
         //////////////////////////////////////////////////////////////////////////////
         //////////////////// End of HDRP material default values. ////////////////////
         //////////////////////////////////////////////////////////////////////////////
+
+        [HideInInspector] _ToonMaterialVersion ("Toon Material Version", Integer ) = 0
     }
 
 
