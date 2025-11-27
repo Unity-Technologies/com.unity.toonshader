@@ -1,0 +1,12 @@
+SD Unity-Chan 3D Model Data
+Unity Technologies Japan
+
+This digital asset data is released based on the "Unity-Chan License Agreement (UCL)" (the latest version at the time of distribution is UCL 3.0).
+
+Please refer to the following for the latest version of the "Unity-Chan License Agreement".
+* Guidelines: https://unity-chan.com/contents/guideline_en/
+* License Terms: https://unity-chan.com/contents/license_en/
+
+The FAQ provides detailed guidance on what creators can and cannot do under this license, with specific examples.
+Please read the FAQ before using the content or code.
+
