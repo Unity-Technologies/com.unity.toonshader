@@ -5,7 +5,7 @@ namespace UnityEditor.Rendering.Toon {
 
 internal class MaterialReferenceCheckerWindow : EditorWindow {
 
-    [MenuItem("Tools/Material Reference Checker")]
+    [MenuItem("Toon Shader/Material Reference Checker")]
     public static void ShowWindow() {
         MaterialReferenceCheckerWindow window = GetWindow<MaterialReferenceCheckerWindow>("Material Reference Checker");
         window.minSize = new Vector2(500, 300);
