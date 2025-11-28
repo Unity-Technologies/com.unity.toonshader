@@ -1,8 +1,14 @@
 # Outline Settings
 
-Outlines are one of the most important elements that affect the impression of cel-animated images. You can specify the thickness of the outline not just numerically, but can also change the thickness in detail using a special map. You can also specify the color not just numerically but blend outline colors with the character's body colors. UTS offers two methods to generate outlines: one is to stretch polygons in the normal direction, and the other is to apply a scale value to the mesh.
+Outlines are one of the most important elements that affect the impression of cel-animated images. 
+You can control the outline thickness numerically, and refine it in more detail using an Outline Width Map.
+Outline color can be set directly or blended with the character's base colors.
 
-* [Outline](#outline)
+UTS provides two methods to generate outlines: 
+1. Extrude polygons along the mesh normals.
+2. Scale the mesh uniformly to create an outline.
+
+* [Enabled and Disabled Comparison](#enabled-and-disabled-comparison)
   * [Outline Mode](#outline-mode)
   * [Outline Width](#outline-width)
   * [Outline Color](#outline-color)
@@ -16,7 +22,7 @@ Outlines are one of the most important elements that affect the impression of ce
   * [Outline Color Map](#outline-color-map)
   * [Baked Normal Map](#baked-normal-map)
 
-## Outline
+## Enabled and Disabled Comparison
 A checkbox to enable the outline.
 
 <canvas class="image-comparison" role="img" aria-label="A chibi-style character model with rabbit ears. The first image has no outline. The second image has an outline.">
