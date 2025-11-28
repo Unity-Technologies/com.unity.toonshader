@@ -1,6 +1,7 @@
 # Material Capture (MatCap) Settings
 
-MatCap is a method of light expression using pre-rendered images. This technique uses a picture of a sphere that represents the material and light to simulate lighting.
+MatCap is a method of light expression using pre-rendered images. 
+This technique uses a image of a sphere that represents the material and light to simulate lighting.
 
 <video title="A camera pan over the head of a chibi-style character model with long hair and rabbit ears. The specular highlights on the ears and hair move with the camera." src="images/MatCap.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video>
 
@@ -99,6 +100,8 @@ Enables the blending rate of the MatCap range in shadows.
 
 ## Blending Level
 Adjusts the intensity of MatCap applied to shadow areas.
+
+<video title="Adjusts the intensity of MatCap applied to shadow areas." src="images/MatCapOnShadowLevel.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video><br/>
 
 
 ## MatCap Camera Mode
