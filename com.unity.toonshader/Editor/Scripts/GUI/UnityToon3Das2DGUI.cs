@@ -542,11 +542,11 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         Soft,
     }
 
-    private static readonly GUIContent[] m_outlineModeEnums = EnumUtility.ToInspectorNamesAsGUIContent(typeof(OutlineMode));
-    private static readonly int[] m_outlineModeIndices = EnumUtility.ToIndices(typeof(OutlineMode));
+    private static readonly GUIContent[] m_outlineModeEnums = ToonEnumUtility.ToInspectorNamesAsGUIContent(typeof(OutlineMode));
+    private static readonly int[] m_outlineModeIndices = ToonEnumUtility.ToIndices(typeof(OutlineMode));
 
-    private static readonly GUIContent[] m_highlightModeEnums = EnumUtility.ToInspectorNamesAsGUIContent(typeof(HighlightMode));
-    private static readonly int[] m_highlightModeIndices = EnumUtility.ToIndices(typeof(HighlightMode));
+    private static readonly GUIContent[] m_highlightModeEnums = ToonEnumUtility.ToInspectorNamesAsGUIContent(typeof(HighlightMode));
+    private static readonly int[] m_highlightModeIndices = ToonEnumUtility.ToIndices(typeof(HighlightMode));
 
     static readonly GUIContent COLORS_FOLDOUT = EditorGUIUtility.TrTextContent("Colors",
         "Colors for basic cel-shading settings in Unity Toon Shader.");
