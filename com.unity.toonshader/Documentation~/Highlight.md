@@ -2,6 +2,7 @@
 
 The ability to display specular highlights in a cel-animation-like manner is essential for toon shaders. The **Unity Toon Shader** provides a wide variety of expressions with controllable illumination that works independently of light color and intensity for impressive cel-shading.
 
+Settings:
 * [Highlight](#highlight)
 * [Highlight Power](#highlight-power)
 * [Specular Mode](#specular-mode)
@@ -25,7 +26,9 @@ Default: white.
 
 ## Highlight Power
 
-The size of the highlight is controlled through the highlight power slider. The size increases with the formula: pow(x,5).
+The highlight size is controlled by the **Highlight Power** slider. 
+
+<video title="Tweaking the highlight power." src="images/SpecularPower.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video>
 
 
 ## Specular Mode
