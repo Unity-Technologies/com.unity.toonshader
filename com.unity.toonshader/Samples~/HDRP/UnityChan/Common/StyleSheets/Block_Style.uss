@@ -1,0 +1,57 @@
+.block-root {
+    padding: 6px 8px;
+
+    background-color: rgba(40, 40, 48, 0.7); /* Semi-transparent, bluish-black */
+    border-width: 1px;
+    border-color: #222a33; /* Dark blue-gray border */
+    border-radius: 8px;
+
+    color: #e0e0e0; /* Light text */
+    align-self: flex-start;
+
+}
+
+.title {
+    font-size: 20px;
+    -unity-text-align: middle-center;
+    -unity-font-style: bold;
+    align-self: center;
+}
+
+.button-list {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+Button {
+    font-size: 16px;
+    height: 24px;
+    width: 90%;
+    margin-bottom: 1px;
+    border-radius: 6px; /* Slightly rounded */
+    border-width: 1px;
+    border-color: #444a55; /* Subtle dark border */
+    background-color: rgba(60, 65, 80, 0.80); /* Dark bluish-gray */
+    align-self: center;
+    color: #c0c0c0; 
+    -unity-text-align: middle-left;
+    -unity-font-style: bold;
+    transition: background-color 0.1s;
+}
+
+Button.selected {
+    background-color: #2962b7;
+    color: white;
+}
+
+Button:hover {
+    background-color: #2962b7;
+}
+
+.toggle {
+    font-size: 14px;
+    -unity-text-align: middle-center;
+    margin-left: 5%;
+    -unity-font-style: bold;
+    color: #c0c0c0;
+}

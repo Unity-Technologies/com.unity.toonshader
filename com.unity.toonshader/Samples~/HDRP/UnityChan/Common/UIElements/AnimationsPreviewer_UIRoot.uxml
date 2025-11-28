@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement class="root">
+        <ui:VisualElement class="top-container">
+            <ui:VisualElement name = "TopLeftBlock" class="left-block"/>
+            <ui:VisualElement name = "TopRightBlock" class="right-block"/>
+        </ui:VisualElement>
+        <ui:VisualElement class="bottom-container">
+            <ui:VisualElement name="BottomLeftBlock" class="left-block"/>
+            <ui:VisualElement name="BottomRightBlock" class="right-block"/>
+        </ui:VisualElement>     
+    </ui:VisualElement>
+    
+</ui:UXML>

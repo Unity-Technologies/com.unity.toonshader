@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement class="block-root">
+        <ui:Toggle name="FaceUIToggle" text="Face UI" class="title" />
+        <ui:VisualElement name="FaceUIContainer">
+            <ui:VisualElement name="ButtonsContainer" class="button-list"/>
+            <ui:Toggle name="LockFaceToggle" text="Lock Face" class="toggle" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
