@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace Unity.Rendering.Toon {
+
 [ExecuteAlways]
 [RequireComponent(typeof(Light))]
 internal class ToonDirectionalLightController : MonoBehaviour {
@@ -14,10 +16,10 @@ internal class ToonDirectionalLightController : MonoBehaviour {
             return;
         }
 
-        Vector3 lightDir = m_light.transform.forward; 
+        Vector3 lightDir = m_light.transform.forward;
         Color lightColor = m_light.color;
         float lightIntensity = m_light.intensity;
-        
+
         foreach (Material mat in m_materials) {
             if (mat == null) continue;
             mat.SetVector(Toon3Das2DConstants.ShaderPropUnlit_DirectionalLight_Direction, lightDir);
@@ -32,4 +34,6 @@ internal class ToonDirectionalLightController : MonoBehaviour {
 
 //----------------------------------------------------------------------------------------------------------------------
     Light m_light;
+}
+
 }
