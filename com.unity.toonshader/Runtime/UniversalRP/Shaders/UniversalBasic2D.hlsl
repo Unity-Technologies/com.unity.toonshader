@@ -1,9 +1,6 @@
 #ifndef UNIVERSAL_UTS_FALLBACK_2D_INCLUDED
 #define UNIVERSAL_UTS_FALLBACK_2D_INCLUDED
 
-float4 _MainTex_ST;
-TEXTURE2D(_MainTex); SAMPLER(sampler_MainTex);
-
 struct Attributes
 {
     float4 positionOS       : POSITION;
