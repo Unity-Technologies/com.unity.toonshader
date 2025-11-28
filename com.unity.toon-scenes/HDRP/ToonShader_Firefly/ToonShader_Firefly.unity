@@ -1057,7 +1057,7 @@ MonoBehaviour:
   yMaxLimit: 80
   zoomRate: 40
   zoomDampening: 5
-  m_inputReader: {fileID: 0}
+  m_inputReader: {fileID: 2107010979}
 --- !u!4 &880116224 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3754243279204564011, guid: 1fe8230446ff43d595294493590261fd,
