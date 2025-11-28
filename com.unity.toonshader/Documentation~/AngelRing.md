@@ -1,6 +1,10 @@
 # Angel Ring Projection Settings
 
-The Angel Ring effect for UTS expresses shine or luster in hair. This effect always appears in a fixed position as seen from the camera. Angel Ring requires the 2nd UV in the meshes.
+The Angel Ring effect for UTS expresses shine or luster in hair. 
+This effect always appears in a fixed position as seen from the camera. 
+Angel Ring requires:
+* Unity Toon Shader mode set to **With Additional Control Maps**.
+* 2nd UV in the model.
 
 
 ![The head of a chibi-style character with feathered hair and cat ears. The head is oriented from three angles: side, front, and back. In each angle, two bright highlights appear in the same place on the left and right.](images/AR_Image.png)
@@ -38,5 +42,4 @@ Adjusts the Angel Ring’s shape in the vertical direction. The range is from 0.
 Texture alpha channel is a clipping mask. If disabled, the alpha doesn't affect at all. The color of the **Angel Ring** can directly affects instead of using the additive method.
 
 ![The head of a chibi-style character, with the v-shaped highlights on the left and right of their hair. This uses a 1024 x 1024 RGBA Compressed DXT5|BC3 Norm transparent square texture with white v-shaped areas at the left and right edges.](images/AngelRingWithAlpha_Output.png)<br/>
-Left: The alpha of the Angel Ring Texture. <br/> 
-Right: Output with **Alpha Channel as Clipping Mask** enabled. 
+Left: The alpha of the Angel Ring Texture. Right: Output with **Alpha Channel as Clipping Mask** enabled. 
