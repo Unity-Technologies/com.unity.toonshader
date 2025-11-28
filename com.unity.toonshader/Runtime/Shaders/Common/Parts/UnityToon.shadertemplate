@@ -899,7 +899,7 @@ Shader "Toon" {
 
             // -------------------------------------
             // Includes
-            #include "Packages/com.unity.render-pipelines.universal/Shaders/LitInput.hlsl"
+            #include "../../UniversalRP/Shaders/UniversalToonInput.hlsl"
             #include "../../UniversalRP/Shaders/UniversalBasic2D.hlsl"
             ENDHLSL
         }
