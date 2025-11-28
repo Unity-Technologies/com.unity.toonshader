@@ -14,7 +14,7 @@ internal class ToonEnumUtilityTests {
     }
 
     [Test]
-    internal void ToInspectorNamesAsGUIContentTest() {
+    public void ToInspectorNamesAsGUIContentTest() {
         GUIContent[] contents = ToonEnumUtility.ToInspectorNamesAsGUIContent(typeof(DummyEnum));
         Assert.AreEqual(2, contents.Length);
         Assert.AreEqual(FIRST_VALUE, contents[0].text);
@@ -22,7 +22,7 @@ internal class ToonEnumUtilityTests {
     }
 
     [Test]
-    internal void ToIndicesTest() {
+    public void ToIndicesTest() {
         int[] indices = ToonEnumUtility.ToIndices(typeof(DummyEnum));
         Assert.AreEqual(2, indices.Length);
         Assert.AreEqual(0, indices[0]);
