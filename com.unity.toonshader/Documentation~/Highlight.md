@@ -31,8 +31,8 @@ The size of the highlight is controlled through the highlight power slider. The 
 UTS provides two modes for the highlight for different occasions and effect. The hard mode provides a crisp and solid edge to the highlight while the soft mode provides a blended blurred effect.
 
 <canvas class="image-comparison" role="img" aria-label="A close-up of a white specular highlight on a green sphere. The highlight is a clear white disc with a hard edge. Then the same close-up. The specular highlight is now a blurred white disc.">
-    <img src="Images/SpecularHard.png" title="Specular Mode set to Hard.">
-    <img src="Images/SpecularSoft.png" title="Specular Mode set to Soft.">
+    <img src="images/SpecularHard.png" title="Mode: Hard.">
+    <img src="images/SpecularSoft.png" title="Mode: Soft.">
 </canvas>
 <br />Drag the slider to compare the images.
 
