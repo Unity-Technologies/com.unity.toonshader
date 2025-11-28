@@ -438,7 +438,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 4300006, guid: b8455bb83f3545e3bd0152c5ac1da913, type: 3}
+  m_Mesh: {fileID: 4300006, guid: dd6ec75974b69a3409711f8110698bbb, type: 3}
   m_Bones:
   - {fileID: 421266}
   - {fileID: 489738}
@@ -1002,7 +1002,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 4300008, guid: b8455bb83f3545e3bd0152c5ac1da913, type: 3}
+  m_Mesh: {fileID: 4300008, guid: dd6ec75974b69a3409711f8110698bbb, type: 3}
   m_Bones:
   - {fileID: 459530}
   - {fileID: 428930}
@@ -1451,7 +1451,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 4300000, guid: b8455bb83f3545e3bd0152c5ac1da913, type: 3}
+  m_Mesh: {fileID: 4300000, guid: dd6ec75974b69a3409711f8110698bbb, type: 3}
   m_Bones: []
   m_BlendShapeWeights:
   - 0
@@ -2731,7 +2731,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 4300010, guid: b8455bb83f3545e3bd0152c5ac1da913, type: 3}
+  m_Mesh: {fileID: 4300010, guid: dd6ec75974b69a3409711f8110698bbb, type: 3}
   m_Bones:
   - {fileID: 495514}
   - {fileID: 420014}
@@ -3595,7 +3595,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 4300004, guid: b8455bb83f3545e3bd0152c5ac1da913, type: 3}
+  m_Mesh: {fileID: 4300004, guid: dd6ec75974b69a3409711f8110698bbb, type: 3}
   m_Bones:
   - {fileID: 400478}
   - {fileID: 452790}
@@ -4759,7 +4759,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 4300002, guid: b8455bb83f3545e3bd0152c5ac1da913, type: 3}
+  m_Mesh: {fileID: 4300002, guid: dd6ec75974b69a3409711f8110698bbb, type: 3}
   m_Bones:
   - {fileID: 495514}
   - {fileID: 441392}
@@ -5447,7 +5447,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 197224}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: b8455bb83f3545e3bd0152c5ac1da913, type: 3}
+  m_Avatar: {fileID: 9000000, guid: dd6ec75974b69a3409711f8110698bbb, type: 3}
   m_Controller: {fileID: 9100000, guid: 5c7365b44e05485f9ce24ecc1b6eab5d, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
