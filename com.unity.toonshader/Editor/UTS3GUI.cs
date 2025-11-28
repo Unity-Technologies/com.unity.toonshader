@@ -424,13 +424,13 @@ namespace UnityEditor.Rendering.Toon {
 
             stencilMode = FindProperty(ShaderPropStencilMode, props);
             mainTex = FindProperty(ShaderPropMainTex, props);
-            baseColor = FindProperty("_BaseColor", props);
-            firstShadeMap = FindProperty("_1st_ShadeMap", props);
-            firstShadeColor = FindProperty("_1st_ShadeColor", props);
-            secondShadeMap = FindProperty("_2nd_ShadeMap", props);
-            secondShadeColor = FindProperty("_2nd_ShadeColor", props);
-            normalMap = FindProperty("_NormalMap", props);
-            bumpScale = FindProperty("_BumpScale", props);
+            baseColor = FindProperty(ToonConstants.SHADER_PROP_BASE_COLOR, props);
+            firstShadeMap = FindProperty(ToonConstants.SHADER_PROP_1_ST_SHADE_MAP, props);
+            firstShadeColor = FindProperty(ToonConstants.SHADER_PROP_1_ST_SHADE_COLOR, props);
+            secondShadeMap = FindProperty(ToonConstants.SHADER_PROP_2ND_SHADE_MAP, props);
+            secondShadeColor = FindProperty(ToonConstants.SHADER_PROP_2ND_SHADE_COLOR, props);
+            normalMap = FindProperty(ToonConstants.SHADER_PROP_NORMAL_MAP, props);
+            bumpScale = FindProperty(ToonConstants.SHADER_PROP_BUMP_SCALE, props);
             set_1st_ShadePosition = FindProperty(ShaderProp_Set_1st_ShadePosition, props, false);
             set_2nd_ShadePosition = FindProperty(ShaderProp_Set_2nd_ShadePosition, props, false);
             shadingGradeMap = FindProperty(ShaderProp_ShadingGradeMap, props, false);
