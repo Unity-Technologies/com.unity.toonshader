@@ -1,4 +1,5 @@
 using System.Runtime.CompilerServices;
+[assembly: InternalsVisibleTo("Unity.ToonShader.Tests")]
 [assembly: InternalsVisibleTo("Unity.ToonShader.Editor")]
 [assembly: InternalsVisibleTo("Unity.ToonShader.EditorTests")]
 
