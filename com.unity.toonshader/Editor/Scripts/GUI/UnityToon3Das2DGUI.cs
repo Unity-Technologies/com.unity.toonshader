@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.Rendering.Toon;
 using UnityEngine;
 
 namespace UnityEditor.Rendering.Toon {
@@ -134,14 +135,14 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         EditorGUI.indentLevel += INDENT_SIZE;
 
         EditorGUI.BeginDisabledGroup(!directionalLightEnabled);
-        ToonEditorGUIUtility.DrawVector3FieldGUI(mEditor, mats, uiElements[Toon3Das2DConstants.ShaderPropUnlit_DirectionalLight_Direction]);
-        ToonEditorGUIUtility.DrawColorFieldGUI(mEditor, uiElements[Toon3Das2DConstants.ShaderPropUnlit_DirectionalLight_Color]);
-        ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[Toon3Das2DConstants.ShaderPropUnlit_DirectionalLight_Intensity]);
+        ToonEditorGUIUtility.DrawVector3FieldGUI(mEditor, mats, uiElements[ToonConstants.ShaderPropUnlit_DirectionalLight_Direction]);
+        ToonEditorGUIUtility.DrawColorFieldGUI(mEditor, uiElements[ToonConstants.ShaderPropUnlit_DirectionalLight_Color]);
+        ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[ToonConstants.ShaderPropUnlit_DirectionalLight_Intensity]);
         ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_DIRECTIONAL_LIGHT_DIFFUSE_STRENGTH]);
 
         EditorGUILayout.LabelField("Highlight Settings");
         EditorGUI.indentLevel += INDENT_SIZE;
-        ToonEditorGUIUtility.DrawVector3FieldGUI(mEditor, mats, uiElements[Toon3Das2DConstants.SHADER_PROP_DIRECTIONAL_LIGHT_VIEW_POSITION]);
+        ToonEditorGUIUtility.DrawVector3FieldGUI(mEditor, mats, uiElements[ToonConstants.SHADER_PROP_DIRECTIONAL_LIGHT_VIEW_POSITION]);
         ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[SHADER_PROP_HIGHLIGHT_TEX]);
         ToonEditorGUIUtility.DrawIntPopupGUI(mEditor, mats, uiElements[SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_MODE],
             m_highlightModeEnums, m_highlightModeIndices, out int _);
@@ -364,17 +365,17 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
                 "Apply a custom directional light."),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(Toon3Das2DConstants.ShaderPropUnlit_DirectionalLight_Direction),
+            mainPropertyName = new MaterialName(ToonConstants.ShaderPropUnlit_DirectionalLight_Direction),
             label = new GUIContent("Light Direction",
                 "The direction of the custom directional light. "),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(Toon3Das2DConstants.ShaderPropUnlit_DirectionalLight_Color),
+            mainPropertyName = new MaterialName(ToonConstants.ShaderPropUnlit_DirectionalLight_Color),
             label = new GUIContent("Light Color",
                 "The color of the custom directional light. "),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(Toon3Das2DConstants.ShaderPropUnlit_DirectionalLight_Intensity),
+            mainPropertyName = new MaterialName(ToonConstants.ShaderPropUnlit_DirectionalLight_Intensity),
             label = new GUIContent("Light Intensity",
                 "The intensity of the custom directional light. "),
         },
@@ -384,7 +385,7 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
                 "Multiplier for the diffuse contribution."),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(Toon3Das2DConstants.SHADER_PROP_DIRECTIONAL_LIGHT_VIEW_POSITION),
+            mainPropertyName = new MaterialName(ToonConstants.SHADER_PROP_DIRECTIONAL_LIGHT_VIEW_POSITION),
             label = new GUIContent("View Position", "Camera View Position"),
         },
         new MaterialUIElement {

@@ -14,7 +14,7 @@ internal class ToonCameraViewController : MonoBehaviour {
         Vector3 pos = m_transform.position;
         foreach (Material mat in m_materials) {
             if (mat == null) continue;
-            mat.SetVector(Toon3Das2DConstants.SHADER_PROP_DIRECTIONAL_LIGHT_VIEW_POSITION, pos);
+            mat.SetVector(ToonConstants.SHADER_PROP_DIRECTIONAL_LIGHT_VIEW_POSITION, pos);
         }
     }
 

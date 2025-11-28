@@ -22,9 +22,9 @@ internal class ToonDirectionalLightController : MonoBehaviour {
 
         foreach (Material mat in m_materials) {
             if (mat == null) continue;
-            mat.SetVector(Toon3Das2DConstants.ShaderPropUnlit_DirectionalLight_Direction, lightDir);
-            mat.SetColor(Toon3Das2DConstants.ShaderPropUnlit_DirectionalLight_Color, lightColor);
-            mat.SetFloat(Toon3Das2DConstants.ShaderPropUnlit_DirectionalLight_Intensity, lightIntensity);
+            mat.SetVector(ToonConstants.ShaderPropUnlit_DirectionalLight_Direction, lightDir);
+            mat.SetColor(ToonConstants.ShaderPropUnlit_DirectionalLight_Color, lightColor);
+            mat.SetFloat(ToonConstants.ShaderPropUnlit_DirectionalLight_Intensity, lightIntensity);
         }
     }
 
