@@ -93,7 +93,7 @@ namespace UnityEditor.Rendering.Toon {
         internal const string ShaderProp_Set_HighColorMask = "_Set_HighColorMask";
         internal const string ShaderProp_MatCap_Sampler = "_MatCap_Sampler";
         internal const string ShaderProp_Set_MatcapMask = "_Set_MatcapMask";
-        internal const string ShaderProp_OutlineTex = "_OutlineTex";
+        
         internal const string ShaderProp_Outline_Sampler = "_Outline_Sampler";
 
         internal const string ShaderPropSimpleUI = "_simpleUI";
@@ -460,7 +460,7 @@ namespace UnityEditor.Rendering.Toon {
 
 
             outline_Sampler = FindProperty(ShaderProp_Outline_Sampler, props, false);
-            outlineTex = FindProperty(ShaderProp_OutlineTex, props, false);
+            outlineTex = FindProperty(ToonConstants.SHADER_PROP_OUTLINE_TEX, props, false);
             bakedNormal = FindProperty("_BakedNormal", props, false);
 
 
