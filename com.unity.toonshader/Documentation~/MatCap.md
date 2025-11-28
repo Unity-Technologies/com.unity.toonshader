@@ -22,7 +22,9 @@ This technique uses a image of a sphere that represents the material and light t
   * [Invert MatCap Mask](#invert-matcap-mask)
 
 ## MatCap Map
-MatCap Color: Texture(sRGB) × Color(RGB). Default: White
+MatCap Color: Texture(sRGB) × Color(RGB). 
+
+Default: White
 
 ![A square black texture, with an upwards-curving yellow shape with soft edges.](images/HiLight_Matcap.png)<br/>
 An example of a MatCap Map texture.
@@ -34,7 +36,9 @@ MatCap Map disabled.
 MatCap Map enabled.
 
 ## MatCap Blur Level
-Blur MatCap Map using the Mip Map feature; to enable Mip Map, activate Advanced > Generate Mip Maps in the [Texture Import Settings](https://docs.unity3d.com/Manual/class-TextureImporter.html). Default is 0 (no blur)
+Blur MatCap Map using the Mip Map feature. 
+
+To enable Mip Map, activate Advanced > Generate Mip Maps in the [Texture Import Settings](https://docs.unity3d.com/Manual/class-TextureImporter.html). 
 
 <video title="A close-up on the blonde hair of a chibi-style character model. The brighter yellow specular highlight changes from sharp to blurred." src="images/MatCapBlurLebel.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video>
 
@@ -66,7 +70,9 @@ Stabilize Camera Rolling enabled.
 
 
 ## Normal Map Specular Mask for MatCap
-If enabled, gives a normal map specifically for MatCap. If you are using MatCap as speculum lighting, you can use this to mask it.
+
+When enabled, uses a dedicated normal map for MatCap.
+If MatCap is used as specular lighting, this normal map can serve as a specular mask.
 
 <canvas class="image-comparison" role="img" aria-label="A view from above a chibi-style character model with blonde hair and brighter yellow specular highlights. Then the same view. The individual hairs now have highlights. ">
     <img src="images/MatCapNormalMapOff.png" title="Normal Map Specular Mask disabled.">
@@ -105,16 +111,20 @@ Adjusts the intensity of MatCap applied to shadow areas.
 
 
 ## MatCap Camera Mode
-Control how render the MatCap Map based on the camera type.
+Control how the MatCap Map is rendered based on the camera type.
 
 ## MatCap Mask
-The MatCap mask is positioned correspond with the UV coordinates of the mesh onto which the MatCap is projected, and the pixels on black areas are hidden.
+
+The MatCap mask aligns with the mesh’s UVs used for the MatCap projection. 
+Pixels in black (0) regions of the mask are fully hidden.
 
 ![A view from above a chibi-style character model with blonde hair. Her hair has yellow highlights in the shape of the Unity logo.](images/MatCapMaskSample.png)
 
 
 ## MatCap Mask Level
-Adjusts the level of the MatCap Mask. When the value is 1, MatCap represents 100% irrespective of mask. When the value is -1, MatCap won't be displayed at all and MatCap will be the same as in the off state.
+Adjusts the level of the MatCap Mask. When the value is: 
+* 1: MatCap represents 100% irrespective of mask. 
+* -1: MatCap won't be displayed at all and MatCap will be the same as in the off state.
 
 <video title="Specular highlights on hair fade in and out." src="images/MatCapMaskLevel.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video>
 
