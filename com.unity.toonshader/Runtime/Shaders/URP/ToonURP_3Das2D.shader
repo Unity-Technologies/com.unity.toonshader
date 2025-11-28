@@ -58,6 +58,9 @@ Shader "Toon/Toon 3D as 2D"{
     }
 
     SubShader{
+        PackageRequirements {
+             "com.unity.render-pipelines.universal": "17.3.0" //Unity 6.3+
+        }
         Tags{
             "Queue" = "Transparent" "RenderType" = "Transparent" "RenderPipeline" = "UniversalPipeline"
         }
