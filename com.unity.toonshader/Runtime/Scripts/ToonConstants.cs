@@ -81,9 +81,9 @@ internal static class ToonConstants {
     
     internal static readonly int SHADER_PROPERTY_MATERIAL_VERSION = Shader.PropertyToID("_ToonMaterialVersion");
     
-    public const string ShaderPropUnlit_DirectionalLight_Direction = "_DirectionalLight_Direction";
-    public const string ShaderPropUnlit_DirectionalLight_Color  = "_DirectionalLight_Color";
-    public const string ShaderPropUnlit_DirectionalLight_Intensity  = "_DirectionalLight_Intensity";
+    public const string SHADER_PROP_DIRECTIONAL_LIGHT_DIRECTION = "_DirectionalLight_Direction";
+    public const string SHADER_PROP_DIRECTIONAL_LIGHT_COLOR  = "_DirectionalLight_Color";
+    public const string SHADER_PROP_DIRECTIONAL_LIGHT_INTENSITY  = "_DirectionalLight_Intensity";
     
     public const string SHADER_PROP_DIRECTIONAL_LIGHT_VIEW_POSITION = "_DirectionalLight_ViewPosition";
     
