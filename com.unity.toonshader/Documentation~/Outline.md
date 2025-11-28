@@ -4,32 +4,28 @@ Outlines are one of the most important elements that affect the impression of ce
 You can control the outline thickness numerically, and refine it in more detail using an Outline Width Map.
 Outline color can be set directly or blended with the character's base colors.
 
-UTS provides two methods to generate outlines: 
-1. Extrude polygons along the mesh normals.
-2. Scale the mesh uniformly to create an outline.
-
-* [Enabled and Disabled Comparison](#enabled-and-disabled-comparison)
-  * [Outline Mode](#outline-mode)
-  * [Outline Width](#outline-width)
-  * [Outline Color](#outline-color)
-  * [Blend Base Color to Outline](#blend-base-color-to-outline)
-  * [Outline Width Map](#outline-width-map)
-  * [Offset Outline with Camera Z-axis](#offset-outline-with-camera-z-axis)
-  * [Camera Distance for Outline Width](#camera-distance-for-outline-width)
-    * [Farthest Distance to vanish](#farthest-distance-to-vanish)
-    * [Nearest Distance to draw with Outline Width](#nearest-distance-to-draw-with-outline-width)
-
-  * [Outline Color Map](#outline-color-map)
-  * [Baked Normal Map](#baked-normal-map)
-
-## Enabled and Disabled Comparison
-A checkbox to enable the outline.
-
 <canvas class="image-comparison" role="img" aria-label="A chibi-style character model with rabbit ears. The first image has no outline. The second image has an outline.">
     <img src="images/OutlineOff.png" title="Outline disabled">
     <img src="images/OutlineOn.png" title="Outline enabled">
 </canvas>
 <br />Drag the slider to compare the images.
+
+UTS provides two methods to generate outlines: 
+1. Extrude polygons along the mesh normals.
+2. Scale the mesh uniformly to create an outline.
+
+* [Outline Mode](#outline-mode)
+* [Outline Width](#outline-width)
+* [Outline Color](#outline-color)
+* [Blend Base Color to Outline](#blend-base-color-to-outline)
+* [Outline Width Map](#outline-width-map)
+* [Offset Outline with Camera Z-axis](#offset-outline-with-camera-z-axis)
+* [Camera Distance for Outline Width](#camera-distance-for-outline-width)
+  * [Farthest Distance to vanish](#farthest-distance-to-vanish)
+  * [Nearest Distance to draw with Outline Width](#nearest-distance-to-draw-with-outline-width)
+
+* [Outline Color Map](#outline-color-map)
+* [Baked Normal Map](#baked-normal-map)
 
 ### Outline Mode
 Specifies how the inverted-outline objects spawn.
