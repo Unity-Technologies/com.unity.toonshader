@@ -132,7 +132,6 @@ namespace UnityEditor.Rendering.Toon {
         internal const string ShaderPropIs_LightColor_AR = "_Is_LightColor_AR";
         internal const string ShaderPropIs_LightColor_Outline = "_Is_LightColor_Outline";
         internal const string ShaderPropInvert_MatcapMask = "_Inverse_MatcapMask";
-        internal const string ShaderPropUse_1stAs2nd = "_Use_1stAs2nd";
         internal const string ShaderPropIs_NormalMapToBase = "_Is_NormalMapToBase";
         internal const string ShaderPropIs_ColorShift = "_Is_ColorShift";
         internal const string ShaderPropRimLight = "_RimLight";
@@ -1446,7 +1445,9 @@ namespace UnityEditor.Rendering.Toon {
             //            EditorGUI.EndDisabledGroup();
 
             EditorGUI.indentLevel += 2;
-            var applyTo2nd = GUI_Toggle(material, Styles.applyTo2ndShademapText, ShaderPropUse_1stAs2nd, MaterialGetInt(material, ShaderPropUse_1stAs2nd) != 0);
+            bool applyTo2nd = GUI_Toggle(material, Styles.applyTo2ndShademapText, 
+                ToonConstants.SHADER_PROP_USE_1ST_AS_2ND, 
+                MaterialGetInt(material, ToonConstants.SHADER_PROP_USE_1ST_AS_2ND) != 0);
             EditorGUI.indentLevel -= 2;
 
 
