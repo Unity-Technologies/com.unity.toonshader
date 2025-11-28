@@ -30,6 +30,60 @@ internal static class ToonConstants {
     internal static readonly int SHADER_PROPERTY_RIM_LIGHT_MASK_COLOR    = Shader.PropertyToID("_RimLightMaskColor");
     internal static readonly int SHADER_PROPERTY_OUTLINE_MASK_COLOR      = Shader.PropertyToID("_OutlineMaskColor");
 
+//
+       //Common constants
+    //Colors
+    internal const string SHADER_PROP_BASE_COLOR = "_BaseColor";
+    internal const string SHADER_PROP_MAIN_TEX = "_MainTex";
+
+    internal const string SHADER_PROP_1_ST_SHADE_COLOR = "_1st_ShadeColor";
+    internal const string SHADER_PROP_1_ST_SHADE_MAP = "_1st_ShadeMap";
+    internal const string SHADER_PROP_USE_BASE_AS1_ST = "_Use_BaseAs1st";
+
+    internal const string SHADER_PROP_2ND_SHADE_COLOR = "_2nd_ShadeColor";
+    internal const string SHADER_PROP_2ND_SHADE_MAP = "_2nd_ShadeMap";
+    internal const string SHADER_PROP_USE_1ST_AS_2ND = "_Use_1stAs2nd";
+
+    //Shading
+    internal const string SHADER_PROP_BASE_TO_1ST_SHADE_START = "_BaseTo1st_ShadeStart";
+    internal const string SHADER_PROP_BASE_TO_1ST_SHADE_FEATHER = "_BaseTo1st_ShadeFeather";
+    internal const string SHADER_PROP_1ST_TO_2ND_SHADE_START = "_1stTo2nd_ShadeStart";
+    internal const string SHADER_PROP_1ST_TO_2ND_SHADE_FEATHER = "_1stTo2nd_ShadeFeather";
+
+    internal const string SHADER_PROP_2D_LIGHT_STRENGTH = "_2DLightStrength";
+
+    //Lighting
+    internal const string SHADER_PROP_DIRECTIONAL_LIGHT_USE = "_DirectionalLight_Use";
+    internal const string SHADER_PROP_DIRECTIONAL_LIGHT_DIFFUSE_STRENGTH = "_DirectionalLight_DiffuseStrength";
+
+
+    internal const string SHADER_PROP_HIGHLIGHT_COLOR = "_HighlightColor";
+    internal const string SHADER_PROP_HIGHLIGHT_TEX = "_HighlightTex";
+    internal const string SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_MODE = "_DirectionalLight_HighlightMode";
+    internal const string SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_STRENGTH = "_DirectionalLight_HighlightStrength";
+    internal const string SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_SIZE = "_DirectionalLight_HighlightSize";
+
+
+
+    internal const string SHADER_PROP_NORMAL_MAP = "_NormalMap";
+    internal const string SHADER_PROP_BUMP_SCALE = "_BumpScale";
+
+    internal const string SHADER_PROP_OUTLINE_MODE = "_OutlineMode";
+    internal const string SHADER_PROP_OUTLINE_WIDTH = "_OutlineWidth";
+    internal const string SHADER_PROP_OUTLINE_WIDTH_MAP = "_OutlineWidthMap";
+    internal const string SHADER_PROP_OUTLINE_TEX = "_OutlineTex";
+    internal const string SHADER_PROP_OUTLINE_COLOR = "_OutlineColor";
+    internal const string SHADER_PROP_OUTLINE_BASE_COLOR_BLEND = "_Outline_BaseColorBlend";
+    internal const string SHADER_PROP_OUTLINE_LIGHT_COLOR_BLEND = "_Outline_LightColorBlend";
+    internal const string SHADER_PROP_OUTLINE_OFFSET_Z = "_OutlineOffsetZ";
+    internal const string SHADER_PROP_OUTLINE_NEAR = "_OutlineNear";
+    internal const string SHADER_PROP_OUTLINE_FAR = "_OutlineFar";
+
+    internal const string SHADER_PROP_OUTLINE_USE_NORMAL_MAP = "_Outline_UseNormalMap";
+    internal const string SHADER_PROP_OUTLINE_NORMAL_MAP = "_Outline_NormalMap";
+
+//
+    
     internal static readonly int SHADER_PROPERTY_MATERIAL_VERSION = Shader.PropertyToID("_ToonMaterialVersion");
     
     internal const string GBUFFER_PASS_NAME = "GBuffer";
