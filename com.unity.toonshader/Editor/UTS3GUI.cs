@@ -13,6 +13,18 @@ namespace UnityEditor.Rendering.Toon {
 
         internal static string versionString => "0.11.0-preview";
 
+        
+        public override void AssignNewShaderToMaterial(
+            Material material,
+            Shader oldShader,
+            Shader newShader)
+        {
+            base.AssignNewShaderToMaterial(material, oldShader, newShader);
+            
+            ToonMaterialEditorUtility.ApplyRenderPipelineKeyword(material);
+        }
+
+        
         // Render Pipelines UTS supports are the followings
         internal enum RenderPipeline {
             Legacy,
