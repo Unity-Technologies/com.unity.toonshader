@@ -23,7 +23,7 @@ internal class ToonEnumUtilityTests {
 
     [Test]
     internal void ToIndicesTest() {
-        MemberInfo[] indices = ToonEnumUtility.ToIndices(typeof(DummyEnum));
+        int[] indices = ToonEnumUtility.ToIndices(typeof(DummyEnum));
         Assert.AreEqual(2, indices.Length);
         Assert.AreEqual(0, indices[0]);
         Assert.AreEqual(1, indices[1]);
