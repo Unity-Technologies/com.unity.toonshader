@@ -69,7 +69,8 @@ public class ConvertMaterialsEditorWindow : EditorWindow {
                 switch (propType) {
                     case ShaderPropertyType.Color:
                         target.SetColor(propName, source.GetColor(propName));
-                        break;                    case ShaderPropertyType.Vector:
+                        break;
+                    case ShaderPropertyType.Vector:
                         target.SetVector(propName, source.GetVector(propName));
                         break;
                     case ShaderPropertyType.Float:
