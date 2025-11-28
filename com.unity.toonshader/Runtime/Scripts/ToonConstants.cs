@@ -30,8 +30,7 @@ internal static class ToonConstants {
     internal static readonly int SHADER_PROPERTY_RIM_LIGHT_MASK_COLOR    = Shader.PropertyToID("_RimLightMaskColor");
     internal static readonly int SHADER_PROPERTY_OUTLINE_MASK_COLOR      = Shader.PropertyToID("_OutlineMaskColor");
 
-//
-       //Common constants
+    //Common constants
     //Colors
     internal const string SHADER_PROP_BASE_COLOR = "_BaseColor";
     internal const string SHADER_PROP_MAIN_TEX = "_MainTex";
@@ -81,8 +80,6 @@ internal static class ToonConstants {
 
     internal const string SHADER_PROP_OUTLINE_USE_NORMAL_MAP = "_Outline_UseNormalMap";
     internal const string SHADER_PROP_OUTLINE_NORMAL_MAP = "_Outline_NormalMap";
-
-//
     
     internal static readonly int SHADER_PROPERTY_MATERIAL_VERSION = Shader.PropertyToID("_ToonMaterialVersion");
     
