@@ -1421,9 +1421,9 @@ namespace UnityEditor.Rendering.Toon {
 
         void GUI_BasicThreeColors(Material material) {
             m_MaterialEditor.TexturePropertySingleLine(Styles.baseColorText, mainTex, baseColor);
-            //v.2.0.7 Synchronize _Color to _BaseColor.
+            //v.2.0.7 Synchronize _Color to _BaseColor. [TODO-sin: 2025-11-28] Verify this
             if (material.HasProperty("_Color")) {
-                material.SetColor("_Color", material.GetColor("_BaseColor"));
+                material.SetColor("_Color", material.GetColor(ToonConstants.SHADER_PROP_BASE_COLOR));
             }
             //
 
