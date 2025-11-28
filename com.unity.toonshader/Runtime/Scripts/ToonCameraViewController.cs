@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace Unity.Rendering.Toon {
+
 [ExecuteAlways]
 internal class ToonCameraViewController : MonoBehaviour {
     private void OnEnable() {
@@ -20,5 +22,7 @@ internal class ToonCameraViewController : MonoBehaviour {
 //----------------------------------------------------------------------------------------------------------------------
     [SerializeField] private List<Material> m_materials = new List<Material>();
 
-    private Transform m_transform; 
+    private Transform m_transform;
+}
+
 }
