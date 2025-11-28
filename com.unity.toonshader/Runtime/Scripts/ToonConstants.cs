@@ -38,7 +38,7 @@ internal static class ToonConstants {
 
     internal const string SHADER_PROP_1_ST_SHADE_COLOR = "_1st_ShadeColor";
     internal const string SHADER_PROP_1_ST_SHADE_MAP = "_1st_ShadeMap";
-    internal const string SHADER_PROP_USE_BASE_AS1_ST = "_Use_BaseAs1st";
+    internal const string SHADER_PROP_USE_BASE_AS_1ST = "_Use_BaseAs1st";
 
     internal const string SHADER_PROP_2ND_SHADE_COLOR = "_2nd_ShadeColor";
     internal const string SHADER_PROP_2ND_SHADE_MAP = "_2nd_ShadeMap";

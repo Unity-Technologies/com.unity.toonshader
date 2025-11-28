@@ -132,7 +132,6 @@ namespace UnityEditor.Rendering.Toon {
         internal const string ShaderPropIs_LightColor_AR = "_Is_LightColor_AR";
         internal const string ShaderPropIs_LightColor_Outline = "_Is_LightColor_Outline";
         internal const string ShaderPropInvert_MatcapMask = "_Inverse_MatcapMask";
-        internal const string ShaderPropUse_BaseAs1st = "_Use_BaseAs1st";
         internal const string ShaderPropUse_1stAs2nd = "_Use_1stAs2nd";
         internal const string ShaderPropIs_NormalMapToBase = "_Is_NormalMapToBase";
         internal const string ShaderPropIs_ColorShift = "_Is_ColorShift";
@@ -1431,8 +1430,8 @@ namespace UnityEditor.Rendering.Toon {
             //
 
             EditorGUI.indentLevel += 2;
-            var applyTo1st = GUI_Toggle(material, Styles.applyTo1stShademapText, ShaderPropUse_BaseAs1st,
-                MaterialGetInt(material, ShaderPropUse_BaseAs1st) != 0);
+            var applyTo1st = GUI_Toggle(material, Styles.applyTo1stShademapText, ToonConstants.SHADER_PROP_USE_BASE_AS_1ST,
+                MaterialGetInt(material, ToonConstants.SHADER_PROP_USE_BASE_AS_1ST) != 0);
             EditorGUI.indentLevel -= 2;
 
 
