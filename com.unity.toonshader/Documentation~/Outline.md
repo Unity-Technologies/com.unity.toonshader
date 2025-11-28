@@ -54,7 +54,8 @@ Blends **Base Color** into the outline color.
 Drag the slider to compare the images.
 
 ### Outline Width Map
-Outline Width Map as grayscale texture: Texture(linear). 
+Outline Width Map as grayscale texture: Texture(linear).
+
 UTS provides a detailed control solution for outline thickness using a texture map. 
 Let's take a look at an example.
 
