@@ -59,25 +59,17 @@ public class ConvertMaterialsEditorWindow : EditorWindow {
     }
 
     void CopyMaterialProperties(Material source, Material target) {
-        Shader srcShader = source.shader;
-        Shader targetShader = target.shader;
-        int propertyCount = srcShader.GetPropertyCount();
+        Shader shader = source.shader;
+        int propertyCount = shader.GetPropertyCount();
         for (int i = 0; i < propertyCount; i++) {
-            string propName = srcShader.GetPropertyName(i);
-            ShaderPropertyType srcPropType = srcShader.GetPropertyType(i);
+            string propName = shader.GetPropertyName(i);
+            ShaderPropertyType propType = shader.GetPropertyType(i);
 
             if (target.HasProperty(propName)) {
-                
-                ShaderPropertyType targetPropType = targetShader.GetPropertyType(
-                    targetShader.FindPropertyIndex(propName));
-                if (targetPropType!= srcPropType)
-                    continue;
-                
-                switch (srcPropType) {
+                switch (propType) {
                     case ShaderPropertyType.Color:
                         target.SetColor(propName, source.GetColor(propName));
-                        break;
-                    case ShaderPropertyType.Vector:
+                        break;                    case ShaderPropertyType.Vector:
                         target.SetVector(propName, source.GetVector(propName));
                         break;
                     case ShaderPropertyType.Float:
