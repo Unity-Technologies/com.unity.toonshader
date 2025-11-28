@@ -21,8 +21,8 @@ Enable the Angel Ring effect for UTS, which expresses shine or luster in hair.
 ### Angel Ring
 Angel Ring: Texture(sRGB) × Color(RGB). Default: Black.
 
-By default, the **Unity Toon Shader** adds the color to the lighting results.
-You can also clip the effect using the alpha of the texture. 
+**Unity Toon Shader** adds the color to the lighting results, and 
+you can also clip the effect using the alpha of the texture.
 See [Alpha Channel as Clipping Mask](#alpha-channel-as-clipping-mask) for details.
 
 
