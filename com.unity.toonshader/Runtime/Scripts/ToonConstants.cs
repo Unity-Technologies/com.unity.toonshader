@@ -35,6 +35,9 @@ internal static class ToonConstants {
     internal const string SHADER_PROP_BASE_COLOR = "_BaseColor";
     internal const string SHADER_PROP_MAIN_TEX = "_MainTex";
 
+    internal const string SHADER_PROP_NORMAL_MAP = "_NormalMap";
+    internal const string SHADER_PROP_BUMP_SCALE = "_BumpScale";
+    
     internal const string SHADER_PROP_1_ST_SHADE_COLOR = "_1st_ShadeColor";
     internal const string SHADER_PROP_1_ST_SHADE_MAP = "_1st_ShadeMap";
     internal const string SHADER_PROP_USE_BASE_AS_1ST = "_Use_BaseAs1st";
@@ -49,24 +52,20 @@ internal static class ToonConstants {
     internal const string SHADER_PROP_1ST_TO_2ND_SHADE_START = "_1stTo2nd_ShadeStart";
     internal const string SHADER_PROP_1ST_TO_2ND_SHADE_FEATHER = "_1stTo2nd_ShadeFeather";
 
-    internal const string SHADER_PROP_2D_LIGHT_STRENGTH = "_2DLightStrength";
 
     //Lighting
+    internal const string SHADER_PROP_2D_LIGHT_STRENGTH = "_2DLightStrength";
     internal const string SHADER_PROP_DIRECTIONAL_LIGHT_USE = "_DirectionalLight_Use";
     internal const string SHADER_PROP_DIRECTIONAL_LIGHT_DIFFUSE_STRENGTH = "_DirectionalLight_DiffuseStrength";
-
-
-    internal const string SHADER_PROP_HIGHLIGHT_COLOR = "_HighlightColor";
-    internal const string SHADER_PROP_HIGHLIGHT_TEX = "_HighlightTex";
     internal const string SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_MODE = "_DirectionalLight_HighlightMode";
     internal const string SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_STRENGTH = "_DirectionalLight_HighlightStrength";
     internal const string SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_SIZE = "_DirectionalLight_HighlightSize";
 
+    //Highlight
+    internal const string SHADER_PROP_HIGHLIGHT_COLOR = "_HighlightColor";
+    internal const string SHADER_PROP_HIGHLIGHT_TEX = "_HighlightTex";
 
-
-    internal const string SHADER_PROP_NORMAL_MAP = "_NormalMap";
-    internal const string SHADER_PROP_BUMP_SCALE = "_BumpScale";
-
+    //Outline
     internal const string SHADER_PROP_OUTLINE_MODE = "_OutlineMode";
     internal const string SHADER_PROP_OUTLINE_WIDTH = "_OutlineWidth";
     internal const string SHADER_PROP_OUTLINE_WIDTH_MAP = "_OutlineWidthMap";
@@ -77,7 +76,6 @@ internal static class ToonConstants {
     internal const string SHADER_PROP_OUTLINE_OFFSET_Z = "_OutlineOffsetZ";
     internal const string SHADER_PROP_OUTLINE_NEAR = "_OutlineNear";
     internal const string SHADER_PROP_OUTLINE_FAR = "_OutlineFar";
-
     internal const string SHADER_PROP_OUTLINE_USE_NORMAL_MAP = "_Outline_UseNormalMap";
     internal const string SHADER_PROP_OUTLINE_NORMAL_MAP = "_Outline_NormalMap";
     
