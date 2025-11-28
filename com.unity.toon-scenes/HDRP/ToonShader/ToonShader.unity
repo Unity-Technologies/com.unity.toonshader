@@ -1568,16 +1568,41 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 60242954367048009, guid: 66c47d6138ec4c88945802efa19a9457,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 315279634515289910, guid: 66c47d6138ec4c88945802efa19a9457,
+        type: 3}
+      propertyPath: m_rootUI
+      value: 
+      objectReference: {fileID: 491410728}
+    - target: {fileID: 315279634515289910, guid: 66c47d6138ec4c88945802efa19a9457,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3312971019266861756, guid: 66c47d6138ec4c88945802efa19a9457,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6214194114592572985, guid: 66c47d6138ec4c88945802efa19a9457,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6762577150664508326, guid: 66c47d6138ec4c88945802efa19a9457,
         type: 3}
       propertyPath: m_rootUI
       value: 
       objectReference: {fileID: 491410728}
     - target: {fileID: 6762577150664508326, guid: 66c47d6138ec4c88945802efa19a9457,
         type: 3}
-      propertyPath: m_rootUI
-      value: 
-      objectReference: {fileID: 491410728}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6762577150664508326, guid: 66c47d6138ec4c88945802efa19a9457,
         type: 3}
       propertyPath: m_inputReader
