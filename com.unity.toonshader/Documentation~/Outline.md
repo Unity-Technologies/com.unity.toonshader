@@ -52,7 +52,15 @@ Blends **Base Color** into the outline color.
 Drag the slider to compare the images.
 
 ### Outline Width Map
-Outline Width Map as grayscale texture: Texture(linear). UTS provides a meticulous control solution for outline thickness using a texture map. Look at the difference in the outlines around the character's eyes and face.
+Outline Width Map as grayscale texture: Texture(linear). 
+UTS provides a detailed control solution for outline thickness using a texture map. 
+Let's take a look at an example.
+
+![The UV map that contains all the parts of the model, and a square grayscale texture as the Outline Width Map. Most of the Outline Width Map uses a uniform light gray, while the face, legs, and hands are in a darker gray.](images/OutlineWidthMapSources.png)<br/>
+Left: a Base Map example. Right: an Outline Width Map example.
+
+With the above maps applied, regions that are white in the Outline Width Map produce thicker outlines. 
+This is especially noticeable around the character's eyes and face.
 
 <canvas class="image-comparison" role="img" aria-label="A chibi-style character model with rabbit ears. The model has outlining which becomes thinner, and the outlines around the eyes of the character disappear.">
     <img src="images/OutlineWidthMapOff.png" title="Outline Width Map disabled">
@@ -61,14 +69,6 @@ Outline Width Map as grayscale texture: Texture(linear). UTS provides a meticulo
 <br />
 Drag the slider to compare the images.
 
-You'll notice that the outlines of the white areas appear thicker in the texture map.
-
-
-![The UV map texture that contains all the parts of the model.](images/utc_all2_light.png)<br/>
-An example of a Base Map.
-
-![A square grayscale texture that matches the Base Map. Most of the map is a consistent light gray. The face, legs, and hands are a darker gray. The white areas of the Base Map in the top-left are now black.](images/utc_all2_outlinesmpler.png)<br/>
-The Outline Width Map applied above.
 
 ### Offset Outline with Camera Z-axis
 Offsets the outline in the depth (Z) direction of the camera. UTS outline is implemented by either extending polygons in the normal direction or applying a scale value. Sometimes, offsetting the position of the generated polygons in the Z (depth) direction can improve their appearance.
