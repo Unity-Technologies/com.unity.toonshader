@@ -44,7 +44,10 @@ UTS provides two modes for the highlight for different occasions and effect. The
 <br><br>
 
 ### Color Blending Mode
-Specular color blending mode allows the user to control the hardness of the colour applied to the highlight. Users have two options: Multiply or Add. Note that **Color Blending Mode** is disabled when **Specular** Mode is  **Soft**.
+Specular color blending mode allows the user to control the hardness of the colour applied to the highlight. 
+Users have two options: Multiply or Add.
+
+Note that **Color Blending Mode** is disabled when **Specular** Mode is set to **Soft**.
 
 <canvas class="image-comparison" role="img" aria-label="A close-up of a yellow specular highlight on a green sphere. The highlight is a clear yellow disc with a hard edge. Then the same close-up. The specular highlight is now a blurred yellow disc.">
     <img src="images/SpecularMultiply.png" title="Multiply">
