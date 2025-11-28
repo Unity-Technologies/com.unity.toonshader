@@ -65,8 +65,8 @@ With the above maps applied, regions that are white in the Outline Width Map pro
 This is especially noticeable around the character's eyes and face.
 
 <canvas class="image-comparison" role="img" aria-label="A chibi-style character model with rabbit ears. The model has outlining which becomes thinner, and the outlines around the eyes of the character disappear.">
-    <img src="images/OutlineWidthMapOff.png" title="Outline Width Map disabled">
-    <img src="images/OutlineWidthMapOn.png" title="Outline Width Map enabled">
+    <img src="images/OutlineWidthMapOff.png" title="Without Outline Width Map">
+    <img src="images/OutlineWidthMapOn.png" title="With Outline Width Map">
 </canvas>
 <br />
 Drag the slider to compare the images.
