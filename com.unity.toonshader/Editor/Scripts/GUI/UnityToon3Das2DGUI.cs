@@ -135,9 +135,9 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         EditorGUI.indentLevel += INDENT_SIZE;
 
         EditorGUI.BeginDisabledGroup(!directionalLightEnabled);
-        ToonEditorGUIUtility.DrawVector3FieldGUI(mEditor, mats, uiElements[ToonConstants.ShaderPropUnlit_DirectionalLight_Direction]);
-        ToonEditorGUIUtility.DrawColorFieldGUI(mEditor, uiElements[ToonConstants.ShaderPropUnlit_DirectionalLight_Color]);
-        ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[ToonConstants.ShaderPropUnlit_DirectionalLight_Intensity]);
+        ToonEditorGUIUtility.DrawVector3FieldGUI(mEditor, mats, uiElements[ToonConstants.SHADER_PROP_DIRECTIONAL_LIGHT_DIRECTION]);
+        ToonEditorGUIUtility.DrawColorFieldGUI(mEditor, uiElements[ToonConstants.SHADER_PROP_DIRECTIONAL_LIGHT_COLOR]);
+        ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[ToonConstants.SHADER_PROP_DIRECTIONAL_LIGHT_INTENSITY]);
         ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_DIRECTIONAL_LIGHT_DIFFUSE_STRENGTH]);
 
         EditorGUILayout.LabelField("Highlight Settings");
@@ -365,17 +365,17 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
                 "Apply a custom directional light."),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(ToonConstants.ShaderPropUnlit_DirectionalLight_Direction),
+            mainPropertyName = new MaterialName(ToonConstants.SHADER_PROP_DIRECTIONAL_LIGHT_DIRECTION),
             label = new GUIContent("Light Direction",
                 "The direction of the custom directional light. "),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(ToonConstants.ShaderPropUnlit_DirectionalLight_Color),
+            mainPropertyName = new MaterialName(ToonConstants.SHADER_PROP_DIRECTIONAL_LIGHT_COLOR),
             label = new GUIContent("Light Color",
                 "The color of the custom directional light. "),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(ToonConstants.ShaderPropUnlit_DirectionalLight_Intensity),
+            mainPropertyName = new MaterialName(ToonConstants.SHADER_PROP_DIRECTIONAL_LIGHT_INTENSITY),
             label = new GUIContent("Light Intensity",
                 "The intensity of the custom directional light. "),
         },
