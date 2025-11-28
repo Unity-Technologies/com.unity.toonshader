@@ -680,7 +680,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bdd54dbdb8a94e96b79ef56e9a6d0e2a, type: 2}
+  - {fileID: 2100000, guid: 3161fc0b8824b584f86cee2ca727fbe1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -742,7 +742,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 1, z: 5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1013,18 +1013,33 @@ PrefabInstance:
     - target: {fileID: 95912159379542604, guid: f1babc712cdb42718331afbf8be46c7e,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1336665861850316506, guid: f1babc712cdb42718331afbf8be46c7e,
         type: 3}
       propertyPath: m_rootUI
       value: 
       objectReference: {fileID: 713579836}
+    - target: {fileID: 1336665861850316506, guid: f1babc712cdb42718331afbf8be46c7e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3571718634019272168, guid: f1babc712cdb42718331afbf8be46c7e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6526762519888467680, guid: f1babc712cdb42718331afbf8be46c7e,
         type: 3}
       propertyPath: m_rootUI
       value: 
       objectReference: {fileID: 713579836}
+    - target: {fileID: 6526762519888467680, guid: f1babc712cdb42718331afbf8be46c7e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6526762519888467680, guid: f1babc712cdb42718331afbf8be46c7e,
         type: 3}
       propertyPath: m_inputReader
@@ -1035,6 +1050,16 @@ PrefabInstance:
       propertyPath: m_rootUI
       value: 
       objectReference: {fileID: 713579836}
+    - target: {fileID: 7974768947494394323, guid: f1babc712cdb42718331afbf8be46c7e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8534488202023533495, guid: f1babc712cdb42718331afbf8be46c7e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
