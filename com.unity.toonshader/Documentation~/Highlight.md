@@ -13,7 +13,9 @@ The ability to display specular highlights in a cel-animation-like manner is ess
 
 
 ## Highlight
-Highlight: Texture(sRGB) × Color(RGB). Default: White. Pattern and color of the specularly illuminated area.
+Highlight: Texture(sRGB) × Color(RGB). Defines the pattern and tint of the specular highlight.
+
+Default: white.
 
 <canvas class="image-comparison" role="img" aria-label="A toon-shaded sphere in a room textured with graphs. The sphere has green and purple bands of color, and a bright white specular highlight. Then the same sphere, with the color picker window open and the color #FF0000 selected. The specular highlight on the sphere is now orange and yellow.">
     <img src="images/Highlight0.png" title="The default color.">
