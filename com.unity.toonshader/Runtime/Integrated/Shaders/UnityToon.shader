@@ -1,4 +1,4 @@
-//Auto-generated on Thu Nov 27 05:21:40 UTC 2025
+//Auto-generated on Fri Nov 28 12:09:28 UTC 2025
 Shader "Toon" {
     Properties
     {
@@ -1385,7 +1385,7 @@ Shader "Toon" {
 
             // -------------------------------------
             // Includes
-            #include "Packages/com.unity.render-pipelines.universal/Shaders/LitInput.hlsl"
+            #include "../../UniversalRP/Shaders/UniversalToonInput.hlsl"
             #include "../../UniversalRP/Shaders/UniversalBasic2D.hlsl"
             ENDHLSL
         }
