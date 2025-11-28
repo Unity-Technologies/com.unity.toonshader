@@ -37,8 +37,6 @@ Adjusts the Angel Ring’s shape in the vertical direction. The range is from 0.
 
 Texture alpha channel is a clipping mask. If disabled, the alpha doesn't affect at all. The color of the **Angel Ring** can directly affects instead of using the additive method.
 
-![A 1024 x 1024 RGBA Compressed DXT5|BC3 Norm transparent square texture with white v-shaped areas at the left and right edges. The size of the texture is 1.3MB.](images/ARtexAlpha.png)<br/>
-Example texture.
-
-![The head of a chibi-style character, with  the v-shaped highlights on the left and right of their hair.](images/AlphaChennelAsClippingMask.png)<br/>
-Applied the texture with **Alpha Channel as Clipping Mask**.
+![The head of a chibi-style character, with the v-shaped highlights on the left and right of their hair. This uses a 1024 x 1024 RGBA Compressed DXT5|BC3 Norm transparent square texture with white v-shaped areas at the left and right edges.](images/AngelRingWithAlpha_Output.png)<br/>
+Left: The alpha of the Angel Ring Texture. <br/> 
+Right: Output with **Alpha Channel as Clipping Mask** enabled. 
