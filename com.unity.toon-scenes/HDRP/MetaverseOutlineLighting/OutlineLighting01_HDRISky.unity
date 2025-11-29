@@ -1039,7 +1039,7 @@ MonoBehaviour:
   yMaxLimit: 80
   zoomRate: 40
   zoomDampening: 5
-  m_inputReader: {fileID: 0}
+  m_inputReader: {fileID: 757354929}
 --- !u!1 &844146085
 GameObject:
   m_ObjectHideFlags: 1

@@ -2785,24 +2785,9 @@ PrefabInstance:
       objectReference: {fileID: 1518635005}
     - target: {fileID: 553602845141957906, guid: 1fe8230446ff43d595294493590261fd,
         type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 553602845141957906, guid: 1fe8230446ff43d595294493590261fd,
-        type: 3}
       propertyPath: m_inputReader
       value: 
       objectReference: {fileID: 2107010979}
-    - target: {fileID: 553602845141957906, guid: 1fe8230446ff43d595294493590261fd,
-        type: 3}
-      propertyPath: m_bodyStateNames.Array.size
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 837215933148265252, guid: 1fe8230446ff43d595294493590261fd,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3750380391580544809, guid: 1fe8230446ff43d595294493590261fd,
         type: 3}
       propertyPath: m_Name
@@ -2858,46 +2843,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3845062763226977279, guid: 1fe8230446ff43d595294493590261fd,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3852570057503767488, guid: 1fe8230446ff43d595294493590261fd,
         type: 3}
       propertyPath: m_rootUI
       value: 
       objectReference: {fileID: 1518635005}
-    - target: {fileID: 3852570057503767488, guid: 1fe8230446ff43d595294493590261fd,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4162295725576402863, guid: 1fe8230446ff43d595294493590261fd,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6282587881597475377, guid: 1fe8230446ff43d595294493590261fd,
         type: 3}
       propertyPath: m_rootUI
       value: 
       objectReference: {fileID: 1518635005}
-    - target: {fileID: 6282587881597475377, guid: 1fe8230446ff43d595294493590261fd,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6282587881597475377, guid: 1fe8230446ff43d595294493590261fd,
-        type: 3}
-      propertyPath: m_defaultFaceAnimationIndex
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6282587881597475377, guid: 1fe8230446ff43d595294493590261fd,
-        type: 3}
-      propertyPath: m_faceStateNames.Array.size
-      value: 19
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
