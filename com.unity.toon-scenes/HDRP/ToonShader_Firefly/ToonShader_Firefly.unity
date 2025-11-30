@@ -797,7 +797,6 @@ GameObject:
   - component: {fileID: 794565946}
   - component: {fileID: 794565945}
   - component: {fileID: 794565943}
-  - component: {fileID: 794565942}
   - component: {fileID: 794565947}
   - component: {fileID: 794565948}
   - component: {fileID: 794565944}
@@ -808,14 +807,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &794565942
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 794565941}
-  m_Enabled: 0
 --- !u!124 &794565943
 Behaviour:
   m_ObjectHideFlags: 0
@@ -836,23 +827,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f5863a4df974b248ba17a691a493177, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ImageComparisonSettings:
-    TargetWidth: 960
-    TargetHeight: 540
-    TargetMSAASamples: 1
-    PerPixelCorrectnessThreshold: 0.005
-    PerPixelGammaThreshold: 0.003921569
-    PerPixelAlphaThreshold: 0.003921569
-    RMSEThreshold: 0
-    AverageCorrectnessThreshold: 0.005
-    IncorrectPixelsThreshold: 0.0000038146973
-    UseHDR: 0
-    UseBackBuffer: 0
-    ImageResolution: 3
-    ActiveImageTests: 1
-    ActivePixelTests: 7
   SO: {fileID: 11400000, guid: 38185e5fc3dea1e47b68a1e60de13007, type: 2}
-  WaitFrames: 480
   CheckMemoryAllocation: 0
 --- !u!20 &794565945
 Camera:
@@ -914,7 +889,7 @@ Transform:
   m_GameObject: {fileID: 794565941}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0.7, z: 2}
+  m_LocalPosition: {x: 0, y: 0.55, z: 1.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -927,7 +902,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 794565941}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 50aaf516758b40a1a94bb7d7333bb963, type: 3}
   m_Name: 
@@ -2565,7 +2540,7 @@ MonoBehaviour:
   - -9.568313
   - -9.528878
   - -9.488098
-  - -9.4459915
+  - -9.445991
   - -9.402577
   - -9.357876
   - -9.311908
@@ -2595,7 +2570,7 @@ MonoBehaviour:
   - -7.879801
   - -7.808568
   - -7.736582
-  - -7.663862
+  - -7.6638613
   - -7.5904274
   - -7.5162983
   - -7.441495
@@ -2603,30 +2578,30 @@ MonoBehaviour:
   - -7.289943
   - -7.2132344
   - -7.13593
-  - -7.0580497
+  - -7.058049
   - -6.9796133
   - -6.9006414
   - -6.8211527
-  - -6.741167
+  - -6.7411666
   - -6.660704
-  - -6.579784
+  - -6.5797834
   - -6.4984264
-  - -6.4166512
-  - -6.3344784
-  - -6.251927
-  - -6.169017
+  - -6.416651
+  - -6.334478
+  - -6.2519264
+  - -6.1690164
   - -6.085768
-  - -6.0022016
+  - -6.002201
   - -5.918335
   - -5.834189
   - -5.7497835
-  - -5.6651382
+  - -5.665138
   - -5.5802727
-  - -5.495207
-  - -5.4099603
-  - -5.324553
-  - -5.2390046
-  - -5.1533356
+  - -5.4952064
+  - -5.40996
+  - -5.3245525
+  - -5.239004
+  - -5.153335
   - -5.0675645
   - -4.9817114
   - -4.8957963
@@ -2640,14 +2615,14 @@ MonoBehaviour:
   - -4.17585
   - -4.0780396
   - -3.9789085
-  - -3.8786669
+  - -3.8786666
   - -3.777523
-  - -3.6756878
+  - -3.6756876
   - -3.5733705
   - -3.4707808
   - -3.368129
   - -3.265624
-  - -3.1634762
+  - -3.163476
   - -3.061895
   - -2.96109
   - -2.8612719
@@ -2657,19 +2632,19 @@ MonoBehaviour:
   - -2.4760535
   - -2.3843114
   - -2.2948143
-  - -2.2077713
+  - -2.207771
   - -2.123392
   - -2.0418866
-  - -1.9634647
+  - -1.9634645
   - -1.888336
   - -1.8167102
   - -1.7487969
   - -1.6848061
   - -1.6249473
-  - -1.5694304
+  - -1.5694301
   - -1.518465
   - -1.472261
-  - -1.4310281
+  - -1.4310279
   - -1.3949757
   - -1.3643136
   - -1.339252
