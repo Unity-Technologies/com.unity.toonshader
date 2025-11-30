@@ -8,9 +8,21 @@ namespace UnityEditor.Rendering.Toon {
 internal static class ToonReferenceImageContextMenu {
     [MenuItem("Assets/Toon/Copy to Toon Reference Images (RP)")]
     private static void CopyToReferenceImages() {
-        string sourcePath = GetSelectedAssetPath();
-        if (string.IsNullOrEmpty(sourcePath)) {
+        string[] sourcePath = GetSelectedAssetPath();
+        if (sourcePath == null || sourcePath.Length == 0) {
             Debug.LogWarning("[UTS Test] No asset selected.");
+            return;
+        }
+        
+        foreach (string path in sourcePath) {
+            CopySingleImageToReferenceImages(path);
+        }
+    }
+
+    private static void CopySingleImageToReferenceImages(string sourcePath) {
+        
+        if (string.IsNullOrEmpty(sourcePath)) {
+            Debug.LogWarning("[UTS Test] Empty path.");
             return;
         }
 
@@ -67,11 +79,17 @@ internal static class ToonReferenceImageContextMenu {
         AssetDatabase.Refresh();
     }
 
-    private static string GetSelectedAssetPath() {
-        Object obj = Selection.activeObject;
-        if (obj == null)
+    private static string[] GetSelectedAssetPath() {
+        Object[] objs = Selection.objects;
+        if (objs == null)
             return null;
-        return AssetDatabase.GetAssetPath(obj);
+        int numObjects = objs.Length;
+        string[] paths = new string[numObjects];
+        for (int i = 0; i < numObjects; i++) {
+            paths[i] = AssetDatabase.GetAssetPath(objs[i]);
+        }
+
+        return paths;
     }
     
 //----------------------------------------------------------------------------------------------------------------------
