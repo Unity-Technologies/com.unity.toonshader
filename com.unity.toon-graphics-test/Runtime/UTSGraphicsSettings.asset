@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183e2083a9e24f246a092ef2723273d7, type: 3}
   m_Name: UTSGraphicsSettings
   m_EditorClassIdentifier: 
-  WaitFrames: 480
+  WaitFrames: 30
   ImageComparisonSettings:
     TargetWidth: 960
     TargetHeight: 540
