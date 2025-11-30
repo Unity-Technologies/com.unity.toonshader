@@ -56,10 +56,10 @@ trigger_platform: *pack_platform_linux
 
 ### test projects section ###
 metal_platform: 
-  name: metal
-  type: Unity::metal::macmini
-  image: package-ci/macos-13:v4
-  model: M1
+  name: metal 
+  type: Unity::VM::osx
+  image: package-ci/macos-13-arm64:v4
+  model: M1  
   flavor: m1.mac
 
 win_test_platform: 
