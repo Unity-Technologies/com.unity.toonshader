@@ -24,8 +24,17 @@ public class UTSGraphicsTestsXR {
             Assert.Ignore();
         }
 
-        //Ignore XR tests for 2D scenes
         string sceneFileName = Path.GetFileNameWithoutExtension(testCase.ScenePath);
+
+#if UTS_TEST_USE_HDRP && UNITY_STANDALONE_OSX 
+
+        //[TODO-sin: 2025-12-1] ToonTesselation did not work on Metal in HDRP
+        if (sceneFileName.Contains("Tessellation")) {
+            Assert.Ignore();
+        }
+#endif //UTS_TEST_USE_HDRP && UNITY_STANDALONE_OSX 
+
+        //Ignore XR tests for 2D scenes
         if (sceneFileName.EndsWith("2D")) {
             Assert.Ignore();
         }
