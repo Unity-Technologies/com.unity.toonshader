@@ -6,65 +6,65 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/AngelRing/AngelRing.unity
+    path: Assets/SceneSamples/AngelRing/AngelRing.unity
     guid: d263d32e85ba4a7387e169fb2532a7e0
   - enabled: 0
-    path: Assets/Scenes/BoxProjection/BoxProjection.unity
+    path: Assets/SceneSamples/BoxProjection/BoxProjection.unity
     guid: 6d974977d8294b019b2b7f1b27ce1be2
   - enabled: 1
-    path: Assets/Scenes/Cube_HardEdge/Cube_HardEdge.unity
+    path: Assets/SceneSamples/Cube_HardEdge/Cube_HardEdge.unity
     guid: c9a40412875e4c0ea065ca46586041d8
   - enabled: 1
-    path: Assets/Scenes/EmissiveAnimation/EmissiveAnimation.unity
+    path: Assets/SceneSamples/EmissiveAnimation/EmissiveAnimation.unity
     guid: 003a6919efce4f2eb098cd27bad910a8
   - enabled: 1
-    path: Assets/Scenes/LightAndShadows/LightAndShadows.unity
+    path: Assets/SceneSamples/LightAndShadows/LightAndShadows.unity
     guid: 73a7f438006c4b7fafd3d5b4743fa8dc
   - enabled: 1
-    path: Assets/Scenes/LightAndShadows_BakedLight/LightAndShadows_BakedLight.unity
+    path: Assets/SceneSamples/LightAndShadows_BakedLight/LightAndShadows_BakedLight.unity
     guid: 3c986a5ae923496e987b33960aa63b1e
   - enabled: 1
-    path: Assets/Scenes/MatCapMask/MatCapMask.unity
+    path: Assets/SceneSamples/MatCapMask/MatCapMask.unity
     guid: d453b3ea73cc402790f75c33c8004129
   - enabled: 0
-    path: Assets/Scenes/Mirror/MirrorTest.unity
+    path: Assets/SceneSamples/Mirror/MirrorTest.unity
     guid: 29586b022ed34d3aa198a53130a5e9f0
   - enabled: 1
-    path: Assets/Scenes/NormalMap/NormalMap.unity
+    path: Assets/SceneSamples/NormalMap/NormalMap.unity
     guid: dc41e99f055d47ba8cd6c93a8a61aadc
   - enabled: 1
-    path: Assets/Scenes/PointLightTest/PointLightTest.unity
+    path: Assets/SceneSamples/PointLightTest/PointLightTest.unity
     guid: 64085e65dc2f41dc94a901a1a07cc3ce
   - enabled: 1
-    path: Assets/Scenes/Sample/Sample.unity
+    path: Assets/SceneSamples/Sample/Sample.unity
     guid: d09542ee190d40cea3a789f9b3315869
   - enabled: 1
-    path: Assets/Scenes/SceneLights Hi-Cut_Filter Test/SceneLights Hi-Cut_Filter
+    path: Assets/SceneSamples/SceneLights Hi-Cut_Filter Test/SceneLights Hi-Cut_Filter
       Test.unity
     guid: 2c979d8d718845c583e737a9ba5508bc
   - enabled: 1
-    path: Assets/Scenes/ShaderBall/ShaderBall.unity
+    path: Assets/SceneSamples/ShaderBall/ShaderBall.unity
     guid: 328dd02d399a45c08d53ce3044af83b2
   - enabled: 1
-    path: Assets/Scenes/ShaderBall_LightCulling/ShaderBall_LightCulling.unity
+    path: Assets/SceneSamples/ShaderBall_LightCulling/ShaderBall_LightCulling.unity
     guid: c191f97b7ca94f30b931bf6e1bcd304d
   - enabled: 1
-    path: Assets/Scenes/ToonShader/ToonShader.unity
+    path: Assets/SceneSamples/ToonShader/ToonShader.unity
     guid: 755a8c5824424c9193dc830b61e064ab
   - enabled: 1
-    path: Assets/Scenes/ToonShader_CelLook/ToonShader_CelLook.unity
+    path: Assets/SceneSamples/ToonShader_CelLook/ToonShader_CelLook.unity
     guid: 4053d545db384258abb1e221dadf452e
   - enabled: 1
-    path: Assets/Scenes/ToonShader_CelLook(Tessellation)/ToonShader_CelLook(Tessellation).unity
+    path: Assets/SceneSamples/ToonShader_CelLook(Tessellation)/ToonShader_CelLook(Tessellation).unity
     guid: 75ce7273e30d480fbf891f62eaf37702
   - enabled: 1
-    path: Assets/Scenes/ToonShader_Emissive/ToonShader_Emissive.unity
+    path: Assets/SceneSamples/ToonShader_Emissive/ToonShader_Emissive.unity
     guid: e47eab24bc054850b68028ea120f71b3
   - enabled: 1
-    path: Assets/Scenes/ToonShader_Firefly/ToonShader_Firefly.unity
+    path: Assets/SceneSamples/ToonShader_Firefly/ToonShader_Firefly.unity
     guid: ae0ac284c8254a06b9672e5f50ac383d
   - enabled: 1
-    path: Assets/Scenes/ToonShader_LightCulling/ToonShader_LightCulling.unity
+    path: Assets/SceneSamples/ToonShader_LightCulling/ToonShader_LightCulling.unity
     guid: 996ccb16826445bfb9ead90db4383e5e
   - enabled: 1
     path: Assets/Scenes/MetaverseOutlineLighting/OutlineLighting01_HDRISky.unity
