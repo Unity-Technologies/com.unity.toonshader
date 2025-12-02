@@ -39,20 +39,22 @@ To get started with cel-shading, see [Getting Started](com.unity.toonshader/Docu
 * [Material Converter](com.unity.toonshader/Documentation~/MaterialConverter.md)
 * [Inspector Window Settings](com.unity.toonshader/Documentation~/Parameter-Settings.md)
   * [Modes](com.unity.toonshader/Documentation~/Modes.md)
-  * [Shader Settings](com.unity.toonshader/Documentation~/Shader.md)
-  * [Three Color Map and Control Map Settings](com.unity.toonshader/Documentation~/Basic.md)
-  * [Shading Step and Feather Settings](com.unity.toonshader/Documentation~/ShadingStepAndFeather.md)
-  * [Normal Map Settings](com.unity.toonshader/Documentation~/NormalMap.md)
-  * [Highlight Settings](com.unity.toonshader/Documentation~/Highlight.md)
-  * [Rim Light Settings](com.unity.toonshader/Documentation~/Rimlight.md)
-  * [Material Capture (MatCap) Settings](com.unity.toonshader/Documentation~/MatCap.md)
-  * [Emission Settings](com.unity.toonshader/Documentation~/Emission.md)
-  * [Angel Ring Projection Settings](com.unity.toonshader/Documentation~/AngelRing.md)
-  * [Scene Light Effectiveness Settings](com.unity.toonshader/Documentation~/SceneLight.md)
-  * [Metaverse Settings (Experimental)](com.unity.toonshader/Documentation~/Metaverse.md)
-  * [Outline Settings](com.unity.toonshader/Documentation~/Outline.md)
-  * [Tessellation Settings (the Built-in Render Pipeline)](com.unity.toonshader/Documentation~/TessellationLegacy.md)
-  * [Tessellation Settings (HDRP)](com.unity.toonshader/Documentation~/TessellationHDRP.md)
+  * [Shader](com.unity.toonshader/Documentation~/Shader.md)
+  * [Three Color Map and Control Map](com.unity.toonshader/Documentation~/Basic.md)
+  * [Shading Step and Feather](com.unity.toonshader/Documentation~/ShadingStepAndFeather.md)
+  * [Normal Map](com.unity.toonshader/Documentation~/NormalMap.md)
+  * [Highlight](com.unity.toonshader/Documentation~/Highlight.md)
+  * [Rim Light](com.unity.toonshader/Documentation~/Rimlight.md)
+  * [Material Capture (MatCap)](com.unity.toonshader/Documentation~/MatCap.md)
+  * [Angel Ring Projection](com.unity.toonshader/Documentation~/AngelRing.md)
+  * [Emission](com.unity.toonshader/Documentation~/Emission.md)
+  * [Outline](com.unity.toonshader/Documentation~/Outline.md)
+  * Tessellation
+    * [HDRP](com.unity.toonshader/Documentation~/TessellationHDRP.md)
+    * [Built-in Render Pipeline](com.unity.toonshader/Documentation~/TessellationLegacy.md)
+  * [Tessellation (HDRP)](com.unity.toonshader/Documentation~/TessellationHDRP.md)
+  * [Scene Light Effectiveness](com.unity.toonshader/Documentation~/SceneLight.md)
+  * [Metaverse (Experimental)](com.unity.toonshader/Documentation~/Metaverse.md)
 * Additional features for HDRP
   * [Box Light](com.unity.toonshader/Documentation~/HDRPBoxLight.md)
   * [Toon EV Adjustment](com.unity.toonshader/Documentation~/ToonEVAdjustment.md)
@@ -100,4 +102,4 @@ git config --global core.symlinks true
 
 
 
-*Auto-generated on Fri Nov 28 00:44:50 UTC 2025*
+*Auto-generated on Tue Dec  2 13:54:04 UTC 2025*
