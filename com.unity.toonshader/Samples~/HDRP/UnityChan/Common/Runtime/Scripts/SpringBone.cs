@@ -121,7 +121,7 @@ namespace UnityChan
 			//trs.rotation = aimRotation * trs.rotation;
 			//Kobayahsi:Lerp with mixWeight
 			Quaternion secondaryRotation = aimRotation * trs.rotation;
-			trs.rotation = Quaternion.Lerp (org.rotation, secondaryRotation, managerRef.dynamicRatio);
+			trs.rotation = Quaternion.Lerp (org.rotation, secondaryRotation, managerRef.GetDynamicRatio());
 		}
 
 		private void OnDrawGizmos ()

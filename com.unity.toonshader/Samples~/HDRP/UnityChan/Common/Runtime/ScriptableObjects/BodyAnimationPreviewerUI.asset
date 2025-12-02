@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_uiTemplate: {fileID: 9197481963319205126, guid: c45666af71053374fa83d5c577abafff, type: 3}
   m_uiStyle: {fileID: 7433441132597879392, guid: b61711e3669c04f4293d684846248bf2, type: 3}
+  m_rootUIStyle: {fileID: 7433441132597879392, guid: 7587a2a9bb8fc5749b77b69d9b9393b7, type: 3}
