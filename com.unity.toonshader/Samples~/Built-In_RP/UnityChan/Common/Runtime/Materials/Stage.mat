@@ -12,7 +12,6 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - UTS_RP_BUILTIN
   - _ALPHATEST_ON
   - _EMISSIVE_SIMPLE
   - _IS_ANGELRING_OFF
@@ -221,8 +220,7 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    m_Ints:
-    - _ToonMaterialVersion: 0
+    m_Ints: []
     m_Floats:
     - _1st2nd_Shades_Feather: 0.25
     - _1st_ShadeColor_Feather: 0.25

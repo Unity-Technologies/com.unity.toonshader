@@ -1,6 +1,0 @@
-@import url("unity-theme://default");
-
-@import url("/Assets/UnityChan/Common/StyleSheets/AnimationsPreviewerRoot_Style.uss");
-
-
-VisualElement {}
