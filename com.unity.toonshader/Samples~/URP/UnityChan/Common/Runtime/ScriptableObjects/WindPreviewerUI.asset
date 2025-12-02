@@ -10,7 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4243274e0bc7c2b4b9765aedb3a830bd, type: 3}
-  m_Name: FaceAnimationPreviewerUI
+  m_Name: WindPreviewerUI
   m_EditorClassIdentifier: 
-  m_uiTemplate: {fileID: 9197481963319205126, guid: ad652ed8ec12ae64ea06ba4c154e61be, type: 3}
+  m_uiTemplate: {fileID: 9197481963319205126, guid: c38f05ebcbea8ad41a2fa7506937d0ac, type: 3}
   m_uiStyle: {fileID: 7433441132597879392, guid: b61711e3669c04f4293d684846248bf2, type: 3}
+  m_rootUIStyle: {fileID: 7433441132597879392, guid: 7587a2a9bb8fc5749b77b69d9b9393b7, type: 3}

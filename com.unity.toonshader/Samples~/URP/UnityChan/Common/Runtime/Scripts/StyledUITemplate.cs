@@ -11,6 +11,11 @@ public class StyledUITemplate : ScriptableObject{
     public VisualElement Instantiate(VisualElement parent) {
         VisualElement instance = m_uiTemplate.Instantiate();
         parent.styleSheets.Add(m_uiStyle);
+
+        if (null != m_rootUIStyle) {
+            UIToolkitUtility.AddStyleSheetToRoot(parent, m_rootUIStyle);    
+        }
+        
         parent.Add(instance);
         return instance;
     }
@@ -18,8 +23,9 @@ public class StyledUITemplate : ScriptableObject{
 //----------------------------------------------------------------------------------------------------------------------  
     
     [SerializeField] private VisualTreeAsset m_uiTemplate;
-    [SerializeField] private StyleSheet m_uiStyle;
     
+    [SerializeField] private StyleSheet m_uiStyle;
+    [SerializeField] private StyleSheet m_rootUIStyle;
 }
 
 }

@@ -1,9 +1,9 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace UnityChan {
+namespace UnityChan.Editor {
 [CustomEditor(typeof(SpringManager))]
-public class SpringManagerInspector : Editor {
+public class SpringManagerInspector : UnityEditor.Editor {
     public override void OnInspectorGUI() {
         DrawDefaultInspector();
 
@@ -11,7 +11,7 @@ public class SpringManagerInspector : Editor {
 
         if (GUILayout.Button("Init From Children")) {
             SpringBone[] springBones = manager.GetComponentsInChildren<SpringBone>(true);
-            SerializedProperty springBonesProp = serializedObject.FindProperty(nameof(SpringManager.springBones));
+            SerializedProperty springBonesProp = serializedObject.FindProperty(nameof(SpringManager.m_springBones));
 
             springBonesProp.arraySize = springBones.Length;
             for (int i = 0; i < springBones.Length; i++) {
