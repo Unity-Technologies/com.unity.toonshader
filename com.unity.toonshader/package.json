@@ -11,18 +11,18 @@
 	},
         "samples": [
         {
-         "displayName": "Built-In render pipeline",
-         "description": "Sample scenes for Built-In render pipeline.",
+         "displayName": "Built-In RP",
+         "description": "Toon Shader sample scenes for Built-In Render Pipeline.",
          "path": "Samples~/Built-In_RP"
         },
         {
-         "displayName": "Universal render pipeline",
-         "description": "Sample scenes for Universal render pipeline.",
+         "displayName": "URP",
+         "description": "Toon Shader sample scenes for Universal Render Pipeline.",
          "path": "Samples~/URP"
         },
         {
-         "displayName": "High definition render pipeline",
-         "description": "Sample scenes for High definition render pipeline.",
+         "displayName": "HDRP",
+         "description": "Toon Shader sample scenes for High Definition Render Pipeline.",
          "path": "Samples~/HDRP"
         }
         ]
