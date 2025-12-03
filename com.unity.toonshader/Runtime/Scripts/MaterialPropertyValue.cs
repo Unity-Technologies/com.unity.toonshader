@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Rendering;
 
-namespace UnityEditor.Rendering.Toon {
+namespace Unity.Rendering.Toon {
 
 [System.Serializable]
 internal class MaterialPropertyValue {
