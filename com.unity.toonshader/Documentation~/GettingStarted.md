@@ -1,33 +1,38 @@
 # Getting Started with Unity Toon Shader
 
-The **Unity Toon Shader** (UTS) provides extensive controls for professional cel-shading across the Built-in Render Pipeline, URP, and HDRP. This page walks through the essentials for bringing a stylized character to life before layering on advanced features.
+The **Unity Toon Shader (UTS)**  provides extensive controls 
+for professional cel-shading across the Built-in Render Pipeline, URP, and HDRP. 
+This page walks through the key concepts of cel-shading step by step.
 
 Follow these steps for simple cel-shading:
-
 1. [Put a directional light in the scene](#put-a-directional-light-in-the-scene).
 2. [Create materials for cel-shading and set the appropriate shader](#creating-a-new-material-and-applying-unity-toon-shader).
 3. [Set up three basic colors](#setting-up-three-basic-colors).
 4. [Determine the character's visual style](#adjusting-the-edges-of-the-three-basic-color-regions).
 5. [Set up the outline](#set-up-the-outline).
 
-After mastering the fundamentals, explore:
+After mastering the basics, explore:
 
-- [Advanced techniques](#advanced-techniques) such as eliminating outlines around eyes or adding luster to hair.
+- [Advanced techniques](#advanced-techniques) such as:
+    * [Eliminating outlines around eyes](#eliminating-outlines-around-eyes).
+    * [Adding luster to hair](#adding-luster-to-hair).
 - [More options for stunning professional cel-shading](#more-options-for-stunning-professional-cel-shading) to push the look further.
 
 ## Put a directional light in the scene
 
-To make cel-shading work, you need to place at least one [directional light](https://docs.unity3d.com/2022.2/Documentation/Manual/Lighting.html) in the scene. Start with a neutral white light so you can see how UTS-specific settings influence the shading without additional color shifts.
+To make cel-shading work, you need to place at least one [directional light](https://docs.unity3d.com/2022.2/Documentation/Manual/Lighting.html) in the scene. 
+Start with a neutral white light so you can see how UTS-specific settings influence the shading 
+without additional color shifts.
 
 ## Creating a new material and applying Unity Toon Shader
 
 Start by [creating a material](https://docs.unity3d.com/6000.0/Documentation/Manual/materials-introduction.html) for your mesh and then assign the UTS shader:
 
 1. Create a new material and assign it to the mesh you plan to shade.
-2. In the Inspector, choose **Toon** or **Toon (Tessellation)** from the Shader drop-down. These entries appear under "Toon" rather than the render-pipeline-specific menus because UTS works in the Built-in Render Pipeline, URP, and HDRP.
-3. Once assigned, the model will render as a flat silhouette until you provide the texture maps that define the cel-shaded look.
-
-![A fully white chibi-style character model with long hair and rabbit ears. The Inspector window is open with the Lit material of the Universal Render Pipeline.](images/UrpLitMaterial.png)<br/>
+2. In the Inspector, choose **Toon > Toon** or **Toon > Toon (Tessellation)** from the Shader drop-down. 
+   These shaders work on all supported render pipelines: Built-in Render Pipeline, URP, and HDRP.
+3. Once assigned, the model will render as a flat silhouette until 
+   you provide the texture maps that define the cel-shaded look.
 
 ![The same character model with the Toon shader selected in the Inspector window. The model is now a flat white silhouette.](images/AppliedUTS.png)
 
