@@ -76,7 +76,7 @@ Follow these steps:
 
 ## Set up the outline
 
-Outline is  another important factor that determines the animation style.
+Outline is another important factor that determines the animation style.
 Consider the outline color relative to your background and adjust the thickness to reinforce the style. 
 The [Outline Settings](Outline.md) page details every property.
 
