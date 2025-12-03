@@ -1,6 +1,6 @@
 # Getting Started with Unity Toon Shader
 
-The **Unity Toon Shader (UTS)**  provides extensive controls 
+The **Unity Toon Shader (UTS)** provides extensive controls 
 for professional cel-shading across the Built-in Render Pipeline, URP, and HDRP. 
 This page walks through the key concepts of cel-shading step by step.
 
