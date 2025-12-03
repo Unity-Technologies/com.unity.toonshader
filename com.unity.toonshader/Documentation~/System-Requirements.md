@@ -1,11 +1,5 @@
 # Requirements and compatibility
 
-## Requirements
-
-Because the **Unity Toon Shader** is compatible with all render pipelines,
-please refer to each render pipeline's requirements documentation to see specific hardware and software requirements.
-The use of linear color space is strongly recommended.
-
 
 
 ## Unity Render Pipeline Compatibility
@@ -15,3 +9,5 @@ The **Unity Toon Shader** works across the **Built-in Render Pipeline**,
 Feature availability can vary slightly between pipelines, 
 so review the [feature differences](FeatureModel_en.md) document to confirm 
 which features are supported in your target pipeline.
+
+The use of linear color space is strongly recommended.
