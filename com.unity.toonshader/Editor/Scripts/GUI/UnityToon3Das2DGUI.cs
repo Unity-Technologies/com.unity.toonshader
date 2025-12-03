@@ -211,7 +211,7 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         EditorGUI.indentLevel++;
         EditorGUI.BeginDisabledGroup(!state.useOutline);
 
-        ToonEditorGUIUtility.DrawIntPopupGUI(mEditor, mats, uiElements[SHADER_PROP_OUTLINE_MODE],
+        ToonEditorGUIUtility.DrawIntPopupGUI(mEditor, mats, uiElements[ToonConstants.SHADER_PROP_OUTLINE_MODE],
             m_outlineModeEnums, m_outlineModeIndices, out int outlineMode);
 
         state.outlineMode = (OutlineMode) outlineMode;
@@ -458,7 +458,7 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
                 "Furthest distance where outline fades to zero width."),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(SHADER_PROP_OUTLINE_MODE),
+            mainPropertyName = new MaterialName(ToonConstants.SHADER_PROP_OUTLINE_MODE),
             label = new GUIContent("Outline Mode",
                 "Specifies how the outline is generated."),
         },
@@ -515,7 +515,6 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     internal const string SHADER_PROP_NORMAL_MAP = "_NormalMap";
     internal const string SHADER_PROP_BUMP_SCALE = "_BumpScale";
 
-    internal const string SHADER_PROP_OUTLINE_MODE = "_OutlineMode";
     internal const string SHADER_PROP_OUTLINE_WIDTH = "_OutlineWidth";
     internal const string SHADER_PROP_OUTLINE_WIDTH_MAP = "_OutlineWidthMap";
     internal const string SHADER_PROP_OUTLINE_TEX = "_OutlineTex";
