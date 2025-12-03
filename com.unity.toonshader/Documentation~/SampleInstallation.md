@@ -33,10 +33,10 @@ Import the sample set that matches the render pipeline currently assigned to you
 - `NormalMap/NormalMap.unity` &mdash; Normal-map techniques tuned with UTS.
 - `PointLightTest/PointLightTest.unity` &mdash; Cel-shading examples using point lights.
 - `KageBall/KageBall.unity` &mdash; The basics.
-- `UnityChan/UnityChan.unity` — SD Unity-chan model showcasing illustration-style shading.
-- `UnityChan_CelLook/UnityChan_CelLook.unity` — SD Unity-chan model with classic cel-look settings for characters.
-- `UnityChan_Emissive/UnityChan_Emissive.unity` — SD Unity-chan model showing the [Emission](Emission.md) feature.
-- `UnityChan_Firefly/UnityChan_Firefly.unity` — SD Unity-chan model with multiple point lights.
+- `UnityChan/UnityChan.unity` &mdash; SD Unity-chan model showcasing illustration-style shading.
+- `UnityChan_CelLook/UnityChan_CelLook.unity` &mdash; SD Unity-chan model with classic cel-look settings for characters.
+- `UnityChan_Emissive/UnityChan_Emissive.unity` &mdash; SD Unity-chan model showing the [Emission](Emission.md) feature.
+- `UnityChan_Firefly/UnityChan_Firefly.unity` &mdash; SD Unity-chan model with multiple point lights.
 
 > Unity-chan assets are licensed under the [Unity-Chan License](http://unity-chan.com/contents/guideline_en/)
 
