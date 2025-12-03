@@ -67,6 +67,7 @@ internal static class ToonConstants {
 
     //Outline
     internal const string SHADER_PROP_OUTLINE_MODE = "_OutlineMode";
+    internal static readonly int SHADER_PROP_OUTLINE_MODE_ID = Shader.PropertyToID(SHADER_PROP_OUTLINE_MODE);
     internal const string SHADER_PROP_OUTLINE_WIDTH = "_OutlineWidth";
     internal const string SHADER_PROP_OUTLINE_WIDTH_MAP = "_OutlineWidthMap";
     internal const string SHADER_PROP_OUTLINE_TEX = "_OutlineTex";

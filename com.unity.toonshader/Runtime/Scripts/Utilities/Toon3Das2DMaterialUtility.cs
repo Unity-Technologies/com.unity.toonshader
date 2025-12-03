@@ -14,6 +14,10 @@ internal static class Toon3Das2DMaterialUtility {
     }
 
     internal static void SetOutlineMode(Material[] mats, ToonOutlineMode outlineMode) {
+
+        foreach (Material m in mats) {
+            m.SetInteger(ToonConstants.SHADER_PROP_OUTLINE_MODE_ID, (int) outlineMode);
+        }
             
         const string OUTLINE_NORMAL_KEYWORD = "TOON_OUTLINE_NORMAL";
         const string OUTLINE_POSITION_KEYWORD = "TOON_OUTLINE_POS";
