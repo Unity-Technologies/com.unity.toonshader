@@ -31,14 +31,14 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
 
         DrawNormalMapGUI(mEditor, m_materialPropertyUIElements, ref m_normalMapFoldout);
 
-        m_materialState.useOutline = mats[0].GetShaderPassEnabled(LIGHT_MODE_NAME_FOR_OUTLINE);
+        m_materialState.useOutline = Toon3Das2DMaterialUtility.IsOutlineEnabled(mats[0]);
         DrawOutlineGUI(mEditor, mats, m_materialPropertyUIElements, ref m_outlineFoldout, ref m_materialState.useOutline);
 
         if (EditorGUI.EndChangeCheck()) {
             mEditor.PropertiesChanged();
             
             foreach (Material m in mats) {
-                m.SetShaderPassEnabled(LIGHT_MODE_NAME_FOR_OUTLINE, m_materialState.useOutline);
+                Toon3Das2DMaterialUtility.EnableOutline(m, m_materialState.useOutline);
             }
         }
 
@@ -51,7 +51,7 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         m_shadingFoldout = true;
 
         m_normalMapFoldout = true;
-        m_outlineFoldout = mat.GetShaderPassEnabled(LIGHT_MODE_NAME_FOR_OUTLINE);
+        m_outlineFoldout = Toon3Das2DMaterialUtility.IsOutlineEnabled(mat);
 
         bool lightEnabled = mat.GetInteger(uiElements[SHADER_PROP_DIRECTIONAL_LIGHT_USE].mainProperty.id) != 0;
         m_lightingFoldout = lightEnabled;
@@ -527,10 +527,6 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     internal const string SHADER_PROP_OUTLINE_USE_NORMAL_MAP = "_Outline_UseNormalMap";
     internal const string SHADER_PROP_OUTLINE_NORMAL_MAP = "_Outline_NormalMap";
 
-
-
-    //Doc: Use this LightMode tag value to draw an extra Pass when rendering objects.
-    const string LIGHT_MODE_NAME_FOR_OUTLINE = "SRPDefaultUnlit";
 
     internal enum OutlineMode {
         NormalDirection,

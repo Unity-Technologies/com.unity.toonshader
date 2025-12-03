@@ -87,6 +87,9 @@ internal static class ToonConstants {
     
     internal const string SHADER_PROP_DIRECTIONAL_LIGHT_VIEW_POSITION = "_DirectionalLight_ViewPosition";
     
+    //Doc: Use this LightMode tag value to draw an extra Pass when rendering objects.
+    internal const string SHADER_LIGHT_MODE_NAME_FOR_OUTLINE = "SRPDefaultUnlit";
+
     
     internal const string GBUFFER_PASS_NAME = "GBuffer";
 
