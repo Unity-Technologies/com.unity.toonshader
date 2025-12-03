@@ -21,7 +21,7 @@ Import the sample set that matches the render pipeline currently assigned to you
 
 ### Universal Render Pipeline
 
-`Assets/Samples/Unity Toon Shader/<version>/Universal Render Pipeline`
+`Assets/Samples/Unity Toon Shader/<version>/URP`
 
 - `AngelRing/AngelRing.unity` &mdash; Setup for the [Angel Ring](AngelRing.md) projection.
 - `Baked Normal/Cube_HardEdge.unity` &mdash; Reference for baked-normal workflows.
@@ -40,14 +40,14 @@ Import the sample set that matches the render pipeline currently assigned to you
 
 ### Built-in Render Pipeline
 
-`Assets/Samples/Unity Toon Shader/<version>/Legacy Render Pipeline`
+`Assets/Samples/Unity Toon Shader/<version>/Built-In RP`
 
 - Mirrors the URP scenes but configured for the built-in forward renderer.
 - Includes lighting presets and materials that match the legacy pipeline defaults.
 
 ### High Definition Render Pipeline
 
-`Assets/Samples/Unity Toon Shader/<version>/High Definition Render Pipeline`
+`Assets/Samples/Unity Toon Shader/<version>/HDRP`
 
 - Demonstrates HDRP-specific features such as additional light types, high-quality shadows, and volumetric effects.
 - Only open these scenes when the project uses `HDRenderPipelineAsset_UTS` to avoid missing-shader warnings.
