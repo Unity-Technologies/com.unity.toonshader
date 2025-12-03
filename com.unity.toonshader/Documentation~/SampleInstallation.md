@@ -38,6 +38,8 @@ Import the sample set that matches the render pipeline currently assigned to you
 - `UnityChan_Emissive/UnityChan_Emissive.unity` — SD Unity-chan model showing the [Emission](Emission.md) feature.
 - `UnityChan_Firefly/UnityChan_Firefly.unity` — SD Unity-chan model with multiple point lights.
 
+> Unity-chan assets are licensed under the [Unity-Chan License](http://unity-chan.com/contents/guideline_en/)
+
 ### Built-in Render Pipeline
 
 `Assets/Samples/Unity Toon Shader/<version>/Built-In RP`
@@ -49,3 +51,4 @@ Import the sample set that matches the render pipeline currently assigned to you
 `Assets/Samples/Unity Toon Shader/<version>/HDRP`
 
 - Mirrors the URP scenes but configured for HDRP.
+
