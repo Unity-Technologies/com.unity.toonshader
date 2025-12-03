@@ -30,7 +30,7 @@ Import the sample set that matches the render pipeline currently assigned to you
 - `LightAndShadows/LightAndShadows.unity` &mdash; Comparison between the PBR shader and UTS.
 - `MatCapMask/MatCapMask.unity` &mdash; Using [MatCap](MatCap.md) masks.
 - `Mirror/MirrorTest.unity` &mdash; Mirror material setup and testing.
-- `NormalMap/NormalMap.unity` &mdash; Normal-map techniques tuned with UTS.
+- `NormalMap/NormalMap.unity` &mdash; Normal map techniques tuned with UTS.
 - `PointLightTest/PointLightTest.unity` &mdash; Cel-shading examples using point lights.
 - `KageBall/KageBall.unity` &mdash; The basics.
 - `UnityChan/UnityChan.unity` &mdash; SD Unity-chan model showcasing illustration-style shading.
