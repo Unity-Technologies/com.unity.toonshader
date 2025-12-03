@@ -1,12 +1,12 @@
 # Installing the sample scenes
 
-The **Unity Toon Shader** package includes sample scenes that demonstrate lighting setups, material presets, and authoring workflows for every supported render pipeline. Import the sample set that matches the render pipeline currently assigned to your project.
+The **Unity Toon Shader** package provides 
+sample scenes for every supported render pipeline. 
+Import the sample set that matches the render pipeline currently assigned to your project.
 
 ## Before you import
 
 - Confirm that the [render pipeline](https://docs.unity3d.com/2022.2/Documentation/Manual/render-pipelines.html) you intend to use is installed and active.
-- In **Project Settings ▸ Graphics**, make sure the correct pipeline asset is assigned. URP samples expect the `UTS2URPPipelineAsset`, while HDRP samples expect `HDRenderPipelineAsset_UTS`.
-- Close scenes you do not want modified—the importer adds lighting assets, materials, and scene files.
 
 ## Import samples through Package Manager
 
@@ -14,7 +14,6 @@ The **Unity Toon Shader** package includes sample scenes that demonstrate lighti
 2. Select **Unity Toon Shader** from the package list.
 3. In the **Samples** section, choose the collection that matches your render pipeline.
 4. Click **Import**. Unity creates an `Assets/Samples/Unity Toon Shader/<version>/...` folder containing the selected samples.
-5. (Recommended) Re-open **Project Settings ▸ Graphics** to ensure the correct pipeline asset remains assigned.
 
 > Tip: You can re-import the samples at any time. Unity prompts you before overwriting existing files.
 
