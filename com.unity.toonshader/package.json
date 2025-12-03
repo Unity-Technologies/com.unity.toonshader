@@ -12,17 +12,17 @@
         "samples": [
         {
          "displayName": "Built-In RP",
-         "description": "Toon Shader sample scenes for Built-In Render Pipeline.",
+         "description": "Toon Shader sample scenes for Built-In Render Pipeline, including Unity-Chan examples.\nFor Unity-Chan assets, please review the license included in the corresponding folder.",
          "path": "Samples~/Built-In_RP"
         },
         {
          "displayName": "URP",
-         "description": "Toon Shader sample scenes for Universal Render Pipeline.",
+         "description": "Toon Shader sample scenes for Universal Render Pipeline, including Unity-Chan examples.\nFor Unity-Chan assets, please review the license included in the corresponding folder.",
          "path": "Samples~/URP"
         },
         {
          "displayName": "HDRP",
-         "description": "Toon Shader sample scenes for High Definition Render Pipeline.",
+         "description": "Toon Shader sample scenes for High Definition Render Pipeline, including Unity-Chan examples.\nFor Unity-Chan assets, please review the license included in the corresponding folder.",
          "path": "Samples~/HDRP"
         }
         ]
