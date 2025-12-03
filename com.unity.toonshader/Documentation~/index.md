@@ -26,3 +26,13 @@ Three basic colors—**base color**, **1st shading color**, and **2nd shading co
 Besides the three basic colors, the **Unity Toon Shader** provides a wide variety of features such as [Highlight](Highlight.md), [Rim Light](Rimlight.md), [Emission](Emission.md), [Angel Ring](AngelRing.md), [Material Capture (MatCap)](MatCap.md), and some special maps.
 
 To get started with cel-shading, see [Getting Started](GettingStarted.md).
+
+## Unity Render Pipeline Compatibility
+The **Unity Toon Shader** works across the **Built-in Render Pipeline**,
+**Universal Render Pipeline (URP)**, and **High Definition Render Pipeline (HDRP)**.
+
+Feature availability can vary slightly between pipelines,
+so review the [feature differences](FeatureModel_en.md) document to confirm
+which features are supported in your target pipeline.
+
+> The use of linear color space is strongly recommended.
