@@ -45,14 +45,14 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
             const string OUTLINE_POSITION_KEYWORD = "TOON_OUTLINE_POS";
 
             switch (m_materialState.outlineMode) {
-                case OutlineMode.NormalDirection:
+                case ToonOutlineMode.NormalDirection:
                     foreach (Material m in mats) {
                         m.EnableKeyword(OUTLINE_NORMAL_KEYWORD);
                         m.DisableKeyword(OUTLINE_POSITION_KEYWORD);
                     }
 
                     break;
-                case OutlineMode.PositionScaling:
+                case ToonOutlineMode.PositionScaling:
                     foreach (Material m in mats) {
                         m.DisableKeyword(OUTLINE_NORMAL_KEYWORD);
                         m.EnableKeyword(OUTLINE_POSITION_KEYWORD);
@@ -214,9 +214,9 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         ToonEditorGUIUtility.DrawIntPopupGUI(mEditor, mats, uiElements[ToonConstants.SHADER_PROP_OUTLINE_MODE],
             m_outlineModeEnums, m_outlineModeIndices, out int outlineMode);
 
-        state.outlineMode = (OutlineMode) outlineMode;
+        state.outlineMode = (ToonOutlineMode) outlineMode;
 
-        EditorGUI.BeginDisabledGroup(outlineMode != (int)OutlineMode.NormalDirection);
+        EditorGUI.BeginDisabledGroup(outlineMode != (int)ToonOutlineMode.NormalDirection);
         {
             ToonEditorGUIUtility.DrawToggleGUI(mEditor, mats, uiElements[SHADER_PROP_OUTLINE_USE_NORMAL_MAP],
                 out bool useCustom);
@@ -529,7 +529,7 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     internal const string SHADER_PROP_OUTLINE_NORMAL_MAP = "_Outline_NormalMap";
 
 
-    internal enum OutlineMode {
+    internal enum ToonOutlineMode {
         NormalDirection,
         PositionScaling
     }
@@ -539,8 +539,8 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         Soft,
     }
 
-    private static readonly GUIContent[] m_outlineModeEnums = ToonEnumUtility.ToInspectorNamesAsGUIContent(typeof(OutlineMode));
-    private static readonly int[] m_outlineModeIndices = ToonEnumUtility.ToIndices(typeof(OutlineMode));
+    private static readonly GUIContent[] m_outlineModeEnums = ToonEnumUtility.ToInspectorNamesAsGUIContent(typeof(ToonOutlineMode));
+    private static readonly int[] m_outlineModeIndices = ToonEnumUtility.ToIndices(typeof(ToonOutlineMode));
 
     private static readonly GUIContent[] m_highlightModeEnums = ToonEnumUtility.ToInspectorNamesAsGUIContent(typeof(HighlightMode));
     private static readonly int[] m_highlightModeIndices = ToonEnumUtility.ToIndices(typeof(HighlightMode));
@@ -561,7 +561,7 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
 
     struct ToonMaterialState {
         internal bool useOutline;
-        internal OutlineMode outlineMode;
+        internal ToonOutlineMode outlineMode;
     } 
     
 
