@@ -30,11 +30,16 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         DrawLightingGUI(mEditor, mats, m_materialPropertyUIElements, ref m_lightingFoldout);
 
         DrawNormalMapGUI(mEditor, m_materialPropertyUIElements, ref m_normalMapFoldout);
-        DrawOutlineGUI(mEditor, mats, m_materialPropertyUIElements, ref m_outlineFoldout);
 
+        m_materialState.useOutline = mats[0].GetShaderPassEnabled(LIGHT_MODE_NAME_FOR_OUTLINE);
+        DrawOutlineGUI(mEditor, mats, m_materialPropertyUIElements, ref m_outlineFoldout, ref m_materialState.useOutline);
 
         if (EditorGUI.EndChangeCheck()) {
             mEditor.PropertiesChanged();
+            
+            foreach (Material m in mats) {
+                m.SetShaderPassEnabled(LIGHT_MODE_NAME_FOR_OUTLINE, m_materialState.useOutline);
+            }
         }
 
         m_lastMaterial = mats[0];
@@ -174,28 +179,21 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
 
 
     static void DrawOutlineGUI(MaterialEditor mEditor, Material[] mats, Dictionary<string,
-        MaterialPropertyUIElement> uiElements, ref bool foldout) {
-        bool isOutlineEnabled = mats[0].GetShaderPassEnabled(LIGHT_MODE_NAME_FOR_OUTLINE);
+        MaterialPropertyUIElement> uiElements, ref bool foldout, ref bool outlineEnabled) {
 
-
-        if (ToonEditorGUIUtility.DrawFoldoutWithToggleGUI(mEditor, ref foldout, ref isOutlineEnabled, "Outline")) {
-            foreach (Material m in mats)
-                m.SetShaderPassEnabled(LIGHT_MODE_NAME_FOR_OUTLINE, isOutlineEnabled);
-        }
-
-
+        ToonEditorGUIUtility.DrawFoldoutWithToggleGUI(mEditor, ref foldout, ref outlineEnabled, "Outline");
+        
         if (!foldout)
             return;
 
         //Outline Settings
         EditorGUI.indentLevel++;
-        EditorGUI.BeginDisabledGroup(!isOutlineEnabled);
+        EditorGUI.BeginDisabledGroup(!outlineEnabled);
 
         ToonEditorGUIUtility.DrawIntPopupGUI(mEditor, mats, uiElements[SHADER_PROP_OUTLINE_MODE],
             m_outlineModeEnums, m_outlineModeIndices, out int outlineMode);
 
         const string OUTLINE_NORMAL_KEYWORD = "TOON_OUTLINE_NORMAL";
-        ;
         const string OUTLINE_POSITION_KEYWORD = "TOON_OUTLINE_POS";
 
         switch (outlineMode) {
@@ -295,6 +293,8 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
 
     private readonly Dictionary<string, MaterialPropertyUIElement> m_materialPropertyUIElements = new Dictionary<string, MaterialPropertyUIElement>();
 
+    private ToonMaterialState m_materialState;
+    
     private static readonly List<MaterialUIElement> m_materialUIElements = new List<MaterialUIElement>() {
         new MaterialUIElement {
             mainPropertyName = new MaterialName(SHADER_PROP_MAIN_TEX),
@@ -561,6 +561,11 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     bool m_normalMapFoldout = false;
     bool m_outlineFoldout = false;
     bool m_lightingFoldout = false;
+
+    struct ToonMaterialState {
+        internal bool useOutline;
+    } 
+    
 
     private const int INDENT_SIZE = 2;
 
