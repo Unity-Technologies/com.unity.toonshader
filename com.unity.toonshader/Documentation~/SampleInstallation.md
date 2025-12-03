@@ -42,12 +42,10 @@ Import the sample set that matches the render pipeline currently assigned to you
 
 `Assets/Samples/Unity Toon Shader/<version>/Built-In RP`
 
-- Mirrors the URP scenes but configured for the built-in forward renderer.
-- Includes lighting presets and materials that match the legacy pipeline defaults.
+- Mirrors the URP scenes but configured for built-in render pipeline.
 
 ### High Definition Render Pipeline
 
 `Assets/Samples/Unity Toon Shader/<version>/HDRP`
 
-- Demonstrates HDRP-specific features such as additional light types, high-quality shadows, and volumetric effects.
-- Only open these scenes when the project uses `HDRenderPipelineAsset_UTS` to avoid missing-shader warnings.
+- Mirrors the URP scenes but configured for HDRP.
