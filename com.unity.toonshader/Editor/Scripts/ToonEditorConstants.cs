@@ -8,7 +8,7 @@ internal static class ToonEditorConstants {
 
     internal const int CUR_MATERIAL_VERSION = (int) ToonMaterialVersion.Initial;
     
-    internal static readonly string PACKAGE_PATH = Path.Combine("Packages", ToonConstants.PACKAGE_NAME);
+    internal static readonly string PACKAGE_PATH = Path.Combine("Packages", ToonConstants.PACKAGE_NAME).Replace('\\','/');
 
 }
 
