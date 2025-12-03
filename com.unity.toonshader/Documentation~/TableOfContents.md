@@ -1,5 +1,4 @@
 * [Unity Toon Shader](index.md)
-* [Requirements](System-Requirements.md)
 * [Installation](installation.md)
 * [Getting started](GettingStarted.md)
 * [Material Converter](MaterialConverter.md)
