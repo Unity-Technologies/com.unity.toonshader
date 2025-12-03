@@ -5,8 +5,9 @@ namespace Unity.Rendering.Toon {
 
 [System.Serializable]
 internal class MaterialPropertyValue {
-    internal static MaterialPropertyValue FromMaterial(Material mat, Shader shader, int propIndex) {
+    internal static MaterialPropertyValue FromMaterial(Material mat, int propIndex) {
         MaterialPropertyValue value = new MaterialPropertyValue();
+        Shader shader = mat.shader;
         string name = shader.GetPropertyName(propIndex);
         ShaderPropertyType type = shader.GetPropertyType(propIndex);
         value.type = type;
