@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace UnityEditor.Rendering.Toon {
 
-internal class MaterialReferenceCheckerWindow : EditorWindow {
+internal class AssetReferenceCheckerWindow : EditorWindow {
 
     private enum AssetTypeFilter {
         Materials,
@@ -13,7 +13,7 @@ internal class MaterialReferenceCheckerWindow : EditorWindow {
 
     [MenuItem("Toon Shader/Material Reference Checker")]
     public static void ShowWindow() {
-        MaterialReferenceCheckerWindow window = GetWindow<MaterialReferenceCheckerWindow>("Material/Texture Reference Checker");
+        AssetReferenceCheckerWindow window = GetWindow<AssetReferenceCheckerWindow>("Asset Reference Checker");
         window.minSize = new Vector2(500, 300);
     }
 
