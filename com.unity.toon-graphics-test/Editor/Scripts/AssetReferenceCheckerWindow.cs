@@ -11,7 +11,7 @@ internal class AssetReferenceCheckerWindow : EditorWindow {
         Both
     }
 
-    [MenuItem("Toon Shader/Material Reference Checker")]
+    [MenuItem("Toon Shader/Asset Reference Checker")]
     public static void ShowWindow() {
         AssetReferenceCheckerWindow window = GetWindow<AssetReferenceCheckerWindow>("Asset Reference Checker");
         window.minSize = new Vector2(500, 300);
@@ -132,7 +132,20 @@ internal class AssetReferenceCheckerWindow : EditorWindow {
         }
 
         if (assetPaths.Count == 0) {
-            EditorUtility.DisplayDialog("No Assets Found", "No materials or textures were found under: " + m_rootPath, "OK");
+            string assetTypeMessage;
+            switch (m_assetTypeFilter) {
+                case AssetTypeFilter.Materials:
+                    assetTypeMessage = "materials";
+                    break;
+                case AssetTypeFilter.Textures:
+                    assetTypeMessage = "textures";
+                    break;
+                case AssetTypeFilter.Both:
+                default:
+                    assetTypeMessage = "materials or textures";
+                    break;
+            }
+            EditorUtility.DisplayDialog("No Assets Found", $"No {assetTypeMessage} were found under: {m_rootPath}", "OK");
             m_hasScanned = true;
             return;
         }
