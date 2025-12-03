@@ -89,9 +89,9 @@ test_trigger:
   name: Tests Trigger (Virtual) for {{ yamato_name }}
   triggers:
     expression: | 
-        NOT push.branch eq "development/v1" 
+        NOT push.branch eq "master" 
     recurring:
-      - branch: dev
+      - branch: master
         frequency: daily
         rerun: on_new_revision
         
