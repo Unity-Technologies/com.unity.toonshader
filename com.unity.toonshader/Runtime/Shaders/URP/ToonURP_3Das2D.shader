@@ -579,7 +579,7 @@ Shader "Toon/Toon 3D as 2D"{
         
     }
 
-    CustomEditor "UnityToon3Das2DGUI"
+    CustomEditor "UnityEditor.Rendering.Toon.UnityToon3Das2DGUI"
 
 }
 
