@@ -529,11 +529,6 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     internal const string SHADER_PROP_OUTLINE_NORMAL_MAP = "_Outline_NormalMap";
 
 
-    internal enum ToonOutlineMode {
-        NormalDirection,
-        PositionScaling
-    }
-
     internal enum HighlightMode {
         Hard,
         Soft,
