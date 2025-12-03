@@ -1,5 +1,5 @@
-//Auto-generated on Fri Nov 28 12:09:28 UTC 2025
-Shader "Toon" {
+//Auto-generated on Wed Dec 03 07:49:17 UTC 2025
+Shader "Toon/Toon" {
     Properties
     {
         // Common Properties for Unity Toon Shader
