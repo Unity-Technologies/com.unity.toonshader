@@ -1,7 +1,6 @@
 * [Unity Toon Shader](index.md)
 * [Installation](installation.md)
 * [Getting started](GettingStarted.md)
-* [Material Converter](MaterialConverter.md)
 * [Inspector Window Settings](Parameter-Settings.md)
   * [Modes](Modes.md)
   * [Shader](Shader.md)
@@ -23,6 +22,7 @@
 * Additional features for HDRP
   * [Box Light](HDRPBoxLight.md)
   * [Toon EV Adjustment](ToonEVAdjustment.md)
+* [Material Converter](MaterialConverter.md)
 * [Samples](sample-instlation.md)
 * [Feature Difference](FeatureModel_en.md)
 * [Known Issues](Known-issue.md)
