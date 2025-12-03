@@ -40,19 +40,25 @@ The directional light will no longer control shading in the usual way because UT
 
 ## Setting up three basic colors
 
-UTS renders meshes in three conceptual regions: **Base Map** for lit areas, **1st Shading Map** for lighter shadows, and **2nd Shading Map** for the darkest tones. For basic cel-shading you can focus on the Base Map and 1st Shading Map. The [Three Color Map and Control Map Settings](Basic.md) page explains the controls in depth.
+UTS renders meshes in three conceptual regions: 
+1. **Base Map** for lit areas
+2. **1st Shading Map** for lighter shadows, and
+3. **2nd Shading Map** for the darkest tones. 
 
-1. Author or import textures for the Base Map and 1st Shading Map. They can be separate textures or the same texture colored differently.
-2. Assign the Base Map to define the fully lit colors.
-3. Assign the 1st Shading Map to introduce a darker tone that UTS will reveal based on your shading step settings.
+For basic cel-shading you can focus on the Base Map and 1st Shading Map. 
+The [Three Color Map and Control Map Settings](Basic.md) page explains the controls in depth.
 
 ![The same character model with the same shader selected. The Base Map property and the 1st Shading Map properties in the Inspector window are set to UV texture maps that have the shapes and colors for the model. The character is now fully textured.](images/AppliedTextures.png)
 
-![A UV map texture that contains all the parts of a chibi-style model](images/utc_all2_light.png)<br/>
-An example Base Map.
+Follow these steps:
+1. Author or import textures for the Base Map and 1st Shading Map. They can be separate textures or the same texture colored differently.
+2. Assign the Base Map to define the fully lit colors.
+3. Assign the 1st Shading Map to introduce a darker tone that UTS will show based on your shading step settings.
 
-![The same UV map but some areas have a darker color.](images/utc_all2_dark.png)</br>
-An example 1st Shading Map.
+
+![UV map textures of a chibi-style model for lit and lighter shadows areas](images/UnityChanTextures.png)<br/>
+Left: an example Base Map. Right: an example 1st Shading Map.
+
 
 ## Adjusting the edges of the three basic color regions
 
