@@ -1,6 +1,6 @@
 # Installing the sample scenes
 
-The **Unity Toon Shader** package provides 
+The **Unity Toon Shader (UTS)** package provides 
 sample scenes for every supported render pipeline. 
 Import the sample set that matches the render pipeline currently assigned to your project.
 
