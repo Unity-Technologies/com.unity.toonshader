@@ -23,20 +23,20 @@ Import the sample set that matches the render pipeline currently assigned to you
 
 `Assets/Samples/Unity Toon Shader/<version>/URP`
 
-- `AngelRing/AngelRing.unity` &mdash; Setup for the [Angel Ring](AngelRing.md) projection.
-- `Baked Normal/Cube_HardEdge.unity` &mdash; Reference for baked-normal workflows.
+- `AngelRing/AngelRing.unity` &mdash; Setup for the [Angel Ring](AngelRing.md) feature.
+- `Cube_HardEdge/Cube_HardEdge.unity` &mdash; Reference for baked-normals.
 - `BoxProjection/BoxProjection.unity` &mdash; Dark-room lighting with box projection probes.
 - `EmissiveAnimation/EmissiveAnimation.unity` &mdash; Animated [Emission](Emission.md) sequences.
-- `LightAndShadows/LightAndShadows.unity` &mdash; Comparison between the built-in PBR shader and UTS.
-- `MatCapMask/MatCapMask.unity` &mdash; Using [MatCap](MatCap.md) masks for accent lighting.
+- `LightAndShadows/LightAndShadows.unity` &mdash; Comparison between the PBR shader and UTS.
+- `MatCapMask/MatCapMask.unity` &mdash; Using [MatCap](MatCap.md) masks.
 - `Mirror/MirrorTest.unity` &mdash; Mirror material setup and testing.
-- `NormalMap/NormalMap.unity` &mdash; Normal-map techniques tuned for toon shading.
-- `PointLightTest/PointLightTest.unity` &mdash; Point- and spot-light cel shading examples.
-- `Sample/KageBall.unity` &mdash; Guided tour of the core toon material settings.
-- `UnityChan/UnityChan.unity` &mdash; Illustration-style shading showcase.
-- `UnityChan_CelLook/UnityChan_CelLook.unity` &mdash; Classic cel-look configuration for characters.
-- `UnityChan_Emissive/UnityChan_Emissive.unity` &mdash; Demonstrates [Emission](Emission.md) layering.
-- `UnityChan_Firefly/UnityChan_Firefly.unity` &mdash; Multiple point lights without firefly artifacts.
+- `NormalMap/NormalMap.unity` &mdash; Normal-map techniques tuned with UTS.
+- `PointLightTest/PointLightTest.unity` &mdash; Cel-shading examples using point lights.
+- `KageBall/KageBall.unity` &mdash; The basics.
+- `UnityChan/UnityChan.unity` — SD Unity-chan model showcasing illustration-style shading.
+- `UnityChan_CelLook/UnityChan_CelLook.unity` — SD Unity-chan model with classic cel-look settings for characters.
+- `UnityChan_Emissive/UnityChan_Emissive.unity` — SD Unity-chan model showing the [Emission](Emission.md) feature.
+- `UnityChan_Firefly/UnityChan_Firefly.unity` — SD Unity-chan model with multiple point lights.
 
 ### Built-in Render Pipeline
 
