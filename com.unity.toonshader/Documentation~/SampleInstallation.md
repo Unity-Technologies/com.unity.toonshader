@@ -23,22 +23,20 @@ Import the sample set that matches the render pipeline currently assigned to you
 
 `Assets/Samples/Unity Toon Shader/<version>/Universal Render Pipeline`
 
-| Scene | Description |
-| --- | --- |
-| `Sample/Sample.unity` | Guided tour of the core toon material settings. |
-| `ToonShader.unity` | Illustration-style shading showcase. |
-| `ToonShader_CelLook.unity` | Classic cel-look configuration for characters. |
-| `ToonShader_Emissive.unity` | Demonstrates [Emission](Emission.md) layering. |
-| `ToonShader_Firefly.unity` | Multiple point lights without firefly artifacts. |
-| `AngelRing/AngelRing.unity` | Setup for the [Angel Ring](AngelRing.md) projection. |
-| `Baked Normal/Cube_HardEdge.unity` | Reference for baked-normal workflows. |
-| `BoxProjection/BoxProjection.unity` | Dark-room lighting with box projection probes. |
-| `EmissiveAnimation/EmissiveAnimation.unity` | Animated [Emission](Emission.md) sequences. |
-| `LightAndShadows/LightAndShadows.unity` | Comparison between the built-in PBR shader and UTS. |
-| `MatCapMask/MatCapMask.unity` | Using [MatCap](MatCap.md) masks for accent lighting. |
-| `Mirror/MirrorTest.unity` | Mirror material setup and testing. |
-| `NormalMap/NormalMap.unity` | Normal-map techniques tuned for toon shading. |
-| `PointLightTest/PointLightTest.unity` | Point- and spot-light cel shading examples. |
+- `Sample/Sample.unity` &mdash; Guided tour of the core toon material settings.
+- `ToonShader.unity` &mdash; Illustration-style shading showcase.
+- `ToonShader_CelLook.unity` &mdash; Classic cel-look configuration for characters.
+- `ToonShader_Emissive.unity` &mdash; Demonstrates [Emission](Emission.md) layering.
+- `ToonShader_Firefly.unity` &mdash; Multiple point lights without firefly artifacts.
+- `AngelRing/AngelRing.unity` &mdash; Setup for the [Angel Ring](AngelRing.md) projection.
+- `Baked Normal/Cube_HardEdge.unity` &mdash; Reference for baked-normal workflows.
+- `BoxProjection/BoxProjection.unity` &mdash; Dark-room lighting with box projection probes.
+- `EmissiveAnimation/EmissiveAnimation.unity` &mdash; Animated [Emission](Emission.md) sequences.
+- `LightAndShadows/LightAndShadows.unity` &mdash; Comparison between the built-in PBR shader and UTS.
+- `MatCapMask/MatCapMask.unity` &mdash; Using [MatCap](MatCap.md) masks for accent lighting.
+- `Mirror/MirrorTest.unity` &mdash; Mirror material setup and testing.
+- `NormalMap/NormalMap.unity` &mdash; Normal-map techniques tuned for toon shading.
+- `PointLightTest/PointLightTest.unity` &mdash; Point- and spot-light cel shading examples.
 
 ### Built-in Render Pipeline
 
