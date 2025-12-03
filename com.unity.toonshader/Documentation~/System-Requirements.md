@@ -10,4 +10,4 @@ Feature availability can vary slightly between pipelines,
 so review the [feature differences](FeatureModel_en.md) document to confirm 
 which features are supported in your target pipeline.
 
-The use of linear color space is strongly recommended.
+> The use of linear color space is strongly recommended.
