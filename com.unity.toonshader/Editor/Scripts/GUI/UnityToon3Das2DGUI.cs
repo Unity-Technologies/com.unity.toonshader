@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Unity.Rendering.Toon;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace UnityEditor.Rendering.Toon {
 internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
@@ -272,6 +273,84 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     }
 
 //----------------------------------------------------------------------------------------------------------------------
+
+    //key: Toon3Das2D prop. value: Toon3D prop
+    static readonly Dictionary<string, string> TOON_3D_AS_2D_TO_3D_MAP = new Dictionary<string, string> {
+
+        // Shading thresholds
+        { ToonConstants.SHADER_PROP_BASE_TO_1ST_SHADE_START, "_BaseColor_Step" },
+        { ToonConstants.SHADER_PROP_BASE_TO_1ST_SHADE_FEATHER, "_BaseShade_Feather" },
+        { ToonConstants.SHADER_PROP_1ST_TO_2ND_SHADE_START, "_1st_ShadeColor_Step" },
+        { ToonConstants.SHADER_PROP_1ST_TO_2ND_SHADE_FEATHER, "_1st_ShadeColor_Feather" },
+
+        // Highlight
+        { ToonConstants.SHADER_PROP_HIGHLIGHT_COLOR, "_HighColor" },
+        { ToonConstants.SHADER_PROP_HIGHLIGHT_TEX, "_HighColor_Tex" },
+
+        // Outline
+        { ToonConstants.SHADER_PROP_OUTLINE_MODE, "_OUTLINE" },
+        { ToonConstants.SHADER_PROP_OUTLINE_WIDTH, "_Outline_Width" },
+        { ToonConstants.SHADER_PROP_OUTLINE_WIDTH_MAP, "_Outline_Sampler" },
+        { ToonConstants.SHADER_PROP_OUTLINE_COLOR, "_Outline_Color" },
+        { ToonConstants.SHADER_PROP_OUTLINE_BASE_COLOR_BLEND, "_Is_BlendBaseColor" },
+        { ToonConstants.SHADER_PROP_OUTLINE_LIGHT_COLOR_BLEND, "_Is_LightColor_Outline" },
+        { ToonConstants.SHADER_PROP_OUTLINE_OFFSET_Z, "_Offset_Z" },
+        { ToonConstants.SHADER_PROP_OUTLINE_NEAR, "_Nearest_Distance" },
+        { ToonConstants.SHADER_PROP_OUTLINE_FAR, "_Farthest_Distance" },
+
+        // Outline normal options (closest equivalents)
+        { ToonConstants.SHADER_PROP_OUTLINE_USE_NORMAL_MAP, "_Is_BakedNormal" },
+        { ToonConstants.SHADER_PROP_OUTLINE_NORMAL_MAP, "_BakedNormal" },
+    };
+ 
+
+    
+//----------------------------------------------------------------------------------------------------------------------    
+    public override void AssignNewShaderToMaterial(
+        Material mat,
+        Shader oldShader,
+        Shader newShader) 
+    {
+        
+        string oldShaderPath = AssetDatabase.GetAssetPath(oldShader);
+        if (!oldShaderPath.StartsWith(ToonEditorConstants.PACKAGE_PATH))
+            return;
+
+        //Upgrade from Toon 3D
+        bool upgradeFromToon3D = oldShader.name.EndsWith("Toon") || oldShader.name.EndsWith("Toon(Tessellation)"); 
+        if (!upgradeFromToon3D) {
+            return;
+        }
+        Dictionary<string, MaterialPropertyValue> captured = ToonMaterialUtility.CaptureMaterialValues(mat);
+        
+        base.AssignNewShaderToMaterial(mat, oldShader, newShader);
+        
+        //Assign captured values
+        foreach (KeyValuePair<string, string> kv in TOON_3D_AS_2D_TO_3D_MAP) {
+            string targetName = kv.Key; 
+            string srcName = kv.Value;  
+
+            // Ensure target exists in new material and we captured the source
+            if (!mat.HasProperty(targetName) || !captured.TryGetValue(srcName, out MaterialPropertyValue srcVal)) {
+                continue;
+            }
+
+            // Ensure types match between new target and captured source
+            int targetIndex = newShader.FindPropertyIndex(targetName);
+            if (targetIndex < 0) {
+                continue;
+            }
+            ShaderPropertyType targetType = newShader.GetPropertyType(targetIndex);
+            if (targetType != srcVal.type) {
+                continue;
+            }
+
+            srcVal.ApplyToMaterial(mat, targetName);
+        }
+        
+    }
+    
+
 
     private readonly Dictionary<string, MaterialPropertyUIElement> m_materialPropertyUIElements = new Dictionary<string, MaterialPropertyUIElement>();
 
