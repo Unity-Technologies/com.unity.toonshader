@@ -25,7 +25,7 @@ Import the sample set that matches the render pipeline currently assigned to you
 
 - `AngelRing/AngelRing.unity` &mdash; Setup for the [Angel Ring](AngelRing.md) feature.
 - `Cube_HardEdge/Cube_HardEdge.unity` &mdash; Reference for baked-normals.
-- `BoxProjection/BoxProjection.unity` &mdash; Dark-room lighting with box projection probes.
+- `BoxProjection/BoxProjection.unity` &mdash; Dark room lighting with box projection probes.
 - `EmissiveAnimation/EmissiveAnimation.unity` &mdash; Animated [Emission](Emission.md) sequences.
 - `LightAndShadows/LightAndShadows.unity` &mdash; Comparison between the PBR shader and UTS.
 - `MatCapMask/MatCapMask.unity` &mdash; Using [MatCap](MatCap.md) masks.
