@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace UnityEditor.Rendering.Toon {
 internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
-    private Material m_lastMaterial;
 
     public override void OnGUI(MaterialEditor mEditor, MaterialProperty[] props) {
 
@@ -534,6 +533,9 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     bool m_normalMapFoldout = false;
     bool m_outlineFoldout = false;
     bool m_lightingFoldout = false;
+    
+    private Material m_lastMaterial;
+    
 
     struct ToonMaterialState {
         internal bool useOutline;
