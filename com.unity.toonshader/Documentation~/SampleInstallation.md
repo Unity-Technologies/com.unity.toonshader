@@ -10,7 +10,7 @@ Import the sample set that matches the render pipeline currently assigned to you
 
 ## Import samples through Package Manager
 
-1. Open the [Package Manager](https://docs.unity3d.com/2022.2/Documentation/Manual/Packages.html).
+1. Open the [Package Manager](https://docs.unity3d.com/6000.0/Documentation/Manual/Packages.html).
 2. Select **Unity Toon Shader** from the package list.
 3. In the **Samples** section, choose the collection that matches your render pipeline.
 4. Click **Import**. Unity creates an `Assets/Samples/Unity Toon Shader/<version>/...` folder containing the selected samples.
