@@ -34,6 +34,11 @@ internal class MaterialPropertyValue {
     }
     
     internal void ApplyToMaterial(Material mat, string targetName) {
+        if (!mat.HasProperty(targetName)) {
+            Debug.LogWarning($"[UTS] material {mat.name} doest not have property: {targetName}");
+            return;
+        }
+        
         switch (type) {
             case ShaderPropertyType.Color:
                 mat.SetColor(targetName, color);
