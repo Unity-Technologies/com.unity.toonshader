@@ -1,5 +1,58 @@
 # Changelog
 
+## [0.13.0-preview] - 2025-12-04
+
+## Added
+* feat: add Toon 3D as 2D shader
+* feat: assign material props when switching a material to Toon3Das2D
+* license: add explicit reference to the Unity-chan license
+* doc: add rendering paths section in the feature model doc
+
+## Changed
+* package: raise minimum Unity version requirement to 6.0
+* deps: use com.unity.film-internal-utilities@0.20.0-preview
+* sample: replace Unity-chan assets package-wide
+* sample: mention Unity-chan license inside sample description
+* sample: rename "Sample" scene to KageBall
+* sample: move UVCheckGrid texture into the common folder
+* sample: rename ToonShader scenes to UnityChan
+* sample: rename sample description and displayName strings
+* sample: update Built-in RP / URP / HDRP scenes
+* sample: disable CameraController while running tests
+* sample: reorganize floor materials grouping
+* sample: stop auto-generating materials for the Unity-chan model
+* doc: clean up Getting Started guide
+* doc: clean up Highlight documentation
+* doc: clean up Outline documentation
+* doc: clean up AngelRing documentation
+* doc: clean up Matcap documentation
+* doc: tidy the Samples documentation
+* doc: clean up Feature Difference documentation
+* doc: move MaterialConverter lower in the TOC
+* doc: put Render Pipeline Compatibility on the index page
+* doc: use "With Additional Control Maps" term in Modes page
+* doc: drop the word "Settings" from TOC entries
+* doc: lower Outline doc heading levels
+* doc: use emoji markers for feature availability
+* doc: improve grammar and clarity
+* doc: relocate HDRP box light entry under HDRP features
+
+## Fixed
+* fix: share the same cbuffer for the Universal2D pass
+* fix: workaround to prevent Built-in RP code from being executed in URP/HDRP
+* fix: correct inspector documentation URLs
+* fix: drop duplicate/unused Toon and Toon(Tessellation) shader properties
+* fix: resolve deprecated UxmlFactory warnings
+* fix: warnings - FindFirstObjectByType(), GetScriptingDefineSymbols(), SetScriptingDefineSymbols() 
+
+## Removed
+* sample: delete unused materials
+* sample: remove unnecessary meta files
+* sample: delete unused Unity-chan materials for URP
+* doc: remove unused images
+* doc: remove the “What’s New” documentation pages
+* remove: strip all Raytraced Hard Shadow references
+
 ## [0.12.0-preview] - 2025-07-28
 
 ### Added
