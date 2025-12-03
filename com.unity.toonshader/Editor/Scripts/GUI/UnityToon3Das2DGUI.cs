@@ -313,12 +313,15 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     {
         
         string oldShaderPath = AssetDatabase.GetAssetPath(oldShader);
-        if (!oldShaderPath.StartsWith(ToonEditorConstants.PACKAGE_PATH))
+        if (!oldShaderPath.StartsWith(ToonEditorConstants.PACKAGE_PATH)) {
+            base.AssignNewShaderToMaterial(mat, oldShader, newShader);
             return;
+        }
 
         //Upgrade from Toon 3D
         bool upgradeFromToon3D = oldShader.name.EndsWith("Toon") || oldShader.name.EndsWith("Toon(Tessellation)"); 
         if (!upgradeFromToon3D) {
+            base.AssignNewShaderToMaterial(mat, oldShader, newShader);
             return;
         }
         Dictionary<string, MaterialPropertyValue> captured = ToonMaterialUtility.CaptureMaterialValues(mat);
