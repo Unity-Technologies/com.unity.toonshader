@@ -7,9 +7,11 @@ please refer to each render pipeline's requirements documentation to see specifi
 The use of linear color space is strongly recommended.
 
 
-## Unity Render Pipeline compatibility
-The **Unity Toon Shader** is compatible with all render pipelines:
-the **Built-in Render Pipeline**, **Universal Render Pipeline (URP)**,
-and **High Definition Render Pipeline (HDRP)**.
-However, there are some differences in the features supported by different render pipelines.
-Please refer to the [feature differences](FeatureModel_en.md) for each render pipeline for details.
+
+## Unity Render Pipeline Compatibility
+The **Unity Toon Shader** works across the **Built-in Render Pipeline**, 
+**Universal Render Pipeline (URP)**, and **High Definition Render Pipeline (HDRP)**. 
+
+Feature availability can vary slightly between pipelines, 
+so review the [feature differences](FeatureModel_en.md) document to confirm 
+which features are supported in your target pipeline.
