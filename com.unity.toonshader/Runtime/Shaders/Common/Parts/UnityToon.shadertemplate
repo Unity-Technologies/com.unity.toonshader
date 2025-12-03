@@ -1,4 +1,4 @@
-Shader "Toon" {
+Shader "Toon/Toon" {
     Properties
     {
         [COMMON_PROPERTIES]

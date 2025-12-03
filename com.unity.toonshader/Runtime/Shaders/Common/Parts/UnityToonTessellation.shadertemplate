@@ -1,4 +1,4 @@
-Shader "Toon(Tessellation)" {
+Shader "Toon/Toon (Tessellation)" {
     Properties
     {
         [COMMON_PROPERTIES]

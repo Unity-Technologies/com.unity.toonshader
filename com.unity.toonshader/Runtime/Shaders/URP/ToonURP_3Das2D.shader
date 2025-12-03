@@ -1,4 +1,4 @@
-Shader "Toon/Toon 3D as 2D"{
+Shader "Toon/Toon 3D as 2D (URP)"{
     Properties{
         
         _BaseColor ("Base Color", Color) = (1,1,1,1)
@@ -54,6 +54,7 @@ Shader "Toon/Toon 3D as 2D"{
         _Outline_UseNormalMap ("Outline: Use Outline Normal Map", Integer ) = 0
         _Outline_NormalMap ("Outline Normal Map", 2D) = "bump" {}
         
+        [HideInInspector] _ToonMaterialVersion ("Toon Material Version", Integer ) = 0
         
     }
 
