@@ -62,8 +62,11 @@ Left: an example Base Map. Right: an example 1st Shading Map.
 
 ## Adjusting the edges of the three basic color regions
 
-The borders between your color regions drive the perceived style of the character. [Shading Steps and Feather Settings](ShadingStepAndFeather.md) let you adjust the position of those borders and whether they are sharp or blended.
+The borders between your color regions drive the perceived style of the character. 
+[Shading Steps and Feather Settings](ShadingStepAndFeather.md) let you adjust the position of those borders 
+and whether they are sharp or blended.
 
+Follow these steps:
 1. Increase **Base Color Step** so the **1st Shading Map** becomes visible and the contrast between lit and shadowed regions matches your intent.
 2. Use **Base Shading Feather** to control how crisply the regions transition. Lower values create graphic, posterized shading, while higher values blend the regions.
 
@@ -73,7 +76,9 @@ The borders between your color regions drive the perceived style of the characte
 
 ## Set up the outline
 
-Outlines do as much to sell the cel-shaded look as shading itself. Consider the outline color relative to your background and adjust the thickness to reinforce the style. The [Outline Settings](Outline.md) page details every property.
+Outline is  another important factor that determines the animation style.
+Consider the outline color relative to your background and adjust the thickness to reinforce the style. 
+The [Outline Settings](Outline.md) page details every property.
 
 <canvas class="image-comparison" role="img" aria-label="The same character model. In the Inspector window of the Toon shader, the Outline Color property is set to gray, and the Outline Width property is set to 4, then 6.44.">
     <img src="images/ThinOutline2.png" title="Outline Width: 4">
@@ -83,17 +88,21 @@ Outlines do as much to sell the cel-shaded look as shading itself. Consider the 
 
 ## Advanced techniques
 
-With the basics dialed in, you can refine specific features of the character. The following examples illustrate how UTS helps solve common cel-shading challenges.
+Now that you've learned basic cel-shading, you can refine specific features of the character. 
+The following examples illustrate how UTS helps solve common cel-shading challenges.
 
 ### Eliminating outlines around eyes
 
-Outlines around delicate facial features can be distracting. Apply an [Outline Width Map](Outline.md#outline-width-map) to control outline thickness per texel so you can taper or remove the stroke where needed.
+Outlines around delicate facial features can be distracting. 
+Apply an [Outline Width Map](Outline.md#outline-width-map) to control outline thickness per texel so you can taper or remove the stroke where needed.
 
 ![The same character model. In the Inspector window of the Toon shader, the Outline Width Map property is set to a texture. There's no longer an outline around the eyes of the character.](images/OutlineWidthMap3.png)
 
 ### Adding luster to hair
 
-Flat lighting can make hair feel lifeless. Combine the [Highlight](Highlight.md), [Angel Ring](AngelRing.md), and [Material Capture (MatCap)](MatCap.md) features to add dimensionality. In this example, create a material dedicated to hair highlights and assign a [MatCap map](MatCap.md#matcap-map) that carries the desired sheen.
+Flat lighting can make hair feel lifeless. 
+Combine the [Highlight](Highlight.md), [Angel Ring](AngelRing.md), and [Material Capture (MatCap)](MatCap.md) features to add dimensionality. 
+In this example, we'll apply a [MatCap map](MatCap.md#matcap-map) onto the hair.
 
 ![The same character model. In the Inspector window of the Toon shader, the MatCap Map property is set to a texture. The shadows and outlines on the hair look more three-dimensional.](images/Luster3.png)
 
@@ -102,5 +111,5 @@ Flat lighting can make hair feel lifeless. Combine the [Highlight](Highlight.md)
 Once you're comfortable with the steps above, experiment with these additional features to push the look even further:
 
 - [Emission](Emission.md) for glowing elements such as eyes, screens, or weapons.
-- [Normal Map](NormalMap.md) to keep fine detail and break up large flat regions without abandoning the toon aesthetic.
-- [Rim Light](Rimlight.md) to suggest backlighting or atmospheric light wraps that accent silhouettes.
+- [Normal Map](NormalMap.md) to control the bumpiness of the material.
+- [Rim Light](Rimlight.md) to highlight the edges of meshes.
