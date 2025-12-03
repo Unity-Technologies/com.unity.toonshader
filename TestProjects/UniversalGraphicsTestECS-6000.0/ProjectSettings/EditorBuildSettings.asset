@@ -27,7 +27,7 @@ EditorBuildSettings:
     path: Assets/Scenes/PointLightTest/PointLightTest.unity
     guid: 3fd1bd19f29d41b3938f1bc8d4b702e7
   - enabled: 1
-    path: Assets/Scenes/Sample/Sample.unity
+    path: Assets/Scenes/KageBall/KageBall.unity
     guid: 84e407fe6ccc4b6291f02236f927d15e
   - enabled: 1
     path: Assets/Scenes/SceneLights Hi-Cut_Filter Test/SceneLights Hi-Cut_Filter

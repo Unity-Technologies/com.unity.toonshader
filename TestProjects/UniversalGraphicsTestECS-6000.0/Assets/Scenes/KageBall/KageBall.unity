@@ -357,7 +357,7 @@ GameObject:
   - component: {fileID: 1948555485}
   - component: {fileID: 1948555484}
   m_Layer: 0
-  m_Name: SampleSubScene
+  m_Name: KageBallSubScene
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
