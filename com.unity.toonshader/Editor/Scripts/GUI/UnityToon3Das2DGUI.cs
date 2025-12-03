@@ -41,26 +41,7 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
                 Toon3Das2DMaterialUtility.EnableOutline(m, m_materialState.useOutline);
             }
             
-            const string OUTLINE_NORMAL_KEYWORD = "TOON_OUTLINE_NORMAL";
-            const string OUTLINE_POSITION_KEYWORD = "TOON_OUTLINE_POS";
-
-            switch (m_materialState.outlineMode) {
-                case ToonOutlineMode.NormalDirection:
-                    foreach (Material m in mats) {
-                        m.EnableKeyword(OUTLINE_NORMAL_KEYWORD);
-                        m.DisableKeyword(OUTLINE_POSITION_KEYWORD);
-                    }
-
-                    break;
-                case ToonOutlineMode.PositionScaling:
-                    foreach (Material m in mats) {
-                        m.DisableKeyword(OUTLINE_NORMAL_KEYWORD);
-                        m.EnableKeyword(OUTLINE_POSITION_KEYWORD);
-                    }
-
-                    break;
-            }
-            
+            Toon3Das2DMaterialUtility.SetOutlineMode(mats, m_materialState.outlineMode);
         }
 
         m_lastMaterial = mats[0];
