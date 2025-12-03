@@ -6,7 +6,7 @@ Import the sample set that matches the render pipeline currently assigned to you
 
 ## Before you import
 
-- Confirm that the [render pipeline](https://docs.unity3d.com/2022.2/Documentation/Manual/render-pipelines.html) you intend to use is installed and active.
+- Confirm that the [render pipeline](https://docs.unity3d.com/6000.0/Documentation/Manual/render-pipelines.html) you intend to use is installed and active.
 
 ## Import samples through Package Manager
 
