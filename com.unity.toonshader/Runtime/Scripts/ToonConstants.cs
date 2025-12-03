@@ -6,7 +6,7 @@ namespace Unity.Rendering.Toon {
 internal static class ToonConstants {
 
     internal const string PACKAGE_NAME = "com.unity.toonshader";
-    internal const string PACKAGE_VERSION_MAJOR_MINOR = "0.12";
+    internal const string PACKAGE_VERSION_MAJOR_MINOR = "0.13";
     
     internal const string SHADER_KEYWORD_IS_CLIPPING_MATTE = "_IS_CLIPPING_MATTE";
 
