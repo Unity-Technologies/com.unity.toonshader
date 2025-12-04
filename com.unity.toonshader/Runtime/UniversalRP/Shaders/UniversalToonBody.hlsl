@@ -440,16 +440,6 @@
                     mainLight = nextLight;
                     mainLightIndex = MAINLIGHT_IS_MAINLIGHT;
                 }
-                int lightCount = GetAdditionalLightsCount();
-                for (int ii = 0; ii < lightCount; ++ii)
-                {
-                    nextLight = GetAdditionalUtsLight(ii, posW, positionCS);
-                    if (nextLight.distanceAttenuation > mainLight.distanceAttenuation && nextLight.type == 0)
-                    {
-                        mainLight = nextLight;
-                        mainLightIndex = ii;
-                    }
-                }
 
                 return mainLightIndex;
             }
