@@ -36,7 +36,7 @@ EditorBuildSettings:
     path: Assets/ToonSamplesHDRP/Scenes/PointLightTest/PointLightTest.unity
     guid: 64085e65dc2f41dc94a901a1a07cc3ce
   - enabled: 1
-    path: Assets/ToonSamplesHDRP/Scenes/Sample/Sample.unity
+    path: Assets/ToonSamplesHDRP/Scenes/KageBall/KageBall.unity
     guid: d09542ee190d40cea3a789f9b3315869
   - enabled: 1
     path: Assets/ToonSamplesHDRP/Scenes/SceneLights Hi-Cut_Filter Test/SceneLights
