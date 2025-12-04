@@ -35,7 +35,7 @@ internal class MaterialPropertyValue {
     
     internal void ApplyToMaterial(Material mat, string targetName) {
         if (!mat.HasProperty(targetName)) {
-            Debug.LogWarning($"[UTS] material {mat.name} doest not have property: {targetName}");
+            Debug.LogWarning($"[UTS] material {mat.name} does not have property: {targetName}");
             return;
         }
         
