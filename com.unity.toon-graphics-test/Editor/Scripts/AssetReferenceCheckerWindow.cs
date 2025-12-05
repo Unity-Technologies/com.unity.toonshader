@@ -28,9 +28,8 @@ internal class AssetReferenceCheckerWindow : EditorWindow {
         if (GUILayout.Button("Select...", GUILayout.Width(90))) {
             string selected = EditorUtility.OpenFolderPanel("Select Assets Folder", INITIAL_PATH, "");
             if (!string.IsNullOrEmpty(selected)) {
-                string projectPath = Application.dataPath.Replace("/Assets", "");
-                if (selected.StartsWith(projectPath)) {
-                    m_rootPath = "Assets" + selected.Substring(projectPath.Length).Replace('\\', '/');
+                if (selected.StartsWith(Application.dataPath)) {
+                    m_rootPath = "Assets" + selected.Substring(Application.dataPath.Length).Replace('\\', '/');
                 } else {
                     EditorUtility.DisplayDialog("Invalid Folder", "Please select a folder inside the project's Assets directory.", "OK");
                 }
