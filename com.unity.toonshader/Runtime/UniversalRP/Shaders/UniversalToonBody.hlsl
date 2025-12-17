@@ -186,7 +186,17 @@
 
 # ifndef _MAIN_LIGHT_SHADOWS
             float4 positionCS               : TEXCOORD8;
+                #  ifdef REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR
+                float4 shadowCoord              : TEXCOORD11;
+                
+                #  endif
                 int   mainLightID              : TEXCOORD9;
+
+                
+                
+#if defined(_MAIN_LIGHT_SHADOWS_SCREEN)
+#endif                
+                
 # else
             float4 shadowCoord              : TEXCOORD8;
             float4 positionCS               : TEXCOORD9;
