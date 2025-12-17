@@ -82,13 +82,13 @@ inline void InitializeStandardLitSurfaceDataUTS(float2 uv, out SurfaceData outSu
     half4 specGloss = SampleMetallicSpecGloss(uv, albedoAlpha.a);
     outSurfaceData.albedo = albedoAlpha.rgb * _BaseColor.rgb;
 
-    #if _SPECULAR_SETUP
+#if _SPECULAR_SETUP
     outSurfaceData.metallic = 1.0h;
     outSurfaceData.specular = specGloss.rgb;
-    #else
+#else
     outSurfaceData.metallic = specGloss.r;
     outSurfaceData.specular = half3(0.0h, 0.0h, 0.0h);
-    #endif
+#endif
 
     outSurfaceData.smoothness = specGloss.a;
     outSurfaceData.normalTS = SampleNormal(uv, TEXTURE2D_ARGS(_BumpMap, sampler_BumpMap), _BumpScale);
@@ -113,18 +113,19 @@ half3 GlobalIlluminationUTS(BRDFData brdfData, half3 bakedGI, half occlusion, ha
     half fresnelTerm = Pow4(1.0 - saturate(dot(normalWS, viewDirectionWS)));
 
     half3 indirectDiffuse = bakedGI * occlusion;
-    #if USE_FORWARD_PLUS
+#if USE_FORWARD_PLUS
     half3 irradiance = CalculateIrradianceFromReflectionProbes(reflectVector, positionWS, brdfData.perceptualRoughness,
-                                                               normalizedScreenSpaceUV);
+        normalizedScreenSpaceUV);
     half3 indirectSpecular = irradiance * occlusion;
-    #else
+#else
     half3 indirectSpecular = GlossyEnvironmentReflection(reflectVector, brdfData.perceptualRoughness, occlusion);
-    #endif
+#endif
     return EnvironmentBRDF(brdfData, indirectDiffuse, indirectSpecular, fresnelTerm);
 }
 #if UNITY_VERSION >= 202120
 void ApplyDecalToSurfaceDataUTS(float4 positionCS, inout float3 albedo, inout SurfaceData surfaceData,
                                 inout float3 normalWS) {
+
 
 #ifdef _SPECULAR_SETUP
 half metallic = 0;
@@ -154,12 +155,12 @@ struct VertexInput {
     float2 texcoord0 : TEXCOORD0;
 
 
-    #ifdef _IS_ANGELRING_OFF
+#ifdef _IS_ANGELRING_OFF
     float2 lightmapUV : TEXCOORD1;
-    #elif _IS_ANGELRING_ON
+#elif _IS_ANGELRING_ON
     float2 texcoord1 : TEXCOORD1;
     float2 lightmapUV : TEXCOORD2;
-    #endif
+#endif
     UNITY_VERTEX_INPUT_INSTANCE_ID
 };
 
@@ -167,7 +168,7 @@ struct VertexOutput {
     float4 pos : SV_POSITION;
     float2 uv0 : TEXCOORD0;
     //v.2.0.4
-    #ifdef _IS_ANGELRING_OFF
+#ifdef _IS_ANGELRING_OFF
     float4 posWorld : TEXCOORD1;
     float3 normalDir : TEXCOORD2;
     float3 tangentDir : TEXCOORD3;
@@ -176,25 +177,25 @@ struct VertexOutput {
     float mirrorFlag : TEXCOORD5;
 
     DECLARE_LIGHTMAP_OR_SH(lightmapUV, vertexSH, 6);
-    #if defined(_ADDITIONAL_LIGHTS_VERTEX) || (VERSION_LOWER(12, 0))
+#if defined(_ADDITIONAL_LIGHTS_VERTEX) || (VERSION_LOWER(12, 0))
     half4 fogFactorAndVertexLight : TEXCOORD7; // x: fogFactor, yzw: vertex light
-    #else
+#else
     half fogFactor : TEXCOORD7;
-    #endif
+#endif
 
-    # ifndef _MAIN_LIGHT_SHADOWS
+# ifndef _MAIN_LIGHT_SHADOWS
     float4 positionCS : TEXCOORD8;
     int mainLightID : TEXCOORD9;
-    # else
+# else
     float4 shadowCoord : TEXCOORD8;
     float4 positionCS : TEXCOORD9;
     int mainLightID : TEXCOORD10;
-    # endif
+# endif
     UNITY_VERTEX_INPUT_INSTANCE_ID
     UNITY_VERTEX_OUTPUT_STEREO
 
     //
-    #elif _IS_ANGELRING_ON
+#elif _IS_ANGELRING_ON
     float2 uv1 : TEXCOORD1;
     float4 posWorld : TEXCOORD2;
     float3 normalDir : TEXCOORD3;
@@ -204,25 +205,25 @@ struct VertexOutput {
     float mirrorFlag : TEXCOORD6;
 
     DECLARE_LIGHTMAP_OR_SH(lightmapUV, vertexSH, 7);
-    #if defined(_ADDITIONAL_LIGHTS_VERTEX) || (VERSION_LOWER(12, 0))
+#if defined(_ADDITIONAL_LIGHTS_VERTEX) || (VERSION_LOWER(12, 0))
     half4 fogFactorAndVertexLight : TEXCOORD8; // x: fogFactor, yzw: vertex light
-    #else
+#else
     half fogFactor : TEXCOORD8; // x: fogFactor, yzw: vertex light
-    #endif
-    # ifndef _MAIN_LIGHT_SHADOWS
+#endif
+# ifndef _MAIN_LIGHT_SHADOWS
     float4 positionCS : TEXCOORD9;
     int mainLightID : TEXCOORD10;
-    # else
+# else
     float4 shadowCoord : TEXCOORD9;
     float4 positionCS : TEXCOORD10;
     int mainLightID : TEXCOORD11;
-    # endif
+# endif
     UNITY_VERTEX_INPUT_INSTANCE_ID
     UNITY_VERTEX_OUTPUT_STEREO
-    #else
+#else
     LIGHTING_COORDS (7,8)
     UNITY_FOG_COORDS (9)
-    #endif
+#endif
     //
 };
 
@@ -233,23 +234,23 @@ struct UtsLight {
     float distanceAttenuation;
     float shadowAttenuation;
     int type;
-    #ifdef _LIGHT_LAYERS
+#ifdef _LIGHT_LAYERS
     uint layerMask;
-    #endif
+#endif
 };
 
 ///////////////////////////////////////////////////////////////////////////////
 //                      Light Abstraction                                    //
 /////////////////////////////////////////////////////////////////////////////
 half MainLightRealtimeShadowUTS(float4 shadowCoord, float4 positionCS) {
-    #if !defined(MAIN_LIGHT_CALCULATE_SHADOWS)
+#if !defined(MAIN_LIGHT_CALCULATE_SHADOWS)
     return 1.0;
-    #endif
+#endif
     ShadowSamplingData shadowSamplingData = GetMainLightShadowSamplingData();
     half4 shadowParams = GetMainLightShadowParams();
-    #if defined(_MAIN_LIGHT_SHADOWS_SCREEN)
+#if defined(_MAIN_LIGHT_SHADOWS_SCREEN)
     return SampleScreenSpaceShadowmap(shadowCoord);
-    #endif
+#endif
 
 
     return SampleShadowmap(
@@ -258,16 +259,16 @@ half MainLightRealtimeShadowUTS(float4 shadowCoord, float4 positionCS) {
 }
 
 half AdditionalLightRealtimeShadowUTS(int lightIndex, float3 positionWS, float4 positionCS) {
-    #if defined(ADDITIONAL_LIGHT_CALCULATE_SHADOWS)
+#if defined(ADDITIONAL_LIGHT_CALCULATE_SHADOWS)
 
 
-    # if (SHADER_LIBRARY_VERSION_MAJOR >= 13 && UNITY_VERSION >= 202220 )
+# if (SHADER_LIBRARY_VERSION_MAJOR >= 13 && UNITY_VERSION >= 202220 )
     ShadowSamplingData shadowSamplingData = GetAdditionalLightShadowSamplingData(lightIndex);
-    # else
+# else
     ShadowSamplingData shadowSamplingData = GetAdditionalLightShadowSamplingData();
-    # endif
+# endif
 
-    #if USE_STRUCTURED_BUFFER_FOR_LIGHT_DATA
+#if USE_STRUCTURED_BUFFER_FOR_LIGHT_DATA
     lightIndex = _AdditionalShadowsIndices[lightIndex];
 
     // We have to branch here as otherwise we would sample buffer with lightIndex == -1.
@@ -276,42 +277,42 @@ half AdditionalLightRealtimeShadowUTS(int lightIndex, float3 positionWS, float4 
         return 1.0;
 
     float4 shadowCoord = mul(_AdditionalShadowsBuffer[lightIndex].worldToShadowMatrix, float4(positionWS, 1.0));
-    #else
+#else
     float4 shadowCoord = mul(_AdditionalLightsWorldToShadow[lightIndex], float4(positionWS, 1.0));
-    #endif
+#endif
 
     half4 shadowParams = GetAdditionalLightShadowParams(lightIndex);
     return SampleShadowmap(TEXTURE2D_ARGS(_AdditionalLightsShadowmapTexture, sampler_AdditionalLightsShadowmapTexture),
-                           shadowCoord, shadowSamplingData, shadowParams, true);
-    #else
+        shadowCoord, shadowSamplingData, shadowParams, true);
+#else
     return 1.0h;
-    #endif
+#endif
 }
 
 
 UtsLight GetUrpMainUtsLight() {
     UtsLight light;
     light.direction = _MainLightPosition.xyz;
-    #if USE_FORWARD_PLUS
-    #if defined(LIGHTMAP_ON)
+#if USE_FORWARD_PLUS
+#if defined(LIGHTMAP_ON)
     light.distanceAttenuation = _MainLightColor.a;
-    #else
+#else
     light.distanceAttenuation = 1.0;
-    #endif
-    #else
+#endif
+#else
     // unity_LightData.z is 1 when not culled by the culling mask, otherwise 0.
     light.distanceAttenuation = unity_LightData.z;
-    #endif
-    #if defined(LIGHTMAP_ON) || defined(_MIXED_LIGHTING_SUBTRACTIVE)
+#endif
+#if defined(LIGHTMAP_ON) || defined(_MIXED_LIGHTING_SUBTRACTIVE)
     // unity_ProbesOcclusion.x is the mixed light probe occlusion data
     light.distanceAttenuation *= unity_ProbesOcclusion.x;
-    #endif
+#endif
     light.shadowAttenuation = 1.0;
     light.color = _MainLightColor.rgb;
     light.type = _MainLightPosition.w;
-    #ifdef _LIGHT_LAYERS
+#ifdef _LIGHT_LAYERS
     light.layerMask = _MainLightLayerMask;
-    #endif
+#endif
     return light;
 }
 
@@ -324,25 +325,25 @@ UtsLight GetUrpMainUtsLight(float4 shadowCoord, float4 positionCS) {
 // Fills a light struct given a perObjectLightIndex
 UtsLight GetAdditionalPerObjectUtsLight(int perObjectLightIndex, float3 positionWS, float4 positionCS) {
     // Abstraction over Light input constants
-    #if USE_STRUCTURED_BUFFER_FOR_LIGHT_DATA
+#if USE_STRUCTURED_BUFFER_FOR_LIGHT_DATA
     float4 lightPositionWS = _AdditionalLightsBuffer[perObjectLightIndex].position;
     half3 color = _AdditionalLightsBuffer[perObjectLightIndex].color.rgb;
     half4 distanceAndSpotAttenuation = _AdditionalLightsBuffer[perObjectLightIndex].attenuation;
     half4 spotDirection = _AdditionalLightsBuffer[perObjectLightIndex].spotDirection;
-    #ifdef _LIGHT_LAYERS
+#ifdef _LIGHT_LAYERS
     uint lightLayerMask = _AdditionalLightsBuffer[perObjectLightIndex].layerMask;
-    #endif
+#endif
     half4 lightOcclusionProbeInfo = _AdditionalLightsBuffer[perObjectLightIndex].occlusionProbeChannels;
-    #else
+#else
     float4 lightPositionWS = _AdditionalLightsPosition[perObjectLightIndex];
     half3 color = _AdditionalLightsColor[perObjectLightIndex].rgb;
     half4 distanceAndSpotAttenuation = _AdditionalLightsAttenuation[perObjectLightIndex];
     half4 spotDirection = _AdditionalLightsSpotDir[perObjectLightIndex];
-    #ifdef _LIGHT_LAYERS
+#ifdef _LIGHT_LAYERS
     uint lightLayerMask = asuint(_AdditionalLightsLayerMasks[perObjectLightIndex]);
-    #endif
+#endif
     half4 lightOcclusionProbeInfo = _AdditionalLightsOcclusionProbes[perObjectLightIndex];
-    #endif
+#endif
 
     // Directional lights store direction in lightPosition.xyz and have .w set to 0.0.
     // This way the following code will work for both directional and punctual lights.
@@ -359,12 +360,12 @@ UtsLight GetAdditionalPerObjectUtsLight(int perObjectLightIndex, float3 position
     light.shadowAttenuation = AdditionalLightRealtimeShadowUTS(perObjectLightIndex, positionWS, positionCS);
     light.color = color;
     light.type = lightPositionWS.w;
-    #ifdef _LIGHT_LAYERS
+#ifdef _LIGHT_LAYERS
     light.layerMask = lightLayerMask;
-    #endif
+#endif
 
     // In case we're using light probes, we can sample the attenuation from the `unity_ProbesOcclusion`
-    #if defined(LIGHTMAP_ON) || defined(_MIXED_LIGHTING_SUBTRACTIVE)
+#if defined(LIGHTMAP_ON) || defined(_MIXED_LIGHTING_SUBTRACTIVE)
     // First find the probe channel from the light.
     // Then sample `unity_ProbesOcclusion` for the baked occlusion.
     // If the light is not baked, the channel is -1, and we need to apply no occlusion.
@@ -377,7 +378,7 @@ UtsLight GetAdditionalPerObjectUtsLight(int perObjectLightIndex, float3 position
 
     half probeOcclusionValue = unity_ProbesOcclusion[probeChannel];
     light.distanceAttenuation *= max(probeOcclusionValue, lightProbeContribution);
-    #endif
+#endif
 
     return light;
 }
@@ -385,24 +386,24 @@ UtsLight GetAdditionalPerObjectUtsLight(int perObjectLightIndex, float3 position
 // Fills a light struct given a loop i index. This will convert the i
 // index to a perObjectLightIndex
 UtsLight GetAdditionalUtsLight(uint i, float3 positionWS, float4 positionCS) {
-    #if USE_FORWARD_PLUS
+#if USE_FORWARD_PLUS
     int perObjectLightIndex = i;
-    #else
+#else
     int perObjectLightIndex = GetPerObjectLightIndex(i);
-    #endif
+#endif
     return GetAdditionalPerObjectUtsLight(perObjectLightIndex, positionWS, positionCS);
 }
 
 half3 GetLightColor(
     UtsLight light
-    #ifdef _LIGHT_LAYERS
+#ifdef _LIGHT_LAYERS
     , uint meshRenderingLayers
-    #endif
+#endif
 ) {
     half3 lightColor = 0;
-    #ifdef _LIGHT_LAYERS
+#ifdef _LIGHT_LAYERS
     if (IsMatchingLightLayer(light.layerMask, meshRenderingLayers))
-    #endif
+#endif
     {
         lightColor = light.color * light.distanceAttenuation;
     }
@@ -466,11 +467,11 @@ VertexOutput vert(VertexInput v) {
 
     o.uv0 = v.texcoord0;
     //v.2.0.4
-    #ifdef _IS_ANGELRING_OFF
+#ifdef _IS_ANGELRING_OFF
     //
-    #elif _IS_ANGELRING_ON
+#elif _IS_ANGELRING_ON
     o.uv1 = v.texcoord1;
-    #endif
+#endif
     o.normalDir = UnityObjectToWorldNormal(v.normal);
     o.tangentDir = normalize(mul(GetObjectToWorldMatrix(), float4(v.tangent.xyz, 0.0)).xyz);
     o.bitangentDir = normalize(cross(o.normalDir, o.tangentDir) * v.tangent.w);
@@ -489,36 +490,36 @@ VertexOutput vert(VertexInput v) {
     half fogFactor = ComputeFogFactor(positionCS.z);
 
     OUTPUT_LIGHTMAP_UV(v.lightmapUV, unity_LightmapST, o.lightmapUV);
-    #if UNITY_VERSION >= 60000009
+#if UNITY_VERSION >= 60000009
     // https://github.com/Unity-Technologies/Graphics/commit/74b1fdc26cee492e8af7358116076806bdf5b4cc
     float4 probeOcclusionUnused;
     OUTPUT_SH4(positionWS, o.normalDir.xyz, GetWorldSpaceNormalizeViewDir(positionWS), o.vertexSH,
-               probeOcclusionUnused);
-    #elif UNITY_VERSION >= 202317
+        probeOcclusionUnused);
+#elif UNITY_VERSION >= 202317
     OUTPUT_SH4(positionWS, o.normalDir.xyz, GetWorldSpaceNormalizeViewDir(positionWS), o.vertexSH);
-    #elif UNITY_VERSION >= 202310
+#elif UNITY_VERSION >= 202310
     OUTPUT_SH(positionWS, o.normalDir.xyz, GetWorldSpaceNormalizeViewDir(positionWS), o.vertexSH);
-    #else
+#else
     OUTPUT_SH(o.normalDir.xyz, o.vertexSH);
-    #endif
+#endif
 
-    #if defined(_ADDITIONAL_LIGHTS_VERTEX) ||  (VERSION_LOWER(12, 0))
+#if defined(_ADDITIONAL_LIGHTS_VERTEX) ||  (VERSION_LOWER(12, 0))
     o.fogFactorAndVertexLight = half4(fogFactor, vertexLight);
-    #else
+#else
     o.fogFactor = fogFactor;
-    #endif
+#endif
 
     o.positionCS = positionCS;
-    #if defined(_MAIN_LIGHT_SHADOWS) && !defined(_RECEIVE_SHADOWS_OFF)
-    #if SHADOWS_SCREEN
+#if defined(_MAIN_LIGHT_SHADOWS) && !defined(_RECEIVE_SHADOWS_OFF)
+#if SHADOWS_SCREEN
     o.shadowCoord = ComputeScreenPos(positionCS);
-    #else
+#else
     o.shadowCoord = TransformWorldToShadowCoord(o.posWorld.xyz);
-    #endif
+#endif
     o.mainLightID = DetermineUTS_MainLightIndex(o.posWorld.xyz, o.shadowCoord, positionCS);
-    #else
+#else
     o.mainLightID = DetermineUTS_MainLightIndex(o.posWorld.xyz, 0, positionCS);
-    #endif
+#endif
 
 
     return o;
@@ -539,21 +540,21 @@ void frag(
     VertexOutput i
     , fixed facing : VFACE
     , out float4 finalRGBA : SV_Target0
-    #ifdef _WRITE_RENDERING_LAYERS
+#ifdef _WRITE_RENDERING_LAYERS
     , out float4 outRenderingLayers : SV_Target1
-    #endif
+#endif
 ) {
-    #if defined(_SHADINGGRADEMAP)
+#if defined(_SHADINGGRADEMAP)
     fragShadingGradeMap(i, facing, finalRGBA
-    #ifdef _WRITE_RENDERING_LAYERS
+#ifdef _WRITE_RENDERING_LAYERS
                             ,outRenderingLayers
-    #endif
+#endif
                     );
-    #else
+#else
     fragDoubleShadeFeather(i, facing, finalRGBA
-                           #ifdef _WRITE_RENDERING_LAYERS
+#ifdef _WRITE_RENDERING_LAYERS
                             ,outRenderingLayers
-                           #endif
+#endif
     );
-    #endif
+#endif
 }
