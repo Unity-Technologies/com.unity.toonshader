@@ -1,7 +1,3 @@
-//Unity Toon Shader/Universal
-//nobuyuki@unity3d.com
-//toshiyuki@unity3d.com (Universal RP/HDRP)
-
 #if (SHADER_LIBRARY_VERSION_MAJOR ==7 && SHADER_LIBRARY_VERSION_MINOR >= 3) || (SHADER_LIBRARY_VERSION_MAJOR >= 8)
 
 
