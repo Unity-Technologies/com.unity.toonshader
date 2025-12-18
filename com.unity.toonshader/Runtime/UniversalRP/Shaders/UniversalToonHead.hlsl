@@ -1,14 +1,13 @@
 // https://forum.unity.com/threads/globally-suppress-pow-f-e-negative-f-warning.963488/
 // https://docs.microsoft.com/en-us/windows/win32/direct3dhlsl/hlsl-errors-and-warnings
 #pragma warning (disable : 3571) //  pow(f, e) will not work for negative f, use abs(f) or conditionally handle negative values if you expect them at line XXXX (on d3d11)
+
 #pragma warning (disable : 3206) // "Implicit Truncation of vector type" warning code to disable
 
 #ifndef UCTS_LWRP_INCLUDED
 #define UCTS_LWRP_INCLUDED
 
 #define UCTS_LWRP 1
-
-
 
 
 #define MAINLIGHT_NOT_FOUND -2
@@ -29,11 +28,6 @@
 #endif
 
 
-
-
-
-
-
 #if defined(UNITY_PASS_PREPASSBASE) || defined(UNITY_PASS_DEFERRED) || defined(UNITY_PASS_SHADOWCASTER)
 #undef FOG_LINEAR
 #undef FOG_EXP
@@ -44,8 +38,7 @@
 #if 1
 
 // Legacy for compatibility with existing shaders
-inline bool IsGammaSpace()
-{
+inline bool IsGammaSpace() {
 #ifdef UNITY_COLORSPACE_GAMMA
     return true;
 #else
@@ -53,8 +46,7 @@ inline bool IsGammaSpace()
 #endif
 }
 
-inline float GammaToLinearSpaceExact(float value)
-{
+inline float GammaToLinearSpaceExact(float value) {
     if (value <= 0.04045F)
         return value / 12.92F;
     else if (value < 1.0F)
@@ -63,8 +55,7 @@ inline float GammaToLinearSpaceExact(float value)
         return pow(value, 2.2F);
 }
 
-inline half3 GammaToLinearSpace(half3 sRGB)
-{
+inline half3 GammaToLinearSpace(half3 sRGB) {
     // Approximate version from http://chilliant.blogspot.com.au/2012/08/srgb-approximations-for-hlsl.html?m=1
     return sRGB * (sRGB * (sRGB * 0.305306011h + 0.682171111h) + 0.012522878h);
 
@@ -72,8 +63,7 @@ inline half3 GammaToLinearSpace(half3 sRGB)
     //return half3(GammaToLinearSpaceExact(sRGB.r), GammaToLinearSpaceExact(sRGB.g), GammaToLinearSpaceExact(sRGB.b));
 }
 
-inline float LinearToGammaSpaceExact(float value)
-{
+inline float LinearToGammaSpaceExact(float value) {
     if (value <= 0.0F)
         return 0.0F;
     else if (value <= 0.0031308F)
@@ -84,8 +74,7 @@ inline float LinearToGammaSpaceExact(float value)
         return pow(value, 0.45454545F);
 }
 
-inline half3 LinearToGammaSpace(half3 linRGB)
-{
+inline half3 LinearToGammaSpace(half3 linRGB) {
     linRGB = max(linRGB, half3(0.h, 0.h, 0.h));
     // An almost-perfect approximation from http://chilliant.blogspot.com.au/2012/08/srgb-approximations-for-hlsl.html?m=1
     return max(1.055h * pow(linRGB, 0.416666667h) - 0.055h, 0.h);
@@ -142,20 +131,19 @@ inline half3 LinearToGammaSpace(half3 linRGB)
 // Transforms 2D UV by scale/bias property
 #define UCTS_TEXTURE2D(tex,name)  SAMPLE_TEXTURE2D(tex,sampler##tex,TRANSFORM_TEX(name, tex));
 
-inline float4 UnityObjectToClipPosInstanced(in float3 pos)
-{
+inline float4 UnityObjectToClipPosInstanced(in float3 pos) {
     //    return mul(UNITY_MATRIX_VP, mul(unity_ObjectToWorldArray[unity_InstanceID], float4(pos, 1.0)));
-          // todo. right?
+    // todo. right?
     return mul(UNITY_MATRIX_VP, mul(GetObjectToWorldMatrix(), float4(pos, 1.0)));
 }
-inline float4 UnityObjectToClipPosInstanced(float4 pos)
-{
+
+inline float4 UnityObjectToClipPosInstanced(float4 pos) {
     return UnityObjectToClipPosInstanced(pos.xyz);
 }
+
 #define UnityObjectToClipPos UnityObjectToClipPosInstanced
 
-inline float3 UnityObjectToWorldNormal(in float3 norm)
-{
+inline float3 UnityObjectToWorldNormal(in float3 norm) {
 #ifdef UNITY_ASSUME_UNIFORM_SCALING
     return UnityObjectToWorldDir(norm);
 #else
@@ -163,9 +151,9 @@ inline float3 UnityObjectToWorldNormal(in float3 norm)
     return normalize(mul(norm, (float3x3)GetWorldToObjectMatrix()));
 #endif
 }
+
 // normal should be normalized, w=1.0
-half3 SHEvalLinearL0L1(half4 normal)
-{
+half3 SHEvalLinearL0L1(half4 normal) {
     half3 x;
 
     // Linear (L1) + constant (L0) polynomial terms
@@ -177,8 +165,7 @@ half3 SHEvalLinearL0L1(half4 normal)
 }
 
 // normal should be normalized, w=1.0
-half3 SHEvalLinearL2(half4 normal)
-{
+half3 SHEvalLinearL2(half4 normal) {
     half3 x1, x2;
     // 4 of the quadratic (L2) polynomials
     half4 vB = normal.xyzz * normal.yzzx;
@@ -187,7 +174,7 @@ half3 SHEvalLinearL2(half4 normal)
     x1.b = dot(unity_SHBb, vB);
 
     // Final (5th) quadratic (L2) polynomial
-    half vC = normal.x*normal.x - normal.y*normal.y;
+    half vC = normal.x * normal.x - normal.y * normal.y;
     x2 = unity_SHC.rgb * vC;
 
     return x1 + x2;
@@ -195,8 +182,7 @@ half3 SHEvalLinearL2(half4 normal)
 
 // normal should be normalized, w=1.0
 // output in active color space
-half3 ShadeSH9(half4 normal)
-{
+half3 ShadeSH9(half4 normal) {
     // Linear + constant polynomial terms
     half3 res = SHEvalLinearL0L1(normal);
 
