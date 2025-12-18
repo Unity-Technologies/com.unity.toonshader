@@ -444,9 +444,7 @@ VertexOutput vert(VertexInput v) {
     UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
     o.uv0 = v.texcoord0;
-    //v.2.0.4
 #ifdef _IS_ANGELRING_OFF
-    //
 #elif _IS_ANGELRING_ON
     o.uv1 = v.texcoord1;
 #endif
@@ -456,7 +454,7 @@ VertexOutput vert(VertexInput v) {
     o.posWorld = mul(GetObjectToWorldMatrix(), v.vertex);
 
     o.pos = UnityObjectToClipPos(v.vertex);
-    //v.2.0.7 Detection of the inside the mirror (right or left-handed) o.mirrorFlag = -1 then "inside the mirror".
+    //Detection of the inside the mirror (right or left-handed) o.mirrorFlag = -1 then "inside the mirror".
 
     float3 crossFwd = cross(UNITY_MATRIX_V[0].xyz, UNITY_MATRIX_V[1].xyz);
     o.mirrorFlag = dot(crossFwd, UNITY_MATRIX_V[2].xyz) < 0 ? 1 : -1;
