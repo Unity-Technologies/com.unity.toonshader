@@ -466,18 +466,11 @@ VertexOutput vert(VertexInput v) {
     half fogFactor = ComputeFogFactor(positionCS.z);
 
     OUTPUT_LIGHTMAP_UV(v.lightmapUV, unity_LightmapST, o.lightmapUV);
-#if UNITY_VERSION >= 60000009
+    
     // https://github.com/Unity-Technologies/Graphics/commit/74b1fdc26cee492e8af7358116076806bdf5b4cc
     float4 probeOcclusionUnused;
     OUTPUT_SH4(positionWS, o.normalDir.xyz, GetWorldSpaceNormalizeViewDir(positionWS), o.vertexSH,
         probeOcclusionUnused);
-#elif UNITY_VERSION >= 202317
-    OUTPUT_SH4(positionWS, o.normalDir.xyz, GetWorldSpaceNormalizeViewDir(positionWS), o.vertexSH);
-#elif UNITY_VERSION >= 202310
-    OUTPUT_SH(positionWS, o.normalDir.xyz, GetWorldSpaceNormalizeViewDir(positionWS), o.vertexSH);
-#else
-    OUTPUT_SH(o.normalDir.xyz, o.vertexSH);
-#endif
 
 #if defined(_ADDITIONAL_LIGHTS_VERTEX) ||  (VERSION_LOWER(12, 0))
     o.fogFactorAndVertexLight = half4(fogFactor, vertexLight);
