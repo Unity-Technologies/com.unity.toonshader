@@ -1,8 +1,3 @@
-//Unity Toon Shader/Universal
-//nobuyuki@unity3d.com
-//toshiyuki@unity3d.com (Universal RP/HDRP)
-
-
             uniform float4 _LightColor0; // this is not set in c# code ?
 
             struct VertexInput {
