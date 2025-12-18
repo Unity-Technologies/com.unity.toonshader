@@ -2,9 +2,9 @@ void fragShadingGradeMap(
     VertexOutput i
     , fixed facing : VFACE
     , out float4 finalRGBA : SV_Target0
-    #ifdef _WRITE_RENDERING_LAYERS
+#ifdef _WRITE_RENDERING_LAYERS
     , out float4 outRenderingLayers : SV_Target1
-    #endif
+#endif
 ) {
     i.normalDir = normalize(i.normalDir);
     float3x3 tangentTransform = float3x3(i.tangentDir, i.bitangentDir, i.normalDir);
@@ -30,43 +30,43 @@ void fragShadingGradeMap(
     // todo.  it has to be cared more.
     UNITY_SETUP_INSTANCE_ID(input);
     UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(input);
-    # ifdef LIGHTMAP_ON
+# ifdef LIGHTMAP_ON
 
-    # else
+# else
     input.vertexSH = i.vertexSH;
-    # endif
+# endif
     input.uv = i.uv0;
     input.positionCS = i.pos;
-    #  if defined(_ADDITIONAL_LIGHTS_VERTEX) ||  (VERSION_LOWER(12, 0))
+#  if defined(_ADDITIONAL_LIGHTS_VERTEX) ||  (VERSION_LOWER(12, 0))
 
     input.fogFactorAndVertexLight = i.fogFactorAndVertexLight;
-    # else
+# else
     input.fogFactor = i.fogFactor;
-    # endif
+# endif
 
-    #  ifdef REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR
+#  ifdef REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR
     input.shadowCoord = i.shadowCoord;
-    #  endif
+#  endif
 
-    #  ifdef REQUIRES_WORLD_SPACE_POS_INTERPOLATOR
+#  ifdef REQUIRES_WORLD_SPACE_POS_INTERPOLATOR
     input.positionWS = i.posWorld.xyz;
-    #  endif
-    #  ifdef _NORMALMAP
+#  endif
+#  ifdef _NORMALMAP
     input.normalWS = half4(i.normalDir, viewDirection.x); // xyz: normal, w: viewDir.x
     input.tangentWS = half4(i.tangentDir, viewDirection.y); // xyz: tangent, w: viewDir.y
-    #  if (VERSION_LOWER(7, 5))
+#  if (VERSION_LOWER(7, 5))
     input.bitangentWS = half4(i.bitangentDir, viewDirection.z); // xyz: bitangent, w: viewDir.z
-    #endif //
-    #  else
+#endif //
+#  else
     input.normalWS = half3(i.normalDir);
-    #    if (VERSION_LOWER(12, 0))
+#    if (VERSION_LOWER(12, 0))
     input.viewDirWS = half3(viewDirection);
-    #    endif //(VERSION_LOWER(12, 0))
-    #  endif
+#    endif //(VERSION_LOWER(12, 0))
+#  endif
     InitializeInputData(input, surfaceData.normalTS, inputData);
-    #  if UNITY_VERSION >= 60000012
+#  if UNITY_VERSION >= 60000012
     InitializeBakedGIData(input, inputData);
-    #  endif
+#  endif
     BRDFData brdfData;
     InitializeBRDFData(surfaceData.albedo,
         surfaceData.metallic,
@@ -80,27 +80,27 @@ void fragShadingGradeMap(
 
     UtsLight mainLight = GetMainUtsLightByID(i.mainLightID, i.posWorld.xyz, inputData.shadowCoord, i.positionCS);
 
-    #if defined(_LIGHT_LAYERS)
+#if defined(_LIGHT_LAYERS)
     uint meshRenderingLayers = GetMeshRenderingLayer();
-    #endif
+#endif
 
     half3 mainLightColor = GetLightColor(
         mainLight
-        #ifdef _LIGHT_LAYERS
+#ifdef _LIGHT_LAYERS
         , meshRenderingLayers
-        #endif
+#endif
     );
 
     float4 _MainTex_var = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex));
 
-    #ifdef _DBUFFER
+#ifdef _DBUFFER
     ApplyDecalToSurfaceDataUTS(input.positionCS, _MainTex_var.rgb, surfaceData, normalDirection);
-    #endif
+#endif
 
     //v.2.0.4
-    #ifdef _IS_TRANSCLIPPING_OFF
+#ifdef _IS_TRANSCLIPPING_OFF
     //
-    #elif _IS_TRANSCLIPPING_ON
+#elif _IS_TRANSCLIPPING_ON
 
     float4 _ClippingMask_var = SAMPLE_TEXTURE2D(_ClippingMask, sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex));
     float Set_MainTexAlpha = _MainTex_var.a;
@@ -110,14 +110,14 @@ void fragShadingGradeMap(
         _Inverse_Clipping);
     float Set_Clipping = saturate((_Inverse_Clipping_var + _Clipping_Level));
     clip(Set_Clipping - 0.5);
-    #endif
+#endif
 
 
     float shadowAttenuation = 1.0;
 
-    #if defined(_MAIN_LIGHT_SHADOWS) || defined(_MAIN_LIGHT_SHADOWS_CASCADE) || defined(_MAIN_LIGHT_SHADOWS_SCREEN)
+#if defined(_MAIN_LIGHT_SHADOWS) || defined(_MAIN_LIGHT_SHADOWS_CASCADE) || defined(_MAIN_LIGHT_SHADOWS_SCREEN)
     shadowAttenuation = mainLight.shadowAttenuation;
-    # endif
+# endif
 
 
     //v.2.0.4
@@ -146,7 +146,7 @@ void fragShadingGradeMap(
     //v.2.0.5
     _Color = _BaseColor;
 
-    #ifdef _IS_PASS_FWDBASE
+#ifdef _IS_PASS_FWDBASE
     float3 Set_LightColor = lightColor.rgb;
     float3 Set_BaseColor = lerp((_MainTex_var.rgb * _BaseColor.rgb),
         ((_MainTex_var.rgb * _BaseColor.rgb) * Set_LightColor), _Is_LightColor_Base);
@@ -335,10 +335,10 @@ void fragShadingGradeMap(
         Set_MatCap * _Tweak_MatcapMaskLevel_var_MultiplyMode + lerp(float3(0, 0, 0), Set_RimLight, _RimLight);
     float3 matCapColorFinal = lerp(matCapColorOnMultiplyMode, matCapColorOnAddMode, _Is_BlendAddToMatCap);
     //v.2.0.4
-    #ifdef _IS_ANGELRING_OFF
+#ifdef _IS_ANGELRING_OFF
     float3 finalColor = lerp(_RimLight_var, matCapColorFinal, _MatCap); // Final Composition before Emissive
     //
-    #elif _IS_ANGELRING_ON
+#elif _IS_ANGELRING_ON
     float3 finalColor = lerp(_RimLight_var, matCapColorFinal, _MatCap); // Final Composition before AR
     //v.2.0.7 AR Camera Rolling Stabilizer
     float3 _AR_OffsetU_var = lerp(mul(UNITY_MATRIX_V, float4(i.normalDir, 0)).xyz, float3(0, 0, 1), _AR_OffsetU);
@@ -355,13 +355,13 @@ void fragShadingGradeMap(
     finalColor = lerp(finalColor,
         lerp((finalColor + Set_AngelRing), ((finalColor * (1.0 - Set_ARtexAlpha)) + Set_AngelRingWithAlpha),
             _ARSampler_AlphaOn), _AngelRing); // Final Composition before Emissive
-    #endif
+#endif
     //v.2.0.7
-    #ifdef _EMISSIVE_SIMPLE
+#ifdef _EMISSIVE_SIMPLE
     float4 _Emissive_Tex_var = tex2D(_Emissive_Tex, TRANSFORM_TEX(Set_UV0, _Emissive_Tex));
     float emissiveMask = _Emissive_Tex_var.a;
     emissive = _Emissive_Tex_var.rgb * _Emissive_Color.rgb * emissiveMask;
-    #elif _EMISSIVE_ANIMATION
+#elif _EMISSIVE_ANIMATION
     //v.2.0.7 Calculation View Coord UV for Scroll
     float3 viewNormal_Emissive = (mul(UNITY_MATRIX_V, float4(i.normalDir, 0))).xyz;
     float3 NormalBlend_Emissive_Detail = viewNormal_Emissive * float3(-1, -1, 1);
@@ -398,7 +398,7 @@ void fragShadingGradeMap(
     float4 viewShift_Color = lerp(_ViewShift, colorShift_Color, viewShift_var);
     float4 emissive_Color = lerp(colorShift_Color, viewShift_Color, _Is_ViewShift);
     emissive = emissive_Color.rgb * _Emissive_Tex_var.rgb * emissiveMask;
-    #endif
+#endif
     //
     //v.2.0.6: GI_Intensity with Intensity Multiplier Filter
 
@@ -410,11 +410,11 @@ void fragShadingGradeMap(
 
 
     float3 pointLightColor = 0;
-    #ifdef _ADDITIONAL_LIGHTS
+#ifdef _ADDITIONAL_LIGHTS
 
     int pixelLightCount = GetAdditionalLightsCount();
 
-    #if USE_FORWARD_PLUS
+#if USE_FORWARD_PLUS
     for (uint loopCounter = 0; loopCounter < min(URP_FP_DIRECTIONAL_LIGHTS_COUNT, MAX_VISIBLE_LIGHTS); loopCounter++)
     {
         int iLight = loopCounter;
@@ -425,9 +425,9 @@ void fragShadingGradeMap(
             additionalLight = GetAdditionalUtsLight(loopCounter, inputData.positionWS, i.positionCS);
             half3 additionalLightColor = GetLightColor(
                 additionalLight
-    #ifdef _LIGHT_LAYERS
+#ifdef _LIGHT_LAYERS
                             , meshRenderingLayers
-    #endif
+#endif
                         );
 
     float3 lightDirection = additionalLight.direction;
@@ -533,18 +533,18 @@ void fragShadingGradeMap(
     pointLightColor += finalColor;
                     }
                 }
-    #endif  // USE_FORWARD_PLUS
+#endif  // USE_FORWARD_PLUS
     // determine main light inorder to apply light culling properly
 
     // when the loop counter start from negative value, MAINLIGHT_IS_MAINLIGHT = -1, some compiler doesn't work well.
     // for (int iLight = MAINLIGHT_IS_MAINLIGHT; iLight < pixelLightCount ; ++iLight)
     UTS_LIGHT_LOOP_BEGIN(pixelLightCount - MAINLIGHT_IS_MAINLIGHT)
-    #if USE_FORWARD_PLUS
+#if USE_FORWARD_PLUS
     int iLight = lightIndex;
-    #else
+#else
     int iLight = loopCounter + MAINLIGHT_IS_MAINLIGHT;
     if (iLight != i.mainLightID)
-    #endif
+#endif
     {
         float notDirectional = 1.0f; //_WorldSpaceLightPos0.w of the legacy code.
         UtsLight additionalLight = GetUrpMainUtsLight(0, 0);
@@ -554,9 +554,9 @@ void fragShadingGradeMap(
         }
         half3 additionalLightColor = GetLightColor(
             additionalLight
-    #ifdef _LIGHT_LAYERS
+#ifdef _LIGHT_LAYERS
                             , meshRenderingLayers
-    #endif
+#endif
                         );
 
 
@@ -682,7 +682,7 @@ void fragShadingGradeMap(
                     }
     UTS_LIGHT_LOOP_END
 
-    #endif // _ADDITIONAL_LIGHTS
+#endif // _ADDITIONAL_LIGHTS
 
     //
     //Final Composition
@@ -694,23 +694,23 @@ void fragShadingGradeMap(
     finalColor += pointLightColor;
 
 
-    #endif
+#endif
 
 
     //v.2.0.4
-    #ifdef _IS_TRANSCLIPPING_OFF
+#ifdef _IS_TRANSCLIPPING_OFF
 
     finalRGBA = fixed4(finalColor, 1);
 
-    #elif _IS_TRANSCLIPPING_ON
+#elif _IS_TRANSCLIPPING_ON
     float Set_Opacity = SATURATE_IF_SDR((_Inverse_Clipping_var + _Tweak_transparency));
 
     finalRGBA = fixed4(finalColor, Set_Opacity);
 
-    #endif
+#endif
 
-    #ifdef _WRITE_RENDERING_LAYERS
+#ifdef _WRITE_RENDERING_LAYERS
     uint renderingLayers = GetMeshRenderingLayer();
     outRenderingLayers = float4(EncodeMeshRenderingLayer(renderingLayers), 0, 0, 0);
-    #endif
+#endif
 }
