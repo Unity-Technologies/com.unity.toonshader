@@ -2,9 +2,9 @@ void fragDoubleShadeFeather(
     VertexOutput i
     , fixed facing : VFACE
     , out float4 finalRGBA : SV_Target0
-    #ifdef _WRITE_RENDERING_LAYERS
+#ifdef _WRITE_RENDERING_LAYERS
     , out float4 outRenderingLayers : SV_Target1
-    #endif
+#endif
 ) {
     i.normalDir = normalize(i.normalDir);
     float3 viewDirection = normalize(_WorldSpaceCameraPos.xyz - i.posWorld.xyz);
@@ -30,44 +30,44 @@ void fragDoubleShadeFeather(
 
     UNITY_SETUP_INSTANCE_ID(input);
     UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(input);
-    # ifdef LIGHTMAP_ON
+# ifdef LIGHTMAP_ON
 
-    # else
+# else
     input.vertexSH = i.vertexSH;
-    # endif
+# endif
     input.uv = i.uv0;
     input.positionCS = i.pos;
-    #  if defined(_ADDITIONAL_LIGHTS_VERTEX) ||  (VERSION_LOWER(12, 0))
+#  if defined(_ADDITIONAL_LIGHTS_VERTEX) ||  (VERSION_LOWER(12, 0))
 
     input.fogFactorAndVertexLight = i.fogFactorAndVertexLight;
-    #  else
+#  else
     input.fogFactor = i.fogFactor;
-    #  endif
+#  endif
 
-    #  ifdef REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR
+#  ifdef REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR
     input.shadowCoord = i.shadowCoord;
-    #  endif
+#  endif
 
-    #  ifdef REQUIRES_WORLD_SPACE_POS_INTERPOLATOR
+#  ifdef REQUIRES_WORLD_SPACE_POS_INTERPOLATOR
     input.positionWS = i.posWorld.xyz;
-    #  endif
+#  endif
 
-    #  ifdef _NORMALMAP
+#  ifdef _NORMALMAP
     input.normalWS = half4(i.normalDir, viewDirection.x); // xyz: normal, w: viewDir.x
     input.tangentWS = half4(i.tangentDir, viewDirection.y); // xyz: tangent, w: viewDir.y
-    #    if (VERSION_LOWER(7, 5))
+#    if (VERSION_LOWER(7, 5))
     input.bitangentWS = half4(i.bitangentDir, viewDirection.z); // xyz: bitangent, w: viewDir.z
-    #    endif
-    #  else //ifdef _NORMALMAP
+#    endif
+#  else //ifdef _NORMALMAP
     input.normalWS = half3(i.normalDir);
-    #if (VERSION_LOWER(12, 0))
+#if (VERSION_LOWER(12, 0))
     input.viewDirWS = half3(viewDirection);
-    #endif  //    #if (VERSION_LOWER(12, 0))
-    #  endif
+#endif  //    #if (VERSION_LOWER(12, 0))
+#  endif
     InitializeInputData(input, surfaceData.normalTS, inputData);
-    #  if UNITY_VERSION >= 60000012
+#  if UNITY_VERSION >= 60000012
     InitializeBakedGIData(input, inputData);
-    #  endif
+#  endif
     BRDFData brdfData;
     InitializeBRDFData(surfaceData.albedo,
         surfaceData.metallic,
@@ -81,31 +81,31 @@ void fragDoubleShadeFeather(
 
     UtsLight mainLight = GetMainUtsLightByID(i.mainLightID, i.posWorld.xyz, inputData.shadowCoord, i.positionCS);
 
-    #if defined(_LIGHT_LAYERS)
+#if defined(_LIGHT_LAYERS)
     uint meshRenderingLayers = GetMeshRenderingLayer();
-    #endif
+#endif
 
     half3 mainLightColor = GetLightColor(
         mainLight
-        #ifdef _LIGHT_LAYERS
+#ifdef _LIGHT_LAYERS
         , meshRenderingLayers
-        #endif
+#endif
     );
 
     float4 _MainTex_var = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex));
 
-    #ifdef _DBUFFER
+#ifdef _DBUFFER
     ApplyDecalToSurfaceDataUTS(input.positionCS, _MainTex_var.rgb, surfaceData, normalDirection);
-    #endif
+#endif
 
     //v.2.0.4
-    #if defined(_IS_CLIPPING_MODE)
+#if defined(_IS_CLIPPING_MODE)
     //DoubleShadeWithFeather_Clipping
     float4 _ClippingMask_var = SAMPLE_TEXTURE2D(_ClippingMask, sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex));
     float Set_Clipping = saturate(
         (lerp(_ClippingMask_var.r, (1.0 - _ClippingMask_var.r), _Inverse_Clipping) + _Clipping_Level));
     clip(Set_Clipping - 0.5);
-    #elif defined(_IS_CLIPPING_TRANSMODE) || defined(_IS_TRANSCLIPPING_ON)
+#elif defined(_IS_CLIPPING_TRANSMODE) || defined(_IS_TRANSCLIPPING_ON)
     //DoubleShadeWithFeather_TransClipping
 
     float4 _ClippingMask_var = SAMPLE_TEXTURE2D(_ClippingMask, sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex));
@@ -117,19 +117,19 @@ void fragDoubleShadeFeather(
     float Set_Clipping = saturate((_Inverse_Clipping_var + _Clipping_Level));
     clip(Set_Clipping - 0.5);
 
-    #elif defined(_IS_CLIPPING_OFF) || defined(_IS_TRANSCLIPPING_OFF)
+#elif defined(_IS_CLIPPING_OFF) || defined(_IS_TRANSCLIPPING_OFF)
     //DoubleShadeWithFeather
-    #endif
+#endif
 
     float shadowAttenuation = 1.0;
-    #if defined(_MAIN_LIGHT_SHADOWS) || defined(_MAIN_LIGHT_SHADOWS_CASCADE) || defined(_MAIN_LIGHT_SHADOWS_SCREEN)
+#if defined(_MAIN_LIGHT_SHADOWS) || defined(_MAIN_LIGHT_SHADOWS_CASCADE) || defined(_MAIN_LIGHT_SHADOWS_SCREEN)
     shadowAttenuation = mainLight.shadowAttenuation;
 
-    # endif
+# endif
 
 
     //v.2.0.4
-    #ifdef _IS_PASS_FWDBASE
+#ifdef _IS_PASS_FWDBASE
 
     float3 defaultLightDirection = normalize(UNITY_MATRIX_V[2].xyz + UNITY_MATRIX_V[1].xyz);
     //v.2.0.5
@@ -150,13 +150,13 @@ void fragDoubleShadeFeather(
         max(defaultLightColor, saturate(originalLightColor)), _Is_Filter_LightColor);
 
 
-    #endif
+#endif
     ////// Lighting:
     float3 halfDirection = normalize(viewDirection + lightDirection);
     //v.2.0.5
     _Color = _BaseColor;
 
-    #ifdef _IS_PASS_FWDBASE
+#ifdef _IS_PASS_FWDBASE
     float3 Set_LightColor = lightColor.rgb;
     float3 Set_BaseColor = lerp((_BaseColor.rgb * _MainTex_var.rgb),
         ((_BaseColor.rgb * _MainTex_var.rgb) * Set_LightColor), _Is_LightColor_Base);
@@ -332,14 +332,14 @@ void fragDoubleShadeFeather(
 
 
     float3 pointLightColor = 0;
-    #ifdef _ADDITIONAL_LIGHTS
+#ifdef _ADDITIONAL_LIGHTS
 
     int pixelLightCount = GetAdditionalLightsCount();
 
-    #if USE_FORWARD_PLUS
+#if USE_FORWARD_PLUS
     for (uint lightIndex = 0; lightIndex < min(URP_FP_DIRECTIONAL_LIGHTS_COUNT, MAX_VISIBLE_LIGHTS); lightIndex++)
     {
-                    
+        
         FORWARD_PLUS_SUBTRACTIVE_LIGHT_CHECK
         int iLight = lightIndex;
         // if (iLight != i.mainLightID)
@@ -350,9 +350,9 @@ void fragDoubleShadeFeather(
             additionalLight = GetAdditionalUtsLight(iLight, inputData.positionWS, i.positionCS);
             half3 additionalLightColor = GetLightColor(
                 additionalLight
-    #ifdef _LIGHT_LAYERS
+#ifdef _LIGHT_LAYERS
                             , meshRenderingLayers
-    #endif
+#endif
                         );
     //                    attenuation = light.distanceAttenuation;
 
@@ -437,18 +437,18 @@ void fragDoubleShadeFeather(
     pointLightColor += finalColor;
                     }
                 }
-    #endif  // USE_FORWARD_PLUS
+#endif  // USE_FORWARD_PLUS
 
     // determine main light inorder to apply light culling
     // when the loop counter start from negative value, MAINLIGHT_IS_MAINLIGHT = -1, some compiler doesn't work well.
     // for (int iLight = MAINLIGHT_IS_MAINLIGHT; iLight < pixelLightCount ; ++iLight)
     UTS_LIGHT_LOOP_BEGIN(pixelLightCount - MAINLIGHT_IS_MAINLIGHT)
-    #if USE_FORWARD_PLUS
+#if USE_FORWARD_PLUS
     int iLight = lightIndex;
-    #else
+#else
     int iLight = loopCounter + MAINLIGHT_IS_MAINLIGHT;
     if (iLight != i.mainLightID)
-    #endif
+#endif
     {
         float notDirectional = 1.0f; //_WorldSpaceLightPos0.w of the legacy code.
 
@@ -459,9 +459,9 @@ void fragDoubleShadeFeather(
         }
         half3 additionalLightColor = GetLightColor(
             additionalLight
-    #ifdef _LIGHT_LAYERS
+#ifdef _LIGHT_LAYERS
                             , meshRenderingLayers
-    #endif
+#endif
                         );
     //                    attenuation = light.distanceAttenuation;
 
@@ -548,15 +548,15 @@ void fragDoubleShadeFeather(
                     }
     UTS_LIGHT_LOOP_END
 
-    #endif
+#endif
 
 
     //v.2.0.7
-    #ifdef _EMISSIVE_SIMPLE
+#ifdef _EMISSIVE_SIMPLE
     float4 _Emissive_Tex_var = tex2D(_Emissive_Tex,TRANSFORM_TEX(Set_UV0, _Emissive_Tex));
     float emissiveMask = _Emissive_Tex_var.a;
     emissive = _Emissive_Tex_var.rgb * _Emissive_Color.rgb * emissiveMask;
-    #elif _EMISSIVE_ANIMATION
+#elif _EMISSIVE_ANIMATION
     //v.2.0.7 Calculation View Coord UV for Scroll
     float3 viewNormal_Emissive = (mul(UNITY_MATRIX_V, float4(i.normalDir, 0))).xyz;
     float3 NormalBlend_Emissive_Detail = viewNormal_Emissive * float3(-1, -1, 1);
@@ -593,7 +593,7 @@ void fragDoubleShadeFeather(
     float4 viewShift_Color = lerp(_ViewShift, colorShift_Color, viewShift_var);
     float4 emissive_Color = lerp(colorShift_Color, viewShift_Color, _Is_ViewShift);
     emissive = emissive_Color.rgb * _Emissive_Tex_var.rgb * emissiveMask;
-    #endif
+#endif
 
     //Final Composition#if
     finalColor = SATURATE_IF_SDR(finalColor) + (envLightColor * envLightIntensity * _GI_Intensity * smoothstep(1, 0,
@@ -601,29 +601,29 @@ void fragDoubleShadeFeather(
 
 
     finalColor += pointLightColor;
-    #endif
+#endif
 
 
     //v.2.0.4
-    #ifdef _IS_CLIPPING_OFF
+#ifdef _IS_CLIPPING_OFF
     //DoubleShadeWithFeather
 
     finalRGBA = fixed4(finalColor, 1);
 
-    #elif _IS_CLIPPING_MODE
+#elif _IS_CLIPPING_MODE
     //DoubleShadeWithFeather_Clipping
 
     finalRGBA = fixed4(finalColor, 1);
 
-    #elif _IS_CLIPPING_TRANSMODE
+#elif _IS_CLIPPING_TRANSMODE
     //DoubleShadeWithFeather_TransClipping
     float Set_Opacity = SATURATE_IF_SDR((_Inverse_Clipping_var + _Tweak_transparency));
     finalRGBA = fixed4(finalColor, Set_Opacity);
 
-    #endif
+#endif
 
-    #ifdef _WRITE_RENDERING_LAYERS
+#ifdef _WRITE_RENDERING_LAYERS
     uint renderingLayers = GetMeshRenderingLayer();
     outRenderingLayers = float4(EncodeMeshRenderingLayer(renderingLayers), 0, 0, 0);
-    #endif
+#endif
 }
