@@ -153,13 +153,11 @@ struct VertexInput {
 struct VertexOutput {
     float4 pos : SV_POSITION;
     float2 uv0 : TEXCOORD0;
-    //v.2.0.4
 #ifdef _IS_ANGELRING_OFF
     float4 posWorld : TEXCOORD1;
     float3 normalDir : TEXCOORD2;
     float3 tangentDir : TEXCOORD3;
     float3 bitangentDir : TEXCOORD4;
-    //v.2.0.7
     float mirrorFlag : TEXCOORD5;
 
     DECLARE_LIGHTMAP_OR_SH(lightmapUV, vertexSH, 6);
@@ -187,7 +185,6 @@ struct VertexOutput {
     float3 normalDir : TEXCOORD3;
     float3 tangentDir : TEXCOORD4;
     float3 bitangentDir : TEXCOORD5;
-    //v.2.0.7
     float mirrorFlag : TEXCOORD6;
 
     DECLARE_LIGHTMAP_OR_SH(lightmapUV, vertexSH, 7);
@@ -210,7 +207,6 @@ struct VertexOutput {
     LIGHTING_COORDS (7,8)
     UNITY_FOG_COORDS (9)
 #endif
-    //
 };
 
 // Abstraction over Light shading data.
