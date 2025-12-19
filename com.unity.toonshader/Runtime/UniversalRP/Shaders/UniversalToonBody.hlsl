@@ -153,34 +153,11 @@ struct VertexInput {
 struct VertexOutput {
     float4 pos : SV_POSITION;
     float2 uv0 : TEXCOORD0;
-#ifdef _IS_ANGELRING_OFF
-    float4 posWorld : TEXCOORD1;
-    float3 normalDir : TEXCOORD2;
-    float3 tangentDir : TEXCOORD3;
-    float3 bitangentDir : TEXCOORD4;
-    float mirrorFlag : TEXCOORD5;
 
-    DECLARE_LIGHTMAP_OR_SH(lightmapUV, vertexSH, 6);
-#if defined(_ADDITIONAL_LIGHTS_VERTEX) || (VERSION_LOWER(12, 0))
-    half4 fogFactorAndVertexLight : TEXCOORD7; // x: fogFactor, yzw: vertex light
-#else
-    half fogFactor : TEXCOORD7;
-#endif
-
-# ifndef _MAIN_LIGHT_SHADOWS
-    float4 positionCS : TEXCOORD8;
-    int mainLightID : TEXCOORD9;
-# else
-    float4 shadowCoord : TEXCOORD8;
-    float4 positionCS : TEXCOORD9;
-    int mainLightID : TEXCOORD10;
-# endif
-    UNITY_VERTEX_INPUT_INSTANCE_ID
-    UNITY_VERTEX_OUTPUT_STEREO
-
-    //
-#elif _IS_ANGELRING_ON
+#if _IS_ANGELRING_ON
     float2 uv1 : TEXCOORD1;
+#endif
+    
     float4 posWorld : TEXCOORD2;
     float3 normalDir : TEXCOORD3;
     float3 tangentDir : TEXCOORD4;
@@ -203,10 +180,6 @@ struct VertexOutput {
 # endif
     UNITY_VERTEX_INPUT_INSTANCE_ID
     UNITY_VERTEX_OUTPUT_STEREO
-#else
-    LIGHTING_COORDS (7,8)
-    UNITY_FOG_COORDS (9)
-#endif
 };
 
 // Abstraction over Light shading data.
