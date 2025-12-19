@@ -168,14 +168,14 @@ struct VertexOutput {
 #else
     half fogFactor : TEXCOORD8; // x: fogFactor, yzw: vertex light
 #endif
-# ifndef _MAIN_LIGHT_SHADOWS
-    float4 positionCS : TEXCOORD9;
-    int mainLightID : TEXCOORD10;
-# else
+
+#  ifdef REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR
     float4 shadowCoord : TEXCOORD9;
+#  endif
+
     float4 positionCS : TEXCOORD10;
     int mainLightID : TEXCOORD11;
-# endif
+    
     UNITY_VERTEX_INPUT_INSTANCE_ID
     UNITY_VERTEX_OUTPUT_STEREO
 };
