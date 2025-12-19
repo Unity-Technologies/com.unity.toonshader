@@ -15,10 +15,7 @@ struct VertexInput {
     float3 normal : NORMAL;
     float4 tangent : TANGENT;
     float2 texcoord0 : TEXCOORD0;
-//v.2.0.4
-#ifdef _IS_ANGELRING_OFF
-//
-#elif _IS_ANGELRING_ON
+#if defined(_IS_ANGELRING_ON)
     float2 texcoord1 : TEXCOORD1;
 #endif
     UNITY_VERTEX_INPUT_INSTANCE_ID //
@@ -27,29 +24,19 @@ struct VertexInput {
 struct VertexOutput {
     float4 pos : SV_POSITION;
     float2 uv0 : TEXCOORD0;
-//v.2.0.4
-#ifdef _IS_ANGELRING_OFF
-    float4 posWorld : TEXCOORD1;
-    float3 normalDir : TEXCOORD2;
-    float3 tangentDir : TEXCOORD3;
-    float3 bitangentDir : TEXCOORD4;
-    //v.2.0.7
-    float mirrorFlag : TEXCOORD5;
-    LIGHTING_COORDS(6,7)
-    UNITY_FOG_COORDS(8)
-    //
-#elif _IS_ANGELRING_ON
+
+#if _IS_ANGELRING_ON
     float2 uv1 : TEXCOORD1;
+#endif    
+
     float4 posWorld : TEXCOORD2;
     float3 normalDir : TEXCOORD3;
     float3 tangentDir : TEXCOORD4;
     float3 bitangentDir : TEXCOORD5;
-    //v.2.0.7
     float mirrorFlag : TEXCOORD6;
     LIGHTING_COORDS(7,8)
     UNITY_FOG_COORDS(9)
-    //
-#endif
+    
     UNITY_VERTEX_INPUT_INSTANCE_ID
     UNITY_VERTEX_OUTPUT_STEREO
 };
