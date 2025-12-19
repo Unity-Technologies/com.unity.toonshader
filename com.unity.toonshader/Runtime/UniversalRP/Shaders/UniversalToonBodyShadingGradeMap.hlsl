@@ -335,10 +335,7 @@ void fragShadingGradeMap(
         Set_MatCap * _Tweak_MatcapMaskLevel_var_MultiplyMode + lerp(float3(0, 0, 0), Set_RimLight, _RimLight);
     float3 matCapColorFinal = lerp(matCapColorOnMultiplyMode, matCapColorOnAddMode, _Is_BlendAddToMatCap);
     //v.2.0.4
-#ifdef _IS_ANGELRING_OFF
-    float3 finalColor = lerp(_RimLight_var, matCapColorFinal, _MatCap); // Final Composition before Emissive
-    //
-#elif _IS_ANGELRING_ON
+#if defined(_IS_ANGELRING_ON)
     float3 finalColor = lerp(_RimLight_var, matCapColorFinal, _MatCap); // Final Composition before AR
     //v.2.0.7 AR Camera Rolling Stabilizer
     float3 _AR_OffsetU_var = lerp(mul(UNITY_MATRIX_V, float4(i.normalDir, 0)).xyz, float3(0, 0, 1), _AR_OffsetU);
@@ -355,6 +352,8 @@ void fragShadingGradeMap(
     finalColor = lerp(finalColor,
         lerp((finalColor + Set_AngelRing), ((finalColor * (1.0 - Set_ARtexAlpha)) + Set_AngelRingWithAlpha),
             _ARSampler_AlphaOn), _AngelRing); // Final Composition before Emissive
+#else
+    float3 finalColor = lerp(_RimLight_var, matCapColorFinal, _MatCap); // Final Composition before Emissive
 #endif
     //v.2.0.7
 #ifdef _EMISSIVE_SIMPLE
