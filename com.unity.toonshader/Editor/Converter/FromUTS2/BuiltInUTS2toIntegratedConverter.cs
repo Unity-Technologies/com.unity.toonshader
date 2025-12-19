@@ -593,13 +593,10 @@ namespace UnityEditor.Rendering.Toon
             if (angelRingEnabled == 0)
             {
                 material.DisableKeyword(UTS3GUI.ShaderDefineANGELRING_ON);
-                material.EnableKeyword(UTS3GUI.ShaderDefineANGELRING_OFF);
             }
             else
             {
                 material.EnableKeyword(UTS3GUI.ShaderDefineANGELRING_ON);
-                material.DisableKeyword(UTS3GUI.ShaderDefineANGELRING_OFF);
-
             }
         }
 
@@ -717,7 +714,7 @@ namespace UnityEditor.Rendering.Toon
             {//When AngelRing is available
                 material.SetFloat(UTS3GUI.ShaderPropIs_LightColor_AR, 1);
             }
-            if (material.HasProperty(UTS3GUI.ShaderPropOutline))//OUTLINEÇ™Ç†ÇÈèÍçá.
+            if (material.HasProperty(UTS3GUI.ShaderPropOutline))
             {
                 material.SetFloat(UTS3GUI.ShaderPropIs_LightColor_Outline, 1);
             }

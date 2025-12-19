@@ -91,7 +91,6 @@ namespace UnityEditor.Rendering.Toon {
 
         internal const string ShaderDefineSHADINGGRADEMAP = "_SHADINGGRADEMAP";
         internal const string ShaderDefineANGELRING_ON = "_IS_ANGELRING_ON";
-        internal const string ShaderDefineANGELRING_OFF = "_IS_ANGELRING_OFF";
         internal const string ShaderPropAngelRing = "_AngelRing";
         internal const string ShaderPropMatCap = "_MatCap";
         internal const string ShaderPropClippingMode = "_ClippingMode";
@@ -1952,11 +1951,8 @@ namespace UnityEditor.Rendering.Toon {
             int angelRingEnabled = MaterialGetInt(material, ShaderPropAngelRing);
             if (angelRingEnabled == 0) {
                 material.DisableKeyword(ShaderDefineANGELRING_ON);
-                material.EnableKeyword(ShaderDefineANGELRING_OFF);
-            }
-            else {
+            } else {
                 material.EnableKeyword(ShaderDefineANGELRING_ON);
-                material.DisableKeyword(ShaderDefineANGELRING_OFF);
             }
         }
 
