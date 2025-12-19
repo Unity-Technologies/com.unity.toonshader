@@ -1,4 +1,4 @@
-//Auto-generated on Wed Dec 03 07:49:17 UTC 2025
+//Auto-generated on Fri Dec 19 07:08:10 UTC 2025
 Shader "Toon/Toon" {
     Properties
     {
@@ -1041,7 +1041,7 @@ Shader "Toon/Toon" {
             #pragma shader_feature_local _ _SHADINGGRADEMAP
             // used in ShadingGradeMap
             #pragma shader_feature _IS_TRANSCLIPPING_OFF _IS_TRANSCLIPPING_ON
-            #pragma shader_feature _IS_ANGELRING_OFF _IS_ANGELRING_ON
+            #pragma shader_feature _IS_ANGELRING_ON
             // used in DoubleShadeWithFeather
             #pragma shader_feature _IS_CLIPPING_OFF _IS_CLIPPING_MODE _IS_CLIPPING_TRANSMODE
             // controlling mask rendering
@@ -1289,7 +1289,7 @@ Shader "Toon/Toon" {
 
             // used in ShadingGradeMap
             #pragma shader_feature _IS_TRANSCLIPPING_OFF _IS_TRANSCLIPPING_ON
-            #pragma shader_feature _IS_ANGELRING_OFF _IS_ANGELRING_ON
+            #pragma shader_feature _IS_ANGELRING_ON
 
             // used in DoubleShadeWithFeather
             #pragma shader_feature _IS_CLIPPING_OFF _IS_CLIPPING_MODE _IS_CLIPPING_TRANSMODE

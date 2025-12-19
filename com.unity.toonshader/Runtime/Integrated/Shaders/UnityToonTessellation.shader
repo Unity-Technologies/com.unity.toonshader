@@ -1,4 +1,4 @@
-//Auto-generated on Wed Dec 03 07:49:17 UTC 2025
+//Auto-generated on Fri Dec 19 07:08:10 UTC 2025
 Shader "Toon/Toon (Tessellation)" {
     Properties
     {
@@ -1078,7 +1078,7 @@ Shader "Toon/Toon (Tessellation)" {
             #pragma shader_feature_local _ _SHADINGGRADEMAP
             // used in ShadingGradeMap
             #pragma shader_feature _IS_TRANSCLIPPING_OFF _IS_TRANSCLIPPING_ON
-            #pragma shader_feature _IS_ANGELRING_OFF _IS_ANGELRING_ON
+            #pragma shader_feature _IS_ANGELRING_ON
             // used in DoubleShadeWithFeather
             #pragma shader_feature _IS_CLIPPING_OFF _IS_CLIPPING_MODE _IS_CLIPPING_TRANSMODE
             // controlling mask rendering
@@ -1326,7 +1326,7 @@ Shader "Toon/Toon (Tessellation)" {
 
             // used in ShadingGradeMap
             #pragma shader_feature _IS_TRANSCLIPPING_OFF _IS_TRANSCLIPPING_ON
-            #pragma shader_feature _IS_ANGELRING_OFF _IS_ANGELRING_ON
+            #pragma shader_feature _IS_ANGELRING_ON
 
             // used in DoubleShadeWithFeather
             #pragma shader_feature _IS_CLIPPING_OFF _IS_CLIPPING_MODE _IS_CLIPPING_TRANSMODE
@@ -1706,7 +1706,7 @@ Shader "Toon/Toon (Tessellation)" {
             #pragma shader_feature_local _ _SHADINGGRADEMAP
             // used in ShadingGradeMap
             #pragma shader_feature _IS_TRANSCLIPPING_OFF _IS_TRANSCLIPPING_ON
-            #pragma shader_feature _IS_ANGELRING_OFF _IS_ANGELRING_ON
+            #pragma shader_feature _IS_ANGELRING_ON
             // used in DoubleShadeWithFeather
             #pragma shader_feature _IS_CLIPPING_OFF _IS_CLIPPING_MODE _IS_CLIPPING_TRANSMODE
             #pragma shader_feature _EMISSIVE_SIMPLE _EMISSIVE_ANIMATION
