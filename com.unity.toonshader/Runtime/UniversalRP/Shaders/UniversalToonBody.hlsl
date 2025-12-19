@@ -140,13 +140,11 @@ struct VertexInput {
     float4 tangent : TANGENT;
     float2 texcoord0 : TEXCOORD0;
 
-
-#ifdef _IS_ANGELRING_OFF
-    float2 lightmapUV : TEXCOORD1;
-#elif _IS_ANGELRING_ON
+#if defined(_IS_ANGELRING_ON)
     float2 texcoord1 : TEXCOORD1;
-    float2 lightmapUV : TEXCOORD2;
 #endif
+
+    float2 lightmapUV : TEXCOORD2;
     UNITY_VERTEX_INPUT_INSTANCE_ID
 };
 
@@ -154,7 +152,7 @@ struct VertexOutput {
     float4 pos : SV_POSITION;
     float2 uv0 : TEXCOORD0;
 
-#if _IS_ANGELRING_ON
+#if defined(_IS_ANGELRING_ON)
     float2 uv1 : TEXCOORD1;
 #endif
     
