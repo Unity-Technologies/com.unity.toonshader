@@ -337,18 +337,8 @@ float3 UTS_MainLightShadingGrademap(LightLoopContext lightLoopContext, FragInput
     float _Tweak_MatcapMaskLevel_var_MultiplyMode = _Tweak_MatcapMaskLevel_var * lerp(1, (1 - (Set_FinalShadowMask) * (1 - _TweakMatCapOnShadow)), _Is_UseTweakMatCapOnShadow);
     float3 matCapColorOnMultiplyMode = Set_HighColor * (1 - _Tweak_MatcapMaskLevel_var_MultiplyMode) + Set_HighColor * Set_MatCap * _Tweak_MatcapMaskLevel_var_MultiplyMode + lerp(float3(0, 0, 0), Set_RimLight, _RimLight);
     float3 matCapColorFinal = lerp(matCapColorOnMultiplyMode, matCapColorOnAddMode, _Is_BlendAddToMatCap);
-    //v.2.0.4
-#ifdef _IS_ANGELRING_OFF
-#ifdef _IS_CLIPPING_MATTE
-    if (_ClippingMatteMode == 5)
-    {
-        clippingColor = float3(0.0f,0.0f,0.0f);
-        return clippingColor;
-    }
-#endif // _IS_CLIPPING_MATTE
-    float3 finalColor = lerp(_RimLight_var, matCapColorFinal, _MatCap);// Final Composition before Emissive
-    //
-#elif _IS_ANGELRING_ON
+    
+#if defined(_IS_ANGELRING_ON)
     float3 finalColor = lerp(_RimLight_var, matCapColorFinal, _MatCap);// Final Composition before AR
     //v.2.0.7 AR Camera Rolling Stabilizer
     float3 _AR_OffsetU_var = lerp(mul(UNITY_MATRIX_V, float4(i_normalDir, 0)).xyz, float3(0, 0, 1), _AR_OffsetU);
@@ -384,7 +374,18 @@ float3 UTS_MainLightShadingGrademap(LightLoopContext lightLoopContext, FragInput
         return clippingColor;
     }
 #endif // _IS_CLIPPING_MATTE
-#endif //#ifdef _IS_ANGELRING_OFF
+
+#else
+#ifdef _IS_CLIPPING_MATTE
+    if (_ClippingMatteMode == 5)
+    {
+        clippingColor = float3(0.0f,0.0f,0.0f);
+        return clippingColor;
+    }
+#endif // _IS_CLIPPING_MATTE
+    float3 finalColor = lerp(_RimLight_var, matCapColorFinal, _MatCap);// Final Composition before Emissive
+    
+#endif //#if defined(_IS_ANGELRING_ON)
 
 
 

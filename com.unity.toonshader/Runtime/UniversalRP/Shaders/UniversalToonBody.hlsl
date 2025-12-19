@@ -415,8 +415,7 @@ VertexOutput vert(VertexInput v) {
     UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
     o.uv0 = v.texcoord0;
-#ifdef _IS_ANGELRING_OFF
-#elif _IS_ANGELRING_ON
+#if defined(_IS_ANGELRING_ON)
     o.uv1 = v.texcoord1;
 #endif
     o.normalDir = UnityObjectToWorldNormal(v.normal);
