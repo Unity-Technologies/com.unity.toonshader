@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.13.1-preview] - 2025-12-22
+
+* fix: shader compile error when screen space shadow is enabled in URP
+* fix: check property existence before when converting materials
+
 ## [0.13.0-preview] - 2025-12-04
 
 ## Added
