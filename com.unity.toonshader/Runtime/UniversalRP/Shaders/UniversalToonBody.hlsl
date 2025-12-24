@@ -475,14 +475,12 @@ VertexOutput vert(VertexInput v) {
 
 #endif //#if defined(_SHADINGGRADEMAP)
 
-void frag(
-    VertexOutput i
-    , fixed facing : VFACE
-    , out float4 finalRGBA : SV_Target0
+void frag(VertexOutput i, fixed facing : VFACE, out float4 finalRGBA : SV_Target0
 #ifdef _WRITE_RENDERING_LAYERS
     , out float4 outRenderingLayers : SV_Target1
 #endif
 ) {
+
 #if defined(_SHADINGGRADEMAP)
     fragShadingGradeMap(i, facing, finalRGBA
 #ifdef _WRITE_RENDERING_LAYERS
