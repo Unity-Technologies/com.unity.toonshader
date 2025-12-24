@@ -480,13 +480,13 @@ void frag(VertexOutput i, fixed facing : VFACE, out float4 finalRGBA : SV_Target
 ) {
 
 #if defined(_SHADINGGRADEMAP)
-    fragShadingGradeMap(i, finalRGBA
+    fragUTSMode(i, finalRGBA
 #ifdef _WRITE_RENDERING_LAYERS
                             ,outRenderingLayers
 #endif
                     );
 #else
-    fragDoubleShadeFeather(i, finalRGBA
+    fragUTSMode(i, finalRGBA
 #ifdef _WRITE_RENDERING_LAYERS
                             ,outRenderingLayers
 #endif
