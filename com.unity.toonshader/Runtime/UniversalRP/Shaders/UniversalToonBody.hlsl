@@ -465,15 +465,13 @@ VertexOutput vert(VertexInput v) {
 }
 
 
+//UTS Mode
 #if defined(_SHADINGGRADEMAP)
-
 #include "UniversalToonBodyShadingGradeMap.hlsl"
-
 #else //#if defined(_SHADINGGRADEMAP)
-
 #include "UniversalToonBodyDoubleShadeWithFeather.hlsl"
-
 #endif //#if defined(_SHADINGGRADEMAP)
+
 
 void frag(VertexOutput i, fixed facing : VFACE, out float4 finalRGBA : SV_Target0
 #ifdef _WRITE_RENDERING_LAYERS
