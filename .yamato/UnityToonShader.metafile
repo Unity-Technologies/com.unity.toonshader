@@ -74,62 +74,62 @@ test_editors:
      
 
 osx_test_projects:
-  - project_prefix: HdrpGraphicsTest
+  - project_prefix: ToonHDRPTest
     unity_editors:
       - version: 6000.0
-  - project_prefix: LegacyGraphicsTest
+  - project_prefix: ToonBuiltInRPTest
     unity_editors:
       - version: 6000.0
-  - project_prefix: UniversalGraphicsTest
+  - project_prefix: ToonURPTest
     unity_editors:
       - version: 6000.0
-  - project_prefix: UniversalGraphicsTestECS
+  - project_prefix: ToonURPTestECS
     unity_editors:
       - version: 6000.0
 
 
 win_test_projects:
-  - project_prefix: HdrpGraphicsTest
+  - project_prefix: ToonHDRPTest
     key_postfix: _D3D11
     utr_arguments: --extra-editor-arg="-force-d3d11"
     unity_editors:
       - version: 6000.0
-  - project_prefix: HdrpGraphicsTest
+  - project_prefix: ToonHDRPTest
     key_postfix: _Vulkan
     utr_arguments: --extra-editor-arg="-force-vulkan"
     unity_editors:
       - version: 6000.0
-  - project_prefix: LegacyGraphicsTest
+  - project_prefix: ToonBuiltInRPTest
     key_postfix: _D3D11
     utr_arguments: --extra-editor-arg="-force-d3d11"
     unity_editors:
       - version: 6000.0
-  - project_prefix: LegacyGraphicsTest 
+  - project_prefix: ToonBuiltInRPTest 
     key_postfix: _Vulkan
     utr_arguments: --extra-editor-arg="-force-vulkan"
     unity_editors:
       - version: 6000.0
-  - project_prefix: UniversalGraphicsTest
+  - project_prefix: ToonURPTest
     key_postfix: _D3D11
     utr_arguments: --extra-editor-arg="-force-d3d11"
     unity_editors:
       - version: 6000.0
-  - project_prefix: UniversalGraphicsTest
+  - project_prefix: ToonURPTest
     key_postfix: _Vulkan
     utr_arguments: --extra-editor-arg="-force-vulkan"
     unity_editors:
       - version: 6000.0
-  - project_prefix: UniversalGraphicsTestECS
+  - project_prefix: ToonURPTestECS
     key_postfix: _D3D11
     utr_arguments: --extra-editor-arg="-force-d3d11"
     unity_editors:
       - version: 6000.0
-  - project_prefix: UniversalGraphicsTestECS
+  - project_prefix: ToonURPTestECS
     key_postfix: _Vulkan
     utr_arguments: --extra-editor-arg="-force-vulkan"
     unity_editors:
       - version: 6000.0
-  - project_prefix: HdrpDX12GraphicsTest
+  - project_prefix: ToonHDRPTestDX12
     key_postfix: _D3D12
     utr_arguments: --extra-editor-arg="-force-d3d12"
     unity_editors:
