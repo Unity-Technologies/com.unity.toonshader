@@ -2157,7 +2157,7 @@ namespace UnityEditor.Rendering.Toon {
 #else
                 if (isOutlineEnabled) {
                     material.DisableKeyword(kDisableOutlineKeyword);
-                }  else {
+                } else {
                     material.EnableKeyword(kDisableOutlineKeyword);
                 }
 #endif
