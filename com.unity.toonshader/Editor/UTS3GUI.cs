@@ -2145,8 +2145,8 @@ namespace UnityEditor.Rendering.Toon {
 #if URP_IS_INSTALLED_FOR_UTS || HDRP_IS_INSTALLED_FOR_UTS
             bool isOutlineEnabled = material.GetShaderPassEnabled(ToonConstants.SHADER_LIGHT_MODE_NAME_FOR_OUTLINE);
 #else
-            bool isOutlineEnabled = material.IsKeywordEnabled(kDisableOutlineKeyword);
-#endif            
+            bool isOutlineEnabled = !material.IsKeywordEnabled(kDisableOutlineKeyword);
+#endif
 
             EditorGUI.BeginChangeCheck();
             isOutlineEnabled = EditorGUILayout.Toggle(kOutline, isOutlineEnabled);
