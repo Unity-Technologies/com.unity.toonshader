@@ -2153,7 +2153,7 @@ namespace UnityEditor.Rendering.Toon {
             if (EditorGUI.EndChangeCheck()) {
                 m_MaterialEditor.RegisterPropertyChangeUndo(kOutline);
 #if URP_IS_INSTALLED_FOR_UTS || HDRP_IS_INSTALLED_FOR_UTS
-                material.SetShaderPassEnabled(srpDefaultLightModeName, isOutlineEnabled);
+                material.SetShaderPassEnabled(ToonConstants.SHADER_LIGHT_MODE_NAME_FOR_OUTLINE, isOutlineEnabled);
 #else
                 if (isOutlineEnabled) {
                     material.DisableKeyword(kDisableOutlineKeyword);
