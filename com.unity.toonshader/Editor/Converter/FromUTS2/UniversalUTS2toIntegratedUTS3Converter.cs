@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Rendering.Toon;
 using UnityEngine;
 using UnityEngine.UIElements;
 namespace UnityEditor.Rendering.Toon
@@ -10,7 +11,7 @@ namespace UnityEditor.Rendering.Toon
         readonly UTSGUID kOrgTessShaderGUID = null;
 
         public override string name => "Universal Toon Shader";
-        public override string info => "This tool converts project materials from Universal Toon Shader to Unity Toon Shader " + UTS3GUI.versionString;
+        public override string info => "This tool converts project materials from Universal Toon Shader to Unity Toon Shader " + ToonConstants.PACKAGE_VERSION_MAJOR_MINOR;
         public override int priority => -9000;
 
         public override void SetupConverter()

@@ -8,9 +8,6 @@ using UnityEngine.Rendering;
 namespace UnityEditor.Rendering.Toon {
     internal partial class UTS3GUI : UnityEditor.ShaderGUI {
 
-        internal static string versionString => "0.11.0-preview";
-
-        
         public override void AssignNewShaderToMaterial(
             Material material,
             Shader oldShader,

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Rendering.Toon;
 using UnityEngine;
 using UnityEngine.UIElements;
 namespace UnityEditor.Rendering.Toon
@@ -10,7 +11,7 @@ namespace UnityEditor.Rendering.Toon
         static readonly internal UTSGUID kOrgTessShaderGUID = new UTSGUID("6499b7b5ccaae6944ae5fe89b016c50b", "HDRP/ToonTessellation", true);
 
         public override string name => "Unity Toon Shader(HDRP) 0.7.x or older";
-        public override string info => "This tool materials project elements from Unity Toon Shader 0.7.x or older to Unity Toon Shader " + UTS3GUI.versionString;
+        public override string info => "This tool materials project elements from Unity Toon Shader 0.7.x or older to Unity Toon Shader " + ToonConstants.PACKAGE_VERSION_MAJOR_MINOR;
         public override int priority => -9000;
         public override void SetupConverter()
         {

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Unity.Rendering.Toon;
 using UnityEngine;
 using UnityEngine.UIElements;
 namespace UnityEditor.Rendering.Toon
@@ -14,7 +15,7 @@ namespace UnityEditor.Rendering.Toon
 
 
         public override string name => "Unity-chan Toon Shader 2";
-        public override string info => "This tool converts project materials from Unity-chan Toon Shader to Unity Toon Shader " + UTS3GUI.versionString;
+        public override string info => "This tool converts project materials from Unity-chan Toon Shader to Unity Toon Shader " + ToonConstants.PACKAGE_VERSION_MAJOR_MINOR;
         public override int priority => -9000;
 
         public override void SetupConverter() {
