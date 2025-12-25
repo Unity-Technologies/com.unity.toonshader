@@ -10,8 +10,8 @@ namespace UnityEditor.Rendering.Toon
         readonly UTSGUID kOrgShaderGUID = new UTSGUID("766736548846cdf459a9766614dcccab", "Universal Render Pipeline/Toon", false);
         readonly UTSGUID kOrgTessShaderGUID = null;
 
-        public override string name => "Universal Toon Shader";
-        public override string info => "This tool converts project materials from Universal Toon Shader to Unity Toon Shader " + ToonConstants.PACKAGE_VERSION_MAJOR_MINOR;
+        internal override string name => "Universal Toon Shader";
+        
         public override int priority => -9000;
 
         public override void SetupConverter()

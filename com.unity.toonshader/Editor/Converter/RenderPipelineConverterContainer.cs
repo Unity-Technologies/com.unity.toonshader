@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Unity.FilmInternalUtilities;
+using Unity.Rendering.Toon;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -64,17 +65,10 @@ namespace UnityEditor.Rendering.Toon
             }
             return false;
         }
-        /// <summary>
-        /// The name of the container. This name shows up in the UI.
-        /// </summary>
-        public abstract string name { get; }
+        internal abstract string name { get; }
 
-        /// <summary>
-        /// The description of the container.
-        /// It is shown in the UI. Describe the converters in this container.
-        /// </summary>
-        public abstract string info { get; }
-
+        internal string info => $"This tool converts project materials from {name} to Unity Toon Shader {ToonConstants.PACKAGE_VERSION_MAJOR_MINOR}";
+        
         /// <summary>
         /// The priority of the container. The lower the number (can be negative), the earlier Unity executes the container, and the earlier it shows up in the converter container menu.
         /// </summary>

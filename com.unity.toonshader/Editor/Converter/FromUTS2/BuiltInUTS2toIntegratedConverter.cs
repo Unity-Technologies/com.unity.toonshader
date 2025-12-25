@@ -11,11 +11,8 @@ namespace UnityEditor.Rendering.Toon
     {
         internal UTS3GUI.CullingMode m_cullingMode;
 
-
-
-
-        public override string name => "Unity-chan Toon Shader 2";
-        public override string info => "This tool converts project materials from Unity-chan Toon Shader to Unity Toon Shader " + ToonConstants.PACKAGE_VERSION_MAJOR_MINOR;
+        internal override string name => "Unity-chan Toon Shader 2";
+        
         public override int priority => -9000;
 
         public override void SetupConverter() {
