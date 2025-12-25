@@ -1,7 +1,7 @@
 ## Feature Differences in Each Render Pipeline
 
-| Function                                                                                   | Built-In               | URP                | URP 3D as 2D          | HDRP                   |
-|--------------------------------------------------------------------------------------------|------------------------|--------------------|-----------------------|------------------------|
+| Function                                                                                   | Built-In               | URP                | URP 3D as 2D (Unity6.3+) | HDRP                   |
+|--------------------------------------------------------------------------------------------|------------------------|--------------------|--------------------------|------------------------|
 | ***1. Modes***                                                                             |                        |                    |                       |                        |
 | &ensp; Standard                                                                            | :heavy_check_mark:     | :heavy_check_mark: |                       | :heavy_check_mark:     |
 | &ensp; With Advanced Control Map                                                           | :heavy_check_mark:     | :heavy_check_mark: |                       | :heavy_check_mark:     |
@@ -14,20 +14,20 @@
 | &ensp; Invert  Clipping Mask                                                               | :heavy_check_mark:     | :heavy_check_mark: |                       | :heavy_check_mark:     |
 | &ensp; Use Base Map Alpha as Clipping Mask                                                 | :heavy_check_mark:     | :heavy_check_mark: |                       | :heavy_check_mark:     |
 | ***3. Three Color Map and Control Map Settings***                                          |                        |                    |                       |                        |
-| &ensp; Base Map                                                                            | :heavy_check_mark:     | :heavy_check_mark: |                       | :heavy_check_mark:     |
-| &ensp; 1st Shading Map                                                                     | :heavy_check_mark:     | :heavy_check_mark: |                       | :heavy_check_mark:     |
-| &ensp; 2nd Shading Map                                                                     | :heavy_check_mark:     | :heavy_check_mark: |                       | :heavy_check_mark:     |
-| &ensp; Normal Map                                                                          | :heavy_check_mark:     | :heavy_check_mark: |                       | :heavy_check_mark:     |
+| &ensp; Base Map                                                                            | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark:    | :heavy_check_mark:     |
+| &ensp; 1st Shading Map                                                                     | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark:    | :heavy_check_mark:     |
+| &ensp; 2nd Shading Map                                                                     | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark:    | :heavy_check_mark:     |
+| &ensp; Normal Map                                                                          | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark:    | :heavy_check_mark:     |
 | &ensp; Shadow Control Maps                                                                 | :heavy_check_mark:     | :heavy_check_mark: |                       | :heavy_check_mark:     |
 | ***4. Shading Steps and Feather Settings***                                                |                        |                    |                       |                        |
-| &ensp; Base Color Step                                                                     | :heavy_check_mark:     | :heavy_check_mark: |                       | :heavy_check_mark:     |
-| &ensp; Base Shading Feather                                                                | :heavy_check_mark:     | :heavy_check_mark: |                       | :heavy_check_mark:     |
-| &ensp; Shading Color Step                                                                  | :heavy_check_mark:     | :heavy_check_mark: |                       | :heavy_check_mark:     |
+| &ensp; Base Color Step                                                                     | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark:    | :heavy_check_mark:     |
+| &ensp; Base Shading Feather                                                                | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark:    | :heavy_check_mark:     |
+| &ensp; Shading Color Step                                                                  | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark:    | :heavy_check_mark:     |
 | &ensp; Point Light Step Offset                                                             | :heavy_check_mark:     | :heavy_check_mark: |                       | :heavy_check_mark:     |
 | &ensp; Filter Point Light Highlights                                                       | :heavy_check_mark:     | :heavy_check_mark: |                       | :heavy_check_mark:     |
 | ***5. Highlight Settings***                                                                |                        |                    |                       |                        |
-| &ensp; Highlight Power                                                                     | :heavy_check_mark:     | :heavy_check_mark: |                       | :heavy_check_mark:     |
-| &ensp; Specular Mode                                                                       | :heavy_check_mark:     | :heavy_check_mark: |                       | :heavy_check_mark:     |
+| &ensp; Highlight Power                                                                     | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark:    | :heavy_check_mark:     |
+| &ensp; Specular Mode                                                                       | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark:    | :heavy_check_mark:     |
 | &ensp; Color Blending Mode                                                                 | :heavy_check_mark:     | :heavy_check_mark: |                       | :heavy_check_mark:     |
 | &ensp; Highlight Blending on Shadows                                                       | :heavy_check_mark:     | :heavy_check_mark: |                       | :heavy_check_mark:     |
 | &ensp; Highlight Mask                                                                      | :heavy_check_mark:     | :heavy_check_mark: |                       | :heavy_check_mark:     |
@@ -70,17 +70,17 @@
 | &ensp; Alpha Channel as Clipping Mask                                                      | :heavy_check_mark:     | :heavy_check_mark: |                       | :heavy_check_mark:     |
 | ***10. [Scene Light Effectiveness Settings](SceneLight.md) for all UTS color properties*** | :heavy_check_mark:     | :heavy_check_mark: |                       | :heavy_check_mark:     |
 | ***11. Metaverse Settings***                                                               |                        |                    |                       |                        |
-| &ensp; Metaverse Light                                                                     | :heavy_check_mark:     | :heavy_check_mark: |                       | :x:                    |
-| &ensp; Metaverse Light Intensity                                                           | :heavy_check_mark:     | :heavy_check_mark: |                       | :x:                    |
-| &ensp; Metaverse Light Direction                                                           | :heavy_check_mark:     | :heavy_check_mark: |                       | :x:                    |
+| &ensp; Metaverse Light                                                                     | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark:    | :x:                    |
+| &ensp; Metaverse Light Intensity                                                           | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark:    | :x:                    |
+| &ensp; Metaverse Light Direction                                                           | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark:    | :x:                    |
 | ***12. Outline Settings***                                                                 |                        |                    |                       |                        |
-| &ensp; Outline Mode                                                                        | :heavy_check_mark:     | :heavy_check_mark: |                       | :heavy_check_mark:     |
-| &ensp; Outline Width                                                                       | :heavy_check_mark:     | :heavy_check_mark: |                       | :heavy_check_mark:     |
-| &ensp; Outline Color                                                                       | :heavy_check_mark:     | :heavy_check_mark: |                       | :heavy_check_mark:     |
-| &ensp; Blend Base Color to Outline                                                         | :heavy_check_mark:     | :heavy_check_mark: |                       | :heavy_check_mark:     |
-| &ensp; Offset Outline with Camera Z-axis                                                   | :heavy_check_mark:     | :heavy_check_mark: |                       | :heavy_check_mark:     |
-| &ensp; Camera Distance for Outline Width                                                   | :heavy_check_mark:     | :heavy_check_mark: |                       | :heavy_check_mark:     |
-| &ensp; Outline Color Map                                                                   | :heavy_check_mark:     | :heavy_check_mark: |                       | :heavy_check_mark:     |
+| &ensp; Outline Mode                                                                        | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark:    | :heavy_check_mark:     |
+| &ensp; Outline Width                                                                       | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark:    | :heavy_check_mark:     |
+| &ensp; Outline Color                                                                       | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark:    | :heavy_check_mark:     |
+| &ensp; Blend Base Color to Outline                                                         | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark:    | :heavy_check_mark:     |
+| &ensp; Offset Outline with Camera Z-axis                                                   | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark:    | :heavy_check_mark:     |
+| &ensp; Camera Distance for Outline Width                                                   | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark:    | :heavy_check_mark:     |
+| &ensp; Outline Color Map                                                                   | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark:    | :heavy_check_mark:     |
 | &ensp; Rotate around UV center                                                             | :heavy_check_mark:     | :heavy_check_mark: |                       | :heavy_check_mark:     |
 | &ensp; Ping-pong moves for base                                                            | :heavy_check_mark:     | :heavy_check_mark: |                       | :heavy_check_mark:     |
 | &ensp; Color Shifting with Time                                                            | :heavy_check_mark:     | :heavy_check_mark: |                       | :heavy_check_mark:     |
