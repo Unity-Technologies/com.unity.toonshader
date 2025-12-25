@@ -28,12 +28,14 @@ Besides the three basic colors, the **Unity Toon Shader** provides a wide variet
 To get started with cel-shading, see [Getting Started](GettingStarted.md).
 
 ## Render Pipeline Compatibility
-The **Unity Toon Shader** works across the **Built-in Render Pipeline**,
+The **Unity Toon Shader** supports 3D projects across the **Built-in Render Pipeline**,
 **Universal Render Pipeline (URP)**, and **High Definition Render Pipeline (HDRP)**.
 
-Feature availability can vary slightly between pipelines,
-so review the [feature differences](FeatureModel_en.md) document to confirm
-which features are supported in your target pipeline.
+For 2D projects, starting with Unity 6.3, the **Unity Toon Shader** partially supports URP 
+by rendering 3D GameObjects in 2D URP scenes.
+
+Feature availability varies between pipelines and between 3D/2D projects. 
+Please review the [feature differences](FeatureModel_en.md) to confirm which features are supported in your target pipeline:
 
 > The use of linear color space is strongly recommended.
 
