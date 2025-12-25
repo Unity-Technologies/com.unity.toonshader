@@ -7,9 +7,6 @@ using UnityEngine.Rendering;
 
 namespace UnityEditor.Rendering.Toon {
     internal partial class UTS3GUI : UnityEditor.ShaderGUI {
-        internal const float kVersionX = 0.0f;
-        internal const float kVersionY = 11.0f;
-        internal const float kVersionZ = 0.0f;
 
         internal static string versionString => "0.11.0-preview";
 
