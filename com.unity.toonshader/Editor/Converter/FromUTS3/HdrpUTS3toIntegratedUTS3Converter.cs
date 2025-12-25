@@ -5,7 +5,7 @@ namespace UnityEditor.Rendering.Toon
         static readonly internal UTSGUID kOrgShaderGUID = new UTSGUID("873188af6a7b5ca49aa69929a5d863c1", "HDRP/Toon");
         static readonly internal UTSGUID kOrgTessShaderGUID = new UTSGUID("6499b7b5ccaae6944ae5fe89b016c50b", "HDRP/ToonTessellation", true);
 
-        internal override string name => "Unity Toon Shader 0.7.x or earlier";
+        internal override string name => "Unity Toon Shader(HDRP) 0.7.x or earlier";
 
         public override int priority => -9000;
         public override void SetupConverter()
