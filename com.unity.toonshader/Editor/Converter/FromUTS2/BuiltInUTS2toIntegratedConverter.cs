@@ -1,10 +1,7 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
-using Unity.Rendering.Toon;
 using UnityEngine;
-using UnityEngine.UIElements;
+
 namespace UnityEditor.Rendering.Toon
 {
     internal sealed class BuiltInUTS2toIntegratedConverter : RenderPipelineConverterContainer
