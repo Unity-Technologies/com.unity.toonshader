@@ -343,8 +343,7 @@ UtsLight GetAdditionalUtsLight(uint i, float3 positionWS, float4 positionCS) {
     return GetAdditionalPerObjectUtsLight(perObjectLightIndex, positionWS, positionCS);
 }
 
-half3 GetLightColor(
-    UtsLight light
+half3 GetLightColor(UtsLight light
 #ifdef _LIGHT_LAYERS
     , uint meshRenderingLayers
 #endif
