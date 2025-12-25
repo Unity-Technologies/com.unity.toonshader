@@ -34,7 +34,7 @@ The **Unity Toon Shader** supports 3D projects across the **Built-in Render Pipe
 For 2D projects, starting with Unity 6.3, the **Unity Toon Shader** partially supports URP 
 by rendering 3D GameObjects in 2D URP scenes.
 
-Feature availability varies between pipelines and between 3D/2D projects. 
+Feature availability varies between pipelines and between 3D/2D projects.   
 Please review the [feature differences](FeatureModel_en.md) to confirm which features are supported in your target pipeline:
 
 > The use of linear color space is strongly recommended.
