@@ -2143,7 +2143,7 @@ namespace UnityEditor.Rendering.Toon {
             const string kOutline = "Outline";
             
 #if URP_IS_INSTALLED_FOR_UTS || HDRP_IS_INSTALLED_FOR_UTS
-            bool isOutlineEnabled = material.GetShaderPassEnabled(srpDefaultLightModeName);
+            bool isOutlineEnabled = material.GetShaderPassEnabled(ToonConstants.SHADER_LIGHT_MODE_NAME_FOR_OUTLINE);
 #else
             bool isOutlineEnabled = material.IsKeywordEnabled(kDisableOutlineKeyword);
 #endif            
