@@ -82,8 +82,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     uint meshRenderingLayers = GetMeshRenderingLayer();
 #endif
 
-    half3 mainLightColor = GetLightColor(
-        mainLight
+    half3 mainLightColor = GetLightColor( mainLight
 #ifdef _LIGHT_LAYERS
         , meshRenderingLayers
 #endif
