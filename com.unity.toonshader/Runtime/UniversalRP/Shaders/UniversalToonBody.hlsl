@@ -407,6 +407,17 @@ UtsLight GetMainUtsLightByID(int index, float3 posW, float4 shadowCoord, float4 
     return GetAdditionalUtsLight(index, posW, positionCS);
 }
 
+float4 GetShadowCoordUTS(VertexOutput v)
+{
+#if defined(_MAIN_LIGHT_SHADOWS_SCREEN) && !defined(_SURFACE_TYPE_TRANSPARENT)
+    return ComputeScreenPos(v.positionCS);
+#else
+    return TransformWorldToShadowCoord(v.posWorld);
+#endif
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+
 VertexOutput vert(VertexInput v) {
     VertexOutput o = (VertexOutput)0;
 
@@ -449,18 +460,17 @@ VertexOutput vert(VertexInput v) {
 #endif
 
     o.positionCS = positionCS;
-#if defined(_MAIN_LIGHT_SHADOWS) && !defined(_RECEIVE_SHADOWS_OFF)
-#if SHADOWS_SCREEN
-    o.shadowCoord = ComputeScreenPos(positionCS);
-#else
-    o.shadowCoord = TransformWorldToShadowCoord(o.posWorld.xyz);
+
+#if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
+    o.shadowCoord = GetShadowCoordUTS(o);
 #endif
+    
+#if defined(_MAIN_LIGHT_SHADOWS) && !defined(_RECEIVE_SHADOWS_OFF)
     o.mainLightID = DetermineUTS_MainLightIndex(o.posWorld.xyz, o.shadowCoord, positionCS);
 #else
     o.mainLightID = DetermineUTS_MainLightIndex(o.posWorld.xyz, 0, positionCS);
 #endif
-
-
+    
     return o;
 }
 
