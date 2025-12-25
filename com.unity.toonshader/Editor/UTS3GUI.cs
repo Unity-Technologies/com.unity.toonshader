@@ -2139,33 +2139,28 @@ namespace UnityEditor.Rendering.Toon {
 
         void GUI_Outline(Material material) {
             const string kDisableOutlineKeyword = "_DISABLE_OUTLINE";
-            bool isLegacy = (srpDefaultLightModeName == "Always");
+            
+            const string kOutline = "Outline";
+            
+#if URP_IS_INSTALLED_FOR_UTS || HDRP_IS_INSTALLED_FOR_UTS
+            bool isOutlineEnabled = material.GetShaderPassEnabled(srpDefaultLightModeName);
+#else
+            bool isOutlineEnabled = material.IsKeywordEnabled(kDisableOutlineKeyword);
+#endif            
 
-            var srpDefaultLightModeTag = material.GetTag("LightMode", false, srpDefaultLightModeName);
-            bool isOutlineEnabled = true;
-            if (srpDefaultLightModeTag == srpDefaultLightModeName) {
-                const string kOutline = "Outline";
-                isOutlineEnabled = material.GetShaderPassEnabled(srpDefaultLightModeName);
-
-                EditorGUI.BeginChangeCheck();
-                isOutlineEnabled = EditorGUILayout.Toggle(kOutline, isOutlineEnabled);
-                if (EditorGUI.EndChangeCheck()) {
-                    m_MaterialEditor.RegisterPropertyChangeUndo(kOutline);
-                    if (isOutlineEnabled) {
-                        if (isLegacy) {
-                            material.DisableKeyword(kDisableOutlineKeyword);
-                        }
-
-                        material.SetShaderPassEnabled(srpDefaultLightModeName, true);
-                    }
-                    else {
-                        if (isLegacy) {
-                            material.EnableKeyword(kDisableOutlineKeyword);
-                        }
-
-                        material.SetShaderPassEnabled(srpDefaultLightModeName, false);
-                    }
+            EditorGUI.BeginChangeCheck();
+            isOutlineEnabled = EditorGUILayout.Toggle(kOutline, isOutlineEnabled);
+            if (EditorGUI.EndChangeCheck()) {
+                m_MaterialEditor.RegisterPropertyChangeUndo(kOutline);
+#if URP_IS_INSTALLED_FOR_UTS || HDRP_IS_INSTALLED_FOR_UTS
+                material.SetShaderPassEnabled(srpDefaultLightModeName, isOutlineEnabled);
+#else
+                if (isOutlineEnabled) {
+                    material.DisableKeyword(kDisableOutlineKeyword);
+                }  else {
+                    material.EnableKeyword(kDisableOutlineKeyword);
                 }
+#endif
             }
 
             EditorGUI.indentLevel++;
