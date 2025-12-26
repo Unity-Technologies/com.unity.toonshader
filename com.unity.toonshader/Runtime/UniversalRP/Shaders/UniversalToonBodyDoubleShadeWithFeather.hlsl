@@ -49,18 +49,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     input.positionWS = i.posWorld.xyz;
 #endif
 
-#ifdef _NORMALMAP
-    input.normalWS = half4(i.normalDir, viewDirection.x); // xyz: normal, w: viewDir.x
-    input.tangentWS = half4(i.tangentDir, viewDirection.y); // xyz: tangent, w: viewDir.y
-#if (VERSION_LOWER(7, 5))
-    input.bitangentWS = half4(i.bitangentDir, viewDirection.z); // xyz: bitangent, w: viewDir.z
-#endif
-#else //ifdef _NORMALMAP
     input.normalWS = half3(i.normalDir);
-#if (VERSION_LOWER(12, 0))
-    input.viewDirWS = half3(viewDirection);
-#endif  //    #if (VERSION_LOWER(12, 0))
-#endif
     InitializeInputData(input, surfaceData.normalTS, inputData);
     InitializeBakedGIData(input, inputData);
     BRDFData brdfData;
