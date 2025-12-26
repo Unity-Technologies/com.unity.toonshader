@@ -61,9 +61,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 #endif //(VERSION_LOWER(12, 0))
 #endif
     InitializeInputData(input, surfaceData.normalTS, inputData);
-#if UNITY_VERSION >= 60000012
     InitializeBakedGIData(input, inputData);
-#endif
     BRDFData brdfData;
     InitializeBRDFData(surfaceData.albedo,
         surfaceData.metallic,
