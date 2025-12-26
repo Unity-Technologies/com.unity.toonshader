@@ -1,6 +1,6 @@
 void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 #ifdef _WRITE_RENDERING_LAYERS
-    , out float4 outRenderingLayers : SV_Target1
+          , out float4 outRenderingLayers : SV_Target1
 #endif
 ) {
     i.normalDir = normalize(i.normalDir);
