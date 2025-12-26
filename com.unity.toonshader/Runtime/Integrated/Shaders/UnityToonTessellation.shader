@@ -1,4 +1,4 @@
-//Auto-generated on Fri Dec 19 07:08:10 UTC 2025
+//Auto-generated on Fri Dec 26 10:44:46 UTC 2025
 Shader "Toon/Toon (Tessellation)" {
     Properties
     {
@@ -282,7 +282,6 @@ Shader "Toon/Toon (Tessellation)" {
         _NormalScale("_NormalScale", Range(0.0, 8.0)) = 1
 
         _BentNormalMap("_BentNormalMap", 2D) = "bump" {}
-        _BentNormalMapOS("_BentNormalMapOS", 2D) = "white" {}
 
         // Height Maps
         _HeightMap("HeightMap", 2D) = "black" {}
@@ -292,17 +291,7 @@ Shader "Toon/Toon (Tessellation)" {
         [HideInInspector] _HeightCenter("Height Center", Range(0.0, 1.0)) = 0.5 // In texture space
 
         [Enum(MinMax, 0, Amplitude, 1)] _HeightMapParametrization("Heightmap Parametrization", Int) = 0
-        // These parameters are for vertex displacement/Tessellation
         _HeightOffset("Height Offset", Float) = 0
-        // MinMax mode
-        _HeightMin("Heightmap Min", Float) = -1
-        _HeightMax("Heightmap Max", Float) = 1
-        // Amplitude mode
-        _HeightTessAmplitude("Amplitude", Float) = 2.0 // in Centimeters
-        _HeightTessCenter("Height Center", Range(0.0, 1.0)) = 0.5 // In texture space
-
-        // These parameters are for pixel displacement
-        _HeightPoMAmplitude("Height Amplitude", Float) = 2.0 // In centimeters
 
         // Detail Maps
         _DetailMap("DetailMap", 2D) = "linearGrey" {}
@@ -318,7 +307,6 @@ Shader "Toon/Toon (Tessellation)" {
 
         // Diffusion Profile
         [HideInInspector] _DiffusionProfile("Obsolete, kept for migration purpose", Int) = 0
-        [HideInInspector] _DiffusionProfileAsset("Diffusion Profile Asset", Vector) = (0, 0, 0, 0)
         [HideInInspector] _DiffusionProfileHash("Diffusion Profile Hash", Float) = 0
         _SubsurfaceMask("Subsurface Radius", Range(0.0, 1.0)) = 1.0
         _SubsurfaceMaskMap("Subsurface Radius Map", 2D) = "white" {}
@@ -349,26 +337,16 @@ Shader "Toon/Toon (Tessellation)" {
 
         // Emissive
         [HDR] _EmissiveColor("EmissiveColor", Color) = (0, 0, 0)
-        // Used only to serialize the LDR and HDR emissive color in the material UI,
-        // in the shader only the _EmissiveColor should be used
-        [HideInInspector] _EmissiveColorLDR("EmissiveColor LDR", Color) = (0, 0, 0)
         _EmissiveColorMap("EmissiveColorMap", 2D) = "white" {}
         [ToggleUI] _AlbedoAffectEmissive("Albedo Affect Emissive", Float) = 0.0
-        [HideInInspector] _EmissiveIntensityUnit("Emissive Mode", Int) = 0
-        [ToggleUI] _UseEmissiveIntensity("Use Emissive Intensity", Int) = 0
-        _EmissiveIntensity("Emissive Intensity", Float) = 1
         _EmissiveExposureWeight("Emissive Pre Exposure", Range(0.0, 1.0)) = 1.0
 
         // Distortion
         _DistortionVectorMap("DistortionVectorMap", 2D) = "black" {}
-        [ToggleUI] _DistortionEnable("Enable Distortion", Float) = 0.0
-        [ToggleUI] _DistortionDepthTest("Distortion Depth Test Enable", Float) = 1.0
-        [Enum(Add, 0, Multiply, 1, Replace, 2)] _DistortionBlendMode("Distortion Blend Mode", Int) = 0
         [HideInInspector] _DistortionSrcBlend("Distortion Blend Src", Int) = 0
         [HideInInspector] _DistortionDstBlend("Distortion Blend Dst", Int) = 0
         [HideInInspector] _DistortionBlurSrcBlend("Distortion Blur Blend Src", Int) = 0
         [HideInInspector] _DistortionBlurDstBlend("Distortion Blur Blend Dst", Int) = 0
-        [HideInInspector] _DistortionBlurBlendMode("Distortion Blur Blend Mode", Int) = 0
         _DistortionScale("Distortion Scale", Float) = 1
         _DistortionVectorScale("Distortion Vector Scale", Float) = 2
         _DistortionVectorBias("Distortion Vector Bias", Float) = -1
@@ -378,25 +356,16 @@ Shader "Toon/Toon (Tessellation)" {
 
         // Alpha and Transparency
         [ToggleUI]  _UseShadowThreshold("_UseShadowThreshold", Float) = 0.0
-        [ToggleUI]  _AlphaCutoffEnable("Alpha Cutoff Enable", Float) = 0.0
         _AlphaCutoff("Alpha Cutoff", Range(0.0, 1.0)) = 0.5
         _AlphaCutoffShadow("_AlphaCutoffShadow", Range(0.0, 1.0)) = 0.5
         _AlphaCutoffPrepass("_AlphaCutoffPrepass", Range(0.0, 1.0)) = 0.5
         _AlphaCutoffPostpass("_AlphaCutoffPostpass", Range(0.0, 1.0)) = 0.5
-        [ToggleUI] _TransparentDepthPrepassEnable("_TransparentDepthPrepassEnable", Float) = 0.0
-        [ToggleUI] _TransparentBackfaceEnable("_TransparentBackfaceEnable", Float) = 0.0
-        [ToggleUI] _TransparentDepthPostpassEnable("_TransparentDepthPostpassEnable", Float) = 0.0
-        _TransparentSortPriority("_TransparentSortPriority", Float) = 0
 
         // Transparency
-        [Enum(None, 0, Box, 1, Sphere, 2, Thin, 3)]_RefractionModel("Refraction Model", Int) = 0
-        [Enum(Proxy, 1, HiZ, 2)]_SSRefractionProjectionModel("Refraction Projection Model", Int) = 0
         _Ior("Index Of Refraction", Range(1.0, 2.5)) = 1.0
-        _ThicknessMultiplier("Thickness Multiplier", Float) = 1.0
         _TransmittanceColor("Transmittance Color", Color) = (1.0, 1.0, 1.0)
         _TransmittanceColorMap("TransmittanceColorMap", 2D) = "white" {}
         _ATDistance("Transmittance Absorption Distance", Float) = 1.0
-        [ToggleUI] _TransparentWritingMotionVec("_TransparentWritingMotionVec", Float) = 0.0
 
         // Stencil state
         // Forward
@@ -413,11 +382,8 @@ Shader "Toon/Toon (Tessellation)" {
         [HideInInspector] _StencilWriteMaskMV("_StencilWriteMaskMV", Int) = 128 // StencilBitMask.ObjectMotionVectors
         // Distortion vector pass
         [HideInInspector] _StencilRefDistortionVec("_StencilRefDistortionVec", Int) = 64 // StencilBitMask.DistortionVectors
-        [HideInInspector] _StencilWriteMaskDistortionVec("_StencilWriteMaskDistortionVec", Int) = 64 // StencilBitMask.DistortionVectors
 
         // Blending state
-        [HideInInspector] _SurfaceType("__surfacetype", Float) = 0.0
-        [HideInInspector] _BlendMode("__blendmode", Float) = 0.0
         [HideInInspector] _SrcBlend("__src", Float) = 1.0
         [HideInInspector] _DstBlend("__dst", Float) = 0.0
         [HideInInspector] _AlphaSrcBlend("__alphaSrc", Float) = 1.0
@@ -431,14 +397,9 @@ Shader "Toon/Toon (Tessellation)" {
         [HideInInspector] _ZTestGBuffer("_ZTestGBuffer", Int) = 4
         [Enum(UnityEngine.Rendering.CompareFunction)] _ZTestTransparent("Transparent ZTest", Int) = 4 // Less equal
 
-        [ToggleUI] _EnableFogOnTransparent("Enable Fog", Float) = 1.0
-        [ToggleUI] _EnableBlendModePreserveSpecularLighting("Enable Blend Mode Preserve Specular Lighting", Float) = 1.0
-
         [ToggleUI] _DoubleSidedEnable("Double sided enable", Float) = 0.0
-        [Enum(Flip, 0, Mirror, 1, None, 2)] _DoubleSidedNormalMode("Double sided normal mode", Float) = 1
         [HideInInspector] _DoubleSidedConstants("_DoubleSidedConstants", Vector) = (1, 1, -1, 0)
 
-        [Enum(UV0, 0, UV1, 1, UV2, 2, UV3, 3, Planar, 4, Triplanar, 5)] _UVBase("UV Set for base", Float) = 0
         [Enum(WorldSpace, 0, ObjectSpace, 1)] _ObjectSpaceUVMapping("Mapping space", Float) = 0.0
         _TexWorldScale("Scale to apply on world coordinate", Float) = 1.0
         [HideInInspector] _InvTilingScale("Inverse tiling scale = 2 / (abs(_BaseColorMap_ST.x) + abs(_BaseColorMap_ST.y))", Float) = 1
@@ -457,16 +418,12 @@ Shader "Toon/Toon (Tessellation)" {
         _PPDMinSamples("Min sample for POM", Range(1.0, 64.0)) = 5
         _PPDMaxSamples("Max sample for POM", Range(1.0, 64.0)) = 15
         _PPDLodThreshold("Start lod to fade out the POM effect", Range(0.0, 16.0)) = 5
-        _PPDPrimitiveLength("Primitive length for POM", Float) = 1
-        _PPDPrimitiveWidth("Primitive width for POM", Float) = 1
         [HideInInspector] _InvPrimScale("Inverse primitive scale for non-planar POM", Vector) = (1, 1, 0, 0)
 
         [Enum(UV0, 0, UV1, 1, UV2, 2, UV3, 3)] _UVDetail("UV Set for detail", Float) = 0
         [HideInInspector] _UVDetailsMappingMask("_UVDetailsMappingMask", Color) = (1, 0, 0, 0)
         [ToggleUI] _LinkDetailsWithBase("LinkDetailsWithBase", Float) = 1.0
 
-        [Enum(Use Emissive Color, 0, Use Emissive Mask, 1)] _EmissiveColorMode("Emissive color mode", Float) = 1
-        [Enum(UV0, 0, UV1, 1, UV2, 2, UV3, 3, Planar, 4, Triplanar, 5)] _UVEmissive("UV Set for emissive", Float) = 0
         _TexWorldScaleEmissive("Scale to apply on world coordinate", Float) = 1.0
         [HideInInspector] _UVMappingMaskEmissive("_UVMappingMaskEmissive", Color) = (1, 0, 0, 0)
 
@@ -480,9 +437,6 @@ Shader "Toon/Toon (Tessellation)" {
         ////////// _MainTex("BaseMap", 2D) = "white" {}
         _Cutoff("Alpha Cutoff", Range(0.0, 1.0)) = 0.5
 
-        [ToggleUI] _SupportDecals("Support Decals", Float) = 1.0
-        [ToggleUI] _ReceivesSSR("Receives SSR", Float) = 1.0
-        [ToggleUI] _AddPrecomputedVelocity("AddPrecomputedVelocity", Float) = 0.0
         //////////////////////////////////////////////////////////////////////////////
         //////////////////// End of HDRP material default values. ////////////////////
         //////////////////////////////////////////////////////////////////////////////
