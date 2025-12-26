@@ -905,7 +905,6 @@ GameObject:
   - component: {fileID: 794565946}
   - component: {fileID: 794565945}
   - component: {fileID: 794565943}
-  - component: {fileID: 794565947}
   - component: {fileID: 794565944}
   - component: {fileID: 794565948}
   m_Layer: 0
@@ -1128,21 +1127,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &794565947
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 794565941}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50aaf516758b40a1a94bb7d7333bb963, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  focus: {x: 0, y: 0.6, z: 0}
-  focusObj: {fileID: 829328222}
-  showInstWindow: 0
 --- !u!114 &794565948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1683,8 +1667,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1382183771}
   - component: {fileID: 1382183770}
-  - component: {fileID: 1382183772}
-  - component: {fileID: 1382183773}
   - component: {fileID: 1382183774}
   m_Layer: 0
   m_Name: Directional light
@@ -1773,36 +1755,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1521128765}
   m_LocalEulerAnglesHint: {x: 34.489002, y: 198.883, z: 97.518005}
---- !u!114 &1382183772
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1382183769}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 217d546b62494c3690707fecc4f34cc8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  resolution: 4096
---- !u!114 &1382183773
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1382183769}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccb702b4ccc24cbfa9bfc40020ed150f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shadowProjection: 0
-  shadowDistance: 20
-  cascadeMode: 4
-  twoCascadeSetting: 33.3
-  fourCascadeSetting: {x: 6.7, y: 13.3, z: 26.7}
 --- !u!114 &1382183774
 MonoBehaviour:
   m_ObjectHideFlags: 0

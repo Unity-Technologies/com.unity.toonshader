@@ -1979,21 +1979,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!115 &1131974354
-MonoScript:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  serializedVersion: 7
-  m_DefaultReferences: {}
-  m_Icon: {fileID: 0}
-  m_Type: 2
-  m_ExecutionOrder: 0
-  m_ClassName: SceneObjectIDMapSceneAsset
-  m_Namespace: UnityEngine.Rendering.HighDefinition
-  m_AssemblyName: 
 --- !u!1 &1270189635
 GameObject:
   m_ObjectHideFlags: 0
@@ -2408,23 +2393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f5863a4df974b248ba17a691a493177, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ImageComparisonSettings:
-    TargetWidth: 960
-    TargetHeight: 540
-    TargetMSAASamples: 1
-    PerPixelCorrectnessThreshold: 0.005
-    PerPixelGammaThreshold: 0.003921569
-    PerPixelAlphaThreshold: 0.003921569
-    RMSEThreshold: 0
-    AverageCorrectnessThreshold: 0.005
-    IncorrectPixelsThreshold: 0.0000038146973
-    UseHDR: 0
-    UseBackBuffer: 0
-    ImageResolution: 3
-    ActiveImageTests: 1
-    ActivePixelTests: 7
   SO: {fileID: 11400000, guid: 38185e5fc3dea1e47b68a1e60de13007, type: 2}
-  WaitFrames: 480
   CheckMemoryAllocation: 0
 --- !u!1 &1467344791
 GameObject:
@@ -2683,7 +2652,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1614632594}
-  - component: {fileID: 1614632593}
   m_Layer: 0
   m_Name: SceneIDMap
   m_TagString: Untagged
@@ -2691,22 +2659,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1614632593
-MonoBehaviour:
-  m_ObjectHideFlags: 19
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1614632592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1131974354}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Entries:
-  - id: 0
-    category: 0
-    gameObject: {fileID: 886344400}
 --- !u!4 &1614632594
 Transform:
   m_ObjectHideFlags: 19
