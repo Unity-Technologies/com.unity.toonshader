@@ -267,7 +267,7 @@ UtsLight GetUrpMainUtsLight() {
 
 UtsLight GetUrpMainUtsLight(float4 shadowCoord, float4 positionCS) {
     UtsLight light = GetUrpMainUtsLight();
-    light.shadowAttenuation = MainLightRealtimeShadowUTS(shadowCoord, positionCS);
+    light.shadowAttenuation = MainLightRealtimeShadow(shadowCoord);
     return light;
 }
 
