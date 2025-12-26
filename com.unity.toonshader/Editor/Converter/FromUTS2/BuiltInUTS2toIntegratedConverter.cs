@@ -408,16 +408,14 @@ namespace UnityEditor.Rendering.Toon
                 }
 
 
-
-                if (transparencyEnabled == UTS3GUI.UTS_TransparentMode.On)
+                bool transparentMode = transparencyEnabled == UTS3GUI.UTS_TransparentMode.On;
+                if (transparentMode)
                 {
                     UTS3GUI.MaterialSetInt(material, UTS3GUI.ShaderPropTransparentEnabled, 1);
-                    UTS3GUI.SetupOverDrawTransparentObject(material);
                 }
-                else
-                {
-                    UTS3GUI.SetupOutline(material);
-                }
+                
+                UTS3GUI.SetupTransparentMode(material, transparentMode);
+                
                 SetCullingMode(material);
                 int autoRenderQueue = renderQueueInMaterial == -1 ? 1:0;
                 SetAutoRenderQueue(material, autoRenderQueue);

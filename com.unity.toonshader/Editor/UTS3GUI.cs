@@ -1212,12 +1212,7 @@ namespace UnityEditor.Rendering.Toon {
                     break;
             }
 
-            if (transparencyEnabled != UTS_TransparentMode.On) {
-                SetupOutline(material);
-            }
-            else {
-                SetupOverDrawTransparentObject(material);
-            }
+            SetupTransparentMode(material, transparencyEnabled == UTS_TransparentMode.On);
 
             ShaderPropertiesGUI(materialEditor, material, props);
 
@@ -2114,23 +2109,23 @@ namespace UnityEditor.Rendering.Toon {
         const string srpDefaultColorMask = "_SPRDefaultUnlitColorMask";
         const string srpDefaultCullMode = "_SRPDefaultUnlitColMode";
 
-        internal static void SetupOverDrawTransparentObject(Material material) {
-            var srpDefaultLightModeTag = material.GetTag("LightMode", false, srpDefaultLightModeName);
-            if (srpDefaultLightModeTag == srpDefaultLightModeName) {
+        internal static void SetupTransparentMode(Material material, bool isTransparent) {
+            string srpDefaultLightModeTag = material.GetTag("LightMode", false, srpDefaultLightModeName);
+            
+            if (srpDefaultLightModeTag != srpDefaultLightModeName) 
+                return;
+
+            if (isTransparent) {
                 material.SetShaderPassEnabled(srpDefaultLightModeName, true);
                 MaterialSetInt(material, srpDefaultColorMask, 0);
                 MaterialSetInt(material, srpDefaultCullMode, (int)CullingMode.Backface);
-            }
-        }
-
-        internal static void SetupOutline(Material material) {
-            var srpDefaultLightModeTag = material.GetTag("LightMode", false, srpDefaultLightModeName);
-            if (srpDefaultLightModeTag == srpDefaultLightModeName) {
+            } else {
                 MaterialSetInt(material, srpDefaultColorMask, 15);
                 MaterialSetInt(material, srpDefaultCullMode, (int)CullingMode.Frontface);
             }
         }
-
+        
+        
         void GUI_Outline(Material material) {
             const string kDisableOutlineKeyword = "_DISABLE_OUTLINE";
             
