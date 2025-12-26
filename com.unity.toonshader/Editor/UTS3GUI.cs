@@ -2106,14 +2106,15 @@ namespace UnityEditor.Rendering.Toon {
         }
 
 
-        const string srpDefaultColorMask = "_SPRDefaultUnlitColorMask";
-        const string srpDefaultCullMode = "_SRPDefaultUnlitColMode";
 
         internal static void SetupTransparentMode(Material material, bool isTransparent) {
             string srpDefaultLightModeTag = material.GetTag("LightMode", false, srpDefaultLightModeName);
             
             if (srpDefaultLightModeTag != srpDefaultLightModeName) 
                 return;
+            
+            const string srpDefaultColorMask = "_SPRDefaultUnlitColorMask";
+            const string srpDefaultCullMode = "_SRPDefaultUnlitColMode";
 
             if (isTransparent) {
                 material.SetShaderPassEnabled(srpDefaultLightModeName, true);
