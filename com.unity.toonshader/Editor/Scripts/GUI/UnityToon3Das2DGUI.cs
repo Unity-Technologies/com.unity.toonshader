@@ -55,7 +55,7 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         m_normalMapFoldout = true;
         m_outlineFoldout = Toon3Das2DMaterialUtility.IsOutlineEnabled(mat);
 
-        bool lightEnabled = mat.GetInteger(uiElements[SHADER_PROP_DIRECTIONAL_LIGHT_USE].mainProperty.id) != 0;
+        bool lightEnabled = mat.GetInteger(uiElements[ToonConstants.SHADER_PROP_DIRECTIONAL_LIGHT_USE].mainProperty.id) != 0;
         m_lightingFoldout = lightEnabled;
 
     }
@@ -68,31 +68,31 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         if (!foldout)
             return;
 
-        ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[SHADER_PROP_MAIN_TEX]);
+        ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[ToonConstants.SHADER_PROP_MAIN_TEX]);
 
         EditorGUI.indentLevel += 2;
-        ToonEditorGUIUtility.DrawToggleGUI(mEditor, mats, uiElements[SHADER_PROP_USE_BASE_AS1_ST], out bool applyTo1st);
+        ToonEditorGUIUtility.DrawToggleGUI(mEditor, mats, uiElements[ToonConstants.SHADER_PROP_USE_BASE_AS_1ST], out bool applyTo1st);
         EditorGUI.indentLevel -= 2;
 
         if (applyTo1st) {
             EditorGUI.indentLevel += 2;
-            ToonEditorGUIUtility.DrawColorPropertyGUI(mEditor, uiElements[SHADER_PROP_1_ST_SHADE_COLOR]);
+            ToonEditorGUIUtility.DrawColorPropertyGUI(mEditor, uiElements[ToonConstants.SHADER_PROP_1_ST_SHADE_COLOR]);
             EditorGUI.indentLevel -= 2;
         } else {
-            ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[SHADER_PROP_1_ST_SHADE_MAP]);
+            ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[ToonConstants.SHADER_PROP_1_ST_SHADE_MAP]);
         }
 
         EditorGUI.indentLevel += 2;
-        ToonEditorGUIUtility.DrawToggleGUI(mEditor, mats, uiElements[SHADER_PROP_USE_1ST_AS_2ND], out bool applyTo2nd);
+        ToonEditorGUIUtility.DrawToggleGUI(mEditor, mats, uiElements[ToonConstants.SHADER_PROP_USE_1ST_AS_2ND], out bool applyTo2nd);
         EditorGUI.indentLevel -= 2;
 
 
         if (applyTo2nd) {
             EditorGUI.indentLevel += 2;
-            ToonEditorGUIUtility.DrawColorPropertyGUI(mEditor, uiElements[SHADER_PROP_2ND_SHADE_COLOR]);
+            ToonEditorGUIUtility.DrawColorPropertyGUI(mEditor, uiElements[ToonConstants.SHADER_PROP_2ND_SHADE_COLOR]);
             EditorGUI.indentLevel -= 2;
         } else {
-            ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[SHADER_PROP_2ND_SHADE_MAP]);
+            ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[ToonConstants.SHADER_PROP_2ND_SHADE_MAP]);
         }
 
         EditorGUILayout.Space();
@@ -108,14 +108,14 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
 
         EditorGUILayout.LabelField("Base to 1st Shade");
         EditorGUI.indentLevel += INDENT_SIZE;
-        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_BASE_TO_1ST_SHADE_START]);
-        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_BASE_TO_1ST_SHADE_FEATHER]);
+        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[ToonConstants.SHADER_PROP_BASE_TO_1ST_SHADE_START]);
+        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[ToonConstants.SHADER_PROP_BASE_TO_1ST_SHADE_FEATHER]);
         EditorGUI.indentLevel -= INDENT_SIZE;
 
         EditorGUILayout.LabelField("1st to 2nd Shade");
         EditorGUI.indentLevel += INDENT_SIZE;
-        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_1ST_TO_2ND_SHADE_START]);
-        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_1ST_TO_2ND_SHADE_FEATHER]);
+        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[ToonConstants.SHADER_PROP_1ST_TO_2ND_SHADE_START]);
+        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[ToonConstants.SHADER_PROP_1ST_TO_2ND_SHADE_FEATHER]);
         EditorGUI.indentLevel -= INDENT_SIZE;
 
         EditorGUILayout.Space();
@@ -133,10 +133,10 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         if (!foldout)
             return;
 
-        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_2D_LIGHT_STRENGTH]);
+        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[ToonConstants.SHADER_PROP_2D_LIGHT_STRENGTH]);
         EditorGUILayout.Space();
 
-        ToonEditorGUIUtility.DrawToggleGUI(mEditor, mats, uiElements[SHADER_PROP_DIRECTIONAL_LIGHT_USE],
+        ToonEditorGUIUtility.DrawToggleGUI(mEditor, mats, uiElements[ToonConstants.SHADER_PROP_DIRECTIONAL_LIGHT_USE],
             out bool directionalLightEnabled);
 
         EditorGUI.indentLevel += INDENT_SIZE;
@@ -145,16 +145,16 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         ToonEditorGUIUtility.DrawVector3FieldGUI(mEditor, mats, uiElements[ToonConstants.SHADER_PROP_DIRECTIONAL_LIGHT_DIRECTION]);
         ToonEditorGUIUtility.DrawColorFieldGUI(mEditor, uiElements[ToonConstants.SHADER_PROP_DIRECTIONAL_LIGHT_COLOR]);
         ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[ToonConstants.SHADER_PROP_DIRECTIONAL_LIGHT_INTENSITY]);
-        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_DIRECTIONAL_LIGHT_DIFFUSE_STRENGTH]);
+        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[ToonConstants.SHADER_PROP_DIRECTIONAL_LIGHT_DIFFUSE_STRENGTH]);
 
         EditorGUILayout.LabelField("Highlight Settings");
         EditorGUI.indentLevel += INDENT_SIZE;
         ToonEditorGUIUtility.DrawVector3FieldGUI(mEditor, mats, uiElements[ToonConstants.SHADER_PROP_DIRECTIONAL_LIGHT_VIEW_POSITION]);
-        ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[SHADER_PROP_HIGHLIGHT_TEX]);
-        ToonEditorGUIUtility.DrawIntPopupGUI(mEditor, mats, uiElements[SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_MODE],
+        ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[ToonConstants.SHADER_PROP_HIGHLIGHT_TEX]);
+        ToonEditorGUIUtility.DrawIntPopupGUI(mEditor, mats, uiElements[ToonConstants.SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_MODE],
             m_highlightModeEnums, m_highlightModeIndices, out int _);
-        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_STRENGTH]);
-        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_SIZE]);
+        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[ToonConstants.SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_STRENGTH]);
+        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[ToonConstants.SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_SIZE]);
 
         EditorGUI.indentLevel -= INDENT_SIZE;
 
@@ -169,12 +169,12 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     static void DrawNormalMapGUI(MaterialEditor mEditor, Dictionary<string, MaterialPropertyUIElement> uiElements,
         ref bool foldout) {
 
-        ToonEditorGUIUtility.DrawFoldoutGUI(ref foldout, uiElements[SHADER_PROP_NORMAL_MAP].label);
+        ToonEditorGUIUtility.DrawFoldoutGUI(ref foldout, uiElements[ToonConstants.SHADER_PROP_NORMAL_MAP].label);
         if (!foldout)
             return;
 
-        ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[SHADER_PROP_NORMAL_MAP]);
-        mEditor.TextureScaleOffsetProperty(uiElements[SHADER_PROP_NORMAL_MAP].mainProperty.prop);
+        ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[ToonConstants.SHADER_PROP_NORMAL_MAP]);
+        mEditor.TextureScaleOffsetProperty(uiElements[ToonConstants.SHADER_PROP_NORMAL_MAP].mainProperty.prop);
 
         EditorGUILayout.Space();
     }
@@ -199,32 +199,32 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
 
         EditorGUI.BeginDisabledGroup(outlineMode != (int)ToonOutlineMode.NormalDirection);
         {
-            ToonEditorGUIUtility.DrawToggleGUI(mEditor, mats, uiElements[SHADER_PROP_OUTLINE_USE_NORMAL_MAP],
+            ToonEditorGUIUtility.DrawToggleGUI(mEditor, mats, uiElements[ToonConstants.SHADER_PROP_OUTLINE_USE_NORMAL_MAP],
                 out bool useCustom);
             EditorGUI.BeginDisabledGroup(!useCustom);
-            ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[SHADER_PROP_OUTLINE_NORMAL_MAP]);
+            ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[ToonConstants.SHADER_PROP_OUTLINE_NORMAL_MAP]);
             EditorGUI.EndDisabledGroup();
         }
         EditorGUI.EndDisabledGroup();
 
 
-        ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[SHADER_PROP_OUTLINE_WIDTH]);
-        ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[SHADER_PROP_OUTLINE_WIDTH_MAP]);
+        ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[ToonConstants.SHADER_PROP_OUTLINE_WIDTH]);
+        ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[ToonConstants.SHADER_PROP_OUTLINE_WIDTH_MAP]);
 
-        ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[SHADER_PROP_OUTLINE_TEX]);
-        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_OUTLINE_BASE_COLOR_BLEND]);
-        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[SHADER_PROP_OUTLINE_LIGHT_COLOR_BLEND]);
+        ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[ToonConstants.SHADER_PROP_OUTLINE_TEX]);
+        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[ToonConstants.SHADER_PROP_OUTLINE_BASE_COLOR_BLEND]);
+        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[ToonConstants.SHADER_PROP_OUTLINE_LIGHT_COLOR_BLEND]);
 
 
-        ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[SHADER_PROP_OUTLINE_OFFSET_Z]);
+        ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[ToonConstants.SHADER_PROP_OUTLINE_OFFSET_Z]);
 
 
         EditorGUILayout.Space();
         {
             EditorGUILayout.LabelField("Camera Distance for Outline Width");
             EditorGUI.indentLevel++;
-            ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[SHADER_PROP_OUTLINE_NEAR]);
-            ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[SHADER_PROP_OUTLINE_FAR]);
+            ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[ToonConstants.SHADER_PROP_OUTLINE_NEAR]);
+            ToonEditorGUIUtility.DrawFloatFieldGUI(mEditor, uiElements[ToonConstants.SHADER_PROP_OUTLINE_FAR]);
             EditorGUI.indentLevel--;
 
 
@@ -278,29 +278,29 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     static readonly Dictionary<string, string> TOON_3D_AS_2D_TO_3D_MAP = new Dictionary<string, string> {
 
         // Shading thresholds
-        { ToonConstants.SHADER_PROP_BASE_TO_1ST_SHADE_START, "_BaseColor_Step" },
-        { ToonConstants.SHADER_PROP_BASE_TO_1ST_SHADE_FEATHER, "_BaseShade_Feather" },
-        { ToonConstants.SHADER_PROP_1ST_TO_2ND_SHADE_START, "_1st_ShadeColor_Step" },
-        { ToonConstants.SHADER_PROP_1ST_TO_2ND_SHADE_FEATHER, "_1st_ShadeColor_Feather" },
+        { ToonConstants.SHADER_PROP_BASE_TO_1ST_SHADE_START, ToonConstants.SHADER_PROP_TOON3D_BASE_COLOR_STEP },
+        { ToonConstants.SHADER_PROP_BASE_TO_1ST_SHADE_FEATHER, ToonConstants.SHADER_PROP_TOON3D_BASE_SHADE_FEATHER },
+        { ToonConstants.SHADER_PROP_1ST_TO_2ND_SHADE_START, ToonConstants.SHADER_PROP_TOON3D_1ST_SHADE_COLOR_STEP },
+        { ToonConstants.SHADER_PROP_1ST_TO_2ND_SHADE_FEATHER, ToonConstants.SHADER_PROP_TOON3D_1ST_SHADE_COLOR_FEATHER },
 
         // Highlight
-        { ToonConstants.SHADER_PROP_HIGHLIGHT_COLOR, "_HighColor" },
-        { ToonConstants.SHADER_PROP_HIGHLIGHT_TEX, "_HighColor_Tex" },
+        { ToonConstants.SHADER_PROP_HIGHLIGHT_COLOR, ToonConstants.SHADER_PROP_TOON3D_HIGH_COLOR },
+        { ToonConstants.SHADER_PROP_HIGHLIGHT_TEX, ToonConstants.SHADER_PROP_TOON3D_HIGH_COLOR_TEX },
 
         // Outline
-        { ToonConstants.SHADER_PROP_OUTLINE_MODE, "_OUTLINE" },
-        { ToonConstants.SHADER_PROP_OUTLINE_WIDTH, "_Outline_Width" },
-        { ToonConstants.SHADER_PROP_OUTLINE_WIDTH_MAP, "_Outline_Sampler" },
-        { ToonConstants.SHADER_PROP_OUTLINE_COLOR, "_Outline_Color" },
-        { ToonConstants.SHADER_PROP_OUTLINE_BASE_COLOR_BLEND, "_Is_BlendBaseColor" },
-        { ToonConstants.SHADER_PROP_OUTLINE_LIGHT_COLOR_BLEND, "_Is_LightColor_Outline" },
-        { ToonConstants.SHADER_PROP_OUTLINE_OFFSET_Z, "_Offset_Z" },
-        { ToonConstants.SHADER_PROP_OUTLINE_NEAR, "_Nearest_Distance" },
-        { ToonConstants.SHADER_PROP_OUTLINE_FAR, "_Farthest_Distance" },
+        { ToonConstants.SHADER_PROP_OUTLINE_MODE, ToonConstants.SHADER_PROP_TOON3D_OUTLINE },
+        { ToonConstants.SHADER_PROP_OUTLINE_WIDTH, ToonConstants.SHADER_PROP_TOON3D_OUTLINE_WIDTH },
+        { ToonConstants.SHADER_PROP_OUTLINE_WIDTH_MAP, ToonConstants.SHADER_PROP_TOON3D_OUTLINE_SAMPLER },
+        { ToonConstants.SHADER_PROP_OUTLINE_COLOR, ToonConstants.SHADER_PROP_TOON3D_OUTLINE_COLOR },
+        { ToonConstants.SHADER_PROP_OUTLINE_BASE_COLOR_BLEND, ToonConstants.SHADER_PROP_TOON3D_IS_BLEND_BASE_COLOR },
+        { ToonConstants.SHADER_PROP_OUTLINE_LIGHT_COLOR_BLEND, ToonConstants.SHADER_PROP_TOON3D_IS_LIGHT_COLOR_OUTLINE },
+        { ToonConstants.SHADER_PROP_OUTLINE_OFFSET_Z, ToonConstants.SHADER_PROP_TOON3D_OFFSET_Z },
+        { ToonConstants.SHADER_PROP_OUTLINE_NEAR, ToonConstants.SHADER_PROP_TOON3D_NEAREST_DISTANCE },
+        { ToonConstants.SHADER_PROP_OUTLINE_FAR, ToonConstants.SHADER_PROP_TOON3D_FARTHEST_DISTANCE },
 
         // Outline normal options (closest equivalents)
-        { ToonConstants.SHADER_PROP_OUTLINE_USE_NORMAL_MAP, "_Is_BakedNormal" },
-        { ToonConstants.SHADER_PROP_OUTLINE_NORMAL_MAP, "_BakedNormal" },
+        { ToonConstants.SHADER_PROP_OUTLINE_USE_NORMAL_MAP, ToonConstants.SHADER_PROP_TOON3D_IS_BAKED_NORMAL },
+        { ToonConstants.SHADER_PROP_OUTLINE_NORMAL_MAP, ToonConstants.SHADER_PROP_TOON3D_BAKED_NORMAL },
     };
  
 
@@ -361,70 +361,70 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     
     private static readonly List<MaterialUIElement> m_materialUIElements = new List<MaterialUIElement>() {
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(SHADER_PROP_MAIN_TEX),
+            mainPropertyName = new MaterialName(ToonConstants.SHADER_PROP_MAIN_TEX),
             label = new GUIContent("Base Map", "Base Color : Texture(sRGB) × Color(RGB)."),
-            extraPropertyName1 = new MaterialName(SHADER_PROP_BASE_COLOR),
+            extraPropertyName1 = new MaterialName(ToonConstants.SHADER_PROP_BASE_COLOR),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(SHADER_PROP_1_ST_SHADE_MAP),
+            mainPropertyName = new MaterialName(ToonConstants.SHADER_PROP_1_ST_SHADE_MAP),
             label = new GUIContent("1st Shading Map", "The map used for the brighter portions of the shadow."),
-            extraPropertyName1 = new MaterialName(SHADER_PROP_1_ST_SHADE_COLOR),
+            extraPropertyName1 = new MaterialName(ToonConstants.SHADER_PROP_1_ST_SHADE_COLOR),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(SHADER_PROP_1_ST_SHADE_COLOR),
+            mainPropertyName = new MaterialName(ToonConstants.SHADER_PROP_1_ST_SHADE_COLOR),
             label = new GUIContent("1st Shading Map", "The map used for the brighter portions of the shadow."),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(SHADER_PROP_2ND_SHADE_MAP),
+            mainPropertyName = new MaterialName(ToonConstants.SHADER_PROP_2ND_SHADE_MAP),
             label = new GUIContent("2nd Shading Map", "The map used for the darker portions of the shadow."),
-            extraPropertyName1 = new MaterialName(SHADER_PROP_2ND_SHADE_COLOR)
+            extraPropertyName1 = new MaterialName(ToonConstants.SHADER_PROP_2ND_SHADE_COLOR)
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(SHADER_PROP_2ND_SHADE_COLOR),
+            mainPropertyName = new MaterialName(ToonConstants.SHADER_PROP_2ND_SHADE_COLOR),
             label = new GUIContent("2nd Shading Map", "The map used for the darker portions of the shadow."),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(SHADER_PROP_USE_BASE_AS1_ST),
+            mainPropertyName = new MaterialName(ToonConstants.SHADER_PROP_USE_BASE_AS_1ST),
             label = new GUIContent("Apply to 1st shading map", "Apply Base map to the 1st shading map."),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(SHADER_PROP_USE_1ST_AS_2ND),
+            mainPropertyName = new MaterialName(ToonConstants.SHADER_PROP_USE_1ST_AS_2ND),
             label = new GUIContent("Apply to 2nd shading map", "Apply Base map or the 1st shading map to the 2st shading map."),
         },
 
         //Shading
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(SHADER_PROP_BASE_TO_1ST_SHADE_START),
+            mainPropertyName = new MaterialName(ToonConstants.SHADER_PROP_BASE_TO_1ST_SHADE_START),
             label = new GUIContent("Start",
                 "The threshold for transitioning to the 1st shade color. " +
                 "0: use the base color (no transition), " +
                 "1: starts transitioning immediately."),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(SHADER_PROP_BASE_TO_1ST_SHADE_FEATHER),
+            mainPropertyName = new MaterialName(ToonConstants.SHADER_PROP_BASE_TO_1ST_SHADE_FEATHER),
             label = new GUIContent("Feather", "Controls feathering to the 1st shade color. 0: sharp transition, 1: fully feathered."),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(SHADER_PROP_1ST_TO_2ND_SHADE_START),
+            mainPropertyName = new MaterialName(ToonConstants.SHADER_PROP_1ST_TO_2ND_SHADE_START),
             label = new GUIContent("Start",
                 "The threshold for transitioning to the 2nd shade color. " +
                 "0: use the 1st shade color (no transition), " +
                 "1: starts transitioning immediately."),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(SHADER_PROP_1ST_TO_2ND_SHADE_FEATHER),
+            mainPropertyName = new MaterialName(ToonConstants.SHADER_PROP_1ST_TO_2ND_SHADE_FEATHER),
             label = new GUIContent("Feather", "Controls feathering to the 2nd shade color. 0: sharp transition, 1: fully feathered."),
         },
 
         //Lighting
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(SHADER_PROP_2D_LIGHT_STRENGTH),
+            mainPropertyName = new MaterialName(ToonConstants.SHADER_PROP_2D_LIGHT_STRENGTH),
             label = new GUIContent("2D Light Factor",
                 "Multiplier for the 2D light contribution."),
         },
         //Custom Directional Light
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(SHADER_PROP_DIRECTIONAL_LIGHT_USE),
+            mainPropertyName = new MaterialName(ToonConstants.SHADER_PROP_DIRECTIONAL_LIGHT_USE),
             label = new GUIContent("Custom Directional Light",
                 "Apply a custom directional light."),
         },
@@ -444,7 +444,7 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
                 "The intensity of the custom directional light. "),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(SHADER_PROP_DIRECTIONAL_LIGHT_DIFFUSE_STRENGTH),
+            mainPropertyName = new MaterialName(ToonConstants.SHADER_PROP_DIRECTIONAL_LIGHT_DIFFUSE_STRENGTH),
             label = new GUIContent("Diffuse Strength",
                 "Multiplier for the diffuse contribution."),
         },
@@ -453,69 +453,69 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
             label = new GUIContent("View Position", "Camera View Position"),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(SHADER_PROP_HIGHLIGHT_TEX),
+            mainPropertyName = new MaterialName(ToonConstants.SHADER_PROP_HIGHLIGHT_TEX),
             label = new GUIContent("Highlight Map", "Highlight Map."),
-            extraPropertyName1 = new MaterialName(SHADER_PROP_HIGHLIGHT_COLOR)
+            extraPropertyName1 = new MaterialName(ToonConstants.SHADER_PROP_HIGHLIGHT_COLOR)
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_MODE),
+            mainPropertyName = new MaterialName(ToonConstants.SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_MODE),
             label = new GUIContent("Mode", "Highlight mode."),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_STRENGTH),
+            mainPropertyName = new MaterialName(ToonConstants.SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_STRENGTH),
             label = new GUIContent("Highlight Strength", "Multiplier for the highlight contribution."),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_SIZE),
+            mainPropertyName = new MaterialName(ToonConstants.SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_SIZE),
             label = new GUIContent("Highlight Size", "Highlight size."),
         },
 
 
         //Normal Map
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(SHADER_PROP_NORMAL_MAP),
+            mainPropertyName = new MaterialName(ToonConstants.SHADER_PROP_NORMAL_MAP),
             label = new GUIContent("Normal Map", "A texture that specifies the bumpiness of the material."),
-            extraPropertyName1 = new MaterialName(SHADER_PROP_BUMP_SCALE),
+            extraPropertyName1 = new MaterialName(ToonConstants.SHADER_PROP_BUMP_SCALE),
         },
 
         //Outline Start
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(SHADER_PROP_OUTLINE_WIDTH),
+            mainPropertyName = new MaterialName(ToonConstants.SHADER_PROP_OUTLINE_WIDTH),
             label = new GUIContent("Outline Width",
                 "The width of the outline."),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(SHADER_PROP_OUTLINE_WIDTH_MAP),
+            mainPropertyName = new MaterialName(ToonConstants.SHADER_PROP_OUTLINE_WIDTH_MAP),
             label = new GUIContent("Outline Width Map",
                 "Outline Width Map (grayscale, linear): White = full width, Black = 0 width."),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(SHADER_PROP_OUTLINE_TEX),
+            mainPropertyName = new MaterialName(ToonConstants.SHADER_PROP_OUTLINE_TEX),
             label = new GUIContent("Outline Color", "The color of outline."),
-            extraPropertyName1 = new MaterialName(SHADER_PROP_OUTLINE_COLOR),
+            extraPropertyName1 = new MaterialName(ToonConstants.SHADER_PROP_OUTLINE_COLOR),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(SHADER_PROP_OUTLINE_BASE_COLOR_BLEND),
+            mainPropertyName = new MaterialName(ToonConstants.SHADER_PROP_OUTLINE_BASE_COLOR_BLEND),
             label = new GUIContent("Blend Base Color to Outline",
                 "Blend base color to outline color."),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(SHADER_PROP_OUTLINE_LIGHT_COLOR_BLEND),
+            mainPropertyName = new MaterialName(ToonConstants.SHADER_PROP_OUTLINE_LIGHT_COLOR_BLEND),
             label = new GUIContent("Blend Light Color to Outline",
                 "Blend the combined effect of 2D lighting and custom directional light to the outline color."),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(SHADER_PROP_OUTLINE_OFFSET_Z),
+            mainPropertyName = new MaterialName(ToonConstants.SHADER_PROP_OUTLINE_OFFSET_Z),
             label = new GUIContent("Z Offset",
                 "Offsets the outline in the depth (Z) direction of the camera."),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(SHADER_PROP_OUTLINE_NEAR),
+            mainPropertyName = new MaterialName(ToonConstants.SHADER_PROP_OUTLINE_NEAR),
             label = new GUIContent("Near",
                 "Nearest distance for maximum outline width."),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(SHADER_PROP_OUTLINE_FAR),
+            mainPropertyName = new MaterialName(ToonConstants.SHADER_PROP_OUTLINE_FAR),
             label = new GUIContent("Far",
                 "Furthest distance where outline fades to zero width."),
         },
@@ -525,70 +525,19 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
                 "Specifies how the outline is generated."),
         },
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(SHADER_PROP_OUTLINE_USE_NORMAL_MAP),
+            mainPropertyName = new MaterialName(ToonConstants.SHADER_PROP_OUTLINE_USE_NORMAL_MAP),
             label = new GUIContent("Use Normal Map",
                 "Use a normal map for outline."),
         },
 
         new MaterialUIElement {
-            mainPropertyName = new MaterialName(SHADER_PROP_OUTLINE_NORMAL_MAP),
+            mainPropertyName = new MaterialName(ToonConstants.SHADER_PROP_OUTLINE_NORMAL_MAP),
             label = new GUIContent("Normal Map",
                 "Normal map for outline. "),
         },
         //Outline End
 
     };
-
-
-    //Common constants
-    //Colors
-    internal const string SHADER_PROP_BASE_COLOR = "_BaseColor";
-    internal const string SHADER_PROP_MAIN_TEX = "_MainTex";
-
-    internal const string SHADER_PROP_1_ST_SHADE_COLOR = "_1st_ShadeColor";
-    internal const string SHADER_PROP_1_ST_SHADE_MAP = "_1st_ShadeMap";
-    internal const string SHADER_PROP_USE_BASE_AS1_ST = "_Use_BaseAs1st";
-
-    internal const string SHADER_PROP_2ND_SHADE_COLOR = "_2nd_ShadeColor";
-    internal const string SHADER_PROP_2ND_SHADE_MAP = "_2nd_ShadeMap";
-    internal const string SHADER_PROP_USE_1ST_AS_2ND = "_Use_1stAs2nd";
-
-    //Shading
-    internal const string SHADER_PROP_BASE_TO_1ST_SHADE_START = "_BaseTo1st_ShadeStart";
-    internal const string SHADER_PROP_BASE_TO_1ST_SHADE_FEATHER = "_BaseTo1st_ShadeFeather";
-    internal const string SHADER_PROP_1ST_TO_2ND_SHADE_START = "_1stTo2nd_ShadeStart";
-    internal const string SHADER_PROP_1ST_TO_2ND_SHADE_FEATHER = "_1stTo2nd_ShadeFeather";
-
-    internal const string SHADER_PROP_2D_LIGHT_STRENGTH = "_2DLightStrength";
-
-    //Lighting
-    internal const string SHADER_PROP_DIRECTIONAL_LIGHT_USE = "_DirectionalLight_Use";
-    internal const string SHADER_PROP_DIRECTIONAL_LIGHT_DIFFUSE_STRENGTH = "_DirectionalLight_DiffuseStrength";
-
-
-    internal const string SHADER_PROP_HIGHLIGHT_COLOR = "_HighlightColor";
-    internal const string SHADER_PROP_HIGHLIGHT_TEX = "_HighlightTex";
-    internal const string SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_MODE = "_DirectionalLight_HighlightMode";
-    internal const string SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_STRENGTH = "_DirectionalLight_HighlightStrength";
-    internal const string SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_SIZE = "_DirectionalLight_HighlightSize";
-
-
-
-    internal const string SHADER_PROP_NORMAL_MAP = "_NormalMap";
-    internal const string SHADER_PROP_BUMP_SCALE = "_BumpScale";
-
-    internal const string SHADER_PROP_OUTLINE_WIDTH = "_OutlineWidth";
-    internal const string SHADER_PROP_OUTLINE_WIDTH_MAP = "_OutlineWidthMap";
-    internal const string SHADER_PROP_OUTLINE_TEX = "_OutlineTex";
-    internal const string SHADER_PROP_OUTLINE_COLOR = "_OutlineColor";
-    internal const string SHADER_PROP_OUTLINE_BASE_COLOR_BLEND = "_Outline_BaseColorBlend";
-    internal const string SHADER_PROP_OUTLINE_LIGHT_COLOR_BLEND = "_Outline_LightColorBlend";
-    internal const string SHADER_PROP_OUTLINE_OFFSET_Z = "_OutlineOffsetZ";
-    internal const string SHADER_PROP_OUTLINE_NEAR = "_OutlineNear";
-    internal const string SHADER_PROP_OUTLINE_FAR = "_OutlineFar";
-
-    internal const string SHADER_PROP_OUTLINE_USE_NORMAL_MAP = "_Outline_UseNormalMap";
-    internal const string SHADER_PROP_OUTLINE_NORMAL_MAP = "_Outline_NormalMap";
 
 
     internal enum HighlightMode {

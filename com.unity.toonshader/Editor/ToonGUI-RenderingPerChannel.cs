@@ -3,6 +3,7 @@
 //toshiyuki@unity3d.com (Universal RP/HDRP)
 
 using System.Collections.Generic;
+using Unity.Rendering.Toon;
 using UnityEditorInternal;
 using UnityEngine;
 
@@ -73,11 +74,11 @@ namespace UnityEditor.Rendering.Toon
         void SetuClippingMatte(Material material)
         {
 
-            material.DisableKeyword(ShaderDefineIS_CLIPPING_MATTE);
+            material.DisableKeyword(ToonConstants.SHADER_KEYWORD_IS_CLIPPING_MATTE);
             if (m_selectedIndex != 0 )
             {
 
-                material.EnableKeyword(ShaderDefineIS_CLIPPING_MATTE);
+                material.EnableKeyword(ToonConstants.SHADER_KEYWORD_IS_CLIPPING_MATTE);
             }
             material.SetInt("_ClippingMatteMode", m_selectedIndex);
         }

@@ -51,13 +51,12 @@ namespace UnityEditor.Rendering.Toon {
         internal static string srpDefaultLightModeName {
             get {
                 const string legacyDefaultLightModeName = "Always";
-                const string srpDefaultLightModeName = "SRPDefaultUnlit";
 
                 if (currentRenderPipeline == RenderPipeline.Legacy) {
                     return legacyDefaultLightModeName; // default.
                 }
 
-                return srpDefaultLightModeName;
+                return ToonConstants.SHADER_LIGHT_MODE_NAME_FOR_OUTLINE;
             }
         }
 
@@ -93,13 +92,10 @@ namespace UnityEditor.Rendering.Toon {
         internal const string ShaderProp_Set_2nd_ShadePosition = "_Set_2nd_ShadePosition";
         internal const string ShaderProp_ShadingGradeMap = "_ShadingGradeMap";
         internal const string ShaderProp_Set_RimLightMask = "_Set_RimLightMask";
-        internal const string ShaderProp_HighColor_Tex = "_HighColor_Tex";
         internal const string ShaderProp_Set_HighColorMask = "_Set_HighColorMask";
         internal const string ShaderProp_MatCap_Sampler = "_MatCap_Sampler";
         internal const string ShaderProp_Set_MatcapMask = "_Set_MatcapMask";
         
-        internal const string ShaderProp_Outline_Sampler = "_Outline_Sampler";
-
         internal const string ShaderPropSimpleUI = "_simpleUI";
         internal const string ShaderPropUtsTechniqe = "_utsTechnique";
         internal const string ShaderPropAutoRenderQueue = "_AutoRenderQueue";
@@ -112,7 +108,6 @@ namespace UnityEditor.Rendering.Toon {
         internal const string ShaderPropStencilWriteMask = "_StencilWriteMask";
         internal const string ShaderPropStencilReadMask = "_StencilReadMask";
         internal const string ShaderPropIsUnityToonShader = "_isUnityToonshader";
-        internal const string ShaderPropOutline = "_OUTLINE";
         internal const string ShaderPropNormalMapToHighColor = "_Is_NormalMapToHighColor";
         internal const string ShaderPropIsNormalMapToRimLight = "_Is_NormalMapToRimLight";
         internal const string ShaderPropSetSystemShadowsToBase = "_Set_SystemShadowsToBase";
@@ -134,7 +129,6 @@ namespace UnityEditor.Rendering.Toon {
         internal const string ShaderPropIs_LightColor_Ap_RimLight = "_Is_LightColor_Ap_RimLight";
         internal const string ShaderPropIs_LightColor_MatCap = "_Is_LightColor_MatCap";
         internal const string ShaderPropIs_LightColor_AR = "_Is_LightColor_AR";
-        internal const string ShaderPropIs_LightColor_Outline = "_Is_LightColor_Outline";
         internal const string ShaderPropInvert_MatcapMask = "_Inverse_MatcapMask";
         internal const string ShaderPropIs_NormalMapToBase = "_Is_NormalMapToBase";
         internal const string ShaderPropIs_ColorShift = "_Is_ColorShift";
@@ -151,10 +145,6 @@ namespace UnityEditor.Rendering.Toon {
         internal const string ShaderPropAdd_Antipodean_RimLight = "_Add_Antipodean_RimLight";
         internal const string ShaderPropLightDirection_MaskOn = "_LightDirection_MaskOn";
 
-        internal const string ShaderProp1st_ShadeColor_Step = "_1st_ShadeColor_Step";
-        internal const string ShaderPropBaseColor_Step = "_BaseColor_Step";
-        internal const string ShaderProp1st_ShadeColor_Feather = "_1st_ShadeColor_Feather";
-        internal const string ShaderPropBaseShade_Feather = "_BaseShade_Feather";
         internal const string ShaderProp2nd_ShadeColor_Step = "_2nd_ShadeColor_Step";
         internal const string ShaderPropShadeColor_Step = "_ShadeColor_Step";
         internal const string ShaderProp2nd_ShadeColor_Feather = "_2nd_ShadeColor_Feather";
@@ -165,9 +155,7 @@ namespace UnityEditor.Rendering.Toon {
         internal const string ShaderPropIs_PingPong_Base = "_Is_PingPong_Base";
 
         internal const string ShaderPropIs_ViewShift = "_Is_ViewShift";
-        internal const string ShaderPropIs_BlendBaseColor = "_Is_BlendBaseColor";
         internal const string ShaderPropIs_OutlineTex = "_Is_OutlineTex";
-        internal const string ShaderPropIs_BakedNormal = "_Is_BakedNormal";
         internal const string ShaderPropIs_BLD = "_Is_BLD";
         internal const string ShaderPropInverse_Z_Axis_BLD = "_Inverse_Z_Axis_BLD";
 
@@ -181,8 +169,6 @@ namespace UnityEditor.Rendering.Toon {
 
         internal const string ShaderDefineIS_TRANSCLIPPING_OFF = "_IS_TRANSCLIPPING_OFF";
         internal const string ShaderDefineIS_TRANSCLIPPING_ON = "_IS_TRANSCLIPPING_ON";
-
-        internal const string ShaderDefineIS_CLIPPING_MATTE = "_IS_CLIPPING_MATTE";
 
 
         protected readonly string[] UtsModeNames = { "Standard", "With Additional Control Maps" };
@@ -438,8 +424,8 @@ namespace UnityEditor.Rendering.Toon {
             shadingGradeMap = FindProperty(ShaderProp_ShadingGradeMap, props, false);
 
 
-            highColor_Tex = FindProperty(ShaderProp_HighColor_Tex, props);
-            highColor = FindProperty("_HighColor", props);
+            highColor_Tex = FindProperty(ToonConstants.SHADER_PROP_TOON3D_HIGH_COLOR_TEX, props);
+            highColor = FindProperty(ToonConstants.SHADER_PROP_TOON3D_HIGH_COLOR, props);
 
             set_HighColorMask = FindProperty(ShaderProp_Set_HighColorMask, props);
             tweak_HighColorMaskLevel = FindProperty("_Tweak_HighColorMaskLevel", props);
@@ -463,9 +449,9 @@ namespace UnityEditor.Rendering.Toon {
             emissive_Color = FindProperty("_Emissive_Color", props);
 
 
-            outline_Sampler = FindProperty(ShaderProp_Outline_Sampler, props, false);
+            outline_Sampler = FindProperty(ToonConstants.SHADER_PROP_TOON3D_OUTLINE_SAMPLER, props, false);
             outlineTex = FindProperty(ToonConstants.SHADER_PROP_OUTLINE_TEX, props, false);
-            bakedNormal = FindProperty("_BakedNormal", props, false);
+            bakedNormal = FindProperty(ToonConstants.SHADER_PROP_TOON3D_BAKED_NORMAL, props, false);
 
 
             FindTessellationProperties(props);
@@ -815,11 +801,11 @@ namespace UnityEditor.Rendering.Toon {
 
             public static readonly RangeProperty shaderPropBaseColorText = new RangeProperty(
                 label: "Base Color Step", tooltip: "Sets the boundary between the Base Color and the Shade Colors.",
-                propName: ShaderPropBaseColor_Step, defaultValue: 0.5f, min: 0, max: 1);
+                propName: ToonConstants.SHADER_PROP_TOON3D_BASE_COLOR_STEP, defaultValue: 0.5f, min: 0, max: 1);
 
             public static readonly RangeProperty shaderPropBaseFeatherText = new RangeProperty(
                 label: "Base Shading Feather", tooltip: "Feathers the boundary between the Base Color and the Shade Colors..",
-                propName: ShaderPropBaseShade_Feather, defaultValue: 0.0001f, min: 0.0001f, max: 1);
+                propName: ToonConstants.SHADER_PROP_TOON3D_BASE_SHADE_FEATHER, defaultValue: 0.0001f, min: 0.0001f, max: 1);
 
             public static readonly RangeProperty shaderPropShadeColorStepText = new RangeProperty(
                 label: "Shading Color Step", tooltip: "Sets the boundary between the 1st and 2nd Shade Colors. Set this to 0 if no 2nd Shade Color is used.",
@@ -831,12 +817,12 @@ namespace UnityEditor.Rendering.Toon {
 
             public static readonly RangeProperty shaderProp1st_ShadeColor_StepText = new RangeProperty(
                 label: "1st Shade Color Step", tooltip: "Sets the step between the Base color and 1st Shade Color, the same as the BaseColor_Step property..",
-                propName: ShaderProp1st_ShadeColor_Step, defaultValue: 0.5f, min: 0, max: 1);
+                propName: ToonConstants.SHADER_PROP_TOON3D_1ST_SHADE_COLOR_STEP, defaultValue: 0.5f, min: 0, max: 1);
 
             public static readonly RangeProperty shaderProp1st_ShadeColor_FeatherText = new RangeProperty(
                 label: "1st Shade Color Feather",
                 tooltip: "Feathers the boundary between the Base Color and the 1st Shade Color, the same as the Base/Shade_Feather property.",
-                propName: ShaderProp1st_ShadeColor_Feather, defaultValue: 0.0001f, min: 0.0001f, max: 1);
+                propName: ToonConstants.SHADER_PROP_TOON3D_1ST_SHADE_COLOR_FEATHER, defaultValue: 0.0001f, min: 0.0001f, max: 1);
 
             public static readonly RangeProperty shaderProp2nd_ShadeColor_StepText = new RangeProperty(
                 label: "2nd Shade Color Step", tooltip: "Sets the step between the 1st and 2nd Shade Colors, the same as the ShadeColor_Step property.",
@@ -947,17 +933,17 @@ namespace UnityEditor.Rendering.Toon {
 
             public static readonly FloatProperty outlineWidthText = new FloatProperty(label: "Outline Width",
                 tooltip: "Specifies the width of the outline. This value relies on the scale when the model was imported to Unity.",
-                propName: "_Outline_Width", defaultValue: 0);
+                propName: ToonConstants.SHADER_PROP_TOON3D_OUTLINE_WIDTH, defaultValue: 0);
 
             public static readonly FloatProperty farthestDistanceText = new FloatProperty(label: "Farthest Distance to vanish",
                 tooltip:
                 "Specify the furthest distance, where the outline width changes with the distance between the camera and the object. The outline will be zero at this distance.",
-                propName: "_Farthest_Distance", defaultValue: 100);
+                propName: ToonConstants.SHADER_PROP_TOON3D_FARTHEST_DISTANCE, defaultValue: 100);
 
             public static readonly FloatProperty nearestDistanceText = new FloatProperty(label: "Nearest Distance to draw with Outline Width",
                 tooltip:
                 "Specify the closest distance, where the outline width changes with the distance between the camera and the object. At this distance, the outline will be the maximum width set by Outline_Width.",
-                propName: "_Nearest_Distance", defaultValue: 0.5f);
+                propName: ToonConstants.SHADER_PROP_TOON3D_NEAREST_DISTANCE, defaultValue: 0.5f);
 
             public static readonly FloatProperty rotateEmissiveUVText = new FloatProperty(label: "Rotate around UV center",
                 tooltip:
@@ -966,7 +952,7 @@ namespace UnityEditor.Rendering.Toon {
 
             public static readonly FloatProperty offsetZText = new FloatProperty(label: "Offset Outline with Camera Z-axis",
                 tooltip: "Offsets the outline in the depth (Z) direction of the camera.",
-                propName: "_Offset_Z", defaultValue: 0);
+                propName: ToonConstants.SHADER_PROP_TOON3D_OFFSET_Z, defaultValue: 0);
 
             public static readonly FloatProperty colorShiftSpeedText = new FloatProperty(label: "Color Shifting Speed (Time)",
                 tooltip: "Sets the reference speed for color shift. When the value is 1, one cycle should take around 6 seconds.",
@@ -991,7 +977,7 @@ namespace UnityEditor.Rendering.Toon {
 
             public static readonly ColorProperty outlineColorText = new ColorProperty(label: "Outline Color",
                 tooltip: "Specifies the color of outline.",
-                propName: "_Outline_Color", isHDR: false);
+                propName: ToonConstants.SHADER_PROP_TOON3D_OUTLINE_COLOR, isHDR: false);
         }
 //----------------------------------------------------------------------------------------------------------------------
 
@@ -1537,8 +1523,8 @@ namespace UnityEditor.Rendering.Toon {
 
                     //Sharing variables with ShadingGradeMap method.
 
-                    material.SetFloat(ShaderProp1st_ShadeColor_Step, material.GetFloat(ShaderPropBaseColor_Step));
-                    material.SetFloat(ShaderProp1st_ShadeColor_Feather, material.GetFloat(ShaderPropBaseShade_Feather));
+                    material.SetFloat(ToonConstants.SHADER_PROP_TOON3D_1ST_SHADE_COLOR_STEP, material.GetFloat(ToonConstants.SHADER_PROP_TOON3D_BASE_COLOR_STEP));
+                    material.SetFloat(ToonConstants.SHADER_PROP_TOON3D_1ST_SHADE_COLOR_FEATHER, material.GetFloat(ToonConstants.SHADER_PROP_TOON3D_BASE_SHADE_FEATHER));
                     material.SetFloat(ShaderProp2nd_ShadeColor_Step, material.GetFloat(ShaderPropShadeColor_Step));
                     material.SetFloat(ShaderProp2nd_ShadeColor_Feather, material.GetFloat(ShaderProp1st2nd_Shades_Feather));
                 }
@@ -1552,8 +1538,8 @@ namespace UnityEditor.Rendering.Toon {
                     GUI_RangeProperty(material, Styles.shaderProp2nd_ShadeColor_FeatherText);
 
                     //Share variables with DoubleWithFeather method.
-                    material.SetFloat(ShaderPropBaseColor_Step, material.GetFloat(ShaderProp1st_ShadeColor_Step));
-                    material.SetFloat(ShaderPropBaseShade_Feather, material.GetFloat(ShaderProp1st_ShadeColor_Feather));
+                    material.SetFloat(ToonConstants.SHADER_PROP_TOON3D_BASE_COLOR_STEP, material.GetFloat(ToonConstants.SHADER_PROP_TOON3D_1ST_SHADE_COLOR_STEP));
+                    material.SetFloat(ToonConstants.SHADER_PROP_TOON3D_BASE_SHADE_FEATHER, material.GetFloat(ToonConstants.SHADER_PROP_TOON3D_1ST_SHADE_COLOR_FEATHER));
                     material.SetFloat(ShaderPropShadeColor_Step, material.GetFloat(ShaderProp2nd_ShadeColor_Step));
                     material.SetFloat(ShaderProp1st2nd_Shades_Feather, material.GetFloat(ShaderProp2nd_ShadeColor_Feather));
                 }
@@ -2162,7 +2148,7 @@ namespace UnityEditor.Rendering.Toon {
             //
             //Express Shader property [KeywordEnum(NML,POS)] by EumPopup.
             //Load the outline mode settings in the material.
-            int _OutlineMode_Setting = MaterialGetInt(material, ShaderPropOutline);
+            int _OutlineMode_Setting = MaterialGetInt(material, ToonConstants.SHADER_PROP_TOON3D_OUTLINE);
             //Convert it to Enum format and store it in the offlineMode variable.
 
             if ((int)OutlineMode.NormalDirection == _OutlineMode_Setting) {
@@ -2176,13 +2162,13 @@ namespace UnityEditor.Rendering.Toon {
             m_outlineMode = (OutlineMode)EditorGUILayout.EnumPopup(Styles.outlineModeText, m_outlineMode);
             //If the value changes, write to the material.
             if (m_outlineMode == OutlineMode.NormalDirection) {
-                material.SetFloat(ShaderPropOutline, 0);
+                material.SetFloat(ToonConstants.SHADER_PROP_TOON3D_OUTLINE, 0);
                 //The keywords on the UTCS_Outline.cginc side are also toggled around.
                 material.EnableKeyword("_OUTLINE_NML");
                 material.DisableKeyword("_OUTLINE_POS");
             }
             else if (m_outlineMode == OutlineMode.PositionScaling) {
-                material.SetFloat(ShaderPropOutline, 1);
+                material.SetFloat(ToonConstants.SHADER_PROP_TOON3D_OUTLINE, 1);
                 material.EnableKeyword("_OUTLINE_POS");
                 material.DisableKeyword("_OUTLINE_NML");
             }
@@ -2190,7 +2176,7 @@ namespace UnityEditor.Rendering.Toon {
             GUI_FloatProperty(material, Styles.outlineWidthText);
             GUI_ColorProperty(material, Styles.outlineColorText);
 
-            GUI_Toggle(material, Styles.baseColorToOtulineText, ShaderPropIs_BlendBaseColor, MaterialGetInt(material, ShaderPropIs_BlendBaseColor) != 0);
+            GUI_Toggle(material, Styles.baseColorToOtulineText, ToonConstants.SHADER_PROP_TOON3D_IS_BLEND_BASE_COLOR, MaterialGetInt(material, ToonConstants.SHADER_PROP_TOON3D_IS_BLEND_BASE_COLOR) != 0);
 
             m_MaterialEditor.TexturePropertySingleLine(Styles.outlineSamplerText, outline_Sampler);
             GUI_FloatProperty(material, Styles.offsetZText);
@@ -2214,8 +2200,8 @@ namespace UnityEditor.Rendering.Toon {
                     EditorGUI.EndDisabledGroup();
                     EditorGUI.BeginDisabledGroup(m_outlineMode != OutlineMode.NormalDirection);
                     {
-                        var isBackedNormal = GUI_Toggle(material, Styles.bakedNormalForOutlineText, ShaderPropIs_BakedNormal,
-                            MaterialGetInt(material, ShaderPropIs_BakedNormal) != 0);
+                        var isBackedNormal = GUI_Toggle(material, Styles.bakedNormalForOutlineText, ToonConstants.SHADER_PROP_TOON3D_IS_BAKED_NORMAL,
+                            MaterialGetInt(material, ToonConstants.SHADER_PROP_TOON3D_IS_BAKED_NORMAL) != 0);
                         EditorGUI.BeginDisabledGroup(!isBackedNormal);
                         m_MaterialEditor.TexturePropertySingleLine(Styles.bakedNormalOutlineText, bakedNormal);
                         EditorGUI.EndDisabledGroup();
@@ -2264,8 +2250,8 @@ namespace UnityEditor.Rendering.Toon {
 
             GUI_Toggle(material, Styles.lightColorEffectivinessToMatCapText, ShaderPropIs_LightColor_MatCap,
                 MaterialGetInt(material, ShaderPropIs_LightColor_MatCap) != 0);
-            GUI_Toggle(material, Styles.lightColorEffectivinessToOutlineText, ShaderPropIs_LightColor_Outline,
-                MaterialGetInt(material, ShaderPropIs_LightColor_Outline) != 0);
+            GUI_Toggle(material, Styles.lightColorEffectivinessToOutlineText, ToonConstants.SHADER_PROP_TOON3D_IS_LIGHT_COLOR_OUTLINE,
+                MaterialGetInt(material, ToonConstants.SHADER_PROP_TOON3D_IS_LIGHT_COLOR_OUTLINE) != 0);
             EditorGUI.indentLevel--;
             EditorGUILayout.Space();
             GUI_RangeProperty(material, Styles.giIntensityText);
@@ -2284,9 +2270,9 @@ namespace UnityEditor.Rendering.Toon {
                     MaterialSetInt(material, ShaderPropIsLightColor_Base, boolValue);
                     MaterialSetInt(material, ShaderPropIs_LightColor_1st_Shade, boolValue);
                     MaterialSetInt(material, ShaderPropIs_LightColor_2nd_Shade, boolValue);
-                    if (material.HasProperty(ShaderPropOutline)) //If OUTLINE is available.
+                    if (material.HasProperty(ToonConstants.SHADER_PROP_TOON3D_OUTLINE)) //If OUTLINE is available.
                     {
-                        MaterialSetInt(material, ShaderPropIs_LightColor_Outline, boolValue);
+                        MaterialSetInt(material, ToonConstants.SHADER_PROP_TOON3D_IS_LIGHT_COLOR_OUTLINE, boolValue);
                     }
                 }
             }

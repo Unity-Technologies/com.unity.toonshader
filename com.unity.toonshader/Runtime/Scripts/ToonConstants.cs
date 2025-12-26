@@ -95,6 +95,28 @@ internal static class ToonConstants {
     internal const string GBUFFER_PASS_NAME = "GBuffer";
 
     internal const string SHADER_KEYWORD_RP_BUILTIN = "UTS_RP_BUILTIN";
+
+    // Toon 3D (legacy) shader property names (used for upgrade/mapping flows)
+    internal const string SHADER_PROP_TOON3D_BASE_COLOR_STEP = "_BaseColor_Step";
+    internal const string SHADER_PROP_TOON3D_BASE_SHADE_FEATHER = "_BaseShade_Feather";
+    internal const string SHADER_PROP_TOON3D_1ST_SHADE_COLOR_STEP = "_1st_ShadeColor_Step";
+    internal const string SHADER_PROP_TOON3D_1ST_SHADE_COLOR_FEATHER = "_1st_ShadeColor_Feather";
+
+    internal const string SHADER_PROP_TOON3D_HIGH_COLOR = "_HighColor";
+    internal const string SHADER_PROP_TOON3D_HIGH_COLOR_TEX = "_HighColor_Tex";
+
+    internal const string SHADER_PROP_TOON3D_OUTLINE = "_OUTLINE";
+    internal const string SHADER_PROP_TOON3D_OUTLINE_WIDTH = "_Outline_Width";
+    internal const string SHADER_PROP_TOON3D_OUTLINE_SAMPLER = "_Outline_Sampler";
+    internal const string SHADER_PROP_TOON3D_OUTLINE_COLOR = "_Outline_Color";
+    internal const string SHADER_PROP_TOON3D_IS_BLEND_BASE_COLOR = "_Is_BlendBaseColor";
+    internal const string SHADER_PROP_TOON3D_IS_LIGHT_COLOR_OUTLINE = "_Is_LightColor_Outline";
+    internal const string SHADER_PROP_TOON3D_OFFSET_Z = "_Offset_Z";
+    internal const string SHADER_PROP_TOON3D_NEAREST_DISTANCE = "_Nearest_Distance";
+    internal const string SHADER_PROP_TOON3D_FARTHEST_DISTANCE = "_Farthest_Distance";
+
+    internal const string SHADER_PROP_TOON3D_IS_BAKED_NORMAL = "_Is_BakedNormal";
+    internal const string SHADER_PROP_TOON3D_BAKED_NORMAL = "_BakedNormal";
     
 }
 
