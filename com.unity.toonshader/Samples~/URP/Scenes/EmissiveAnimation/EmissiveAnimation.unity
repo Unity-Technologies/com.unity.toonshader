@@ -252,6 +252,7 @@ GameObject:
   m_Component:
   - component: {fileID: 512679043}
   - component: {fileID: 512679042}
+  - component: {fileID: 512679044}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -339,6 +340,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 44.047, y: 14.908001, z: -6.5820003}
+--- !u!114 &512679044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 512679041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
 --- !u!1 &578891318
 GameObject:
   m_ObjectHideFlags: 0
@@ -584,7 +608,6 @@ GameObject:
   - component: {fileID: 2111549249}
   - component: {fileID: 2111549247}
   - component: {fileID: 2111549246}
-  - component: {fileID: 2111549252}
   - component: {fileID: 2111549248}
   - component: {fileID: 2111549251}
   m_Layer: 0
@@ -732,39 +755,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f5863a4df974b248ba17a691a493177, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ImageComparisonSettings:
-    TargetWidth: 960
-    TargetHeight: 540
-    TargetMSAASamples: 1
-    PerPixelCorrectnessThreshold: 0.005
-    PerPixelGammaThreshold: 0.003921569
-    PerPixelAlphaThreshold: 0.003921569
-    RMSEThreshold: 0
-    AverageCorrectnessThreshold: 0.005
-    IncorrectPixelsThreshold: 0.0000038146973
-    UseHDR: 0
-    UseBackBuffer: 0
-    ImageResolution: 3
-    ActiveImageTests: 1
-    ActivePixelTests: 7
   SO: {fileID: 11400000, guid: 38185e5fc3dea1e47b68a1e60de13007, type: 2}
-  WaitFrames: 480
   CheckMemoryAllocation: 0
---- !u!114 &2111549252
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2111549245}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd3835579f5445dfb79044ab9bc1d0ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  focus: {x: 0, y: 0, z: 0}
-  focusObj: {fileID: 1227092918}
-  showInstWindow: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
