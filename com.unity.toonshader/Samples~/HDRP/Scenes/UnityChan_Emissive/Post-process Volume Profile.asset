@@ -121,10 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
   m_Name: Post-process Volume Profile
   m_EditorClassIdentifier: 
-  components:
-  - {fileID: 987387648469692181}
-  - {fileID: -3525504057810125152}
-  - {fileID: -3693413495701660402}
+  components: []
 --- !u!114 &987387648469692181
 MonoBehaviour:
   m_ObjectHideFlags: 3
