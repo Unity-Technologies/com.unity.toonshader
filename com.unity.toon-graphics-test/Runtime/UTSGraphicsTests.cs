@@ -43,11 +43,6 @@ public class UTSGraphicsTestsXR {
         //Enable XR
         XRUtility.EnableXRInEditor();
 
-        //Rendering both eyes in XR requires backbuffer, which depends on the game view resolution
-        object gameViewSizeObj = UnityEditor.TestTools.Graphics.GameViewSize.SetCustomSize(1920, 1080);
-        Assert.IsNotNull(gameViewSizeObj, "Failed to add custom game view size for XR tests.");
-        UnityEditor.TestTools.Graphics.GameViewSize.SelectSize(gameViewSizeObj);
-
         string loadedXRDevice = UseGraphicsTestCasesAttribute.LoadedXRDevice;
 
         //Manually load the reference image for XR. Ex: URP/Linear/WindowsEditor/Vulkan/None/AngelRing.png
@@ -103,6 +98,12 @@ public class UTSGraphicsTestsNonXR  {
                 imageComparisonSettings.UseBackBuffer = true; //results using both eyes need backbuffer
             }
 
+            if (imageComparisonSettings.UseBackBuffer) {
+                //using backbuffer depends on the game view resolution
+                object gameViewSizeObj = UnityEditor.TestTools.Graphics.GameViewSize.SetCustomSize(1920, 1080);
+                Assert.IsNotNull(gameViewSizeObj, "Failed to add custom game view size for UTS tests.");
+                UnityEditor.TestTools.Graphics.GameViewSize.SelectSize(gameViewSizeObj);
+            }
 
             int waitFrames = settingsSO.WaitFrames;
 
