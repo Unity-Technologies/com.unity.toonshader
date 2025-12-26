@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using Unity.Rendering.Toon;
 using UnityEngine;
 
 namespace UnityEditor.Rendering.Toon
@@ -539,8 +540,8 @@ namespace UnityEditor.Rendering.Toon
 
                     //Sharing variables with ShadingGradeMap method.
 
-                    material.SetFloat(UTS3GUI.ShaderProp1st_ShadeColor_Step, material.GetFloat(UTS3GUI.ShaderPropBaseColor_Step));
-                    material.SetFloat(UTS3GUI.ShaderProp1st_ShadeColor_Feather, material.GetFloat(UTS3GUI.ShaderPropBaseShade_Feather));
+                    material.SetFloat(ToonConstants.SHADER_PROP_TOON3D_1ST_SHADE_COLOR_STEP, material.GetFloat(ToonConstants.SHADER_PROP_TOON3D_BASE_COLOR_STEP));
+                    material.SetFloat(ToonConstants.SHADER_PROP_TOON3D_1ST_SHADE_COLOR_FEATHER, material.GetFloat(ToonConstants.SHADER_PROP_TOON3D_BASE_SHADE_FEATHER));
                     material.SetFloat(UTS3GUI.ShaderProp2nd_ShadeColor_Step, material.GetFloat(UTS3GUI.ShaderPropShadeColor_Step));
                     material.SetFloat(UTS3GUI.ShaderProp2nd_ShadeColor_Feather, material.GetFloat(UTS3GUI.ShaderProp1st2nd_Shades_Feather));
                 }
@@ -548,8 +549,8 @@ namespace UnityEditor.Rendering.Toon
                 {    //SGM
 
                     //Share variables with DoubleWithFeather method.
-                    material.SetFloat(UTS3GUI.ShaderPropBaseColor_Step, material.GetFloat(UTS3GUI.ShaderProp1st_ShadeColor_Step));
-                    material.SetFloat(UTS3GUI.ShaderPropBaseShade_Feather, material.GetFloat(UTS3GUI.ShaderProp1st_ShadeColor_Feather));
+                    material.SetFloat(ToonConstants.SHADER_PROP_TOON3D_BASE_COLOR_STEP, material.GetFloat(ToonConstants.SHADER_PROP_TOON3D_1ST_SHADE_COLOR_STEP));
+                    material.SetFloat(ToonConstants.SHADER_PROP_TOON3D_BASE_SHADE_FEATHER, material.GetFloat(ToonConstants.SHADER_PROP_TOON3D_1ST_SHADE_COLOR_FEATHER));
                     material.SetFloat(UTS3GUI.ShaderPropShadeColor_Step, material.GetFloat(UTS3GUI.ShaderProp2nd_ShadeColor_Step));
                     material.SetFloat(UTS3GUI.ShaderProp1st2nd_Shades_Feather, material.GetFloat(UTS3GUI.ShaderProp2nd_ShadeColor_Feather));
                 }
@@ -709,9 +710,9 @@ namespace UnityEditor.Rendering.Toon
             {//When AngelRing is available
                 material.SetFloat(UTS3GUI.ShaderPropIs_LightColor_AR, 1);
             }
-            if (material.HasProperty(UTS3GUI.ShaderPropOutline))
+            if (material.HasProperty(ToonConstants.SHADER_PROP_TOON3D_OUTLINE))
             {
-                material.SetFloat(UTS3GUI.ShaderPropIs_LightColor_Outline, 1);
+                material.SetFloat(ToonConstants.SHADER_PROP_TOON3D_IS_LIGHT_COLOR_OUTLINE, 1);
             }
             material.SetFloat(UTS3GUI.ShaderPropSetSystemShadowsToBase, 1);
             material.SetFloat(UTS3GUI.ShaderPropIsFilterHiCutPointLightColor, 1);
