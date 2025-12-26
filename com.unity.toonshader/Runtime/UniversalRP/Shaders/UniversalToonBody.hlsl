@@ -195,21 +195,6 @@ struct UtsLight {
 ///////////////////////////////////////////////////////////////////////////////
 //                      Light Abstraction                                    //
 /////////////////////////////////////////////////////////////////////////////
-half MainLightRealtimeShadowUTS(float4 shadowCoord, float4 positionCS) {
-#if !defined(MAIN_LIGHT_CALCULATE_SHADOWS)
-    return 1.0;
-#endif
-    ShadowSamplingData shadowSamplingData = GetMainLightShadowSamplingData();
-    half4 shadowParams = GetMainLightShadowParams();
-#if defined(_MAIN_LIGHT_SHADOWS_SCREEN)
-    return SampleScreenSpaceShadowmap(shadowCoord);
-#endif
-
-
-    return SampleShadowmap(
-        TEXTURE2D_ARGS(_MainLightShadowmapTexture, sampler_MainLightShadowmapTexture), shadowCoord, shadowSamplingData,
-        shadowParams, false);
-}
 
 half AdditionalLightRealtimeShadowUTS(int lightIndex, float3 positionWS, float4 positionCS) {
 #if defined(ADDITIONAL_LIGHT_CALCULATE_SHADOWS)
