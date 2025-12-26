@@ -818,8 +818,6 @@ GameObject:
   - component: {fileID: 882377318}
   - component: {fileID: 882377324}
   - component: {fileID: 882377322}
-  - component: {fileID: 882377321}
-  - component: {fileID: 882377319}
   m_Layer: 0
   m_Name: Main Camera (1)
   m_TagString: MainCamera
@@ -842,36 +840,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1538168419}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &882377319
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 882377317}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20aec78d24d24ff29b8f4d9f0893f4fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mode: 3
-  sensitivityDepth: 1
-  sensitivityNormals: 1
-  edgeExp: 1
-  sampleDist: 1
-  edgesColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  filterPower: 0.6
-  threshold: 0.3
-  edgesOnly: 0
-  edgeDetectShader: {fileID: 4800000, guid: bedebb2c0e7b446babd3e87cc0bcc275, type: 3}
---- !u!81 &882377321
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 882377317}
-  m_Enabled: 1
 --- !u!124 &882377322
 Behaviour:
   m_ObjectHideFlags: 0
@@ -1136,8 +1104,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1382183771}
   - component: {fileID: 1382183770}
-  - component: {fileID: 1382183772}
-  - component: {fileID: 1382183773}
   m_Layer: 0
   m_Name: Directional light
   m_TagString: Untagged
@@ -1225,36 +1191,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1521128765}
   m_LocalEulerAnglesHint: {x: 34.489002, y: 198.883, z: 97.518005}
---- !u!114 &1382183772
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1382183769}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73a20398580c4cbb82c59ad555377ea8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  resolution: 4096
---- !u!114 &1382183773
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1382183769}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b1f290c91fe42ee931bdf3889ffece3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shadowProjection: 0
-  shadowDistance: 20
-  cascadeMode: 4
-  twoCascadeSetting: 33.3
-  fourCascadeSetting: {x: 6.7, y: 13.3, z: 26.7}
 --- !u!1 &1459895110
 GameObject:
   m_ObjectHideFlags: 0

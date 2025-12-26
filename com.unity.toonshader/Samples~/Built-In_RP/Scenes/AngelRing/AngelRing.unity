@@ -120,42 +120,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &148355626 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100000, guid: a270d691c38e402385ebb658b5ccf96c,
-    type: 3}
-  m_PrefabInstance: {fileID: 249969526}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &148355628
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 148355626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b1f290c91fe42ee931bdf3889ffece3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shadowProjection: 0
-  shadowDistance: 20
-  cascadeMode: 4
-  twoCascadeSetting: 33.3
-  fourCascadeSetting: {x: 6.7, y: 13.3, z: 26.7}
---- !u!114 &148355629
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 148355626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73a20398580c4cbb82c59ad555377ea8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  resolution: 1024
 --- !u!1001 &249969526
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -268,14 +232,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 803902815}
-    - targetCorrespondingSourceObject: {fileID: 100000, guid: a270d691c38e402385ebb658b5ccf96c,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 148355628}
-    - targetCorrespondingSourceObject: {fileID: 100000, guid: a270d691c38e402385ebb658b5ccf96c,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 148355629}
   m_SourcePrefab: {fileID: 100100000, guid: a270d691c38e402385ebb658b5ccf96c, type: 3}
 --- !u!1001 &512502455
 PrefabInstance:
@@ -382,23 +338,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f5863a4df974b248ba17a691a493177, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ImageComparisonSettings:
-    TargetWidth: 960
-    TargetHeight: 540
-    TargetMSAASamples: 1
-    PerPixelCorrectnessThreshold: 0.005
-    PerPixelGammaThreshold: 0.003921569
-    PerPixelAlphaThreshold: 0.003921569
-    RMSEThreshold: 0
-    AverageCorrectnessThreshold: 0.005
-    IncorrectPixelsThreshold: 0.0000038146973
-    UseHDR: 0
-    UseBackBuffer: 0
-    ImageResolution: 3
-    ActiveImageTests: 1
-    ActivePixelTests: 7
   SO: {fileID: 11400000, guid: 38185e5fc3dea1e47b68a1e60de13007, type: 2}
-  WaitFrames: 480
   CheckMemoryAllocation: 0
 --- !u!81 &759218315
 AudioListener:
