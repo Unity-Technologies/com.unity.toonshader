@@ -27,44 +27,44 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 
     UNITY_SETUP_INSTANCE_ID(input);
     UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(input);
-# ifdef LIGHTMAP_ON
+#ifdef LIGHTMAP_ON
 
-# else
+#else
     input.vertexSH = i.vertexSH;
-# endif
+#endif
     input.uv = i.uv0;
     input.positionCS = i.pos;
-#  if defined(_ADDITIONAL_LIGHTS_VERTEX) ||  (VERSION_LOWER(12, 0))
+#if defined(_ADDITIONAL_LIGHTS_VERTEX) ||  (VERSION_LOWER(12, 0))
 
     input.fogFactorAndVertexLight = i.fogFactorAndVertexLight;
-#  else
+#else
     input.fogFactor = i.fogFactor;
-#  endif
+#endif
 
-#  ifdef REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR
+#ifdef REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR
     input.shadowCoord = i.shadowCoord;
-#  endif
+#endif
 
-#  ifdef REQUIRES_WORLD_SPACE_POS_INTERPOLATOR
+#ifdef REQUIRES_WORLD_SPACE_POS_INTERPOLATOR
     input.positionWS = i.posWorld.xyz;
-#  endif
+#endif
 
-#  ifdef _NORMALMAP
+#ifdef _NORMALMAP
     input.normalWS = half4(i.normalDir, viewDirection.x); // xyz: normal, w: viewDir.x
     input.tangentWS = half4(i.tangentDir, viewDirection.y); // xyz: tangent, w: viewDir.y
-#    if (VERSION_LOWER(7, 5))
+#if (VERSION_LOWER(7, 5))
     input.bitangentWS = half4(i.bitangentDir, viewDirection.z); // xyz: bitangent, w: viewDir.z
-#    endif
-#  else //ifdef _NORMALMAP
+#endif
+#else //ifdef _NORMALMAP
     input.normalWS = half3(i.normalDir);
 #if (VERSION_LOWER(12, 0))
     input.viewDirWS = half3(viewDirection);
 #endif  //    #if (VERSION_LOWER(12, 0))
-#  endif
+#endif
     InitializeInputData(input, surfaceData.normalTS, inputData);
-#  if UNITY_VERSION >= 60000012
+#if UNITY_VERSION >= 60000012
     InitializeBakedGIData(input, inputData);
-#  endif
+#endif
     BRDFData brdfData;
     InitializeBRDFData(surfaceData.albedo,
         surfaceData.metallic,
@@ -122,7 +122,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 #if defined(_MAIN_LIGHT_SHADOWS) || defined(_MAIN_LIGHT_SHADOWS_CASCADE) || defined(_MAIN_LIGHT_SHADOWS_SCREEN)
     shadowAttenuation = mainLight.shadowAttenuation;
 
-# endif
+#endif
 
 
     //v.2.0.4
