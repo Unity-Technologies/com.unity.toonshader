@@ -1,4 +1,4 @@
-//Auto-generated on Mon Dec 29 11:13:14 UTC 2025
+//Auto-generated on Mon Dec 29 14:14:11 UTC 2025
 Shader "Toon/Toon (Tessellation)" {
     Properties
     {
@@ -487,7 +487,6 @@ Shader "Toon/Toon (Tessellation)" {
     #pragma shader_feature_local _NORMALMAP_TANGENT_SPACE
     #pragma shader_feature_local _ _REQUIRE_UV2 _REQUIRE_UV3
 
-    #pragma shader_feature_local _NORMALMAP
     #pragma shader_feature_local _MASKMAP
     #pragma shader_feature_local _BENTNORMALMAP
     #pragma shader_feature_local _EMISSIVE_COLOR_MAP
