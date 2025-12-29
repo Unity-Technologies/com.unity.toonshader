@@ -28,8 +28,8 @@ public class UTSGraphicsTestsXR {
 
 #if UTS_TEST_USE_HDRP && UNITY_STANDALONE_OSX 
 
-        //[TODO-sin: 2025-12-1] ToonTesselation did not work on Metal in HDRP
-        if (sceneFileName.Contains("Tessellation")) {
+        //[TODO-sin: 2025-12-29] ToonTesselation did not work on Metal in XR/HDRP combination
+        if (sceneFileName.Contains("_Tess")) {
             Assert.Ignore();
         }
 #endif //UTS_TEST_USE_HDRP && UNITY_STANDALONE_OSX 
