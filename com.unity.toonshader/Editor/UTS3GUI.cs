@@ -2089,10 +2089,7 @@ namespace UnityEditor.Rendering.Toon {
             
             if (srpDefaultLightModeTag != defaultLightModeName) 
                 return;
-#else
-            string defaultLightModeName = "Always";
 #endif
-        
             
             const string OUTLINE_COLOR_MASK = "_SPRDefaultUnlitColorMask";
             const string OUTLINE_CULL_MODE = "_SRPDefaultUnlitColMode";
