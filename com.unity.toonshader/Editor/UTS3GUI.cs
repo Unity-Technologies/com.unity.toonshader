@@ -2084,7 +2084,7 @@ namespace UnityEditor.Rendering.Toon {
             
 
 #if URP_IS_INSTALLED_FOR_UTS || HDRP_IS_INSTALLED_FOR_UTS
-            string srpDefaultLightModeTag = material.GetTag("LightMode", false, defaultLightModeName);
+            string srpDefaultLightModeTag = material.GetTag("LightMode", false, ToonConstants.SHADER_LIGHT_MODE_NAME_FOR_OUTLINE);
             
             if (srpDefaultLightModeTag != ToonConstants.SHADER_LIGHT_MODE_NAME_FOR_OUTLINE) 
                 return;
