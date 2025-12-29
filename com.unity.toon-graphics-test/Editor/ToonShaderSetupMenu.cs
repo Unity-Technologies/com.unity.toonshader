@@ -6,13 +6,13 @@ using Unity.ToonShader.GraphicsTest;
 using UnityEngine.SceneManagement;
 
 namespace UnityEditor.Rendering.Toon {
-    public class ToonShaderSetupMenu {
+    internal class ToonShaderSetupMenu {
         [MenuItem("Toon Shader/Remove UTSGraphicsTestSettings component in All Scenes")]
         private static void SetupTestSettingsInAllScenes()
         {
             bool proceed = EditorUtility.DisplayDialog(
                 "Setup Test Settings",
-                "Are you sure you want to setup test settings in all scenes?",
+                "Proceed in removing UTSGraphicsTestSettings in all scenes ?",
                 "OK",
                 "Cancel"
             );
@@ -20,22 +20,16 @@ namespace UnityEditor.Rendering.Toon {
             if (!proceed)
                 return;
 
-            string testSettingsSOPath = "Packages/com.unity.toon-graphics-test/Runtime/UTSGraphicsSettings.asset";
-            UTSGraphicsTestSettingsSO testSettingsSO = AssetDatabase.LoadAssetAtPath<UTSGraphicsTestSettingsSO>(
-                testSettingsSOPath);
-
-            if (null == testSettingsSO) {
-                Debug.LogError("Test settings not found: " + testSettingsSOPath);
-                return;
-            }
-
             foreach (EditorBuildSettingsScene sceneSettings in EditorBuildSettings.scenes) {
                 Scene scene = EditorSceneManager.OpenScene(sceneSettings.path);
 
                 Camera mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
                 UTSGraphicsTestSettings testSettings = mainCamera.GetComponent<UTSGraphicsTestSettings>();
-                testSettings.SO = testSettingsSO;
+                if (null == testSettings) 
+                    continue; 
+                Object.DestroyImmediate(testSettings);
                 EditorSceneManager.SaveScene(scene);
+
             }
         }
 
