@@ -84,7 +84,16 @@ public class UTSGraphicsTestsNonXR  {
             yield return null;
 
             Camera mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-            UTSGraphicsTestSettings settings = Object.FindFirstObjectByType<UTSGraphicsTestSettings>();
+            UTSGraphicsTestSettings settings = mainCamera.GetComponent<UTSGraphicsTestSettings>();
+            if (null == settings) {
+                settings = mainCamera.gameObject.AddComponent<UTSGraphicsTestSettings>();
+                
+                string testSettingsSOPath = "Packages/com.unity.toon-graphics-test/Runtime/UTSGraphicsSettings.asset";
+                UTSGraphicsTestSettingsSO testSettingsSO = AssetDatabase.LoadAssetAtPath<UTSGraphicsTestSettingsSO>(
+                    testSettingsSOPath);
+                Assert.IsNotNull(testSettingsSO, "Test settings not found: " + testSettingsSOPath);
+                settings.SO = testSettingsSO;
+            }
             Assert.IsNotNull(settings, "Invalid test scene, couldn't find UTS_GraphicsTestSettings");
 
             UTSGraphicsTestSettingsSO settingsSO = settings.SO;
