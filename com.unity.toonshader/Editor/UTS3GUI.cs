@@ -2099,10 +2099,10 @@ namespace UnityEditor.Rendering.Toon {
 
             if (isTransparent) {
                 material.SetShaderPassEnabled(defaultLightModeName, true);
-                MaterialSetInt(material, srpDefaultColorMask, 0);
+                MaterialSetInt(material, srpDefaultColorMask, 0); //Don't write to the render target
                 MaterialSetInt(material, srpDefaultCullMode, (int)CullingMode.Backface);
             } else {
-                MaterialSetInt(material, srpDefaultColorMask, 15);
+                MaterialSetInt(material, srpDefaultColorMask, 15); //0xFF: presumably write to RGBA channels ?
                 MaterialSetInt(material, srpDefaultCullMode, (int)CullingMode.Frontface);
             }
         }
