@@ -6,7 +6,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     i.normalDir = normalize(i.normalDir);
     float3x3 tangentTransform = float3x3(i.tangentDir, i.bitangentDir, i.normalDir);
     float3 viewDirection = normalize(_WorldSpaceCameraPos.xyz - i.posWorld.xyz);
-    float2 Set_UV0 = i.uv0;
+    const float2 Set_UV0 = i.uv0;
     //v.2.0.6
 
 
@@ -75,7 +75,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 #endif
     );
 
-    float4 _MainTex_var = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex));
+    const float4 _MainTex_var = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex));
 
 #ifdef _DBUFFER
     ApplyDecalToSurfaceDataUTS(input.positionCS, _MainTex_var.rgb, surfaceData, normalDirection);
