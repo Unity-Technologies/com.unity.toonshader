@@ -139,6 +139,9 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     //v.2.0.5
     _Color = _BaseColor;
 
+    const float4 _Set_2nd_ShadePosition_var = tex2D(_Set_2nd_ShadePosition, TRANSFORM_TEX(Set_UV0, _Set_2nd_ShadePosition));
+    const float4 _Set_1st_ShadePosition_var = tex2D(_Set_1st_ShadePosition, TRANSFORM_TEX(Set_UV0, _Set_1st_ShadePosition));
+    
 #ifdef _IS_PASS_FWDBASE
     float3 Set_LightColor = lightColor.rgb;
     float3 Set_BaseColor = lerp((_BaseColor.rgb * _MainTex_var.rgb),
@@ -155,8 +158,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
         ((_2nd_ShadeColor.rgb * _2nd_ShadeMap_var.rgb) * Set_LightColor), _Is_LightColor_2nd_Shade);
     float _HalfLambert_var = 0.5 * dot(lerp(i.normalDir, normalDirection, _Is_NormalMapToBase), lightDirection) + 0.5;
 
-    float4 _Set_2nd_ShadePosition_var = tex2D(_Set_2nd_ShadePosition, TRANSFORM_TEX(Set_UV0, _Set_2nd_ShadePosition));
-    float4 _Set_1st_ShadePosition_var = tex2D(_Set_1st_ShadePosition, TRANSFORM_TEX(Set_UV0, _Set_1st_ShadePosition));
+    
     //v.2.0.6
     //Minmimum value is same as the Minimum Feather's value with the Minimum Step's value as threshold.
     float _SystemShadowsLevel_var = (shadowAttenuation * 0.5) + 0.5 + _Tweak_SystemShadowsLevel > 0.001
@@ -376,8 +378,6 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
         ((_2nd_ShadeColor.rgb * _2nd_ShadeMap_var.rgb) * Set_LightColor), _Is_LightColor_2nd_Shade);
     float _HalfLambert_var = 0.5 * dot(lerp(i.normalDir, normalDirection, _Is_NormalMapToBase), lightDirection) + 0.5;
 
-    float4 _Set_2nd_ShadePosition_var = tex2D(_Set_2nd_ShadePosition, TRANSFORM_TEX(Set_UV0, _Set_2nd_ShadePosition));
-    float4 _Set_1st_ShadePosition_var = tex2D(_Set_1st_ShadePosition, TRANSFORM_TEX(Set_UV0, _Set_1st_ShadePosition));
 
     //v.2.0.5:
     float Set_FinalShadowMask = saturate(
@@ -484,9 +484,6 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     float3 Set_2nd_ShadeColor = lerp((_2nd_ShadeColor.rgb * _2nd_ShadeMap_var.rgb * _LightIntensity),
         ((_2nd_ShadeColor.rgb * _2nd_ShadeMap_var.rgb) * Set_LightColor), _Is_LightColor_2nd_Shade);
     float _HalfLambert_var = 0.5 * dot(lerp(i.normalDir, normalDirection, _Is_NormalMapToBase), lightDirection) + 0.5;
-
-    float4 _Set_2nd_ShadePosition_var = tex2D(_Set_2nd_ShadePosition, TRANSFORM_TEX(Set_UV0, _Set_2nd_ShadePosition));
-    float4 _Set_1st_ShadePosition_var = tex2D(_Set_1st_ShadePosition, TRANSFORM_TEX(Set_UV0, _Set_1st_ShadePosition));
 
     //v.2.0.5:
     float Set_FinalShadowMask = saturate(
