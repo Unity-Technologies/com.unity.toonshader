@@ -8,7 +8,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 
     float3x3 tangentTransform = float3x3(i.tangentDir, i.bitangentDir, i.normalDir);
 
-    float2 Set_UV0 = i.uv0;
+    const float2 Set_UV0 = i.uv0;
     //v.2.0.6
 
     float3 _NormalMap_var = UnpackNormalScale(
