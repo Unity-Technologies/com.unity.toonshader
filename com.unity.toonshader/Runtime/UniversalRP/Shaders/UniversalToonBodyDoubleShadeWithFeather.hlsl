@@ -171,7 +171,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
                 _Set_2nd_ShadePosition_var.rgb).r - 1.0)) / (_ShadeColor_Step - (_ShadeColor_Step -
                 _1st2nd_Shades_Feather))))), Set_FinalShadowMask); // Final Color
 
-    float4 _Set_HighColorMask_var = tex2D(_Set_HighColorMask, TRANSFORM_TEX(Set_UV0, _Set_HighColorMask));
+    const float4 _Set_HighColorMask_var = tex2D(_Set_HighColorMask, TRANSFORM_TEX(Set_UV0, _Set_HighColorMask));
 
     float _Specular_var = 0.5 * dot(halfDirection, lerp(i.normalDir, normalDirection, _Is_NormalMapToHighColor)) + 0.5;
     //  Specular
@@ -380,10 +380,6 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
         Set_FinalShadowMask); // Final Color
 
     //v.2.0.6: Add HighColor if _Is_Filter_HiCutPointLightColor is False
-
-
-    float4 _Set_HighColorMask_var = tex2D(_Set_HighColorMask, TRANSFORM_TEX(Set_UV0, _Set_HighColorMask));
-
     float _Specular_var = 0.5 * dot(halfDirection, lerp(i.normalDir, normalDirection, _Is_NormalMapToHighColor)) + 0.5;
     //  Specular
     float _TweakHighColorMask_var = (saturate((_Set_HighColorMask_var.g + _Tweak_HighColorMaskLevel)) * lerp(
@@ -479,10 +475,6 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
         Set_FinalShadowMask); // Final Color
 
     //v.2.0.6: Add HighColor if _Is_Filter_HiCutPointLightColor is False
-
-
-    float4 _Set_HighColorMask_var = tex2D(_Set_HighColorMask, TRANSFORM_TEX(Set_UV0, _Set_HighColorMask));
-
     float _Specular_var = 0.5 * dot(halfDirection, lerp(i.normalDir, normalDirection, _Is_NormalMapToHighColor)) + 0.5;
     //  Specular
     float _TweakHighColorMask_var = (saturate((_Set_HighColorMask_var.g + _Tweak_HighColorMaskLevel)) * lerp(
