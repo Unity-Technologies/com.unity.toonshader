@@ -2094,9 +2094,10 @@ namespace UnityEditor.Rendering.Toon {
 
 
         internal static void SetupTransparentMode(Material material, bool isTransparent) {
-            string srpDefaultLightModeTag = material.GetTag("LightMode", false, srpDefaultLightModeName);
+            string defaultLightModeName = srpDefaultLightModeName;
+            string srpDefaultLightModeTag = material.GetTag("LightMode", false, defaultLightModeName);
             
-            if (srpDefaultLightModeTag != srpDefaultLightModeName) 
+            if (srpDefaultLightModeTag != defaultLightModeName) 
                 return;
             
             const string srpDefaultColorMask = "_SPRDefaultUnlitColorMask";
