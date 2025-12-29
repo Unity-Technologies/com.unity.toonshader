@@ -1185,7 +1185,7 @@ namespace UnityEditor.Rendering.Toon {
                     break;
             }
 
-            SetupTransparentMode(material, transparencyEnabled == UTS_TransparentMode.On);
+            SetupTransparentModeForOutline(material, transparencyEnabled == UTS_TransparentMode.On);
 
             ShaderPropertiesGUI(materialEditor, material, props);
 
@@ -2080,7 +2080,7 @@ namespace UnityEditor.Rendering.Toon {
 
 
 
-        internal static void SetupTransparentMode(Material material, bool isTransparent) {
+        internal static void SetupTransparentModeForOutline(Material material, bool isTransparent) {
             
 
 #if URP_IS_INSTALLED_FOR_UTS || HDRP_IS_INSTALLED_FOR_UTS

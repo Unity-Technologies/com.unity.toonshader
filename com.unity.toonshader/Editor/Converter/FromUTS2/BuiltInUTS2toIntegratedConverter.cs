@@ -415,7 +415,7 @@ namespace UnityEditor.Rendering.Toon
                     UTS3GUI.MaterialSetInt(material, UTS3GUI.ShaderPropTransparentEnabled, 1);
                 }
                 
-                UTS3GUI.SetupTransparentMode(material, transparentMode);
+                UTS3GUI.SetupTransparentModeForOutline(material, transparentMode);
                 
                 SetCullingMode(material);
                 int autoRenderQueue = renderQueueInMaterial == -1 ? 1:0;
