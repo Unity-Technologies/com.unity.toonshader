@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 namespace UnityEditor.Rendering.Toon {
     public class ToonShaderSetupMenu {
-        [MenuItem("Toon Shader/Setup Test Settings in All Scenes")]
+        [MenuItem("Toon Shader/Remove UTSGraphicsTestSettings component in All Scenes")]
         private static void SetupTestSettingsInAllScenes()
         {
             bool proceed = EditorUtility.DisplayDialog(
