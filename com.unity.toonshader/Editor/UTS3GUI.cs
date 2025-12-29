@@ -2104,7 +2104,7 @@ namespace UnityEditor.Rendering.Toon {
             const string srpDefaultCullMode = "_SRPDefaultUnlitColMode";
 
             if (isTransparent) {
-                material.SetShaderPassEnabled(srpDefaultLightModeName, true);
+                material.SetShaderPassEnabled(defaultLightModeName, true);
                 MaterialSetInt(material, srpDefaultColorMask, 0);
                 MaterialSetInt(material, srpDefaultCullMode, (int)CullingMode.Backface);
             } else {
