@@ -139,8 +139,15 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
         _MainTex_var, _Use_BaseAs1st);
     float3 _Is_LightColor_1st_Shade_var = lerp((_1st_ShadeMap_var.rgb * _1st_ShadeColor.rgb),
         ((_1st_ShadeMap_var.rgb * _1st_ShadeColor.rgb) * Set_LightColor), _Is_LightColor_1st_Shade);
-    float _HalfLambert_var = 0.5 * dot(lerp(i.normalDir, normalDirection, _Is_NormalMapToBase), lightDirection) + 0.5;
+
+    // === OPTIMIZATION: Cache blended normal for shading ===
+    float3 shadingNormal = lerp(i.normalDir, normalDirection, _Is_NormalMapToBase);
+    float _HalfLambert_var = dot(shadingNormal, lightDirection) * 0.5 + 0.5;
     // Half Lambert
+
+    // === OPTIMIZATION: Pre-calculate UV transforms to avoid redundant TRANSFORM_TEX calls ===
+    float2 uv_HighColorMask = TRANSFORM_TEX(Set_UV0, _Set_HighColorMask);
+    float2 uv_HighColorTex = TRANSFORM_TEX(Set_UV0, _HighColor_Tex);
 
     //v.2.0.6
     float4 _ShadingGradeMap_var = tex2Dlod(_ShadingGradeMap,
@@ -183,15 +190,22 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
                 ((_2nd_ShadeMap_var.rgb * _2nd_ShadeColor.rgb) * Set_LightColor), _Is_LightColor_2nd_Shade),
             Set_ShadeShadowMask), Set_FinalShadowMask);
 
-    float4 _Set_HighColorMask_var = tex2D(_Set_HighColorMask, TRANSFORM_TEX(Set_UV0, _Set_HighColorMask));
+    // === OPTIMIZATION: Sample textures ONCE (reused in additional lights loop) ===
+    float4 _Set_HighColorMask_var = tex2D(_Set_HighColorMask, uv_HighColorMask);
+    float4 _HighColor_Tex_var = tex2D(_HighColor_Tex, uv_HighColorTex);
+
+    // === OPTIMIZATION: Pre-calculate expensive math operations (exp2/pow) ===
+    float highColorExp = exp2(lerp(11, 1, _HighColor_Power));
+    float highColorPowThreshold = 1.0 - pow(abs(_HighColor_Power), 5);
+    float rimLightExp = exp2(lerp(3, 0, _RimLight_Power));
+    float apRimLightExp = exp2(lerp(3, 0, _Ap_RimLight_Power));
 
     float _Specular_var = 0.5 * dot(halfDirection, lerp(i.normalDir, normalDirection, _Is_NormalMapToHighColor)) + 0.5;
     // Specular
+    // === OPTIMIZATION: Use pre-calculated exp2 and pow values ===
     float _TweakHighColorMask_var = (saturate((_Set_HighColorMask_var.g + _Tweak_HighColorMaskLevel)) * lerp(
-        (1.0 - step(_Specular_var, (1.0 - pow(abs(_HighColor_Power), 5)))),
-        pow(abs(_Specular_var), exp2(lerp(11, 1, _HighColor_Power))), _Is_SpecularToHighColor));
-
-    float4 _HighColor_Tex_var = tex2D(_HighColor_Tex, TRANSFORM_TEX(Set_UV0, _HighColor_Tex));
+        (1.0 - step(_Specular_var, highColorPowThreshold)),
+        pow(abs(_Specular_var), highColorExp), _Is_SpecularToHighColor));
 
     float3 _HighColor_var = (lerp((_HighColor_Tex_var.rgb * _HighColor.rgb),
         ((_HighColor_Tex_var.rgb * _HighColor.rgb) * Set_LightColor),
@@ -207,7 +221,8 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     float3 _Is_LightColor_RimLight_var = lerp(_RimLightColor.rgb, (_RimLightColor.rgb * Set_LightColor),
         _Is_LightColor_RimLight);
     float _RimArea_var = abs(1.0 - dot(lerp(i.normalDir, normalDirection, _Is_NormalMapToRimLight), viewDirection));
-    float _RimLightPower_var = pow(_RimArea_var, exp2(lerp(3, 0, _RimLight_Power)));
+    // === OPTIMIZATION: Use pre-calculated exp2 values ===
+    float _RimLightPower_var = pow(_RimArea_var, rimLightExp);
     float _Rimlight_InsideMask_var = saturate(lerp(
         (0.0 + ((_RimLightPower_var - _RimLight_InsideMask) * (1.0 - 0.0)) / (1.0 - _RimLight_InsideMask)),
         step(_RimLight_InsideMask, _RimLightPower_var), _RimLight_FeatherOff));
@@ -216,7 +231,8 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
         (_Is_LightColor_RimLight_var * saturate(
             (_Rimlight_InsideMask_var - ((1.0 - _VertHalfLambert_var) + _Tweak_LightDirection_MaskLevel)))),
         _LightDirection_MaskOn);
-    float _ApRimLightPower_var = pow(_RimArea_var, exp2(lerp(3, 0, _Ap_RimLight_Power)));
+    // === OPTIMIZATION: Use pre-calculated exp2 values ===
+    float _ApRimLightPower_var = pow(_RimArea_var, apRimLightExp);
     float3 Set_RimLight = (saturate((_Set_RimLightMask_var.g + _Tweak_RimLightMaskLevel)) * lerp(
         _LightDirection_MaskOn_var,
         (_LightDirection_MaskOn_var + (
@@ -239,19 +255,14 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     float3 _Up_Unit = float3(0, 1, 0);
     float3 _Right_Axis = cross(_Camera_Front, _Up_Unit);
     //Invert if it's "inside the mirror".
-    if (_sign_Mirror < 0)
-    {
-        _Right_Axis = -1 * _Right_Axis;
-        _Rotate_MatCapUV = -1 * _Rotate_MatCapUV;
-    }
-    else
-    {
-        _Right_Axis = _Right_Axis;
-    }
-    float _Camera_Right_Magnitude = sqrt(
-        _Camera_Right.x * _Camera_Right.x + _Camera_Right.y * _Camera_Right.y + _Camera_Right.z * _Camera_Right.z);
-    float _Right_Axis_Magnitude = sqrt(
-        _Right_Axis.x * _Right_Axis.x + _Right_Axis.y * _Right_Axis.y + _Right_Axis.z * _Right_Axis.z);
+    // === OPTIMIZATION: Branchless mirror handling ===
+    float mirrorSign = _sign_Mirror < 0 ? -1.0 : 1.0;
+    _Right_Axis *= mirrorSign;
+    _Rotate_MatCapUV *= mirrorSign;
+
+    // === OPTIMIZATION: Use hardware-optimized length() intrinsic instead of manual sqrt ===
+    float _Camera_Right_Magnitude = length(_Camera_Right);
+    float _Right_Axis_Magnitude = length(_Right_Axis);
     float _Camera_Roll_Cos = dot(_Right_Axis, _Camera_Right) / (_Right_Axis_Magnitude * _Camera_Right_Magnitude);
     float _Camera_Roll = acos(clamp(_Camera_Roll_Cos, -1, 1));
     fixed _Camera_Dir = _Camera_Right.y < 0 ? -1 : 1;
@@ -280,15 +291,8 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
         (0.0 + ((_ViewNormalAsMatCapUV - (0.0 + _Tweak_MatCapUV)) * (1.0 - 0.0)) / ((1.0 - _Tweak_MatCapUV) - (0.0 +
             _Tweak_MatCapUV))), _Rot_MatCapUV_var_ang, float2(0.5, 0.5), 1.0);
     //If it is "inside the mirror", flip the UV left and right.
-
-    if (_sign_Mirror < 0)
-    {
-        _Rot_MatCapUV_var.x = 1 - _Rot_MatCapUV_var.x;
-    }
-    else
-    {
-        _Rot_MatCapUV_var = _Rot_MatCapUV_var;
-    }
+    // === OPTIMIZATION: Branchless mirror UV flip ===
+    _Rot_MatCapUV_var.x = _sign_Mirror < 0 ? (1.0 - _Rot_MatCapUV_var.x) : _Rot_MatCapUV_var.x;
 
 
     float4 _MatCap_Sampler_var = tex2Dlod(_MatCap_Sampler,
@@ -448,7 +452,8 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
         _1st_ShadeMap_var, _Use_1stAs2nd);
     float3 Set_2nd_ShadeColor = lerp((_2nd_ShadeColor.rgb * _2nd_ShadeMap_var.rgb * _LightIntensity),
         ((_2nd_ShadeColor.rgb * _2nd_ShadeMap_var.rgb) * Set_LightColor), _Is_LightColor_2nd_Shade);
-    float _HalfLambert_var = 0.5 * dot(lerp(i.normalDir, normalDirection, _Is_NormalMapToBase), lightDirection) + 0.5;
+    // === OPTIMIZATION: Use cached shadingNormal ===
+    float _HalfLambert_var = dot(shadingNormal, lightDirection) * 0.5 + 0.5;
 
     // float4 _Set_2nd_ShadePosition_var = tex2D(_Set_2nd_ShadePosition, TRANSFORM_TEX(Set_UV0, _Set_2nd_ShadePosition));
     // float4 _Set_1st_ShadePosition_var = tex2D(_Set_1st_ShadePosition, TRANSFORM_TEX(Set_UV0, _Set_1st_ShadePosition));
@@ -492,15 +497,13 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
             ),
             Set_FinalShadowMask);
     //v.2.0.6: Add HighColor if _Is_Filter_HiCutPointLightColor is False
+    // === OPTIMIZATION: Use cached texture samples and pre-calculated values ===
 
-    float4 _Set_HighColorMask_var = tex2D(_Set_HighColorMask, TRANSFORM_TEX(Set_UV0, _Set_HighColorMask));
     float _Specular_var = 0.5 * dot(halfDirection, lerp(i.normalDir, normalDirection, _Is_NormalMapToHighColor)) + 0.5;
     //  Specular
     float _TweakHighColorMask_var = (saturate((_Set_HighColorMask_var.g + _Tweak_HighColorMaskLevel)) * lerp(
-        (1.0 - step(_Specular_var, (1.0 - pow(abs(_HighColor_Power), 5)))),
-        pow(abs(_Specular_var), exp2(lerp(11, 1, _HighColor_Power))), _Is_SpecularToHighColor));
-
-    float4 _HighColor_Tex_var = tex2D(_HighColor_Tex, TRANSFORM_TEX(Set_UV0, _HighColor_Tex));
+        (1.0 - step(_Specular_var, highColorPowThreshold)),
+        pow(abs(_Specular_var), highColorExp), _Is_SpecularToHighColor));
 
     float3 _HighColor_var = (lerp((_HighColor_Tex_var.rgb * _HighColor.rgb),
         ((_HighColor_Tex_var.rgb * _HighColor.rgb) * Set_LightColor),
@@ -639,15 +642,13 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
             ),
             Set_FinalShadowMask);
     //v.2.0.6: Add HighColor if _Is_Filter_HiCutPointLightColor is False
+    // === OPTIMIZATION: Use cached texture samples and pre-calculated values ===
 
-    float4 _Set_HighColorMask_var = tex2D(_Set_HighColorMask, TRANSFORM_TEX(Set_UV0, _Set_HighColorMask));
     float _Specular_var = 0.5 * dot(halfDirection, lerp(i.normalDir, normalDirection, _Is_NormalMapToHighColor)) + 0.5;
     //  Specular
     float _TweakHighColorMask_var = (saturate((_Set_HighColorMask_var.g + _Tweak_HighColorMaskLevel)) * lerp(
-        (1.0 - step(_Specular_var, (1.0 - pow(abs(_HighColor_Power), 5)))),
-        pow(abs(_Specular_var), exp2(lerp(11, 1, _HighColor_Power))), _Is_SpecularToHighColor));
-
-    float4 _HighColor_Tex_var = tex2D(_HighColor_Tex, TRANSFORM_TEX(Set_UV0, _HighColor_Tex));
+        (1.0 - step(_Specular_var, highColorPowThreshold)),
+        pow(abs(_Specular_var), highColorExp), _Is_SpecularToHighColor));
 
     float3 _HighColor_var = (lerp((_HighColor_Tex_var.rgb * _HighColor.rgb),
         ((_HighColor_Tex_var.rgb * _HighColor.rgb) * Set_LightColor),
