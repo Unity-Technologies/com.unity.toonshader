@@ -2094,7 +2094,9 @@ namespace UnityEditor.Rendering.Toon {
             const string OUTLINE_CULL_MODE = "_SRPDefaultUnlitColMode";
 
             if (isTransparent) {
+#if URP_IS_INSTALLED_FOR_UTS || HDRP_IS_INSTALLED_FOR_UTS
                 material.SetShaderPassEnabled(ToonConstants.SHADER_LIGHT_MODE_NAME_FOR_OUTLINE, true);
+#endif
                 MaterialSetInt(material, OUTLINE_COLOR_MASK, 0); //Don't write to the render target
                 MaterialSetInt(material, OUTLINE_CULL_MODE, (int)CullingMode.Backface);
             } else {
