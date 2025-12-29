@@ -48,19 +48,6 @@ namespace UnityEditor.Rendering.Toon {
             }
         }
 
-        internal static string srpDefaultLightModeName {
-            get {
-                const string legacyDefaultLightModeName = "Always";
-
-                if (currentRenderPipeline == RenderPipeline.Legacy) {
-                    return legacyDefaultLightModeName; // default.
-                }
-
-                return ToonConstants.SHADER_LIGHT_MODE_NAME_FOR_OUTLINE;
-            }
-        }
-
-
         internal void RenderingPerChennelsSetting(Material material) {
             if (currentRenderPipeline == RenderPipeline.HDRP) {
                 RenderingPerChennelsSettingHDRP(material);
@@ -2094,7 +2081,14 @@ namespace UnityEditor.Rendering.Toon {
 
 
         internal static void SetupTransparentMode(Material material, bool isTransparent) {
-            string defaultLightModeName = srpDefaultLightModeName;
+            
+
+#if URP_IS_INSTALLED_FOR_UTS || HDRP_IS_INSTALLED_FOR_UTS
+            string defaultLightModeName = ToonConstants.SHADER_LIGHT_MODE_NAME_FOR_OUTLINE;
+#else
+            string defaultLightModeName = "Always";
+#endif
+        
             string srpDefaultLightModeTag = material.GetTag("LightMode", false, defaultLightModeName);
             
             if (srpDefaultLightModeTag != defaultLightModeName) 
