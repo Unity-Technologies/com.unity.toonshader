@@ -117,7 +117,7 @@ public class UTSGraphicsTestsNonXR  {
             ImageAssert.AreEqual(testCase.ReferenceImage, mainCamera,
                 imageComparisonSettings, testCase.ReferenceImagePathLog);
             
-            //Check memory allocations
+            // [TODO-sin: 2025-12-23] Check memory allocations
             // try {
             //     ImageAssert.AllocatesMemory(mainCamera, imageComparisonSettings);
             // } catch (AssertionException) {
