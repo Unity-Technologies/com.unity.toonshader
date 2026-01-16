@@ -77,6 +77,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 
     const float4 mainTex = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex));
     const float4 firstShadeTex = lerp(SAMPLE_TEXTURE2D(_1st_ShadeMap, sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex)),mainTex, _Use_BaseAs1st);
+    const float4 _2nd_ShadeMap_var = lerp(SAMPLE_TEXTURE2D(_2nd_ShadeMap, sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex)),firstShadeTex, _Use_1stAs2nd);
     const float4 _HighColor_Tex_var = tex2D(_HighColor_Tex, TRANSFORM_TEX(Set_UV0, _HighColor_Tex));
     const float4 _Set_HighColorMask_var = tex2D(_Set_HighColorMask, TRANSFORM_TEX(Set_UV0, _Set_HighColorMask));
 
@@ -171,8 +172,6 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
             _1st_ShadeColor_Step - (_1st_ShadeColor_Step - _1st_ShadeColor_Feather)))); // Base and 1st Shade Mask
     float3 _BaseColor_var = lerp(Set_BaseColor, _Is_LightColor_1st_Shade_var, Set_FinalShadowMask);
     //v.2.0.5
-    float4 _2nd_ShadeMap_var = lerp(SAMPLE_TEXTURE2D(_2nd_ShadeMap, sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex)),
-        firstShadeTex, _Use_1stAs2nd);
     float Set_ShadeShadowMask = saturate(
         (1.0 + ((Set_ShadingGrade - (_2nd_ShadeColor_Step - _2nd_ShadeColor_Feather)) * (0.0 - 1.0)) / (
             _2nd_ShadeColor_Step - (_2nd_ShadeColor_Step - _2nd_ShadeColor_Feather)))); // 1st and 2nd Shades Mask
@@ -438,8 +437,6 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
         ((_BaseColor.rgb * mainTex.rgb) * Set_LightColor), _Is_LightColor_Base);
     //v.2.0.5
     float3 Set_1st_ShadeColor = lerp((_1st_ShadeColor.rgb * firstShadeTex.rgb * _LightIntensity),((_1st_ShadeColor.rgb * firstShadeTex.rgb) * Set_LightColor), _Is_LightColor_1st_Shade);
-    //v.2.0.5
-    float4 _2nd_ShadeMap_var = lerp(SAMPLE_TEXTURE2D(_2nd_ShadeMap, sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex)),firstShadeTex, _Use_1stAs2nd);
     float3 Set_2nd_ShadeColor = lerp((_2nd_ShadeColor.rgb * _2nd_ShadeMap_var.rgb * _LightIntensity),((_2nd_ShadeColor.rgb * _2nd_ShadeMap_var.rgb) * Set_LightColor), _Is_LightColor_2nd_Shade);
     float _HalfLambert_var = 0.5 * dot(lerp(i.normalDir, normalDirection, _Is_NormalMapToBase), lightDirection) + 0.5;
 
@@ -560,8 +557,6 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
         ((_BaseColor.rgb * mainTex.rgb) * Set_LightColor), _Is_LightColor_Base);
     //v.2.0.5
     float3 Set_1st_ShadeColor = lerp((_1st_ShadeColor.rgb * firstShadeTex.rgb * _LightIntensity),((_1st_ShadeColor.rgb * firstShadeTex.rgb) * Set_LightColor), _Is_LightColor_1st_Shade);
-    //v.2.0.5
-    float4 _2nd_ShadeMap_var = lerp(SAMPLE_TEXTURE2D(_2nd_ShadeMap, sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex)),firstShadeTex, _Use_1stAs2nd);
     float3 Set_2nd_ShadeColor = lerp((_2nd_ShadeColor.rgb * _2nd_ShadeMap_var.rgb * _LightIntensity),((_2nd_ShadeColor.rgb * _2nd_ShadeMap_var.rgb) * Set_LightColor), _Is_LightColor_2nd_Shade);
     float _HalfLambert_var = 0.5 * dot(lerp(i.normalDir, normalDirection, _Is_NormalMapToBase), lightDirection) + 0.5;
 
