@@ -75,7 +75,9 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 #endif
     );
 
-    const float4 mainTex = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex));
+    const float2 mainTexUV = TRANSFORM_TEX(i.uv0, _MainTex);
+    
+    const float4 mainTex = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, mainTexUV);
     const float4 firstShadePosTex = tex2D(_Set_1st_ShadePosition, TRANSFORM_TEX(Set_UV0, _Set_1st_ShadePosition));
     const float4 secondShadePosTex = tex2D(_Set_2nd_ShadePosition, TRANSFORM_TEX(Set_UV0, _Set_2nd_ShadePosition));
     const float4 highlightTex = tex2D(_HighColor_Tex, TRANSFORM_TEX(Set_UV0, _HighColor_Tex));
@@ -88,14 +90,14 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     //v.2.0.4
 #if defined(_IS_CLIPPING_MODE)
     //DoubleShadeWithFeather_Clipping
-    float4 _ClippingMask_var = SAMPLE_TEXTURE2D(_ClippingMask, sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex));
+    float4 _ClippingMask_var = SAMPLE_TEXTURE2D(_ClippingMask, sampler_MainTex, mainTexUV);
     float Set_Clipping = saturate(
         (lerp(_ClippingMask_var.r, (1.0 - _ClippingMask_var.r), _Inverse_Clipping) + _Clipping_Level));
     clip(Set_Clipping - 0.5);
 #elif defined(_IS_CLIPPING_TRANSMODE) || defined(_IS_TRANSCLIPPING_ON)
     //DoubleShadeWithFeather_TransClipping
 
-    float4 _ClippingMask_var = SAMPLE_TEXTURE2D(_ClippingMask, sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex));
+    float4 _ClippingMask_var = SAMPLE_TEXTURE2D(_ClippingMask, sampler_MainTex, mainTexUV);
     float Set_MainTexAlpha = mainTex.a;
     float _IsBaseMapAlphaAsClippingMask_var =
         lerp(_ClippingMask_var.r, Set_MainTexAlpha, _IsBaseMapAlphaAsClippingMask);
@@ -149,9 +151,9 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     float3 Set_BaseColor = lerp((_BaseColor.rgb * mainTex.rgb),
         ((_BaseColor.rgb * mainTex.rgb) * Set_LightColor), _Is_LightColor_Base);
     //v.2.0.5
-    const float4 firstShadeTex = lerp(SAMPLE_TEXTURE2D(_1st_ShadeMap, sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex)),mainTex, _Use_BaseAs1st);
+    const float4 firstShadeTex = lerp(SAMPLE_TEXTURE2D(_1st_ShadeMap, sampler_MainTex, mainTexUV),mainTex, _Use_BaseAs1st);
     float3 Set_1st_ShadeColor = lerp((_1st_ShadeColor.rgb * firstShadeTex.rgb),((_1st_ShadeColor.rgb * firstShadeTex.rgb) * Set_LightColor), _Is_LightColor_1st_Shade);
-    const float4 secondShadeTex = lerp(SAMPLE_TEXTURE2D(_2nd_ShadeMap, sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex)),firstShadeTex, _Use_1stAs2nd);
+    const float4 secondShadeTex = lerp(SAMPLE_TEXTURE2D(_2nd_ShadeMap, sampler_MainTex, mainTexUV),firstShadeTex, _Use_1stAs2nd);
     float3 Set_2nd_ShadeColor = lerp((_2nd_ShadeColor.rgb * secondShadeTex.rgb),((_2nd_ShadeColor.rgb * secondShadeTex.rgb) * Set_LightColor), _Is_LightColor_2nd_Shade);
     float _HalfLambert_var = 0.5 * dot(lerp(i.normalDir, normalDirection, _Is_NormalMapToBase), lightDirection) + 0.5;
 
