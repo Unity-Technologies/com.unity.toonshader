@@ -79,7 +79,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     const float4 firstShadeTex = lerp(SAMPLE_TEXTURE2D(_1st_ShadeMap, sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex)),mainTex, _Use_BaseAs1st);
     const float4 secondShadeTex = lerp(SAMPLE_TEXTURE2D(_2nd_ShadeMap, sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex)),firstShadeTex, _Use_1stAs2nd);
     const float4 highlightTex = tex2D(_HighColor_Tex, TRANSFORM_TEX(Set_UV0, _HighColor_Tex));
-    const float4 _Set_HighColorMask_var = tex2D(_Set_HighColorMask, TRANSFORM_TEX(Set_UV0, _Set_HighColorMask));
+    const float4 highlightMask = tex2D(_Set_HighColorMask, TRANSFORM_TEX(Set_UV0, _Set_HighColorMask));
 
 #ifdef _DBUFFER
     ApplyDecalToSurfaceDataUTS(input.positionCS, mainTex.rgb, surfaceData, normalDirection);
@@ -185,7 +185,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 
     float _Specular_var = 0.5 * dot(halfDirection, lerp(i.normalDir, normalDirection, _Is_NormalMapToHighColor)) + 0.5;
     // Specular
-    float _TweakHighColorMask_var = (saturate((_Set_HighColorMask_var.g + _Tweak_HighColorMaskLevel)) * lerp(
+    float _TweakHighColorMask_var = (saturate((highlightMask.g + _Tweak_HighColorMaskLevel)) * lerp(
         (1.0 - step(_Specular_var, (1.0 - pow(abs(_HighColor_Power), 5)))),
         pow(abs(_Specular_var), exp2(lerp(11, 1, _HighColor_Power))), _Is_SpecularToHighColor));
 
@@ -485,7 +485,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 
     float _Specular_var = 0.5 * dot(halfDirection, lerp(i.normalDir, normalDirection, _Is_NormalMapToHighColor)) + 0.5;
     //  Specular
-    float _TweakHighColorMask_var = (saturate((_Set_HighColorMask_var.g + _Tweak_HighColorMaskLevel)) * lerp(
+    float _TweakHighColorMask_var = (saturate((highlightMask.g + _Tweak_HighColorMaskLevel)) * lerp(
         (1.0 - step(_Specular_var, (1.0 - pow(abs(_HighColor_Power), 5)))),
         pow(abs(_Specular_var), exp2(lerp(11, 1, _HighColor_Power))), _Is_SpecularToHighColor));
 
@@ -622,7 +622,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 
     float _Specular_var = 0.5 * dot(halfDirection, lerp(i.normalDir, normalDirection, _Is_NormalMapToHighColor)) + 0.5;
     //  Specular
-    float _TweakHighColorMask_var = (saturate((_Set_HighColorMask_var.g + _Tweak_HighColorMaskLevel)) * lerp(
+    float _TweakHighColorMask_var = (saturate((highlightMask.g + _Tweak_HighColorMaskLevel)) * lerp(
         (1.0 - step(_Specular_var, (1.0 - pow(abs(_HighColor_Power), 5)))),
         pow(abs(_Specular_var), exp2(lerp(11, 1, _HighColor_Power))), _Is_SpecularToHighColor));
 
