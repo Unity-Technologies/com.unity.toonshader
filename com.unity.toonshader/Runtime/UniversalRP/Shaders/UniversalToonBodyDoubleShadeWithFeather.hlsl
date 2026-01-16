@@ -78,7 +78,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     const float4 mainTex = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex));
     const float4 _Set_1st_ShadePosition_var = tex2D(_Set_1st_ShadePosition, TRANSFORM_TEX(Set_UV0, _Set_1st_ShadePosition));
     const float4 _Set_2nd_ShadePosition_var = tex2D(_Set_2nd_ShadePosition, TRANSFORM_TEX(Set_UV0, _Set_2nd_ShadePosition));
-    const float4 _HighColor_Tex_var = tex2D(_HighColor_Tex, TRANSFORM_TEX(Set_UV0, _HighColor_Tex));
+    const float4 highlightTex = tex2D(_HighColor_Tex, TRANSFORM_TEX(Set_UV0, _HighColor_Tex));
     const float4 _Set_HighColorMask_var = tex2D(_Set_HighColorMask, TRANSFORM_TEX(Set_UV0, _Set_HighColorMask));
 
 #ifdef _DBUFFER
@@ -181,8 +181,8 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
         pow(abs(_Specular_var), exp2(lerp(11, 1, _HighColor_Power))), _Is_SpecularToHighColor));
 
 
-    float3 _HighColor_var = (lerp((_HighColor_Tex_var.rgb * _HighColor.rgb),
-        ((_HighColor_Tex_var.rgb * _HighColor.rgb) * Set_LightColor),
+    float3 _HighColor_var = (lerp((highlightTex.rgb * _HighColor.rgb),
+        ((highlightTex.rgb * _HighColor.rgb) * Set_LightColor),
         _Is_LightColor_HighColor) * _TweakHighColorMask_var);
     //Composition: 3 Basic Colors and HighColor as Set_HighColor
     float3 Set_HighColor = (lerp(SATURATE_IF_SDR((Set_FinalBaseColor-_TweakHighColorMask_var)), Set_FinalBaseColor,
@@ -386,8 +386,8 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
         (1.0 - step(_Specular_var, (1.0 - pow(_HighColor_Power, 5)))),
         pow(_Specular_var, exp2(lerp(11, 1, _HighColor_Power))), _Is_SpecularToHighColor));
 
-    float3 _HighColor_var = (lerp((_HighColor_Tex_var.rgb * _HighColor.rgb),
-        ((_HighColor_Tex_var.rgb * _HighColor.rgb) * Set_LightColor),
+    float3 _HighColor_var = (lerp((highlightTex.rgb * _HighColor.rgb),
+        ((highlightTex.rgb * _HighColor.rgb) * Set_LightColor),
         _Is_LightColor_HighColor) * _TweakHighColorMask_var);
 
     finalColor = finalColor + lerp(
@@ -479,8 +479,8 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
         (1.0 - step(_Specular_var, (1.0 - pow(_HighColor_Power, 5)))),
         pow(_Specular_var, exp2(lerp(11, 1, _HighColor_Power))), _Is_SpecularToHighColor));
         
-    float3 _HighColor_var = (lerp((_HighColor_Tex_var.rgb * _HighColor.rgb),
-        ((_HighColor_Tex_var.rgb * _HighColor.rgb) * Set_LightColor),
+    float3 _HighColor_var = (lerp((highlightTex.rgb * _HighColor.rgb),
+        ((highlightTex.rgb * _HighColor.rgb) * Set_LightColor),
         _Is_LightColor_HighColor) * _TweakHighColorMask_var);
 
     finalColor = finalColor + lerp(
