@@ -142,9 +142,6 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 #endif
     ////// Lighting:
     float3 halfDirection = normalize(viewDirection + lightDirection);
-    //v.2.0.5
-    _Color = _BaseColor;
-
     
 #ifdef _IS_PASS_FWDBASE
     float3 Set_LightColor = lightColor.rgb;
