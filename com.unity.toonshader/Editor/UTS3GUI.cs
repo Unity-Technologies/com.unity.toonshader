@@ -2116,10 +2116,10 @@ namespace UnityEditor.Rendering.Toon {
 #endif
 
             EditorGUI.BeginChangeCheck();
-            const string kOutline = "Outline";
-            isOutlineEnabled = EditorGUILayout.Toggle(kOutline, isOutlineEnabled);
+            const string OUTLINE_LABEL = "Outline";
+            isOutlineEnabled = EditorGUILayout.Toggle(OUTLINE_LABEL, isOutlineEnabled);
             if (EditorGUI.EndChangeCheck()) {
-                m_MaterialEditor.RegisterPropertyChangeUndo(kOutline);
+                m_MaterialEditor.RegisterPropertyChangeUndo(OUTLINE_LABEL);
 #if URP_IS_INSTALLED_FOR_UTS || HDRP_IS_INSTALLED_FOR_UTS
                 material.SetShaderPassEnabled(ToonConstants.SHADER_LIGHT_MODE_NAME_FOR_OUTLINE, isOutlineEnabled);
 #else
