@@ -75,13 +75,13 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 #endif
     );
 
-    const float4 _MainTex_var = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex));
-    const float4 _1st_ShadeMap_var = lerp(SAMPLE_TEXTURE2D(_1st_ShadeMap, sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex)),_MainTex_var, _Use_BaseAs1st);
+    const float4 mainTex = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex));
+    const float4 _1st_ShadeMap_var = lerp(SAMPLE_TEXTURE2D(_1st_ShadeMap, sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex)),mainTex, _Use_BaseAs1st);
     const float4 _HighColor_Tex_var = tex2D(_HighColor_Tex, TRANSFORM_TEX(Set_UV0, _HighColor_Tex));
     const float4 _Set_HighColorMask_var = tex2D(_Set_HighColorMask, TRANSFORM_TEX(Set_UV0, _Set_HighColorMask));
 
 #ifdef _DBUFFER
-    ApplyDecalToSurfaceDataUTS(input.positionCS, _MainTex_var.rgb, surfaceData, normalDirection);
+    ApplyDecalToSurfaceDataUTS(input.positionCS, mainTex.rgb, surfaceData, normalDirection);
 #endif
 
     //v.2.0.4
@@ -90,7 +90,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 #elif _IS_TRANSCLIPPING_ON
 
     float4 _ClippingMask_var = SAMPLE_TEXTURE2D(_ClippingMask, sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex));
-    float Set_MainTexAlpha = _MainTex_var.a;
+    float Set_MainTexAlpha = mainTex.a;
     float _IsBaseMapAlphaAsClippingMask_var =
         lerp(_ClippingMask_var.r, Set_MainTexAlpha, _IsBaseMapAlphaAsClippingMask);
     float _Inverse_Clipping_var = lerp(_IsBaseMapAlphaAsClippingMask_var, (1.0 - _IsBaseMapAlphaAsClippingMask_var),
@@ -135,8 +135,8 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 
 #ifdef _IS_PASS_FWDBASE
     float3 Set_LightColor = lightColor.rgb;
-    float3 Set_BaseColor = lerp((_MainTex_var.rgb * _BaseColor.rgb),
-        ((_MainTex_var.rgb * _BaseColor.rgb) * Set_LightColor), _Is_LightColor_Base);
+    float3 Set_BaseColor = lerp((mainTex.rgb * _BaseColor.rgb),
+        ((mainTex.rgb * _BaseColor.rgb) * Set_LightColor), _Is_LightColor_Base);
     //v.2.0.5
     float3 _Is_LightColor_1st_Shade_var = lerp((_1st_ShadeMap_var.rgb * _1st_ShadeColor.rgb),((_1st_ShadeMap_var.rgb * _1st_ShadeColor.rgb) * Set_LightColor), _Is_LightColor_1st_Shade);
     float _HalfLambert_var = 0.5 * dot(lerp(i.normalDir, normalDirection, _Is_NormalMapToBase), lightDirection) + 0.5;
@@ -434,8 +434,8 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     //v.2.0.5: Filtering the high intensity zone of PointLights
     float3 Set_LightColor = lightColor;
     //
-    float3 Set_BaseColor = lerp((_BaseColor.rgb * _MainTex_var.rgb * _LightIntensity),
-        ((_BaseColor.rgb * _MainTex_var.rgb) * Set_LightColor), _Is_LightColor_Base);
+    float3 Set_BaseColor = lerp((_BaseColor.rgb * mainTex.rgb * _LightIntensity),
+        ((_BaseColor.rgb * mainTex.rgb) * Set_LightColor), _Is_LightColor_Base);
     //v.2.0.5
     float3 Set_1st_ShadeColor = lerp((_1st_ShadeColor.rgb * _1st_ShadeMap_var.rgb * _LightIntensity),((_1st_ShadeColor.rgb * _1st_ShadeMap_var.rgb) * Set_LightColor), _Is_LightColor_1st_Shade);
     //v.2.0.5
@@ -556,8 +556,8 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     //v.2.0.5: Filtering the high intensity zone of PointLights
     float3 Set_LightColor = lightColor;
     //
-    float3 Set_BaseColor = lerp((_BaseColor.rgb * _MainTex_var.rgb * _LightIntensity),
-        ((_BaseColor.rgb * _MainTex_var.rgb) * Set_LightColor), _Is_LightColor_Base);
+    float3 Set_BaseColor = lerp((_BaseColor.rgb * mainTex.rgb * _LightIntensity),
+        ((_BaseColor.rgb * mainTex.rgb) * Set_LightColor), _Is_LightColor_Base);
     //v.2.0.5
     float3 Set_1st_ShadeColor = lerp((_1st_ShadeColor.rgb * _1st_ShadeMap_var.rgb * _LightIntensity),((_1st_ShadeColor.rgb * _1st_ShadeMap_var.rgb) * Set_LightColor), _Is_LightColor_1st_Shade);
     //v.2.0.5
