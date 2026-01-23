@@ -765,32 +765,8 @@ PrefabInstance:
     - {fileID: 344909014264963932, guid: 49c167c6c8274387acb72005dc5e5b60, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 100000, guid: 49c167c6c8274387acb72005dc5e5b60,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 725241028}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49c167c6c8274387acb72005dc5e5b60, type: 3}
---- !u!1 &725241027 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100000, guid: 49c167c6c8274387acb72005dc5e5b60,
-    type: 3}
-  m_PrefabInstance: {fileID: 725241026}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &725241028
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 725241027}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f5863a4df974b248ba17a691a493177, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SO: {fileID: 11400000, guid: 38185e5fc3dea1e47b68a1e60de13007, type: 2}
-  CheckMemoryAllocation: 0
 --- !u!4 &785544187 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: eb13671d97834ba989dcaf84d1225be6,
