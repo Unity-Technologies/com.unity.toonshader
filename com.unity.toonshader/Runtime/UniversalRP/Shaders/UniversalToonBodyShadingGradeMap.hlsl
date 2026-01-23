@@ -109,6 +109,9 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 #endif
 
 
+    const float firstStepMinusFeather = _1st_ShadeColor_Step - _1st_ShadeColor_Feather;
+    const float secondStepMinusFeather = _2nd_ShadeColor_Step - _2nd_ShadeColor_Feather;
+    
     //v.2.0.4
 
     float3 defaultLightDirection = normalize(UNITY_MATRIX_V[2].xyz + UNITY_MATRIX_V[1].xyz);
@@ -165,13 +168,13 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 
     //
     float Set_FinalShadowMask = saturate(
-        (1.0 + ((Set_ShadingGrade - (_1st_ShadeColor_Step - _1st_ShadeColor_Feather)) * (0.0 - 1.0)) / (
-            _1st_ShadeColor_Step - (_1st_ShadeColor_Step - _1st_ShadeColor_Feather)))); // Base and 1st Shade Mask
+        (1.0 + ((Set_ShadingGrade - (firstStepMinusFeather)) * (0.0 - 1.0)) / (
+            _1st_ShadeColor_Step - (firstStepMinusFeather)))); // Base and 1st Shade Mask
     float3 _BaseColor_var = lerp(Set_BaseColor, _Is_LightColor_1st_Shade_var, Set_FinalShadowMask);
     //v.2.0.5
     float Set_ShadeShadowMask = saturate(
-        (1.0 + ((Set_ShadingGrade - (_2nd_ShadeColor_Step - _2nd_ShadeColor_Feather)) * (0.0 - 1.0)) / (
-            _2nd_ShadeColor_Step - (_2nd_ShadeColor_Step - _2nd_ShadeColor_Feather)))); // 1st and 2nd Shades Mask
+        (1.0 + ((Set_ShadingGrade - (secondStepMinusFeather)) * (0.0 - 1.0)) / (
+            _2nd_ShadeColor_Step - (secondStepMinusFeather)))); // 1st and 2nd Shades Mask
     //Composition: 3 Basic Colors as Set_FinalBaseColor
     float3 Set_FinalBaseColor = lerp(_BaseColor_var,
         lerp(_Is_LightColor_1st_Shade_var,
@@ -439,7 +442,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     // float4 _Set_2nd_ShadePosition_var = tex2D(_Set_2nd_ShadePosition, TRANSFORM_TEX(Set_UV0, _Set_2nd_ShadePosition));
     // float4 _Set_1st_ShadePosition_var = tex2D(_Set_1st_ShadePosition, TRANSFORM_TEX(Set_UV0, _Set_1st_ShadePosition));
     // //v.2.0.5:
-    // float Set_FinalShadowMask = saturate((1.0 + ((lerp(halfLambert, (halfLambert*saturate(1.0 + _Tweak_SystemShadowsLevel)), _Set_SystemShadowsToBase) - (_1st_ShadeColor_Step - _1st_ShadeColor_Feather)) * ((1.0 - _Set_1st_ShadePosition_var.rgb).r - 1.0)) / (_1st_ShadeColor_Step - (_1st_ShadeColor_Step - _1st_ShadeColor_Feather))));
+    // float Set_FinalShadowMask = saturate((1.0 + ((lerp(halfLambert, (halfLambert*saturate(1.0 + _Tweak_SystemShadowsLevel)), _Set_SystemShadowsToBase) - (firstStepMinusFeather)) * ((1.0 - _Set_1st_ShadePosition_var.rgb).r - 1.0)) / (_1st_ShadeColor_Step - (firstStepMinusFeather))));
     //SGM
 
     //v.2.0.6
@@ -558,7 +561,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     // float4 _Set_2nd_ShadePosition_var = tex2D(_Set_2nd_ShadePosition, TRANSFORM_TEX(Set_UV0, _Set_2nd_ShadePosition));
     // float4 _Set_1st_ShadePosition_var = tex2D(_Set_1st_ShadePosition, TRANSFORM_TEX(Set_UV0, _Set_1st_ShadePosition));
     // //v.2.0.5:
-    // float Set_FinalShadowMask = saturate((1.0 + ((lerp(halfLambert, (halfLambert*saturate(1.0 + _Tweak_SystemShadowsLevel)), _Set_SystemShadowsToBase) - (_1st_ShadeColor_Step - _1st_ShadeColor_Feather)) * ((1.0 - _Set_1st_ShadePosition_var.rgb).r - 1.0)) / (_1st_ShadeColor_Step - (_1st_ShadeColor_Step - _1st_ShadeColor_Feather))));
+    // float Set_FinalShadowMask = saturate((1.0 + ((lerp(halfLambert, (halfLambert*saturate(1.0 + _Tweak_SystemShadowsLevel)), _Set_SystemShadowsToBase) - (firstStepMinusFeather)) * ((1.0 - _Set_1st_ShadePosition_var.rgb).r - 1.0)) / (_1st_ShadeColor_Step - (firstStepMinusFeather))));
     //SGM
 
     //v.2.0.6

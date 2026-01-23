@@ -146,6 +146,9 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     const float4 secondShadeTex = lerp(SAMPLE_TEXTURE2D(_2nd_ShadeMap, sampler_MainTex, mainTexUV),firstShadeTex, _Use_1stAs2nd);
     const float3 secondShadeAlbedo = _2nd_ShadeColor.rgb * secondShadeTex.rgb;
     
+    const float firstStepMinusFeather = _ShadeColor_Step - _1st2nd_Shades_Feather;
+    const float baseStepMinusFeather = _BaseColor_Step - _BaseShade_Feather;
+    
     //v.2.0.5
     float3 Set_LightColor = lightColor.rgb;
     float3 Set_BaseColor = lerp((baseAlbedo),(baseAlbedo * Set_LightColor), _Is_LightColor_Base);
@@ -160,15 +163,14 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
                                         : 0.0001;
     float Set_FinalShadowMask = saturate(
         (1.0 + ((lerp(halfLambert, halfLambert * saturate(_SystemShadowsLevel_var), _Set_SystemShadowsToBase)
-            - (_BaseColor_Step - _BaseShade_Feather)) * ((1.0 - firstShadePosTex.rgb).r - 1.0)) / (
-            _BaseColor_Step - (_BaseColor_Step - _BaseShade_Feather))));
+            - (baseStepMinusFeather)) * ((1.0 - firstShadePosTex.rgb).r - 1.0)) / (
+            _BaseColor_Step - (baseStepMinusFeather))));
     //
     //Composition: 3 Basic Colors as Set_FinalBaseColor
     float3 Set_FinalBaseColor = lerp(Set_BaseColor, lerp(Set_1st_ShadeColor, Set_2nd_ShadeColor,
         saturate(
-            (1.0 + ((halfLambert - (_ShadeColor_Step - _1st2nd_Shades_Feather)) * ((1.0 -
-                secondShadePosTex.rgb).r - 1.0)) / (_ShadeColor_Step - (_ShadeColor_Step -
-                _1st2nd_Shades_Feather))))), Set_FinalShadowMask); // Final Color
+            (1.0 + ((halfLambert - (firstStepMinusFeather)) * ((1.0 -
+                secondShadePosTex.rgb).r - 1.0)) / (_ShadeColor_Step - (firstStepMinusFeather))))), Set_FinalShadowMask); // Final Color
 
 
     float specular = 0.5 * dot(halfDirection, lerp(i.normalDir, normalDirection, _Is_NormalMapToHighColor)) + 0.5;
