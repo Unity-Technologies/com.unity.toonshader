@@ -4,10 +4,9 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 #endif
 ) {
     i.normalDir = normalize(i.normalDir);
-    float3 viewDirection = normalize(_WorldSpaceCameraPos.xyz - i.posWorld.xyz);
-
+    
+    const float3 viewDirection = normalize(_WorldSpaceCameraPos.xyz - i.posWorld.xyz);
     const float3x3 tangentTransform = float3x3(i.tangentDir, i.bitangentDir, i.normalDir);
-
     const float2 Set_UV0 = i.uv0;
 
     const float3 normalTex = UnpackNormalScale(
