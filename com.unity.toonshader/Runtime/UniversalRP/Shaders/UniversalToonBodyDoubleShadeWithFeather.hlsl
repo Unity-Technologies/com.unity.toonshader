@@ -76,12 +76,12 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 
     const float3 normalTex = UnpackNormalScale(
         SAMPLE_TEXTURE2D(_NormalMap, sampler_MainTex, TRANSFORM_TEX(Set_UV0, _NormalMap)), _BumpScale);
-    float3 decalNormalDirection = normalize(mul(normalTex, tangentTransform)); // Perturbed normals
+    float3 normalDirectionBeforeDecal = normalize(mul(normalTex, tangentTransform)); // Perturbed normals before decal
     
     //Decal
-    ApplyDecalToSurfaceDataUTS(input.positionCS, decalMainTex.rgb, surfaceData, decalNormalDirection);
+    ApplyDecalToSurfaceDataUTS(input.positionCS, decalMainTex.rgb, surfaceData, normalDirectionBeforeDecal);
     const float4 mainTex = decalMainTex;
-    const float3 normalDirection = decalNormalDirection;
+    const float3 normalDirection = normalDirectionBeforeDecal;
 
     //v.2.0.4
 #if defined(_IS_CLIPPING_MODE)
