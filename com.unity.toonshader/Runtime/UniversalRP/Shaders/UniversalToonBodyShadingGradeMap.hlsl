@@ -9,9 +9,6 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     const float3 viewDirection = normalize(_WorldSpaceCameraPos.xyz - i.posWorld.xyz);
     const float2 Set_UV0 = i.uv0;
 
-    const float3 normalTex = UnpackNormalScale(
-        SAMPLE_TEXTURE2D(_NormalMap, sampler_MainTex, TRANSFORM_TEX(Set_UV0, _NormalMap)), _BumpScale);
-    const float3 normalDirection = normalize(mul(normalTex, tangentTransform)); // Perturbed normals
 
     // todo. not necessary to calc gi factor in  shadowcaster pass.
     SurfaceData surfaceData;
@@ -78,6 +75,10 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     const float4 highlightTex = tex2D(_HighColor_Tex, TRANSFORM_TEX(Set_UV0, _HighColor_Tex));
     const float4 highlightMaskTex = tex2D(_Set_HighColorMask, TRANSFORM_TEX(Set_UV0, _Set_HighColorMask));
 
+    const float3 normalTex = UnpackNormalScale(
+        SAMPLE_TEXTURE2D(_NormalMap, sampler_MainTex, TRANSFORM_TEX(Set_UV0, _NormalMap)), _BumpScale);
+    const float3 normalDirection = normalize(mul(normalTex, tangentTransform)); // Perturbed normals
+    
     const float3 baseAlbedo = _BaseColor.rgb * mainTex.rgb;
     const float3 firstShadeAlbedo = _1st_ShadeColor.rgb * firstShadeTex.rgb;
     const float3 secondShadeAlbedo = _2nd_ShadeColor.rgb * secondShadeTex.rgb;
