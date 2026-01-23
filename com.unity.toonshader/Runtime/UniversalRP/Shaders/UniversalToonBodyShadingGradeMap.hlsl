@@ -142,7 +142,6 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     //v.2.0.5
     float3 _Is_LightColor_1st_Shade_var = lerp(firstShadeAlbedo,(firstShadeAlbedo * Set_LightColor), _Is_LightColor_1st_Shade);
     float _HalfLambert_var = 0.5 * dot(lerp(i.normalDir, normalDirection, _Is_NormalMapToBase), lightDirection) + 0.5;
-    // Half Lambert
 
     //v.2.0.6
     float4 _ShadingGradeMap_var = tex2Dlod(_ShadingGradeMap,
