@@ -138,9 +138,9 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 
 #ifdef _IS_PASS_FWDBASE
     float3 Set_LightColor = lightColor.rgb;
-    float3 Set_BaseColor = lerp((baseAlbedo), ((baseAlbedo) * Set_LightColor), _Is_LightColor_Base);
+    float3 Set_BaseColor = lerp((baseAlbedo), (baseAlbedo * Set_LightColor), _Is_LightColor_Base);
     //v.2.0.5
-    float3 _Is_LightColor_1st_Shade_var = lerp((firstShadeAlbedo),((firstShadeAlbedo) * Set_LightColor), _Is_LightColor_1st_Shade);
+    float3 _Is_LightColor_1st_Shade_var = lerp(firstShadeAlbedo,(firstShadeAlbedo * Set_LightColor), _Is_LightColor_1st_Shade);
     float _HalfLambert_var = 0.5 * dot(lerp(i.normalDir, normalDirection, _Is_NormalMapToBase), lightDirection) + 0.5;
     // Half Lambert
 
