@@ -84,6 +84,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 
     const float3 baseAlbedo = _BaseColor.rgb * mainTex.rgb;
     const float3 firstShadeAlbedo = _1st_ShadeColor.rgb * firstShadeTex.rgb; 
+    const float3 secondShadeAlbedo = _2nd_ShadeColor.rgb * secondShadeTex.rgb;
     
 #ifdef _DBUFFER
     ApplyDecalToSurfaceDataUTS(input.positionCS, mainTex.rgb, surfaceData, normalDirection);
@@ -436,7 +437,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     float3 Set_BaseColor = lerp((baseAlbedo * _LightIntensity), (baseAlbedo * Set_LightColor), _Is_LightColor_Base);
     //v.2.0.5
     float3 Set_1st_ShadeColor = lerp((firstShadeAlbedo * _LightIntensity),(firstShadeAlbedo * Set_LightColor), _Is_LightColor_1st_Shade);
-    float3 Set_2nd_ShadeColor = lerp((_2nd_ShadeColor.rgb * secondShadeTex.rgb * _LightIntensity),((_2nd_ShadeColor.rgb * secondShadeTex.rgb) * Set_LightColor), _Is_LightColor_2nd_Shade);
+    float3 Set_2nd_ShadeColor = lerp((secondShadeAlbedo * _LightIntensity),((secondShadeAlbedo) * Set_LightColor), _Is_LightColor_2nd_Shade);
     float _HalfLambert_var = 0.5 * dot(lerp(i.normalDir, normalDirection, _Is_NormalMapToBase), lightDirection) + 0.5;
 
     // float4 _Set_2nd_ShadePosition_var = tex2D(_Set_2nd_ShadePosition, TRANSFORM_TEX(Set_UV0, _Set_2nd_ShadePosition));
@@ -555,7 +556,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
         
     //v.2.0.5
     float3 Set_1st_ShadeColor = lerp((firstShadeAlbedo * _LightIntensity),(firstShadeAlbedo * Set_LightColor), _Is_LightColor_1st_Shade);
-    float3 Set_2nd_ShadeColor = lerp((_2nd_ShadeColor.rgb * secondShadeTex.rgb * _LightIntensity),((_2nd_ShadeColor.rgb * secondShadeTex.rgb) * Set_LightColor), _Is_LightColor_2nd_Shade);
+    float3 Set_2nd_ShadeColor = lerp((secondShadeAlbedo * _LightIntensity),((secondShadeAlbedo) * Set_LightColor), _Is_LightColor_2nd_Shade);
     float _HalfLambert_var = 0.5 * dot(lerp(i.normalDir, normalDirection, _Is_NormalMapToBase), lightDirection) + 0.5;
 
     // float4 _Set_2nd_ShadePosition_var = tex2D(_Set_2nd_ShadePosition, TRANSFORM_TEX(Set_UV0, _Set_2nd_ShadePosition));
