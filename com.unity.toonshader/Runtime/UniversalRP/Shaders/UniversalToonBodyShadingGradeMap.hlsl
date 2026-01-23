@@ -83,7 +83,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     const float4 highlightMaskTex = tex2D(_Set_HighColorMask, TRANSFORM_TEX(Set_UV0, _Set_HighColorMask));
 
     const float3 baseAlbedo = _BaseColor.rgb * mainTex.rgb;
-    const float3 firstShadeAlbedo = _1st_ShadeColor.rgb * firstShadeTex.rgb; 
+    const float3 firstShadeAlbedo = _1st_ShadeColor.rgb * firstShadeTex.rgb;
     const float3 secondShadeAlbedo = _2nd_ShadeColor.rgb * secondShadeTex.rgb;
     
 #ifdef _DBUFFER
