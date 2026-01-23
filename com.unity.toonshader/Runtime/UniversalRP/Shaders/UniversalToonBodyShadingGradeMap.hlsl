@@ -168,13 +168,13 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 
     //
     float Set_FinalShadowMask = saturate(
-        (1.0 + ((Set_ShadingGrade - (firstStepMinusFeather)) * (0.0 - 1.0)) / (
-            _1st_ShadeColor_Step - (firstStepMinusFeather)))); // Base and 1st Shade Mask
+        (1.0 + ((Set_ShadingGrade - firstStepMinusFeather) * (0.0 - 1.0)) / (
+            _1st_ShadeColor_Step - firstStepMinusFeather))); // Base and 1st Shade Mask
     float3 _BaseColor_var = lerp(Set_BaseColor, _Is_LightColor_1st_Shade_var, Set_FinalShadowMask);
     //v.2.0.5
     float Set_ShadeShadowMask = saturate(
-        (1.0 + ((Set_ShadingGrade - (secondStepMinusFeather)) * (0.0 - 1.0)) / (
-            _2nd_ShadeColor_Step - (secondStepMinusFeather)))); // 1st and 2nd Shades Mask
+        (1.0 + ((Set_ShadingGrade - secondStepMinusFeather) * (0.0 - 1.0)) / (
+            _2nd_ShadeColor_Step - secondStepMinusFeather))); // 1st and 2nd Shades Mask
     //Composition: 3 Basic Colors as Set_FinalBaseColor
     float3 Set_FinalBaseColor = lerp(_BaseColor_var,
         lerp(_Is_LightColor_1st_Shade_var,

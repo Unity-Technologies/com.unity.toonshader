@@ -169,8 +169,8 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     //Composition: 3 Basic Colors as Set_FinalBaseColor
     float3 Set_FinalBaseColor = lerp(Set_BaseColor, lerp(Set_1st_ShadeColor, Set_2nd_ShadeColor,
         saturate(
-            (1.0 + ((halfLambert - (firstStepMinusFeather)) * ((1.0 -
-                secondShadePosTex.rgb).r - 1.0)) / (_ShadeColor_Step - (firstStepMinusFeather))))), Set_FinalShadowMask); // Final Color
+            (1.0 + ((halfLambert - firstStepMinusFeather) * ((1.0 -
+                secondShadePosTex.rgb).r - 1.0)) / (_ShadeColor_Step - firstStepMinusFeather)))), Set_FinalShadowMask); 
 
 
     float specular = 0.5 * dot(halfDirection, lerp(i.normalDir, normalDirection, _Is_NormalMapToHighColor)) + 0.5;
