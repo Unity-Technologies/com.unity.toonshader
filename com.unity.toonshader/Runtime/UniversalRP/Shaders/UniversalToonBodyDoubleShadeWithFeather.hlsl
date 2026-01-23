@@ -365,8 +365,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     //v.2.0.5: Filtering the high intensity zone of PointLights
     float3 Set_LightColor = lightColor;
     //
-    float3 Set_BaseColor = lerp((baseAlbedo * _LightIntensity),
-        ((baseAlbedo) * Set_LightColor), _Is_LightColor_Base);
+    float3 Set_BaseColor = lerp((baseAlbedo * _LightIntensity),((baseAlbedo) * Set_LightColor), _Is_LightColor_Base);
     //v.2.0.5
     float3 Set_1st_ShadeColor = lerp((firstShadeAlbedo * _LightIntensity),((firstShadeAlbedo) * Set_LightColor), _Is_LightColor_1st_Shade);
     float3 Set_2nd_ShadeColor = lerp((secondShadeAlbedo * _LightIntensity),((secondShadeAlbedo) * Set_LightColor), _Is_LightColor_2nd_Shade);
@@ -458,8 +457,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     //v.2.0.5: Filtering the high intensity zone of PointLights
     float3 Set_LightColor = lightColor;
     //
-    float3 Set_BaseColor = lerp((baseAlbedo * _LightIntensity),
-        ((baseAlbedo) * Set_LightColor), _Is_LightColor_Base);
+    float3 Set_BaseColor = lerp((baseAlbedo * _LightIntensity),((baseAlbedo) * Set_LightColor), _Is_LightColor_Base);
     //v.2.0.5
     float3 Set_1st_ShadeColor = lerp((firstShadeAlbedo * _LightIntensity),((firstShadeAlbedo) * Set_LightColor), _Is_LightColor_1st_Shade);
     float3 Set_2nd_ShadeColor = lerp((secondShadeAlbedo * _LightIntensity),((secondShadeAlbedo) * Set_LightColor), _Is_LightColor_2nd_Shade);
