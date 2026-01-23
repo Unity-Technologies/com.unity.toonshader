@@ -144,23 +144,18 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     float3 halfDirection = normalize(viewDirection + lightDirection);
     
 #ifdef _IS_PASS_FWDBASE
-    float3 Set_LightColor = lightColor.rgb;
     const float3 baseAlbedo = _BaseColor.rgb * mainTex.rgb;
-    
-    float3 Set_BaseColor = lerp((baseAlbedo),((baseAlbedo) * Set_LightColor), _Is_LightColor_Base);
-    
-    //v.2.0.5
     const float4 firstShadeTex = lerp(SAMPLE_TEXTURE2D(_1st_ShadeMap, sampler_MainTex, mainTexUV),mainTex, _Use_BaseAs1st);
     const float3 firstShadeAlbedo = _1st_ShadeColor.rgb * firstShadeTex.rgb; 
-    
-    
-    float3 Set_1st_ShadeColor = lerp((firstShadeAlbedo),((firstShadeAlbedo) * Set_LightColor), _Is_LightColor_1st_Shade);
     const float4 secondShadeTex = lerp(SAMPLE_TEXTURE2D(_2nd_ShadeMap, sampler_MainTex, mainTexUV),firstShadeTex, _Use_1stAs2nd);
     const float3 secondShadeAlbedo = _2nd_ShadeColor.rgb * secondShadeTex.rgb;
     
+    //v.2.0.5
+    float3 Set_LightColor = lightColor.rgb;
+    float3 Set_BaseColor = lerp((baseAlbedo),((baseAlbedo) * Set_LightColor), _Is_LightColor_Base);
+    float3 Set_1st_ShadeColor = lerp((firstShadeAlbedo),((firstShadeAlbedo) * Set_LightColor), _Is_LightColor_1st_Shade);
     float3 Set_2nd_ShadeColor = lerp((secondShadeAlbedo),((secondShadeAlbedo) * Set_LightColor), _Is_LightColor_2nd_Shade);
     float _HalfLambert_var = 0.5 * dot(lerp(i.normalDir, normalDirection, _Is_NormalMapToBase), lightDirection) + 0.5;
-
     
     //v.2.0.6
     //Minmimum value is same as the Minimum Feather's value with the Minimum Step's value as threshold.
