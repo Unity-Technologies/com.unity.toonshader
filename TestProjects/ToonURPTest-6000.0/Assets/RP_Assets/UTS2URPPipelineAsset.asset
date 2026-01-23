@@ -47,12 +47,12 @@ MonoBehaviour:
   m_MainLightShadowsSupported: 1
   m_MainLightShadowmapResolution: 4096
   m_AdditionalLightsRenderingMode: 1
-  m_AdditionalLightsPerObjectLimit: 4
-  m_AdditionalLightShadowsSupported: 0
-  m_AdditionalLightsShadowmapResolution: 4096
-  m_AdditionalLightsShadowResolutionTierLow: 1024
-  m_AdditionalLightsShadowResolutionTierMedium: 2048
-  m_AdditionalLightsShadowResolutionTierHigh: 4096
+  m_AdditionalLightsPerObjectLimit: 2
+  m_AdditionalLightShadowsSupported: 1
+  m_AdditionalLightsShadowmapResolution: 8192
+  m_AdditionalLightsShadowResolutionTierLow: 512
+  m_AdditionalLightsShadowResolutionTierMedium: 1024
+  m_AdditionalLightsShadowResolutionTierHigh: 2048
   m_ReflectionProbeBlending: 0
   m_ReflectionProbeBoxProjection: 0
   m_ShadowDistance: 30
