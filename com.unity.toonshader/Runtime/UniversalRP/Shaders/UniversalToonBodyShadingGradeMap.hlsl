@@ -82,6 +82,8 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     const float4 highlightTex = tex2D(_HighColor_Tex, TRANSFORM_TEX(Set_UV0, _HighColor_Tex));
     const float4 highlightMaskTex = tex2D(_Set_HighColorMask, TRANSFORM_TEX(Set_UV0, _Set_HighColorMask));
 
+    const float3 baseAlbedo = _BaseColor.rgb * mainTex.rgb;
+    
 #ifdef _DBUFFER
     ApplyDecalToSurfaceDataUTS(input.positionCS, mainTex.rgb, surfaceData, normalDirection);
 #endif
@@ -135,8 +137,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 
 #ifdef _IS_PASS_FWDBASE
     float3 Set_LightColor = lightColor.rgb;
-    float3 Set_BaseColor = lerp((mainTex.rgb * _BaseColor.rgb),
-        ((mainTex.rgb * _BaseColor.rgb) * Set_LightColor), _Is_LightColor_Base);
+    float3 Set_BaseColor = lerp((baseAlbedo), ((baseAlbedo) * Set_LightColor), _Is_LightColor_Base);
     //v.2.0.5
     float3 _Is_LightColor_1st_Shade_var = lerp((firstShadeTex.rgb * _1st_ShadeColor.rgb),((firstShadeTex.rgb * _1st_ShadeColor.rgb) * Set_LightColor), _Is_LightColor_1st_Shade);
     float _HalfLambert_var = 0.5 * dot(lerp(i.normalDir, normalDirection, _Is_NormalMapToBase), lightDirection) + 0.5;
