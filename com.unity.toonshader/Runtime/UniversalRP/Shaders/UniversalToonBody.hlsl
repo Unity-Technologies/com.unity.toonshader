@@ -112,6 +112,7 @@ half3 GlobalIlluminationUTS(BRDFData brdfData, half3 bakedGI, half occlusion, ha
 void ApplyDecalToSurfaceDataUTS(float4 positionCS, inout float3 albedo, inout SurfaceData surfaceData,
                                 inout float3 normalWS) {
 
+#ifdef _DBUFFER
 
 #ifdef _SPECULAR_SETUP
 half metallic = 0;
@@ -131,6 +132,7 @@ ApplyDecal(positionCS,
            surfaceData.metallic,
            surfaceData.occlusion,
            surfaceData.smoothness);
+#endif
 #endif
 }
 

@@ -79,9 +79,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     const float4 highlightTex = tex2D(_HighColor_Tex, TRANSFORM_TEX(Set_UV0, _HighColor_Tex));
     const float4 highlightMaskTex = tex2D(_Set_HighColorMask, TRANSFORM_TEX(Set_UV0, _Set_HighColorMask));
 
-#ifdef _DBUFFER
     ApplyDecalToSurfaceDataUTS(input.positionCS, mainTex.rgb, surfaceData, normalDirection);
-#endif
 
     //v.2.0.4
 #if defined(_IS_CLIPPING_MODE)

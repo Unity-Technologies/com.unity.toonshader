@@ -82,9 +82,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     const float3 firstShadeAlbedo = _1st_ShadeColor.rgb * firstShadeTex.rgb;
     const float3 secondShadeAlbedo = _2nd_ShadeColor.rgb * secondShadeTex.rgb;
     
-#ifdef _DBUFFER
     ApplyDecalToSurfaceDataUTS(input.positionCS, mainTex.rgb, surfaceData, normalDirection);
-#endif
 
     //v.2.0.4
 #ifdef _IS_TRANSCLIPPING_OFF
