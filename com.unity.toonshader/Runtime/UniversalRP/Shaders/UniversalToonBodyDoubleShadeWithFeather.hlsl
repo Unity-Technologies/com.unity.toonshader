@@ -173,16 +173,16 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 
     float _Specular_var = 0.5 * dot(halfDirection, lerp(i.normalDir, normalDirection, _Is_NormalMapToHighColor)) + 0.5;
     //  Specular
-    float _TweakHighColorMask_var = (saturate((highlightMaskTex.g + _Tweak_HighColorMaskLevel)) * lerp(
+    float tweakHighColorMask = (saturate((highlightMaskTex.g + _Tweak_HighColorMaskLevel)) * lerp(
         (1.0 - step(_Specular_var, (1.0 - pow(abs(_HighColor_Power), 5)))),
         pow(abs(_Specular_var), exp2(lerp(11, 1, _HighColor_Power))), _Is_SpecularToHighColor));
 
 
     float3 _HighColor_var = (lerp((highlightTex.rgb * _HighColor.rgb),
         ((highlightTex.rgb * _HighColor.rgb) * Set_LightColor),
-        _Is_LightColor_HighColor) * _TweakHighColorMask_var);
+        _Is_LightColor_HighColor) * tweakHighColorMask);
     //Composition: 3 Basic Colors and HighColor as Set_HighColor
-    float3 Set_HighColor = (lerp(SATURATE_IF_SDR((Set_FinalBaseColor-_TweakHighColorMask_var)), Set_FinalBaseColor,
+    float3 Set_HighColor = (lerp(SATURATE_IF_SDR((Set_FinalBaseColor-tweakHighColorMask)), Set_FinalBaseColor,
         lerp(_Is_BlendAddToHiColor, 1.0, _Is_SpecularToHighColor)) + lerp(_HighColor_var,
         (_HighColor_var * ((1.0 - Set_FinalShadowMask) + (Set_FinalShadowMask * _TweakHighColorOnShadow))),
         _Is_UseTweakHighColorOnShadow));
@@ -378,13 +378,13 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     //v.2.0.6: Add HighColor if _Is_Filter_HiCutPointLightColor is False
     float _Specular_var = 0.5 * dot(halfDirection, lerp(i.normalDir, normalDirection, _Is_NormalMapToHighColor)) + 0.5;
     //  Specular
-    float _TweakHighColorMask_var = (saturate((highlightMaskTex.g + _Tweak_HighColorMaskLevel)) * lerp(
+    float tweakHighColorMask = (saturate((highlightMaskTex.g + _Tweak_HighColorMaskLevel)) * lerp(
         (1.0 - step(_Specular_var, (1.0 - pow(_HighColor_Power, 5)))),
         pow(_Specular_var, exp2(lerp(11, 1, _HighColor_Power))), _Is_SpecularToHighColor));
 
     float3 _HighColor_var = (lerp((highlightTex.rgb * _HighColor.rgb),
         ((highlightTex.rgb * _HighColor.rgb) * Set_LightColor),
-        _Is_LightColor_HighColor) * _TweakHighColorMask_var);
+        _Is_LightColor_HighColor) * tweakHighColorMask);
 
     finalColor = finalColor + lerp(
         lerp(_HighColor_var,
@@ -470,13 +470,13 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     //v.2.0.6: Add HighColor if _Is_Filter_HiCutPointLightColor is False
     float _Specular_var = 0.5 * dot(halfDirection, lerp(i.normalDir, normalDirection, _Is_NormalMapToHighColor)) + 0.5;
     //  Specular
-    float _TweakHighColorMask_var = (saturate((highlightMaskTex.g + _Tweak_HighColorMaskLevel)) * lerp(
+    float tweakHighColorMask = (saturate((highlightMaskTex.g + _Tweak_HighColorMaskLevel)) * lerp(
         (1.0 - step(_Specular_var, (1.0 - pow(_HighColor_Power, 5)))),
         pow(_Specular_var, exp2(lerp(11, 1, _HighColor_Power))), _Is_SpecularToHighColor));
         
     float3 _HighColor_var = (lerp((highlightTex.rgb * _HighColor.rgb),
         ((highlightTex.rgb * _HighColor.rgb) * Set_LightColor),
-        _Is_LightColor_HighColor) * _TweakHighColorMask_var);
+        _Is_LightColor_HighColor) * tweakHighColorMask);
 
     finalColor = finalColor + lerp(
         lerp(_HighColor_var,
