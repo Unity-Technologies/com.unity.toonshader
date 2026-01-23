@@ -4,18 +4,14 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 #endif
 ) {
     i.normalDir = normalize(i.normalDir);
-    float3x3 tangentTransform = float3x3(i.tangentDir, i.bitangentDir, i.normalDir);
-    float3 viewDirection = normalize(_WorldSpaceCameraPos.xyz - i.posWorld.xyz);
+    
+    const float3x3 tangentTransform = float3x3(i.tangentDir, i.bitangentDir, i.normalDir);
+    const float3 viewDirection = normalize(_WorldSpaceCameraPos.xyz - i.posWorld.xyz);
     const float2 Set_UV0 = i.uv0;
-    //v.2.0.6
 
-
-    float3 _NormalMap_var = UnpackNormalScale(
+    const float3 normalTex = UnpackNormalScale(
         SAMPLE_TEXTURE2D(_NormalMap, sampler_MainTex, TRANSFORM_TEX(Set_UV0, _NormalMap)), _BumpScale);
-
-    float3 normalLocal = _NormalMap_var.rgb;
-    float3 normalDirection = normalize(mul(normalLocal, tangentTransform)); // Perturbed normals
-
+    const float3 normalDirection = normalize(mul(normalTex, tangentTransform)); // Perturbed normals
 
     // todo. not necessary to calc gi factor in  shadowcaster pass.
     SurfaceData surfaceData;
