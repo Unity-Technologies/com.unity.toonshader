@@ -724,7 +724,6 @@ GameObject:
   - component: {fileID: 794565945}
   - component: {fileID: 794565943}
   - component: {fileID: 794565949}
-  - component: {fileID: 794565944}
   - component: {fileID: 794565950}
   m_Layer: 0
   m_Name: Main Camera
@@ -741,20 +740,6 @@ Behaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 794565941}
   m_Enabled: 1
---- !u!114 &794565944
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 794565941}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f5863a4df974b248ba17a691a493177, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SO: {fileID: 11400000, guid: 38185e5fc3dea1e47b68a1e60de13007, type: 2}
-  CheckMemoryAllocation: 0
 --- !u!20 &794565945
 Camera:
   m_ObjectHideFlags: 0
@@ -2037,9 +2022,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6514ba86f976d724ab63844a6015b2aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dynamicRatio: 1
-  stiffnessForce: 0.01
-  stiffnessCurve:
+  m_dynamicRatio: 1
+  m_baseStiffnessForce: 0.01
+  m_stiffnessScaleCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
@@ -2063,8 +2048,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  dragForce: 0.4
-  dragCurve:
+  m_baseDragForce: 0.4
+  m_dragScaleCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
@@ -2088,7 +2073,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  springBones:
+  m_springBones:
   - {fileID: 3773031160479093515}
   - {fileID: 289954732774256134}
   - {fileID: 5513313947096439186}
