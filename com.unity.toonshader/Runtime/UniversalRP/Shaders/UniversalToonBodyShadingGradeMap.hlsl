@@ -69,22 +69,26 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     );
     const float2 mainTexUV = TRANSFORM_TEX(i.uv0, _MainTex);
 
-    const float4 mainTex = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, mainTexUV);
-    const float4 firstShadeTex = lerp(SAMPLE_TEXTURE2D(_1st_ShadeMap, sampler_MainTex, mainTexUV),mainTex, _Use_BaseAs1st);
-    const float4 secondShadeTex = lerp(SAMPLE_TEXTURE2D(_2nd_ShadeMap, sampler_MainTex, mainTexUV),firstShadeTex, _Use_1stAs2nd);
+    float4 decalMainTex = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, mainTexUV);
     const float4 highlightTex = tex2D(_HighColor_Tex, TRANSFORM_TEX(Set_UV0, _HighColor_Tex));
     const float4 highlightMaskTex = tex2D(_Set_HighColorMask, TRANSFORM_TEX(Set_UV0, _Set_HighColorMask));
 
     const float3 normalTex = UnpackNormalScale(
         SAMPLE_TEXTURE2D(_NormalMap, sampler_MainTex, TRANSFORM_TEX(Set_UV0, _NormalMap)), _BumpScale);
-    const float3 normalDirection = normalize(mul(normalTex, tangentTransform)); // Perturbed normals
+    float3 decalNormalDirection = normalize(mul(normalTex, tangentTransform)); // Perturbed normals
+    
+    //Decal
+    ApplyDecalToSurfaceDataUTS(input.positionCS, decalMainTex.rgb, surfaceData, decalNormalDirection);
+    const float4 mainTex = decalMainTex;
+    const float3 normalDirection = decalNormalDirection;
+
+    const float4 firstShadeTex = lerp(SAMPLE_TEXTURE2D(_1st_ShadeMap, sampler_MainTex, mainTexUV),mainTex, _Use_BaseAs1st);
+    const float4 secondShadeTex = lerp(SAMPLE_TEXTURE2D(_2nd_ShadeMap, sampler_MainTex, mainTexUV),firstShadeTex, _Use_1stAs2nd);
     
     const float3 baseAlbedo = _BaseColor.rgb * mainTex.rgb;
     const float3 firstShadeAlbedo = _1st_ShadeColor.rgb * firstShadeTex.rgb;
     const float3 secondShadeAlbedo = _2nd_ShadeColor.rgb * secondShadeTex.rgb;
     
-    ApplyDecalToSurfaceDataUTS(input.positionCS, mainTex.rgb, surfaceData, normalDirection);
-
     //v.2.0.4
 #ifdef _IS_TRANSCLIPPING_OFF
     //
