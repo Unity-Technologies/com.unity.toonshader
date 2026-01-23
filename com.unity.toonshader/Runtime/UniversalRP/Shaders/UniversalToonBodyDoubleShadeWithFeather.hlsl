@@ -156,7 +156,9 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     
     float3 Set_1st_ShadeColor = lerp((firstShadeAlbedo),((firstShadeAlbedo) * Set_LightColor), _Is_LightColor_1st_Shade);
     const float4 secondShadeTex = lerp(SAMPLE_TEXTURE2D(_2nd_ShadeMap, sampler_MainTex, mainTexUV),firstShadeTex, _Use_1stAs2nd);
-    float3 Set_2nd_ShadeColor = lerp((_2nd_ShadeColor.rgb * secondShadeTex.rgb),((_2nd_ShadeColor.rgb * secondShadeTex.rgb) * Set_LightColor), _Is_LightColor_2nd_Shade);
+    const float3 secondShadeAlbedo = _2nd_ShadeColor.rgb * secondShadeTex.rgb;
+    
+    float3 Set_2nd_ShadeColor = lerp((secondShadeAlbedo),((secondShadeAlbedo) * Set_LightColor), _Is_LightColor_2nd_Shade);
     float _HalfLambert_var = 0.5 * dot(lerp(i.normalDir, normalDirection, _Is_NormalMapToBase), lightDirection) + 0.5;
 
     
@@ -367,7 +369,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
         ((baseAlbedo) * Set_LightColor), _Is_LightColor_Base);
     //v.2.0.5
     float3 Set_1st_ShadeColor = lerp((firstShadeAlbedo * _LightIntensity),((firstShadeAlbedo) * Set_LightColor), _Is_LightColor_1st_Shade);
-    float3 Set_2nd_ShadeColor = lerp((_2nd_ShadeColor.rgb * secondShadeTex.rgb * _LightIntensity),((_2nd_ShadeColor.rgb * secondShadeTex.rgb) * Set_LightColor), _Is_LightColor_2nd_Shade);
+    float3 Set_2nd_ShadeColor = lerp((secondShadeAlbedo * _LightIntensity),((secondShadeAlbedo) * Set_LightColor), _Is_LightColor_2nd_Shade);
     float _HalfLambert_var = 0.5 * dot(lerp(i.normalDir, normalDirection, _Is_NormalMapToBase), lightDirection) + 0.5;
 
     //v.2.0.5:
@@ -460,7 +462,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
         ((baseAlbedo) * Set_LightColor), _Is_LightColor_Base);
     //v.2.0.5
     float3 Set_1st_ShadeColor = lerp((firstShadeAlbedo * _LightIntensity),((firstShadeAlbedo) * Set_LightColor), _Is_LightColor_1st_Shade);
-    float3 Set_2nd_ShadeColor = lerp((_2nd_ShadeColor.rgb * secondShadeTex.rgb * _LightIntensity),((_2nd_ShadeColor.rgb * secondShadeTex.rgb) * Set_LightColor), _Is_LightColor_2nd_Shade);
+    float3 Set_2nd_ShadeColor = lerp((secondShadeAlbedo * _LightIntensity),((secondShadeAlbedo) * Set_LightColor), _Is_LightColor_2nd_Shade);
     float _HalfLambert_var = 0.5 * dot(lerp(i.normalDir, normalDirection, _Is_NormalMapToBase), lightDirection) + 0.5;
 
     //v.2.0.5:
