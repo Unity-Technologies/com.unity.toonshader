@@ -68,7 +68,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 
     const float2 mainTexUV = TRANSFORM_TEX(i.uv0, _MainTex);
     
-    float4 decalMainTex = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, mainTexUV);
+    float4 tempMainTex = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, mainTexUV);
     const float4 firstShadePosTex = tex2D(_Set_1st_ShadePosition, TRANSFORM_TEX(Set_UV0, _Set_1st_ShadePosition));
     const float4 secondShadePosTex = tex2D(_Set_2nd_ShadePosition, TRANSFORM_TEX(Set_UV0, _Set_2nd_ShadePosition));
     const float4 highlightTex = tex2D(_HighColor_Tex, TRANSFORM_TEX(Set_UV0, _HighColor_Tex));
@@ -76,12 +76,12 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 
     const float3 normalTex = UnpackNormalScale(
         SAMPLE_TEXTURE2D(_NormalMap, sampler_MainTex, TRANSFORM_TEX(Set_UV0, _NormalMap)), _BumpScale);
-    float3 normalDirectionBeforeDecal = normalize(mul(normalTex, tangentTransform)); // Perturbed normals before decal
+    float3 tempNormalWS = normalize(mul(normalTex, tangentTransform)); // Perturbed normals
     
     //Decal
-    ApplyDecalToSurfaceDataUTS(input.positionCS, decalMainTex.rgb, surfaceData, normalDirectionBeforeDecal);
-    const float4 mainTex = decalMainTex;
-    const float3 normalDirection = normalDirectionBeforeDecal;
+    ApplyDecalToSurfaceDataUTS(input.positionCS, tempMainTex.rgb, surfaceData, tempNormalWS);
+    const float4 mainTex = tempMainTex;
+    const float3 normalDirection = tempNormalWS;
 
     //v.2.0.4
 #if defined(_IS_CLIPPING_MODE)
