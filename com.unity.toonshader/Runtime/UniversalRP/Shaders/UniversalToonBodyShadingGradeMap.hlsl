@@ -433,10 +433,9 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     //v.2.0.5: Filtering the high intensity zone of PointLights
     float3 Set_LightColor = lightColor;
     //
-    float3 Set_BaseColor = lerp((baseAlbedo * _LightIntensity),
-        ((baseAlbedo) * Set_LightColor), _Is_LightColor_Base);
+    float3 Set_BaseColor = lerp((baseAlbedo * _LightIntensity), (baseAlbedo * Set_LightColor), _Is_LightColor_Base);
     //v.2.0.5
-    float3 Set_1st_ShadeColor = lerp((firstShadeAlbedo * _LightIntensity),((firstShadeAlbedo) * Set_LightColor), _Is_LightColor_1st_Shade);
+    float3 Set_1st_ShadeColor = lerp((firstShadeAlbedo * _LightIntensity),(firstShadeAlbedo * Set_LightColor), _Is_LightColor_1st_Shade);
     float3 Set_2nd_ShadeColor = lerp((_2nd_ShadeColor.rgb * secondShadeTex.rgb * _LightIntensity),((_2nd_ShadeColor.rgb * secondShadeTex.rgb) * Set_LightColor), _Is_LightColor_2nd_Shade);
     float _HalfLambert_var = 0.5 * dot(lerp(i.normalDir, normalDirection, _Is_NormalMapToBase), lightDirection) + 0.5;
 
@@ -552,11 +551,10 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
         notDirectional);
     //v.2.0.5: Filtering the high intensity zone of PointLights
     float3 Set_LightColor = lightColor;
-    //
-    float3 Set_BaseColor = lerp((baseAlbedo * _LightIntensity),
-        ((baseAlbedo) * Set_LightColor), _Is_LightColor_Base);
+    float3 Set_BaseColor = lerp((baseAlbedo * _LightIntensity), (baseAlbedo * Set_LightColor), _Is_LightColor_Base);
+        
     //v.2.0.5
-    float3 Set_1st_ShadeColor = lerp((firstShadeAlbedo * _LightIntensity),((firstShadeAlbedo) * Set_LightColor), _Is_LightColor_1st_Shade);
+    float3 Set_1st_ShadeColor = lerp((firstShadeAlbedo * _LightIntensity),(firstShadeAlbedo * Set_LightColor), _Is_LightColor_1st_Shade);
     float3 Set_2nd_ShadeColor = lerp((_2nd_ShadeColor.rgb * secondShadeTex.rgb * _LightIntensity),((_2nd_ShadeColor.rgb * secondShadeTex.rgb) * Set_LightColor), _Is_LightColor_2nd_Shade);
     float _HalfLambert_var = 0.5 * dot(lerp(i.normalDir, normalDirection, _Is_NormalMapToBase), lightDirection) + 0.5;
 
