@@ -24,22 +24,21 @@ void ToonShading(
     
     //[TODO-sin: 2026-1-27] It looks like we only need one channel of firstShadePosTex
     float Set_FinalShadowMask = saturate(
-        (1.0 + ((lerp(halfLambert, halfLambert * saturate(tweakShadows), _Set_SystemShadowsToBase)
-            - (baseStepMinusFeather)) * ((1.0 - firstShadePosTex.rgb).r - 1.0)) / (
-            baseColorStep - (baseStepMinusFeather))));
+        1.0 + (lerp(halfLambert, halfLambert * saturate(tweakShadows), _Set_SystemShadowsToBase)
+            - baseStepMinusFeather) * ((1.0 - firstShadePosTex.rgb).r - 1.0) / (baseColorStep - baseStepMinusFeather));
     //
     //Composition: 3 Basic Colors as Set_FinalBaseColor
     float3 finalColor = lerp(Set_BaseColor, lerp(Set_1st_ShadeColor, Set_2nd_ShadeColor,
-        saturate((1.0 + ((halfLambert - firstStepMinusFeather) 
-            * ((1.0 - secondShadePosTex.rgb).r - 1.0)) / (shadeColorStep - firstStepMinusFeather)))), Set_FinalShadowMask); 
+        saturate(( 1.0 + (halfLambert - firstStepMinusFeather) * ((1.0 - secondShadePosTex.rgb).r - 1.0)
+              / (shadeColorStep - firstStepMinusFeather)))), Set_FinalShadowMask); 
 
     float specular = 0.5 * dot(halfDirection, lerp(vertexNormalWS, perturbedNormalWS, _Is_NormalMapToHighColor)) + 0.5;
     
     //Specular
     //[TODO-sin: 2026-1-27] We can cache lerp and pow results here
-    float tweakHighColorMask = (saturate((highlightMaskTex.g + _Tweak_HighColorMaskLevel)) * lerp(
-        (1.0 - step(specular, (1.0 - pow(abs(_HighColor_Power), 5)))),
-        pow(abs(specular), exp2(lerp(11, 1, _HighColor_Power))), _Is_SpecularToHighColor));
+    float tweakHighColorMask = saturate(highlightMaskTex.g + _Tweak_HighColorMaskLevel) 
+    * lerp(1.0 - step(specular, 1.0 - pow(abs(_HighColor_Power), 5)),
+        pow(abs(specular), exp2(lerp(11, 1, _HighColor_Power))), _Is_SpecularToHighColor);
 
     //[TODO-sin: 2026-1-27] We can cache (highlightTex.rgb * _HighColor.rgb)
     const float3 highColor = (lerp((highlightTex.rgb * _HighColor.rgb),
