@@ -192,8 +192,6 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 
 
 #endif
-    ////// Lighting:
-    float3 halfDirection = normalize(viewDirection + lightDirection);
     
 #ifdef _IS_PASS_FWDBASE
     const float3 baseAlbedo = _BaseColor.rgb * mainTex.rgb;
@@ -382,7 +380,6 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     float3 lightColor = max(float3(0.0, 0.0, 0.0), lerp(addPassLightColor,
         lerp(float3(0.0, 0.0, 0.0), min(addPassLightColor, addPassLightColor / pureIntencity), notDirectional),
         _Is_Filter_LightColor));
-    float3 halfDirection = normalize(viewDirection + lightDirection); // has to be recalced here.
 
     //v.2.0.5: If Added lights is directional, set 0 as _LightIntensity
     float _LightIntensity = lerp(0,
@@ -452,7 +449,6 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     float3 lightColor = max(float3(0.0, 0.0, 0.0), lerp(addPassLightColor,
         lerp(float3(0.0, 0.0, 0.0), min(addPassLightColor, addPassLightColor / pureIntencity), notDirectional),
         _Is_Filter_LightColor));
-    float3 halfDirection = normalize(viewDirection + lightDirection); // has to be recalced here.
 
     //v.2.0.5: If Added lights is directional, set 0 as _LightIntensity
     float _LightIntensity = lerp(0,
