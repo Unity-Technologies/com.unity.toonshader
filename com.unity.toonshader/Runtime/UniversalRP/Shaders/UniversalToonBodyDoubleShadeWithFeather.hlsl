@@ -22,6 +22,7 @@ void ToonShading(
     //[TODO-sin: 2026-1-27] We can cache the lerp result
     float halfLambert = 0.5 * dot(lerp(vertexNormalWS, perturbedNormalWS, _Is_NormalMapToBase), lightDirection) + 0.5;
     
+    //[TODO-sin: 2026-1-27] It looks like we only need one channel of firstShadePosTex
     float Set_FinalShadowMask = saturate(
         (1.0 + ((lerp(halfLambert, halfLambert * saturate(tweakShadows), _Set_SystemShadowsToBase)
             - (baseStepMinusFeather)) * ((1.0 - firstShadePosTex.rgb).r - 1.0)) / (
