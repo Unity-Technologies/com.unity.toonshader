@@ -368,8 +368,6 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
                             , meshRenderingLayers
 #endif
                         );
-    //                    attenuation = light.distanceAttenuation;
-
 
     float3 lightDirection = additionalLight.direction;
     //v.2.0.5:
