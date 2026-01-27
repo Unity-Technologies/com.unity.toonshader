@@ -385,9 +385,6 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     float _LightIntensity = lerp(0,
         (0.299 * additionalLightColor.r + 0.587 * additionalLightColor.g + 0.114 * additionalLightColor.b),
         notDirectional);
-    //v.2.0.5: Filtering the high intensity zone of PointLights
-    float3 Set_LightColor = lightColor;
-
             
     float lightIntensity = _LightIntensity;
     float tweakShadows = 1.0 + _Tweak_SystemShadowsLevel;
@@ -437,8 +434,6 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
                             , meshRenderingLayers
 #endif
                         );
-    //                    attenuation = light.distanceAttenuation;
-
 
     float3 lightDirection = additionalLight.direction;
     //v.2.0.5:
