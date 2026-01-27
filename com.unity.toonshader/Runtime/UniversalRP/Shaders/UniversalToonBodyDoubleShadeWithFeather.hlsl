@@ -464,7 +464,6 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
         specularBlendModeLerp, filterHighlightInForwardAdd, 
         finalColor, unused);
         
-    //
 
     finalColor = SATURATE_IF_SDR(finalColor);
 
