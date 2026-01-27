@@ -15,9 +15,9 @@ void ToonShading(
     const float firstStepMinusFeather = shadeColorStep - _1st2nd_Shades_Feather;
     
 
-    float3 Set_BaseColor = lerp((baseAlbedo * lightIntensity),(baseAlbedo * lightColor), _Is_LightColor_Base);
-    float3 Set_1st_ShadeColor = lerp(firstShadeAlbedo * lightIntensity,(firstShadeAlbedo * lightColor), _Is_LightColor_1st_Shade);
-    float3 Set_2nd_ShadeColor = lerp(secondShadeAlbedo * lightIntensity,(secondShadeAlbedo * lightColor), _Is_LightColor_2nd_Shade);
+    float3 Set_BaseColor = lerp((baseAlbedo * lightIntensity), (baseAlbedo * lightColor), _Is_LightColor_Base);
+    float3 Set_1st_ShadeColor = lerp((firstShadeAlbedo * lightIntensity), (firstShadeAlbedo * lightColor), _Is_LightColor_1st_Shade);
+    float3 Set_2nd_ShadeColor = lerp((secondShadeAlbedo * lightIntensity), (secondShadeAlbedo * lightColor), _Is_LightColor_2nd_Shade);
     
     //[TODO-sin: 2026-1-27] We can cache the lerp result
     float halfLambert = 0.5 * dot(lerp(vertexNormalWS, perturbedNormalWS, _Is_NormalMapToBase), lightDirection) + 0.5;
