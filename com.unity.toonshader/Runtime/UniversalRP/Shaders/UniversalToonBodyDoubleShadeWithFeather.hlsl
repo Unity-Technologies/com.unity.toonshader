@@ -202,10 +202,6 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     const float4 secondShadeTex = lerp(SAMPLE_TEXTURE2D(_2nd_ShadeMap, sampler_MainTex, mainTexUV),firstShadeTex, _Use_1stAs2nd);
     const float3 secondShadeAlbedo = _2nd_ShadeColor.rgb * secondShadeTex.rgb;
     
-    const float firstStepMinusFeather = _ShadeColor_Step - _1st2nd_Shades_Feather;
-    const float baseStepMinusFeather = _BaseColor_Step - _BaseShade_Feather;
-    
-
     //v.2.0.6
     //Minimum value is same as the Minimum Feather's value with the Minimum Step's value as threshold.
     float _SystemShadowsLevel_var = (shadowAttenuation * 0.5) + 0.5 + _Tweak_SystemShadowsLevel > 0.001
