@@ -5,7 +5,7 @@ void ToonShading(
     const float3 lightColor, const float lightIntensity, const float tweakShadows, 
     const float3 baseAlbedo, const float3 firstShadeAlbedo, const float3 secondShadeAlbedo,
     const float baseColorStep, const float shadeColorStep,
-    const float3 vertexNormalWS, const float3 perturbedNormalWS, const float3 lightDirection,const float3 viewDirection,
+    const float3 vertexNormalWS, const float3 perturbedNormalWS, const float3 lightDirection, const float3 viewDirection,
     const float specularBlendModeLerp, const float filterHighlightInForwardAdd, 
     out float3 outShadeResult, out float outShadowMask 
 )
