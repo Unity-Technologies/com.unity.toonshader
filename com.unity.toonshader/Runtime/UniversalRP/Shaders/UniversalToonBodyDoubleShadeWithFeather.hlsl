@@ -390,7 +390,8 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     float shadeColorStep = saturate(_ShadeColor_Step + _StepOffset);
     float specularBlendModeLerp = 1;
     float filterHighlightInForwardAdd = _Is_Filter_HiCutPointLightColor;
-    float unused = 0;            
+    float3 finalColor = float3(0,0,0);
+    float unused = 0;
     ToonShading(
         firstShadePosTex, secondShadePosTex, highlightTex.rgb, 
         highlightMaskTex.rgb,lightColor.rgb, lightIntensity, tweakShadows, 
@@ -454,6 +455,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     float shadeColorStep = saturate(_ShadeColor_Step + _StepOffset);
     float specularBlendModeLerp = 1;
     float filterHighlightInForwardAdd = _Is_Filter_HiCutPointLightColor;
+    float3 finalColor = float3(0,0,0);
     float unused = 0;
     ToonShading(
         firstShadePosTex, secondShadePosTex, highlightTex.rgb, 
