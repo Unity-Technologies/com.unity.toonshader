@@ -593,20 +593,6 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 
     //SGM
 
-
-    //  //Composition: 3 Basic Colors as finalColor
-    //  float3 finalColor =
-    // lerp(
-    //     Set_BaseColor,
-    //     lerp(
-    //         Set_1st_ShadeColor,
-    //         Set_2nd_ShadeColor,
-    //         saturate(
-    //            (1.0 + ((halfLambert - (_2nd_ShadeColor_Step - _2nd_Shades_Feather)) * ((1.0 - _Set_2nd_ShadePosition_var.rgb).r - 1.0)) / (_2nd_ShadeColor_Step - (_2nd_ShadeColor_Step - _2nd_Shades_Feather))))
-    //            ),
-    //     Set_FinalShadowMask); // Final Color
-
-
     //Composition: 3 Basic Colors as finalColor
     float3 finalColor =
         lerp(
