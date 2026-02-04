@@ -89,6 +89,8 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     const float3 firstShadeAlbedo = _1st_ShadeColor.rgb * firstShadeTex.rgb;
     const float3 secondShadeAlbedo = _2nd_ShadeColor.rgb * secondShadeTex.rgb;
     
+    const float4 _ShadingGradeMap_var = tex2Dlod(_ShadingGradeMap, float4(TRANSFORM_TEX(Set_UV0, _ShadingGradeMap), 0.0, _BlurLevelSGM));
+    
     //v.2.0.4
 #ifdef _IS_TRANSCLIPPING_OFF
     //
@@ -146,9 +148,6 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     float3 _Is_LightColor_1st_Shade_var = lerp(firstShadeAlbedo,(firstShadeAlbedo * Set_LightColor), _Is_LightColor_1st_Shade);
     float halfLambert = 0.5 * dot(lerp(i.normalDir, normalDirection, _Is_NormalMapToBase), lightDirection) + 0.5;
 
-    //v.2.0.6
-    float4 _ShadingGradeMap_var = tex2Dlod(_ShadingGradeMap,
-        float4(TRANSFORM_TEX(Set_UV0, _ShadingGradeMap), 0.0, _BlurLevelSGM));
 
     //the value of shadowAttenuation is darker than legacy and it cuases noise in terminaters.
     shadowAttenuation *= 2.0f;
@@ -446,11 +445,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     // float4 _Set_1st_ShadePosition_var = tex2D(_Set_1st_ShadePosition, TRANSFORM_TEX(Set_UV0, _Set_1st_ShadePosition));
     // //v.2.0.5:
     // float Set_FinalShadowMask = saturate((1.0 + ((lerp(halfLambert, (halfLambert*saturate(1.0 + _Tweak_SystemShadowsLevel)), _Set_SystemShadowsToBase) - (firstStepMinusFeather)) * ((1.0 - _Set_1st_ShadePosition_var.rgb).r - 1.0)) / (_1st_ShadeColor_Step - (firstStepMinusFeather))));
-    //SGM
-
-    //v.2.0.6
-    float4 _ShadingGradeMap_var = tex2Dlod(_ShadingGradeMap,
-        float4(TRANSFORM_TEX(Set_UV0, _ShadingGradeMap), 0.0, _BlurLevelSGM));
+            
     //v.2.0.6
     //Minmimum value is same as the Minimum Feather's value with the Minimum Step's value as threshold.
     //float _SystemShadowsLevel_var = (attenuation*0.5)+0.5+_Tweak_SystemShadowsLevel > 0.001 ? (attenuation*0.5)+0.5+_Tweak_SystemShadowsLevel : 0.0001;
@@ -561,9 +556,6 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     float3 Set_2nd_ShadeColor = lerp((secondShadeAlbedo * _LightIntensity),(secondShadeAlbedo * Set_LightColor), _Is_LightColor_2nd_Shade);
     float halfLambert = 0.5 * dot(lerp(i.normalDir, normalDirection, _Is_NormalMapToBase), lightDirection) + 0.5;
 
-    //v.2.0.6
-    float4 _ShadingGradeMap_var = tex2Dlod(_ShadingGradeMap,
-        float4(TRANSFORM_TEX(Set_UV0, _ShadingGradeMap), 0.0, _BlurLevelSGM));
     //v.2.0.6
     //Minmimum value is same as the Minimum Feather's value with the Minimum Step's value as threshold.
     //float _SystemShadowsLevel_var = (attenuation*0.5)+0.5+_Tweak_SystemShadowsLevel > 0.001 ? (attenuation*0.5)+0.5+_Tweak_SystemShadowsLevel : 0.0001;
