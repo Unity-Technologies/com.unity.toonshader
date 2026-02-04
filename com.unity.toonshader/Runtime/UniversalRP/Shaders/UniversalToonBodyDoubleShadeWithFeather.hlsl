@@ -367,46 +367,45 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 #ifdef _LIGHT_LAYERS
                             , meshRenderingLayers
 #endif
-                        );
+            );
 
-    float3 lightDirection = additionalLight.direction;
-    //v.2.0.5:
-    float3 addPassLightColor = (0.5 * dot(lerp(i.normalDir, normalDirection, _Is_NormalMapToBase), lightDirection) +
-        0.5) * additionalLightColor.rgb;
-    float pureIntencity = max(0.001,
-        (0.299 * additionalLightColor.r + 0.587 * additionalLightColor.g + 0.114 * additionalLightColor.b));
-    float3 lightColor = max(float3(0.0, 0.0, 0.0), lerp(addPassLightColor,
-        lerp(float3(0.0, 0.0, 0.0), min(addPassLightColor, addPassLightColor / pureIntencity), notDirectional),
-        _Is_Filter_LightColor));
+            float3 lightDirection = additionalLight.direction;
+            //v.2.0.5:
+            float3 addPassLightColor = (0.5 * dot(lerp(i.normalDir, normalDirection, _Is_NormalMapToBase), lightDirection) +
+                0.5) * additionalLightColor.rgb;
+            float pureIntencity = max(0.001,
+                (0.299 * additionalLightColor.r + 0.587 * additionalLightColor.g + 0.114 * additionalLightColor.b));
+            float3 lightColor = max(float3(0.0, 0.0, 0.0), lerp(addPassLightColor,
+                lerp(float3(0.0, 0.0, 0.0), min(addPassLightColor, addPassLightColor / pureIntencity), notDirectional),
+                _Is_Filter_LightColor));
 
-    //v.2.0.5: If Added lights is directional, set 0 as _LightIntensity
-    float _LightIntensity = lerp(0,
-        (0.299 * additionalLightColor.r + 0.587 * additionalLightColor.g + 0.114 * additionalLightColor.b),
-        notDirectional);
-            
-    float lightIntensity = _LightIntensity;
-    float tweakShadows = 1.0 + _Tweak_SystemShadowsLevel;
-    float baseColorStep = saturate(_BaseColor_Step + _StepOffset);
-    float shadeColorStep = saturate(_ShadeColor_Step + _StepOffset);
-    float specularBlendModeLerp = 1;
-    float filterHighlightInForwardAdd = _Is_Filter_HiCutPointLightColor;
-    float3 finalColor = float3(0,0,0);
-    float unused = 0;
-    ToonShading(
-        firstShadePosTex, secondShadePosTex, highlightTex.rgb, 
-        highlightMaskTex.rgb,lightColor.rgb, lightIntensity, tweakShadows, 
-        baseAlbedo.rgb, firstShadeAlbedo.rgb, secondShadeAlbedo.rgb,
-        baseColorStep, shadeColorStep,
-        i.normalDir, normalDirection,lightDirection.xyz,viewDirection.xyz,
-        specularBlendModeLerp, filterHighlightInForwardAdd, 
-        finalColor, unused);
-            
+            //v.2.0.5: If Added lights is directional, set 0 as _LightIntensity
+            float _LightIntensity = lerp(0,
+                (0.299 * additionalLightColor.r + 0.587 * additionalLightColor.g + 0.114 * additionalLightColor.b),
+                notDirectional);
+                    
+            float lightIntensity = _LightIntensity;
+            float tweakShadows = 1.0 + _Tweak_SystemShadowsLevel;
+            float baseColorStep = saturate(_BaseColor_Step + _StepOffset);
+            float shadeColorStep = saturate(_ShadeColor_Step + _StepOffset);
+            float specularBlendModeLerp = 1;
+            float filterHighlightInForwardAdd = _Is_Filter_HiCutPointLightColor;
+            float3 finalColor = float3(0,0,0);
+            float unused = 0;
+            ToonShading(
+                firstShadePosTex, secondShadePosTex, highlightTex.rgb, 
+                highlightMaskTex.rgb,lightColor.rgb, lightIntensity, tweakShadows, 
+                baseAlbedo.rgb, firstShadeAlbedo.rgb, secondShadeAlbedo.rgb,
+                baseColorStep, shadeColorStep,
+                i.normalDir, normalDirection,lightDirection.xyz,viewDirection.xyz,
+                specularBlendModeLerp, filterHighlightInForwardAdd, 
+                finalColor, unused);
 
-    finalColor = SATURATE_IF_SDR(finalColor);
+            finalColor = SATURATE_IF_SDR(finalColor);
 
-    pointLightColor += finalColor;
-                    }
-                }
+            pointLightColor += finalColor;
+        }
+    }
 #endif  // USE_FORWARD_PLUS
 
     // determine main light inorder to apply light culling
