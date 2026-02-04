@@ -89,7 +89,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     const float3 firstShadeAlbedo = _1st_ShadeColor.rgb * firstShadeTex.rgb;
     const float3 secondShadeAlbedo = _2nd_ShadeColor.rgb * secondShadeTex.rgb;
     
-    const float4 _ShadingGradeMap_var = tex2Dlod(_ShadingGradeMap, float4(TRANSFORM_TEX(Set_UV0, _ShadingGradeMap), 0.0, _BlurLevelSGM));
+    const float4 sgMapTex = tex2Dlod(_ShadingGradeMap, float4(TRANSFORM_TEX(Set_UV0, _ShadingGradeMap), 0.0, _BlurLevelSGM));
     
     //v.2.0.4
 #ifdef _IS_TRANSCLIPPING_OFF
@@ -159,8 +159,8 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
                                         ? (shadowAttenuation * 0.5) + 0.5 + _Tweak_SystemShadowsLevel
                                         : 0.0001;
 
-    float _ShadingGradeMapLevel_var = _ShadingGradeMap_var.r < 0.95
-                                          ? _ShadingGradeMap_var.r + _Tweak_ShadingGradeMapLevel
+    float _ShadingGradeMapLevel_var = sgMapTex.r < 0.95
+                                          ? sgMapTex.r + _Tweak_ShadingGradeMapLevel
                                           : 1;
 
     float Set_ShadingGrade = saturate(_ShadingGradeMapLevel_var) * lerp(halfLambert,
@@ -444,8 +444,8 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     //v.2.0.6
     //Minmimum value is same as the Minimum Feather's value with the Minimum Step's value as threshold.
     //float _SystemShadowsLevel_var = (attenuation*0.5)+0.5+_Tweak_SystemShadowsLevel > 0.001 ? (attenuation*0.5)+0.5+_Tweak_SystemShadowsLevel : 0.0001;
-    float _ShadingGradeMapLevel_var = _ShadingGradeMap_var.r < 0.95
-                                          ? _ShadingGradeMap_var.r + _Tweak_ShadingGradeMapLevel
+    float _ShadingGradeMapLevel_var = sgMapTex.r < 0.95
+                                          ? sgMapTex.r + _Tweak_ShadingGradeMapLevel
                                           : 1;
 
     //float Set_ShadingGrade = saturate(_ShadingGradeMapLevel_var)*lerp( halfLambert, (halfLambert*saturate(_SystemShadowsLevel_var)), _Set_SystemShadowsToBase );
@@ -554,8 +554,8 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     //v.2.0.6
     //Minmimum value is same as the Minimum Feather's value with the Minimum Step's value as threshold.
     //float _SystemShadowsLevel_var = (attenuation*0.5)+0.5+_Tweak_SystemShadowsLevel > 0.001 ? (attenuation*0.5)+0.5+_Tweak_SystemShadowsLevel : 0.0001;
-    float _ShadingGradeMapLevel_var = _ShadingGradeMap_var.r < 0.95
-                                          ? _ShadingGradeMap_var.r + _Tweak_ShadingGradeMapLevel
+    float _ShadingGradeMapLevel_var = sgMapTex.r < 0.95
+                                          ? sgMapTex.r + _Tweak_ShadingGradeMapLevel
                                           : 1;
 
     //float Set_ShadingGrade = saturate(_ShadingGradeMapLevel_var)*lerp( halfLambert, (halfLambert*saturate(_SystemShadowsLevel_var)), _Set_SystemShadowsToBase );
