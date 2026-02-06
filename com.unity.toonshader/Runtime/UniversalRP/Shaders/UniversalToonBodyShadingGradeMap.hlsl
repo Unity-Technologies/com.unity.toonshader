@@ -440,8 +440,6 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     float3 Set_2nd_ShadeColor = lerp((secondShadeAlbedo * _LightIntensity),(secondShadeAlbedo * Set_LightColor), _Is_LightColor_2nd_Shade);
     float halfLambert = 0.5 * dot(lerp(i.normalDir, normalDirection, _Is_NormalMapToBase), lightDirection) + 0.5;
 
-    //float Set_ShadingGrade = saturate(sgMapLevel)*lerp( halfLambert, (halfLambert*saturate(_SystemShadowsLevel_var)), _Set_SystemShadowsToBase );
-
     float Set_ShadingGrade = saturate(sgMapLevel) * lerp(halfLambert,
         (halfLambert * saturate(1.0 + _Tweak_SystemShadowsLevel)), _Set_SystemShadowsToBase);
 
@@ -552,8 +550,6 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     float Set_ShadeShadowMask = saturate(
         (1.0 + ((Set_ShadingGrade - (secondShadeColorStep - _2nd_ShadeColor_Feather)) * (0.0 - 1.0)) / (
             secondShadeColorStep - (secondShadeColorStep - _2nd_ShadeColor_Feather)))); // 1st and 2nd Shades Mask
-
-    //SGM
 
     //Composition: 3 Basic Colors as finalColor
     float3 finalColor =
