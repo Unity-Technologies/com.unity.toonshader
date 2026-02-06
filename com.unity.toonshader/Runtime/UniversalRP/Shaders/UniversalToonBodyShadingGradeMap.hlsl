@@ -147,9 +147,10 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     float3 Set_LightColor = lightColor.rgb;
     float3 Set_BaseColor = lerp((baseAlbedo), (baseAlbedo * Set_LightColor), _Is_LightColor_Base);
     //v.2.0.5
-    float3 _Is_LightColor_1st_Shade_var = lerp(firstShadeAlbedo,(firstShadeAlbedo * Set_LightColor), _Is_LightColor_1st_Shade);
+    float3 Set_1st_ShadeColor = lerp(firstShadeAlbedo,(firstShadeAlbedo * Set_LightColor), _Is_LightColor_1st_Shade);
+    float3 Set_2nd_ShadeColor = lerp(secondShadeAlbedo,(secondShadeAlbedo * Set_LightColor), _Is_LightColor_2nd_Shade);
+    
     float halfLambert = 0.5 * dot(lerp(i.normalDir, normalDirection, _Is_NormalMapToBase), lightDirection) + 0.5;
-
 
     //the value of shadowAttenuation is darker than legacy and it cuases noise in terminaters.
     shadowAttenuation *= 2.0f;
@@ -164,22 +165,24 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     float Set_ShadingGrade = saturate(sgMapLevel) * lerp(halfLambert,
         (halfLambert * saturate(_SystemShadowsLevel_var)), _Set_SystemShadowsToBase);
 
-    //
     float Set_FinalShadowMask = saturate(
         (1.0 + ((Set_ShadingGrade - firstStepMinusFeather) * (0.0 - 1.0)) / (
             _1st_ShadeColor_Step - firstStepMinusFeather))); // Base and 1st Shade Mask
-    float3 _BaseColor_var = lerp(Set_BaseColor, _Is_LightColor_1st_Shade_var, Set_FinalShadowMask);
+    
     //v.2.0.5
     float Set_ShadeShadowMask = saturate(
         (1.0 + ((Set_ShadingGrade - secondStepMinusFeather) * (0.0 - 1.0)) / (
             _2nd_ShadeColor_Step - secondStepMinusFeather))); // 1st and 2nd Shades Mask
     //Composition: 3 Basic Colors as Set_FinalBaseColor
-    float3 Set_FinalBaseColor = lerp(_BaseColor_var,
-        lerp(_Is_LightColor_1st_Shade_var,
-            lerp((secondShadeTex.rgb * _2nd_ShadeColor.rgb),
-                ((secondShadeTex.rgb * _2nd_ShadeColor.rgb) * Set_LightColor), _Is_LightColor_2nd_Shade),
-            Set_ShadeShadowMask), Set_FinalShadowMask);
-
+    float3 Set_FinalBaseColor =
+        lerp(
+            Set_BaseColor,
+            lerp(
+                Set_1st_ShadeColor,
+                Set_2nd_ShadeColor,
+                Set_ShadeShadowMask
+            ),
+            Set_FinalShadowMask);
 
     float specular = 0.5 * dot(halfDirection, lerp(i.normalDir, normalDirection, _Is_NormalMapToHighColor)) + 0.5;
     // Specular
@@ -454,8 +457,6 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     float3 finalColor =
         lerp(
             Set_BaseColor,
-            //_BaseColor_var*(Set_LightColor*1.5),
-
             lerp(
                 Set_1st_ShadeColor,
                 Set_2nd_ShadeColor,
@@ -558,8 +559,6 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     float3 finalColor =
         lerp(
             Set_BaseColor,
-            //_BaseColor_var*(Set_LightColor*1.5),
-
             lerp(
                 Set_1st_ShadeColor,
                 Set_2nd_ShadeColor,
