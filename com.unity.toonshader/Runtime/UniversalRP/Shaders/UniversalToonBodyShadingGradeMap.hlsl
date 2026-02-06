@@ -227,16 +227,14 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     float filterHighlightInForwardAdd = 0;
     float3 Set_HighColor = float3(0,0,0);
     float Set_FinalShadowMask;
-    ToonShadingSG(highlightTex.rgb, highlightMaskTex,
+    ToonShadingSG(
+        highlightTex.rgb, highlightMaskTex.rgb,
         lightColor, lightIntensity, tweakShadows, 
         baseAlbedo, firstShadeAlbedo, secondShadeAlbedo,
         firstShadeColorStep, secondShadeColorStep,
         i.normalDir, normalDirection, lightDirection, viewDirection,
         specularBlendModeLerp, filterHighlightInForwardAdd, sgMapLevel, 
         Set_HighColor, Set_FinalShadowMask);
-    
-
-    
 
     float4 _Set_RimLightMask_var = tex2D(_Set_RimLightMask, TRANSFORM_TEX(Set_UV0, _Set_RimLightMask));
 
@@ -476,7 +474,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     float unused = 0;
     //[TODO-sin: 2026-2-6] We should normalize i.normalDir too here.
     ToonShadingSG(
-        highlightTex, highlightMaskTex,
+        highlightTex.rgb, highlightMaskTex.rgb,
         lightColor, lightIntensity, tweakShadows, 
         baseAlbedo, firstShadeAlbedo, secondShadeAlbedo,
         firstShadeColorStep, secondShadeColorStep,
@@ -544,7 +542,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     float unused = 0;
     //[TODO-sin: 2026-2-6] We should normalize i.normalDir too here.
     ToonShadingSG(
-        highlightTex, highlightMaskTex,
+        highlightTex.rgb, highlightMaskTex.rgb,
         lightColor, lightIntensity, tweakShadows, 
         baseAlbedo, firstShadeAlbedo, secondShadeAlbedo,
         firstShadeColorStep, secondShadeColorStep,
