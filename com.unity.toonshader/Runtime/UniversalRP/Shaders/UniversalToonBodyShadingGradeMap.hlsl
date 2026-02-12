@@ -510,50 +510,47 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
         half3 additionalLightColor = GetLightColor(
             additionalLight
 #ifdef _LIGHT_LAYERS
-                            , meshRenderingLayers
+            , meshRenderingLayers
 #endif
-                        );
-
-
-    float3 lightDirection = additionalLight.direction;
-    //v.2.0.5:
-    float3 addPassLightColor = (0.5 * dot(lerp(i.normalDir, normalDirection, _Is_NormalMapToBase), lightDirection) +
-        0.5) * additionalLightColor.rgb;
-    float pureIntencity = max(0.001,
-        (0.299 * additionalLightColor.r + 0.587 * additionalLightColor.g + 0.114 * additionalLightColor.b));
-    float3 lightColor = max(float3(0.0, 0.0, 0.0), lerp(addPassLightColor,
-        lerp(float3(0.0, 0.0, 0.0), min(addPassLightColor, addPassLightColor / pureIntencity), notDirectional),
-        _Is_Filter_LightColor));
-    float3 halfDirection = normalize(viewDirection + lightDirection); // has to be recalced here.
-
-    //v.2.0.5: If Added lights is directional, set 0 as _LightIntensity
-    float _LightIntensity = lerp(0,
-        (0.299 * additionalLightColor.r + 0.587 * additionalLightColor.g + 0.114 * additionalLightColor.b),
-        notDirectional);
-
-    float lightIntensity = _LightIntensity;
-    float tweakShadows = 1.0 + _Tweak_SystemShadowsLevel;
-    float firstShadeColorStep = saturate(_1st_ShadeColor_Step + _StepOffset);
-    float secondShadeColorStep = saturate(_2nd_ShadeColor_Step + _StepOffset);
-    float specularBlendModeLerp = 1;
-    float filterHighlightInForwardAdd = _Is_Filter_HiCutPointLightColor;
-    float3 finalColor = float3(0,0,0);
-    float unused = 0;
-    //[TODO-sin: 2026-2-6] We should normalize i.normalDir too here.
-    ToonShadingSG(
-        highlightTex.rgb, highlightMaskTex.rgb,
-        lightColor, lightIntensity, tweakShadows, 
-        baseAlbedo, firstShadeAlbedo, secondShadeAlbedo,
-        firstShadeColorStep, secondShadeColorStep,
-        i.normalDir, normalDirection, lightDirection, viewDirection,
-        specularBlendModeLerp, filterHighlightInForwardAdd, sgMapLevel, 
-        finalColor, unused);
+        );
         
-    finalColor = SATURATE_IF_SDR(finalColor);
+        float3 lightDirection = additionalLight.direction;
+        //v.2.0.5:
+        float3 addPassLightColor = (0.5 * dot(lerp(i.normalDir, normalDirection, _Is_NormalMapToBase), lightDirection) +
+            0.5) * additionalLightColor.rgb;
+        float pureIntencity = max(0.001,
+            (0.299 * additionalLightColor.r + 0.587 * additionalLightColor.g + 0.114 * additionalLightColor.b));
+        float3 lightColor = max(float3(0.0, 0.0, 0.0), lerp(addPassLightColor,
+            lerp(float3(0.0, 0.0, 0.0), min(addPassLightColor, addPassLightColor / pureIntencity), notDirectional),
+            _Is_Filter_LightColor));
+        float3 halfDirection = normalize(viewDirection + lightDirection); // has to be recalced here.
 
-    pointLightColor += finalColor;
-    //    pointLightColor += lightColor;
-                    }
+        //v.2.0.5: If Added lights is directional, set 0 as _LightIntensity
+        float _LightIntensity = lerp(0,
+            (0.299 * additionalLightColor.r + 0.587 * additionalLightColor.g + 0.114 * additionalLightColor.b),
+            notDirectional);
+
+        float lightIntensity = _LightIntensity;
+        float tweakShadows = 1.0 + _Tweak_SystemShadowsLevel;
+        float firstShadeColorStep = saturate(_1st_ShadeColor_Step + _StepOffset);
+        float secondShadeColorStep = saturate(_2nd_ShadeColor_Step + _StepOffset);
+        float specularBlendModeLerp = 1;
+        float filterHighlightInForwardAdd = _Is_Filter_HiCutPointLightColor;
+        float3 finalColor = float3(0,0,0);
+        float unused = 0;
+        //[TODO-sin: 2026-2-6] We should normalize i.normalDir too here.
+        ToonShadingSG(
+            highlightTex.rgb, highlightMaskTex.rgb,
+            lightColor, lightIntensity, tweakShadows, 
+            baseAlbedo, firstShadeAlbedo, secondShadeAlbedo,
+            firstShadeColorStep, secondShadeColorStep,
+            i.normalDir, normalDirection, lightDirection, viewDirection,
+            specularBlendModeLerp, filterHighlightInForwardAdd, sgMapLevel, 
+            finalColor, unused);
+            
+        finalColor = SATURATE_IF_SDR(finalColor);
+        pointLightColor += finalColor;
+    }
     UTS_LIGHT_LOOP_END
 
 #endif // _ADDITIONAL_LIGHTS
@@ -564,9 +561,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     finalColor = SATURATE_IF_SDR(finalColor) + (envLightColor * envLightIntensity * _GI_Intensity * smoothstep(1, 0,
         envLightIntensity / 2)) + emissive;
 
-
     finalColor += pointLightColor;
-
 
 #endif
 
