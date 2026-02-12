@@ -194,11 +194,13 @@ struct UtsLight {
 #endif
 };
 
+
+
 ///////////////////////////////////////////////////////////////////////////////
 //                      Light Abstraction                                    //
 /////////////////////////////////////////////////////////////////////////////
 
-half AdditionalLightRealtimeShadowUTS(int lightIndex, float3 positionWS, float4 positionCS) {
+half AdditionalLightRealtimeShadowUTS(int lightIndex, float3 positionWS) {
 #if defined(ADDITIONAL_LIGHT_CALCULATE_SHADOWS)
 
 
@@ -259,7 +261,7 @@ UtsLight GetUrpMainUtsLight(float4 shadowCoord, float4 positionCS) {
 }
 
 // Fills a light struct given a perObjectLightIndex
-UtsLight GetAdditionalPerObjectUtsLight(int perObjectLightIndex, float3 positionWS, float4 positionCS) {
+UtsLight GetAdditionalPerObjectUtsLight(int perObjectLightIndex, float3 positionWS) {
     // Abstraction over Light input constants
 #if USE_STRUCTURED_BUFFER_FOR_LIGHT_DATA
     float4 lightPositionWS = _AdditionalLightsBuffer[perObjectLightIndex].position;
@@ -293,7 +295,7 @@ UtsLight GetAdditionalPerObjectUtsLight(int perObjectLightIndex, float3 position
     UtsLight light;
     light.direction = lightDirection;
     light.distanceAttenuation = attenuation;
-    light.shadowAttenuation = AdditionalLightRealtimeShadowUTS(perObjectLightIndex, positionWS, positionCS);
+    light.shadowAttenuation = AdditionalLightRealtimeShadowUTS(perObjectLightIndex, positionWS);
     light.color = color;
     light.type = lightPositionWS.w;
 #ifdef _LIGHT_LAYERS
@@ -321,13 +323,13 @@ UtsLight GetAdditionalPerObjectUtsLight(int perObjectLightIndex, float3 position
 
 // Fills a light struct given a loop i index. This will convert the i
 // index to a perObjectLightIndex
-UtsLight GetAdditionalUtsLight(uint i, float3 positionWS, float4 positionCS) {
+UtsLight GetAdditionalUtsLight(uint i, float3 positionWS) {
 #if USE_FORWARD_PLUS
     int perObjectLightIndex = i;
 #else
     int perObjectLightIndex = GetPerObjectLightIndex(i);
 #endif
-    return GetAdditionalPerObjectUtsLight(perObjectLightIndex, positionWS, positionCS);
+    return GetAdditionalPerObjectUtsLight(perObjectLightIndex, positionWS);
 }
 
 half3 GetLightColor(UtsLight light
@@ -368,7 +370,7 @@ int DetermineUTS_MainLightIndex(float3 posW, float4 shadowCoord, float4 position
     int lightCount = GetAdditionalLightsCount();
     for (int ii = 0; ii < lightCount; ++ii)
     {
-        nextLight = GetAdditionalUtsLight(ii, posW, positionCS);
+        nextLight = GetAdditionalUtsLight(ii, posW);
         if (nextLight.distanceAttenuation > mainLight.distanceAttenuation && nextLight.type == 0)
         {
             mainLight = nextLight;
@@ -390,7 +392,7 @@ UtsLight GetMainUtsLightByID(int index, float3 posW, float4 shadowCoord, float4 
     {
         return GetUrpMainUtsLight(shadowCoord, positionCS);
     }
-    return GetAdditionalUtsLight(index, posW, positionCS);
+    return GetAdditionalUtsLight(index, posW);
 }
 
 float4 GetShadowCoordUTS(VertexOutput v)
