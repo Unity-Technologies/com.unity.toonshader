@@ -382,8 +382,12 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
                 Intensity(additionalLightColor),
                 notDirectional);
                     
+            float shadowAttenuation01 = (additionalLight.shadowAttenuation * 0.5) + 0.5;
+            float tweakShadows = shadowAttenuation01 + _Tweak_SystemShadowsLevel > 0.001
+                               ? shadowAttenuation01 + _Tweak_SystemShadowsLevel
+                               : 0.0001;
+            
             float lightIntensity = _LightIntensity;
-            float tweakShadows = 1.0 + _Tweak_SystemShadowsLevel;
             float baseColorStep = saturate(_BaseColor_Step + _StepOffset);
             float shadeColorStep = saturate(_ShadeColor_Step + _StepOffset);
             float specularBlendModeLerp = 1;
@@ -436,7 +440,12 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
             notDirectional);
             
         float lightIntensity = _LightIntensity;
-        float tweakShadows = 1.0 + _Tweak_SystemShadowsLevel;
+        
+        float shadowAttenuation01 = (additionalLight.shadowAttenuation * 0.5) + 0.5;
+        float tweakShadows = shadowAttenuation01 + _Tweak_SystemShadowsLevel > 0.001
+                           ? shadowAttenuation01 + _Tweak_SystemShadowsLevel
+                           : 0.0001;
+        
         float baseColorStep = saturate(_BaseColor_Step + _StepOffset);
         float shadeColorStep = saturate(_ShadeColor_Step + _StepOffset);
         float specularBlendModeLerp = 1;
