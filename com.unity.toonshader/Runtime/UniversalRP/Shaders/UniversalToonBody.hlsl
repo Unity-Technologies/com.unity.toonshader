@@ -188,7 +188,6 @@ struct UtsLight {
     float3 color;
     float distanceAttenuation;
     float shadowAttenuation;
-    int type;
 #ifdef _LIGHT_LAYERS
     uint layerMask;
 #endif
@@ -247,7 +246,6 @@ UtsLight GetUrpMainUtsLight() {
 #endif
     light.shadowAttenuation = 1.0;
     light.color = _MainLightColor.rgb;
-    light.type = _MainLightPosition.w;
 #ifdef _LIGHT_LAYERS
     light.layerMask = _MainLightLayerMask;
 #endif
@@ -297,7 +295,6 @@ UtsLight GetAdditionalPerObjectUtsLight(int perObjectLightIndex, float3 position
     light.distanceAttenuation = attenuation;
     light.shadowAttenuation = AdditionalLightRealtimeShadowUTS(perObjectLightIndex, positionWS);
     light.color = color;
-    light.type = lightPositionWS.w;
 #ifdef _LIGHT_LAYERS
     light.layerMask = lightLayerMask;
 #endif
@@ -352,8 +349,7 @@ half3 GetLightColor(UtsLight light
             utslight.direction = 0; \
             utslight.color = 0; \
             utslight.distanceAttenuation = 0; \
-            utslight.shadowAttenuation = 0; \
-            utslight.type = 0
+            utslight.shadowAttenuation = 0;
 
 
 int DetermineUTS_MainLightIndex(float3 posW, float4 shadowCoord) {
@@ -362,7 +358,7 @@ int DetermineUTS_MainLightIndex(float3 posW, float4 shadowCoord) {
 
     int mainLightIndex = MAINLIGHT_NOT_FOUND;
     UtsLight nextLight = GetUrpMainUtsLight(shadowCoord);
-    if (nextLight.distanceAttenuation > mainLight.distanceAttenuation && nextLight.type == 0)
+    if (nextLight.distanceAttenuation > mainLight.distanceAttenuation)
     {
         mainLight = nextLight;
         mainLightIndex = MAINLIGHT_IS_MAINLIGHT;
@@ -371,7 +367,7 @@ int DetermineUTS_MainLightIndex(float3 posW, float4 shadowCoord) {
     for (int ii = 0; ii < lightCount; ++ii)
     {
         nextLight = GetAdditionalUtsLight(ii, posW);
-        if (nextLight.distanceAttenuation > mainLight.distanceAttenuation && nextLight.type == 0)
+        if (nextLight.distanceAttenuation > mainLight.distanceAttenuation)
         {
             mainLight = nextLight;
             mainLightIndex = ii;
