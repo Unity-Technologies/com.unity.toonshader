@@ -4,6 +4,7 @@
 //
 
 #include "UCTS_Input.cginc"
+#include "../../Shaders/UTSLighting.hlsl"
 
             uniform float4 _LightColor0;
 
@@ -81,7 +82,7 @@
                 float3 ambientSkyColor = envLightSource_SkyboxIntensity.rgb>0.0 ? envLightSource_SkyboxIntensity*_Unlit_Intensity : envLightSource_GradientEquator*_Unlit_Intensity;
                 //
                 float3 lightColor = _LightColor0.rgb >0.05 ? _LightColor0.rgb : ambientSkyColor.rgb;
-                float lightColorIntensity = (0.299*lightColor.r + 0.587*lightColor.g + 0.114*lightColor.b);
+                float lightColorIntensity = UTS_CalculateLightColorIntensity(lightColor);
                 lightColor = lightColorIntensity<1 ? lightColor : lightColor/lightColorIntensity;
                 lightColor = lerp(half3(1.0,1.0,1.0), lightColor, _Is_LightColor_Outline);
                 float2 Set_UV0 = i.uv0;

@@ -45,6 +45,7 @@ struct VertexOutput {
 
 #include "UCTS_Light.cginc"
 #include "UCTS_Input.cginc"
+#include "../../Shaders/UTSLighting.hlsl"
             //function to rotate the UV: RotateUV()
             //float2 rotatedUV = RotateUV(i.uv0, (_angular_Verocity*3.141592654), float2(0.5, 0.5), _Time.g);
             float2 RotateUV(float2 _uv, float _radian, float2 _piv, float _time)
@@ -142,7 +143,7 @@ struct VertexOutput {
                 float3 lightDirection = normalize(lerp(_WorldSpaceLightPos0.xyz, _WorldSpaceLightPos0.xyz - i.posWorld.xyz,_WorldSpaceLightPos0.w));
                 //v.2.0.5:
                 float3 addPassLightColor = (0.5*dot(lerp( i.normalDir, normalDirection, _Is_NormalMapToBase ), lightDirection)+0.5) * _LightColor0.rgb * attenuation;
-                float pureIntencity = max(0.001,(0.299*_LightColor0.r + 0.587*_LightColor0.g + 0.114*_LightColor0.b));
+                float pureIntencity = max(0.001, UTS_CalculateLightColorIntensity(_LightColor0.rgb));
                 float3 lightColor = max(float3(0,0,0), lerp(addPassLightColor, lerp(float3(0,0,0),min(addPassLightColor,addPassLightColor/pureIntencity),_WorldSpaceLightPos0.w),_Is_Filter_LightColor));
 #endif
 ////// Lighting:
@@ -315,7 +316,7 @@ struct VertexOutput {
 //
                 //v.2.0.6: GI_Intensity with Intensity Multiplier Filter
                 float3 envLightColor = DecodeLightProbe(normalDirection) < float3(1,1,1) ? DecodeLightProbe(normalDirection) : float3(1,1,1);
-                float envLightIntensity = 0.299*envLightColor.r + 0.587*envLightColor.g + 0.114*envLightColor.b <1 ? (0.299*envLightColor.r + 0.587*envLightColor.g + 0.114*envLightColor.b) : 1;
+                float envLightIntensity = min(UTS_CalculateLightColorIntensity(envLightColor), 1);
                 //Final Composition
                 finalColor =  saturate(finalColor) + (envLightColor*envLightIntensity*_GI_Intensity*smoothstep(1,0,envLightIntensity/2)) + emissive;
 
@@ -326,7 +327,7 @@ struct VertexOutput {
                 _2nd_ShadeColor_Step = saturate(_2nd_ShadeColor_Step + _StepOffset);
                 //
                 //v.2.0.5: If Added lights is directional, set 0 as _LightIntensity
-                float _LightIntensity = lerp(0,(0.299*_LightColor0.r + 0.587*_LightColor0.g + 0.114*_LightColor0.b)*attenuation,_WorldSpaceLightPos0.w) ;
+                float _LightIntensity = lerp(0, UTS_CalculateLightColorIntensity(_LightColor0.rgb) * attenuation, _WorldSpaceLightPos0.w);
                 //v.2.0.5: Filtering the high intensity zone of PointLights
                 float3 Set_LightColor = lightColor;
                 //

@@ -2,6 +2,8 @@
 //nobuyuki@unity3d.com
 //toshiyuki@unity3d.com (Universal RP/HDRP)
 
+#include "../../Shaders/UTSLighting.hlsl"
+
 float3 UTS_MainLight(LightLoopContext lightLoopContext, FragInputs input, float3 mainLihgtDirection, float3 mainLightColor, out float inverseClipping, out float channelOutAlpha, out UTSData utsData)
 {
     channelOutAlpha = 1.0f;
@@ -292,7 +294,7 @@ float3 UTS_MainLight(LightLoopContext lightLoopContext, FragInputs input, float3
     //
     //v.2.0.6: GI_Intensity with Intensity Multiplier Filter
     float3 envLightColor = saturate(SampleBakedGI_UTS(posInput.positionWS, utsData.normalDirection, input.texCoord1.xy, input.texCoord2.xy, true));
-    float envLightIntensity = saturate(0.299 * envLightColor.r + 0.587 * envLightColor.g + 0.114 * envLightColor.b);
+    float envLightIntensity = saturate(UTS_CalculateLightColorIntensity(envLightColor));
 
     finalColor = SATURATE_IF_SDR(finalColor) + (envLightColor * envLightIntensity * _GI_Intensity * smoothstep(1, 0, envLightIntensity / 2)) + emissive;
 

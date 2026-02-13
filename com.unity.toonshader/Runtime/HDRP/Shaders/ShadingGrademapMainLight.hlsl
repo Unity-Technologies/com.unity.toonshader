@@ -2,6 +2,8 @@
 //nobuyuki@unity3d.com
 //toshiyuki@unity3d.com (Universal RP/HDRP)
 
+#include "../../Shaders/UTSLighting.hlsl"
+
 
 #ifndef DirectionalShadowType
 # if (SHADEROPTIONS_RAYTRACING && (defined(SHADER_API_D3D11) || defined(SHADER_API_D3D12)) && !defined(SHADER_API_XBOXONE) && !defined(SHADER_API_PSSL))
@@ -391,7 +393,7 @@ float3 UTS_MainLightShadingGrademap(LightLoopContext lightLoopContext, FragInput
 
     //v.2.0.6: GI_Intensity with Intensity Multiplier Filter
     float3 envLightColor = saturate(SampleBakedGI_UTS(posInput.positionWS, utsData.normalDirection, input.texCoord1.xy, input.texCoord2.xy, true));
-    float envLightIntensity = saturate(0.299 * envLightColor.r + 0.587 * envLightColor.g + 0.114 * envLightColor.b);
+    float envLightIntensity = saturate(UTS_CalculateLightColorIntensity(envLightColor));
 
     finalColor = SATURATE_IF_SDR(finalColor) + (envLightColor * envLightIntensity * _GI_Intensity * smoothstep(1, 0, envLightIntensity / 2)) + emissive;
 

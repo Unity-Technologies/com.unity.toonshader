@@ -2,6 +2,8 @@
 //nobuyuki@unity3d.com
 //toshiyuki@unity3d.com (Universal RP/HDRP)
 
+#include "../../Shaders/UTSLighting.hlsl"
+
 float3 UTS_OtherLightsShadingGrademap(FragInputs input, float3 i_normalDir,
     float3 additionalLightColor, float3 lightDirection, float notDirectional, out float channelOutAlpha)
 {
@@ -41,7 +43,7 @@ float3 UTS_OtherLightsShadingGrademap(FragInputs input, float3 i_normalDir,
 
     //v.2.0.5:
     float3 addPassLightColor = (0.5 * dot(lerp(i_normalDir, normalDirection, _Is_NormalMapToBase), lightDirection) + 0.5) * additionalLightColor.rgb;
-    float  pureIntencity = max(0.001, (0.299 * additionalLightColor.r + 0.587 * additionalLightColor.g + 0.114 * additionalLightColor.b));
+    float  pureIntencity = max(0.001, UTS_CalculateLightColorIntensity(additionalLightColor));
     float3 lightColor = max(float3(0.0,0.0,0.0), lerp(addPassLightColor, lerp(float3(0.0,0.0,0.0), min(addPassLightColor, addPassLightColor / pureIntencity), notDirectional), _Is_Filter_LightColor));
     float3 halfDirection = normalize(viewDirection + lightDirection); // has to be recalced here.
     //v.2.0.5:
@@ -50,7 +52,7 @@ float3 UTS_OtherLightsShadingGrademap(FragInputs input, float3 i_normalDir,
     _2nd_ShadeColor_Step = saturate(_2nd_ShadeColor_Step + _StepOffset);
     //
     //v.2.0.5: If Added lights is directional, set 0 as _LightIntensity
-    float _LightIntensity = lerp(0, (0.299 * additionalLightColor.r + 0.587 * additionalLightColor.g + 0.114 * additionalLightColor.b), notDirectional);
+    float _LightIntensity = lerp(0, UTS_CalculateLightColorIntensity(additionalLightColor), notDirectional);
     //v.2.0.5: Filtering the high intensity zone of PointLights
     float3 Set_LightColor = lightColor;
     //

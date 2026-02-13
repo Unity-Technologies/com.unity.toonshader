@@ -1,3 +1,5 @@
+#include "../../Shaders/UTSLighting.hlsl"
+
 void ToonShadingSG(
     const float3 highlightTex, const float3 highlightMaskTex,
     const float3 lightColor, const float lightIntensity, const float tweakShadows, 
@@ -421,9 +423,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 
     float3 envLightColor = envColor.rgb;
 
-    float envLightIntensity = 0.299 * envLightColor.r + 0.587 * envLightColor.g + 0.114 * envLightColor.b < 1
-                                  ? (0.299 * envLightColor.r + 0.587 * envLightColor.g + 0.114 * envLightColor.b)
-                                  : 1;
+    float envLightIntensity = min(UTS_CalculateLightColorIntensity(envLightColor), 1);
 
 
     float3 pointLightColor = 0;
@@ -452,7 +452,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
             float3 addPassLightColor = (0.5 * dot(lerp(i.normalDir, normalDirection, _Is_NormalMapToBase), lightDirection) +
                 0.5) * additionalLightColor.rgb;
             float pureIntencity = max(0.001,
-                (0.299 * additionalLightColor.r + 0.587 * additionalLightColor.g + 0.114 * additionalLightColor.b));
+                UTS_CalculateLightColorIntensity(additionalLightColor));
             float3 lightColor = max(float3(0.0, 0.0, 0.0), lerp(addPassLightColor,
                 lerp(float3(0.0, 0.0, 0.0), min(addPassLightColor, addPassLightColor / pureIntencity), notDirectional),
                 _Is_Filter_LightColor));
@@ -460,7 +460,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 
             //v.2.0.5: If Added lights is directional, set 0 as _LightIntensity
             float _LightIntensity = lerp(0,
-                (0.299 * additionalLightColor.r + 0.587 * additionalLightColor.g + 0.114 * additionalLightColor.b),
+                UTS_CalculateLightColorIntensity(additionalLightColor),
                 notDirectional);
             
             float lightIntensity = _LightIntensity;
@@ -519,7 +519,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
         float3 addPassLightColor = (0.5 * dot(lerp(i.normalDir, normalDirection, _Is_NormalMapToBase), lightDirection) +
             0.5) * additionalLightColor.rgb;
         float pureIntencity = max(0.001,
-            (0.299 * additionalLightColor.r + 0.587 * additionalLightColor.g + 0.114 * additionalLightColor.b));
+            UTS_CalculateLightColorIntensity(additionalLightColor));
         float3 lightColor = max(float3(0.0, 0.0, 0.0), lerp(addPassLightColor,
             lerp(float3(0.0, 0.0, 0.0), min(addPassLightColor, addPassLightColor / pureIntencity), notDirectional),
             _Is_Filter_LightColor));
@@ -527,7 +527,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 
         //v.2.0.5: If Added lights is directional, set 0 as _LightIntensity
         float _LightIntensity = lerp(0,
-            (0.299 * additionalLightColor.r + 0.587 * additionalLightColor.g + 0.114 * additionalLightColor.b),
+            UTS_CalculateLightColorIntensity(additionalLightColor),
             notDirectional);
 
         float lightIntensity = _LightIntensity;
