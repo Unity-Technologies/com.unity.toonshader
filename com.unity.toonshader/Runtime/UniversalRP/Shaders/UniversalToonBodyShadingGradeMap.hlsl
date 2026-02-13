@@ -490,7 +490,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 #endif  // USE_FORWARD_PLUS
 
     UTS_LIGHT_LOOP_BEGIN(pixelLightCount)
-    int iLight = loopCounter;
+    int iLight = lightIndex;
     {
         float notDirectional = 1.0f; //_WorldSpaceLightPos0.w of the legacy code.
         UtsLight additionalLight = GetAdditionalUtsLight(iLight, inputData.positionWS);

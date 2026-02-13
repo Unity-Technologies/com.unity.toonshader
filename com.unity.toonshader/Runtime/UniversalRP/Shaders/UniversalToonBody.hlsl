@@ -38,7 +38,7 @@
 #define UTS_LIGHT_LOOP_END } }
 #else
 #define UTS_LIGHT_LOOP_BEGIN(lightCount) \
-    for (uint loopCounter = 0u; loopCounter < lightCount; ++loopCounter) {
+    for (uint lightIndex = 0u; lightIndex < lightCount; ++lightIndex) {
 
 #define UTS_LIGHT_LOOP_END }
 #endif
