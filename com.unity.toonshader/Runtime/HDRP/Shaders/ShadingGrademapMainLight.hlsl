@@ -393,7 +393,7 @@ float3 UTS_MainLightShadingGrademap(LightLoopContext lightLoopContext, FragInput
 
     //v.2.0.6: GI_Intensity with Intensity Multiplier Filter
     float3 envLightColor = saturate(SampleBakedGI_UTS(posInput.positionWS, utsData.normalDirection, input.texCoord1.xy, input.texCoord2.xy, true));
-    float envLightIntensity = saturate(UTS_CalculateLightColorIntensity(envLightColor));
+    float envLightIntensity = saturate(Intensity(envLightColor));
 
     finalColor = SATURATE_IF_SDR(finalColor) + (envLightColor * envLightIntensity * _GI_Intensity * smoothstep(1, 0, envLightIntensity / 2)) + emissive;
 

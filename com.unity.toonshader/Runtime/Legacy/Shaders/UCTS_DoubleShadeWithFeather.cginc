@@ -139,7 +139,7 @@ struct VertexOutput {
                 float3 lightDirection = normalize(lerp(_WorldSpaceLightPos0.xyz, _WorldSpaceLightPos0.xyz - i.posWorld.xyz,_WorldSpaceLightPos0.w));
                 //v.2.0.5:
                 float3 addPassLightColor = (0.5*dot(lerp( i.normalDir, normalDirection, _Is_NormalMapToBase ), lightDirection)+0.5) * _LightColor0.rgb * attenuation;
-                float pureIntencity = max(0.001, UTS_CalculateLightColorIntensity(_LightColor0.rgb));
+                float pureIntencity = max(0.001, Intensity(_LightColor0.rgb));
                 float3 lightColor = max(float3(0,0,0), lerp(addPassLightColor, lerp(float3(0,0,0),min(addPassLightColor,addPassLightColor/pureIntencity),_WorldSpaceLightPos0.w),_Is_Filter_LightColor));
 #endif
 ////// Lighting:
@@ -250,7 +250,7 @@ struct VertexOutput {
                 //
                 //v.2.0.6: GI_Intensity with Intensity Multiplier Filter
                 float3 envLightColor = DecodeLightProbe(normalDirection) < float3(1,1,1) ? DecodeLightProbe(normalDirection) : float3(1,1,1);
-                float envLightIntensity = min(UTS_CalculateLightColorIntensity(envLightColor), 1);
+                float envLightIntensity = min(Intensity(envLightColor), 1);
 //v.2.0.7
 #ifdef _EMISSIVE_SIMPLE
                 float4 _Emissive_Tex_var = tex2D(_Emissive_Tex,TRANSFORM_TEX(Set_UV0, _Emissive_Tex));
@@ -298,7 +298,7 @@ struct VertexOutput {
                 _ShadeColor_Step = saturate(_ShadeColor_Step + _StepOffset);
                 //
                 //v.2.0.5: If Added lights is directional, set 0 as _LightIntensity
-                float _LightIntensity = lerp(0, UTS_CalculateLightColorIntensity(_LightColor0.rgb) * attenuation, _WorldSpaceLightPos0.w);
+                float _LightIntensity = lerp(0, Intensity(_LightColor0.rgb) * attenuation, _WorldSpaceLightPos0.w);
                 //v.2.0.5: Filtering the high intensity zone of PointLights
                 float3 Set_LightColor = lightColor;
                 //

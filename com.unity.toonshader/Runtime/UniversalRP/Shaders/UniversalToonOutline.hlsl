@@ -87,7 +87,7 @@ float4 frag(VertexOutput i) : SV_Target {
                                  : envLightSource_GradientEquator * _Unlit_Intensity;
     //
     float3 lightColor = _LightColor0.rgb > 0.05 ? _LightColor0.rgb : ambientSkyColor.rgb;
-    float lightColorIntensity = UTS_CalculateLightColorIntensity(lightColor);
+    float lightColorIntensity = Intensity(lightColor);
     lightColor = lightColorIntensity < 1 ? lightColor : lightColor / lightColorIntensity;
     lightColor = lerp(half3(1.0, 1.0, 1.0), lightColor, _Is_LightColor_Outline);
     float2 Set_UV0 = i.uv0;

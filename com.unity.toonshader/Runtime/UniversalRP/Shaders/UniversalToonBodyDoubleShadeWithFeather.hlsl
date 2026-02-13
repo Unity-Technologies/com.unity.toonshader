@@ -342,7 +342,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 
     float3 envLightColor = envColor.rgb;
 
-    float envLightIntensity = min(UTS_CalculateLightColorIntensity(envLightColor), 1);
+    float envLightIntensity = min(Intensity(envLightColor), 1);
 
 
     float3 pointLightColor = 0;
@@ -374,14 +374,14 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
             float3 addPassLightColor = (0.5 * dot(lerp(i.normalDir, normalDirection, _Is_NormalMapToBase), lightDirection) +
                 0.5) * additionalLightColor.rgb;
             float pureIntencity = max(0.001,
-                UTS_CalculateLightColorIntensity(additionalLightColor));
+                Intensity(additionalLightColor));
             float3 lightColor = max(float3(0.0, 0.0, 0.0), lerp(addPassLightColor,
                 lerp(float3(0.0, 0.0, 0.0), min(addPassLightColor, addPassLightColor / pureIntencity), notDirectional),
                 _Is_Filter_LightColor));
 
             //v.2.0.5: If Added lights is directional, set 0 as _LightIntensity
             float _LightIntensity = lerp(0,
-                UTS_CalculateLightColorIntensity(additionalLightColor),
+                Intensity(additionalLightColor),
                 notDirectional);
                     
             float lightIntensity = _LightIntensity;
@@ -438,14 +438,14 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
         float3 addPassLightColor = (0.5 * dot(lerp(i.normalDir, normalDirection, _Is_NormalMapToBase), lightDirection) +
             0.5) * additionalLightColor.rgb;
         float pureIntencity = max(0.001,
-            UTS_CalculateLightColorIntensity(additionalLightColor));
+            Intensity(additionalLightColor));
         float3 lightColor = max(float3(0.0, 0.0, 0.0), lerp(addPassLightColor,
             lerp(float3(0.0, 0.0, 0.0), min(addPassLightColor, addPassLightColor / pureIntencity), notDirectional),
             _Is_Filter_LightColor));
 
         //v.2.0.5: If Added lights is directional, set 0 as _LightIntensity
         float _LightIntensity = lerp(0,
-            UTS_CalculateLightColorIntensity(additionalLightColor),
+            Intensity(additionalLightColor),
             notDirectional);
             
         float lightIntensity = _LightIntensity;
