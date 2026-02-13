@@ -13,11 +13,11 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _EMISSIVE_SIMPLE
-  - _IS_ANGELRING_OFF
   - _IS_CLIPPING_MODE
   - _IS_OUTLINE_CLIPPING_YES
   - _OUTLINE_NML
-  m_InvalidKeywords: []
+  m_InvalidKeywords:
+  - _IS_ANGELRING_OFF
   m_LightmapFlags: 5
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
