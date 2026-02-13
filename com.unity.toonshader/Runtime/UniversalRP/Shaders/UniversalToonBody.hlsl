@@ -264,52 +264,6 @@ half3 GetLightColor(UtsLight light
 }
 
 
-#define INIT_UTSLIGHT(utslight) \
-            utslight.direction = 0; \
-            utslight.color = 0; \
-            utslight.distanceAttenuation = 0; \
-            utslight.shadowAttenuation = 0;
-
-
-int DetermineUTS_MainLightIndex(float3 posW, float4 shadowCoord) {
-    UtsLight mainLight;
-    INIT_UTSLIGHT(mainLight);
-
-    int mainLightIndex = MAINLIGHT_NOT_FOUND;
-    UtsLight nextLight = GetUrpMainUtsLight(shadowCoord);
-    if (nextLight.distanceAttenuation > mainLight.distanceAttenuation)
-    {
-        mainLight = nextLight;
-        mainLightIndex = MAINLIGHT_IS_MAINLIGHT;
-    }
-    int lightCount = GetAdditionalLightsCount();
-    for (int ii = 0; ii < lightCount; ++ii)
-    {
-        nextLight = GetAdditionalUtsLight(ii, posW);
-        if (nextLight.distanceAttenuation > mainLight.distanceAttenuation)
-        {
-            mainLight = nextLight;
-            mainLightIndex = ii;
-        }
-    }
-
-    return mainLightIndex;
-}
-
-UtsLight GetMainUtsLightByID(int index, float3 posW, float4 shadowCoord) {
-    UtsLight mainLight;
-    INIT_UTSLIGHT(mainLight);
-    if (index == MAINLIGHT_NOT_FOUND)
-    {
-        return mainLight;
-    }
-    if (index == MAINLIGHT_IS_MAINLIGHT)
-    {
-        return GetUrpMainUtsLight(shadowCoord);
-    }
-    return GetAdditionalUtsLight(index, posW);
-}
-
 float4 GetShadowCoordUTS(VertexOutput v)
 {
 #if defined(_MAIN_LIGHT_SHADOWS_SCREEN) && !defined(_SURFACE_TYPE_TRANSPARENT)
