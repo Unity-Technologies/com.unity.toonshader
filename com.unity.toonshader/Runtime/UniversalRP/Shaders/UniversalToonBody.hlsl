@@ -254,7 +254,7 @@ UtsLight GetUrpMainUtsLight() {
     return light;
 }
 
-UtsLight GetUrpMainUtsLight(float4 shadowCoord, float4 positionCS) {
+UtsLight GetUrpMainUtsLight(float4 shadowCoord) {
     UtsLight light = GetUrpMainUtsLight();
     light.shadowAttenuation = MainLightRealtimeShadow(shadowCoord);
     return light;
@@ -361,7 +361,7 @@ int DetermineUTS_MainLightIndex(float3 posW, float4 shadowCoord, float4 position
     INIT_UTSLIGHT(mainLight);
 
     int mainLightIndex = MAINLIGHT_NOT_FOUND;
-    UtsLight nextLight = GetUrpMainUtsLight(shadowCoord, positionCS);
+    UtsLight nextLight = GetUrpMainUtsLight(shadowCoord);
     if (nextLight.distanceAttenuation > mainLight.distanceAttenuation && nextLight.type == 0)
     {
         mainLight = nextLight;
@@ -390,7 +390,7 @@ UtsLight GetMainUtsLightByID(int index, float3 posW, float4 shadowCoord, float4 
     }
     if (index == MAINLIGHT_IS_MAINLIGHT)
     {
-        return GetUrpMainUtsLight(shadowCoord, positionCS);
+        return GetUrpMainUtsLight(shadowCoord);
     }
     return GetAdditionalUtsLight(index, posW);
 }

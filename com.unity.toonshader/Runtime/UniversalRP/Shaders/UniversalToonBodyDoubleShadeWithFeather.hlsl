@@ -360,7 +360,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
         {
             float notDirectional = 1.0f; //_WorldSpaceLightPos0.w of the legacy code.
 
-            UtsLight additionalLight = GetUrpMainUtsLight(0, 0);
+            UtsLight additionalLight = GetUrpMainUtsLight(0);
             additionalLight = GetAdditionalUtsLight(iLight, inputData.positionWS);
             half3 additionalLightColor = GetLightColor(
                 additionalLight
@@ -421,7 +421,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     {
         float notDirectional = 1.0f; //_WorldSpaceLightPos0.w of the legacy code.
 
-        UtsLight additionalLight = GetUrpMainUtsLight(0, 0);
+        UtsLight additionalLight = GetUrpMainUtsLight(0);
         if (iLight != -1)
         {
             additionalLight = GetAdditionalUtsLight(iLight, inputData.positionWS);
