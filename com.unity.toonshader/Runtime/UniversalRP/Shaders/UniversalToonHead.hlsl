@@ -10,9 +10,6 @@
 #define UCTS_LWRP 1
 
 
-#define MAINLIGHT_NOT_FOUND -2
-
-
 #ifndef DIRECTIONAL
 # define DIRECTIONAL
 #endif
