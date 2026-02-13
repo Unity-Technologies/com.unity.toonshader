@@ -490,18 +490,10 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 #endif  // USE_FORWARD_PLUS
 
     UTS_LIGHT_LOOP_BEGIN(pixelLightCount)
-#if USE_FORWARD_PLUS
-    int iLight = lightIndex;
-#else
-    int iLight = loopCounter + MAINLIGHT_IS_MAINLIGHT;
-#endif
+    int iLight = loopCounter;
     {
         float notDirectional = 1.0f; //_WorldSpaceLightPos0.w of the legacy code.
-        UtsLight additionalLight = GetUrpMainUtsLight(0);
-        if (iLight != MAINLIGHT_IS_MAINLIGHT)
-        {
-            additionalLight = GetAdditionalUtsLight(iLight, inputData.positionWS);
-        }
+        UtsLight additionalLight = GetAdditionalUtsLight(iLight, inputData.positionWS);
         half3 additionalLightColor = GetLightColor(
             additionalLight
 #ifdef _LIGHT_LAYERS

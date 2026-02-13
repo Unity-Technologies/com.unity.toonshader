@@ -408,11 +408,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 #endif  // USE_FORWARD_PLUS
 
     UTS_LIGHT_LOOP_BEGIN(pixelLightCount)
-#if USE_FORWARD_PLUS
-    int iLight = lightIndex;
-#else
-    int iLight = loopCounter + MAINLIGHT_IS_MAINLIGHT;
-#endif
+    int iLight = loopCounter;
     {
         float notDirectional = 1.0f; //_WorldSpaceLightPos0.w of the legacy code.
 
