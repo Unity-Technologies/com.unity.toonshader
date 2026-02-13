@@ -157,65 +157,6 @@ namespace Unity.Rendering.HighDefinition.Toon
             Release();
         }
 
-        void UpdateObjectLightLayers()
-        {
-            Initialize();
-
-        }
-
-        internal static GameObject  CreateBoxLight(GameObject[] gameObjects)
-        {
-            if (gameObjects == null || gameObjects[0] == null )
-            {
-                Debug.LogError("Please, select a GameObject you want a Box Light to follow.");
-                return null;
-            }
-            var gameObjectName = "Box Light for " + gameObjects[0].name;
-            GameObject lightGameObject = new GameObject(gameObjectName);
-#if UNITY_EDITOR
-            Undo.RegisterCreatedObjectUndo(lightGameObject, "Created Boxlight adjustment");
-#endif
-            HDAdditionalLightData hdLightData = lightGameObject.AddHDLight(HDLightTypeAndShape.BoxSpot);
-            // light size
-            hdLightData.SetBoxSpotSize(new Vector2(10.0f, 10.0f)); // Size should be culculated with more acculacy?
-            BoxLightAdjustment boxLightAdjustment = lightGameObject.GetComponent<BoxLightAdjustment>();
-            if (boxLightAdjustment == null)
-            {
-#if UNITY_EDITOR
-                boxLightAdjustment = Undo.AddComponent<BoxLightAdjustment>(lightGameObject);
-#else
-                boxLightAdjustment = lightGameObject.AddComponent<BoxLightAdjustment>();
-#endif
-            }
-
-
-
-#if UNITY_EDITOR
-            Undo.RecordObject(boxLightAdjustment, "target " + boxLightAdjustment.name);
-#endif
-            boxLightAdjustment.m_targetBoxLight = hdLightData;
-#if UNITY_EDITOR
-            Undo.RecordObject(lightGameObject.transform, "Position " + lightGameObject.transform.name);
-#endif
-            // position and rotation
-            var goPos = lightGameObject.transform.position;
-            goPos.y += 10.0f;
-            lightGameObject.transform.position = goPos;
-
-            var goRot = lightGameObject.transform.rotation;
-            goRot.eulerAngles = new Vector3(90.0f, 0.0f, 0.0f);
-#if UNITY_EDITOR
-            Undo.RecordObject(lightGameObject.transform, "Rotation " + lightGameObject.transform.name);
-#endif
-            hdLightData.gameObject.transform.rotation = goRot;
-
-            // must be put to gameObject model chain.
-            boxLightAdjustment.m_GameObjects = gameObjects;
-
-
-            return lightGameObject;
-        }
-
 
         void Initialize()
         {
