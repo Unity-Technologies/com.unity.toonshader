@@ -235,75 +235,18 @@ UtsLight GetUrpMainUtsLight(float4 shadowCoord) {
     return utsLight;
 }
 
-// Fills a light struct given a perObjectLightIndex
-UtsLight GetAdditionalPerObjectUtsLight(int perObjectLightIndex, float3 positionWS) {
-    // Abstraction over Light input constants
-#if USE_STRUCTURED_BUFFER_FOR_LIGHT_DATA
-    float4 lightPositionWS = _AdditionalLightsBuffer[perObjectLightIndex].position;
-    half3 color = _AdditionalLightsBuffer[perObjectLightIndex].color.rgb;
-    half4 distanceAndSpotAttenuation = _AdditionalLightsBuffer[perObjectLightIndex].attenuation;
-    half4 spotDirection = _AdditionalLightsBuffer[perObjectLightIndex].spotDirection;
-#ifdef _LIGHT_LAYERS
-    uint lightLayerMask = _AdditionalLightsBuffer[perObjectLightIndex].layerMask;
-#endif
-    half4 lightOcclusionProbeInfo = _AdditionalLightsBuffer[perObjectLightIndex].occlusionProbeChannels;
-#else
-    float4 lightPositionWS = _AdditionalLightsPosition[perObjectLightIndex];
-    half3 color = _AdditionalLightsColor[perObjectLightIndex].rgb;
-    half4 distanceAndSpotAttenuation = _AdditionalLightsAttenuation[perObjectLightIndex];
-    half4 spotDirection = _AdditionalLightsSpotDir[perObjectLightIndex];
-#ifdef _LIGHT_LAYERS
-    uint lightLayerMask = asuint(_AdditionalLightsLayerMasks[perObjectLightIndex]);
-#endif
-    half4 lightOcclusionProbeInfo = _AdditionalLightsOcclusionProbes[perObjectLightIndex];
-#endif
-
-    // Directional lights store direction in lightPosition.xyz and have .w set to 0.0.
-    // This way the following code will work for both directional and punctual lights.
-    float3 lightVector = lightPositionWS.xyz - positionWS * lightPositionWS.w;
-    float distanceSqr = max(dot(lightVector, lightVector), HALF_MIN);
-
-    half3 lightDirection = half3(lightVector * rsqrt(distanceSqr));
-    half attenuation = DistanceAttenuation(distanceSqr, distanceAndSpotAttenuation.xy) * AngleAttenuation(
-        spotDirection.xyz, lightDirection, distanceAndSpotAttenuation.zw);
-
-    UtsLight light;
-    light.direction = lightDirection;
-    light.distanceAttenuation = attenuation;
-    light.shadowAttenuation = AdditionalLightRealtimeShadowUTS(perObjectLightIndex, positionWS);
-    light.color = color;
-#ifdef _LIGHT_LAYERS
-    light.layerMask = lightLayerMask;
-#endif
-
-    // In case we're using light probes, we can sample the attenuation from the `unity_ProbesOcclusion`
-#if defined(LIGHTMAP_ON) || defined(_MIXED_LIGHTING_SUBTRACTIVE)
-    // First find the probe channel from the light.
-    // Then sample `unity_ProbesOcclusion` for the baked occlusion.
-    // If the light is not baked, the channel is -1, and we need to apply no occlusion.
-
-    // probeChannel is the index in 'unity_ProbesOcclusion' that holds the proper occlusion value.
-    int probeChannel = lightOcclusionProbeInfo.x;
-
-    // lightProbeContribution is set to 0 if we are indeed using a probe, otherwise set to 1.
-    half lightProbeContribution = lightOcclusionProbeInfo.y;
-
-    half probeOcclusionValue = unity_ProbesOcclusion[probeChannel];
-    light.distanceAttenuation *= max(probeOcclusionValue, lightProbeContribution);
-#endif
-
-    return light;
-}
-
 // Fills a light struct given a loop i index. This will convert the i
 // index to a perObjectLightIndex
 UtsLight GetAdditionalUtsLight(uint i, float3 positionWS) {
-#if USE_FORWARD_PLUS
-    int perObjectLightIndex = i;
-#else
-    int perObjectLightIndex = GetPerObjectLightIndex(i);
-#endif
-    return GetAdditionalPerObjectUtsLight(perObjectLightIndex, positionWS);
+    Light light = GetAdditionalLight(i, positionWS);
+
+    UtsLight utsLight;
+    utsLight.direction = light.direction;
+    utsLight.color = light.color;
+    utsLight.distanceAttenuation = light.distanceAttenuation;
+    utsLight.shadowAttenuation = light.shadowAttenuation;
+    utsLight.layerMask = light.layerMask;
+    return utsLight;
 }
 
 half3 GetLightColor(UtsLight light
