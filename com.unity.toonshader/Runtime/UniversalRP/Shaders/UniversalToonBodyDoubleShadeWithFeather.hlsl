@@ -110,7 +110,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
         inputData.viewDirectionWS, i.posWorld.xyz, inputData.normalizedScreenSpaceUV);
     envColor *= 1.8f;
 
-    UtsLight mainLight = GetMainUtsLightByID(i.mainLightID, i.posWorld.xyz, inputData.shadowCoord, i.positionCS);
+    UtsLight mainLight = GetMainUtsLightByID(i.mainLightID, i.posWorld.xyz, inputData.shadowCoord);
 
 #if defined(_LIGHT_LAYERS)
     uint meshRenderingLayers = GetMeshRenderingLayer();

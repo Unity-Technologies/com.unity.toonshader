@@ -356,7 +356,7 @@ half3 GetLightColor(UtsLight light
             utslight.type = 0
 
 
-int DetermineUTS_MainLightIndex(float3 posW, float4 shadowCoord, float4 positionCS) {
+int DetermineUTS_MainLightIndex(float3 posW, float4 shadowCoord) {
     UtsLight mainLight;
     INIT_UTSLIGHT(mainLight);
 
@@ -381,7 +381,7 @@ int DetermineUTS_MainLightIndex(float3 posW, float4 shadowCoord, float4 position
     return mainLightIndex;
 }
 
-UtsLight GetMainUtsLightByID(int index, float3 posW, float4 shadowCoord, float4 positionCS) {
+UtsLight GetMainUtsLightByID(int index, float3 posW, float4 shadowCoord) {
     UtsLight mainLight;
     INIT_UTSLIGHT(mainLight);
     if (index == MAINLIGHT_NOT_FOUND)
@@ -454,9 +454,9 @@ VertexOutput vert(VertexInput v) {
 #endif
     
 #if defined(_MAIN_LIGHT_SHADOWS) && !defined(_RECEIVE_SHADOWS_OFF)
-    o.mainLightID = DetermineUTS_MainLightIndex(o.posWorld.xyz, o.shadowCoord, positionCS);
+    o.mainLightID = DetermineUTS_MainLightIndex(o.posWorld.xyz, o.shadowCoord);
 #else
-    o.mainLightID = DetermineUTS_MainLightIndex(o.posWorld.xyz, 0, positionCS);
+    o.mainLightID = DetermineUTS_MainLightIndex(o.posWorld.xyz, 0);
 #endif
     
     return o;
