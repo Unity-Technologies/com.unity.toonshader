@@ -188,9 +188,7 @@ struct UtsLight {
     float3 color;
     float distanceAttenuation;
     float shadowAttenuation;
-#ifdef _LIGHT_LAYERS
     uint layerMask;
-#endif
 };
 
 
@@ -226,36 +224,15 @@ half AdditionalLightRealtimeShadowUTS(int lightIndex, float3 positionWS) {
 #endif
 }
 
-
-UtsLight GetUrpMainUtsLight() {
-    UtsLight light;
-    light.direction = _MainLightPosition.xyz;
-#if USE_FORWARD_PLUS
-#if defined(LIGHTMAP_ON)
-    light.distanceAttenuation = _MainLightColor.a;
-#else
-    light.distanceAttenuation = 1.0;
-#endif
-#else
-    // unity_LightData.z is 1 when not culled by the culling mask, otherwise 0.
-    light.distanceAttenuation = unity_LightData.z;
-#endif
-#if defined(LIGHTMAP_ON) || defined(_MIXED_LIGHTING_SUBTRACTIVE)
-    // unity_ProbesOcclusion.x is the mixed light probe occlusion data
-    light.distanceAttenuation *= unity_ProbesOcclusion.x;
-#endif
-    light.shadowAttenuation = 1.0;
-    light.color = _MainLightColor.rgb;
-#ifdef _LIGHT_LAYERS
-    light.layerMask = _MainLightLayerMask;
-#endif
-    return light;
-}
-
 UtsLight GetUrpMainUtsLight(float4 shadowCoord) {
-    UtsLight light = GetUrpMainUtsLight();
-    light.shadowAttenuation = MainLightRealtimeShadow(shadowCoord);
-    return light;
+    Light light = GetMainLight(shadowCoord);
+    UtsLight utsLight;
+    utsLight.direction = light.direction;
+    utsLight.color = light.color;
+    utsLight.distanceAttenuation = light.distanceAttenuation;
+    utsLight.shadowAttenuation = light.shadowAttenuation;
+    utsLight.layerMask = light.layerMask;
+    return utsLight;
 }
 
 // Fills a light struct given a perObjectLightIndex
