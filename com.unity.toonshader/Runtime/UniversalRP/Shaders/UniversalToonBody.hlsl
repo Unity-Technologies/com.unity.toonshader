@@ -176,7 +176,6 @@ struct VertexOutput {
 #  endif
 
     float4 positionCS : TEXCOORD10;
-    int mainLightID : TEXCOORD11;
     
     UNITY_VERTEX_INPUT_INSTANCE_ID
     UNITY_VERTEX_OUTPUT_STEREO
@@ -367,12 +366,6 @@ VertexOutput vert(VertexInput v) {
 
 #if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
     o.shadowCoord = GetShadowCoordUTS(o);
-#endif
-    
-#if defined(_MAIN_LIGHT_SHADOWS) && !defined(_RECEIVE_SHADOWS_OFF)
-    o.mainLightID = DetermineUTS_MainLightIndex(o.posWorld.xyz, o.shadowCoord);
-#else
-    o.mainLightID = DetermineUTS_MainLightIndex(o.posWorld.xyz, 0);
 #endif
     
     return o;

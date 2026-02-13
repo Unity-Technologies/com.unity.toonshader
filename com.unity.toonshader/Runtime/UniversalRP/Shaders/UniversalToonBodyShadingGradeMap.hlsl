@@ -122,7 +122,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
         inputData.viewDirectionWS, i.posWorld.xyz, inputData.normalizedScreenSpaceUV);
     envColor *= 1.8f;
 
-    UtsLight mainLight = GetMainUtsLightByID(i.mainLightID, i.posWorld.xyz, inputData.shadowCoord);
+    UtsLight mainLight = GetUrpMainUtsLight(inputData.shadowCoord);
 
 #if defined(_LIGHT_LAYERS)
     uint meshRenderingLayers = GetMeshRenderingLayer();
@@ -435,7 +435,6 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     for (uint loopCounter = 0; loopCounter < min(URP_FP_DIRECTIONAL_LIGHTS_COUNT, MAX_VISIBLE_LIGHTS); loopCounter++)
     {
         int iLight = loopCounter;
-        // if (iLight != i.mainLightID)
         {
             float notDirectional = 1.0f; //_WorldSpaceLightPos0.w of the legacy code.
             UtsLight additionalLight = GetUrpMainUtsLight(0);
@@ -489,16 +488,12 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
         }
     }
 #endif  // USE_FORWARD_PLUS
-    // determine main light inorder to apply light culling properly
 
-    // when the loop counter start from negative value, MAINLIGHT_IS_MAINLIGHT = -1, some compiler doesn't work well.
-    // for (int iLight = MAINLIGHT_IS_MAINLIGHT; iLight < pixelLightCount ; ++iLight)
-    UTS_LIGHT_LOOP_BEGIN(pixelLightCount - MAINLIGHT_IS_MAINLIGHT)
+    UTS_LIGHT_LOOP_BEGIN(pixelLightCount)
 #if USE_FORWARD_PLUS
     int iLight = lightIndex;
 #else
     int iLight = loopCounter + MAINLIGHT_IS_MAINLIGHT;
-    if (iLight != i.mainLightID)
 #endif
     {
         float notDirectional = 1.0f; //_WorldSpaceLightPos0.w of the legacy code.
