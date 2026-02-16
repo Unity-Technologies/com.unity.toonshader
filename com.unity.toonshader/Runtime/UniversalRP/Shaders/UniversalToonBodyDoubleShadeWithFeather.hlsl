@@ -2,7 +2,7 @@
 #include "../../Shaders/UTSLighting.hlsl"
 
 void ToonShading(
-    const float4 firstShadePosTex, const float4 secondShadePosTex, const float3 highlightTex, 
+    const float4 firstShadePosTex, const float4 secondShadePosTex, const float3 highlightAlbedo, 
     const float3 highlightMaskTex,
     const float3 lightColor, const float lightIntensity, const float tweakShadows, 
     const float3 baseAlbedo, const float3 firstShadeAlbedo, const float3 secondShadeAlbedo,
@@ -43,9 +43,8 @@ void ToonShading(
         pow(abs(specular), exp2(lerp(11, 1, _HighColor_Power))), _Is_SpecularToHighColor);
 
     //[TODO-sin: 2026-1-27] We can cache (highlightTex.rgb * _HighColor.rgb)
-    const float3 highColor = (lerp((highlightTex.rgb * _HighColor.rgb),
-        ((highlightTex.rgb * _HighColor.rgb) * lightColor),
-        _Is_LightColor_HighColor) * tweakHighColorMask);
+    const float3 highColor = (lerp(highlightAlbedo,highlightAlbedo * lightColor,_Is_LightColor_HighColor) 
+        * tweakHighColorMask);
 
     //Composition: 3 Basic Colors as finalColor
     finalColor = lerp(SATURATE_IF_SDR((finalColor-tweakHighColorMask)), finalColor,specularBlendModeLerp); 
@@ -131,6 +130,8 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     const float4 secondShadePosTex = tex2D(_Set_2nd_ShadePosition, TRANSFORM_TEX(Set_UV0, _Set_2nd_ShadePosition));
     const float4 highlightTex = tex2D(_HighColor_Tex, TRANSFORM_TEX(Set_UV0, _HighColor_Tex));
     const float4 highlightMaskTex = tex2D(_Set_HighColorMask, TRANSFORM_TEX(Set_UV0, _Set_HighColorMask));
+    
+    const float3 highlightAlbedo = highlightTex.rgb * _HighColor.rgb;
 
     const float3 normalTex = UnpackNormalScale(
         SAMPLE_TEXTURE2D(_NormalMap, sampler_MainTex, TRANSFORM_TEX(Set_UV0, _NormalMap)), _BumpScale);
@@ -218,7 +219,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     float3 Set_HighColor;
     float Set_FinalShadowMask;
     ToonShading(
-        firstShadePosTex, secondShadePosTex, highlightTex.rgb, 
+        firstShadePosTex, secondShadePosTex, highlightAlbedo, 
         highlightMaskTex.rgb,lightColor.rgb, lightIntensity, tweakShadows, 
         baseAlbedo.rgb, firstShadeAlbedo.rgb, secondShadeAlbedo.rgb,
         baseColorStep, shadeColorStep,
@@ -393,7 +394,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
             float3 finalColor = float3(0,0,0);
             float unused = 0;
             ToonShading(
-                firstShadePosTex, secondShadePosTex, highlightTex.rgb, 
+                firstShadePosTex, secondShadePosTex, highlightAlbedo, 
                 highlightMaskTex.rgb,lightColor.rgb, lightIntensity, tweakShadows, 
                 baseAlbedo.rgb, firstShadeAlbedo.rgb, secondShadeAlbedo.rgb,
                 baseColorStep, shadeColorStep,
@@ -457,7 +458,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
         float3 finalColor = float3(0,0,0);
         float unused = 0;
         ToonShading(
-            firstShadePosTex, secondShadePosTex, highlightTex.rgb, 
+            firstShadePosTex, secondShadePosTex, highlightAlbedo, 
             highlightMaskTex.rgb,lightColor.rgb, lightIntensity, tweakShadows, 
             baseAlbedo.rgb, firstShadeAlbedo.rgb, secondShadeAlbedo.rgb,
             baseColorStep, shadeColorStep,
