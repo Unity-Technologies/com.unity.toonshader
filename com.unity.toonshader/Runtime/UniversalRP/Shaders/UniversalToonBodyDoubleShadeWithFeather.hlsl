@@ -42,7 +42,6 @@ void ToonShading(
     * lerp(1.0 - step(specular, 1.0 - pow(abs(_HighColor_Power), 5)),
         pow(abs(specular), exp2(lerp(11, 1, _HighColor_Power))), _Is_SpecularToHighColor);
 
-    //[TODO-sin: 2026-1-27] We can cache (highlightTex.rgb * _HighColor.rgb)
     const float3 highColor = (lerp(highlightAlbedo,highlightAlbedo * lightColor,_Is_LightColor_HighColor) 
         * tweakHighColorMask);
 
