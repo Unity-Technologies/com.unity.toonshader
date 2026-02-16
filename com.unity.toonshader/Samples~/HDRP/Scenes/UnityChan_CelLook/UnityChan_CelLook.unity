@@ -749,26 +749,56 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 95883473384962064, guid: 705cdfbbbed449efa36cdd1e2ab6ef97,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 156070300912154285, guid: 705cdfbbbed449efa36cdd1e2ab6ef97,
         type: 3}
       propertyPath: m_rootUI
       value: 
       objectReference: {fileID: 1503260320}
+    - target: {fileID: 156070300912154285, guid: 705cdfbbbed449efa36cdd1e2ab6ef97,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 445325043596183957, guid: 705cdfbbbed449efa36cdd1e2ab6ef97,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2157501041375266498, guid: 705cdfbbbed449efa36cdd1e2ab6ef97,
         type: 3}
       propertyPath: m_rootUI
       value: 
       objectReference: {fileID: 1503260320}
+    - target: {fileID: 2157501041375266498, guid: 705cdfbbbed449efa36cdd1e2ab6ef97,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2157501041375266498, guid: 705cdfbbbed449efa36cdd1e2ab6ef97,
         type: 3}
       propertyPath: m_inputReader
       value: 
       objectReference: {fileID: 914531801}
+    - target: {fileID: 4546373818512606070, guid: 705cdfbbbed449efa36cdd1e2ab6ef97,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8208089021782092376, guid: 705cdfbbbed449efa36cdd1e2ab6ef97,
         type: 3}
       propertyPath: m_rootUI
       value: 
       objectReference: {fileID: 1503260320}
+    - target: {fileID: 8208089021782092376, guid: 705cdfbbbed449efa36cdd1e2ab6ef97,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
