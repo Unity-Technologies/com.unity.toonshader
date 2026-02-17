@@ -1,7 +1,37 @@
 # Changelog
 
+## [0.13.2-preview] - 2026-02-17
+
+## Changed
+* docs: clarify 2D support via "3D as 2D" in URP (Unity 6.3)
+* sample: rename tessellation scene to UnityChan_CelLook_Tess
+* sample: remove fog in UnityChan_CelLook
+* sample: remove fog volume from UnityChan_CelLook_Tess scene
+* sample: remove fog in UnityChan scene
+
+## Fixed
+* fix: missing shadows when using screen space shadows
+* fix: unused variable warning in UTS3GUI
+* fix: support Decals feature back in URP
+* fix: use baseColor for doing trilinear shading in ShadingGradeMap URP
+* fix: "GameObjectExtension.AddHDLight" warning in HDRP projects
+* opt: reduce texture sampling when there are multiple lights on URP
+* opt: reduce duplicate albedo calculations in URP
+* opt: reduce duplicate texture sampling and light calculation in ShadingGradeMap URP shader
+* opt: eliminate redundant calculation of highlight albedo in URP shaders
+* sample: remove unused textures
+* sample: fix lighting setting object names in URP samples
+* sample: fix missing scripts in scenes and prefabs
+* sample: link the correct volume profile in PointLightTest scene (HDRP)
+* sample: remove unused "SceneLights Hi-Cut_Filter Test" resources for HDRP
+* sample: remove "missing" UTSGraphicsTestSettings component in all sample scenes
+* sample: remove unused PP Volume Profile in UnityChan_Emissive folder (HDRP)
+* sample: fix the face lighting in the MirrorTest scene of the HDRP sample
+
+
 ## [0.13.1-preview] - 2025-12-22
 
+## Fixed
 * fix: shader compile error when screen space shadow is enabled in URP
 * fix: check property existence before when converting materials
 
