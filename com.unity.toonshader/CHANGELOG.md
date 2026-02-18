@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.13.4-preview] - 2026-02-18
+
+## Changed
+* deps: update dependency to com.unity.render-pipelines.core@17.0.3
+
 ## [0.13.3-preview] - 2026-02-18
 
 ## Changed
