@@ -288,7 +288,7 @@
       "source": "local",
       "dependencies": {
         "com.unity.film-internal-utilities": "0.20.0-preview",
-        "com.unity.render-pipelines.core": "10.0.0"
+        "com.unity.render-pipelines.core": "17.0.4"
       }
     },
     "com.unity.ugui": {
