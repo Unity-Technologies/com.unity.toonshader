@@ -168,7 +168,7 @@ Shader "Toon/Toon 3D as 2D (URP)"{
 
             #include "ObjectTransform.hlsl"
             #include "ShapeLight2D.hlsl"
-            #include "ToonShading.hlsl"
+            #include "../UTSLighting.hlsl"
 
             //_HDREmulationScale declaration
             #include "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/ShapeLightVariables.hlsl" 
