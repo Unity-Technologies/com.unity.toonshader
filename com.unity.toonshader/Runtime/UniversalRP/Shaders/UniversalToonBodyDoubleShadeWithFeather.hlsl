@@ -53,9 +53,6 @@ void ToonShading(
     outShadowMask = Set_FinalShadowMask;
 }
 
-inline float TweakShadow(float shadow) {
-    return max((shadow * 0.5) + 0.5 + _Tweak_SystemShadowsLevel, 0.001); 
-}
 //----------------------------------------------------------------------------------------------------------------------
 
 void frag(VertexOutput i, out float4 finalRGBA : SV_Target0

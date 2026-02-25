@@ -273,6 +273,10 @@ float4 GetShadowCoordUTS(VertexOutput v)
 #endif
 }
 
+inline float TweakShadow(float shadow) {
+    return max((shadow * 0.5) + 0.5 + _Tweak_SystemShadowsLevel, 0.001); 
+}
+
 //----------------------------------------------------------------------------------------------------------------------
 
 VertexOutput vert(VertexInput v) {
