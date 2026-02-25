@@ -54,7 +54,7 @@ void ToonShading(
 }
 
 inline float TweakShadow(float shadow) {
-    max((shadow * 0.5) + 0.5 + _Tweak_SystemShadowsLevel, 0.001); 
+    return max((shadow * 0.5) + 0.5 + _Tweak_SystemShadowsLevel, 0.001); 
 }
 //----------------------------------------------------------------------------------------------------------------------
 
