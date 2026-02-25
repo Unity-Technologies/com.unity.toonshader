@@ -1,4 +1,3 @@
-
 #include "../../Shaders/UTSLighting.hlsl"
 
 void ToonShading(
@@ -53,6 +52,11 @@ void ToonShading(
     outShadeResult = finalColor;
     outShadowMask = Set_FinalShadowMask;
 }
+
+inline float TweakShadow(float shadow) {
+    max((shadow * 0.5) + 0.5 + _Tweak_SystemShadowsLevel, 0.001); 
+}
+//----------------------------------------------------------------------------------------------------------------------
 
 void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 #ifdef _WRITE_RENDERING_LAYERS
@@ -202,14 +206,9 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     const float4 secondShadeTex = lerp(SAMPLE_TEXTURE2D(_2nd_ShadeMap, sampler_MainTex, mainTexUV),firstShadeTex, _Use_1stAs2nd);
     const float3 secondShadeAlbedo = _2nd_ShadeColor.rgb * secondShadeTex.rgb;
     
-    //v.2.0.6
-    //Minimum value is same as the Minimum Feather's value with the Minimum Step's value as threshold.
-    float _SystemShadowsLevel_var = (shadowAttenuation * 0.5) + 0.5 + _Tweak_SystemShadowsLevel > 0.001
-                                        ? (shadowAttenuation * 0.5) + 0.5 + _Tweak_SystemShadowsLevel
-                                        : 0.0001;
     
     float lightIntensity = 1;
-    float tweakShadows = _SystemShadowsLevel_var;
+    float tweakShadows = TweakShadow(shadowAttenuation);
     float baseColorStep = _BaseColor_Step;
     float shadeColorStep = _ShadeColor_Step;
     float specularBlendModeLerp = lerp(_Is_BlendAddToHiColor, 1.0, _Is_SpecularToHighColor);
@@ -382,10 +381,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
                 Intensity(additionalLightColor),
                 notDirectional);
                     
-            float shadowAttenuation01 = (additionalLight.shadowAttenuation * 0.5) + 0.5;
-            float tweakShadows = shadowAttenuation01 + _Tweak_SystemShadowsLevel > 0.001
-                               ? shadowAttenuation01 + _Tweak_SystemShadowsLevel
-                               : 0.0001;
+            float tweakShadows = TweakShadow(additionalLight.shadowAttenuation);
             
             float lightIntensity = _LightIntensity;
             float baseColorStep = saturate(_BaseColor_Step + _StepOffset);
@@ -441,10 +437,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
             
         float lightIntensity = _LightIntensity;
         
-        float shadowAttenuation01 = (additionalLight.shadowAttenuation * 0.5) + 0.5;
-        float tweakShadows = shadowAttenuation01 + _Tweak_SystemShadowsLevel > 0.001
-                           ? shadowAttenuation01 + _Tweak_SystemShadowsLevel
-                           : 0.0001;
+        float tweakShadows = TweakShadow(additionalLight.shadowAttenuation);
         
         float baseColorStep = saturate(_BaseColor_Step + _StepOffset);
         float shadeColorStep = saturate(_ShadeColor_Step + _StepOffset);
