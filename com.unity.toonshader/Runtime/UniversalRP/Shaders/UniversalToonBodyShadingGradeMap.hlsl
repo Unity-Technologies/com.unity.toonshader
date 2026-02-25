@@ -215,14 +215,8 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     shadowAttenuation *= 2.0f;
     shadowAttenuation = saturate(shadowAttenuation);
 
-    //v.2.0.6
-    //Minmimum value is same as the Minimum Feather's value with the Minimum Step's value as threshold.
-    float _SystemShadowsLevel_var = (shadowAttenuation * 0.5) + 0.5 + _Tweak_SystemShadowsLevel > 0.001
-                                        ? (shadowAttenuation * 0.5) + 0.5 + _Tweak_SystemShadowsLevel
-                                        : 0.0001;
-    
     float lightIntensity = 1;
-    float tweakShadows = _SystemShadowsLevel_var;
+    float tweakShadows = TweakShadow(shadowAttenuation);
     float firstShadeColorStep = _1st_ShadeColor_Step;
     float secondShadeColorStep = _2nd_ShadeColor_Step;
     float specularBlendModeLerp = lerp(_Is_BlendAddToHiColor, 1.0, _Is_SpecularToHighColor);
@@ -463,10 +457,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
             
             float lightIntensity = _LightIntensity;
             
-            float shadowAttenuation01 = (additionalLight.shadowAttenuation * 0.5) + 0.5;
-            float tweakShadows = shadowAttenuation01 + _Tweak_SystemShadowsLevel > 0.001
-                               ? shadowAttenuation01 + _Tweak_SystemShadowsLevel
-                               : 0.0001;
+            float tweakShadows = TweakShadow(additionalLight.shadowAttenuation);
             
             float firstShadeColorStep = saturate(_1st_ShadeColor_Step + _StepOffset);
             float secondShadeColorStep = saturate(_2nd_ShadeColor_Step + _StepOffset);
@@ -523,10 +514,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 
         float lightIntensity = _LightIntensity;
         
-        float shadowAttenuation01 = (additionalLight.shadowAttenuation * 0.5) + 0.5;
-        float tweakShadows = shadowAttenuation01 + _Tweak_SystemShadowsLevel > 0.001
-                           ? shadowAttenuation01 + _Tweak_SystemShadowsLevel
-                           : 0.0001;
+        float tweakShadows = TweakShadow(additionalLight.shadowAttenuation);
         
         float firstShadeColorStep = saturate(_1st_ShadeColor_Step + _StepOffset);
         float secondShadeColorStep = saturate(_2nd_ShadeColor_Step + _StepOffset);
