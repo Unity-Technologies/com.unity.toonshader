@@ -11,7 +11,6 @@
     "com.unity.toonshader": "file:../../../com.unity.toonshader",
     "com.unity.ugui": "2.0.0",
     "com.unity.xr.mock-hmd": "1.4.0-preview.2",
-    "com.unity.modules.androidjni": "1.0.0",
     "com.unity.modules.animation": "1.0.0",
     "com.unity.modules.director": "1.0.0",
     "com.unity.modules.imageconversion": "1.0.0",
