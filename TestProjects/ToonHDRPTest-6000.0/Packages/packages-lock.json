@@ -55,7 +55,7 @@
       "dependencies": {}
     },
     "com.unity.external.test-protocol": {
-      "version": "1.0.0-preview",
+      "version": "2.0.0-exp.1",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -116,7 +116,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.nuget.newtonsoft-json": {
-      "version": "3.2.1",
+      "version": "3.2.2",
       "depth": 1,
       "source": "registry",
       "dependencies": {},
@@ -139,7 +139,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.recorder": {
-      "version": "5.1.4",
+      "version": "5.1.5",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -250,18 +250,17 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.testframework.graphics": {
-      "version": "8.12.0-exp.2",
+      "version": "8.13.2-exp.1",
       "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.unity.modules.vr": "1.0.0",
         "com.unity.modules.xr": "1.0.0",
-        "com.unity.addressables": "1.21.12",
-        "com.unity.xr.management": "4.0.5",
-        "com.unity.nuget.newtonsoft-json": "2.0.0",
-        "com.unity.xr.legacyinputhelpers": "2.1.8",
-        "com.unity.external.test-protocol": "1.0.0-preview",
-        "com.unity.testtools.codecoverage": "1.2.0",
+        "com.unity.addressables": "1.28.1",
+        "com.unity.xr.management": "4.4.0",
+        "com.unity.nuget.newtonsoft-json": "3.2.2",
+        "com.unity.xr.legacyinputhelpers": "2.1.13",
+        "com.unity.external.test-protocol": "2.0.0-exp.1",
+        "com.unity.testtools.codecoverage": "1.2.7",
         "com.unity.modules.imageconversion": "1.0.0"
       },
       "url": "https://packages.unity.com"
@@ -339,7 +338,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.xr.legacyinputhelpers": {
-      "version": "2.1.12",
+      "version": "2.1.13",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -349,7 +348,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.xr.management": {
-      "version": "4.5.3",
+      "version": "4.5.4",
       "depth": 0,
       "source": "registry",
       "dependencies": {
