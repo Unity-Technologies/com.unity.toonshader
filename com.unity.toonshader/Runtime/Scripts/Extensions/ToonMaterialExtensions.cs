@@ -9,7 +9,7 @@ public static class ToonMaterialExtensions {
 
     /// <summary>
     /// Updates the material parameters based on its current property values.
-    /// <param name="mat">The material to update. Assumed to be using the Toon shader</param>
+    /// <param name="mat">The material to update. Assumed to be using the Toon shader (3D) </param>
     /// </summary>
     public static void UpdateProperties(this Material mat) {
 
