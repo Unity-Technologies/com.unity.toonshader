@@ -3,7 +3,7 @@
 void ToonShading(
     const float4 firstShadePosTex, const float4 secondShadePosTex, const float3 highlightAlbedo, 
     const float3 highlightMaskTex,
-    const float3 lightColor, const float lightIntensity, const float tweakShadows, 
+    const float3 lightColor, const float lightIntensity, const float shadowAtt, 
     const float3 baseAlbedo, const float3 firstShadeAlbedo, const float3 secondShadeAlbedo,
     const float baseColorStep, const float shadeColorStep,
     const float3 vertexNormalWS, const float3 perturbedNormalWS, const float3 lightDirection, const float3 viewDirection,
@@ -25,7 +25,7 @@ void ToonShading(
     
     //[TODO-sin: 2026-1-27] It looks like we only need one channel of firstShadePosTex
     float Set_FinalShadowMask = saturate(
-        1.0 + (lerp(halfLambert, halfLambert * saturate(tweakShadows), _Set_SystemShadowsToBase)
+        1.0 + (lerp(halfLambert, halfLambert * saturate(shadowAtt), _Set_SystemShadowsToBase)
             - baseStepMinusFeather) * ((1.0 - firstShadePosTex.rgb).r - 1.0) / (baseColorStep - baseStepMinusFeather));
     //
     //Composition: 3 Basic Colors as Set_FinalBaseColor
