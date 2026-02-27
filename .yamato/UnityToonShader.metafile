@@ -83,6 +83,7 @@ osx_test_projects:
   - project_prefix: ToonURPTest
     unity_editors:
       - version: 6000.0
+      - version: 6000.3
   - project_prefix: ToonURPTestECS
     unity_editors:
       - version: 6000.0
@@ -114,6 +115,7 @@ win_test_projects:
     utr_arguments: --extra-editor-arg="-force-d3d11"
     unity_editors:
       - version: 6000.0
+      - version: 6000.3
   - project_prefix: ToonURPTest
     key_postfix: _Vulkan
     utr_arguments: --extra-editor-arg="-force-vulkan"
