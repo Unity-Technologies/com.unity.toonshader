@@ -19,7 +19,7 @@ void ToonShadingSG(
     float3 Set_2nd_ShadeColor = lerp((secondShadeAlbedo * lightIntensity),(secondShadeAlbedo * lightColor), _Is_LightColor_2nd_Shade);
     float halfLambert = 0.5 * dot(lerp(vertexNormalWS, perturbedNormalWS, _Is_NormalMapToBase), lightDirection) + 0.5;
     
-    float Set_ShadingGrade = saturate(sgMapLevel) * lerp(halfLambert,halfLambert * saturate(shadowAtt), _Set_SystemShadowsToBase);
+    float Set_ShadingGrade = saturate(sgMapLevel) * lerp(halfLambert, halfLambert * shadowAtt, _Set_SystemShadowsToBase);
     
     
     float Set_FinalShadowMask = saturate(

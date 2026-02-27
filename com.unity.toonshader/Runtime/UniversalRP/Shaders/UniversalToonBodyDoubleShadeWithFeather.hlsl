@@ -25,7 +25,7 @@ void ToonShading(
     
     //[TODO-sin: 2026-1-27] It looks like we only need one channel of firstShadePosTex
     float Set_FinalShadowMask = saturate(
-        1.0 + (lerp(halfLambert, halfLambert * saturate(shadowAtt), _Set_SystemShadowsToBase)
+        1.0 + (lerp(halfLambert, halfLambert * shadowAtt, _Set_SystemShadowsToBase)
             - baseStepMinusFeather) * ((1.0 - firstShadePosTex.rgb).r - 1.0) / (baseColorStep - baseStepMinusFeather));
     //
     //Composition: 3 Basic Colors as Set_FinalBaseColor
