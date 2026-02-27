@@ -51,7 +51,8 @@ float4 _HighColor;
 float4 _HighColor_Tex_ST;
 fixed _Is_LightColor_HighColor;
 fixed _Is_NormalMapToHighColor;
-float _HighColor_Power;
+
+float4 _HighlightRimlightMath;
 
 fixed _Is_SpecularToHighColor;
 fixed _Is_BlendAddToHiColor;
@@ -65,7 +66,6 @@ fixed _RimLight;
 float4 _RimLightColor;
 fixed _Is_LightColor_RimLight;
 fixed _Is_NormalMapToRimLight;
-float _RimLight_Power;
 float _RimLight_InsideMask;
 fixed _RimLight_FeatherOff;
 fixed _LightDirection_MaskOn;
@@ -73,7 +73,6 @@ float _Tweak_LightDirection_MaskLevel;
 fixed _Add_Antipodean_RimLight;
 float4 _Ap_RimLightColor;
 fixed _Is_LightColor_Ap_RimLight;
-float _Ap_RimLight_Power;
 fixed _Ap_RimLight_FeatherOff;
 float4 _Set_RimLightMask_ST;
 float _Tweak_RimLightMaskLevel;

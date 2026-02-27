@@ -35,11 +35,15 @@ void ToonShading(
 
     float specular = 0.5 * dot(halfDirection, lerp(vertexNormalWS, perturbedNormalWS, _Is_NormalMapToHighColor)) + 0.5;
     
+    
+    const float exp2High = _HighlightRimlightMath.x;
+    const float oneMinusHighPow5 = _HighlightRimlightMath.y;
+    
     //Specular
     //[TODO-sin: 2026-1-27] We can cache lerp and pow results here
     float tweakHighColorMask = saturate(highlightMaskTex.g + _Tweak_HighColorMaskLevel) 
-    * lerp(1.0 - step(specular, 1.0 - pow(abs(_HighColor_Power), 5)),
-        pow(abs(specular), exp2(lerp(11, 1, _HighColor_Power))), _Is_SpecularToHighColor);
+    * lerp(1.0 - step(specular, oneMinusHighPow5),
+        pow(abs(specular), exp2High), _Is_SpecularToHighColor);
 
     const float3 highColor = (lerp(highlightAlbedo, highlightAlbedo * lightColor, _Is_LightColor_HighColor) 
         * tweakHighColorMask);
@@ -227,7 +231,12 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     float3 _Is_LightColor_RimLight_var = lerp(_RimLightColor.rgb, (_RimLightColor.rgb * lightColor),
         _Is_LightColor_RimLight);
     float _RimArea_var = abs(1.0 - dot(lerp(i.normalDir, normalDirection, _Is_NormalMapToRimLight), viewDirection));
-    float _RimLightPower_var = pow(_RimArea_var, exp2(lerp(3, 0, _RimLight_Power)));
+    
+    const float exp2Rim = _HighlightRimlightMath.z;
+    const float exp2ApRim = _HighlightRimlightMath.w;
+
+    
+    float _RimLightPower_var = pow(_RimArea_var, exp2Rim);
     float _Rimlight_InsideMask_var = saturate(lerp(
         (0.0 + ((_RimLightPower_var - _RimLight_InsideMask) * (1.0 - 0.0)) / (1.0 - _RimLight_InsideMask)),
         step(_RimLight_InsideMask, _RimLightPower_var), _RimLight_FeatherOff));
@@ -236,7 +245,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
         (_Is_LightColor_RimLight_var * saturate(
             (_Rimlight_InsideMask_var - ((1.0 - _VertHalfLambert_var) + _Tweak_LightDirection_MaskLevel)))),
         _LightDirection_MaskOn);
-    float _ApRimLightPower_var = pow(_RimArea_var, exp2(lerp(3, 0, _Ap_RimLight_Power)));
+    float _ApRimLightPower_var = pow(_RimArea_var, exp2ApRim);
     float3 Set_RimLight = (saturate((_Set_RimLightMask_var.g + _Tweak_RimLightMaskLevel)) * lerp(
         _LightDirection_MaskOn_var,
         (_LightDirection_MaskOn_var + (
