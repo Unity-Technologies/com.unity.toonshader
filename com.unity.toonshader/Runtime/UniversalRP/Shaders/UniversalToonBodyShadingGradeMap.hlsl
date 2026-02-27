@@ -514,7 +514,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 
         float lightIntensity = _LightIntensity;
         
-        float tweakShadows = additionalLight.shadowAttenuation;
+        float tweakShadows = TweakShadow(additionalLight.shadowAttenuation);
         
         float firstShadeColorStep = saturate(_1st_ShadeColor_Step + _StepOffset);
         float secondShadeColorStep = saturate(_2nd_ShadeColor_Step + _StepOffset);
