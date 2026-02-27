@@ -1205,7 +1205,7 @@ namespace UnityEditor.Rendering.Toon {
                 m_MaterialEditor.PropertiesChanged();
                 
                 foreach (Material m in mats) {
-                    m.UpdateProperties();
+                    ToonMaterialUtility.UpdateProperties(m);
                 }
             }
         } // End of OnGUI()
