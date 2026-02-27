@@ -237,7 +237,7 @@ UtsLight GetUrpMainUtsLight(float4 shadowCoord) {
 // Fills a light struct given a loop i index. This will convert the i
 // index to a perObjectLightIndex
 UtsLight GetAdditionalUtsLight(uint i, float3 positionWS) {
-    const float shadowMask = 1;
+    const half4 shadowMask = half4(1.0, 1.0, 1.0, 1.0);
     Light light = GetAdditionalLight(i, positionWS, shadowMask);
 
     UtsLight utsLight;
