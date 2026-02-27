@@ -40,10 +40,9 @@ void ToonShading(
     const float oneMinusHighPow5 = _HighlightRimlightMath.y;
     
     //Specular
-    //[TODO-sin: 2026-1-27] We can cache lerp and pow results here
+    //[TODO-sin: 2026-2-27] We only use one channel from highlightMaskTex ?
     float tweakHighColorMask = saturate(highlightMaskTex.g + _Tweak_HighColorMaskLevel) 
-    * lerp(1.0 - step(specular, oneMinusHighPow5),
-        pow(abs(specular), exp2High), _Is_SpecularToHighColor);
+        * lerp(1.0 - step(specular, oneMinusHighPow5), pow(abs(specular), exp2High), _Is_SpecularToHighColor);
 
     const float3 highColor = (lerp(highlightAlbedo, highlightAlbedo * lightColor, _Is_LightColor_HighColor) 
         * tweakHighColorMask);

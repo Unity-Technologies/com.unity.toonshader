@@ -45,10 +45,13 @@ void ToonShadingSG(
 
     float specular = 0.5 * dot(halfDirection, lerp(vertexNormalWS, perturbedNormalWS, _Is_NormalMapToHighColor)) + 0.5;
     
+    const float exp2High = _HighlightRimlightMath.x;
+    const float oneMinusHighPow5 = _HighlightRimlightMath.y;
+    
     // Specular
-    float tweakHighColorMask = (saturate((highlightMaskTex.g + _Tweak_HighColorMaskLevel)) * lerp(
-        (1.0 - step(specular, (1.0 - pow(abs(_HighColor_Power), 5)))),
-        pow(abs(specular), exp2(lerp(11, 1, _HighColor_Power))), _Is_SpecularToHighColor));
+    //[TODO-sin: 2026-2-27] We only use one channel from highlightMaskTex ?
+    float tweakHighColorMask = saturate(highlightMaskTex.g + _Tweak_HighColorMaskLevel) 
+        * lerp(1.0 - step(specular, oneMinusHighPow5),pow(abs(specular), exp2High), _Is_SpecularToHighColor);
 
     float3 highColor = (lerp(highlightAlbedo, highlightAlbedo * lightColor, _Is_LightColor_HighColor) 
         * tweakHighColorMask);
