@@ -205,7 +205,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     
     
     float lightIntensity = 1;
-    float tweakShadows = TweakShadow(shadowAttenuation);
+    const float shadowAtt = TweakShadow(shadowAttenuation);
     float baseColorStep = _BaseColor_Step;
     float shadeColorStep = _ShadeColor_Step;
     float specularBlendModeLerp = lerp(_Is_BlendAddToHiColor, 1.0, _Is_SpecularToHighColor);
@@ -215,7 +215,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     float Set_FinalShadowMask;
     ToonShading(
         firstShadePosTex, secondShadePosTex, highlightAlbedo, 
-        highlightMaskTex.rgb,lightColor.rgb, lightIntensity, tweakShadows, 
+        highlightMaskTex.rgb,lightColor.rgb, lightIntensity, shadowAtt, 
         baseAlbedo.rgb, firstShadeAlbedo.rgb, secondShadeAlbedo.rgb,
         baseColorStep, shadeColorStep,
         i.normalDir, normalDirection,lightDirection.xyz,viewDirection.xyz,
@@ -378,7 +378,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
                 Intensity(additionalLightColor),
                 notDirectional);
                     
-            float tweakShadows = TweakShadow(additionalLight.shadowAttenuation);
+            const float shadowAtt = TweakShadow(additionalLight.shadowAttenuation);
             
             float lightIntensity = _LightIntensity;
             float baseColorStep = saturate(_BaseColor_Step + _StepOffset);
@@ -389,7 +389,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
             float unused = 0;
             ToonShading(
                 firstShadePosTex, secondShadePosTex, highlightAlbedo, 
-                highlightMaskTex.rgb,lightColor.rgb, lightIntensity, tweakShadows, 
+                highlightMaskTex.rgb,lightColor.rgb, lightIntensity, shadowAtt, 
                 baseAlbedo.rgb, firstShadeAlbedo.rgb, secondShadeAlbedo.rgb,
                 baseColorStep, shadeColorStep,
                 i.normalDir, normalDirection,lightDirection.xyz,viewDirection.xyz,
@@ -434,7 +434,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
             
         float lightIntensity = _LightIntensity;
         
-        float tweakShadows = TweakShadow(additionalLight.shadowAttenuation);
+        const float shadowAtt = TweakShadow(additionalLight.shadowAttenuation);
         
         float baseColorStep = saturate(_BaseColor_Step + _StepOffset);
         float shadeColorStep = saturate(_ShadeColor_Step + _StepOffset);
@@ -444,7 +444,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
         float unused = 0;
         ToonShading(
             firstShadePosTex, secondShadePosTex, highlightAlbedo, 
-            highlightMaskTex.rgb,lightColor.rgb, lightIntensity, tweakShadows, 
+            highlightMaskTex.rgb,lightColor.rgb, lightIntensity, shadowAtt, 
             baseAlbedo.rgb, firstShadeAlbedo.rgb, secondShadeAlbedo.rgb,
             baseColorStep, shadeColorStep,
             i.normalDir, normalDirection,lightDirection.xyz,viewDirection.xyz,

@@ -216,7 +216,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     shadowAttenuation = saturate(shadowAttenuation);
 
     float lightIntensity = 1;
-    float tweakShadows = TweakShadow(shadowAttenuation);
+    const float shadowAtt = TweakShadow(shadowAttenuation);
     float firstShadeColorStep = _1st_ShadeColor_Step;
     float secondShadeColorStep = _2nd_ShadeColor_Step;
     float specularBlendModeLerp = lerp(_Is_BlendAddToHiColor, 1.0, _Is_SpecularToHighColor);
@@ -225,7 +225,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     float Set_FinalShadowMask;
     ToonShadingSG(
         highlightAlbedo, highlightMaskTex.rgb,
-        lightColor, lightIntensity, tweakShadows, 
+        lightColor, lightIntensity, shadowAtt, 
         baseAlbedo, firstShadeAlbedo, secondShadeAlbedo,
         firstShadeColorStep, secondShadeColorStep,
         i.normalDir, normalDirection, lightDirection, viewDirection,
@@ -457,7 +457,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
             
             float lightIntensity = _LightIntensity;
             
-            float tweakShadows = TweakShadow(additionalLight.shadowAttenuation);
+            const float shadowAtt = TweakShadow(additionalLight.shadowAttenuation);
             
             float firstShadeColorStep = saturate(_1st_ShadeColor_Step + _StepOffset);
             float secondShadeColorStep = saturate(_2nd_ShadeColor_Step + _StepOffset);
@@ -468,7 +468,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
             //[TODO-sin: 2026-2-6] We should normalize i.normalDir too here.
             ToonShadingSG(
                 highlightAlbedo, highlightMaskTex.rgb,
-                lightColor, lightIntensity, tweakShadows, 
+                lightColor, lightIntensity, shadowAtt, 
                 baseAlbedo, firstShadeAlbedo, secondShadeAlbedo,
                 firstShadeColorStep, secondShadeColorStep,
                 i.normalDir, normalDirection, lightDirection, viewDirection,
@@ -514,7 +514,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 
         float lightIntensity = _LightIntensity;
         
-        float tweakShadows = TweakShadow(additionalLight.shadowAttenuation);
+        const float shadowAtt = TweakShadow(additionalLight.shadowAttenuation);
         
         float firstShadeColorStep = saturate(_1st_ShadeColor_Step + _StepOffset);
         float secondShadeColorStep = saturate(_2nd_ShadeColor_Step + _StepOffset);
@@ -525,7 +525,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
         //[TODO-sin: 2026-2-6] We should normalize i.normalDir too here.
         ToonShadingSG(
             highlightAlbedo, highlightMaskTex.rgb,
-            lightColor, lightIntensity, tweakShadows, 
+            lightColor, lightIntensity, shadowAtt, 
             baseAlbedo, firstShadeAlbedo, secondShadeAlbedo,
             firstShadeColorStep, secondShadeColorStep,
             i.normalDir, normalDirection, lightDirection, viewDirection,
