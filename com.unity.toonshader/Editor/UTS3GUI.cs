@@ -1116,7 +1116,11 @@ namespace UnityEditor.Rendering.Toon {
 
         public override void OnGUI(MaterialEditor materialEditor, MaterialProperty[] props) {
             m_MaterialEditor = materialEditor;
-            Material material = materialEditor.target as Material;
+            
+            Material[] mats = ToonMaterialEditorUtility.ExtractMaterialTargets(materialEditor);
+            
+            //[TODO-sin: 2026-2-27] handle multiple materials
+            Material material = mats[0];
             EditorGUIUtility.fieldWidth = 0;
             if (m_FirstTimeApply) {
                 OnOpenGUI(material, materialEditor, props);
@@ -1199,6 +1203,10 @@ namespace UnityEditor.Rendering.Toon {
 
             if (EditorGUI.EndChangeCheck()) {
                 m_MaterialEditor.PropertiesChanged();
+                
+                foreach (Material m in mats) {
+                    m.UpdateProperties();
+                }
             }
         } // End of OnGUI()
 
