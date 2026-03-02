@@ -237,7 +237,8 @@ UtsLight GetUrpMainUtsLight(float4 shadowCoord) {
 // Fills a light struct given a loop i index. This will convert the i
 // index to a perObjectLightIndex
 UtsLight GetAdditionalUtsLight(uint i, float3 positionWS) {
-    Light light = GetAdditionalLight(i, positionWS);
+    const half4 shadowMask = half4(1.0, 1.0, 1.0, 1.0);
+    Light light = GetAdditionalLight(i, positionWS, shadowMask);
 
     UtsLight utsLight;
     utsLight.direction = light.direction;
@@ -271,6 +272,10 @@ float4 GetShadowCoordUTS(VertexOutput v)
 #else
     return TransformWorldToShadowCoord(v.posWorld);
 #endif
+}
+
+inline float TweakShadow(float shadow) {
+    return saturate(max((shadow * 0.5) + 0.5 + _Tweak_SystemShadowsLevel, 0.0001)); 
 }
 
 //----------------------------------------------------------------------------------------------------------------------
