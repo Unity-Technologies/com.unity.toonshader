@@ -1,0 +1,121 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UnityChan_Head_Clipping_3Das2D
+  m_Shader: {fileID: 4800000, guid: 60d646244f75ab84f8eb12819a6d87ff, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - TOON_OUTLINE_NORMAL
+  m_InvalidKeywords:
+  - _
+  - _OUTLINE_NML
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _1st_ShadeMap:
+        m_Texture: {fileID: 2800000, guid: cec083feb1104e9bb3e282339acfe384, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _2nd_ShadeMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HighlightTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 682e7dad2cf2429e8441474769ab30a7, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MaskTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OutlineTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OutlineWidthMap:
+        m_Texture: {fileID: 2800000, guid: 6d7e50a99f93487aa7444c0f14286af7, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Outline_CustomNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Outline_NormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints:
+    - _DirectionalLight_HighlightMode: 1
+    - _DirectionalLight_Use: 1
+    - _Directional_Use: 0
+    - _OutlineMode: 0
+    - _Outline_BlendBaseColor: 0
+    - _Outline_UseCustomNormalMap: 0
+    - _Outline_UseNormalMap: 0
+    - _Specular_UseDirectionalLight: 0
+    - _ToonMaterialVersion: 0
+    - _Use_1stAs2nd: 1
+    - _Use_BaseAs1st: 0
+    m_Floats:
+    - _1st2nd_Shades_Feather: 0.064
+    - _1stTo2nd_ShadeFeather: 0.064
+    - _1stTo2nd_ShadeStart: 0.722
+    - _2DLightStrength: 0.126
+    - _BaseColor_Step: 0.815
+    - _BaseShade_Feather: 0.13
+    - _BaseTo1st_ShadeFeather: 0.13
+    - _BaseTo1st_ShadeStart: 0.815
+    - _BumpScale: 1
+    - _DirectionalLight_2DLightFactor: 0
+    - _DirectionalLight_DiffuseFactor: 1
+    - _DirectionalLight_DiffuseStrength: 0.654
+    - _DirectionalLight_HighlightPower: 0.3
+    - _DirectionalLight_HighlightSize: 0.2
+    - _DirectionalLight_HighlightStrength: 0.5
+    - _DirectionalLight_Intensity: 1
+    - _DirectionalLight_SpecularFactor: 0
+    - _OutlineExtrusion: 0.02
+    - _OutlineFar: 100
+    - _OutlineNear: 0.5
+    - _OutlineOffsetZ: 0.75
+    - _OutlineWidth: 1
+    - _Outline_BaseColorBlend: 1
+    - _Outline_LightColorBlend: 1
+    - _ShadeColor_Step: 0.722
+    - _Specular_Intensity: 0
+    m_Colors:
+    - _1st_ShadeColor: {r: 1, g: 1, b: 1, a: 1}
+    - _2nd_ShadeColor: {r: 0.6691177, g: 0.47672933, b: 0.27059904, a: 1}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _DirectionalLight_Color: {r: 1, g: 1, b: 1, a: 1}
+    - _DirectionalLight_Direction: {r: 0.4187237, g: -0.5935661, b: 0.6872771, a: 0}
+    - _DirectionalLight_ViewPosition: {r: 0, g: 0.71, b: -1.85, a: 0}
+    - _HighlightColor: {r: 0.47058824, g: 0.47058824, b: 0.47058824, a: 1}
+    - _OutlineColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
+    - _Specular_Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Specular_LightDirection: {r: 0, g: -1, b: 0, a: 0}
+    - _White: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
