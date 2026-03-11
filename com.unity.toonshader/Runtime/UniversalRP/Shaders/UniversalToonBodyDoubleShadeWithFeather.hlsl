@@ -12,27 +12,25 @@ void ToonShading(
 )
 {
     const float3 halfDirection = normalize(viewDirection + lightDirection);
-    const float baseStepMinusFeather = baseColorStep - _BaseShade_Feather;
-    const float firstStepMinusFeather = shadeColorStep - _1st2nd_Shades_Feather;
     
 
     float3 Set_BaseColor = lerp((baseAlbedo * lightIntensity), (baseAlbedo * lightColor), _Is_LightColor_Base);
     float3 Set_1st_ShadeColor = lerp((firstShadeAlbedo * lightIntensity), (firstShadeAlbedo * lightColor), _Is_LightColor_1st_Shade);
     float3 Set_2nd_ShadeColor = lerp((secondShadeAlbedo * lightIntensity), (secondShadeAlbedo * lightColor), _Is_LightColor_2nd_Shade);
     
-    //[TODO-sin: 2026-1-27] We can cache the lerp result
-    float halfLambert = 0.5 * dot(lerp(vertexNormalWS, perturbedNormalWS, _Is_NormalMapToBase), lightDirection) + 0.5;
+    //only consider shadowAtt when it is valid (dotNL >= 0)
+    const float dotNL = dot( perturbedNormalWS, lightDirection);
+    const float dotNL_01 = 0.5 * dotNL + 0.5;
+    float shadowFactor = lerp(1,shadowAtt,saturate(dotNL));
+    
+    float3 finalColor = ThreeColorsLinearShading(Set_BaseColor, Set_1st_ShadeColor, Set_2nd_ShadeColor, 
+        baseColorStep, _BaseShade_Feather, shadeColorStep, 
+        _1st2nd_Shades_Feather, dotNL_01 * shadowFactor);
     
     //[TODO-sin: 2026-1-27] It looks like we only need one channel of firstShadePosTex
-    float Set_FinalShadowMask = saturate(
-        1.0 + (lerp(halfLambert, halfLambert * shadowAtt, _Set_SystemShadowsToBase)
-            - baseStepMinusFeather) * ((1.0 - firstShadePosTex.rgb).r - 1.0) / (baseColorStep - baseStepMinusFeather));
-    //
-    //Composition: 3 Basic Colors as Set_FinalBaseColor
-    float3 finalColor = lerp(Set_BaseColor, lerp(Set_1st_ShadeColor, Set_2nd_ShadeColor,
-        saturate(( 1.0 + (halfLambert - firstStepMinusFeather) * ((1.0 - secondShadePosTex.rgb).r - 1.0)
-              / (shadeColorStep - firstStepMinusFeather)))), Set_FinalShadowMask); 
+    float Set_FinalShadowMask = dotNL_01 * shadowFactor * firstShadePosTex.r;
 
+    //[TODO-sin: 2026-3-1] We can cache the lerp result
     float specular = 0.5 * dot(halfDirection, lerp(vertexNormalWS, perturbedNormalWS, _Is_NormalMapToHighColor)) + 0.5;
     
     //Specular
