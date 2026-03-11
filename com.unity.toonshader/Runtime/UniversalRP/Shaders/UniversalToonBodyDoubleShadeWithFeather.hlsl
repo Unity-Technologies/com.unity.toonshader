@@ -23,7 +23,12 @@ void ToonShading(
     const float dotNL_01 = 0.5 * dotNL + 0.5;
     float shadowFactor = lerp(1,shadowAtt,saturate(dotNL));
     
-    float3 finalColor = ThreeColorsLinearShading(Set_BaseColor, Set_1st_ShadeColor, Set_2nd_ShadeColor, 
+    
+    //shadePosTex. 0: use more-shaded, 1: otherwise
+    float3 baseColor = lerp(Set_BaseColor, Set_1st_ShadeColor,firstShadePosTex.r);  
+    float3 _1st_shadeColor = lerp(Set_1st_ShadeColor, Set_2nd_ShadeColor,secondShadePosTex.r);
+    
+    float3 finalColor = ThreeColorsLinearShading(baseColor, _1st_shadeColor, Set_2nd_ShadeColor, 
         baseColorStep, _BaseShade_Feather, shadeColorStep, 
         _1st2nd_Shades_Feather, dotNL_01 * shadowFactor);
     
