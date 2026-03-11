@@ -227,9 +227,9 @@ Shader "Toon/Toon 3D as 2D (URP)"{
                 
                 //perform 3 color linear shading with 2D colors and lights  
                 const float3 color2D = ThreeColorsLinearShading(
-                    (baseAlbedo * light2dMod + light2dAdd).rgb,
-                    (firstShadeAlbedo * light2dMod + light2dAdd).rgb,
-                    (secondShadeAlbedo * light2dMod + light2dAdd).rgb,
+                    (baseAlbedo * light2dMod.rgb + light2dAdd.rgb).rgb,
+                    (firstShadeAlbedo * light2dMod.rgb + light2dAdd.rgb).rgb,
+                    (secondShadeAlbedo * light2dMod.rgb + light2dAdd.rgb).rgb,
                     _BaseTo1st_ShadeStart, _BaseTo1st_ShadeFeather,
                     _1stTo2nd_ShadeStart, _1stTo2nd_ShadeFeather, light2dIntensity);
                 
@@ -282,7 +282,7 @@ Shader "Toon/Toon 3D as 2D (URP)"{
                 SurfaceData2D surfaceData;
   
                 const float3 normalWS = normalize(input.normalWS);
-                const float3 tangentWS = normalize(input.tangentWS);
+                const float3 tangentWS = normalize(input.tangentWS.xyz);
                 const float3 bitangentWS = normalize(cross(normalWS, tangentWS) * input.tangentWS.w);
 
                 const float alpha = main.a;
