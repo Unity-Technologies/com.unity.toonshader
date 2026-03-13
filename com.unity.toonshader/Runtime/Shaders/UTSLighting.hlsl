@@ -12,10 +12,10 @@ float3 ThreeColorsLinearShading(
     float3 baseColor,
     float3 firstColor,
     float3 secondColor,
-    float3  baseTo1stStart,     // t=0: use base, t=1: transition
-    float3  baseTo1stFeather,
-    float3  firstToSecondStart, //t=0: use base, t=1: transition
-    float3  firstToSecondFeather,
+    float  baseTo1stStart,     // t=0: use base, t=1: transition
+    float  baseTo1stFeather,
+    float  firstToSecondStart, //t=0: use base, t=1: transition
+    float  firstToSecondFeather,
     float  dotNL) // dot(N.L)
 {
     const float t = saturate(1 - dotNL); //t = 0: light, t=1: dark shaded
