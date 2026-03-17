@@ -50,7 +50,7 @@ internal class ToonMaterialUpgrader : EditorWindow {
                 }
             }
             else {
-                EditorGUILayout.LabelField("No applicable materials listed.");
+                EditorGUILayout.LabelField("No applicable materials found.");
             }
         }
     }
@@ -106,6 +106,13 @@ internal class ToonMaterialUpgrader : EditorWindow {
             if (!m_cachedToonShaders.Contains(matShader)) {
                 continue;
             }
+            
+            //check version
+            int matVersion = ToonMaterialEditorUtility.GetMaterialVersion(mat);
+            if (matVersion >= ToonEditorConstants.CUR_MATERIAL_VERSION) {
+                continue;
+            }
+            
             m_materials.Add(mat);
         }
     }
