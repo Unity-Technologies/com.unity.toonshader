@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using JetBrains.Annotations;
+using Unity.Properties;
 using Unity.Rendering.Toon;
 using UnityEngine;
 
@@ -70,6 +72,8 @@ internal class ToonMaterialUpgrader : EditorWindow {
         AssetDatabase.Refresh();
         Debug.Log("[UTS] Upgraded " + processedCount + " materials.");
     }
+    
+//----------------------------------------------------------------------------------------------------------------------    
     // Lists all applicable materials and stores them for display and upgrade
     private void ListApplicableMaterials() {
         m_materials.Clear();
@@ -77,8 +81,17 @@ internal class ToonMaterialUpgrader : EditorWindow {
         if (materialGuids == null || materialGuids.Length == 0) {
             return;
         }
-        HashSet<Shader> toonShaders = new HashSet<Shader>(FindToonShaders());
-        if (toonShaders.Count <= 0) {
+
+        if (null == m_cachedToonShaders || m_cachedToonShaders.Count <= 0) {
+            m_cachedToonShaders = FindToonShaders();
+        }
+
+        if (null == m_cachedToonShaders) {
+            Debug.Log("[UTS] Toon Shaders not detected");
+            return;
+        }
+        
+        if (m_cachedToonShaders.Count <= 0) {
             Debug.LogWarning("[UTS] No toon shaders detected.");
             return;
         }
@@ -90,7 +103,7 @@ internal class ToonMaterialUpgrader : EditorWindow {
                 continue;
             }
             Shader matShader = mat.shader;
-            if (!toonShaders.Contains(matShader)) {
+            if (!m_cachedToonShaders.Contains(matShader)) {
                 continue;
             }
             m_materials.Add(mat);
@@ -104,15 +117,14 @@ internal class ToonMaterialUpgrader : EditorWindow {
 
 //----------------------------------------------------------------------------------------------------------------------
 
+    [CanBeNull]
     private static List<Shader> FindToonShaders() {
         string[] shaderGuids = AssetDatabase.FindAssets("t:Shader", new string[] { PACKAGE_ROOT });
-
         if (shaderGuids == null || shaderGuids.Length == 0) {
-            return new List<Shader>();
+            return null;
         }
 
         List<Shader> shaders = new List<Shader>(shaderGuids.Length);
-
         for (int i = 0; i < shaderGuids.Length; i++) {
             string guid = shaderGuids[i];
             string path = AssetDatabase.GUIDToAssetPath(guid);
@@ -137,6 +149,9 @@ internal class ToonMaterialUpgrader : EditorWindow {
     private readonly List<Material> m_materials = new List<Material>();
     private Vector2 m_scrollPos = Vector2.zero;
 
+    // Cache for toon shaders
+    private List<Shader> m_cachedToonShaders = null;
+    
     
 //----------------------------------------------------------------------------------------------------------------------
     static readonly string PACKAGE_ROOT = $"Packages/{ToonConstants.PACKAGE_NAME}";
