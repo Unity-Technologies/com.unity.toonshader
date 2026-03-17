@@ -200,9 +200,20 @@ half3 MyCalculateBlinnPhong(Light light, InputData inputData, SurfaceData surfac
     half3 lightDiffuseColor = LightingLambert(attenuatedLightColor, light.direction, inputData.normalWS);
 
     float t = light.shadowAttenuation;
+
+//    return MainLightRealtimeShadow(shadowCoord, GetMainLightShadowParams(), GetMainLightShadowSamplingData());
+
+    ShadowSamplingData shadowSamplingData = GetMainLightShadowSamplingData();
+
+    float4 sm = SampleShadowmap(TEXTURE2D_ARGS(_MainLightShadowmapTexture, sampler_LinearClampCompare), 
+        inputData.shadowCoord, shadowSamplingData, GetMainLightShadowParams(), false);
     
+    return float3(sm.rgb);
+    return float3(t,t,t);
+    
+
     //return lightDiffuseColor;
-    //return float3(t,t,t);
+    //                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        return float3(t,t,t);
     
     half3 lightSpecularColor = half3(0,0,0);
     #if defined(_SPECGLOSSMAP) || defined(_SPECULAR_COLOR)
