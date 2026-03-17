@@ -20,8 +20,11 @@ internal class ToonMaterialUpgrader : EditorWindow {
         EditorGUILayout.Space();
 
         using (new EditorGUILayout.VerticalScope("box")) {
-            EditorGUILayout.LabelField("Upgrade Materials Using ToonShader", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField($"Upgrade ToonShader Materials to version " +
+                $"{ToonEditorConstants.CUR_MATERIAL_VERSION}", EditorStyles.boldLabel);
 
+            EditorGUILayout.LabelField($"(Compatible with " +
+                $"{ToonConstants.PACKAGE_NAME}@{ToonConstants.PACKAGE_VERSION_MAJOR_MINOR})", EditorStyles.boldLabel);
             EditorGUILayout.Space();
 
             if (GUILayout.Button("Upgrade Materials")) {
