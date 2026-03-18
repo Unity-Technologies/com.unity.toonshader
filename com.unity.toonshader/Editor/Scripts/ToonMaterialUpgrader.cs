@@ -124,7 +124,7 @@ internal class ToonMaterialUpgrader : EditorWindow {
 //----------------------------------------------------------------------------------------------------------------------
 
     [CanBeNull]
-    private static HashSet<Shader> FindToonShaders() {
+    private static ISet<Shader> FindToonShaders() {
         string[] shaderGuids = AssetDatabase.FindAssets("t:Shader", new string[] { PACKAGE_ROOT });
         if (shaderGuids == null || shaderGuids.Length == 0) {
             return null;
@@ -156,7 +156,7 @@ internal class ToonMaterialUpgrader : EditorWindow {
     private Vector2 m_scrollPos = Vector2.zero;
 
     // Cache for toon shaders
-    private HashSet<Shader> m_cachedToonShaders = null;
+    private ISet<Shader> m_cachedToonShaders = null;
     
     
 //----------------------------------------------------------------------------------------------------------------------
