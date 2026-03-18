@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
-using Unity.Properties;
 using Unity.Rendering.Toon;
 using UnityEngine;
 
@@ -125,13 +124,13 @@ internal class ToonMaterialUpgrader : EditorWindow {
 //----------------------------------------------------------------------------------------------------------------------
 
     [CanBeNull]
-    private static List<Shader> FindToonShaders() {
+    private static HashSet<Shader> FindToonShaders() {
         string[] shaderGuids = AssetDatabase.FindAssets("t:Shader", new string[] { PACKAGE_ROOT });
         if (shaderGuids == null || shaderGuids.Length == 0) {
             return null;
         }
 
-        List<Shader> shaders = new List<Shader>(shaderGuids.Length);
+        HashSet<Shader> shaders = new HashSet<Shader>(shaderGuids.Length);
         for (int i = 0; i < shaderGuids.Length; i++) {
             string guid = shaderGuids[i];
             string path = AssetDatabase.GUIDToAssetPath(guid);
@@ -157,7 +156,7 @@ internal class ToonMaterialUpgrader : EditorWindow {
     private Vector2 m_scrollPos = Vector2.zero;
 
     // Cache for toon shaders
-    private List<Shader> m_cachedToonShaders = null;
+    private HashSet<Shader> m_cachedToonShaders = null;
     
     
 //----------------------------------------------------------------------------------------------------------------------
