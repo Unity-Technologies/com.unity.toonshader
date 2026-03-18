@@ -85,15 +85,11 @@ internal class ToonMaterialUpgrader : EditorWindow {
             m_cachedToonShaders = FindToonShaders();
         }
 
-        if (null == m_cachedToonShaders) {
-            Debug.Log("[UTS] Toon Shaders not detected");
-            return;
-        }
-        
-        if (m_cachedToonShaders.Count <= 0) {
+        if (null == m_cachedToonShaders || m_cachedToonShaders.Count <= 0) {
             Debug.LogWarning("[UTS] No toon shaders detected.");
             return;
         }
+        
         for (int i = 0; i < materialGuids.Length; i++) {
             string guid = materialGuids[i];
             string path = AssetDatabase.GUIDToAssetPath(guid);
