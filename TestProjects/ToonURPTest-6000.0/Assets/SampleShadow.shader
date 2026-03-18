@@ -1,5 +1,5 @@
 // Shader targeted for low end devices. Single Pass Forward Rendering.
-Shader "Universal Render Pipeline/SampleShadow"
+Shader "Universal Render Pipeline/My Simple Lit"
 {
     // Keep properties of StandardSpecular shader for upgrade reasons.
     Properties
@@ -34,7 +34,6 @@ Shader "Universal Render Pipeline/SampleShadow"
         [HideInInspector] _BlendModePreserveSpecular("_BlendModePreserveSpecular", Float) = 1.0
         [HideInInspector] _AlphaToMask("__alphaToMask", Float) = 0.0
         [HideInInspector] _AddPrecomputedVelocity("_AddPrecomputedVelocity", Float) = 0.0
-        [HideInInspector] _XRMotionVectorsPass("_XRMotionVectorsPass", Float) = 1.0
 
         [ToggleUI] _ReceiveShadows("Receive Shadows", Float) = 1.0
         // Editmode props
@@ -106,12 +105,11 @@ Shader "Universal Render Pipeline/SampleShadow"
             #pragma multi_compile _ LIGHTMAP_SHADOW_MIXING
             #pragma multi_compile _ SHADOWS_SHADOWMASK
             #pragma multi_compile _ _LIGHT_LAYERS
-            #pragma multi_compile _ _CLUSTER_LIGHT_LOOP
+            #pragma multi_compile _ _FORWARD_PLUS
             #pragma multi_compile_fragment _ _ADDITIONAL_LIGHT_SHADOWS
             #pragma multi_compile_fragment _ _SHADOWS_SOFT
             #pragma multi_compile_fragment _ _SHADOWS_SOFT_LOW _SHADOWS_SOFT_MEDIUM _SHADOWS_SOFT_HIGH
             #pragma multi_compile_fragment _ _SCREEN_SPACE_OCCLUSION
-            #pragma multi_compile_fragment _ _SCREEN_SPACE_IRRADIANCE
             #pragma multi_compile_fragment _ _DBUFFER_MRT1 _DBUFFER_MRT2 _DBUFFER_MRT3
             #pragma multi_compile_fragment _ _LIGHT_COOKIES
             #include_with_pragmas "Packages/com.unity.render-pipelines.core/ShaderLibrary/FoveatedRenderingKeywords.hlsl"
@@ -122,10 +120,9 @@ Shader "Universal Render Pipeline/SampleShadow"
             // Unity defined keywords
             #pragma multi_compile _ DIRLIGHTMAP_COMBINED
             #pragma multi_compile _ LIGHTMAP_ON
-            #pragma multi_compile_fragment _ LIGHTMAP_BICUBIC_SAMPLING
-            #pragma multi_compile_fragment _ REFLECTION_PROBE_ROTATION
             #pragma multi_compile _ DYNAMICLIGHTMAP_ON
             #pragma multi_compile _ USE_LEGACY_LIGHTMAPS
+            #pragma multi_compile_fog
             #pragma multi_compile_fragment _ DEBUG_DISPLAY
             #pragma multi_compile _ LOD_FADE_CROSSFADE
 
@@ -148,6 +145,9 @@ Shader "Universal Render Pipeline/SampleShadow"
             void SampleShadowFragment(
                 Varyings input
                 , out half4 outColor : SV_Target0
+            #ifdef _WRITE_RENDERING_LAYERS
+                , out float4 outRenderingLayers : SV_Target1
+            #endif
             )
             {
                 UNITY_SETUP_INSTANCE_ID(input);
@@ -155,6 +155,10 @@ Shader "Universal Render Pipeline/SampleShadow"
 
                 SurfaceData surfaceData;
                 InitializeSimpleLitSurfaceData(input.uv, surfaceData);
+
+            #ifdef LOD_FADE_CROSSFADE
+                LODFadeCrossFade(input.positionCS);
+            #endif
 
                 InputData inputData;
                 InitializeInputData(input, surfaceData.normalTS, inputData);
@@ -165,7 +169,12 @@ Shader "Universal Render Pipeline/SampleShadow"
                 
                 outColor = sm;
 
-            }            
+            #ifdef _WRITE_RENDERING_LAYERS
+                uint renderingLayers = GetMeshRenderingLayer();
+                outRenderingLayers = float4(EncodeMeshRenderingLayer(renderingLayers), 0, 0, 0);
+            #endif
+            }
+            
             ENDHLSL
         }
 
@@ -215,6 +224,7 @@ Shader "Universal Render Pipeline/SampleShadow"
             #include "Packages/com.unity.render-pipelines.universal/Shaders/ShadowCasterPass.hlsl"
             ENDHLSL
         }
+
 
     }
 
