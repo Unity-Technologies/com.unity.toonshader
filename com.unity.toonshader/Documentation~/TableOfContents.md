@@ -25,5 +25,6 @@
 * [Material Converter](MaterialConverter.md)
 * [Samples](SampleInstallation.md)
 * [Feature Difference](FeatureModel_en.md)
+* [Troubleshooting and Tips](Troubleshooting.md)
 * [Known Issues](Known-issue.md)
 

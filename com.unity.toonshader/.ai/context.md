@@ -1,0 +1,38 @@
+# Unity Toon Shader - Context for AI Agents
+
+## Project Overview
+
+This is the **Unity Toon Shader (UTS)** package, a cel-shading/toon shading solution for Unity that supports multiple render pipelines (Built-in, URP, and HDRP).
+
+## Documentation Structure
+
+All documentation is located in the `Documentation~` folder. Key documentation files include:
+
+- **[Basic.md](Documentation~/Basic.md)**: Core concepts including Three Color Maps and Shadow Control Maps
+- **[ShadingStepAndFeather.md](Documentation~/ShadingStepAndFeather.md)**: Detailed shading controls and system shadow integration
+- **[Troubleshooting.md](Documentation~/Troubleshooting.md)**: Common issues, workarounds, and tips
+- **[Known-issue.md](Documentation~/Known-issue.md)**: Known issues and limitations
+- **[TableOfContents.md](Documentation~/TableOfContents.md)**: Full documentation index
+
+## Common Shadow-Related Issues
+
+### Shadow Acne Problem
+When shadows are enabled from lighting, shadow acne may appear where shadowed areas appear bright instead of properly darkened according to 1st/2nd shading map settings.
+
+**Solution (URP)**: Use rendering layers/shadow layers to control shadow casting, or adjust shadow bias settings on lights.
+
+## Key Concepts
+
+- **Three Color System**: Base Color, 1st Shading (shadow), 2nd Shading (deeper shadow)
+- **Shadow Control Maps**: Artist-driven control over where shading appears, independent of lighting
+- **System Shadows**: Unity's built-in shadow system that can be blended with stylized shading
+- **Shading Step and Feather**: Controls for adjusting the transition between light and shadow areas
+
+## Render Pipeline Support
+
+The shader supports three render pipelines with slight differences in features:
+- Built-in Render Pipeline
+- Universal Render Pipeline (URP)
+- High Definition Render Pipeline (HDRP)
+
+HDRP has additional features like Box Light support and Toon EV Adjustment.
