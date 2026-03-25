@@ -6,13 +6,13 @@ This is the **Unity Toon Shader (UTS)** package, a cel-shading/toon shading solu
 
 ## Documentation Structure
 
-All documentation is located in the `Documentation~` folder. Key documentation files include:
+All documentation is located in the `com.unity.toonshader/Documentation~` folder. Key documentation files include:
 
-- **[Basic.md](Documentation~/Basic.md)**: Core concepts including Three Color Maps and Shadow Control Maps
-- **[ShadingStepAndFeather.md](Documentation~/ShadingStepAndFeather.md)**: Detailed shading controls and system shadow integration
-- **[Troubleshooting.md](Documentation~/Troubleshooting.md)**: Common issues, workarounds, and tips
-- **[Known-issue.md](Documentation~/Known-issue.md)**: Known issues and limitations
-- **[TableOfContents.md](Documentation~/TableOfContents.md)**: Full documentation index
+- **[Basic.md](com.unity.toonshader/Documentation~/Basic.md)**: Core concepts including Three Color Maps and Shadow Control Maps
+- **[ShadingStepAndFeather.md](com.unity.toonshader/Documentation~/ShadingStepAndFeather.md)**: Detailed shading controls and system shadow integration
+- **[Troubleshooting.md](com.unity.toonshader/Documentation~/Troubleshooting.md)**: Common issues, workarounds, and tips
+- **[Known-issue.md](com.unity.toonshader/Documentation~/Known-issue.md)**: Known issues and limitations
+- **[TableOfContents.md](com.unity.toonshader/Documentation~/TableOfContents.md)**: Full documentation index
 
 ## Common Shadow-Related Issues
 
