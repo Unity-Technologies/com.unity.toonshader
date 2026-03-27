@@ -14,6 +14,26 @@ To work around shadow acne issues in URP:
 
 1. **Use Rendering Layers / Shadow Layers**: Configure rendering layers on your lights and objects to control which objects cast shadows on which surfaces. This gives you fine-grained control over shadow casting and can help eliminate unwanted shadow artifacts.
 
+   **Step-by-step setup for Rendering Layers with Custom Shadow Layers:**
+
+   a. **Enable Rendering Layers in URP Asset**:
+      - Select your URP Asset
+      - Enable **Rendering Layers** with **Custom Shadow Layers**
+      - For more information, see [Unity's Rendering Layers documentation](https://docs.unity3d.com/Manual/urp/features/rendering-layers-lights.html)
+
+   b. **Set up the scene**:
+      - Add a **Plane** GameObject as the floor
+      - Add a **Sphere** with a Toon material. Set its **Rendering Layer Mask** to **"Default"**
+      - Add another **Sphere** with a Toon material. Set its **Rendering Layer Mask** to **"Default"** and **"Light Layer 1"**
+      - Add a **Plane** GameObject above the spheres that will cast shadows. Set its **Rendering Layer Mask** to **"Default"** and **"Light Layer 1"**
+
+   c. **Configure the Light**:
+      - Select your Light (typically a Directional Light)
+      - Set the light to render to both layers: **"Default"** and **"Light Layer 1"**
+      - Set the light to **only cast shadows on "Light Layer 1"**
+
+   This configuration allows you to control which objects receive shadows while all objects remain lit, helping to eliminate shadow acne on specific objects.
+
 2. **Adjust Shadow Bias Settings**: In your light component, try adjusting the **Depth Bias** and **Normal Bias** values. Small increases can help eliminate shadow acne without disconnecting shadows entirely.
 
 3. **Shadow Resolution**: Increase the shadow resolution in your URP Asset settings (**Main Light Shadow Resolution** or **Additional Lights Shadow Resolution**) to reduce pixelation artifacts.

@@ -19,7 +19,11 @@ All documentation is located in the `com.unity.toonshader/Documentation~` folder
 ### Shadow Acne Problem
 When shadows are enabled from lighting, shadow acne may appear where shadowed areas appear bright instead of properly darkened according to 1st/2nd shading map settings.
 
-**Solution (URP)**: Use rendering layers/shadow layers to control shadow casting, or adjust shadow bias settings on lights.
+**Solution (URP)**: Use rendering layers with custom shadow layers to selectively control which objects receive shadows. The setup involves:
+- Enabling Rendering Layers with Custom Shadow Layers in the URP asset
+- Setting up objects with different rendering layer masks (e.g., "Default" vs "Default + Light Layer 1")
+- Configuring lights to render to multiple layers but only cast shadows on specific layers
+- See [Troubleshooting.md](com.unity.toonshader/Documentation~/Troubleshooting.md) for detailed step-by-step instructions
 
 ## Key Concepts
 
