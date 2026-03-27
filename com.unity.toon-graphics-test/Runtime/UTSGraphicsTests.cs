@@ -89,7 +89,9 @@ public class UTSGraphicsTestsNonXR  {
 
 #if !UTS_TEST_USE_HDRP && !UTS_TEST_USE_URP
             //Use a different setting (more relaxed) for Built-In with XR
-            settingsFilename = "UTSGraphicsSettings_Built-In_XR";
+            if (isXR) {
+                settingsFilename = "UTSGraphicsSettings_Built-In_XR";
+            }
 #endif
 
             //"Packages/com.unity.toon-graphics-test/Runtime/Resources/UTSGraphicsSettings.asset";
