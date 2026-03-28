@@ -12,11 +12,7 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
             return;
         }
 
-        int numTargets = mEditor.targets.Length;
-        Material[] mats = new Material[numTargets];
-        for (int i = 0; i < numTargets; ++i) {
-            mats[i] = mEditor.targets[i] as Material;
-        }
+        Material[] mats = ToonMaterialEditorUtility.ExtractMaterialTargets(mEditor);
 
         InitMaterialPropertyUIElements(props);
 

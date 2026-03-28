@@ -13,11 +13,11 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _EMISSIVE_SIMPLE
-  - _IS_ANGELRING_OFF
   - _IS_CLIPPING_MODE
   - _IS_OUTLINE_CLIPPING_YES
   - _OUTLINE_NML
-  m_InvalidKeywords: []
+  m_InvalidKeywords:
+  - _IS_ANGELRING_OFF
   m_LightmapFlags: 5
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -474,6 +474,7 @@ Material:
     - _FirstShadeMaskColor: {r: 0, g: 1, b: 1, a: 1}
     - _HighColor: {r: 0.9852941, g: 0.7157873, b: 0.3115268, a: 1}
     - _HighlightMaskColor: {r: 1, g: 1, b: 0, a: 1}
+    - _HighlightRimlightMath: {r: 68.5935, g: 0.97175246, b: 2.109645, a: 6.498019}
     - _InvPrimScale: {r: 1, g: 1, b: 0, a: 0}
     - _IridescenceThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
     - _MatCapColor: {r: 0.30147058, g: 0.30147058, b: 0.30147058, a: 1}

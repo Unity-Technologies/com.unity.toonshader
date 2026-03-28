@@ -825,8 +825,8 @@ namespace UnityEditor.Rendering.Toon {
                 propName: "_StepOffset", defaultValue: 0, min: -0.5f, max: 0.5f);
 
             public static readonly RangeProperty shaderPropHilightPowerText = new RangeProperty(
-                label: "Highlight Power", tooltip: "Highlight power factor, pow(x,5) is used inside the shader.",
-                propName: "_HighColor_Power", defaultValue: 0, min: 0, max: 1);
+                label: "Highlight Power", tooltip: "Highlight power factor.",
+                propName: ToonConstants.SHADER_PROP_HIGHLIGHT_POWER, defaultValue: 0, min: 0, max: 1);
 
             public static readonly RangeProperty hilightMaskLevelText = new RangeProperty(
                 label: "Highlight Mask Level", tooltip: "Highlight mask texture blending level to highlights.",
@@ -889,11 +889,11 @@ namespace UnityEditor.Rendering.Toon {
 
             public static readonly RangeProperty rimLightPowerText = new RangeProperty(
                 label: "Rim Light Level", tooltip: "Specifies Rim Light Intensity.",
-                propName: "_RimLight_Power", defaultValue: 0.1f, min: 0, max: 1);
+                propName: ToonConstants.SHADER_PROP_RIMLIGHT_POWER, defaultValue: 0.1f, min: 0, max: 1);
 
             public static readonly RangeProperty invertedRimLightPowerText = new RangeProperty(
                 label: "Inverted Rim Light Level", tooltip: "Specifies Inverted/Antipodean Rim Light Level.",
-                propName: "_Ap_RimLight_Power", defaultValue: 0.1f, min: 0, max: 1);
+                propName: ToonConstants.SHADER_PROP_AP_RIMLIGHT_POWER, defaultValue: 0.1f, min: 0, max: 1);
 
             public static readonly RangeProperty giIntensityText = new RangeProperty(
                 label: "Light Probe Intensity", tooltip: "The light probe color is added to the material color according to the GI Intensity value.",
@@ -1116,7 +1116,11 @@ namespace UnityEditor.Rendering.Toon {
 
         public override void OnGUI(MaterialEditor materialEditor, MaterialProperty[] props) {
             m_MaterialEditor = materialEditor;
-            Material material = materialEditor.target as Material;
+            
+            Material[] mats = ToonMaterialEditorUtility.ExtractMaterialTargets(materialEditor);
+            
+            //[TODO-sin: 2026-2-27] handle multiple materials
+            Material material = mats[0];
             EditorGUIUtility.fieldWidth = 0;
             if (m_FirstTimeApply) {
                 OnOpenGUI(material, materialEditor, props);
@@ -1199,6 +1203,10 @@ namespace UnityEditor.Rendering.Toon {
 
             if (EditorGUI.EndChangeCheck()) {
                 m_MaterialEditor.PropertiesChanged();
+                
+                foreach (Material m in mats) {
+                    ToonMaterialUtility.UpdateProperties(m);
+                }
             }
         } // End of OnGUI()
 

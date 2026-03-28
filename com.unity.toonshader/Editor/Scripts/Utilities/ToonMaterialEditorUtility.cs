@@ -22,6 +22,17 @@ internal static class ToonMaterialEditorUtility {
         }
         return curVersion;
     }
-    
+
+//----------------------------------------------------------------------------------------------------------------------    
+    internal static Material[] ExtractMaterialTargets(MaterialEditor mEditor) {
+        int numTargets = mEditor.targets.Length;
+        Material[] mats = new Material[numTargets];
+        for (int i = 0; i < numTargets; ++i) {
+            mats[i] = mEditor.targets[i] as Material;
+        }
+
+        return mats;
+    }
+
 }
 }

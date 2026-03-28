@@ -474,6 +474,7 @@ Material:
     - _FirstShadeMaskColor: {r: 0, g: 1, b: 1, a: 1}
     - _HighColor: {r: 0.14901961, g: 0.9254902, b: 0.21568628, a: 1}
     - _HighlightMaskColor: {r: 1, g: 1, b: 0, a: 1}
+    - _HighlightRimlightMath: {r: 64, g: 0.96875, b: 6.498019, a: 6.498019}
     - _InvPrimScale: {r: 1, g: 1, b: 0, a: 0}
     - _IridescenceThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
     - _MatCapColor: {r: 1, g: 0.64705884, b: 0.9026369, a: 1}

@@ -133,6 +133,8 @@ Shader "Toon/Toon" {
         _Set_RimLightMask ("Set_RimLightMask", 2D) = "white" {}
         _Tweak_RimLightMaskLevel ("Tweak_RimLightMaskLevel", Range(-1, 1)) = 0
 
+        _HighlightRimlightMath ("Highlight Rimlight Math params", Vector) = (0,0,0,0)
+        
         // MatCap Properties
         [Toggle(_)] _MatCap ("MatCap", Float ) = 0
         _MatCap_Sampler ("MatCap_Sampler", 2D) = "black" {}

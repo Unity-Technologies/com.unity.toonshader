@@ -63,7 +63,17 @@ internal static class ToonConstants {
 
     //Highlight
     internal const string SHADER_PROP_HIGHLIGHT_COLOR = "_HighlightColor";
-    internal const string SHADER_PROP_HIGHLIGHT_TEX = "_HighlightTex";
+    internal const string SHADER_PROP_HIGHLIGHT_TEX   = "_HighlightTex";
+    internal const string SHADER_PROP_HIGHLIGHT_POWER = "_HighColor_Power";
+    internal static readonly int SHADER_PROP_HIGHLIGHT_POWER_ID = Shader.PropertyToID(SHADER_PROP_HIGHLIGHT_POWER);
+    internal const string SHADER_PROP_RIMLIGHT_POWER = "_RimLight_Power";
+    internal static readonly int SHADER_PROP_RIMLIGHT_POWER_ID = Shader.PropertyToID(SHADER_PROP_RIMLIGHT_POWER);
+    internal const string SHADER_PROP_AP_RIMLIGHT_POWER = "_Ap_RimLight_Power";
+    internal static readonly int SHADER_PROP_AP_RIMLIGHT_POWER_ID = Shader.PropertyToID(SHADER_PROP_AP_RIMLIGHT_POWER);
+    
+    internal static readonly int SHADER_PROP_HIGHLIGHT_RIM_MATH_ID = Shader.PropertyToID("_HighlightRimlightMath");
+    
+    
 
     //Outline
     internal const string SHADER_PROP_OUTLINE_MODE = "_OutlineMode";

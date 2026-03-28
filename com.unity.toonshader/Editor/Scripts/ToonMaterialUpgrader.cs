@@ -115,6 +115,9 @@ internal class ToonMaterialUpgrader : EditorWindow {
 //----------------------------------------------------------------------------------------------------------------------
     private void UpgradeMaterial(Material m) {
         ToonMaterialEditorUtility.ApplyRenderPipelineKeyword(m);
+        
+        //[TODO-sin] Need to check version ?
+        ToonMaterialUtility.UpdateProperties(m);
     }
 
 //----------------------------------------------------------------------------------------------------------------------
