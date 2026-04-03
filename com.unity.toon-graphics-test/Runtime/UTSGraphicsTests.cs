@@ -85,13 +85,14 @@ public class UTSGraphicsTestsNonXR  {
 
             Camera mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
 
-#if UTS_TEST_USE_HDRP || UTS_TEST_USE_URP
-            string settingsFilename = "UTSGraphicsSettings_SRP";
+#if UTS_TEST_USE_URP
+            string settingsFilename = "UTSGraphicsSettings_URP";
+#elif UTS_TEST_USE_HDRP
+            string settingsFilename = "UTSGraphicsSettings_HDRP";
 #else                
             string settingsFilename = "UTSGraphicsSettings_Built-In";
 #endif
-            
-            //Use a different setting (more relaxed) for Built-In with XR
+           
             if (isXR) {
                 settingsFilename += "_XR";
             }
