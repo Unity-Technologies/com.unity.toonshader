@@ -85,15 +85,15 @@ public class UTSGraphicsTestsNonXR  {
 
             Camera mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
 
-            string settingsFilename = "UTSGraphicsSettings";
-
+#if UTS_TEST_USE_HDRP || UTS_TEST_USE_URP
+            string settingsFilename = "UTSGraphicsSettings_SRP";
+#else                
+            string settingsFilename = "UTSGraphicsSettings_Built-In";
+#endif
+            
             //Use a different setting (more relaxed) for Built-In with XR
             if (isXR) {
-#if UTS_TEST_USE_HDRP || UTS_TEST_USE_URP
-                settingsFilename = "UTSGraphicsSettings_SRP_XR";
-#else                
-                settingsFilename = "UTSGraphicsSettings_Built-In_XR";
-#endif
+                settingsFilename += "_XR";
             }
 
             //"Packages/com.unity.toon-graphics-test/Runtime/Resources/UTSGraphicsSettings.asset";
