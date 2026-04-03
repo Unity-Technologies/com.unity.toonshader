@@ -17,7 +17,7 @@ MonoBehaviour:
     TargetWidth: 1920
     TargetHeight: 1080
     TargetMSAASamples: 1
-    PerPixelCorrectnessThreshold: 0.0015
+    PerPixelCorrectnessThreshold: 0.001
     PerPixelGammaThreshold: 0.003921569
     PerPixelAlphaThreshold: 0.003921569
     RMSEThreshold: 0
