@@ -15,46 +15,42 @@ noise.
 
 There are several approaches to address shadow acne in URP:
 
-#### Option 1: Use Rendering Layers with Custom Shadow Layers
+1. **Use Rendering Layers with Custom Shadow Layers**: This method gives you fine-grained control over which objects
+   cast shadows on which surfaces, helping eliminate unwanted shadow artifacts while keeping all objects properly lit.
 
-This method gives you fine-grained control over which objects cast shadows on which surfaces, helping eliminate
-unwanted shadow artifacts while keeping all objects properly lit.
+   ![Rendering Layers setup showing layer configuration in URP](images/TroubleShooting_Shadow_URPLayers.png)
 
-![Rendering Layers setup showing layer configuration in URP](images/TroubleShooting_Shadow_URPLayers.png)
+   This is an example of a step-by-step setup:
 
-**Step-by-step setup:**
+   a. **Enable Rendering Layers in URP Asset**:
+      - Select your URP Asset
+      - Enable [**Rendering Layers**](https://docs.unity3d.com/Manual/urp/features/rendering-layers-lights.html) with
+        **Custom Shadow Layers**
 
-a. **Enable Rendering Layers in URP Asset**:
-   - Select your URP Asset
-   - Enable [**Rendering Layers**](https://docs.unity3d.com/Manual/urp/features/rendering-layers-lights.html) with
-     **Custom Shadow Layers**
+   b. **Set up the scene**:
+      - Add a **Plane** GameObject as the floor
+      - Add a **Sphere** with a Toon material. Set its **Rendering Layer Mask** to **"Default"**
+      - Add another **Sphere** with a Toon material. Set its **Rendering Layer Mask** to **"Default"** and
+        **"Light Layer 1"**
+      - Add a **Plane** GameObject above the spheres that will cast shadows. Set its **Rendering Layer Mask** to
+        **"Default"** and **"Light Layer 1"**
 
-b. **Set up the scene**:
-   - Add a **Plane** GameObject as the floor
-   - Add a **Sphere** with a Toon material. Set its **Rendering Layer Mask** to **"Default"**
-   - Add another **Sphere** with a Toon material. Set its **Rendering Layer Mask** to **"Default"** and
-     **"Light Layer 1"**
-   - Add a **Plane** GameObject above the spheres that will cast shadows. Set its **Rendering Layer Mask** to
-     **"Default"** and **"Light Layer 1"**
+   c. **Configure the Light**:
+      - Select your Light (typically a Directional Light)
+      - Set the light to render to both layers: **"Default"** and **"Light Layer 1"**
+      - Set the light to **only cast shadows on "Light Layer 1"**
 
-c. **Configure the Light**:
-   - Select your Light (typically a Directional Light)
-   - Set the light to render to both layers: **"Default"** and **"Light Layer 1"**
-   - Set the light to **only cast shadows on "Light Layer 1"**
+   This configuration allows you to control which objects receive shadows while all objects remain lit, helping
+   eliminate shadow acne on specific objects.
 
-This configuration allows you to control which objects receive shadows while all objects remain lit, helping
-eliminate shadow acne on specific objects.
+   For more information, refer to the
+   [Universal Render Pipeline documentation](https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@latest).
 
-For more information, refer to the
-[Universal Render Pipeline documentation](https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@latest).
+2. **Adjust Shadow Settings**: If rendering layers are not suitable for your project, you can:
 
-#### Option 2: Adjust Shadow Settings
-
-If rendering layers are not suitable for your project, you can:
-
-- Disable [Receive shadows](ShadingStepAndFeather.md#receive-shadows) entirely on affected materials
-- Adjust the **System Shadow Level** parameter to reduce the intensity of system shadows
-- Increase the **Depth Bias** and **Normal Bias** values on your light component (small adjustments can help)
-- Increase shadow resolution in your URP Asset (**Main Light Shadow Resolution** or **Additional Lights Shadow
-  Resolution**)
+   - Disable [Receive shadows](ShadingStepAndFeather.md#receive-shadows) entirely on affected materials
+   - Adjust the **System Shadow Level** parameter to reduce the intensity of system shadows
+   - Increase the **Depth Bias** and **Normal Bias** values on your light component (small adjustments can help)
+   - Increase shadow resolution in your URP Asset (**Main Light Shadow Resolution** or **Additional Lights Shadow
+     Resolution**)
 
