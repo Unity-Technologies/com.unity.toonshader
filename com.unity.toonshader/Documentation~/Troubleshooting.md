@@ -2,19 +2,18 @@
 
 This page contains common issues, workarounds, and tips for using **Unity Toon Shader** effectively.
 
-## Shadow Acne and Bright Shadow Areas
-
-### Issue
+## Shadow Acne
 
 When [Receive shadows](ShadingStepAndFeather.md#receive-shadows) is enabled, you may observe **shadow acne** -
-areas within shadows that appear bright or not black according to the settings of the 1st Shading Map or 2nd Shading
-Map, rather than being properly darkened.
+areas within shadows that appear noisy. 
+This is due to self-shadowing artifacts where the shader's shadow calculations interact with the geometry of the model, 
+causing small discrepancies in depth that result in visible noise.
 
-[](images/Troubleshooting_ShadowAcne.png)
+![](images/Troubleshooting_ShadowAcne.png)
 
 ### Workaround for Universal Render Pipeline (URP)
 
-[](images/Troubleshooting_Shadow_URPLayers.png)
+![](images/Troubleshooting_Shadow_URPLayers.png)
 
 To work around shadow acne issues in URP, we can 
 
@@ -22,13 +21,12 @@ To work around shadow acne issues in URP, we can
    objects cast shadows on which surfaces. This gives you fine-grained control over shadow casting and can help
    eliminate unwanted shadow artifacts.
 
-   **Step-by-step setup for Rendering Layers with Custom Shadow Layers:**
+   This is an example of a step-by-step setup using ** Rendering Layers / Shadow Layers**:
 
    a. **Enable Rendering Layers in URP Asset**:
       - Select your URP Asset
-      - Enable **Rendering Layers** with **Custom Shadow Layers**
-      - For more information, see [Unity's Rendering Layers documentation]
-        (https://docs.unity3d.com/Manual/urp/features/rendering-layers-lights.html)
+      - Enable [**Rendering Layers**]((https://docs.unity3d.com/Manual/urp/features/rendering-layers-lights.html)) 
+        with **Custom Shadow Layers**
 
    b. **Set up the scene**:
       - Add a **Plane** GameObject as the floor
