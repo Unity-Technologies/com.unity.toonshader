@@ -58,19 +58,3 @@ If rendering layers are not suitable for your project, you can:
 - Increase shadow resolution in your URP Asset (**Main Light Shadow Resolution** or **Additional Lights Shadow
   Resolution**)
 
-## Additional Tips
-
-### Shadow Control Maps
-
-When experiencing unexpected shadow behavior, review your [Shadow Control Maps](Basic.md#shadow-control-maps):
-- **1st Shading Position Map**: Controls where the first shade appears
-- **2nd Shading Position Map**: Controls where the second shade appears
-
-These maps give you artistic control over shadow placement independent of lighting calculations.
-
-### System Shadow Interaction
-
-The shader's [Shading Step and Feather](ShadingStepAndFeather.md) settings control how Unity's system shadows
-interact with the stylized shading. Adjust the **System Shadow Level** parameter to control the intensity of system
-shadows on your material.
-
