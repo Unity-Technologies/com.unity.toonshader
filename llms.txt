@@ -1,0 +1,35 @@
+# Unity Toon Shader
+
+> A cel-shading/toon shading solution for Unity supporting multiple render pipelines (Built-in, URP, and HDRP). Features a three-color system with artist-driven Shadow Control Maps and stylized lighting controls.
+
+This package provides professional toon/cel-shading capabilities for Unity projects. The shader system uses a three-color approach (Base Color, 1st Shading, 2nd Shading) with Shadow Control Maps for artist-driven control over where shading appears, independent of lighting direction. The system can blend Unity's built-in shadows with stylized shading using the Shading Step and Feather controls.
+
+## Documentation
+
+All documentation is located in the `com.unity.toonshader/Documentation~` folder.
+
+- [Basic.md](com.unity.toonshader/Documentation~/Basic.md): Core concepts including Three Color Maps and Shadow Control Maps
+- [ShadingStepAndFeather.md](com.unity.toonshader/Documentation~/ShadingStepAndFeather.md): Detailed shading controls and system shadow integration, including the "Receive Shadows" feature
+- [Troubleshooting.md](com.unity.toonshader/Documentation~/Troubleshooting.md): Common issues, workarounds, and tips including shadow acne solutions
+- [Known-issue.md](com.unity.toonshader/Documentation~/Known-issue.md): Known issues and limitations across different render pipelines
+- [TableOfContents.md](com.unity.toonshader/Documentation~/TableOfContents.md): Full documentation index
+
+## Key Features
+
+- **Three Color System**: Base Color, 1st Shading (shadow), and 2nd Shading (deeper shadow) for stylized lighting
+- **Shadow Control Maps**: Artist-driven texture maps that control where shading appears, independent of scene lighting
+- **System Shadow Integration**: Blend Unity's built-in shadow system with stylized shading using "Receive Shadows" and "System Shadow Level" controls
+- **Shading Step and Feather**: Precise controls for adjusting transition boundaries between light and shadow areas
+- **Multiple Render Pipeline Support**: Works with Built-in Render Pipeline, Universal Render Pipeline (URP), and High Definition Render Pipeline (HDRP)
+
+## Common Issues
+
+### Shadow Acne in URP
+
+When shadows are enabled from lighting, shadow acne may appear where shadowed areas appear bright instead of properly darkened according to shading map settings.
+
+**Solution**: Use rendering layers with custom shadow layers to selectively control which objects receive shadows. This involves enabling Rendering Layers with Custom Shadow Layers in the URP asset, setting up objects with different rendering layer masks, and configuring lights to cast shadows only on specific layers. See [Troubleshooting.md](com.unity.toonshader/Documentation~/Troubleshooting.md) for detailed instructions.
+
+## Optional
+
+- **HDRP Features**: HDRP includes additional capabilities like Box Light support and Toon EV Adjustment that are not available in other render pipelines
