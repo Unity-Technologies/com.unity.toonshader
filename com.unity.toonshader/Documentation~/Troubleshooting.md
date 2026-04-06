@@ -6,7 +6,9 @@ This page contains common issues, workarounds, and tips for using **Unity Toon S
 
 ### Issue
 
-When enabling shadows from lighting, you may observe **shadow acne** - areas within shadows that appear bright or not black according to the settings of the 1st Shading Map or 2nd Shading Map, rather than being properly darkened.
+When "Receive shadows" is enabled, you may observe **shadow acne** - areas within shadows that 
+appear bright or not black according to the settings of the 1st Shading Map or 2nd Shading Map, 
+rather than being properly darkened.
 
 ### Workaround for Universal Render Pipeline (URP)
 
