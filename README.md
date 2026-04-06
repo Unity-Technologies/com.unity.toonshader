@@ -71,6 +71,7 @@ Please review the [feature differences](com.unity.toonshader/Documentation~/Feat
 * [Material Converter](com.unity.toonshader/Documentation~/MaterialConverter.md)
 * [Samples](com.unity.toonshader/Documentation~/SampleInstallation.md)
 * [Feature Difference](com.unity.toonshader/Documentation~/FeatureModel_en.md)
+* [Troubleshooting and Tips](com.unity.toonshader/Documentation~/Troubleshooting.md)
 * [Known Issues](com.unity.toonshader/Documentation~/Known-issue.md)
 
 
@@ -113,4 +114,4 @@ git config --global core.symlinks true
 
 
 
-*Auto-generated on Thu Dec 25 09:14:38 UTC 2025*
+*Auto-generated on Mon Apr  6 13:20:41 UTC 2026*
