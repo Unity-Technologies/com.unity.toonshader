@@ -11,7 +11,7 @@ noise.
 
 ![Example of shadow acne appearing as noisy artifacts in shadowed areas](images/TroubleShooting_ShadowAcne.png)
 
-### Solutions for Universal Render Pipeline (URP)
+### Workarounds for Universal Render Pipeline (URP)
 
 There are several approaches to address shadow acne in URP:
 
@@ -28,17 +28,17 @@ There are several approaches to address shadow acne in URP:
         **Custom Shadow Layers**
 
    b. **Set up the scene**:
-      - Add a **Plane** GameObject as the floor
-      - Add a **Sphere** with a Toon material. Set its **Rendering Layer Mask** to **"Default"**
-      - Add another **Sphere** with a Toon material. Set its **Rendering Layer Mask** to **"Default"** and
-        **"Light Layer 1"**
-      - Add a **Plane** GameObject above the spheres that will cast shadows. Set its **Rendering Layer Mask** to
-        **"Default"** and **"Light Layer 1"**
+      - Add a plane GameObject as the floor
+      - Add a sphere with a Toon material. Set its **Rendering Layer Mask** to "Default"
+      - Add another sphere with a Toon material. Set its **Rendering Layer Mask** to "Default" and
+        "Light Layer 1"
+      - Add a plane GameObject above the spheres that will cast shadows. Set its **Rendering Layer Mask** to
+        "Default" and "Light Layer 1"
 
    c. **Configure the Light**:
       - Select your Light (typically a Directional Light)
-      - Set the light to render to both layers: **"Default"** and **"Light Layer 1"**
-      - Set the light to **only cast shadows on "Light Layer 1"**
+      - Set the light to render to both layers: "Default" and "Light Layer 1"
+      - Set the light to only cast shadows on "Light Layer 1"
 
    This configuration allows you to control which objects receive shadows while all objects remain lit, helping
    eliminate shadow acne on specific objects.
@@ -46,11 +46,7 @@ There are several approaches to address shadow acne in URP:
    For more information, refer to the
    [Universal Render Pipeline documentation](https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@latest).
 
-2. **Adjust Shadow Settings**: If rendering layers are not suitable for your project, you can:
+2. Disable [Receive shadows](ShadingStepAndFeather.md#receive-shadows) entirely on affected materials
+3. Adjust the **System Shadow Level** parameter to reduce the intensity of system shadows
 
-   - Disable [Receive shadows](ShadingStepAndFeather.md#receive-shadows) entirely on affected materials
-   - Adjust the **System Shadow Level** parameter to reduce the intensity of system shadows
-   - Increase the **Depth Bias** and **Normal Bias** values on your light component (small adjustments can help)
-   - Increase shadow resolution in your URP Asset (**Main Light Shadow Resolution** or **Additional Lights Shadow
-     Resolution**)
 
