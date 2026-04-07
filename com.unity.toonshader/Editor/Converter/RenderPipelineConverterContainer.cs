@@ -100,12 +100,12 @@ internal abstract class RenderPipelineConverterContainer {
         string content = File.ReadAllText(path);
         string[] lines = content.Split(lineSeparators, StringSplitOptions.None);
         // always two spaces before m_Shader?
-        var targetLine = Array.Find<string>(lines, line => line.StartsWith(kShaderKeywordInMatrial));
+        string targetLine = Array.Find<string>(lines, line => line.StartsWith(kShaderKeywordInMatrial));
         if (targetLine == null) {
             return null; // todo. prefab?
         }
 
-        var shaderMetadata = targetLine.Split(targetSepeartors, StringSplitOptions.None);
+        string[] shaderMetadata = targetLine.Split(targetSepeartors, StringSplitOptions.None);
         if (shaderMetadata == null) {
             return null;
         }
@@ -128,7 +128,7 @@ internal abstract class RenderPipelineConverterContainer {
         int materialCount = 0;
 
         for (int ii = 0; ii < m_materialGuids.Length; ii++) {
-            var guid = m_materialGuids[ii];
+            string guid = m_materialGuids[ii];
 
             string path = AssetDatabase.GUIDToAssetPath(guid);
             Material material = AssetDatabase.LoadAssetAtPath<Material>(path);
@@ -184,18 +184,18 @@ internal abstract class RenderPipelineConverterContainer {
 
     protected int GetRenderQueue(string path, string[] lines) {
         int renderQueue = -1;
-        var targetLine = Array.Find<string>(lines, line => line.StartsWith("  m_CustomRenderQueue:"));
+        string targetLine = Array.Find<string>(lines, line => line.StartsWith("  m_CustomRenderQueue:"));
         if (targetLine == null) {
             return renderQueue; // todo. prefab?
         }
 
-        var customRenderQueue = targetLine.Split(targetSepeartors, StringSplitOptions.None);
+        string[] customRenderQueue = targetLine.Split(targetSepeartors, StringSplitOptions.None);
         if (customRenderQueue.Length < 2) {
             Error(path);
             return renderQueue;
         }
 
-        var queueNumber = customRenderQueue[1];
+        string queueNumber = customRenderQueue[1];
         while (queueNumber.StartsWith(" ")) {
             queueNumber = queueNumber.TrimStart(' ');
         }
@@ -205,19 +205,19 @@ internal abstract class RenderPipelineConverterContainer {
     }
 
     string GetRenderType(string path, string[] lines) {
-        var targetLine = Array.Find<string>(lines, line => line.StartsWith("    RenderType:"));
+        string targetLine = Array.Find<string>(lines, line => line.StartsWith("    RenderType:"));
         if (targetLine == null) {
             return null;
             ; // todo. prefab?
         }
 
-        var renderType = targetLine.Split(targetSepeartors, StringSplitOptions.None);
+        string[] renderType = targetLine.Split(targetSepeartors, StringSplitOptions.None);
         if (renderType.Length < 2) {
             Error(path);
             return null;
         }
 
-        var targetRenderType = renderType[1];
+        string targetRenderType = renderType[1];
         while (targetRenderType.StartsWith(" ")) {
             targetRenderType = targetRenderType.TrimStart(' ');
         }
