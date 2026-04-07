@@ -1,4 +1,4 @@
-//Auto-generated on Tue Apr 07 12:58:10 UTC 2026
+//Auto-generated on Tue Apr 07 13:02:03 UTC 2026
 Shader "Toon/Toon (Tessellation)" {
     Properties
     {
@@ -1537,7 +1537,7 @@ Shader "Toon/Toon (Tessellation)" {
             // Unity Toon Shader 0.5.0
             #pragma multi_compile _ _DISABLE_OUTLINE
             //The outline process goes to UTS_Outline.cginc.
-            #include "../../Legacy/Shaders/UCTS_Outline.cginc"
+            #include "BuiltIn/UCTS_Outline.cginc"
             ENDCG
         }
 //ToonCoreStart
@@ -1567,7 +1567,7 @@ Shader "Toon/Toon (Tessellation)" {
             #pragma fragment frag
 
         #ifdef TESSELLATION_ON
-            #include "../../Legacy/Shaders/UCTS_Tess.cginc"
+            #include "BuiltIn/UCTS_Tess.cginc"
             #endif
             //#define UNITY_PASS_FORWARDBASE
             #include "UnityCG.cginc"
@@ -1609,7 +1609,7 @@ Shader "Toon/Toon (Tessellation)" {
             #pragma domain ds_surf
             #pragma fragment frag
         #ifdef TESSELLATION_ON
-            #include "../../Legacy/Shaders/UCTS_Tess.cginc"
+            #include "BuiltIn/UCTS_Tess.cginc"
             #endif
             #include "UnityCG.cginc"
             //#pragma fragmentoption ARB_precision_hint_fastest
@@ -1623,7 +1623,7 @@ Shader "Toon/Toon (Tessellation)" {
             // Unity Toon Shader 0.5.0
             #pragma multi_compile _ _DISABLE_OUTLINE
             //The outline process goes to UTS_Outline.cginc.
-            #include "../../Legacy/Shaders/UCTS_Outline_Tess.cginc"
+            #include "BuiltIn/UCTS_Outline_Tess.cginc"
             ENDCG
         }
         Pass {
@@ -1645,7 +1645,7 @@ Shader "Toon/Toon (Tessellation)" {
             #pragma fragment frag
 
         #ifdef TESSELLATION_ON
-            #include "../../Legacy/Shaders/UCTS_Tess.cginc"
+            #include "BuiltIn/UCTS_Tess.cginc"
             #endif
             //#define UNITY_PASS_FORWARDADD
             #include "UnityCG.cginc"
@@ -1688,7 +1688,7 @@ Shader "Toon/Toon (Tessellation)" {
             #pragma domain ds_surf
             #pragma fragment frag
             #ifdef TESSELLATION_ON
-            #include "../../Legacy/Shaders/UCTS_Tess.cginc"
+            #include "BuiltIn/UCTS_Tess.cginc"
             #endif
             //#define UNITY_PASS_SHADOWCASTER
             #include "UnityCG.cginc"
@@ -1701,7 +1701,7 @@ Shader "Toon/Toon (Tessellation)" {
             #pragma shader_feature _IS_CLIPPING_OFF _IS_CLIPPING_MODE _IS_CLIPPING_TRANSMODE
             // Unity Toon Shader 0.5.0
             #pragma multi_compile _ _DISABLE_OUTLINE
-            #include "../../Legacy/Shaders/UCTS_ShadowCaster_Tess.cginc"
+            #include "BuiltIn/UCTS_ShadowCaster_Tess.cginc"
             ENDCG
 
         }
