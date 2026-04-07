@@ -1,4 +1,4 @@
-//Auto-generated on Mon Dec 29 14:14:11 UTC 2025
+//Auto-generated on Tue Apr 07 12:58:10 UTC 2026
 Shader "Toon/Toon" {
     Properties
     {
@@ -1150,10 +1150,10 @@ Shader "Toon/Toon" {
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 #ifdef UNIVERSAL_PIPELINE_CORE_INCLUDED
-            #include "../../UniversalRP/Shaders/UniversalToonInput.hlsl"
+            #include "URP/UniversalToonInput.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/Shaders/LitForwardPass.hlsl"
-            #include "../../UniversalRP/Shaders/UniversalToonHead.hlsl"
-            #include "../../UniversalRP/Shaders/UniversalToonBody.hlsl"
+            #include "URP/UniversalToonHead.hlsl"
+            #include "URP/UniversalToonBody.hlsl"
 #endif
             ENDHLSL
 
@@ -1199,9 +1199,9 @@ Shader "Toon/Toon" {
         #endif
 
 #ifdef UNIVERSAL_PIPELINE_CORE_INCLUDED
-            #include "../../UniversalRP/Shaders/UniversalToonInput.hlsl"
-            #include "../../UniversalRP/Shaders/UniversalToonHead.hlsl"
-            #include "../../UniversalRP/Shaders/UniversalToonOutline.hlsl"
+            #include "URP/UniversalToonInput.hlsl"
+            #include "URP/UniversalToonHead.hlsl"
+            #include "URP/UniversalToonOutline.hlsl"
 #endif
             ENDHLSL
         }
@@ -1237,8 +1237,8 @@ Shader "Toon/Toon" {
 
             // -------------------------------------
             // Includes
-            #include "../../UniversalRP/Shaders/UniversalToonInput.hlsl"
-            #include "../../UniversalRP/Shaders/UniversalBasic2D.hlsl"
+            #include "URP/UniversalToonInput.hlsl"
+            #include "URP/UniversalBasic2D.hlsl"
             ENDHLSL
         }
 
@@ -1273,7 +1273,7 @@ Shader "Toon/Toon" {
             #pragma vertex ShadowPassVertex
             #pragma fragment ShadowPassFragment
 
-            #include "../../UniversalRP/Shaders/UniversalToonInput.hlsl"
+            #include "URP/UniversalToonInput.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/Shaders/ShadowCasterPass.hlsl"
             ENDHLSL
         }
@@ -1311,7 +1311,7 @@ Shader "Toon/Toon" {
         #endif
 
 
-            #include "../../UniversalRP/Shaders/UniversalToonInput.hlsl"
+            #include "URP/UniversalToonInput.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/Shaders/DepthOnlyPass.hlsl"
             ENDHLSL
         }
@@ -1351,7 +1351,7 @@ Shader "Toon/Toon" {
             #pragma multi_compile _ DOTS_INSTANCING_ON
         #endif
 
-            #include "../../UniversalRP/Shaders/UniversalToonInput.hlsl"
+            #include "URP/UniversalToonInput.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/Shaders/DepthNormalsPass.hlsl"
 
             ENDHLSL
