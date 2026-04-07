@@ -54,7 +54,7 @@ namespace UnityEditor.Rendering.Toon
                 Debug.Log($"Successfully extracted tessellation properties. Length: {tessellationProperties.Length} characters");
 
                 // Test reading the original shader files
-                string unityToonPath = "Packages/com.unity.toonshader/Runtime/Integrated/Shaders/UnityToon.shader";
+                string unityToonPath = "Packages/com.unity.toonshader/Runtime/Shaders/UnityToon.shader";
                 string unityToonContent = File.ReadAllText(unityToonPath);
 
                 if (string.IsNullOrEmpty(unityToonContent))
@@ -99,7 +99,7 @@ namespace UnityEditor.Rendering.Toon
                     Debug.Log($"Generated new shader content. Original length: {unityToonContent.Length}, New length: {newContent.Length}");
 
                     // Write test file
-                    string testPath = "Packages/com.unity.toonshader/Runtime/Integrated/Shaders/UnityToon_Generated_Test.shader";
+                    string testPath = "Packages/com.unity.toonshader/Runtime/Shaders/UnityToon_Generated_Test.shader";
                     File.WriteAllText(testPath, newContent);
                     AssetDatabase.Refresh();
 
