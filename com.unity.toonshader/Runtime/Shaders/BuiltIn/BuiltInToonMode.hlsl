@@ -11,12 +11,12 @@
 
 #if defined(_SHADINGGRADEMAP)
 
-#include "../../Legacy/Shaders/UCTS_ShadingGradeMap.cginc"
+#include "BuiltIn/UCTS_ShadingGradeMap.cginc"
 
 
 #else //#if defined(_SHADINGGRADEMAP)
 
-#include "../../Legacy/Shaders/UCTS_DoubleShadeWithFeather.cginc"
+#include "BuiltIn/UCTS_DoubleShadeWithFeather.cginc"
 
 
 #endif //#if defined(_SHADINGGRADEMAP)
