@@ -22,6 +22,20 @@ All documentation is located in the `com.unity.toonshader/Documentation~` folder
 - **Shading Step and Feather**: Precise controls for adjusting transition boundaries between light and shadow areas
 - **Multiple Render Pipeline Support**: Works with Built-in Render Pipeline, Universal Render Pipeline (URP), and High Definition Render Pipeline (HDRP)
 
+## Shader Generation
+
+The main Unity Toon shaders (`UnityToon.shader` and `UnityToonTessellation.shader`) are generated from templates and common property files to maintain consistency. Generators are available in multiple formats:
+
+- **Unity Editor**: Use the menu item `Toon Shader > Generate Shader Files` (implemented in [UnityToonShaderGenerator.cs](com.unity.toon-graphics-test/Editor/UnityToonShaderGenerator.cs))
+- **Command Line**: Run [generate_UnityToon.py](generate_UnityToon.py), [generate_UnityToon.sh](generate_UnityToon.sh), or [generate_UnityToon.bat](generate_UnityToon.bat) from the repository root
+
+The generators combine:
+- Common properties from `com.unity.toonshader/Runtime/Shaders/Common/Parts/CommonProperties.shaderblock`
+- Tessellation properties from `com.unity.toonshader/Runtime/Shaders/Common/Parts/TessellationProperties.shaderblock`
+- Shader templates from `com.unity.toonshader/Runtime/Shaders/Common/Parts/*.shadertemplate`
+
+Output shaders are written to `com.unity.toonshader/Runtime/Shaders/` with an auto-generated timestamp comment.
+
 ## Common Issues
 
 ### Shadow Acne in URP
