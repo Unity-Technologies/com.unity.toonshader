@@ -186,7 +186,7 @@ def generate_shader_files():
         # Generate UnityToon.shader
         print("\nGenerating UnityToon.shader...")
         success1 = generate_shader(
-            "com.unity.toonshader/Runtime/Integrated/Shaders/UnityToon.shader",
+            "com.unity.toonshader/Runtime/Shaders/UnityToon.shader",
             "com.unity.toonshader/Runtime/Shaders/Common/Parts/UnityToon.shadertemplate",
             common_properties,
             "",
@@ -196,7 +196,7 @@ def generate_shader_files():
         # Generate UnityToonTessellation.shader
         print("\nGenerating UnityToonTessellation.shader...")
         success2 = generate_shader(
-            "com.unity.toonshader/Runtime/Integrated/Shaders/UnityToonTessellation.shader",
+            "com.unity.toonshader/Runtime/Shaders/UnityToonTessellation.shader",
             "com.unity.toonshader/Runtime/Shaders/Common/Parts/UnityToonTessellation.shadertemplate",
             common_properties,
             tessellation_properties,
