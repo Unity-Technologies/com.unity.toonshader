@@ -41,8 +41,8 @@ internal abstract class RenderPipelineConverterContainer {
     }
 
     protected bool IsTesselationShader(string materialPath) {
-        var shaderID = GetShaderIDinMaterial(materialPath);
-        foreach (var tessShaderGUID in UTS2ShaderInfo.tessShaders) {
+        string shaderID = GetShaderIDinMaterial(materialPath);
+        foreach (UTSGUID tessShaderGUID in UTS2ShaderInfo.tessShaders) {
             if (tessShaderGUID.m_Guid == shaderID) {
                 return true;
             }
@@ -116,7 +116,7 @@ internal abstract class RenderPipelineConverterContainer {
             return null;
         }
 
-        var shaderGUID = shaderMetadata[4];
+        string shaderGUID = shaderMetadata[4];
         while (shaderGUID.StartsWith(" ")) {
             shaderGUID = shaderGUID.TrimStart(' ');
         }
@@ -132,10 +132,9 @@ internal abstract class RenderPipelineConverterContainer {
 
             string path = AssetDatabase.GUIDToAssetPath(guid);
             Material material = AssetDatabase.LoadAssetAtPath<Material>(path);
-            var shaderName = material.shader.ToString();
 
-            var shaderGUID = GetShaderIDinMaterial(path);
-            var foundOldUTSGUID = FindSrcShader2GUID(shaderGUID, srcShaderGUID, srcTessShaderGUID);
+            string shaderGUID = GetShaderIDinMaterial(path);
+            UTSGUID foundOldUTSGUID = FindSrcShader2GUID(shaderGUID, srcShaderGUID, srcTessShaderGUID);
             if (foundOldUTSGUID == null) {
                 continue;
             }
@@ -156,18 +155,17 @@ internal abstract class RenderPipelineConverterContainer {
     }
 
     protected void CommonConvert() {
-        foreach (var guid in m_ConvertingMaterialGuids) {
+        foreach (string guid in m_ConvertingMaterialGuids) {
             int renderQueue = (int)UnityEngine.Rendering.RenderQueue.Geometry;
             string path = AssetDatabase.GUIDToAssetPath(guid);
             Material material = AssetDatabase.LoadAssetAtPath<Material>(path);
             string content = File.ReadAllText(path);
             string[] lines = content.Split(lineSeparators, StringSplitOptions.None);
-            var shderGUID = GetShaderIDinMaterial(path);
 
             // deal with m_CustomRenderQueue
             renderQueue = GetRenderQueue(path, lines);
             // deal with RenderType
-            var renderType = GetRenderType(path, lines);
+            string renderType = GetRenderType(path, lines);
             material.shader = Shader.Find(IsTesselationShader(path) ? kIntegratedTessllationUTS3Name : kIntegratedUTS3Name);
 
             material.renderQueue = renderQueue;
