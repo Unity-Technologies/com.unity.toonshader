@@ -275,7 +275,7 @@ float4 GetShadowCoordUTS(VertexOutput v)
 }
 
 inline float TweakShadow(float shadow) {
-    return saturate((shadow * 0.5) + 0.5 + _Tweak_SystemShadowsLevel); 
+    return saturate((shadow * 0.5) + 0.5 + _Tweak_SystemShadowsLevel);
 }
 
 //----------------------------------------------------------------------------------------------------------------------
