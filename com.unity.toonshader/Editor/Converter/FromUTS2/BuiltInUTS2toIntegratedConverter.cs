@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Unity.Rendering.Toon;
 using UnityEngine;
@@ -103,7 +104,7 @@ namespace UnityEditor.Rendering.Toon
         }
         public override void Convert()
         {
-            ConvertBuiltInUTS2Materials(m_materialGuids);
+            ConvertBuiltInUTS2Materials(m_ConvertingMaterialGuids);
             SendAnalyticsEvent();
         }
         public override void PostConverting() { }
@@ -371,9 +372,9 @@ namespace UnityEditor.Rendering.Toon
             AssetDatabase.Refresh();
         }
 #endif
-        void ConvertBuiltInUTS2Materials( string[] guids)
+        void ConvertBuiltInUTS2Materials( List<string> guids)
         {
-            foreach (var guid in m_ConvertingMaterialGuids)
+            foreach (string guid in guids)
             {
 
                 string path = AssetDatabase.GUIDToAssetPath(guid);
