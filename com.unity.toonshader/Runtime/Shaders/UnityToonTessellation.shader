@@ -1,4 +1,4 @@
-//Auto-generated on Tue Apr 07 13:07:38 UTC 2026
+//Auto-generated on Wed Apr 08 13:07:32 UTC 2026
 Shader "Toon/Toon (Tessellation)" {
     Properties
     {
@@ -58,14 +58,14 @@ Shader "Toon/Toon (Tessellation)" {
         _1st_ShadeMap ("1st_ShadeMap", 2D) = "white" {}
         //v.2.0.5
         [Toggle(_)] _Use_BaseAs1st ("Use BaseMap as 1st_ShadeMap", Float ) = 0
-        _1st_ShadeColor ("1st_ShadeColor", Color) = (1,1,1,1)
+        _1st_ShadeColor ("1st_ShadeColor", Color) = (0.5,0.5,0.5,0.5)
         [Toggle(_)] _Is_LightColor_1st_Shade ("Is_LightColor_1st_Shade", Float ) = 1
 
         // 2nd Shade Properties
         _2nd_ShadeMap ("2nd_ShadeMap", 2D) = "white" {}
         //v.2.0.5
         [Toggle(_)] _Use_1stAs2nd ("Use 1st_ShadeMap as 2nd_ShadeMap", Float ) = 0
-        _2nd_ShadeColor ("2nd_ShadeColor", Color) = (1,1,1,1)
+        _2nd_ShadeColor ("2nd_ShadeColor", Color) = (0,0,0,0)
         [Toggle(_)] _Is_LightColor_2nd_Shade ("Is_LightColor_2nd_Shade", Float ) = 1
 
         // Normal Map Properties
