@@ -381,8 +381,7 @@ namespace UnityEditor.Rendering.Toon
                 string content = File.ReadAllText(path);
                 string[] lines = content.Split(lineSeparators, StringSplitOptions.None);
                 int renderQueueInMaterial = GetRenderQueue(path, lines);
-                var shaderID = GetShaderIDinMaterial(path);
-                material.shader = Shader.Find(IsTesselationShader(path) ? kIntegratedTessllationUTS3Name :  kIntegratedUTS3Name);
+                material.shader = GetOrLoadToonShader(IsTesselationShader(path));
                 var shaderGUID = m_Material2GUID_Dictionary[material];
                 var UTS2Info = m_GuidToUTSID_Dictionary[shaderGUID] as UTS2INFO;
 
