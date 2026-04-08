@@ -26,9 +26,7 @@ internal abstract class RenderPipelineConverterContainer {
     protected List<string> m_ConvertingMaterialGuids = new List<string>();
     protected Dictionary<Material, string> m_Material2GUID_Dictionary = new Dictionary<Material, string>();
     protected Dictionary<string, UTSGUID> m_GuidToUTSID_Dictionary = new Dictionary<string, UTSGUID>();
-    protected const string kIntegratedUTS3Name = "Toon/Toon";
-
-    protected const string kIntegratedTessllationUTS3Name = "Toon/Toon (Tessellation)";
+    
     protected const string kShaderKeywordInMatrial = "  m_Shader:";
 
     protected static string packageFullPath { get; set; }
@@ -164,8 +162,7 @@ internal abstract class RenderPipelineConverterContainer {
             renderQueue = GetRenderQueue(path, lines);
             // deal with RenderType
             string renderType = GetRenderType(path, lines);
-            material.shader = Shader.Find(IsTesselationShader(path) ? kIntegratedTessllationUTS3Name : kIntegratedUTS3Name);
-
+            material.shader = GetOrLoadToonShader(IsTesselationShader(path));
             material.renderQueue = renderQueue;
             if (renderType != null) {
                 material.SetOverrideTag("RenderType", renderType);
@@ -241,5 +238,30 @@ internal abstract class RenderPipelineConverterContainer {
     protected void SendAnalyticsEvent() {
         AnalyticsSender.SendEventInEditor(new ToonShaderAnalytics.ConvertEvent(GetType().Name));
     }
+
+//----------------------------------------------------------------------------------------------------------------------
+
+    protected Shader GetOrLoadToonShader(bool tess) {
+        if (tess) {
+            return GetOrLoadToonShader(ref m_toonTessShader, ToonEditorConstants.TOON_TESS_SHADER_PATH);
+        }
+
+        return GetOrLoadToonShader(ref m_toonShader, ToonEditorConstants.TOON_SHADER_PATH);
+        
+    }
+
+    Shader GetOrLoadToonShader(ref Shader shader, string path) {
+        if (null != shader)
+            return shader;
+        
+        shader = AssetDatabase.LoadAssetAtPath<Shader>(path);
+        return shader;
+    }
+    
+//----------------------------------------------------------------------------------------------------------------------
+
+    private Shader m_toonShader;
+    private Shader m_toonTessShader;
+
 }
 }
