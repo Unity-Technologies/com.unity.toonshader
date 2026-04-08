@@ -3,7 +3,7 @@
 void ToonShading(
     const float4 firstShadePosTex, const float4 secondShadePosTex, const float3 highlightAlbedo, 
     const float3 highlightMaskTex,
-    const float3 lightColor, const float lightIntensity, float shadowAtt, 
+    const float3 lightColor, const float lightIntensity, const float shadowAtt, 
     const float3 baseAlbedo, const float3 firstShadeAlbedo, const float3 secondShadeAlbedo,
     const float baseColorStep, const float shadeColorStep,
     const float3 vertexNormalWS, const float3 perturbedNormalWS, const float3 lightDirection, const float3 viewDirection,
