@@ -27,10 +27,8 @@ internal abstract class RenderPipelineConverterContainer {
     protected Dictionary<Material, string> m_Material2GUID_Dictionary = new Dictionary<Material, string>();
     protected Dictionary<string, UTSGUID> m_GuidToUTSID_Dictionary = new Dictionary<string, UTSGUID>();
     protected const string kIntegratedUTS3Name = "Toon/Toon";
-    protected const string kIntegratedUTS3GUID = "be891319084e9d147b09d89e80ce60e0";
 
     protected const string kIntegratedTessllationUTS3Name = "Toon/Toon (Tessellation)";
-    protected const string kIntegratedTessllationUTS3GUID = "e4468eb8a8320f7488ddbb0e591f9fbc";
     protected const string kShaderKeywordInMatrial = "  m_Shader:";
 
     protected static string packageFullPath { get; set; }
