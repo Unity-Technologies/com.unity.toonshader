@@ -526,6 +526,8 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 
 #endif
 
+    finalRGBA.rgb = MixFog(finalRGBA.rgb, inputData.fogCoord);
+
 #ifdef _WRITE_RENDERING_LAYERS
     uint renderingLayers = GetMeshRenderingLayer();
     outRenderingLayers = float4(EncodeMeshRenderingLayer(renderingLayers), 0, 0, 0);
