@@ -5,7 +5,8 @@
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "Unity.Toonshader",
-        "Unity.FilmInternalUtilities.Editor"
+        "Unity.FilmInternalUtilities.Editor",
+        "Unity.Toonshader.Editor"
     ],
     "includePlatforms": [
         "Editor"
