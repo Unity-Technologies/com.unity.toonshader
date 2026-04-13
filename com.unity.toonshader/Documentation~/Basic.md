@@ -33,7 +33,7 @@ Apply **Base Map** to the **1st Shading Map**. When you check **Apply to 1st Sha
 
 
 ## 1st Shading Map
-The map used for the brighter portions of the shadow. Texture(sRGB) × Color(RGB). 
+The map used for the brighter portions of the shadow. Texture(sRGB) × Color(RGB).
 
 |   **1st Shading Map** (Face) | (Hair) | Result  |
 | ---- | ---- | ---- |
@@ -45,7 +45,7 @@ Apply **Base Map** or the **1st Shading Map** to the **2nd Shading Map**. When y
 
 
 ### 2nd Shading Map
-The map used for the darker portions of the shadow. Texture(sRGB) × Color(RGB). 
+The map used for the darker portions of the shadow. Texture(sRGB) × Color(RGB).
 
 |  **2nd Shading Map** (Face)  | (Hair) | Result  |
 | ---- | ---- | ---- |
