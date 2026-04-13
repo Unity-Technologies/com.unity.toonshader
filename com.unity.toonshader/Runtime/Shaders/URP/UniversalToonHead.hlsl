@@ -79,37 +79,6 @@ inline half3 LinearToGammaSpace(half3 linRGB) {
     //return half3(LinearToGammaSpaceExact(linRGB.r), LinearToGammaSpaceExact(linRGB.g), LinearToGammaSpaceExact(linRGB.b));
 }
 
-
-#if defined(FOG_LINEAR) || defined(FOG_EXP) || defined(FOG_EXP2)
-#define UNITY_FOG_COORDS(idx) UNITY_FOG_COORDS_PACKED(idx, float1)
-
-#if (SHADER_TARGET < 30) || defined(SHADER_API_MOBILE)
-// mobile or SM2.0: calculate fog factor per-vertex
-#define UNITY_TRANSFER_FOG(o,outpos) UNITY_CALC_FOG_FACTOR((outpos).z); o.fogCoord.x = unityFogFactor
-#else
-// SM3.0 and PC/console: calculate fog distance per-vertex, and fog factor per-pixel
-#define UNITY_TRANSFER_FOG(o,outpos) o.fogCoord.x = (outpos).z
-#endif
-#else
-#define UNITY_FOG_COORDS(idx)
-#define UNITY_TRANSFER_FOG(o,outpos)
-#endif
-
-#define UNITY_FOG_LERP_COLOR(col,fogCol,fogFac) col.rgb = lerp((fogCol).rgb, (col).rgb, saturate(fogFac))
-
-
-#if defined(FOG_LINEAR) || defined(FOG_EXP) || defined(FOG_EXP2)
-#if (SHADER_TARGET < 30) || defined(SHADER_API_MOBILE)
-// mobile or SM2.0: fog factor was already calculated per-vertex, so just lerp the color
-#define UNITY_APPLY_FOG_COLOR(coord,col,fogCol) UNITY_FOG_LERP_COLOR(col,fogCol,(coord).x)
-#else
-// SM3.0 and PC/console: calculate fog factor and lerp fog color
-#define UNITY_APPLY_FOG_COLOR(coord,col,fogCol) UNITY_CALC_FOG_FACTOR((coord).x); UNITY_FOG_LERP_COLOR(col,fogCol,unityFogFactor)
-#endif
-#else
-#define UNITY_APPLY_FOG_COLOR(coord,col,fogCol)
-#endif
-
 #ifdef UNITY_PASS_FORWARDADD
 #define UNITY_APPLY_FOG(coord,col) UNITY_APPLY_FOG_COLOR(coord,col,fixed4(0,0,0,0))
 #else
