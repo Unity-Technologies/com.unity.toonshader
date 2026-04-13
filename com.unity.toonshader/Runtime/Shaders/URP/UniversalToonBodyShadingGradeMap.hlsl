@@ -94,12 +94,6 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 #endif
     input.uv = i.uv0;
     input.positionCS = i.pos;
-#if defined(_ADDITIONAL_LIGHTS_VERTEX)
-
-    input.fogFactorAndVertexLight = i.fogFactorAndVertexLight;
-#else
-    input.fogFactor = i.fogFactor;
-#endif
 
 #ifdef REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR
     input.shadowCoord = i.shadowCoord;

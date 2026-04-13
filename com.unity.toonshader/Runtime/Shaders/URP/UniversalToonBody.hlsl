@@ -165,11 +165,6 @@ struct VertexOutput {
     float mirrorFlag : TEXCOORD6;
 
     DECLARE_LIGHTMAP_OR_SH(lightmapUV, vertexSH, 7);
-#if defined(_ADDITIONAL_LIGHTS_VERTEX) || (VERSION_LOWER(12, 0))
-    half4 fogFactorAndVertexLight : TEXCOORD8; // x: fogFactor, yzw: vertex light
-#else
-    half fogFactor : TEXCOORD8; // x: fogFactor, yzw: vertex light
-#endif
 
 #  ifdef REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR
     float4 shadowCoord : TEXCOORD9;
@@ -314,13 +309,6 @@ VertexOutput vert(VertexInput v) {
     float4 probeOcclusionUnused;
     OUTPUT_SH4(positionWS, o.normalDir.xyz, GetWorldSpaceNormalizeViewDir(positionWS), o.vertexSH,
         probeOcclusionUnused);
-
-#if defined(_ADDITIONAL_LIGHTS_VERTEX) ||  (VERSION_LOWER(12, 0))
-    o.fogFactorAndVertexLight = half4(fogFactor, vertexLight);
-#else
-    o.fogFactor = fogFactor;
-#endif
-
     o.positionCS = positionCS;
 
 #if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
