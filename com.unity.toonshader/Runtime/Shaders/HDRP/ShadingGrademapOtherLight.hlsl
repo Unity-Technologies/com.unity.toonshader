@@ -37,23 +37,21 @@ float3 UTS_OtherLightsShadingGrademap(FragInputs input, float3 i_normalDir,
     float4 _MainTex_var = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex,TRANSFORM_TEX(Set_UV0, _MainTex));
     /* end of todo.*/
 
-
-
     //v.2.0.5:
     float3 addPassLightColor = (0.5 * dot(lerp(i_normalDir, normalDirection, _Is_NormalMapToBase), lightDirection) + 0.5) * additionalLightColor.rgb;
     float  pureIntencity = max(0.001, Intensity(additionalLightColor));
     float3 lightColor = max(float3(0.0,0.0,0.0), lerp(addPassLightColor, lerp(float3(0.0,0.0,0.0), min(addPassLightColor, addPassLightColor / pureIntencity), notDirectional), _Is_Filter_LightColor));
     float3 halfDirection = normalize(viewDirection + lightDirection); // has to be recalced here.
     //v.2.0.5:
-                        //v.2.0.5:
-    _1st_ShadeColor_Step = saturate(_1st_ShadeColor_Step + _StepOffset);
-    _2nd_ShadeColor_Step = saturate(_2nd_ShadeColor_Step + _StepOffset);
-    //
+    
+    const float firstShadeColorStep = saturate(_1st_ShadeColor_Step + _StepOffset);
+    const float secondShadeColorStep = saturate(_2nd_ShadeColor_Step + _StepOffset);
+    
     //v.2.0.5: If Added lights is directional, set 0 as _LightIntensity
     float _LightIntensity = lerp(0, Intensity(additionalLightColor), notDirectional);
     //v.2.0.5: Filtering the high intensity zone of PointLights
     float3 Set_LightColor = lightColor;
-    //
+    
     float3 Set_BaseColor = lerp((_BaseColor.rgb * _MainTex_var.rgb * _LightIntensity), ((_BaseColor.rgb * _MainTex_var.rgb) * Set_LightColor), _Is_LightColor_Base);
 #ifdef UTS_LAYER_VISIBILITY
     float Set_BaseColorAlpha = _BaseColorVisible;
@@ -109,15 +107,10 @@ float3 UTS_OtherLightsShadingGrademap(FragInputs input, float3 i_normalDir,
     float _2ndColorFeatherForMask = lerp(_2nd_ShadeColor_Feather, 0.0f, max(_SecondShadeOverridden, _ComposerMaskMode));
 
     //
-    float Set_FinalShadowMask = saturate((1.0 + ((Set_ShadingGrade - (_1st_ShadeColor_Step - _1stColorFeatherForMask)) * (0.0 - 1.0)) / (_1st_ShadeColor_Step - (_1st_ShadeColor_Step - _1stColorFeatherForMask))));
-    float Set_ShadeShadowMask = saturate((1.0 + ((Set_ShadingGrade - (_2nd_ShadeColor_Step - _2ndColorFeatherForMask)) * (0.0 - 1.0)) / (_2nd_ShadeColor_Step - (_2nd_ShadeColor_Step - _2ndColorFeatherForMask)))); // 1st and 2nd Shades Mask
+    float Set_FinalShadowMask = saturate((1.0 + ((Set_ShadingGrade - (firstShadeColorStep - _1stColorFeatherForMask)) * (0.0 - 1.0)) / (firstShadeColorStep - (firstShadeColorStep - _1stColorFeatherForMask))));
+    float Set_ShadeShadowMask = saturate((1.0 + ((Set_ShadingGrade - (secondShadeColorStep - _2ndColorFeatherForMask)) * (0.0 - 1.0)) / (secondShadeColorStep - (secondShadeColorStep - _2ndColorFeatherForMask)))); // 1st and 2nd Shades Mask
 
-//SGM
-
-
-
-
-
+    //SGM
     //Composition: 3 Basic Colors as finalColor
 
     float3 finalColor =
