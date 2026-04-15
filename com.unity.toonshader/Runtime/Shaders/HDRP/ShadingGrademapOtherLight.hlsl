@@ -88,13 +88,10 @@ float3 UTS_OtherLightsShadingGrademap(FragInputs input, float3 i_normalDir,
 
     float _HalfLambert_var = 0.5 * dot(lerp(i_normalDir, normalDirection, _Is_NormalMapToBase), lightDirection) + 0.5;
 
-    // //v.2.0.5:
-//SGM
-                //v.2.0.6
+    //v.2.0.6
     float4 _ShadingGradeMap_var = tex2Dlod(_ShadingGradeMap, float4(TRANSFORM_TEX(Set_UV0, _ShadingGradeMap), 0.0, _BlurLevelSGM));
 
-    //v.2.0.6
-    //Minmimum value is same as the Minimum Feather's value with the Minimum Step's value as threshold.
+    //Minimum value is same as the Minimum Feather's value with the Minimum Step's value as threshold.
     //float _SystemShadowsLevel_var = (attenuation*0.5)+0.5+_Tweak_SystemShadowsLevel > 0.001 ? (attenuation*0.5)+0.5+_Tweak_SystemShadowsLevel : 0.0001;
     float _ShadingGradeMapLevel_var = _ShadingGradeMap_var.r < 0.95 ? _ShadingGradeMap_var.r + _Tweak_ShadingGradeMapLevel : 1;
 
