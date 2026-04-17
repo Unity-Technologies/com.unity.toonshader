@@ -72,6 +72,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/BallsAndPlanesSSS/BallsAndPlanesSSS.unity
     guid: 263247caae47a8640a9ba4d567b0fed7
+  - enabled: 1
+    path: Assets/Scenes/Fog/100_Fog.unity
+    guid: 21d03c3cf38637648994bf343a3e92f4
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: cf2afb40cc2d9db4ea3770686df52896,
       type: 2}
