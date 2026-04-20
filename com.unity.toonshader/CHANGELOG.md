@@ -1,5 +1,28 @@
 # Changelog
 
+## [0.14.0-preview] - 2026-04-17
+
+## Added
+
+* feat: support shadows for additional lights
+* doc: troubleshooting on shadow acne
+
+## Changed
+
+* change: the default color of 1st/2nd shading to gray/black
+* sample: add additional lights in KageBall scene
+* opt: remove unnecessary max() op when tweaking system shadow
+* opt: remove custom main light determination logic in URP
+
+## Fixed
+
+* fix: blend output color with fog in URP when applicable
+* fix: avoid modifying shader properties inside the SGMap Toon shader in HDRP
+* fix: ToonShader.EditorTests assembly name typo
+* fix: assign correct Toon shaders after converting via Unity Toon Shader Converter
+* fix: warnings in ToonURP_3Das2D.shader
+* fix: invalid UXML attribute values in Converter
+
 ## [0.13.4-preview] - 2026-02-18
 
 ## Changed
