@@ -833,6 +833,7 @@ Shader "Toon/Toon (Tessellation)" {
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 #ifdef UNIVERSAL_PIPELINE_CORE_INCLUDED
             #include "URP/UniversalToonInput.hlsl"
+            #include "URP/URPIncludeGuards.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/Shaders/LitForwardPass.hlsl"
             #include "URP/UniversalToonHead.hlsl"
             #include "URP/UniversalToonBody.hlsl"
