@@ -210,7 +210,6 @@ namespace UnityEngine.Rendering.Toon.Universal.Samples
                 reflectionCamera.enabled = false;
                 reflectionCamera.transform.position = transform.position;
                 reflectionCamera.transform.rotation = transform.rotation;
-                reflectionCamera.gameObject.AddComponent<FlareLayer>();
                 go.hideFlags = HideFlags.HideAndDontSave;
                 _m_RefrectionCameras.Add(reflectionCamera);
             }
