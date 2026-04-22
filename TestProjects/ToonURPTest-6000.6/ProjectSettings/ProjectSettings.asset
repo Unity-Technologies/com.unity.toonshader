@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 29
-  productGUID: 8210eb5a4b06d9841be4509716ac3366
+  productGUID: db1c8ac582e10614ba35e902f22bb8fb
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -12,8 +12,8 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
-  productName: ToonURPTest-6000.6
+  companyName: Unity Technologies Japan
+  productName: UniversalGraphicsTest-6000.0
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -76,7 +76,7 @@ PlayerSettings:
   androidSystemBarsBehavior: 2
   androidDisplayOptions: 1
   androidBlitType: 0
-  androidResizeableActivity: 1
+  androidResizeableActivity: 0
   androidDefaultWindowWidth: 1920
   androidDefaultWindowHeight: 1080
   androidMinimumWindowWidth: 400
@@ -84,10 +84,10 @@ PlayerSettings:
   androidFullscreenMode: 1
   androidAutoRotationBehavior: 1
   androidPredictiveBackSupport: 1
-  androidApplicationEntry: 2
+  androidApplicationEntry: 1
   defaultIsNativeResolution: 1
   macRetinaSupport: 1
-  runInBackground: 0
+  runInBackground: 1
   callOnDisableOnAssetBundleUnload: 1
   muteOtherAudioSources: 0
   Prepare IOS For Recording: 0
@@ -104,8 +104,8 @@ PlayerSettings:
   resizableWindow: 0
   useMacAppStoreValidation: 0
   macAppStoreCategory: public.app-category.games
-  gpuSkinning: 1
-  meshDeformation: 2
+  gpuSkinning: 0
+  meshDeformation: 0
   xboxPIXTextureCapture: 0
   xboxEnableAvatar: 0
   xboxEnableKinect: 0
@@ -143,13 +143,13 @@ PlayerSettings:
   switchGraphicsJobsSyncAfterKick: 1
   vulkanNumSwapchainBuffers: 3
   vulkanEnableSetSRGBWrite: 0
-  vulkanEnablePreTransform: 1
+  vulkanEnablePreTransform: 0
   vulkanEnableLateAcquireNextImage: 0
   vulkanEnableCommandBufferRecycling: 1
   loadStoreDebugModeEnabled: 0
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
-  bundleVersion: 0.1.0
+  bundleVersion: 1.0
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -167,18 +167,16 @@ PlayerSettings:
   resolutionScalingMode: 0
   resetResolutionOnWindowResize: 0
   androidSupportedAspectRatio: 1
-  androidMaxAspectRatio: 2.4
+  androidMaxAspectRatio: 2.1
   androidMinAspectRatio: 1
   applicationIdentifier:
-    Android: com.UnityTechnologies.com.unity.template.urpblank
-    Standalone: com.Unity-Technologies.com.unity.template.urp-blank
-    iPhone: com.Unity-Technologies.com.unity.template.urp-blank
+    Standalone: com.DefaultCompany.UTS2-Project-
   buildNumber:
     Standalone: 0
     VisionOS: 0
     iPhone: 0
     tvOS: 0
-  overrideDefaultApplicationIdentifier: 1
+  overrideDefaultApplicationIdentifier: 0
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 26
   AndroidTargetSdkVersion: 0
@@ -261,9 +259,9 @@ PlayerSettings:
   iOSAutomaticallyDetectAndAddCapabilities: 1
   appleEnableProMotion: 0
   shaderPrecisionModel: 0
-  clonedFromGUID: 3c72c65a16f0acb438eed22b8b16c24a
-  templatePackageId: com.unity.template.urp-blank@17.0.14
-  templateDefaultScene: Assets/Scenes/SampleScene.unity
+  clonedFromGUID: 00000000000000000000000000000000
+  templatePackageId: 
+  templateDefaultScene: 
   useCustomMainManifest: 0
   useCustomLauncherManifest: 0
   useCustomMainGradleTemplate: 0
@@ -272,7 +270,7 @@ PlayerSettings:
   useCustomGradlePropertiesTemplate: 0
   useCustomGradleSettingsTemplate: 0
   useCustomProguardFile: 0
-  AndroidTargetArchitectures: 2
+  AndroidTargetArchitectures: 1
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
   AndroidKeystoreName: 
@@ -491,53 +489,19 @@ PlayerSettings:
       m_Height: 36
       m_Kind: 0
       m_SubKind: 
-  - m_BuildTarget: tvOS
-    m_Icons:
-    - m_Textures: []
-      m_Width: 1280
-      m_Height: 768
-      m_Kind: 0
-      m_SubKind: 
-    - m_Textures: []
-      m_Width: 800
-      m_Height: 480
-      m_Kind: 0
-      m_SubKind: 
-    - m_Textures: []
-      m_Width: 400
-      m_Height: 240
-      m_Kind: 0
-      m_SubKind: 
-    - m_Textures: []
-      m_Width: 4640
-      m_Height: 1440
-      m_Kind: 1
-      m_SubKind: 
-    - m_Textures: []
-      m_Width: 2320
-      m_Height: 720
-      m_Kind: 1
-      m_SubKind: 
-    - m_Textures: []
-      m_Width: 3840
-      m_Height: 1440
-      m_Kind: 1
-      m_SubKind: 
-    - m_Textures: []
-      m_Width: 1920
-      m_Height: 720
-      m_Kind: 1
-      m_SubKind: 
   m_BuildTargetBatching: []
   m_BuildTargetShaderSettings: []
   m_BuildTargetGraphicsJobs: []
   m_BuildTargetGraphicsJobMode: []
   m_BuildTargetGraphicsAPIs:
+  - m_BuildTarget: WindowsStandaloneSupport
+    m_APIs: 1500000002000000
+    m_Automatic: 0
   - m_BuildTarget: iOSSupport
     m_APIs: 10000000
     m_Automatic: 1
   - m_BuildTarget: AndroidPlayer
-    m_APIs: 150000000b000000
+    m_APIs: 0b000000
     m_Automatic: 0
   m_DefaultShaderChunkSizeInMB: 16
   m_DefaultShaderChunkCount: 0
@@ -549,20 +513,12 @@ PlayerSettings:
     Android: 1
     iPhone: 1
     tvOS: 1
-  m_BuildTargetGroupLightmapEncodingQuality:
-  - serializedVersion: 2
-    m_BuildTarget: Android
-    m_EncodingQuality: 1
+  m_BuildTargetGroupLightmapEncodingQuality: []
   m_BuildTargetGroupHDRCubemapEncodingQuality: []
   m_BuildTargetGroupLightmapSettings: []
   m_BuildTargetGroupLoadStoreDebugModeSettings: []
-  m_BuildTargetNormalMapEncoding:
-  - m_BuildTarget: Android
-    m_Encoding: 1
-  m_BuildTargetDefaultTextureCompressionFormat:
-  - serializedVersion: 3
-    m_BuildTarget: Android
-    m_Formats: 03000000
+  m_BuildTargetNormalMapEncoding: []
+  m_BuildTargetDefaultTextureCompressionFormat: []
   playModeTestRunnerEnabled: 0
   runPlayModeTestAsEditModeTest: 0
   actionOnDotNetUnhandledException: 1
@@ -828,13 +784,22 @@ PlayerSettings:
   webGLWebAssemblyTable: 0
   webGLWebAssemblyBigInt: 0
   webGLCloseOnQuit: 0
-  webWasm2023: 1
+  webWasm2023: 0
   webEnableSubmoduleStrippingCompatibility: 0
-  scriptingDefineSymbols: {}
+  scriptingDefineSymbols:
+    Android: UNITY_POST_PROCESSING_STACK_V2
+    Lumin: UNITY_POST_PROCESSING_STACK_V2
+    Nintendo Switch: UNITY_POST_PROCESSING_STACK_V2
+    PS4: UNITY_POST_PROCESSING_STACK_V2
+    Stadia: UNITY_POST_PROCESSING_STACK_V2
+    Standalone: UNITY_POST_PROCESSING_STACK_V2;UNITY_PIPELINE_URP
+    WebGL: UNITY_POST_PROCESSING_STACK_V2
+    XboxOne: UNITY_POST_PROCESSING_STACK_V2
+    tvOS: UNITY_POST_PROCESSING_STACK_V2
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
-    Android: 1
+    Android: 0
   il2cppCompilerConfiguration: {}
   il2cppCodeGeneration: {}
   il2cppLTOMode: {}
@@ -846,20 +811,20 @@ PlayerSettings:
   useDeterministicCompilation: 1
   additionalIl2CppArgs: 
   scriptingRuntimeVersion: 1
-  gcIncremental: 1
+  gcIncremental: 0
   gcWBarrierValidation: 0
   apiCompatibilityLevelPerPlatform: {}
   editorAssembliesCompatibilityLevel: 1
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: ToonURPTest-6000.6
+  metroPackageName: UTS2_Project~
   metroPackageVersion: 
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
   metroCertificateIssuer: 
   metroCertificateNotAfter: 0000000000000000
-  metroApplicationDescription: ToonURPTest-6000.6
+  metroApplicationDescription: UTS2_Project~
   wsaImages: {}
   metroTileShortName: 
   metroTileShowName: 0
@@ -930,11 +895,11 @@ PlayerSettings:
   activeInputHandler: 1
   windowsGamepadBackendHint: 0
   enableDirectStorage: 0
-  cloudProjectId: c8dc4377-f71a-4c58-8038-6908f7db3da3
+  cloudProjectId: 
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: ToonURPTest-6000.6
-  organizationId: unity-sindharta
+  projectName: 
+  organizationId: 
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}
