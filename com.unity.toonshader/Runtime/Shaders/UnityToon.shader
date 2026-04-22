@@ -1,4 +1,4 @@
-//Auto-generated on Wed Apr 22 07:01:06 UTC 2026
+//Auto-generated on Wed Apr 22 13:11:50 UTC 2026
 Shader "Toon/Toon" {
     Properties
     {
@@ -1151,6 +1151,7 @@ Shader "Toon/Toon" {
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 #ifdef UNIVERSAL_PIPELINE_CORE_INCLUDED
             #include "URP/UniversalToonInput.hlsl"
+            #include "URP/URPIncludeGuards.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/Shaders/LitForwardPass.hlsl"
             #include "URP/UniversalToonHead.hlsl"
             #include "URP/UniversalToonBody.hlsl"
