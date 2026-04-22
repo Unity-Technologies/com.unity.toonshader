@@ -1,4 +1,4 @@
-//Auto-generated on Mon Apr 13 14:06:42 UTC 2026
+//Auto-generated on Wed Apr 22 07:01:06 UTC 2026
 Shader "Toon/Toon (Tessellation)" {
     Properties
     {
@@ -1644,7 +1644,7 @@ Shader "Toon/Toon (Tessellation)" {
             #pragma domain ds_surf
             #pragma fragment frag
 
-        #ifdef TESSELLATION_ON
+            #ifdef TESSELLATION_ON
             #include "BuiltIn/UCTS_Tess.cginc"
             #endif
             //#define UNITY_PASS_FORWARDADD
@@ -1655,15 +1655,6 @@ Shader "Toon/Toon (Tessellation)" {
             #pragma multi_compile_fwdadd_fullshadows
 //            #pragma multi_compile_fog
             #pragma only_renderers d3d9 d3d11 glcore gles gles3 playstation xboxone xboxseries vulkan metal switch
-            // DoubleShadeWithFeather and ShadingGradeMap use different fragment shader.
-            #pragma shader_feature_local _ _SHADINGGRADEMAP
-            // used in ShadingGradeMap
-            #pragma shader_feature _IS_TRANSCLIPPING_OFF _IS_TRANSCLIPPING_ON
-            #pragma shader_feature _IS_ANGELRING_ON
-            // used in DoubleShadeWithFeather
-            #pragma shader_feature _IS_CLIPPING_OFF _IS_CLIPPING_MODE _IS_CLIPPING_TRANSMODE
-            #pragma shader_feature _EMISSIVE_SIMPLE _EMISSIVE_ANIMATION
-            //v.2.0.4
 
             #pragma multi_compile _IS_PASS_FWDDELTA //[TODO-sin:2025-11-20] Check if this is used.
 

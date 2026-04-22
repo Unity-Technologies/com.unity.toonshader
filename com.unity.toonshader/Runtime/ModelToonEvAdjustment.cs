@@ -53,8 +53,7 @@ namespace Unity.Rendering.Toon
         [SerializeField]
 //        [HideInInspector]
         Renderer[] m_Renderers;
-        [SerializeField]
-//        [HideInInspector]
+        
         MaterialPropertyBlock[] m_MaterialPropertyBlocks;
 
 #if UNITY_EDITOR

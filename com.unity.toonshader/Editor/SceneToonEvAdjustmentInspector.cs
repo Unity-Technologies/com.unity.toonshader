@@ -143,7 +143,7 @@ namespace UnityEditor.Rendering.Toon
 
         [MenuItem("GameObject/Toon Shader/Scene Toon Ev Adjustment", false, 9999)]
         static void CreateToonEvAdjustmentCurveGameObject() {
-            SceneToonEvAdjustment obj = FindFirstObjectByType<SceneToonEvAdjustment>();
+            SceneToonEvAdjustment obj = FindAnyObjectByType<SceneToonEvAdjustment>();
             if (obj == null) {
                 GameObject go = new GameObject { name = "Scene Toon Ev Adjustment" };
                 go.AddComponent<SceneToonEvAdjustment>();
