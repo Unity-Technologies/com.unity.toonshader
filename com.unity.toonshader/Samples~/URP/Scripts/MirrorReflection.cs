@@ -187,8 +187,8 @@ namespace UnityEngine.Rendering.Toon.Universal.Samples
         {
             reflectionCamera = null;
 
-            string id = GetEntityId().ToString();
-            string camID = currentCamera.GetEntityId().ToString(); 
+            string objName = this.name;
+            string camName = currentCamera.name; 
 
             // Reflection render texture
             if (!m_ReflectionTexture || m_OldReflectionTextureSize != m_TextureSize)
@@ -196,7 +196,7 @@ namespace UnityEngine.Rendering.Toon.Universal.Samples
                 if (m_ReflectionTexture)
                     DestroyImmediate(m_ReflectionTexture);
                 m_ReflectionTexture = new RenderTexture(m_TextureSize, m_TextureSize, 16);
-                m_ReflectionTexture.name = "__MirrorReflection" + id;
+                m_ReflectionTexture.name = "__MirrorReflection" + objName;
                 m_ReflectionTexture.isPowerOfTwo = true;
                 m_ReflectionTexture.hideFlags = HideFlags.DontSave;
                 m_OldReflectionTextureSize = m_TextureSize;
@@ -205,7 +205,7 @@ namespace UnityEngine.Rendering.Toon.Universal.Samples
             // Camera for reflection
             if (_m_RefrectionCameras.Count == 0)
             {
-                GameObject go = new GameObject("Mirror Refl Camera id: " + id + " for " + camID, typeof(Camera), typeof(Skybox));
+                GameObject go = new GameObject("Mirror Refl Camera id: " + objName + " for " + camName, typeof(Camera), typeof(Skybox));
                 reflectionCamera = go.GetComponent<Camera>();
                 reflectionCamera.enabled = false;
                 reflectionCamera.transform.position = transform.position;
@@ -218,7 +218,7 @@ namespace UnityEngine.Rendering.Toon.Universal.Samples
             {
                 if (_m_RefrectionCameras[0] == null)
                 {
-                    GameObject go = new GameObject("Mirror Refl Camera id: " + id + " for " + camID, typeof(Camera), typeof(Skybox));
+                    GameObject go = new GameObject("Mirror Refl Camera id: " + objName + " for " + camName, typeof(Camera), typeof(Skybox));
                     reflectionCamera = go.GetComponent<Camera>();
                     reflectionCamera.enabled = false;
                     go.hideFlags = HideFlags.HideAndDontSave;
