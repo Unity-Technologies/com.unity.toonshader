@@ -188,8 +188,7 @@ namespace UnityEngine.Rendering.Toon.HDRP.Samples
             reflectionCamera = null;
 
             string objName = this.name;
-            string camName = currentCamera.name; 
-            
+            string camName = currentCamera.name;
             // Reflection render texture
             if (!m_ReflectionTexture || m_OldReflectionTextureSize != m_TextureSize)
             {
