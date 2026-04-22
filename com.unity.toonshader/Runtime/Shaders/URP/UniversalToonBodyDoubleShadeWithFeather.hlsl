@@ -159,10 +159,16 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     //DoubleShadeWithFeather
 #endif
 
+    // Check if main light matches rendering layer first
+    bool useMainLight = true;
+#ifdef _LIGHT_LAYERS
+    useMainLight = IsMatchingLightLayer(mainLight.layerMask, meshRenderingLayers);
+#endif
+
     float shadowAttenuation = 1.0;
 #if defined(_MAIN_LIGHT_SHADOWS) || defined(_MAIN_LIGHT_SHADOWS_CASCADE) || defined(_MAIN_LIGHT_SHADOWS_SCREEN)
-    shadowAttenuation = mainLight.shadowAttenuation;
-
+    // Only use main light shadows if it matches our rendering layer
+    shadowAttenuation = useMainLight ? mainLight.shadowAttenuation : 1.0;
 #endif
 
 
@@ -177,15 +183,18 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
         float4(
             ((float3(1.0, 0.0, 0.0) * _Offset_X_Axis_BLD * 10) + (float3(0.0, 1.0, 0.0) * _Offset_Y_Axis_BLD * 10) + (
                 float3(0.0, 0.0, -1.0) * lerp(-1.0, 1.0, _Inverse_Z_Axis_BLD))), 0)).xyz);
+
     float3 lightDirection = normalize(
-        lerp(defaultLightDirection, mainLight.direction.xyz, any(mainLight.direction.xyz)));
+        lerp(defaultLightDirection, mainLight.direction.xyz, any(mainLight.direction.xyz) && useMainLight));
     lightDirection = lerp(lightDirection, customLightDirection, _Is_BLD);
     //v.2.0.5:
 
     half3 originalLightColor = mainLightColor.rgb;
 
-    float3 lightColor = lerp(max(defaultLightColor, originalLightColor),
-        max(defaultLightColor, saturate(originalLightColor)), _Is_Filter_LightColor);
+    // Only use default light color when main light doesn't exist or doesn't match layer
+    float3 lightColor = useMainLight ?
+        lerp(max(defaultLightColor, originalLightColor), max(defaultLightColor, saturate(originalLightColor)), _Is_Filter_LightColor) :
+        defaultLightColor;
 
 
 #endif
@@ -343,11 +352,11 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 #if USE_FORWARD_PLUS
     for (uint lightIndex = 0; lightIndex < min(URP_FP_DIRECTIONAL_LIGHTS_COUNT, MAX_VISIBLE_LIGHTS); lightIndex++)
     {
-        
+
         FORWARD_PLUS_SUBTRACTIVE_LIGHT_CHECK
         int iLight = lightIndex;
         {
-            float notDirectional = 1.0f; //_WorldSpaceLightPos0.w of the legacy code.
+            float notDirectional = 0.0f; // These are directional lights in Forward+
 
             UtsLight additionalLight = GetAdditionalUtsLight(iLight, inputData.positionWS);
             half3 additionalLightColor = GetLightColor(
@@ -367,14 +376,10 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
                 lerp(float3(0.0, 0.0, 0.0), min(addPassLightColor, addPassLightColor / pureIntencity), notDirectional),
                 _Is_Filter_LightColor));
 
-            //v.2.0.5: If Added lights is directional, set 0 as _LightIntensity
-            float _LightIntensity = lerp(0,
-                Intensity(additionalLightColor),
-                notDirectional);
-                    
+            //v.2.0.5: For directional lights use 1.0, for point/spot lights use their intensity
+            float lightIntensity = notDirectional ? Intensity(additionalLightColor) : 1.0;
+
             const float shadowAtt = TweakShadow(additionalLight.shadowAttenuation);
-            
-            float lightIntensity = _LightIntensity;
             float baseColorStep = saturate(_BaseColor_Step + _StepOffset);
             float shadeColorStep = saturate(_ShadeColor_Step + _StepOffset);
             float specularBlendModeLerp = 1;
@@ -400,9 +405,10 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     UTS_LIGHT_LOOP_BEGIN(pixelLightCount)
     int iLight = lightIndex;
     {
-        float notDirectional = 1.0f; //_WorldSpaceLightPos0.w of the legacy code.
-
         UtsLight additionalLight = GetAdditionalUtsLight(iLight, inputData.positionWS);
+
+        // Directional lights have distanceAttenuation = 1.0, point/spot lights have < 1.0
+        float notDirectional = additionalLight.distanceAttenuation < 0.99 ? 1.0f : 0.0f;
         
         half3 additionalLightColor = GetLightColor(
             additionalLight
@@ -421,12 +427,8 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
             lerp(float3(0.0, 0.0, 0.0), min(addPassLightColor, addPassLightColor / pureIntencity), notDirectional),
             _Is_Filter_LightColor));
 
-        //v.2.0.5: If Added lights is directional, set 0 as _LightIntensity
-        float _LightIntensity = lerp(0,
-            Intensity(additionalLightColor),
-            notDirectional);
-            
-        float lightIntensity = _LightIntensity;
+        //v.2.0.5: For directional lights use 1.0, for point/spot lights use their intensity
+        float lightIntensity = notDirectional ? Intensity(additionalLightColor) : 1.0;
         
         const float shadowAtt = TweakShadow(additionalLight.shadowAttenuation);
         
