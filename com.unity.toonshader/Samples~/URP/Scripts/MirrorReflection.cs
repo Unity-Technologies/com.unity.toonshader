@@ -205,7 +205,7 @@ namespace UnityEngine.Rendering.Toon.Universal.Samples
             // Camera for reflection
             if (_m_RefrectionCameras.Count == 0)
             {
-                GameObject go = new GameObject("Mirror Refl Camera id: " + objName + " for " + camName, typeof(Camera), typeof(Skybox));
+                GameObject go = new GameObject("Mirror Refl Camera: " + objName + " for " + camName, typeof(Camera), typeof(Skybox));
                 reflectionCamera = go.GetComponent<Camera>();
                 reflectionCamera.enabled = false;
                 reflectionCamera.transform.position = transform.position;
@@ -217,7 +217,7 @@ namespace UnityEngine.Rendering.Toon.Universal.Samples
             {
                 if (_m_RefrectionCameras[0] == null)
                 {
-                    GameObject go = new GameObject("Mirror Refl Camera id: " + objName + " for " + camName, typeof(Camera), typeof(Skybox));
+                    GameObject go = new GameObject("Mirror Refl Camera: " + objName + " for " + camName, typeof(Camera), typeof(Skybox));
                     reflectionCamera = go.GetComponent<Camera>();
                     reflectionCamera.enabled = false;
                     go.hideFlags = HideFlags.HideAndDontSave;
