@@ -1,4 +1,4 @@
-//Auto-generated on Wed Apr 22 13:11:50 UTC 2026
+//Auto-generated on Thu Apr 23 05:23:09 UTC 2026
 Shader "Toon/Toon (Tessellation)" {
     Properties
     {
@@ -1252,6 +1252,9 @@ Shader "Toon/Toon (Tessellation)" {
             #pragma multi_compile_fragment _ _DBUFFER_MRT1 _DBUFFER_MRT2 _DBUFFER_MRT3
             #pragma multi_compile_fragment _ _LIGHT_LAYERS
 
+            // _WRITE_RENDERING_LAYERS variants
+            #include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/RenderingLayers.hlsl"
+
             #pragma multi_compile _ _MIXED_LIGHTING_SUBTRACTIVE
             // -------------------------------------
             // Unity defined keywords
@@ -1479,6 +1482,9 @@ Shader "Toon/Toon (Tessellation)" {
             // Material Keywords
             #pragma shader_feature_local _PARALLAXMAP
             #pragma shader_feature_local _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
+
+            // _WRITE_RENDERING_LAYERS variants
+            #include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/RenderingLayers.hlsl"
 
             //--------------------------------------
             // GPU Instancing
