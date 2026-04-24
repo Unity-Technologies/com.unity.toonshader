@@ -116,7 +116,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
         inputData.viewDirectionWS, i.posWorld.xyz, inputData.normalizedScreenSpaceUV);
     envColor *= 1.8f;
 
-    UtsLight mainLight = GetUrpMainUtsLight(inputData.shadowCoord);
+    Light mainLight = GetUrpMainUtsLight(inputData.shadowCoord);
 
 #if defined(_LIGHT_LAYERS)
     uint meshRenderingLayers = GetMeshRenderingLayer();
@@ -425,7 +425,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
         int iLight = loopCounter;
         {
             float notDirectional = 1.0f; //_WorldSpaceLightPos0.w of the legacy code.
-            UtsLight additionalLight = GetAdditionalUtsLight(loopCounter, inputData.positionWS);
+            Light additionalLight = GetAdditionalUtsLight(loopCounter, inputData.positionWS);
             half3 additionalLightColor = GetLightColor(
                 additionalLight
 #ifdef _LIGHT_LAYERS
@@ -482,7 +482,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     int iLight = lightIndex;
     {
         float notDirectional = 1.0f; //_WorldSpaceLightPos0.w of the legacy code.
-        UtsLight additionalLight = GetAdditionalUtsLight(iLight, inputData.positionWS);
+        Light additionalLight = GetAdditionalUtsLight(iLight, inputData.positionWS);
         half3 additionalLightColor = GetLightColor(
             additionalLight
 #ifdef _LIGHT_LAYERS

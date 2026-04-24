@@ -176,17 +176,6 @@ struct VertexOutput {
     UNITY_VERTEX_OUTPUT_STEREO
 };
 
-// Abstraction over Light shading data.
-struct UtsLight {
-    float3 direction;
-    float3 color;
-    float distanceAttenuation;
-    float shadowAttenuation;
-    uint layerMask;
-};
-
-
-
 ///////////////////////////////////////////////////////////////////////////////
 //                      Light Abstraction                                    //
 /////////////////////////////////////////////////////////////////////////////
@@ -218,33 +207,20 @@ half AdditionalLightRealtimeShadowUTS(int lightIndex, float3 positionWS) {
 #endif
 }
 
-UtsLight GetUrpMainUtsLight(float4 shadowCoord) {
+Light GetUrpMainUtsLight(float4 shadowCoord) {
     Light light = GetMainLight(shadowCoord);
-    UtsLight utsLight;
-    utsLight.direction = light.direction;
-    utsLight.color = light.color;
-    utsLight.distanceAttenuation = light.distanceAttenuation;
-    utsLight.shadowAttenuation = light.shadowAttenuation;
-    utsLight.layerMask = light.layerMask;
-    return utsLight;
+    return light;
 }
 
 // Fills a light struct given a loop i index. This will convert the i
 // index to a perObjectLightIndex
-UtsLight GetAdditionalUtsLight(uint i, float3 positionWS) {
+Light GetAdditionalUtsLight(uint i, float3 positionWS) {
     const half4 shadowMask = half4(1.0, 1.0, 1.0, 1.0);
     Light light = GetAdditionalLight(i, positionWS, shadowMask);
-
-    UtsLight utsLight;
-    utsLight.direction = light.direction;
-    utsLight.color = light.color;
-    utsLight.distanceAttenuation = light.distanceAttenuation;
-    utsLight.shadowAttenuation = light.shadowAttenuation;
-    utsLight.layerMask = light.layerMask;
-    return utsLight;
+    return light;
 }
 
-half3 GetLightColor(UtsLight light
+half3 GetLightColor(Light light
 #ifdef _LIGHT_LAYERS
     , uint meshRenderingLayers
 #endif
