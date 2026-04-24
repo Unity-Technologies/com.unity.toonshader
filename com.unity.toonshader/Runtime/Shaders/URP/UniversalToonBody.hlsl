@@ -207,19 +207,6 @@ half AdditionalLightRealtimeShadowUTS(int lightIndex, float3 positionWS) {
 #endif
 }
 
-Light GetUrpMainUtsLight(float4 shadowCoord) {
-    Light light = GetMainLight(shadowCoord);
-    return light;
-}
-
-// Fills a light struct given a loop i index. This will convert the i
-// index to a perObjectLightIndex
-Light GetAdditionalUtsLight(uint i, float3 positionWS) {
-    const half4 shadowMask = half4(1.0, 1.0, 1.0, 1.0);
-    Light light = GetAdditionalLight(i, positionWS, shadowMask);
-    return light;
-}
-
 half3 GetLightColor(Light light
 #ifdef _LIGHT_LAYERS
     , uint meshRenderingLayers
