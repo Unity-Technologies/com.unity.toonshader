@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.14.1-preview] - 2026-04-27
+
+## Fixed
+* fix: URP rendering layer writes (#803)
+* fix: guard against including URP/LitInput.hlsl (#801)
+* fix: warnings by removing redundant shader pragmas and using newer Unity C# APIs. (#800)
+* sample: fix compile errors in Unity 6.6 (#799)
+
 ## [0.14.0-preview] - 2026-04-17
 
 ## Added
