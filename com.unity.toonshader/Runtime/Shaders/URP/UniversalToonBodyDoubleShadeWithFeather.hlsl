@@ -335,6 +335,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     float envLightIntensity = min(Intensity(envLightColor), 1);
 
 
+    const half4 shadowMask = half4(1.0, 1.0, 1.0, 1.0);
     float3 pointLightColor = 0;
 #ifdef _ADDITIONAL_LIGHTS
 
@@ -348,8 +349,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
         int iLight = lightIndex;
         {
             float notDirectional = 1.0f; //_WorldSpaceLightPos0.w of the legacy code.
-
-            Light additionalLight = GetAdditionalLight(iLight, inputData.positionWS);
+            Light additionalLight = GetAdditionalLight(iLight, inputData.positionWS, shadowMask);
             half3 additionalLightColor = GetLightColor(
                 additionalLight
 #ifdef _LIGHT_LAYERS
@@ -402,7 +402,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     {
         float notDirectional = 1.0f; //_WorldSpaceLightPos0.w of the legacy code.
 
-        Light additionalLight = GetAdditionalLight(iLight, inputData.positionWS);
+        Light additionalLight = GetAdditionalLight(iLight, inputData.positionWS,shadowMask);
         
         half3 additionalLightColor = GetLightColor(
             additionalLight
