@@ -71,6 +71,7 @@ win_test_platform:
 
 test_editors:
   - version: 6000.0
+  - version: trunk
      
 
 osx_test_projects:
