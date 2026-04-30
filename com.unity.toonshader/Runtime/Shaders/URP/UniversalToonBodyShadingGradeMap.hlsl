@@ -96,9 +96,9 @@ float3 ProcessAdditionalLightSG(
 
     float3 addPassLightColor = (0.5 * dot(lerp(vertexNormalDir, normalDirection, _Is_NormalMapToBase), lightDirection) +
         0.5) * additionalLightColor.rgb;
-    float pureIntencity = max(0.001, Intensity(additionalLightColor));
+    float pureIntensity = max(0.001, Intensity(additionalLightColor));
     float3 lightColor = max(float3(0.0, 0.0, 0.0), lerp(addPassLightColor,
-        lerp(float3(0.0, 0.0, 0.0), min(addPassLightColor, addPassLightColor / pureIntencity), notDirectional),
+        lerp(float3(0.0, 0.0, 0.0), min(addPassLightColor, addPassLightColor / pureIntensity), notDirectional),
         _Is_Filter_LightColor));
 
     //If Added lights is directional, set 0 as _LightIntensity
