@@ -66,7 +66,7 @@ void ToonShadingSG(
 //----------------------------------------------------------------------------------------------------------------------
 
 float3 ProcessAdditionalLightSG(
-    int lightIndex,
+    uint lightIndex,
     float3 positionWS,
     half4 shadowMask,
 #ifdef _LIGHT_LAYERS
