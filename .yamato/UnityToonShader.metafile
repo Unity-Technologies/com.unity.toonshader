@@ -21,7 +21,7 @@ platforms:
       name: linux
       type: Unity::VM
       type_build: Unity::VM
-      image: package-ci/ubuntu-20.04:v4
+      image: package-ci/ubuntu-22.04:v4
       model: 
       flavor: b1.large
       cmd_prefix: DISPLAY=:0.0
@@ -46,7 +46,7 @@ platforms:
 pack_platform: &pack_platform_linux
   name: linux
   type: Unity::VM
-  image: package-ci/ubuntu-20.04:v4
+  image: package-ci/ubuntu-22.04:v4
   flavor: b1.medium
 
 publish_platform: *platform_win
