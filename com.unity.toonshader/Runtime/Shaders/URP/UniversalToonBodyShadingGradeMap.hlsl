@@ -505,20 +505,20 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 
     UTS_LIGHT_LOOP_BEGIN(pixelLightCount)
 
-    float3 additionalLightColor = ProcessAdditionalLightSG(
-        lightIndex,
-        inputData.positionWS,
-        shadowMask,
+        float3 additionalLightColor = ProcessAdditionalLightSG(
+            lightIndex,
+            inputData.positionWS,
+            shadowMask,
 #ifdef _LIGHT_LAYERS
-        meshRenderingLayers,
+            meshRenderingLayers,
 #endif
-        highlightAlbedo, highlightMaskTex.rgb,
-        baseAlbedo, firstShadeAlbedo, secondShadeAlbedo,
-        i.normalDir, normalDirection, viewDirection,
-        sgMapLevel
-    );
+            highlightAlbedo, highlightMaskTex.rgb,
+            baseAlbedo, firstShadeAlbedo, secondShadeAlbedo,
+            i.normalDir, normalDirection, viewDirection,
+            sgMapLevel
+        );
 
-    pointLightColor += additionalLightColor;
+        pointLightColor += additionalLightColor;
 
     UTS_LIGHT_LOOP_END
 
