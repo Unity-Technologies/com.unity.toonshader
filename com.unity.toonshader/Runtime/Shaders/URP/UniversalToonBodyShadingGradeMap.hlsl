@@ -65,7 +65,7 @@ void ToonShadingSG(
 
 //----------------------------------------------------------------------------------------------------------------------
 
-void ProcessAdditionalLightSG(
+float3 ProcessAdditionalLightSG(
     int lightIndex,
     float3 positionWS,
     half4 shadowMask,
@@ -80,12 +80,11 @@ void ProcessAdditionalLightSG(
     float3 vertexNormalDir,
     float3 normalDirection,
     float3 viewDirection,
-    float sgMapLevel,
-    out float3 outColor
+    float sgMapLevel
 )
 {
     float notDirectional = 1.0f; //_WorldSpaceLightPos0.w of the legacy code.
-    Light additionalLight = GetAdditionalLight(lightIndex, inputData.positionWS, shadowMask);
+    Light additionalLight = GetAdditionalLight(lightIndex, positionWS, shadowMask);
     half3 additionalLightColor = GetLightColor(
         additionalLight
 #ifdef _LIGHT_LAYERS
@@ -124,7 +123,7 @@ void ProcessAdditionalLightSG(
         specularBlendModeLerp, filterHighlightInForwardAdd, sgMapLevel,
         finalColor, unused);
 
-    outColor = SATURATE_IF_SDR(finalColor);
+    return SATURATE_IF_SDR(finalColor);
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -487,8 +486,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 #if USE_FORWARD_PLUS
     for (uint loopCounter = 0; loopCounter < min(URP_FP_DIRECTIONAL_LIGHTS_COUNT, MAX_VISIBLE_LIGHTS); loopCounter++)
     {
-        float3 additionalLightColor;
-        ProcessAdditionalLightSG(
+        float3 additionalLightColor = ProcessAdditionalLightSG(
             loopCounter,
             inputData.positionWS,
             shadowMask,
@@ -498,8 +496,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
             highlightAlbedo, highlightMaskTex.rgb,
             baseAlbedo, firstShadeAlbedo, secondShadeAlbedo,
             i.normalDir, normalDirection, viewDirection,
-            sgMapLevel,
-            additionalLightColor
+            sgMapLevel
         );
 
         pointLightColor += additionalLightColor;
@@ -508,8 +505,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 
     UTS_LIGHT_LOOP_BEGIN(pixelLightCount)
 
-    float3 additionalLightColor;
-    ProcessAdditionalLightSG(
+    float3 additionalLightColor = ProcessAdditionalLightSG(
         lightIndex,
         inputData.positionWS,
         shadowMask,
@@ -519,8 +515,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
         highlightAlbedo, highlightMaskTex.rgb,
         baseAlbedo, firstShadeAlbedo, secondShadeAlbedo,
         i.normalDir, normalDirection, viewDirection,
-        sgMapLevel,
-        additionalLightColor
+        sgMapLevel
     );
 
     pointLightColor += additionalLightColor;
