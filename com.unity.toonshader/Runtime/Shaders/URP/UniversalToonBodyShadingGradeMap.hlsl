@@ -486,7 +486,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 #if USE_FORWARD_PLUS
     for (uint loopCounter = 0; loopCounter < min(URP_FP_DIRECTIONAL_LIGHTS_COUNT, MAX_VISIBLE_LIGHTS); loopCounter++)
     {
-        float3 additionalLightColor = ProcessAdditionalLightSG(
+        float3 perLightContribution = ProcessAdditionalLightSG(
             loopCounter,
             inputData.positionWS,
             shadowMask,
@@ -499,13 +499,13 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
             sgMapLevel
         );
 
-        pointLightColor += additionalLightColor;
+        pointLightColor += perLightContribution;
     }
 #endif  // USE_FORWARD_PLUS
 
     UTS_LIGHT_LOOP_BEGIN(pixelLightCount)
 
-        float3 additionalLightColor = ProcessAdditionalLightSG(
+        float3 perLightContribution = ProcessAdditionalLightSG(
             lightIndex,
             inputData.positionWS,
             shadowMask,
@@ -518,7 +518,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
             sgMapLevel
         );
 
-        pointLightColor += additionalLightColor;
+        pointLightColor += perLightContribution;
 
     UTS_LIGHT_LOOP_END
 

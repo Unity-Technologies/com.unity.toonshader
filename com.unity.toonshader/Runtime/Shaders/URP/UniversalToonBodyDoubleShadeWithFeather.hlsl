@@ -412,7 +412,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     {
         FORWARD_PLUS_SUBTRACTIVE_LIGHT_CHECK
 
-        float3 additionalLightColor = ProcessAdditionalLight(
+        float3 perLightContribution = ProcessAdditionalLight(
             lightIndex,
             inputData.positionWS,
             shadowMask,
@@ -425,13 +425,13 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
             i.normalDir, normalDirection, viewDirection
         );
 
-        pointLightColor += additionalLightColor;
+        pointLightColor += perLightContribution;
     }
 #endif  // USE_FORWARD_PLUS
 
     UTS_LIGHT_LOOP_BEGIN(pixelLightCount)
 
-        float3 additionalLightColor = ProcessAdditionalLight(
+        float3 perLightContribution = ProcessAdditionalLight(
             lightIndex,
             inputData.positionWS,
             shadowMask,
@@ -444,7 +444,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
             i.normalDir, normalDirection, viewDirection
         );
 
-        pointLightColor += additionalLightColor;
+        pointLightColor += perLightContribution;
 
     UTS_LIGHT_LOOP_END
 
