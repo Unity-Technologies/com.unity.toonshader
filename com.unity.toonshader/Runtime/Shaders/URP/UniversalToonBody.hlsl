@@ -266,17 +266,9 @@ VertexOutput vert(VertexInput v) {
 }
 
 #if UNITY_VERSION >= 60030000
-uint EncodeMeshRenderingLayerUTS() {
-    return EncodeMeshRenderingLayer();
-}
-
+#define ENCODE_MESH_RENDERING_LAYER_UTS EncodeMeshRenderingLayer()
 #else
-
-float EncodeMeshRenderingLayerUTS() {
-    uint renderingLayers = GetMeshRenderingLayer();
-    return EncodeMeshRenderingLayer(renderingLayers);
-}
-
+#define ENCODE_MESH_RENDERING_LAYER_UTS EncodeMeshRenderingLayer(GetMeshRenderingLayer())
 #endif
 
 //----------------------------------------------------------------------------------------------------------------------
