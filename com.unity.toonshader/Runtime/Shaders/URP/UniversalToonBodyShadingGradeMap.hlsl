@@ -133,9 +133,9 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
           , out float4 outRenderingLayers : SV_Target1
 #endif
 ) {
-    i.normalDir = normalize(i.normalDir);
-    
-    const float3x3 tangentTransform = float3x3(i.tangentDir, i.bitangentDir, i.normalDir);
+    const float3 normalDir = normalize(i.normalDir);
+
+    const float3x3 tangentTransform = float3x3(i.tangentDir, i.bitangentDir, normalDir);
     const float3 viewDirection = normalize(_WorldSpaceCameraPos.xyz - i.posWorld.xyz);
     const float2 Set_UV0 = i.uv0;
 
@@ -165,7 +165,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 #ifdef REQUIRES_WORLD_SPACE_POS_INTERPOLATOR
     input.positionWS = i.posWorld.xyz;
 #endif
-    input.normalWS = half3(i.normalDir);
+    input.normalWS = half3(normalDir);
     InitializeInputData(input, surfaceData.normalTS, inputData);
     InitializeBakedGIData(input, inputData);
     BRDFData brdfData;
@@ -282,10 +282,10 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     float Set_FinalShadowMask;
     ToonShadingSG(
         highlightAlbedo, highlightMaskTex.rgb,
-        lightColor, lightIntensity, shadowAtt, 
+        lightColor, lightIntensity, shadowAtt,
         baseAlbedo, firstShadeAlbedo, secondShadeAlbedo,
         firstShadeColorStep, secondShadeColorStep,
-        i.normalDir, normalDirection, lightDirection, viewDirection,
+        normalDir, normalDirection, lightDirection, viewDirection,
         specularBlendModeLerp, filterHighlightInForwardAdd, sgMapLevel, 
         Set_HighColor, Set_FinalShadowMask);
 
@@ -293,12 +293,12 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 
     float3 _Is_LightColor_RimLight_var = lerp(_RimLightColor.rgb, (_RimLightColor.rgb * lightColor),
         _Is_LightColor_RimLight);
-    float _RimArea_var = abs(1.0 - dot(lerp(i.normalDir, normalDirection, _Is_NormalMapToRimLight), viewDirection));
+    float _RimArea_var = abs(1.0 - dot(lerp(normalDir, normalDirection, _Is_NormalMapToRimLight), viewDirection));
     float _RimLightPower_var = pow(_RimArea_var, exp2(lerp(3, 0, _RimLight_Power)));
     float _Rimlight_InsideMask_var = saturate(lerp(
         (0.0 + ((_RimLightPower_var - _RimLight_InsideMask) * (1.0 - 0.0)) / (1.0 - _RimLight_InsideMask)),
         step(_RimLight_InsideMask, _RimLightPower_var), _RimLight_FeatherOff));
-    float _VertHalfLambert_var = 0.5 * dot(i.normalDir, lightDirection) + 0.5;
+    float _VertHalfLambert_var = 0.5 * dot(normalDir, lightDirection) + 0.5;
     float3 _LightDirection_MaskOn_var = lerp((_Is_LightColor_RimLight_var * _Rimlight_InsideMask_var),
         (_Is_LightColor_RimLight_var * saturate(
             (_Rimlight_InsideMask_var - ((1.0 - _VertHalfLambert_var) + _Tweak_LightDirection_MaskLevel)))),
@@ -353,7 +353,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 
     //v.2.0.5: MatCap with camera skew correction
     float3 viewNormal = (mul(UNITY_MATRIX_V,
-        float4(lerp(i.normalDir, mul(_NormalMapForMatCap_var.rgb, tangentTransform).rgb, _Is_NormalMapForMatCap),
+        float4(lerp(normalDir, mul(_NormalMapForMatCap_var.rgb, tangentTransform).rgb, _Is_NormalMapForMatCap),
             0))).rgb;
     float3 NormalBlend_MatcapUV_Detail = viewNormal.rgb * float3(-1, -1, 1);
     float3 NormalBlend_MatcapUV_Base = (mul(UNITY_MATRIX_V, float4(viewDirection, 0)).rgb * float3(-1, -1, 1)) +
@@ -409,7 +409,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 #if defined(_IS_ANGELRING_ON)
     float3 finalColor = lerp(_RimLight_var, matCapColorFinal, _MatCap); // Final Composition before AR
     //v.2.0.7 AR Camera Rolling Stabilizer
-    float3 _AR_OffsetU_var = lerp(mul(UNITY_MATRIX_V, float4(i.normalDir, 0)).xyz, float3(0, 0, 1), _AR_OffsetU);
+    float3 _AR_OffsetU_var = lerp(mul(UNITY_MATRIX_V, float4(normalDir, 0)).xyz, float3(0, 0, 1), _AR_OffsetU);
     float2 AR_VN = _AR_OffsetU_var.xy * 0.5 + float2(0.5, 0.5);
     float2 AR_VN_Rotate = RotateUV(AR_VN, -(_Camera_Dir * _Camera_Roll), float2(0.5, 0.5), 1.0);
     float2 _AR_OffsetV_var = float2(AR_VN_Rotate.x, lerp(i.uv1.y, AR_VN_Rotate.y, _AR_OffsetV));
@@ -433,7 +433,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     emissive = _Emissive_Tex_var.rgb * _Emissive_Color.rgb * emissiveMask;
 #elif _EMISSIVE_ANIMATION
     //v.2.0.7 Calculation View Coord UV for Scroll
-    float3 viewNormal_Emissive = (mul(UNITY_MATRIX_V, float4(i.normalDir, 0))).xyz;
+    float3 viewNormal_Emissive = (mul(UNITY_MATRIX_V, float4(normalDir, 0))).xyz;
     float3 NormalBlend_Emissive_Detail = viewNormal_Emissive * float3(-1, -1, 1);
     float3 NormalBlend_Emissive_Base = (mul(UNITY_MATRIX_V, float4(viewDirection, 0)).xyz * float3(-1, -1, 1)) +
         float3(0, 0, 1);
@@ -496,7 +496,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 #endif
             highlightAlbedo, highlightMaskTex.rgb,
             baseAlbedo, firstShadeAlbedo, secondShadeAlbedo,
-            i.normalDir, normalDirection, viewDirection,
+            normalDir, normalDirection, viewDirection,
             sgMapLevel
         );
 
@@ -516,7 +516,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 #endif
             highlightAlbedo, highlightMaskTex.rgb,
             baseAlbedo, firstShadeAlbedo, secondShadeAlbedo,
-            i.normalDir, normalDirection, viewDirection,
+            normalDir, normalDirection, viewDirection,
             sgMapLevel
         );
 
