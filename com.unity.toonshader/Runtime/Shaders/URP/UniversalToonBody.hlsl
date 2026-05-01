@@ -265,6 +265,13 @@ VertexOutput vert(VertexInput v) {
     return o;
 }
 
+#if UNITY_VERSION >= 60030000
+#define ENCODE_MESH_RENDERING_LAYER_UTS EncodeMeshRenderingLayer()
+#else
+#define ENCODE_MESH_RENDERING_LAYER_UTS EncodeMeshRenderingLayer(GetMeshRenderingLayer())
+#endif
+
+//----------------------------------------------------------------------------------------------------------------------
 
 //the actual fragment shaders
 #if defined(_SHADINGGRADEMAP)
