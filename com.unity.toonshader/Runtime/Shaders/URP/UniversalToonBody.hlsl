@@ -245,12 +245,10 @@ VertexOutput vert(VertexInput v) {
 
     float3 crossFwd = cross(UNITY_MATRIX_V[0].xyz, UNITY_MATRIX_V[1].xyz);
     o.mirrorFlag = dot(crossFwd, UNITY_MATRIX_V[2].xyz) < 0 ? 1 : -1;
-    //
 
+    //
     float3 positionWS = TransformObjectToWorld(v.vertex.xyz);
     float4 positionCS = TransformWorldToHClip(positionWS);
-    half3 vertexLight = VertexLighting(o.posWorld.xyz, o.normalDir);
-    half fogFactor = ComputeFogFactor(positionCS.z);
 
     OUTPUT_LIGHTMAP_UV(v.lightmapUV, unity_LightmapST, o.lightmapUV);
     
