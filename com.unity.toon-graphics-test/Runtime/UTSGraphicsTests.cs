@@ -5,6 +5,7 @@ using UnityEngine.TestTools;
 using UnityEngine.TestTools.Graphics;
 using UnityEngine.SceneManagement;
 using System.IO;
+using Unity.XR.MockHMD;
 using UnityEditor;
 
 
@@ -38,6 +39,17 @@ public class UTSGraphicsTestsXR {
         if (sceneFileName.EndsWith("2D")) {
             Assert.Ignore();
         }
+
+#if UTS_TEST_USE_URP && UNITY_STANDALONE_OSX
+
+        //[Note-sin: 2026-05-01] Hack to set mode in decal scenes due to "Metal: memoryless texture requires 2D texture"
+        MockHMDBuildSettings.RenderMode mode = MockHMDBuildSettings.RenderMode.SinglePassInstanced;
+        if (sceneFileName.Contains("Decal")) {
+            mode = MockHMDBuildSettings.RenderMode.MultiPass;
+        } 
+        MockHMD.SetRenderMode(mode);
+            
+#endif //UTS_TEST_USE_HDRP && UNITY_STANDALONE_OSX 
         
 
         //Enable XR
