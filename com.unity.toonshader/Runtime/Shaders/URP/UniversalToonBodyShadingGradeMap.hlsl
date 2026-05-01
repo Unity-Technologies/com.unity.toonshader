@@ -481,7 +481,6 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     float3 pointLightColor = 0;
 #ifdef _ADDITIONAL_LIGHTS
 
-    int pixelLightCount = GetAdditionalLightsCount();
 
 #if USE_FORWARD_PLUS
     // directional lights in Forward Plus
@@ -505,7 +504,8 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 #endif  // USE_FORWARD_PLUS
 
     // spot lights, etc
-    UTS_LIGHT_LOOP_BEGIN(pixelLightCount)
+    const int pixelLightCount = GetAdditionalLightsCount();
+    LIGHT_LOOP_BEGIN(pixelLightCount)
 
         float3 perLightContribution = ProcessAdditionalLightSG(
             lightIndex,
