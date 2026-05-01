@@ -74,8 +74,6 @@ float3 ProcessAdditionalLight(
     float3 viewDirection
 )
 {
-    float notDirectional = 1.0f; //_WorldSpaceLightPos0.w of the legacy code.
-
     Light additionalLight = GetAdditionalLight(lightIndex, positionWS, shadowMask);
 
     half3 additionalLightColor = GetLightColor(
@@ -91,13 +89,10 @@ float3 ProcessAdditionalLight(
         0.5) * additionalLightColor.rgb;
     float pureIntensity = max(0.001, Intensity(additionalLightColor));
     float3 lightColor = max(float3(0.0, 0.0, 0.0), lerp(addPassLightColor,
-        lerp(float3(0.0, 0.0, 0.0), min(addPassLightColor, addPassLightColor / pureIntensity), notDirectional),
+        min(addPassLightColor, addPassLightColor / pureIntensity),
         _Is_Filter_LightColor));
 
-    //If Added lights is directional, set 0 as _LightIntensity
-    float _LightIntensity = lerp(0, Intensity(additionalLightColor), notDirectional);
-
-    float lightIntensity = _LightIntensity;
+    float lightIntensity = Intensity(additionalLightColor);
 
     const float shadowAtt = TweakShadow(additionalLight.shadowAttenuation);
 
