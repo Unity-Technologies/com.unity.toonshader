@@ -430,7 +430,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 
     // spot lights, etc
     const int pixelLightCount = GetAdditionalLightsCount();
-    UTS_LIGHT_LOOP_BEGIN(pixelLightCount)
+    LIGHT_LOOP_BEGIN(pixelLightCount)
 
         float3 perLightContribution = ProcessAdditionalLight(
             lightIndex,
