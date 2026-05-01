@@ -126,10 +126,10 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
           , out float4 outRenderingLayers : SV_Target1
 #endif
 ) {
-    i.normalDir = normalize(i.normalDir);
-    
+    const float3 normalDir = normalize(i.normalDir);
+
     const float3 viewDirection = normalize(_WorldSpaceCameraPos.xyz - i.posWorld.xyz);
-    const float3x3 tangentTransform = float3x3(i.tangentDir, i.bitangentDir, i.normalDir);
+    const float3x3 tangentTransform = float3x3(i.tangentDir, i.bitangentDir, normalDir);
     const float2 Set_UV0 = i.uv0;
 
     // todo. not necessary to calc gi factor in  shadowcaster pass.
@@ -157,7 +157,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     input.positionWS = i.posWorld.xyz;
 #endif
 
-    input.normalWS = half3(i.normalDir);
+    input.normalWS = half3(normalDir);
     InitializeInputData(input, surfaceData.normalTS, inputData);
     InitializeBakedGIData(input, inputData);
     BRDFData brdfData;
@@ -270,15 +270,14 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     float shadeColorStep = _ShadeColor_Step;
     float specularBlendModeLerp = lerp(_Is_BlendAddToHiColor, 1.0, _Is_SpecularToHighColor);
     float filterHighlightInForwardAdd = 0;
-    //[TODO-sin] We should normalize i.normalDir too here.
     float3 Set_HighColor;
     float Set_FinalShadowMask;
     ToonShading(
-        firstShadePosTex, secondShadePosTex, highlightAlbedo, 
-        highlightMaskTex.rgb,lightColor.rgb, lightIntensity, shadowAtt, 
+        firstShadePosTex, secondShadePosTex, highlightAlbedo,
+        highlightMaskTex.rgb,lightColor.rgb, lightIntensity, shadowAtt,
         baseAlbedo.rgb, firstShadeAlbedo.rgb, secondShadeAlbedo.rgb,
         baseColorStep, shadeColorStep,
-        i.normalDir, normalDirection,lightDirection.xyz,viewDirection.xyz,
+        normalDir, normalDirection,lightDirection.xyz,viewDirection.xyz,
         specularBlendModeLerp, filterHighlightInForwardAdd, 
         Set_HighColor, Set_FinalShadowMask);
 
@@ -286,12 +285,12 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 
     float3 _Is_LightColor_RimLight_var = lerp(_RimLightColor.rgb, (_RimLightColor.rgb * lightColor),
         _Is_LightColor_RimLight);
-    float _RimArea_var = abs(1.0 - dot(lerp(i.normalDir, normalDirection, _Is_NormalMapToRimLight), viewDirection));
+    float _RimArea_var = abs(1.0 - dot(lerp(normalDir, normalDirection, _Is_NormalMapToRimLight), viewDirection));
     float _RimLightPower_var = pow(_RimArea_var, exp2(lerp(3, 0, _RimLight_Power)));
     float _Rimlight_InsideMask_var = saturate(lerp(
         (0.0 + ((_RimLightPower_var - _RimLight_InsideMask) * (1.0 - 0.0)) / (1.0 - _RimLight_InsideMask)),
         step(_RimLight_InsideMask, _RimLightPower_var), _RimLight_FeatherOff));
-    float _VertHalfLambert_var = 0.5 * dot(i.normalDir, lightDirection) + 0.5;
+    float _VertHalfLambert_var = 0.5 * dot(normalDir, lightDirection) + 0.5;
     float3 _LightDirection_MaskOn_var = lerp((_Is_LightColor_RimLight_var * _Rimlight_InsideMask_var),
         (_Is_LightColor_RimLight_var * saturate(
             (_Rimlight_InsideMask_var - ((1.0 - _VertHalfLambert_var) + _Tweak_LightDirection_MaskLevel)))),
@@ -344,7 +343,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
         tex2D(_NormalMapForMatCap, TRANSFORM_TEX(_Rot_MatCapNmUV_var, _NormalMapForMatCap)), _BumpScaleMatcap);
     //v.2.0.5: MatCap with camera skew correction
     float3 viewNormal = (mul(UNITY_MATRIX_V,
-        float4(lerp(i.normalDir, mul(_NormalMapForMatCap_var.rgb, tangentTransform).rgb, _Is_NormalMapForMatCap),
+        float4(lerp(normalDir, mul(_NormalMapForMatCap_var.rgb, tangentTransform).rgb, _Is_NormalMapForMatCap),
             0))).rgb;
     float3 NormalBlend_MatcapUV_Detail = viewNormal.rgb * float3(-1, -1, 1);
     float3 NormalBlend_MatcapUV_Base = (mul(UNITY_MATRIX_V, float4(viewDirection, 0)).rgb * float3(-1, -1, 1)) +
@@ -423,7 +422,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
             firstShadePosTex, secondShadePosTex, highlightAlbedo,
             highlightMaskTex.rgb,
             baseAlbedo.rgb, firstShadeAlbedo.rgb, secondShadeAlbedo.rgb,
-            i.normalDir, normalDirection, viewDirection
+            normalDir, normalDirection, viewDirection
         );
 
         pointLightColor += perLightContribution;
@@ -443,7 +442,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
             firstShadePosTex, secondShadePosTex, highlightAlbedo,
             highlightMaskTex.rgb,
             baseAlbedo.rgb, firstShadeAlbedo.rgb, secondShadeAlbedo.rgb,
-            i.normalDir, normalDirection, viewDirection
+            normalDir, normalDirection, viewDirection
         );
 
         pointLightColor += perLightContribution;
@@ -460,7 +459,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     emissive = _Emissive_Tex_var.rgb * _Emissive_Color.rgb * emissiveMask;
 #elif _EMISSIVE_ANIMATION
     //v.2.0.7 Calculation View Coord UV for Scroll
-    float3 viewNormal_Emissive = (mul(UNITY_MATRIX_V, float4(i.normalDir, 0))).xyz;
+    float3 viewNormal_Emissive = (mul(UNITY_MATRIX_V, float4(normalDir, 0))).xyz;
     float3 NormalBlend_Emissive_Detail = viewNormal_Emissive * float3(-1, -1, 1);
     float3 NormalBlend_Emissive_Base = (mul(UNITY_MATRIX_V, float4(viewDirection, 0)).xyz * float3(-1, -1, 1)) +
         float3(0, 0, 1);
