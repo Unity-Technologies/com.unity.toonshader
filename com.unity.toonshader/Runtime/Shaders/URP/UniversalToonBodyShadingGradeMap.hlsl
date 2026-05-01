@@ -522,7 +522,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 
         pointLightColor += perLightContribution;
 
-    UTS_LIGHT_LOOP_END
+    LIGHT_LOOP_END
 
 #endif // _ADDITIONAL_LIGHTS
 
