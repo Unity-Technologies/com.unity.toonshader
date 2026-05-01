@@ -63,7 +63,70 @@ void ToonShadingSG(
     outShadowMask = Set_FinalShadowMask;
 }
 
+//----------------------------------------------------------------------------------------------------------------------
 
+float3 ProcessAdditionalLightSG(
+    uint lightIndex,
+    float3 positionWS,
+    half4 shadowMask,
+#ifdef _LIGHT_LAYERS
+    uint meshRenderingLayers,
+#endif
+    float3 highlightAlbedo,
+    float3 highlightMaskTex,
+    float3 baseAlbedo,
+    float3 firstShadeAlbedo,
+    float3 secondShadeAlbedo,
+    float3 vertexNormalDir,
+    float3 normalDirection,
+    float3 viewDirection,
+    float sgMapLevel
+)
+{
+    float notDirectional = 1.0f; //_WorldSpaceLightPos0.w of the legacy code.
+    Light additionalLight = GetAdditionalLight(lightIndex, positionWS, shadowMask);
+    half3 additionalLightColor = GetLightColor(
+        additionalLight
+#ifdef _LIGHT_LAYERS
+        , meshRenderingLayers
+#endif
+    );
+
+    float3 lightDirection = additionalLight.direction;
+
+    float3 addPassLightColor = (0.5 * dot(lerp(vertexNormalDir, normalDirection, _Is_NormalMapToBase), lightDirection) +
+        0.5) * additionalLightColor.rgb;
+    float pureIntensity = max(0.001, Intensity(additionalLightColor));
+    float3 lightColor = max(float3(0.0, 0.0, 0.0), lerp(addPassLightColor,
+        lerp(float3(0.0, 0.0, 0.0), min(addPassLightColor, addPassLightColor / pureIntensity), notDirectional),
+        _Is_Filter_LightColor));
+
+    //If Added lights is directional, set 0 as _LightIntensity
+    float _LightIntensity = lerp(0, Intensity(additionalLightColor), notDirectional);
+
+    float lightIntensity = _LightIntensity;
+
+    const float shadowAtt = TweakShadow(additionalLight.shadowAttenuation);
+
+    float firstShadeColorStep = saturate(_1st_ShadeColor_Step + _StepOffset);
+    float secondShadeColorStep = saturate(_2nd_ShadeColor_Step + _StepOffset);
+    float specularBlendModeLerp = 1;
+    float filterHighlightInForwardAdd = _Is_Filter_HiCutPointLightColor;
+    float3 finalColor = float3(0,0,0);
+    float unused = 0;
+    ToonShadingSG(
+        highlightAlbedo, highlightMaskTex.rgb,
+        lightColor, lightIntensity, shadowAtt,
+        baseAlbedo, firstShadeAlbedo, secondShadeAlbedo,
+        firstShadeColorStep, secondShadeColorStep,
+        vertexNormalDir, normalDirection, lightDirection, viewDirection,
+        specularBlendModeLerp, filterHighlightInForwardAdd, sgMapLevel,
+        finalColor, unused);
+
+    return SATURATE_IF_SDR(finalColor);
+}
+
+//----------------------------------------------------------------------------------------------------------------------
 
 void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 #ifdef _WRITE_RENDERING_LAYERS
@@ -421,115 +484,44 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     int pixelLightCount = GetAdditionalLightsCount();
 
 #if USE_FORWARD_PLUS
+    // directional lights in Forward Plus
     for (uint loopCounter = 0; loopCounter < min(URP_FP_DIRECTIONAL_LIGHTS_COUNT, MAX_VISIBLE_LIGHTS); loopCounter++)
     {
-        int iLight = loopCounter;
-        {
-            float notDirectional = 1.0f; //_WorldSpaceLightPos0.w of the legacy code.
-            Light additionalLight = GetAdditionalLight(loopCounter, inputData.positionWS, shadowMask);
-            half3 additionalLightColor = GetLightColor(
-                additionalLight
+        float3 perLightContribution = ProcessAdditionalLightSG(
+            loopCounter,
+            inputData.positionWS,
+            shadowMask,
 #ifdef _LIGHT_LAYERS
-                , meshRenderingLayers
+            meshRenderingLayers,
 #endif
-            );
+            highlightAlbedo, highlightMaskTex.rgb,
+            baseAlbedo, firstShadeAlbedo, secondShadeAlbedo,
+            i.normalDir, normalDirection, viewDirection,
+            sgMapLevel
+        );
 
-            float3 lightDirection = additionalLight.direction;
-            //v.2.0.5:
-            float3 addPassLightColor = (0.5 * dot(lerp(i.normalDir, normalDirection, _Is_NormalMapToBase), lightDirection) +
-                0.5) * additionalLightColor.rgb;
-            float pureIntencity = max(0.001,
-                Intensity(additionalLightColor));
-            float3 lightColor = max(float3(0.0, 0.0, 0.0), lerp(addPassLightColor,
-                lerp(float3(0.0, 0.0, 0.0), min(addPassLightColor, addPassLightColor / pureIntencity), notDirectional),
-                _Is_Filter_LightColor));
-            float3 halfDirection = normalize(viewDirection + lightDirection); // has to be recalced here.
-
-            //v.2.0.5: If Added lights is directional, set 0 as _LightIntensity
-            float _LightIntensity = lerp(0,
-                Intensity(additionalLightColor),
-                notDirectional);
-            
-            float lightIntensity = _LightIntensity;
-            
-            const float shadowAtt = TweakShadow(additionalLight.shadowAttenuation);
-            
-            float firstShadeColorStep = saturate(_1st_ShadeColor_Step + _StepOffset);
-            float secondShadeColorStep = saturate(_2nd_ShadeColor_Step + _StepOffset);
-            float specularBlendModeLerp = 1;
-            float filterHighlightInForwardAdd = _Is_Filter_HiCutPointLightColor;
-            float3 finalColor = float3(0,0,0);
-            float unused = 0;
-            //[TODO-sin: 2026-2-6] We should normalize i.normalDir too here.
-            ToonShadingSG(
-                highlightAlbedo, highlightMaskTex.rgb,
-                lightColor, lightIntensity, shadowAtt, 
-                baseAlbedo, firstShadeAlbedo, secondShadeAlbedo,
-                firstShadeColorStep, secondShadeColorStep,
-                i.normalDir, normalDirection, lightDirection, viewDirection,
-                specularBlendModeLerp, filterHighlightInForwardAdd, sgMapLevel, 
-                finalColor, unused);
-                        
-            
-
-            finalColor = SATURATE_IF_SDR(finalColor);
-
-            pointLightColor += finalColor;
-        }
+        pointLightColor += perLightContribution;
     }
 #endif  // USE_FORWARD_PLUS
 
+    // spot lights, etc
     UTS_LIGHT_LOOP_BEGIN(pixelLightCount)
-    int iLight = lightIndex;
-    {
-        float notDirectional = 1.0f; //_WorldSpaceLightPos0.w of the legacy code.
-        Light additionalLight = GetAdditionalLight(iLight, inputData.positionWS, shadowMask);
-        half3 additionalLightColor = GetLightColor(
-            additionalLight
+
+        float3 perLightContribution = ProcessAdditionalLightSG(
+            lightIndex,
+            inputData.positionWS,
+            shadowMask,
 #ifdef _LIGHT_LAYERS
-            , meshRenderingLayers
+            meshRenderingLayers,
 #endif
-        );
-        
-        float3 lightDirection = additionalLight.direction;
-        //v.2.0.5:
-        float3 addPassLightColor = (0.5 * dot(lerp(i.normalDir, normalDirection, _Is_NormalMapToBase), lightDirection) +
-            0.5) * additionalLightColor.rgb;
-        float pureIntencity = max(0.001,
-            Intensity(additionalLightColor));
-        float3 lightColor = max(float3(0.0, 0.0, 0.0), lerp(addPassLightColor,
-            lerp(float3(0.0, 0.0, 0.0), min(addPassLightColor, addPassLightColor / pureIntencity), notDirectional),
-            _Is_Filter_LightColor));
-        float3 halfDirection = normalize(viewDirection + lightDirection); // has to be recalced here.
-
-        //v.2.0.5: If Added lights is directional, set 0 as _LightIntensity
-        float _LightIntensity = lerp(0,
-            Intensity(additionalLightColor),
-            notDirectional);
-
-        float lightIntensity = _LightIntensity;
-        
-        const float shadowAtt = TweakShadow(additionalLight.shadowAttenuation);
-        
-        float firstShadeColorStep = saturate(_1st_ShadeColor_Step + _StepOffset);
-        float secondShadeColorStep = saturate(_2nd_ShadeColor_Step + _StepOffset);
-        float specularBlendModeLerp = 1;
-        float filterHighlightInForwardAdd = _Is_Filter_HiCutPointLightColor;
-        float3 finalColor = float3(0,0,0);
-        float unused = 0;
-        //[TODO-sin: 2026-2-6] We should normalize i.normalDir too here.
-        ToonShadingSG(
             highlightAlbedo, highlightMaskTex.rgb,
-            lightColor, lightIntensity, shadowAtt, 
             baseAlbedo, firstShadeAlbedo, secondShadeAlbedo,
-            firstShadeColorStep, secondShadeColorStep,
-            i.normalDir, normalDirection, lightDirection, viewDirection,
-            specularBlendModeLerp, filterHighlightInForwardAdd, sgMapLevel, 
-            finalColor, unused);
-            
-        finalColor = SATURATE_IF_SDR(finalColor);
-        pointLightColor += finalColor;
-    }
+            i.normalDir, normalDirection, viewDirection,
+            sgMapLevel
+        );
+
+        pointLightColor += perLightContribution;
+
     UTS_LIGHT_LOOP_END
 
 #endif // _ADDITIONAL_LIGHTS
