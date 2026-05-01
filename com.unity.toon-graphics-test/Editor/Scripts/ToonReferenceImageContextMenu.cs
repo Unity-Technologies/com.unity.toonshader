@@ -65,6 +65,9 @@ internal static class ToonReferenceImageContextMenu {
                     File.Copy(sourcePath, targetPath, true);
                     Debug.Log($"[UTS Test] copied to: {targetPath}");
                     successCount++;
+
+                    // Configure TextureImporter settings for the copied image
+                    ConfigureTextureImporter(targetPath);
                 } catch (IOException ioEx) {
                     Debug.LogError($"[UTS Test] IO error copying to '{targetPath}':\n{ioEx}");
                 } catch (System.Exception ex) {
@@ -77,6 +80,22 @@ internal static class ToonReferenceImageContextMenu {
         
         Debug.Log($"[UTS Test] Copy completed. Targets succeeded: {successCount}");
         AssetDatabase.Refresh();
+    }
+
+    private static void ConfigureTextureImporter(string assetPath) {
+        AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ForceUpdate);
+
+        if (AssetImporter.GetAtPath(assetPath) is not TextureImporter importer) {
+            Debug.LogWarning($"[UTS Test] Could not get TextureImporter for: {assetPath}");
+            return;
+        }
+
+        importer.npotScale = TextureImporterNPOTScale.None;
+        importer.isReadable = true;
+        importer.mipmapEnabled = false;
+        importer.textureCompression = TextureImporterCompression.Uncompressed;
+
+        AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ForceUpdate);
     }
 
     private static string[] GetSelectedAssetPath() {
