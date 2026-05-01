@@ -28,20 +28,6 @@
 #define FORWARD_PLUS_SUBTRACTIVE_LIGHT_CHECK
 #endif
 
-#if USE_FORWARD_PLUS
-#define UTS_LIGHT_LOOP_BEGIN(lightCount) { \
-    uint lightIndex; \
-    ClusterIterator _urp_internal_clusterIterator = ClusterInit(inputData.normalizedScreenSpaceUV, i.posWorld.xyz, 0); \
-    [loop] while (ClusterNext(_urp_internal_clusterIterator, lightIndex)) { \
-        lightIndex += URP_FP_DIRECTIONAL_LIGHTS_COUNT; \
-        FORWARD_PLUS_SUBTRACTIVE_LIGHT_CHECK
-#define UTS_LIGHT_LOOP_END } }
-#else
-#define UTS_LIGHT_LOOP_BEGIN(lightCount) \
-    for (uint lightIndex = 0u; lightIndex < lightCount; ++lightIndex) {
-
-#define UTS_LIGHT_LOOP_END }
-#endif
 
 //function to rotate the UV: RotateUV()
 //float2 rotatedUV = RotateUV(i.uv0, (_angular_Verocity*3.141592654), float2(0.5, 0.5), _Time.g);
