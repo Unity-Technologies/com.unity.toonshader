@@ -49,7 +49,7 @@ public class UTSGraphicsTestsXR {
         } 
         MockHMD.SetRenderMode(mode);
             
-#endif //UTS_TEST_USE_HDRP && UNITY_STANDALONE_OSX 
+#endif //UTS_TEST_USE_URP && UNITY_STANDALONE_OSX 
         
 
         //Enable XR
