@@ -20,6 +20,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: dd3610819c0d4a3193f29b3e2a52e040, type: 2}
   - {fileID: 11400000, guid: 05d165f5d8746e340a5b1c5c8630504b, type: 2}
   - {fileID: 11400000, guid: f2433ea0c3541a647b0650476b1f5384, type: 2}
+  - {fileID: 11400000, guid: 0c43643a7deae7946bb33dd7e6313ee5, type: 2}
   m_DefaultRendererIndex: 0
   m_RequireDepthTexture: 0
   m_RequireOpaqueTexture: 0
@@ -76,7 +77,6 @@ MonoBehaviour:
   m_MixedLightingSupported: 1
   m_SupportsLightCookies: 1
   m_SupportsLightLayers: 1
-  m_DebugLevel: 0
   m_StoreActionsOptimization: 0
   m_UseAdaptivePerformance: 0
   m_ColorGradingMode: 0
@@ -109,6 +109,8 @@ MonoBehaviour:
   m_PrefilteringModeForwardPlus: 1
   m_PrefilteringModeDeferredRendering: 1
   m_PrefilteringModeScreenSpaceOcclusion: 1
+  m_PrefilteringModeScreenSpaceReflection: 1
+  m_PrefilterWriteSmoothness: 1
   m_PrefilterDebugKeywords: 0
   m_PrefilterWriteRenderingLayers: 0
   m_PrefilterHDROutput: 0
