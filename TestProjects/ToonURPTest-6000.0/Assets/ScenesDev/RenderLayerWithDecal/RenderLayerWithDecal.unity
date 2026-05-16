@@ -419,7 +419,7 @@ GameObject:
   - component: {fileID: 1327728867}
   - component: {fileID: 1327728866}
   m_Layer: 0
-  m_Name: CameraShowingToonArtifacts
+  m_Name: Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -442,7 +442,7 @@ MonoBehaviour:
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
   m_Cameras: []
-  m_RendererIndex: -1
+  m_RendererIndex: 3
   m_VolumeLayerMask:
     serializedVersion: 2
     m_Bits: 1
