@@ -14,9 +14,21 @@ namespace Unity.ToonShader.GraphicsTest
 public class UTSGraphicsTestsXR {
 
     [UnityTest]
-    [UseGraphicsTestCases(UTSGraphicsTestConstants.ReferenceImagePath)]
+    [SceneGraphicsTest(
+        scenePaths: new string[] {
+            "Assets/Scenes",
+#if UTS_TEST_USE_HDRP
+            "Assets/ToonSamplesHDRP",
+#elif UTS_TEST_USE_URP
+            "Assets/ToonSamplesURP",
+#else
+            "Assets/ToonSamples",
+#endif
+        }
+    )]
+    
     [Timeout(3600000)] //1 hour
-    public IEnumerator Run(GraphicsTestCase testCase) {
+    public IEnumerator Run(SceneGraphicsTestCase testCase) {
         
         //[TODO-sin: 2025-7-18] ECS projects were never tested with XR, and currently they don't support XR.
         string projectName = Path.GetFileName(Path.GetDirectoryName(UnityEngine.Application.dataPath));
@@ -67,9 +79,20 @@ public class UTSGraphicsTestsXR {
 
 public class UTSGraphicsTestsNonXR  {
     [UnityTest]
-    [UseGraphicsTestCases(UTSGraphicsTestConstants.ReferenceImagePath)]
+    [SceneGraphicsTest(
+        scenePaths: new string[] {
+            "Assets/Scenes",
+#if UTS_TEST_USE_HDRP
+            "Assets/ToonSamplesHDRP",
+#elif UTS_TEST_USE_URP
+            "Assets/ToonSamplesURP",
+#else
+            "Assets/ToonSamples",
+#endif
+        }
+    )]
     [Timeout(3600000)] //1 hour
-    public IEnumerator Run(GraphicsTestCase testCase) {
+    public IEnumerator Run(SceneGraphicsTestCase  testCase) {
         yield return UTSGraphicsTests.RunInternal(testCase);
     }
 }
@@ -77,9 +100,13 @@ public class UTSGraphicsTestsNonXR  {
 //----------------------------------------------------------------------------------------------------------------------
 
     public static class UTSGraphicsTests {
-        internal static IEnumerator RunInternal(GraphicsTestCase testCase, bool isXR = false) {
-            SceneManager.LoadScene(testCase.FullName);
+        internal static IEnumerator RunInternal(SceneGraphicsTestCase testCase, bool isXR = false) {
 
+            SceneManager.LoadScene(testCase.ScenePath);
+
+            
+            Debug.Log(testCase.ReferenceImage.AssetPath);
+            
             // Always wait one frame for scene load
             yield return null;
 
