@@ -24,7 +24,7 @@ public class UTSGraphicsTestsXR {
             Assert.Ignore();
         }
 
-        string sceneFileName = Path.GetFileNameWithoutExtension(testCase.ScenePath);
+        string sceneFileName = Path.GetFileNameWithoutExtension(testCase.FullName);
 
 #if UTS_TEST_USE_HDRP && UNITY_STANDALONE_OSX 
 
@@ -47,14 +47,14 @@ public class UTSGraphicsTestsXR {
 
         //Manually load the reference image for XR. Ex: URP/Linear/WindowsEditor/Vulkan/None/AngelRing.png
         Assert.IsNotNull(testCase.ReferenceImage);
-        string imagePath = AssetDatabase.GetAssetPath(testCase.ReferenceImage);
+        string imagePath = testCase.ReferenceImage.AssetPath;
         string imageFileName = Path.GetFileName(imagePath);
         string imageFolderName = Path.GetDirectoryName(Path.GetDirectoryName(imagePath));
         Assert.IsNotNull(imageFolderName);
         string xrImagePath = Path.Combine(imageFolderName, loadedXRDevice,imageFileName);
-        testCase.ReferenceImagePathLog = xrImagePath;
         Assert.IsTrue(File.Exists(xrImagePath),$"XR Reference image not found at: {xrImagePath}");
-        testCase.ReferenceImage = AssetDatabase.LoadAssetAtPath<Texture2D>(xrImagePath);
+        
+        testCase.ReferenceImage = new ReferenceImage(xrImagePath, testCase.ReferenceImage.TextureFormat);
 
         yield return UTSGraphicsTests.RunInternal(testCase, isXR:true);
 
@@ -78,7 +78,7 @@ public class UTSGraphicsTestsNonXR  {
 
     public static class UTSGraphicsTests {
         internal static IEnumerator RunInternal(GraphicsTestCase testCase, bool isXR = false) {
-            SceneManager.LoadScene(testCase.ScenePath);
+            SceneManager.LoadScene(testCase.FullName);
 
             // Always wait one frame for scene load
             yield return null;
@@ -126,8 +126,8 @@ public class UTSGraphicsTestsNonXR  {
             for (int i = 0; i < waitFrames; i++)
                 yield return new WaitForEndOfFrame();
 
-            ImageAssert.AreEqual(testCase.ReferenceImage, mainCamera,
-                imageComparisonSettings, testCase.ReferenceImagePathLog);
+            ImageAssert.AreEqual(testCase.ReferenceImage.Image, mainCamera,
+                imageComparisonSettings, testCase.ReferenceImage.AssetPath);
             
             // [TODO-sin: 2025-12-23] Check memory allocations
             // try {
