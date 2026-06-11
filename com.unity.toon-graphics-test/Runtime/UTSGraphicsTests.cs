@@ -5,6 +5,7 @@ using UnityEngine.TestTools;
 using UnityEngine.TestTools.Graphics;
 using UnityEngine.SceneManagement;
 using System.IO;
+using System.Reflection;
 using UnityEditor;
 
 
@@ -55,7 +56,7 @@ public class UTSGraphicsTestsXR {
         //Enable XR
         XRUtility.EnableXRInEditor();
 
-        string loadedXRDevice = UseGraphicsTestCasesAttribute.LoadedXRDevice;
+        const string XR_DEVICE = "MockHMDLoader";
 
         //Manually load the reference image for XR. Ex: URP/Linear/WindowsEditor/Vulkan/None/AngelRing.png
         Assert.IsNotNull(testCase.ReferenceImage);
@@ -63,19 +64,27 @@ public class UTSGraphicsTestsXR {
         string imageFileName = Path.GetFileName(imagePath);
         string imageFolderName = Path.GetDirectoryName(Path.GetDirectoryName(imagePath));
         Assert.IsNotNull(imageFolderName);
-        string xrImagePath = Path.Combine(imageFolderName, loadedXRDevice,imageFileName);
+        string xrImagePath = Path.Combine(imageFolderName, XR_DEVICE,imageFileName);
         Assert.IsTrue(File.Exists(xrImagePath),$"XR Reference image not found at: {xrImagePath}");
         
-        testCase.ReferenceImage = new ReferenceImage(xrImagePath, testCase.ReferenceImage.TextureFormat);
-
+        //Hack to set the reference image to xr
+        SetRefImageAssetPath(testCase.ReferenceImage, xrImagePath);
+        
         yield return UTSGraphicsTests.RunInternal(testCase, isXR:true);
 
         XRUtility.DisableXR();
     }
 
+    static readonly FieldInfo REF_IMAGE_ASSET_PATH_FIELD =
+        typeof(ReferenceImage).GetField("m_AssetPath", BindingFlags.NonPublic | BindingFlags.Instance);
+
+    private static void SetRefImageAssetPath(ReferenceImage image, string path)
+        => REF_IMAGE_ASSET_PATH_FIELD.SetValue(image, path);    
 }
 
 #endif //UNITY_EDITOR
+
+
 
 public class UTSGraphicsTestsNonXR  {
     [UnityTest]
