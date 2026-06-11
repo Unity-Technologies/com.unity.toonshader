@@ -68,8 +68,12 @@ public class UTSGraphicsTestsXR {
         Assert.IsTrue(File.Exists(xrImagePath),$"XR Reference image not found at: {xrImagePath}");
         
         //Hack to set the reference image to xr
+        var prefRefImage = testCase.ReferenceImage;
+        testCase.ReferenceImage = new ReferenceImage(prefRefImage.Name, prefRefImage.TextureFormat);
+        
         SetRefImageAssetPath(testCase.ReferenceImage, xrImagePath);
         
+        ClearLoadedImage(testCase.ReferenceImage);
         yield return UTSGraphicsTests.RunInternal(testCase, isXR:true);
 
         XRUtility.DisableXR();
@@ -80,6 +84,13 @@ public class UTSGraphicsTestsXR {
 
     private static void SetRefImageAssetPath(ReferenceImage image, string path)
         => REF_IMAGE_ASSET_PATH_FIELD.SetValue(image, path);    
+
+    static readonly FieldInfo s_LoadedImageField =
+        typeof(ReferenceImage).GetField("m_LoadedImage", BindingFlags.NonPublic | BindingFlags.Instance);
+
+    public static void ClearLoadedImage(ReferenceImage image)
+        => s_LoadedImageField.SetValue(image, null);    
+    
 }
 
 #endif //UNITY_EDITOR
@@ -112,6 +123,15 @@ public class UTSGraphicsTestsNonXR  {
         internal static IEnumerator RunInternal(SceneGraphicsTestCase testCase, bool isXR = false) {
 
             SceneManager.LoadScene(testCase.ScenePath);
+
+            Debug.Log(testCase.ReferenceImage.Image);
+            Debug.Log(testCase.ReferenceImage.Image);
+            Debug.Log(testCase.ReferenceImage.Image);
+            
+            Debug.Log(testCase.ReferenceImage.AssetPath);
+            Debug.Log(testCase.ReferenceImage.AssetPath);
+            Debug.Log(testCase.ReferenceImage.AssetPath);
+            Debug.Log(testCase.ReferenceImage.AssetPath);
             
             // Always wait one frame for scene load
             yield return null;
