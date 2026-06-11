@@ -70,9 +70,9 @@ Shader "Toon/Toon 3D as 2D (URP)"{
         ZWrite On
 
         Stencil{
-            Ref 128 // Put this in the last bit of our stencil value for maximum compatibility with sprite mask
-            Comp always
-            Pass replace
+            Ref 1
+            Comp NotEqual   // render where mask is NOT present
+            Pass Keep        
         }
 
         Pass{
