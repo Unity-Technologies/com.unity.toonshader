@@ -54,7 +54,13 @@ Shader "Toon/Toon 3D as 2D (URP)"{
         _Outline_UseNormalMap ("Outline: Use Outline Normal Map", Integer ) = 0
         _Outline_NormalMap ("Outline Normal Map", 2D) = "bump" {}
         [HideInInspector] _ToonMaterialVersion ("Toon Material Version", Integer ) = 0
-        
+
+        // Stencil Properties
+        [IntRange] _StencilRef ("Stencil Reference", Range(0, 255)) = 1
+        [Enum(UnityEngine.Rendering.CompareFunction)] _StencilComp ("Stencil Compare", Float) = 6   // NotEqual
+        [Enum(UnityEngine.Rendering.StencilOp)] _StencilOpPass ("Stencil Pass Op", Float) = 0       // Keep
+        [Enum(UnityEngine.Rendering.StencilOp)] _StencilOpFail ("Stencil Fail Op", Float) = 0       // Keep
+
     }
 
     SubShader{
@@ -70,9 +76,10 @@ Shader "Toon/Toon 3D as 2D (URP)"{
         ZWrite On
 
         Stencil{
-            Ref 1
-            Comp NotEqual   // render where mask is NOT present
-            Pass Keep        
+            Ref[_StencilRef]
+            Comp[_StencilComp]
+            Pass[_StencilOpPass]
+            Fail[_StencilOpFail]
         }
 
         Pass{
