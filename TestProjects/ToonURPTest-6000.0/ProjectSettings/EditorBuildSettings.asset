@@ -75,6 +75,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Fog/100_Fog.unity
     guid: 21d03c3cf38637648994bf343a3e92f4
+  - enabled: 1
+    path: Assets/Scenes/110_RenderShadowLayer/110_RenderShadowLayer.unity
+    guid: 42aa648bea094d4408e0e088f4859764
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: cf2afb40cc2d9db4ea3770686df52896,
       type: 2}
