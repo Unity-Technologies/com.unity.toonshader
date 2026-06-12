@@ -30,10 +30,10 @@ internal class ToonEnumUtilityTests {
 
     [Test]
     public void ToIntValuesTest() {
-        int[] indices = ToonEnumUtility.ToIntValues(typeof(DummyEnum));
-        Assert.AreEqual(2, indices.Length);
-        Assert.AreEqual(0, indices[0]);
-        Assert.AreEqual(1, indices[1]);
+        int[] values = ToonEnumUtility.ToIntValues(typeof(DummyEnum));
+        Assert.AreEqual(2, values.Length);
+        Assert.AreEqual(0, values[0]);
+        Assert.AreEqual(1, values[1]);
     }
 
     [Test]
