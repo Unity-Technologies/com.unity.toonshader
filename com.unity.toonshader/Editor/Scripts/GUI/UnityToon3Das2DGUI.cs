@@ -249,11 +249,11 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
 
         ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[ToonConstants.SHADER_PROP_STENCIL_REF]);
         ToonEditorGUIUtility.DrawIntPopupGUI(mEditor, mats, uiElements[ToonConstants.SHADER_PROP_STENCIL_COMP],
-            m_stencilCompEnums, m_stencilCompIndices, out int _);
+            ToonEditorConstants.STENCIL_COMP_ENUMS, ToonEditorConstants.STENCIL_COMP_INDICES, out int _);
         ToonEditorGUIUtility.DrawIntPopupGUI(mEditor, mats, uiElements[ToonConstants.SHADER_PROP_STENCIL_OP_PASS],
-            m_stencilOpEnums, m_stencilOpIndices, out int _);
+            ToonEditorConstants.STENCIL_OP_ENUMS, ToonEditorConstants.STENCIL_OP_INDICES, out int _);
         ToonEditorGUIUtility.DrawIntPopupGUI(mEditor, mats, uiElements[ToonConstants.SHADER_PROP_STENCIL_OP_FAIL],
-            m_stencilOpEnums, m_stencilOpIndices, out int _);
+            ToonEditorConstants.STENCIL_OP_ENUMS, ToonEditorConstants.STENCIL_OP_INDICES, out int _);
 
         EditorGUILayout.Space();
     }
@@ -591,10 +591,6 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     private static readonly GUIContent[] m_highlightModeEnums = ToonEnumUtility.ToInspectorNamesAsGUIContent(typeof(HighlightMode));
     private static readonly int[] m_highlightModeValues = ToonEnumUtility.ToIntValues(typeof(HighlightMode));
 
-    private static readonly GUIContent[] m_stencilCompEnums   = ToonEnumUtility.ToInspectorNamesAsGUIContent(typeof(UnityEngine.Rendering.CompareFunction));
-    private static readonly int[]        m_stencilCompIndices = ToonEnumUtility.ToIndices(typeof(UnityEngine.Rendering.CompareFunction));
-    private static readonly GUIContent[] m_stencilOpEnums     = ToonEnumUtility.ToInspectorNamesAsGUIContent(typeof(UnityEngine.Rendering.StencilOp));
-    private static readonly int[]        m_stencilOpIndices   = ToonEnumUtility.ToIndices(typeof(UnityEngine.Rendering.StencilOp));
 
     static readonly GUIContent SHADER_SETTINGS_FOLDOUT =
         EditorGUIUtility.TrTextContent("Shader Settings", "Low-level shader settings such as stencil.");
