@@ -24,7 +24,7 @@ internal static class ToonEnumUtility {
         int numValues = values.Length;
         int[] indices = new int[numValues];
         for (int i = 0; i < numValues; i++)
-            indices[i] = (int)values.GetValue(i);
+            indices[i] = Convert.ToInt32(values.GetValue(i));
         return indices;
     }
 
