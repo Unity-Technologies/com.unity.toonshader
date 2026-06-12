@@ -25,7 +25,7 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         }
 
         EditorGUI.BeginChangeCheck();
-        DrawShaderSettingsGUI(mEditor, mats, m_materialPropertyUIElements, ref m_shaderSettingsFoldout);
+        DrawShaderSettingsGUI(mEditor, mats, m_materialPropertyUIElements, ref m_shaderSettingsFoldout, ref m_stencilFoldout);
         DrawThreeColorsGUI(mEditor, mats, m_materialPropertyUIElements, ref m_colorsFoldout);
         DrawShadingGUI(mEditor, mats, m_materialPropertyUIElements, ref m_shadingFoldout);
         DrawLightingGUI(mEditor, mats, m_materialPropertyUIElements, ref m_lightingFoldout);
@@ -240,19 +240,23 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
 //----------------------------------------------------------------------------------------------------------------------
 
     static void DrawShaderSettingsGUI(MaterialEditor mEditor, Material[] mats,
-        Dictionary<string, MaterialPropertyUIElement> uiElements, ref bool foldout) {
+        Dictionary<string, MaterialPropertyUIElement> uiElements, ref bool foldout, ref bool stencilFoldout) {
 
         ToonEditorGUIUtility.DrawFoldoutGUI(ref foldout, SHADER_SETTINGS_FOLDOUT);
         if (!foldout)
             return;
 
-        ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[ToonConstants.SHADER_PROP_STENCIL_REF]);
-        ToonEditorGUIUtility.DrawIntPopupGUI(mEditor, mats, uiElements[ToonConstants.SHADER_PROP_STENCIL_COMP],
-            ToonEditorConstants.STENCIL_COMP_ENUMS, ToonEditorConstants.STENCIL_COMP_INDICES, out int _);
-        ToonEditorGUIUtility.DrawIntPopupGUI(mEditor, mats, uiElements[ToonConstants.SHADER_PROP_STENCIL_OP_PASS],
-            ToonEditorConstants.STENCIL_OP_ENUMS, ToonEditorConstants.STENCIL_OP_INDICES, out int _);
-        ToonEditorGUIUtility.DrawIntPopupGUI(mEditor, mats, uiElements[ToonConstants.SHADER_PROP_STENCIL_OP_FAIL],
-            ToonEditorConstants.STENCIL_OP_ENUMS, ToonEditorConstants.STENCIL_OP_INDICES, out int _);
+        stencilFoldout = EditorGUILayout.BeginFoldoutHeaderGroup(stencilFoldout, "Stencil");
+        if (stencilFoldout) {
+            ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[ToonConstants.SHADER_PROP_STENCIL_REF]);
+            ToonEditorGUIUtility.DrawIntPopupGUI(mEditor, mats, uiElements[ToonConstants.SHADER_PROP_STENCIL_COMP],
+                ToonEditorConstants.STENCIL_COMP_ENUMS, ToonEditorConstants.STENCIL_COMP_INDICES, out int _);
+            ToonEditorGUIUtility.DrawIntPopupGUI(mEditor, mats, uiElements[ToonConstants.SHADER_PROP_STENCIL_OP_PASS],
+                ToonEditorConstants.STENCIL_OP_ENUMS, ToonEditorConstants.STENCIL_OP_INDICES, out int _);
+            ToonEditorGUIUtility.DrawIntPopupGUI(mEditor, mats, uiElements[ToonConstants.SHADER_PROP_STENCIL_OP_FAIL],
+                ToonEditorConstants.STENCIL_OP_ENUMS, ToonEditorConstants.STENCIL_OP_INDICES, out int _);
+        }
+        EditorGUILayout.EndFoldoutHeaderGroup();
 
         EditorGUILayout.Space();
     }
@@ -608,6 +612,7 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     bool m_outlineFoldout = false;
     bool m_lightingFoldout = false;
     bool m_shaderSettingsFoldout = false;
+    bool m_stencilFoldout = false;
     
     private Material m_lastMaterial;
     
