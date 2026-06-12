@@ -19,7 +19,7 @@ internal static class ToonEnumUtility {
         return ret;
     }
 
-    internal static int[] ToIndices(Type t) {
+    internal static int[] ToIntValues(Type t) {
         Array values = Enum.GetValues(t);
         int numValues = values.Length;
         int[] indices = new int[numValues];
