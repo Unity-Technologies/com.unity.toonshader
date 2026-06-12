@@ -56,9 +56,12 @@ Shader "Toon/Toon 3D as 2D (URP)"{
         [HideInInspector] _ToonMaterialVersion ("Toon Material Version", Integer ) = 0
 
         // Stencil Properties
-        [IntRange] _StencilRef ("Stencil Reference", Range(0, 255)) = 1
-        [Enum(UnityEngine.Rendering.CompareFunction)] _StencilComp ("Stencil Compare", Float) = 6   // NotEqual
-        [Enum(UnityEngine.Rendering.StencilOp)] _StencilOpPass ("Stencil Pass Op", Float) = 0       // Keep
+        
+        // Put this in the last bit of our stencil value for maximum compatibility with sprite mask
+        [IntRange] _StencilRef ("Stencil Reference", Range(0, 255)) = 128
+        
+        [Enum(UnityEngine.Rendering.CompareFunction)] _StencilComp ("Stencil Compare", Float) = 8   // Always
+        [Enum(UnityEngine.Rendering.StencilOp)] _StencilOpPass ("Stencil Pass Op", Float) = 2       // Replace
         [Enum(UnityEngine.Rendering.StencilOp)] _StencilOpFail ("Stencil Fail Op", Float) = 0       // Keep
 
     }
