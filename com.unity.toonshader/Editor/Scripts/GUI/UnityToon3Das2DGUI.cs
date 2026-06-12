@@ -616,7 +616,7 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     bool m_outlineFoldout = false;
     bool m_lightingFoldout = false;
     bool m_shaderSettingsFoldout = false;
-    bool m_stencilFoldout = false;
+    bool m_stencilFoldout = true;
     
     private Material m_lastMaterial;
     
