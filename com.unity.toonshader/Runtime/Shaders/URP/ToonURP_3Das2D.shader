@@ -324,15 +324,6 @@ Shader "Toon/Toon 3D as 2D (URP)"{
 //            Cull [_SRPDefaultUnlitColMode]
 //            ColorMask [_SPRDefaultUnlitColorMask]
             Blend SrcAlpha OneMinusSrcAlpha
-//            Stencil
-//            {
-//                Ref[_StencilNo]
-//                Comp[_StencilComp]
-//                Pass[_StencilOpPass]
-//                Fail[_StencilOpFail]
-//
-//            }
-
             
             HLSLPROGRAM
             #pragma target 3.0
