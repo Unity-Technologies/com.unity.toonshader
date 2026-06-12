@@ -1,6 +1,5 @@
 
 using System;
-using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
@@ -8,34 +7,25 @@ namespace Unity.Rendering.Toon {
 
 internal static class ToonEnumUtility {
     internal static GUIContent[] ToInspectorNamesAsGUIContent(Type t) {
-        MemberInfo[] members = t.GetMembers(BindingFlags.Static | BindingFlags.Public);
-
-        int numMembers = members.Length;
-        GUIContent[] ret = new GUIContent[numMembers];
-        for (int i = 0; i < numMembers; i++) {
-            InspectorNameAttribute inspectorNameAttribute = (InspectorNameAttribute)Attribute.GetCustomAttribute(
-                members[i], typeof(InspectorNameAttribute));
-            if (inspectorNameAttribute == null) {
-                ret[i] = new GUIContent(members[i].Name);
-            } else {
-                ret[i] = new GUIContent(inspectorNameAttribute.displayName);
-            }
+        string[] names = Enum.GetNames(t);
+        GUIContent[] ret = new GUIContent[names.Length];
+        for (int i = 0; i < names.Length; i++) {
+            MemberInfo[] members = t.GetMember(names[i]);
+            InspectorNameAttribute attr = members.Length > 0
+                ? (InspectorNameAttribute)Attribute.GetCustomAttribute(members[0], typeof(InspectorNameAttribute))
+                : null;
+            ret[i] = new GUIContent(attr != null ? attr.displayName : names[i]);
         }
-
         return ret;
     }
 
     internal static int[] ToIndices(Type t) {
-
-        MemberInfo[] members = t.GetMembers(BindingFlags.Static | BindingFlags.Public);
-        int numMembers = members.Length;
-        int[] indices = new int[numMembers];
-        for (int i = 0; i < numMembers; ++i) {
-            indices[i] = i;
-        }
-
+        Array values = Enum.GetValues(t);
+        int numValues = values.Length;
+        int[] indices = new int[numValues];
+        for (int i = 0; i < numValues; i++)
+            indices[i] = (int)values.GetValue(i);
         return indices;
-
     }
 
 }
