@@ -10,9 +10,9 @@ internal static class ToonEnumUtility {
         string[] names = Enum.GetNames(t);
         GUIContent[] ret = new GUIContent[names.Length];
         for (int i = 0; i < names.Length; i++) {
-            MemberInfo[] members = t.GetMember(names[i]);
-            InspectorNameAttribute attr = members.Length > 0
-                ? (InspectorNameAttribute)Attribute.GetCustomAttribute(members[0], typeof(InspectorNameAttribute))
+            FieldInfo field = t.GetField(names[i], BindingFlags.Public | BindingFlags.Static);
+            InspectorNameAttribute attr = field != null
+                ? (InspectorNameAttribute)Attribute.GetCustomAttribute(field, typeof(InspectorNameAttribute))
                 : null;
             ret[i] = new GUIContent(attr != null ? attr.displayName : names[i]);
         }
