@@ -141,6 +141,13 @@ internal static class ToonEditorGUIUtility {
     }
 
 
+    internal static Rect GetIndentedHeaderRect(int indentLevel, bool hasLabel = false) {
+        EditorGUI.indentLevel += indentLevel;
+        Rect rect = EditorGUI.IndentedRect(EditorGUILayout.GetControlRect(hasLabel, EditorGUIUtility.singleLineHeight));
+        EditorGUI.indentLevel -= indentLevel;
+        return rect;
+    }
+
     static void DrawBGRect(Rect lineRect) {
 
         float initialPadding = lineRect.x;

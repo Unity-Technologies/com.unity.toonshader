@@ -246,8 +246,11 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         if (!foldout)
             return;
 
-        stencilFoldout = EditorGUILayout.BeginFoldoutHeaderGroup(stencilFoldout, "Stencil");
+        Rect rect = ToonEditorGUIUtility.GetIndentedHeaderRect(INDENT_SIZE);
+        stencilFoldout = EditorGUI.BeginFoldoutHeaderGroup(rect, stencilFoldout, "Stencil");
         if (stencilFoldout) {
+            const int INDENT_DEPTH = 2;
+            EditorGUI.indentLevel += (INDENT_SIZE * INDENT_DEPTH);
             ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[ToonConstants.SHADER_PROP_STENCIL_REF]);
             ToonEditorGUIUtility.DrawIntPopupGUI(mEditor, mats, uiElements[ToonConstants.SHADER_PROP_STENCIL_COMP],
                 ToonEditorConstants.STENCIL_COMP_ENUMS, ToonEditorConstants.STENCIL_COMP_INDICES, out int _);
@@ -255,8 +258,9 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
                 ToonEditorConstants.STENCIL_OP_ENUMS, ToonEditorConstants.STENCIL_OP_INDICES, out int _);
             ToonEditorGUIUtility.DrawIntPopupGUI(mEditor, mats, uiElements[ToonConstants.SHADER_PROP_STENCIL_OP_FAIL],
                 ToonEditorConstants.STENCIL_OP_ENUMS, ToonEditorConstants.STENCIL_OP_INDICES, out int _);
+            EditorGUI.indentLevel -= (INDENT_SIZE * INDENT_DEPTH);
         }
-        EditorGUILayout.EndFoldoutHeaderGroup();
+        EditorGUI.EndFoldoutHeaderGroup();
 
         EditorGUILayout.Space();
     }
