@@ -25,6 +25,7 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         }
 
         EditorGUI.BeginChangeCheck();
+        DrawShaderSettingsGUI(mEditor, mats, m_materialPropertyUIElements, ref m_shaderSettingsFoldout);
         DrawThreeColorsGUI(mEditor, mats, m_materialPropertyUIElements, ref m_colorsFoldout);
         DrawShadingGUI(mEditor, mats, m_materialPropertyUIElements, ref m_shadingFoldout);
         DrawLightingGUI(mEditor, mats, m_materialPropertyUIElements, ref m_lightingFoldout);
@@ -33,8 +34,6 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
 
         m_materialState.useOutline = Toon3Das2DMaterialUtility.IsOutlineEnabled(mats[0]);
         DrawOutlineGUI(mEditor, mats, m_materialPropertyUIElements, ref m_outlineFoldout, ref m_materialState);
-
-        DrawShaderSettingsGUI(mEditor, mats, m_materialPropertyUIElements, ref m_shaderSettingsFoldout);
 
         if (EditorGUI.EndChangeCheck()) {
             mEditor.PropertiesChanged();
