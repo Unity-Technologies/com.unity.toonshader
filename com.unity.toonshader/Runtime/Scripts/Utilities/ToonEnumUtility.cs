@@ -22,10 +22,10 @@ internal static class ToonEnumUtility {
     internal static int[] ToIntValues(Type t) {
         Array values = Enum.GetValues(t);
         int numValues = values.Length;
-        int[] indices = new int[numValues];
+        int[] intValues = new int[numValues];
         for (int i = 0; i < numValues; i++)
-            indices[i] = Convert.ToInt32(values.GetValue(i));
-        return indices;
+            intValues[i] = Convert.ToInt32(values.GetValue(i));
+        return intValues;
     }
 
 }
