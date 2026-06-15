@@ -50,6 +50,8 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
 
     void RefreshFoldouts(Material mat, Dictionary<string, MaterialPropertyUIElement> uiElements) {
 
+        m_shaderSettingsFoldout = false;
+        m_stencilFoldout = true;
         m_colorsFoldout = true;
         m_shadingFoldout = true;
 
@@ -610,13 +612,13 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     static readonly GUIContent LIGHTING_FOLDOUT
         = EditorGUIUtility.TrTextContent("Lighting", "Lighting settings.");
 
+    bool m_shaderSettingsFoldout = false;
+    bool m_stencilFoldout = true;
     bool m_colorsFoldout = true;
     bool m_shadingFoldout = true;
     bool m_normalMapFoldout = false;
     bool m_outlineFoldout = false;
     bool m_lightingFoldout = false;
-    bool m_shaderSettingsFoldout = false;
-    bool m_stencilFoldout = true;
     
     private Material m_lastMaterial;
     
