@@ -253,11 +253,11 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
             EditorGUI.indentLevel += (INDENT_SIZE * INDENT_DEPTH);
             ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[ToonConstants.SHADER_PROP_STENCIL_REF]);
             ToonEditorGUIUtility.DrawIntPopupGUI(mEditor, mats, uiElements[ToonConstants.SHADER_PROP_STENCIL_COMP],
-                ToonEditorConstants.STENCIL_COMP_ENUMS, ToonEditorConstants.STENCIL_COMP_INDICES, out int _);
+                ToonEditorConstants.STENCIL_COMP_ENUMS, ToonEditorConstants.STENCIL_COMP_VALUES, out int _);
             ToonEditorGUIUtility.DrawIntPopupGUI(mEditor, mats, uiElements[ToonConstants.SHADER_PROP_STENCIL_OP_PASS],
-                ToonEditorConstants.STENCIL_OP_ENUMS, ToonEditorConstants.STENCIL_OP_INDICES, out int _);
+                ToonEditorConstants.STENCIL_OP_ENUMS, ToonEditorConstants.STENCIL_OP_VALUES, out int _);
             ToonEditorGUIUtility.DrawIntPopupGUI(mEditor, mats, uiElements[ToonConstants.SHADER_PROP_STENCIL_OP_FAIL],
-                ToonEditorConstants.STENCIL_OP_ENUMS, ToonEditorConstants.STENCIL_OP_INDICES, out int _);
+                ToonEditorConstants.STENCIL_OP_ENUMS, ToonEditorConstants.STENCIL_OP_VALUES, out int _);
             EditorGUI.indentLevel -= (INDENT_SIZE * INDENT_DEPTH);
         }
         EditorGUI.EndFoldoutHeaderGroup();

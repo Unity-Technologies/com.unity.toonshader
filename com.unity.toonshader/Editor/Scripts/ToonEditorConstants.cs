@@ -18,9 +18,9 @@ internal static class ToonEditorConstants {
         Path.Combine(PACKAGE_PATH,"Runtime/Shaders/UnityToonTessellation.shader").Replace('\\','/');
 
     internal static readonly GUIContent[] STENCIL_COMP_ENUMS   = ToonEnumUtility.ToInspectorNamesAsGUIContent(typeof(UnityEngine.Rendering.CompareFunction));
-    internal static readonly int[]        STENCIL_COMP_INDICES = ToonEnumUtility.ToIndices(typeof(UnityEngine.Rendering.CompareFunction));
+    internal static readonly int[]        STENCIL_COMP_VALUES = ToonEnumUtility.ToIntValues(typeof(UnityEngine.Rendering.CompareFunction));
     internal static readonly GUIContent[] STENCIL_OP_ENUMS     = ToonEnumUtility.ToInspectorNamesAsGUIContent(typeof(UnityEngine.Rendering.StencilOp));
-    internal static readonly int[]        STENCIL_OP_INDICES   = ToonEnumUtility.ToIndices(typeof(UnityEngine.Rendering.StencilOp));
+    internal static readonly int[]        STENCIL_OP_VALUES   = ToonEnumUtility.ToIntValues(typeof(UnityEngine.Rendering.StencilOp));
 
 
 }
