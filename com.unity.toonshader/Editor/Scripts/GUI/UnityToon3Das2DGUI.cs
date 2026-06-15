@@ -152,7 +152,7 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         ToonEditorGUIUtility.DrawVector3FieldGUI(mEditor, mats, uiElements[ToonConstants.SHADER_PROP_DIRECTIONAL_LIGHT_VIEW_POSITION]);
         ToonEditorGUIUtility.DrawTexturePropertySingleLineGUI(mEditor, uiElements[ToonConstants.SHADER_PROP_HIGHLIGHT_TEX]);
         ToonEditorGUIUtility.DrawIntPopupGUI(mEditor, mats, uiElements[ToonConstants.SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_MODE],
-            m_highlightModeEnums, m_highlightModeIndices, out int _);
+            m_highlightModeEnums, m_highlightModeValues, out int _);
         ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[ToonConstants.SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_STRENGTH]);
         ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[ToonConstants.SHADER_PROP_DIRECTIONAL_LIGHT_HIGHLIGHT_SIZE]);
 
@@ -193,7 +193,7 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         EditorGUI.BeginDisabledGroup(!state.useOutline);
 
         ToonEditorGUIUtility.DrawIntPopupGUI(mEditor, mats, uiElements[ToonConstants.SHADER_PROP_OUTLINE_MODE],
-            m_outlineModeEnums, m_outlineModeIndices, out int outlineMode);
+            m_outlineModeEnums, m_outlineModeValues, out int outlineMode);
 
         state.outlineMode = (ToonOutlineMode) outlineMode;
 
@@ -546,10 +546,10 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     }
 
     private static readonly GUIContent[] m_outlineModeEnums = ToonEnumUtility.ToInspectorNamesAsGUIContent(typeof(ToonOutlineMode));
-    private static readonly int[] m_outlineModeIndices = ToonEnumUtility.ToIndices(typeof(ToonOutlineMode));
+    private static readonly int[] m_outlineModeValues = ToonEnumUtility.ToIntValues(typeof(ToonOutlineMode));
 
     private static readonly GUIContent[] m_highlightModeEnums = ToonEnumUtility.ToInspectorNamesAsGUIContent(typeof(HighlightMode));
-    private static readonly int[] m_highlightModeIndices = ToonEnumUtility.ToIndices(typeof(HighlightMode));
+    private static readonly int[] m_highlightModeValues = ToonEnumUtility.ToIntValues(typeof(HighlightMode));
 
     static readonly GUIContent COLORS_FOLDOUT = EditorGUIUtility.TrTextContent("Colors",
         "Colors for basic cel-shading settings in Unity Toon Shader.");
