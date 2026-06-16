@@ -457,7 +457,7 @@ Shader "Toon/Toon 3D as 2D (URP)"{
                 float4 _MainTex_var = SAMPLE_TEXTURE2D(_MainTex,sampler_MainTex, TRANSFORM_TEX(Set_UV0, _MainTex));
                 float3 Set_BaseColor = _BaseColor.rgb * _MainTex_var.rgb;
                 
-                const float3 outlineTex = tex2D(sampler_OutlineTex,TRANSFORM_TEX(Set_UV0, _OutlineTex)).rgb;
+                const float3 outlineTex = SAMPLE_TEXTURE2D(_OutlineTex, sampler_OutlineTex, TRANSFORM_TEX(Set_UV0, _OutlineTex)).rgb;
                 const float3 outlineAlbedo = outlineTex * _OutlineColor.rgb;
 
                 //Blend with baseColor
