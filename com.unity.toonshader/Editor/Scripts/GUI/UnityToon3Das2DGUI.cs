@@ -25,6 +25,7 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         }
 
         EditorGUI.BeginChangeCheck();
+        DrawShaderSettingsGUI(mEditor, mats, m_materialPropertyUIElements, ref m_shaderSettingsFoldout, ref m_stencilFoldout);
         DrawThreeColorsGUI(mEditor, mats, m_materialPropertyUIElements, ref m_colorsFoldout);
         DrawShadingGUI(mEditor, mats, m_materialPropertyUIElements, ref m_shadingFoldout);
         DrawLightingGUI(mEditor, mats, m_materialPropertyUIElements, ref m_lightingFoldout);
@@ -49,6 +50,8 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
 
     void RefreshFoldouts(Material mat, Dictionary<string, MaterialPropertyUIElement> uiElements) {
 
+        m_shaderSettingsFoldout = false;
+        m_stencilFoldout = true;
         m_colorsFoldout = true;
         m_shadingFoldout = true;
 
@@ -235,6 +238,34 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         EditorGUILayout.Space();
     }
 
+
+//----------------------------------------------------------------------------------------------------------------------
+
+    static void DrawShaderSettingsGUI(MaterialEditor mEditor, Material[] mats,
+        Dictionary<string, MaterialPropertyUIElement> uiElements, ref bool foldout, ref bool stencilFoldout) {
+
+        ToonEditorGUIUtility.DrawFoldoutGUI(ref foldout, SHADER_SETTINGS_FOLDOUT);
+        if (!foldout)
+            return;
+
+        Rect rect = ToonEditorGUIUtility.GetIndentedHeaderRect(INDENT_SIZE);
+        stencilFoldout = EditorGUI.BeginFoldoutHeaderGroup(rect, stencilFoldout, "Stencil");
+        if (stencilFoldout) {
+            const int INDENT_DEPTH = 2;
+            EditorGUI.indentLevel += (INDENT_SIZE * INDENT_DEPTH);
+            ToonEditorGUIUtility.DrawRangePropertyGUI(mEditor, uiElements[ToonConstants.SHADER_PROP_STENCIL_REF]);
+            ToonEditorGUIUtility.DrawIntPopupGUI(mEditor, mats, uiElements[ToonConstants.SHADER_PROP_STENCIL_COMP],
+                ToonEditorConstants.STENCIL_COMP_ENUMS, ToonEditorConstants.STENCIL_COMP_VALUES, out int _);
+            ToonEditorGUIUtility.DrawIntPopupGUI(mEditor, mats, uiElements[ToonConstants.SHADER_PROP_STENCIL_OP_PASS],
+                ToonEditorConstants.STENCIL_OP_ENUMS, ToonEditorConstants.STENCIL_OP_VALUES, out int _);
+            ToonEditorGUIUtility.DrawIntPopupGUI(mEditor, mats, uiElements[ToonConstants.SHADER_PROP_STENCIL_OP_FAIL],
+                ToonEditorConstants.STENCIL_OP_ENUMS, ToonEditorConstants.STENCIL_OP_VALUES, out int _);
+            EditorGUI.indentLevel -= (INDENT_SIZE * INDENT_DEPTH);
+        }
+        EditorGUI.EndFoldoutHeaderGroup();
+
+        EditorGUILayout.Space();
+    }
 
 //----------------------------------------------------------------------------------------------------------------------
 
@@ -537,6 +568,24 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
         },
         //Outline End
 
+        // Shader Settings
+        new MaterialUIElement {
+            mainPropertyName = new MaterialName(ToonConstants.SHADER_PROP_STENCIL_REF),
+            label = new GUIContent("Stencil Ref", "Stencil reference value (0–255)."),
+        },
+        new MaterialUIElement {
+            mainPropertyName = new MaterialName(ToonConstants.SHADER_PROP_STENCIL_COMP),
+            label = new GUIContent("Stencil Compare", "Stencil comparison function."),
+        },
+        new MaterialUIElement {
+            mainPropertyName = new MaterialName(ToonConstants.SHADER_PROP_STENCIL_OP_PASS),
+            label = new GUIContent("Pass Op", "What to do when stencil test passes."),
+        },
+        new MaterialUIElement {
+            mainPropertyName = new MaterialName(ToonConstants.SHADER_PROP_STENCIL_OP_FAIL),
+            label = new GUIContent("Fail Op", "What to do when stencil test fails."),
+        },
+
     };
 
 
@@ -551,6 +600,10 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     private static readonly GUIContent[] m_highlightModeEnums = ToonEnumUtility.ToInspectorNamesAsGUIContent(typeof(HighlightMode));
     private static readonly int[] m_highlightModeValues = ToonEnumUtility.ToIntValues(typeof(HighlightMode));
 
+
+    static readonly GUIContent SHADER_SETTINGS_FOLDOUT =
+        EditorGUIUtility.TrTextContent("Shader Settings", "Low-level shader settings such as stencil.");
+
     static readonly GUIContent COLORS_FOLDOUT = EditorGUIUtility.TrTextContent("Colors",
         "Colors for basic cel-shading settings in Unity Toon Shader.");
 
@@ -559,6 +612,8 @@ internal class UnityToon3Das2DGUI : UnityEditor.ShaderGUI {
     static readonly GUIContent LIGHTING_FOLDOUT
         = EditorGUIUtility.TrTextContent("Lighting", "Lighting settings.");
 
+    bool m_shaderSettingsFoldout = false;
+    bool m_stencilFoldout = true;
     bool m_colorsFoldout = true;
     bool m_shadingFoldout = true;
     bool m_normalMapFoldout = false;

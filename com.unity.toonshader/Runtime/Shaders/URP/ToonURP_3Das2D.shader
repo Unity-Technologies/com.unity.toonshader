@@ -54,7 +54,16 @@ Shader "Toon/Toon 3D as 2D (URP)"{
         _Outline_UseNormalMap ("Outline: Use Outline Normal Map", Integer ) = 0
         _Outline_NormalMap ("Outline Normal Map", 2D) = "bump" {}
         [HideInInspector] _ToonMaterialVersion ("Toon Material Version", Integer ) = 0
+
+        // Stencil Properties
         
+        // Put this in the last bit of our stencil value for maximum compatibility with sprite mask
+        [IntRange] _StencilRef ("Stencil Reference", Range(0, 255)) = 128
+        
+        [Enum(UnityEngine.Rendering.CompareFunction)] _StencilComp ("Stencil Compare", Integer) = 8   // Always
+        [Enum(UnityEngine.Rendering.StencilOp)] _StencilOpPass ("Stencil Pass Op", Integer) = 2       // Replace
+        [Enum(UnityEngine.Rendering.StencilOp)] _StencilOpFail ("Stencil Fail Op", Integer) = 0       // Keep
+
     }
 
     SubShader{
@@ -70,9 +79,10 @@ Shader "Toon/Toon 3D as 2D (URP)"{
         ZWrite On
 
         Stencil{
-            Ref 128 // Put this in the last bit of our stencil value for maximum compatibility with sprite mask
-            Comp always
-            Pass replace
+            Ref[_StencilRef]
+            Comp[_StencilComp]
+            Pass[_StencilOpPass]
+            Fail[_StencilOpFail]
         }
 
         Pass{
@@ -317,15 +327,6 @@ Shader "Toon/Toon 3D as 2D (URP)"{
 //            Cull [_SRPDefaultUnlitColMode]
 //            ColorMask [_SPRDefaultUnlitColorMask]
             Blend SrcAlpha OneMinusSrcAlpha
-//            Stencil
-//            {
-//                Ref[_StencilNo]
-//                Comp[_StencilComp]
-//                Pass[_StencilOpPass]
-//                Fail[_StencilOpFail]
-//
-//            }
-
             
             HLSLPROGRAM
             #pragma target 3.0
