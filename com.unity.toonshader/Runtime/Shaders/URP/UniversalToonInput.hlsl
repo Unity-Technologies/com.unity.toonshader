@@ -292,12 +292,12 @@ inline void InitializeStandardLitSurfaceData(float2 uv, out SurfaceData outSurfa
     outSurfaceData.emission = SampleEmission(uv, _EmissionColor.rgb, TEXTURE2D_ARGS(_EmissionMap, sampler_EmissionMap));
 }
 
-// URP 6.6 (6000.6) changed IsSurfaceTypeTransparent() to be parameterless and moved its
+// URP 6.5 (6000.5) changed IsSurfaceTypeTransparent() to be parameterless and moved its
 // definition into Shaders/Utils/SurfaceType.hlsl, which URP normally pulls in via LitInput.hlsl.
 // Toon blocks LitInput.hlsl (see URPIncludeGuards.hlsl) because it uses a custom CBUFFER, so the
 // parameterless overload is never declared and LitForwardPass.hlsl fails to compile.
 // We provide the overload here so the included LitForwardPass.hlsl can resolve IsSurfaceTypeTransparent().
-#if UNITY_VERSION >= 60060000 && !defined(UNIVERSAL_SURFACE_TYPE_TRANSPARENT_INCLUDED)
+#if UNITY_VERSION >= 60050000 && !defined(UNIVERSAL_SURFACE_TYPE_TRANSPARENT_INCLUDED)
 inline bool IsSurfaceTypeTransparent()
 {
 #if defined(_SURFACE_TYPE_TRANSPARENT)
