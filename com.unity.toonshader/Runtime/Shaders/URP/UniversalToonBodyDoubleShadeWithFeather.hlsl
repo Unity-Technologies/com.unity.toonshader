@@ -420,7 +420,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 
         pointLightColor += perLightContribution;
     }
-#endif  // USE_CLUSTER_LIGHT_LOOP
+#endif  // USE_CLUSTER_LIGHT_LOOP || USE_FORWARD_PLUS
 
     // spot lights, etc
     const int pixelLightCount = GetAdditionalLightsCount();
