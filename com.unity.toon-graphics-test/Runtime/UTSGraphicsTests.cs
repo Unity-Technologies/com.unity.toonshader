@@ -55,6 +55,7 @@ public class UTSGraphicsTestsXR {
 
         //Enable XR
         XRUtility.EnableXRInEditor();
+        TestContentLoader.Reset(); //reset loaded images
 
         const string XR_DEVICE = "MockHMDLoader";
 
@@ -73,6 +74,7 @@ public class UTSGraphicsTestsXR {
         yield return UTSGraphicsTests.RunInternal(testCase, isXR:true);
 
         XRUtility.DisableXR();
+        TestContentLoader.Reset(); //reset loaded images
     }
 
     static readonly FieldInfo REF_IMAGE_ASSET_PATH_FIELD =
