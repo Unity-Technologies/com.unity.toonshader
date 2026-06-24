@@ -68,27 +68,11 @@ public class UTSGraphicsTestsXR {
         string xrImagePath = Path.Combine(imageFolderName, XR_DEVICE,imageFileName);
         Assert.IsTrue(File.Exists(xrImagePath),$"XR Reference image not found at: {xrImagePath}");
         
-        SetRefImageAssetPath(testCase.ReferenceImage, xrImagePath);
-        ClearLoadedImage(testCase.ReferenceImage);
-        
         yield return UTSGraphicsTests.RunInternal(testCase, isXR:true);
 
         XRUtility.DisableXR();
         TestContentLoader.Reset(); //reset loaded images
     }
-
-    static readonly FieldInfo REF_IMAGE_ASSET_PATH_FIELD =
-        typeof(ReferenceImage).GetField("m_AssetPath", BindingFlags.NonPublic | BindingFlags.Instance);
-
-    static readonly FieldInfo LOADED_IMAGE_FIELD =
-        typeof(ReferenceImage).GetField("m_LoadedImage", BindingFlags.NonPublic | BindingFlags.Instance);
-    
-    private static void SetRefImageAssetPath(ReferenceImage image, string path)
-        => REF_IMAGE_ASSET_PATH_FIELD.SetValue(image, path);    
-
-
-    private static void ClearLoadedImage(ReferenceImage image)
-        => LOADED_IMAGE_FIELD.SetValue(image, null);    
     
 }
 
