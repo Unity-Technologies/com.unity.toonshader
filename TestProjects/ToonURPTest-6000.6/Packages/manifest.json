@@ -7,7 +7,6 @@
     "com.unity.test-framework": "1.8.0",
     "com.unity.testframework.graphics": "8.14.0-exp.2",
     "com.unity.toon-graphics-test": "file:../../../com.unity.toon-graphics-test",
-    "com.unity.toon-reference-images": "file:../../../com.unity.toon-reference-images",
     "com.unity.toonshader": "file:../../../com.unity.toonshader",
     "com.unity.ugui": "2.6.0",
     "com.unity.xr.mock-hmd": "1.4.0-preview.2",

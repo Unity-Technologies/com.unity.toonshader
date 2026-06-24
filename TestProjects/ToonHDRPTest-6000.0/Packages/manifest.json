@@ -10,7 +10,6 @@
     "com.unity.test-framework": "1.6.0",
     "com.unity.testframework.graphics": "8.13.2-exp.1",
     "com.unity.toon-graphics-test": "file:../../../com.unity.toon-graphics-test",
-    "com.unity.toon-reference-images": "file:../../../com.unity.toon-reference-images",
     "com.unity.toonshader": "file:../../../com.unity.toonshader",
     "com.unity.ugui": "2.0.0",
     "com.unity.xr.management": "4.5.4",
