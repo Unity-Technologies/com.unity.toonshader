@@ -233,12 +233,6 @@
         "com.unity.testframework.graphics": "8.12.0-exp.2"
       }
     },
-    "com.unity.toon-reference-images": {
-      "version": "file:../../../com.unity.toon-reference-images",
-      "depth": 0,
-      "source": "local",
-      "dependencies": {}
-    },
     "com.unity.toonshader": {
       "version": "file:../../../com.unity.toonshader",
       "depth": 0,
