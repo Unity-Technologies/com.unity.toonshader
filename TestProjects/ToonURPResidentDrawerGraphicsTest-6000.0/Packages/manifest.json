@@ -6,6 +6,7 @@
     "com.unity.multiplayer.center": "1.0.0",
     "com.unity.render-pipelines.universal": "17.0.4",
     "com.unity.test-framework": "1.6.0",
+    "com.unity.testframework.graphics": "9.0.0-pre.12",
     "com.unity.timeline": "1.8.12",
     "com.unity.toon-graphics-test": "file:../../../com.unity.toon-graphics-test",
     "com.unity.toonshader": "file:../../../com.unity.toonshader",
