@@ -258,9 +258,17 @@ VertexOutput vert(VertexInput v) {
 }
 
 #if UNITY_VERSION >= 60030000
+
 #define ENCODE_MESH_RENDERING_LAYER_UTS EncodeMeshRenderingLayer()
+
 #else
+
 #define ENCODE_MESH_RENDERING_LAYER_UTS EncodeMeshRenderingLayer(GetMeshRenderingLayer())
+
+#ifndef CLUSTER_LIGHT_LOOP_SUBTRACTIVE_LIGHT_CHECK
+#define CLUSTER_LIGHT_LOOP_SUBTRACTIVE_LIGHT_CHECK FORWARD_PLUS_SUBTRACTIVE_LIGHT_CHECK
+#endif //CLUSTER_LIGHT_LOOP_SUBTRACTIVE_LIGHT_CHECK
+
 #endif
 
 //----------------------------------------------------------------------------------------------------------------------
