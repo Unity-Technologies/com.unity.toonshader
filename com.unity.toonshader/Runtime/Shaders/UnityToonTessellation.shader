@@ -1,4 +1,4 @@
-//Auto-generated on Wed Jun 24 01:59:25 UTC 2026
+//Auto-generated on Thu Apr 23 05:23:09 UTC 2026
 Shader "Toon/Toon (Tessellation)" {
     Properties
     {
@@ -1231,7 +1231,7 @@ Shader "Toon/Toon (Tessellation)" {
             #pragma multi_compile _ _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHTS
             #pragma multi_compile _ _ADDITIONAL_LIGHT_SHADOWS
             #pragma multi_compile _ _SHADOWS_SOFT _SHADOWS_SOFT_LOW _SHADOWS_SOFT_MEDIUM _SHADOWS_SOFT_HIGH
-            #pragma multi_compile _ _CLUSTER_LIGHT_LOOP
+            #pragma multi_compile _ _FORWARD_PLUS
             #if (!defined(UNITY_COMPILER_DXC) && (defined(UNITY_PLATFORM_OSX) || defined(UNITY_PLATFORM_IOS))) || defined(SHADER_API_PS5)
 
                 #if defined(SHADER_API_PS5) || defined(SHADER_API_METAL)
