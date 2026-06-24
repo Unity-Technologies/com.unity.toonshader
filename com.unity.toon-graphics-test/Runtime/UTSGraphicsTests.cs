@@ -123,15 +123,6 @@ public class UTSGraphicsTestsNonXR  {
         internal static IEnumerator RunInternal(SceneGraphicsTestCase testCase, bool isXR = false) {
 
             SceneManager.LoadScene(testCase.ScenePath);
-
-            Debug.Log(testCase.ReferenceImage.Image);
-            Debug.Log(testCase.ReferenceImage.Image);
-            Debug.Log(testCase.ReferenceImage.Image);
-            
-            Debug.Log(testCase.ReferenceImage.AssetPath);
-            Debug.Log(testCase.ReferenceImage.AssetPath);
-            Debug.Log(testCase.ReferenceImage.AssetPath);
-            Debug.Log(testCase.ReferenceImage.AssetPath);
             
             // Always wait one frame for scene load
             yield return null;
