@@ -478,8 +478,8 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 #ifdef _ADDITIONAL_LIGHTS
 
 
-#if USE_CLUSTER_LIGHT_LOOP
-    // directional lights in Forward Plus
+#if USE_CLUSTER_LIGHT_LOOP || USE_FORWARD_PLUS
+    // directional lights in Forward+/Cluster light loop
     for (uint loopCounter = 0; loopCounter < min(URP_FP_DIRECTIONAL_LIGHTS_COUNT, MAX_VISIBLE_LIGHTS); loopCounter++)
     {
         float3 perLightContribution = ProcessAdditionalLightSG(
@@ -497,7 +497,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 
         pointLightColor += perLightContribution;
     }
-#endif  // USE_CLUSTER_LIGHT_LOOP
+#endif  // USE_CLUSTER_LIGHT_LOOP || USE_FORWARD_PLUS
 
     // spot lights, etc
     const int pixelLightCount = GetAdditionalLightsCount();
