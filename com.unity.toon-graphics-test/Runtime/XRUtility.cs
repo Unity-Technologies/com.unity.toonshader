@@ -20,7 +20,6 @@ public static void EnableXRInEditor() {
     }
 
     
-    XRGeneralSettings.Instance.InitManagerOnStart = true;
     XRManagerSettings xrManager = XRGeneralSettings.Instance.Manager;
     
     //Disable everything first
@@ -30,6 +29,7 @@ public static void EnableXRInEditor() {
         DisableXR();
     }
 
+    XRGeneralSettings.Instance.InitManagerOnStart = true;
     if (!xrManager.activeLoader) {
         xrManager.InitializeLoaderSync();
     }
