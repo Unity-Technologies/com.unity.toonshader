@@ -19,22 +19,26 @@ public static void EnableXRInEditor() {
             "Assets/XR/XRGeneralSettingsPerBuildTarget.asset");
     }
 
+    
+    XRManagerSettings xrManager = XRGeneralSettings.Instance.Manager;
+    
     //Disable everything first
-    if (XRGeneralSettings.Instance.Manager.activeLoader ||
-        XRGeneralSettings.Instance.Manager.isInitializationComplete)
+    if (xrManager.activeLoader ||
+        xrManager.isInitializationComplete)
     {
         DisableXR();
     }
 
-    if (!XRGeneralSettings.Instance.Manager.activeLoader) {
-        XRGeneralSettings.Instance.Manager.InitializeLoaderSync();
+    XRGeneralSettings.Instance.InitManagerOnStart = true;
+    if (!xrManager.activeLoader) {
+        xrManager.InitializeLoaderSync();
     }
 
 
-    if (XRGeneralSettings.Instance.Manager.activeLoader
-        && XRGeneralSettings.Instance.Manager.isInitializationComplete)
+    if (xrManager.activeLoader
+        && xrManager.isInitializationComplete)
     {
-        XRGeneralSettings.Instance.Manager.StartSubsystems();
+        xrManager.StartSubsystems();
     }
 
     List<XRDisplaySubsystem> xrDisplaySubsystems = new List<XRDisplaySubsystem>();
@@ -50,14 +54,19 @@ public static void EnableXRInEditor() {
 
 public static void DisableXR() {
 
-    XRManagerSettings xrManager = XRGeneralSettings.Instance?.Manager;
-    if (null!= xrManager && xrManager.isInitializationComplete)
-    {
-        xrManager.StopSubsystems();
-        xrManager.DeinitializeLoader();
+    XRGeneralSettings xrInstance = XRGeneralSettings.Instance;
+    if (null != xrInstance) {
+        xrInstance.InitManagerOnStart = false;
+
+        XRManagerSettings xrManager = xrInstance.Manager;
+        if (null!= xrManager && xrManager.isInitializationComplete)
+        {
+            xrManager.StopSubsystems();
+            xrManager.DeinitializeLoader();
+        }
+        
     }
-
-
+    
     List<XRDisplaySubsystem> xrDisplaySubsystems = new List<XRDisplaySubsystem>();
     SubsystemManager.GetSubsystems<XRDisplaySubsystem>(xrDisplaySubsystems);
     int count = xrDisplaySubsystems.Count;
