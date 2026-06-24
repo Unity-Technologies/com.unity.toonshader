@@ -77,7 +77,7 @@ half3 GlobalIlluminationUTS(BRDFData brdfData, half3 bakedGI, half occlusion, ha
     half fresnelTerm = Pow4(1.0 - saturate(dot(normalWS, viewDirectionWS)));
 
     half3 indirectDiffuse = bakedGI * occlusion;
-#if USE_CLUSTER_LIGHT_LOOP
+#if USE_FORWARD_PLUS
     half3 irradiance = CalculateIrradianceFromReflectionProbes(reflectVector, positionWS, brdfData.perceptualRoughness,
         normalizedScreenSpaceUV);
     half3 indirectSpecular = irradiance * occlusion;
