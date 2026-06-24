@@ -403,7 +403,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     // directional lights in Forward Plus
     for (uint lightIndex = 0; lightIndex < min(URP_FP_DIRECTIONAL_LIGHTS_COUNT, MAX_VISIBLE_LIGHTS); lightIndex++)
     {
-        FORWARD_PLUS_SUBTRACTIVE_LIGHT_CHECK
+        CLUSTER_LIGHT_LOOP_SUBTRACTIVE_LIGHT_CHECK
 
         float3 perLightContribution = ProcessAdditionalLight(
             lightIndex,
