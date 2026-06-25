@@ -93,7 +93,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000000, guid: 843fdeac319445d8bf752eba06bd2aec,
+  m_LightingDataAsset: {fileID: 112000000, guid: a396add36e2ef084eb07499d51a12e03,
     type: 2}
   m_LightingSettings: {fileID: 4890085278179872738, guid: 09b70a6535eec744aa9a8a7d98b2c4e0,
     type: 2}
@@ -440,6 +440,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 100002, guid: 165741010ff14f50a226bba59579728f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: 165741010ff14f50a226bba59579728f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 65
+      objectReference: {fileID: 0}
+    - target: {fileID: 125776, guid: 165741010ff14f50a226bba59579728f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 182018, guid: 165741010ff14f50a226bba59579728f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 182018, guid: 165741010ff14f50a226bba59579728f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 65
+      objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 165741010ff14f50a226bba59579728f, type: 3}
       propertyPath: m_RootOrder
       value: 5
