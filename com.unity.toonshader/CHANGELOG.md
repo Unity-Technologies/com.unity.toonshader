@@ -1,8 +1,28 @@
 # Changelog
 
+## [0.15.0-preview] - 2026-06-25
+
+### Added
+* feat: allow configuring stencil operations for 3D as 2D shader (#835)
+
+### Changed
+* sample: change and rebake the lighting for the NormalMap scene (BiRP) (#851)
+* sample: remove unused ShaderBall textures (#842)
+* sample: move DefaultReflection asset to its correct scene (HDRP) (#849)
+* sample: disable compression for callibration textures in BiRP (#844)
+* sample: disable compression for textures in BiRP NormalMap scene (#846)
+
+### Fixed
+* fix: use _CLUSTER_LIGHT_LOOP keyword for Unity 6.3+ (#853)
+* fix: shader compilation error on Unity 6.5+ due to missing IsSurfaceTypeTransparent() (#848)
+* fix: warnings on the 3D as 2D shader (#841)
+* fix: use System.Enum APIs in ToonEnumUtility to ensure ordering (#836)
+* fix: handle the different signature of EncodeMeshRenderingLayer for Unity 6.3+ (#821)
+* sample: fix missing components in the BiRP Camera prefab (Shaderball) (#843)
+
 ## [0.14.1-preview] - 2026-04-27
 
-## Fixed
+### Fixed
 * fix: URP rendering layer writes (#803)
 * fix: guard against including URP/LitInput.hlsl (#801)
 * fix: warnings by removing redundant shader pragmas and using newer Unity C# APIs. (#800)
@@ -10,19 +30,19 @@
 
 ## [0.14.0-preview] - 2026-04-17
 
-## Added
+### Added
 
 * feat: support shadows for additional lights
 * doc: troubleshooting on shadow acne
 
-## Changed
+### Changed
 
 * change: the default color of 1st/2nd shading to gray/black
 * sample: add additional lights in KageBall scene
 * opt: remove unnecessary max() op when tweaking system shadow
 * opt: remove custom main light determination logic in URP
 
-## Fixed
+### Fixed
 
 * fix: blend output color with fog in URP when applicable
 * fix: avoid modifying shader properties inside the SGMap Toon shader in HDRP
@@ -33,24 +53,24 @@
 
 ## [0.13.4-preview] - 2026-02-18
 
-## Changed
+### Changed
 * deps: update dependency to com.unity.render-pipelines.core@17.0.3
 
 ## [0.13.3-preview] - 2026-02-18
 
-## Changed
+### Changed
 * deps: update dependency to com.unity.render-pipelines.core@17.0.4
 
 ## [0.13.2-preview] - 2026-02-17
 
-## Changed
+### Changed
 * docs: clarify 2D support via "3D as 2D" in URP (Unity 6.3)
 * sample: rename tessellation scene to UnityChan_CelLook_Tess
 * sample: remove fog in UnityChan_CelLook
 * sample: remove fog volume from UnityChan_CelLook_Tess scene
 * sample: remove fog in UnityChan scene
 
-## Fixed
+### Fixed
 * fix: missing shadows when using screen space shadows
 * fix: unused variable warning in UTS3GUI
 * fix: support Decals feature back in URP
@@ -72,19 +92,19 @@
 
 ## [0.13.1-preview] - 2025-12-22
 
-## Fixed
+### Fixed
 * fix: shader compile error when screen space shadow is enabled in URP
 * fix: check property existence before when converting materials
 
 ## [0.13.0-preview] - 2025-12-04
 
-## Added
+### Added
 * feat: add Toon 3D as 2D shader
 * feat: assign material props when switching a material to Toon3Das2D
 * license: add explicit reference to the Unity-chan license
 * doc: add rendering paths section in the feature model doc
 
-## Changed
+### Changed
 * package: raise minimum Unity version requirement to 6.0
 * deps: use com.unity.film-internal-utilities@0.20.0-preview
 * sample: replace Unity-chan assets package-wide
@@ -113,7 +133,7 @@
 * doc: improve grammar and clarity
 * doc: relocate HDRP box light entry under HDRP features
 
-## Fixed
+### Fixed
 * fix: share the same cbuffer for the Universal2D pass
 * fix: workaround to prevent Built-in RP code from being executed in URP/HDRP
 * fix: correct inspector documentation URLs
