@@ -538,7 +538,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     finalRGBA = fixed4(finalColor, 1);
 
 #elif _IS_TRANSCLIPPING_ON
-    float Set_Opacity = SATURATE_IF_SDR((_Inverse_Clipping_var + _Tweak_transparency));
+    float Set_Opacity = saturate(_Inverse_Clipping_var + _Tweak_transparency);
 
     finalRGBA = fixed4(finalColor, Set_Opacity);
 
