@@ -511,9 +511,7 @@ void Frag(PackedVaryingsToPS packedInput,
     outColor = float4(finalColor, 1 * ApplyChannelAlpha(channelAlpha));
 
   #elif _IS_TRANSCLIPPING_ON
-    float Set_Opacity = SATURATE_IF_SDR((inverseClipping + _Tweak_transparency));
-
-    outColor = float4(finalColor, Set_Opacity * ApplyChannelAlpha(channelAlpha));
+    outColor = float4(finalColor, saturate((inverseClipping + _Tweak_transparency) * ApplyChannelAlpha(channelAlpha)));
 
   #endif
 
@@ -530,9 +528,7 @@ void Frag(PackedVaryingsToPS packedInput,
     outColor = float4(finalColor, 1 * ApplyChannelAlpha(channelAlpha));
 
   #elif _IS_CLIPPING_TRANSMODE
-    //DoubleShadeWithFeather_TransClipping
-    float Set_Opacity = SATURATE_IF_SDR((inverseClipping + _Tweak_transparency));
-    outColor = float4(finalColor, Set_Opacity * ApplyChannelAlpha(channelAlpha));
+    outColor = float4(finalColor, saturate((inverseClipping + _Tweak_transparency) * ApplyChannelAlpha(channelAlpha)));
   #endif
 #endif //#if defined(_SHADINGGRADEMAP)
 
