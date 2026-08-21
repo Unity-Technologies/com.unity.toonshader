@@ -538,10 +538,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     finalRGBA = fixed4(finalColor, 1);
 
 #elif _IS_TRANSCLIPPING_ON
-    float Set_Opacity = saturate(_Inverse_Clipping_var + _Tweak_transparency);
-
-    finalRGBA = fixed4(finalColor, Set_Opacity);
-
+    finalRGBA = fixed4(finalColor, saturate(_Inverse_Clipping_var + _Tweak_transparency));
 #endif
 
     finalRGBA.rgb = MixFog(finalRGBA.rgb, inputData.fogCoord);
