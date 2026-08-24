@@ -1,4 +1,4 @@
-//Auto-generated on Fri Aug 21 10:47:46 UTC 2026
+//Auto-generated on Mon Aug 24 11:52:29 UTC 2026
 Shader "Toon/Toon (Tessellation)" {
     Properties
     {
@@ -1238,7 +1238,7 @@ Shader "Toon/Toon (Tessellation)" {
             #pragma multi_compile _ _FORWARD_PLUS
 #endif
 
-            #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/FoveatedRenderingKeywords.hlsl"
+            #include_with_pragmas "Packages/com.unity.render-pipelines.core/ShaderLibrary/FoveatedRenderingKeywords.hlsl"
 
             #pragma multi_compile_fragment _ _DBUFFER_MRT1 _DBUFFER_MRT2 _DBUFFER_MRT3
             #pragma multi_compile_fragment _ _LIGHT_LAYERS
