@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.15.1-preview] - 2026-08-25
+
+### Fixed
+* fix: use FoveatedRenderingKeywords.hlsl instead of manual foveated rendering pragmas (#868)
+* fix: saturate alpha regardless of HDR (#869)
+
 ## [0.15.0-preview] - 2026-06-25
 
 ### Added
