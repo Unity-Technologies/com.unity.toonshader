@@ -63,6 +63,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/ToonSamplesHDRP/Scenes/UnityChan_LightCulling/UnityChan_LightCulling.unity
     guid: 996ccb16826445bfb9ead90db4383e5e
+  - enabled: 1
+    path: Assets/ToonSamplesHDRP/Scenes/ClippingMatteControlSample/ClippingMatteControlSample.unity
+    guid: 1d7a68411187420a97bf69ce8b6d5207
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: cf2afb40cc2d9db4ea3770686df52896,
       type: 2}
