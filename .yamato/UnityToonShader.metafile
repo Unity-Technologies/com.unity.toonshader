@@ -13,7 +13,7 @@ platforms:
       name: mac
       type: Unity::VM::osx
       type_build: Unity::VM::osx
-      image: package-ci/macos-13-arm64:v4
+      image: package-ci/macos-13-arm64:v4.88.0
       model: 
       flavor: m1.mac
       cmd_prefix: 
@@ -58,7 +58,7 @@ trigger_platform: *pack_platform_linux
 metal_platform: 
   name: metal
   type: Unity::metal::macmini
-  image: package-ci/macos-13-arm64:v4
+  image: package-ci/macos-13-arm64:v4.88.0
   model: M1
   flavor: m1.mac
 
