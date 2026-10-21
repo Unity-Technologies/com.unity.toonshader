@@ -152,9 +152,9 @@ public class UTSGraphicsTestsNonXR  {
 
             for (int i = 0; i < waitFrames; i++)
                 yield return new WaitForEndOfFrame();
-
+            
             ImageAssert.AreEqual(testCase.ReferenceImage.Image, mainCamera,
-                imageComparisonSettings, testCase.ReferenceImage.AssetPath);
+                imageComparisonSettings, testCase.ReferenceImage.AssetPath, saveFailedImageToDisk:true);
             
             // [TODO-sin: 2025-12-23] Check memory allocations
             // try {
