@@ -5,6 +5,12 @@
 #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/CommonMaterial.hlsl"
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/SurfaceInput.hlsl"
 
+// URP 6.6+ keeps IsSurfaceTypeTransparent() and _Surface here, and pulls it in via LitInput.hlsl.
+// Toon blocks LitInput.hlsl (see URPIncludeGuards.hlsl), so include it directly.
+#if UNITY_VERSION >= 60060000
+#include "Packages/com.unity.render-pipelines.universal/Shaders/Utils/SurfaceType.hlsl"
+#endif
+
 #define fixed  half
 #define fixed3 half3
 #define fixed4 half4
@@ -182,8 +188,10 @@ half _Smoothness;
 half _Metallic;
 half _BumpScale;
 half _OcclusionStrength;
-half _Surface;
 
+#if UNITY_VERSION < 60060000
+half _Surface;   // URP < 6.6: LitForwardPass calls IsSurfaceTypeTransparent(_Surface)
+#endif
 
 CBUFFER_END
 
@@ -291,21 +299,5 @@ inline void InitializeStandardLitSurfaceData(float2 uv, out SurfaceData outSurfa
     outSurfaceData.occlusion = SampleOcclusion(uv);
     outSurfaceData.emission = SampleEmission(uv, _EmissionColor.rgb, TEXTURE2D_ARGS(_EmissionMap, sampler_EmissionMap));
 }
-
-// URP 6.5 (6000.5) changed IsSurfaceTypeTransparent() to be parameterless and moved its
-// definition into Shaders/Utils/SurfaceType.hlsl, which URP normally pulls in via LitInput.hlsl.
-// Toon blocks LitInput.hlsl (see URPIncludeGuards.hlsl) because it uses a custom CBUFFER, so the
-// parameterless overload is never declared and LitForwardPass.hlsl fails to compile.
-// We provide the overload here so the included LitForwardPass.hlsl can resolve IsSurfaceTypeTransparent().
-#if UNITY_VERSION >= 60050000 && !defined(UNIVERSAL_SURFACE_TYPE_TRANSPARENT_INCLUDED)
-inline bool IsSurfaceTypeTransparent()
-{
-#if defined(_SURFACE_TYPE_TRANSPARENT)
-    return true;
-#else
-    return false;
-#endif
-}
-#endif
 
 #endif // UNIVERSAL_INPUT_SURFACE_PBR_INCLUDED
