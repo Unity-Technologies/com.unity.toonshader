@@ -239,23 +239,12 @@ TEXTURE2D(_SpecGlossMap);       SAMPLER(sampler_SpecGlossMap);
 //----------------------------------------------------------------------------------------------------------------------
 #if UNITY_VERSION >= 60070000
 
-// URP 6.7 (6000.7) split LitInput.hlsl into per-feature files under Shaders/Utils/ (SampleMetallicSpecGloss,
-// SampleOcclusion, UseNormalMap, ...). URP's DepthOnly/DepthNormals/ShadowCaster/LitForward passes include or
-// call these, so defining our own versions causes redefinition errors. The URP versions read material data
-// through getters that the material's input file must define (normally LitInput.hlsl, which Toon blocks),
-// so we include the same feature files here and provide those getters from Toon's CBUFFER.
-//
-// Most of what follows is copied from URP 6.7's own Shaders/LitInput.hlsl: the include list below mirrors
-// its lines 8-15, and the getters and samplers mirror its lines 142-171. Keep this block as close to that
-// file as possible, so that diffing the two is how we pick up changes on the next URP upgrade. Deviations
-// are only where Toon forces them, and each is noted below.
-//
-// Toon has no detail map, parallax or clear coat properties, so those getters return neutral values.
-// They still need bodies: ApplyPerPixelDisplacement() is called by LitForwardPass and DepthOnlyPass, and
-// its UseParallaxMap() guard is a runtime branch, so the parallax stubs are compiled even though they
-// never run. The detail and clear coat stubs are only reached from ApplyDetailAlbedo()/ApplyDetailNormal()
-// and SampleClearCoat(), which nothing calls, but DetailMap.hlsl is needed for UseDetailMap() and
-// ClearCoat.hlsl arrives via LitFeatures.hlsl regardless, so both stay.
+// URP 6.7 (6000.7) split LitInput.hlsl into per-feature files under Shaders/Utils/. Those read material
+// data through getters that the material's input file must define, and Toon blocks LitInput.hlsl because
+// it has a custom CBUFFER, so this block stands in for it: same includes, same getters, Toon's CBUFFER.
+// It is a copy of LitInput.hlsl, so keep it close to the original: diffing the two is how we pick up
+// URP's changes on the next upgrade. The stubs below cannot be dropped, unused as they are --
+// ApplyPerPixelDisplacement() is compiled into LitForwardPass and DepthOnlyPass, guarded at runtime.
 
 #include "Packages/com.unity.render-pipelines.universal/Shaders/Utils/NormalMap.hlsl"
 #include "Packages/com.unity.render-pipelines.universal/Shaders/Utils/DetailMap.hlsl"
@@ -270,11 +259,6 @@ TEXTURE2D(_SpecGlossMap);       SAMPLER(sampler_SpecGlossMap);
 // (LitInput.hlsl includes it at its line 18; that is the only include we drop.)
 
 // Copied from LitInput.hlsl lines 142-171
-// The only difference is the body of an entry whose property Toon does not have, which returns a neutral
-// value instead of reading the CBUFFER or sampling a texture. Those are GetParallax, GetClearCoatMask,
-// GetClearCoatSmoothness, GetDetailAlbedoMapScale, GetDetailNormalMapScale, GetBaseMapTexelSize,
-// GetDetailAlbedoMapST, SampleParallaxMap, SampleDetailMask, SampleDetailAlbedoMap, SampleDetailNormalMap
-// and SampleClearCoatMap; every other body matches LitInput.hlsl verbatim.
 half4 GetBaseColor()            { return _BaseColor; }
 half4 GetSpecColor()            { return _SpecColor; }
 half4 GetEmissionColor()        { return _EmissionColor; }
@@ -282,27 +266,27 @@ half GetCutoff()                { return _Cutoff; }
 half GetSmoothness()            { return _Smoothness; }
 half GetMetallic()              { return _Metallic; }
 half GetBumpScale()             { return _BumpScale; }
-half GetParallax()              { return half(0.0); }
+half GetParallax()              { return half(0.0); }                   // unused by Toon
 half GetOcclusionStrength()     { return _OcclusionStrength; }
-half GetClearCoatMask()         { return half(0.0); }
-half GetClearCoatSmoothness()   { return half(0.0); }
-half GetDetailAlbedoMapScale()  { return half(0.0); }
-half GetDetailNormalMapScale()  { return half(0.0); }
+half GetClearCoatMask()         { return half(0.0); }                   // unused by Toon
+half GetClearCoatSmoothness()   { return half(0.0); }                   // unused by Toon
+half GetDetailAlbedoMapScale()  { return half(0.0); }                   // unused by Toon
+half GetDetailNormalMapScale()  { return half(0.0); }                   // unused by Toon
 float4 GetBaseMapST()           { return _BaseMap_ST; }
-float4 GetBaseMapTexelSize()    { return float4(1.0, 1.0, 1.0, 1.0); }
-float4 GetDetailAlbedoMapST()   { return float4(1.0, 1.0, 0.0, 0.0); }
+float4 GetBaseMapTexelSize()    { return float4(1.0, 1.0, 1.0, 1.0); }  // unused by Toon
+float4 GetDetailAlbedoMapST()   { return float4(1.0, 1.0, 0.0, 0.0); }  // unused by Toon
 
 half4 SampleBaseMap(float2 uv)          { return SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, uv); }
 half4 SampleBumpMap(float2 uv)          { return SAMPLE_TEXTURE2D(_BumpMap, sampler_BumpMap, uv); }
 half4 SampleEmissionMap(float2 uv)      { return SAMPLE_TEXTURE2D(_EmissionMap, sampler_EmissionMap, uv); }
-half4 SampleParallaxMap(float2 uv)      { return half4(0.0, 0.0, 0.0, 0.0); }
+half4 SampleParallaxMap(float2 uv)      { return half4(0.0, 0.0, 0.0, 0.0); }  // unused by Toon
 half4 SampleOcclusionMap(float2 uv)     { return SAMPLE_TEXTURE2D(_OcclusionMap, sampler_OcclusionMap, uv); }
-half4 SampleDetailMask(float2 uv)       { return half4(0.0, 0.0, 0.0, 0.0); }
-half4 SampleDetailAlbedoMap(float2 uv)  { return half4(0.5, 0.5, 0.5, 1.0); }
-half4 SampleDetailNormalMap(float2 uv)  { return half4(0.5, 0.5, 1.0, 1.0); }
+half4 SampleDetailMask(float2 uv)       { return half4(0.0, 0.0, 0.0, 0.0); }  // unused by Toon
+half4 SampleDetailAlbedoMap(float2 uv)  { return half4(0.5, 0.5, 0.5, 1.0); }  // unused by Toon
+half4 SampleDetailNormalMap(float2 uv)  { return half4(0.5, 0.5, 1.0, 1.0); }  // unused by Toon
 half4 SampleMetallicGlossMap(float2 uv) { return SAMPLE_TEXTURE2D(_MetallicGlossMap, sampler_MetallicGlossMap, uv); }
 half4 SampleSpecGlossMap(float2 uv)     { return SAMPLE_TEXTURE2D(_SpecGlossMap, sampler_SpecGlossMap, uv); }
-half4 SampleClearCoatMap(float2 uv)     { return half4(0.0, 0.0, 0.0, 0.0); }
+half4 SampleClearCoatMap(float2 uv)     { return half4(0.0, 0.0, 0.0, 0.0); }  // unused by Toon
 #else
 
 half4 SampleMetallicSpecGloss(float2 uv, half albedoAlpha)
