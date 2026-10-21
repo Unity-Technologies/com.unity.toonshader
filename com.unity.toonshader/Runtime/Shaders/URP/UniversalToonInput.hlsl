@@ -254,9 +254,8 @@ TEXTURE2D(_SpecGlossMap);       SAMPLER(sampler_SpecGlossMap);
 #include "Packages/com.unity.render-pipelines.universal/Shaders/Utils/OcclusionMap.hlsl"
 #include "Packages/com.unity.render-pipelines.universal/Shaders/Utils/ClearCoat.hlsl"
 #include "Packages/com.unity.render-pipelines.universal/Shaders/Utils/Emission.hlsl"
-// Utils/SurfaceType.hlsl is deliberately not included: it declares a fallback _Surface that clashes with
-// Toon's _Surface material property. IsSurfaceTypeTransparent() is provided at the end of this file instead.
-// (LitInput.hlsl includes it at its line 18; that is the only include we drop.)
+// Utils/SurfaceType.hlsl is deliberately not included: its fallback _Surface clashes with Toon's own
+// _Surface property. IsSurfaceTypeTransparent() is provided at the end of this file instead.
 
 // Copied from LitInput.hlsl lines 142-171
 half4 GetBaseColor()            { return _BaseColor; }
