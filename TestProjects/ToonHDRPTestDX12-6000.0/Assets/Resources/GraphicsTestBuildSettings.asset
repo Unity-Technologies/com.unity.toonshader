@@ -1,0 +1,118 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ac8020f36911b4458ec9257ceb20861, type: 3}
+  m_Name: GraphicsTestBuildSettings
+  m_EditorClassIdentifier: 
+  m_AutoBuildTestCases: 1
+  m_TestContentBundlePaths: []
+  m_TestContentBundlePlatforms: []
+  m_TestDataBundles: []
+  m_ImageResultsPath: 
+  m_SaveActualImages: 0
+  m_OverrideIgnoreAttributes: 0
+  m_ShaderWarningsAsErrors: 0
+  m_ClearBuildSettingsScenesOnRebuild: 1
+  m_PreviousScenesPaths:
+  - Assets/ToonSamplesHDRP/Scenes/AngelRing/AngelRing.unity
+  - Assets/ToonSamplesHDRP/Scenes/BoxProjection/BoxProjection.unity
+  - Assets/ToonSamplesHDRP/Scenes/Cube_HardEdge/Cube_HardEdge.unity
+  - Assets/ToonSamplesHDRP/Scenes/EmissiveAnimation/EmissiveAnimation.unity
+  - Assets/ToonSamplesHDRP/Scenes/LightAndShadows/LightAndShadows.unity
+  - Assets/ToonSamplesHDRP/Scenes/MatCapMask/MatCapMask.unity
+  - Assets/ToonSamplesHDRP/Scenes/Mirror/MirrorTest.unity
+  - Assets/ToonSamplesHDRP/Scenes/NormalMap/NormalMap.unity
+  - Assets/ToonSamplesHDRP/Scenes/PointLightTest/PointLightTest.unity
+  - Assets/ToonSamplesHDRP/Scenes/KageBall/KageBall.unity
+  - Assets/ToonSamplesHDRP/Scenes/SceneLights Hi-Cut_Filter Test/SceneLights Hi-Cut_Filter
+    Test.unity
+  - Assets/ToonSamplesHDRP/Scenes/ShaderBall/ShaderBall.unity
+  - Assets/ToonSamplesHDRP/Scenes/ShaderBall_LightCulling/ShaderBall_LightCulling.unity
+  - Assets/ToonSamplesHDRP/Scenes/UnityChan/UnityChan.unity
+  - Assets/ToonSamplesHDRP/Scenes/UnityChan_CelLook/UnityChan_CelLook.unity
+  - Assets/ToonSamplesHDRP/Scenes/UnityChan_CelLook_Tess/UnityChan_CelLook_Tess.unity
+  - Assets/ToonSamplesHDRP/Scenes/UnityChan_Emissive/UnityChan_Emissive.unity
+  - Assets/ToonSamplesHDRP/Scenes/UnityChan_Firefly/UnityChan_Firefly.unity
+  - Assets/ToonSamplesHDRP/Scenes/UnityChan_LightCulling/UnityChan_LightCulling.unity
+  - Assets/ToonSamplesHDRP/Scenes/ClippingMatteControlSample/ClippingMatteControlSample.unity
+  m_PreviousScenesEnabled: 0101010101010101010101010101010101010101
+  m_HasPreviousGraphicsApis: 0
+  m_PreviousUseDefaultGraphicsApis: 0
+  m_PreviousGraphicsApis: 
+  m_PreviousGraphicsApisBuildTarget: 0
+  m_ReloadDomainWhenEditingTestSceneAssets: 1
+  m_AutoOptimizeReferenceImages: 0
+  m_EnableShaderStripping: 1
+  m_ShouldCleanUpAfterBuild: 0
+  m_HeatmapColorScheme: 2
+  m_MaxConcurrentImageOptimizations: 16
+  m_PlatformSchemata:
+  - name: Default
+    rootPath: Assets/ReferenceImages
+    nodes:
+    - ColorSpace
+    - RuntimePlatform
+    - Architecture
+    - GraphicsDeviceType
+    - XrDevice
+    typeString: UnityEngine.ColorSpace, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null;UnityEngine.RuntimePlatform, UnityEngine.CoreModule,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;System.Runtime.InteropServices.Architecture,
+      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;UnityEngine.Rendering.GraphicsDeviceType,
+      UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;UnityEngine.TestTools.Graphics.Platforms.XrDevice,
+      UnityEngine.TestTools.Graphics, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - name: Default Base
+    rootPath: Assets/ReferenceImagesBase
+    nodes: []
+    typeString: 
+  m_BuildPlatformSchemata:
+  - name: Default
+    rootPath: Assets/ReferenceImages
+    nodes:
+    - ColorSpace
+    - RuntimePlatform
+    - Architecture
+    - GraphicsDeviceType
+    - XrDevice
+    typeString: UnityEngine.ColorSpace, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null;UnityEngine.RuntimePlatform, UnityEngine.CoreModule,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;System.Runtime.InteropServices.Architecture,
+      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;UnityEngine.Rendering.GraphicsDeviceType,
+      UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;UnityEngine.TestTools.Graphics.Platforms.XrDevice,
+      UnityEngine.TestTools.Graphics, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - name: Default Base
+    rootPath: Assets/ReferenceImagesBase
+    nodes: []
+    typeString: 
+  m_BuildPlatformNames:
+  - default-linear-windowseditor-direct3d12-none
+  - default-base-
+  m_SceneLists:
+  - {fileID: 4146104437154675119}
+--- !u!114 &4146104437154675119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afc2435270e0c4dad876e4878f1c336d, type: 3}
+  m_Name: Run
+  m_EditorClassIdentifier: 
+  scenePaths:
+  - Assets/ToonSamplesHDRP/Scenes/BoxProjection/BoxProjection.unity
+  id:
+    typeName: Unity.ToonShader.GraphicsTest.UTSGraphicsTestsNonXR
+    methodName: Run
+    parameterTypeNames:
+    - UnityEngine.TestTools.Graphics.SceneGraphicsTestCase
