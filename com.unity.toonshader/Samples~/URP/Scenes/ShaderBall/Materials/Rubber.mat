@@ -12,7 +12,6 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - _EMISSION
   - _GLOSSINESS_FROM_BASE_ALPHA
   - _NORMALMAP
   - _SPECGLOSSMAP
@@ -114,7 +113,9 @@ Material:
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _QueueOffset: 0
+    - _ReceiveFog: 1
     - _ReceiveShadows: 1
+    - _ScreenSpaceReflectionsContributeTransparent: 1
     - _Shininess: 0
     - _Smoothness: 0
     - _SmoothnessSource: 1
@@ -149,4 +150,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 10
+  version: 11
