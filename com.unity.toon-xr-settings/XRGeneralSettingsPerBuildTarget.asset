@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d236b7d11115f2143951f1e14045df39, type: 3}
   m_Name: Standalone Settings
   m_EditorClassIdentifier: 
-  m_Manager: {fileID: 4187755089845329715}
+  m_LoaderManagerInstance: {fileID: 4187755089845329715}
   m_InitManagerOnStart: 0
 --- !u!114 &11400000
 MonoBehaviour:
@@ -28,9 +28,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Keys: 
   Values: []
-  m_SettingsPerBuildTarget:
-  - buildTarget: 1
-    settings: {fileID: -727645758879460278}
 --- !u!114 &4187755089845329715
 MonoBehaviour:
   m_ObjectHideFlags: 0
