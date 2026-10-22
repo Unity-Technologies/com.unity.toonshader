@@ -14,40 +14,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.TestTools.Graphics::UnityEngine.TestTools.Graphics.GraphicsTestBuildSettings
   m_AutoBuildTestCases: 1
   m_TestContentBundlePaths: []
-  m_TestContentBundlePlatforms: []
-  m_TestDataBundles: []
   m_ImageResultsPath: 
   m_SaveActualImages: 0
   m_OverrideIgnoreAttributes: 0
   m_ShaderWarningsAsErrors: 0
-  m_ClearBuildSettingsScenesOnRebuild: 1
   m_PreviousScenesPaths:
-  - Assets/ToonSamplesHDRP/Scenes/AngelRing/AngelRing.unity
-  - Assets/ToonSamplesHDRP/Scenes/BoxProjection/BoxProjection.unity
-  - Assets/ToonSamplesHDRP/Scenes/Cube_HardEdge/Cube_HardEdge.unity
-  - Assets/ToonSamplesHDRP/Scenes/EmissiveAnimation/EmissiveAnimation.unity
-  - Assets/ToonSamplesHDRP/Scenes/LightAndShadows/LightAndShadows.unity
-  - Assets/ToonSamplesHDRP/Scenes/MatCapMask/MatCapMask.unity
-  - Assets/ToonSamplesHDRP/Scenes/Mirror/MirrorTest.unity
-  - Assets/ToonSamplesHDRP/Scenes/NormalMap/NormalMap.unity
-  - Assets/ToonSamplesHDRP/Scenes/PointLightTest/PointLightTest.unity
-  - Assets/ToonSamplesHDRP/Scenes/KageBall/KageBall.unity
-  - Assets/ToonSamplesHDRP/Scenes/SceneLights Hi-Cut_Filter Test/SceneLights Hi-Cut_Filter
+  - Assets/ToonSamplesURP/Scenes/AngelRing/AngelRing.unity
+  - Assets/ToonSamplesURP/Scenes/BoxProjection/BoxProjection.unity
+  - Assets/ToonSamplesURP/Scenes/Cube_HardEdge/Cube_HardEdge.unity
+  - Assets/ToonSamplesURP/Scenes/EmissiveAnimation/EmissiveAnimation.unity
+  - Assets/ToonSamplesURP/Scenes/LightAndShadows_BakedLight/LightAndShadows_BakedLight.unity
+  - Assets/ToonSamplesURP/Scenes/MatCapMask/MatCapMask.unity
+  - Assets/ToonSamplesURP/Scenes/Mirror/MirrorTest.unity
+  - Assets/ToonSamplesURP/Scenes/NormalMap/NormalMap.unity
+  - Assets/ToonSamplesURP/Scenes/PointLightTest/PointLightTest.unity
+  - Assets/ToonSamplesURP/Scenes/KageBall/KageBall.unity
+  - Assets/ToonSamplesURP/Scenes/SceneLights Hi-Cut_Filter Test/SceneLights Hi-Cut_Filter
     Test.unity
-  - Assets/ToonSamplesHDRP/Scenes/ShaderBall/ShaderBall.unity
-  - Assets/ToonSamplesHDRP/Scenes/ShaderBall_LightCulling/ShaderBall_LightCulling.unity
-  - Assets/ToonSamplesHDRP/Scenes/UnityChan/UnityChan.unity
-  - Assets/ToonSamplesHDRP/Scenes/UnityChan_CelLook/UnityChan_CelLook.unity
-  - Assets/ToonSamplesHDRP/Scenes/UnityChan_CelLook_Tess/UnityChan_CelLook_Tess.unity
-  - Assets/ToonSamplesHDRP/Scenes/UnityChan_Emissive/UnityChan_Emissive.unity
-  - Assets/ToonSamplesHDRP/Scenes/UnityChan_Firefly/UnityChan_Firefly.unity
-  - Assets/ToonSamplesHDRP/Scenes/UnityChan_LightCulling/UnityChan_LightCulling.unity
-  - Assets/ToonSamplesHDRP/Scenes/ClippingMatteControlSample/ClippingMatteControlSample.unity
-  m_PreviousScenesEnabled: 0101010101010101010101010101010101010101
-  m_HasPreviousGraphicsApis: 0
-  m_PreviousUseDefaultGraphicsApis: 0
-  m_PreviousGraphicsApis: 
-  m_PreviousGraphicsApisBuildTarget: 0
+  - Assets/ToonSamplesURP/Scenes/ShaderBall/ShaderBall.unity
+  - Assets/ToonSamplesURP/Scenes/UnityChan/UnityChan.unity
+  - Assets/ToonSamplesURP/Scenes/UnityChan_CelLook/UnityChan_CelLook.unity
+  - Assets/ToonSamplesURP/Scenes/UnityChan_Emissive/UnityChan_Emissive.unity
+  - Assets/ToonSamplesURP/Scenes/UnityChan_Firefly/UnityChan_Firefly.unity
+  - Assets/ToonSamplesURP/Scenes/UnityChan_LightCulling/UnityChan_LightCulling.unity
+  - Assets/Scenes/MetaverseOutlineLighting/OutlineLighting03_Color.unity
+  - Assets/Scenes/MetaverseOutlineLighting/OutlineLighting02_Gradient.unity
+  - Assets/Scenes/MetaverseOutlineLighting/OutlineLighting01_Skybox.unity
+  - Assets/ScenesDev/BallsAndPlanes2D/BallsAndPlanes2D.unity
+  - Assets/ScenesDev/UnityChan_3Das2D/UnityChan_3Das2D.unity
+  - Assets/Scenes/BallsAndPlanesSSS/BallsAndPlanesSSS.unity
+  m_PreviousScenesEnabled: 0101010101010101010101010101010101010101010101
   m_ReloadDomainWhenEditingTestSceneAssets: 1
   m_AutoOptimizeReferenceImages: 0
   m_EnableShaderStripping: 1
@@ -93,11 +89,11 @@ MonoBehaviour:
     nodes: []
     typeString: 
   m_BuildPlatformNames:
-  - default-linear-windowseditor-direct3d12-none
+  - default-linear-windowseditor-vulkan-mockhmdloader
   - default-base-
   m_SceneLists:
-  - {fileID: 8407880338056434084}
---- !u!114 &8407880338056434084
+  - {fileID: 2388462734650195677}
+--- !u!114 &2388462734650195677
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -108,11 +104,11 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: afc2435270e0c4dad876e4878f1c336d, type: 3}
   m_Name: Run
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: UnityEngine.TestTools.Graphics::UnityEngine.TestTools.Graphics.SceneList
   scenePaths:
-  - Assets/ToonSamplesHDRP/Scenes/AngelRing/AngelRing.unity
+  - Assets/ToonSamplesURP/Scenes/AngelRing/AngelRing.unity
   id:
-    typeName: Unity.ToonShader.GraphicsTest.UTSGraphicsTestsXR
+    typeName: Unity.ToonShader.GraphicsTest.UTSGraphicsTestsNonXR
     methodName: Run
     parameterTypeNames:
     - UnityEngine.TestTools.Graphics.SceneGraphicsTestCase
