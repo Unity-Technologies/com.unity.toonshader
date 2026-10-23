@@ -21,8 +21,8 @@ test_{{ platform_type.name }}_{{ editor.version }}:
     flavor: {{ platform_type.flavor }}
   commands:
     - npm install upm-ci-utils@stable -g --registry https://artifactory.prd.cds.internal.unity3d.com/artifactory/api/npm/upm-npm
-    - unity-downloader-cli -u {{ editor.version }} -c Editor -c StandaloneSupport-Mono {{ platform_type.downloader_args }} --wait --fast
-    - upm-ci package test --unity-version .Editor --package-path com.unity.toonshader --platform standalone {{ platform_type.upm_ci_args }}
+    - unity-downloader-cli -u {{ editor.version }} -c Editor {{ platform_type.downloader_args }} --wait --fast
+    - upm-ci package test --unity-version .Editor --package-path com.unity.toonshader {{ platform_type.upm_ci_args }}
   triggers:
     branches:
       only:
