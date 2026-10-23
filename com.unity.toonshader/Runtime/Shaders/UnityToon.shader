@@ -1,4 +1,4 @@
-//Auto-generated on Wed Oct 21 14:52:28 UTC 2026
+//Auto-generated on Fri Oct 23 15:34:00 UTC 2026
 Shader "Toon/Toon" {
     Properties
     {
@@ -1065,7 +1065,7 @@ Shader "Toon/Toon" {
 //ToonCoreStart
         Pass {
             Name "ForwardLit"
-            Tags{"LightMode" = "UniversalForward"}
+            Tags{"LightMode" = "UniversalForwardOnly"} // UniversalForwardOnly so the pass also draws under the Deferred/Deferred+ renderer (Toon has no GBuffer pass)
             ZWrite[_ZWriteMode]
             Cull[_CullMode]
             Blend SrcAlpha OneMinusSrcAlpha
@@ -1314,7 +1314,7 @@ Shader "Toon/Toon" {
         Pass
         {
             Name "DepthNormals"
-            Tags{"LightMode" = "DepthNormals"}
+            Tags{"LightMode" = "DepthNormalsOnly"} // DepthNormalsOnly: deferred renderers only draw this tag for forward-only materials; forward renderers draw both
 
             ZWrite On
             Cull[_Cull]
