@@ -20,7 +20,7 @@ platforms:
       flavor: m1.mac
       cmd_prefix:
       downloader_args: --arch arm64
-      upm_ci_args: --architecture arm64
+      upm_ci_args: --architecture ARM64
   - platform_type: &platform_linux
       name: linux
       type: Unity::VM
@@ -50,7 +50,7 @@ platforms:
       flavor: b1.medium
       cmd_prefix:
       downloader_args: --arch arm64
-      upm_ci_args: --architecture arm64
+      upm_ci_args: --architecture ARM64
 
 
 pack_platform: &pack_platform_linux
