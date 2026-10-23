@@ -1,0 +1,113 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7722419763181066209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afc2435270e0c4dad876e4878f1c336d, type: 3}
+  m_Name: Run
+  m_EditorClassIdentifier: 
+  scenePaths:
+  - Assets/ToonSamples/Scenes/AngelRing/AngelRing.unity
+  id:
+    typeName: Unity.ToonShader.GraphicsTest.UTSGraphicsTestsXR
+    methodName: Run
+    parameterTypeNames:
+    - UnityEngine.TestTools.Graphics.SceneGraphicsTestCase
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ac8020f36911b4458ec9257ceb20861, type: 3}
+  m_Name: GraphicsTestBuildSettings
+  m_EditorClassIdentifier: 
+  m_AutoBuildTestCases: 1
+  m_TestContentBundlePaths: []
+  m_ImageResultsPath: 
+  m_SaveActualImages: 0
+  m_OverrideIgnoreAttributes: 0
+  m_ShaderWarningsAsErrors: 0
+  m_ClearBuildSettingsScenesOnRebuild: 1
+  m_PreviousScenesPaths:
+  - Assets/ToonSamples/Scenes/AngelRing/AngelRing.unity
+  - Assets/ToonSamples/Scenes/BoxProjection/BoxProjection.unity
+  - Assets/ToonSamples/Scenes/Cube_HardEdge/Cube_HardEdge.unity
+  - Assets/ToonSamples/Scenes/EmissiveAnimation/EmissiveAnimation.unity
+  - Assets/ToonSamples/Scenes/LightAndShadows/LightAndShadows.unity
+  - Assets/ToonSamples/Scenes/LightAndShadows_BakedLight/LightAndShadows_BakedLight.unity
+  - Assets/ToonSamples/Scenes/MatCapMask/MatCapMask.unity
+  - Assets/ToonSamples/Scenes/Mirror/MirrorTest.unity
+  - Assets/ToonSamples/Scenes/NormalMap/NormalMap.unity
+  - Assets/ToonSamples/Scenes/PointLightTest/PointLightTest.unity
+  - Assets/ToonSamples/Scenes/KageBall/KageBall.unity
+  - Assets/ToonSamples/Scenes/SceneLights Hi-Cut_Filter Test/SceneLights Hi-Cut_Filter
+    Test.unity
+  - Assets/ToonSamples/Scenes/ShaderBall/ShaderBall.unity
+  - Assets/ToonSamples/Scenes/SSAO/SSAO.unity
+  - Assets/ToonSamples/Scenes/UnityChan/UnityChan.unity
+  - Assets/ToonSamples/Scenes/UnityChan_CelLook/UnityChan_CelLook.unity
+  - Assets/ToonSamples/Scenes/UnityChan_Emissive/UnityChan_Emissive.unity
+  - Assets/ToonSamples/Scenes/UnityChan_Firefly/UnityChan_Firefly.unity
+  - Assets/Scenes/MetaverseOutlineLighting/OutlineLighting01_Skybox.unity
+  - Assets/Scenes/MetaverseOutlineLighting/OutlineLighting02_Gradient.unity
+  - Assets/Scenes/MetaverseOutlineLighting/OutlineLighting03_Color.unity
+  m_PreviousScenesEnabled: 010101010101010101010101010101010101010101
+  m_ReloadDomainWhenEditingTestSceneAssets: 1
+  m_AutoOptimizeReferenceImages: 0
+  m_EnableShaderStripping: 1
+  m_ShouldCleanUpAfterBuild: 0
+  m_HeatmapColorScheme: 2
+  m_MaxConcurrentImageOptimizations: 16
+  m_PlatformSchemata:
+  - name: Default
+    rootPath: Assets/ReferenceImages
+    nodes:
+    - ColorSpace
+    - RuntimePlatform
+    - Architecture
+    - GraphicsDeviceType
+    - XrDevice
+    typeString: UnityEngine.ColorSpace, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null;UnityEngine.RuntimePlatform, UnityEngine.CoreModule,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;System.Runtime.InteropServices.Architecture,
+      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;UnityEngine.Rendering.GraphicsDeviceType,
+      UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;UnityEngine.TestTools.Graphics.Platforms.XrDevice,
+      UnityEngine.TestTools.Graphics, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - name: Default Base
+    rootPath: Assets/ReferenceImagesBase
+    nodes: []
+    typeString: 
+  m_BuildPlatformSchemata:
+  - name: Default
+    rootPath: Assets/ReferenceImages
+    nodes:
+    - ColorSpace
+    - RuntimePlatform
+    - Architecture
+    - GraphicsDeviceType
+    - XrDevice
+    typeString: UnityEngine.ColorSpace, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null;UnityEngine.RuntimePlatform, UnityEngine.CoreModule,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;System.Runtime.InteropServices.Architecture,
+      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;UnityEngine.Rendering.GraphicsDeviceType,
+      UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;UnityEngine.TestTools.Graphics.Platforms.XrDevice,
+      UnityEngine.TestTools.Graphics, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - name: Default Base
+    rootPath: Assets/ReferenceImagesBase
+    nodes: []
+    typeString: 
+  m_BuildPlatformNames:
+  - default-linear-windowseditor-vulkan-none
+  - default-base-
+  m_SceneLists:
+  - {fileID: -7722419763181066209}
