@@ -1,4 +1,4 @@
-//Auto-generated on Fri Oct 23 15:35:40 UTC 2026
+//Auto-generated on Fri Oct 23 15:36:45 UTC 2026
 Shader "Toon/Toon (Tessellation)" {
     Properties
     {
@@ -75,6 +75,7 @@ Shader "Toon/Toon (Tessellation)" {
         //v.2.0.4.4
         [Toggle(_)] _Set_SystemShadowsToBase ("Set_SystemShadowsToBase", Float ) = 1
         _Tweak_SystemShadowsLevel ("Tweak_SystemShadowsLevel", Range(-0.5, 0.5)) = 0
+        _CastShadowStrength ("Cast Shadow Strength", Range(0, 1)) = 0
 
         // Shading Properties
         //v.2.0.6

@@ -29,6 +29,7 @@ float4 _NormalMap_ST;
 fixed _Is_NormalMapToBase;
 fixed _Set_SystemShadowsToBase;
 float _Tweak_SystemShadowsLevel;
+float _CastShadowStrength;
 float _BaseColor_Step;
 float _BaseShade_Feather;
 
