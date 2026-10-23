@@ -5,12 +5,6 @@
 #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/CommonMaterial.hlsl"
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/SurfaceInput.hlsl"
 
-// URP 6.6+ keeps IsSurfaceTypeTransparent() and _Surface here, and pulls it in via LitInput.hlsl.
-// Toon blocks LitInput.hlsl (see URPIncludeGuards.hlsl), so include it directly.
-#if UNITY_VERSION >= 60060000
-#include "Packages/com.unity.render-pipelines.universal/Shaders/Utils/SurfaceType.hlsl"
-#endif
-
 #define fixed  half
 #define fixed3 half3
 #define fixed4 half4
@@ -235,6 +229,63 @@ TEXTURE2D(_SpecGlossMap);       SAMPLER(sampler_SpecGlossMap);
 #define SAMPLE_METALLICSPECULAR(uv) SAMPLE_TEXTURE2D(_MetallicGlossMap, sampler_MetallicGlossMap, uv)
 #endif
 
+
+// URP 6.6+ keeps IsSurfaceTypeTransparent() and _Surface here, and pulls it in via LitInput.hlsl.
+// Toon blocks LitInput.hlsl (see URPIncludeGuards.hlsl), so include it directly.
+#if UNITY_VERSION >= 60060000
+#include "Packages/com.unity.render-pipelines.universal/Shaders/Utils/SurfaceType.hlsl"
+#endif
+
+//----------------------------------------------------------------------------------------------------------------------
+#if UNITY_VERSION >= 60070000
+
+// URP 6.7 (6000.7) split LitInput.hlsl into per-feature files under Shaders/Utils/. Those read material
+// data through getters that the material's input file must define, and Toon blocks LitInput.hlsl because
+// it has a custom CBUFFER, so this block stands in for it: same includes, same getters, Toon's CBUFFER.
+// It is a copy of LitInput.hlsl, so keep it close to the original: diffing the two is how we pick up
+// URP's changes on the next upgrade. The stubs below cannot be dropped, unused as they are --
+// ApplyPerPixelDisplacement() is compiled into LitForwardPass and DepthOnlyPass, guarded at runtime.
+
+#include "Packages/com.unity.render-pipelines.universal/Shaders/Utils/NormalMap.hlsl"
+#include "Packages/com.unity.render-pipelines.universal/Shaders/Utils/DetailMap.hlsl"
+#include "Packages/com.unity.render-pipelines.universal/Shaders/Utils/ParallaxMap.hlsl"
+#include "Packages/com.unity.render-pipelines.universal/Shaders/Utils/MetallicSpecGloss.hlsl"
+#include "Packages/com.unity.render-pipelines.universal/Shaders/Utils/AlphaBlend.hlsl"
+#include "Packages/com.unity.render-pipelines.universal/Shaders/Utils/OcclusionMap.hlsl"
+#include "Packages/com.unity.render-pipelines.universal/Shaders/Utils/ClearCoat.hlsl"
+#include "Packages/com.unity.render-pipelines.universal/Shaders/Utils/Emission.hlsl"
+
+// Copied from LitInput.hlsl lines 142-171
+half4 GetBaseColor()            { return _BaseColor; }
+half4 GetSpecColor()            { return _SpecColor; }
+half4 GetEmissionColor()        { return _EmissionColor; }
+half GetCutoff()                { return _Cutoff; }
+half GetSmoothness()            { return _Smoothness; }
+half GetMetallic()              { return _Metallic; }
+half GetBumpScale()             { return _BumpScale; }
+half GetParallax()              { return half(0.0); }                   // unused by Toon
+half GetOcclusionStrength()     { return _OcclusionStrength; }
+half GetClearCoatMask()         { return half(0.0); }                   // unused by Toon
+half GetClearCoatSmoothness()   { return half(0.0); }                   // unused by Toon
+half GetDetailAlbedoMapScale()  { return half(0.0); }                   // unused by Toon
+half GetDetailNormalMapScale()  { return half(0.0); }                   // unused by Toon
+float4 GetBaseMapST()           { return _BaseMap_ST; }
+float4 GetBaseMapTexelSize()    { return float4(1.0, 1.0, 1.0, 1.0); }  // unused by Toon
+float4 GetDetailAlbedoMapST()   { return float4(1.0, 1.0, 0.0, 0.0); }  // unused by Toon
+
+half4 SampleBaseMap(float2 uv)          { return SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, uv); }
+half4 SampleBumpMap(float2 uv)          { return SAMPLE_TEXTURE2D(_BumpMap, sampler_BumpMap, uv); }
+half4 SampleEmissionMap(float2 uv)      { return SAMPLE_TEXTURE2D(_EmissionMap, sampler_EmissionMap, uv); }
+half4 SampleParallaxMap(float2 uv)      { return half4(0.0, 0.0, 0.0, 0.0); }  // unused by Toon
+half4 SampleOcclusionMap(float2 uv)     { return SAMPLE_TEXTURE2D(_OcclusionMap, sampler_OcclusionMap, uv); }
+half4 SampleDetailMask(float2 uv)       { return half4(0.0, 0.0, 0.0, 0.0); }  // unused by Toon
+half4 SampleDetailAlbedoMap(float2 uv)  { return half4(0.5, 0.5, 0.5, 1.0); }  // unused by Toon
+half4 SampleDetailNormalMap(float2 uv)  { return half4(0.5, 0.5, 1.0, 1.0); }  // unused by Toon
+half4 SampleMetallicGlossMap(float2 uv) { return SAMPLE_TEXTURE2D(_MetallicGlossMap, sampler_MetallicGlossMap, uv); }
+half4 SampleSpecGlossMap(float2 uv)     { return SAMPLE_TEXTURE2D(_SpecGlossMap, sampler_SpecGlossMap, uv); }
+half4 SampleClearCoatMap(float2 uv)     { return half4(0.0, 0.0, 0.0, 0.0); }  // unused by Toon
+#else
+
 half4 SampleMetallicSpecGloss(float2 uv, half albedoAlpha)
 {
     half4 specGloss;
@@ -277,6 +328,10 @@ half SampleOcclusion(float2 uv)
     return 1.0;
 #endif
 }
+
+#endif // UNITY_VERSION >= 60070000
+
+//----------------------------------------------------------------------------------------------------------------------
 
 inline void InitializeStandardLitSurfaceData(float2 uv, out SurfaceData outSurfaceData)
 {
