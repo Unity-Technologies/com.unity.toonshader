@@ -5,12 +5,6 @@
 #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/CommonMaterial.hlsl"
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/SurfaceInput.hlsl"
 
-// URP 6.6+ keeps IsSurfaceTypeTransparent() and _Surface here, and pulls it in via LitInput.hlsl.
-// Toon blocks LitInput.hlsl (see URPIncludeGuards.hlsl), so include it directly.
-#if UNITY_VERSION >= 60060000
-#include "Packages/com.unity.render-pipelines.universal/Shaders/Utils/SurfaceType.hlsl"
-#endif
-
 #define fixed  half
 #define fixed3 half3
 #define fixed4 half4
@@ -236,6 +230,12 @@ TEXTURE2D(_SpecGlossMap);       SAMPLER(sampler_SpecGlossMap);
 #endif
 
 
+// URP 6.6+ keeps IsSurfaceTypeTransparent() and _Surface here, and pulls it in via LitInput.hlsl.
+// Toon blocks LitInput.hlsl (see URPIncludeGuards.hlsl), so include it directly.
+#if UNITY_VERSION >= 60060000
+#include "Packages/com.unity.render-pipelines.universal/Shaders/Utils/SurfaceType.hlsl"
+#endif
+
 //----------------------------------------------------------------------------------------------------------------------
 #if UNITY_VERSION >= 60070000
 
@@ -254,8 +254,6 @@ TEXTURE2D(_SpecGlossMap);       SAMPLER(sampler_SpecGlossMap);
 #include "Packages/com.unity.render-pipelines.universal/Shaders/Utils/OcclusionMap.hlsl"
 #include "Packages/com.unity.render-pipelines.universal/Shaders/Utils/ClearCoat.hlsl"
 #include "Packages/com.unity.render-pipelines.universal/Shaders/Utils/Emission.hlsl"
-// Utils/SurfaceType.hlsl is deliberately not included: its fallback _Surface clashes with Toon's own
-// _Surface property. IsSurfaceTypeTransparent() is provided at the end of this file instead.
 
 // Copied from LitInput.hlsl lines 142-171
 half4 GetBaseColor()            { return _BaseColor; }
