@@ -15,11 +15,14 @@ test_{{ platform_type.name }}_{{ editor.version }}:
   agent:
     type: {{ platform_type.type }}
     image: {{ platform_type.image }}
-    model: {{ platform_type.model}}
-    flavor: {{ platform_type.flavor}}
+{% if platform_type.model %}
+    model: {{ platform_type.model }}
+{% endif %}
+    flavor: {{ platform_type.flavor }}
   commands:
     - npm install upm-ci-utils@stable -g --registry https://artifactory.prd.cds.internal.unity3d.com/artifactory/api/npm/upm-npm
-    - upm-ci package test --unity-version {{ editor.version }} --package-path com.unity.toonshader
+    - unity-downloader-cli -u {{ editor.version }} -c Editor {{ platform_type.downloader_args }} --wait --fast
+    - upm-ci package test --unity-version .Editor --package-path com.unity.toonshader {{ platform_type.upm_ci_args }}
   triggers:
     branches:
       only:
