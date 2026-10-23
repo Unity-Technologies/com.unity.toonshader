@@ -9,6 +9,7 @@ platforms:
       model: 
       flavor: b1.medium
       cmd_prefix:
+      downloader_args:
       upm_ci_args:
   - platform_type: &platform_mac
       name: mac
@@ -18,7 +19,8 @@ platforms:
       model: M1
       flavor: m1.mac
       cmd_prefix:
-      upm_ci_args: -a arm64
+      downloader_args: --arch arm64
+      upm_ci_args: --architecture arm64
   - platform_type: &platform_linux
       name: linux
       type: Unity::VM
@@ -27,6 +29,7 @@ platforms:
       model: 
       flavor: b1.large
       cmd_prefix: DISPLAY=:0.0
+      downloader_args:
       upm_ci_args:
   - platform_type: &platform_android
       name: android
@@ -36,6 +39,7 @@ platforms:
       model: 
       flavor: b1.large
       cmd_prefix:
+      downloader_args:
       upm_ci_args:
   - platform_type: &platform_ios
       name: ios
@@ -45,7 +49,8 @@ platforms:
       model: SE
       flavor: b1.medium
       cmd_prefix:
-      upm_ci_args: -a arm64
+      downloader_args: --arch arm64
+      upm_ci_args: --architecture arm64
 
 
 pack_platform: &pack_platform_linux
