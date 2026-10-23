@@ -1,4 +1,4 @@
-//Auto-generated on Fri Oct 23 15:34:54 UTC 2026
+//Auto-generated on Fri Oct 23 15:35:40 UTC 2026
 Shader "Toon/Toon" {
     Properties
     {
@@ -1099,6 +1099,8 @@ Shader "Toon/Toon" {
 #else
             #pragma multi_compile _ _FORWARD_PLUS
 #endif
+            // Surface Cache Global Illumination: InitializeBakedGI reads screen-space irradiance when this is on.
+            #pragma multi_compile_fragment _ _SCREEN_SPACE_IRRADIANCE
 
             #include_with_pragmas "Packages/com.unity.render-pipelines.core/ShaderLibrary/FoveatedRenderingKeywords.hlsl"
 
