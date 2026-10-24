@@ -1201,6 +1201,60 @@ Shader "Toon/Toon" {
             ENDHLSL
         }
 
+        // EXPERIMENT: visible outline for transparent materials. Drawn via the
+        // UniversalForwardOnly tag (URP transparent tag index 2) so it renders AFTER the
+        // body (UniversalForward, index 1), while the SRPDefaultUnlit "Outline" pass above
+        // stays as the transparency depth pre-pass (index 0). Uses hardcoded render state
+        // and _UTS_OUTLINE_FORCE_VISIBLE so it ignores the _ZOverDrawMode width collapse.
+        Pass {
+            Name "OutlineTransparent"
+            Tags {
+                "LightMode" = "UniversalForwardOnly"
+            }
+            Cull Front
+            ColorMask 15
+            ZWrite Off
+            Blend SrcAlpha OneMinusSrcAlpha
+            Stencil
+            {
+                Ref[_StencilNo]
+                Comp[_StencilComp]
+                Pass[_StencilOpPass]
+                Fail[_StencilOpFail]
+
+            }
+
+            HLSLPROGRAM
+            #pragma target 2.0
+            #pragma vertex vert
+            #pragma fragment frag
+
+            #define _UTS_OUTLINE_FORCE_VISIBLE
+
+            //V.2.0.4
+            #pragma multi_compile _IS_OUTLINE_CLIPPING_NO _IS_OUTLINE_CLIPPING_YES
+            #pragma multi_compile _OUTLINE_NML _OUTLINE_POS
+            // Outline is implemented in UniversalToonOutline.hlsl.
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+
+            //--------------------------------------
+            // GPU Instancing
+            #pragma multi_compile_instancing
+        #if UNITY_VERSION >= 202230 // Requires Universal RP 14.0.7
+            #include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DOTS.hlsl"
+        #else
+            #pragma multi_compile _ DOTS_INSTANCING_ON
+        #endif
+
+#ifdef UNIVERSAL_PIPELINE_CORE_INCLUDED
+            #include "URP/UniversalToonInput.hlsl"
+            #include "URP/UniversalToonHead.hlsl"
+            #include "URP/UniversalToonOutline.hlsl"
+#endif
+            ENDHLSL
+        }
+
         Pass
         {
             Name "Universal2D"

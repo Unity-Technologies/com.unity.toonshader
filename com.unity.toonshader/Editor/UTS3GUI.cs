@@ -995,7 +995,7 @@ namespace UnityEditor.Rendering.Toon {
             m_MaterialScopeList.RegisterHeaderScope(Styles.emissionFoldout, Expandable.Emission, GUI_Emissive, (uint)UTS_Mode.ThreeColorToon,
                 (uint)UTS_TransparentMode.Off, isTessellation: 0);
             m_MaterialScopeList.RegisterHeaderScope(Styles.outlineFoldout, Expandable.Outline, GUI_Outline, (uint)UTS_Mode.ThreeColorToon,
-                (uint)UTS_TransparentMode.On, isTessellation: 0);
+                (uint)UTS_TransparentMode.Off, isTessellation: 0);
 
             m_MaterialScopeList.RegisterHeaderScope(Styles.tessellationFoldout, Expandable.TessellationLegacy, GUI_Tessellation, (uint)UTS_Mode.ThreeColorToon,
                 (uint)UTS_TransparentMode.Off, isTessellation: 1);
