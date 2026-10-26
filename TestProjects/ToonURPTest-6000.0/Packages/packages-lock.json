@@ -201,7 +201,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.testframework.graphics": {
-      "version": "9.0.0-pre.12",
+      "version": "9.0.0-pre.26",
       "depth": 0,
       "source": "registry",
       "dependencies": {
