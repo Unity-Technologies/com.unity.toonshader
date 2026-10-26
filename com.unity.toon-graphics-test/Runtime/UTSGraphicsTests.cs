@@ -16,14 +16,15 @@ public class UTSGraphicsTestsXR {
 
     [UnityTest]
     [SceneGraphicsTest(
+        //Regex to exclude ECS sub-scenes
         scenePaths: new string[] {
-            "Assets/Scenes",
+            @"Assets/Scenes/^(?!.*SubScene\.unity$).*\.unity$",
 #if UTS_TEST_USE_HDRP
-            "Assets/ToonSamplesHDRP",
+            @"Assets/ToonSamplesHDRP/^(?!.*SubScene\.unity$).*\.unity$",
 #elif UTS_TEST_USE_URP
-            "Assets/ToonSamplesURP",
+            @"Assets/ToonSamplesURP/^(?!.*SubScene\.unity$).*\.unity$",
 #else
-            "Assets/ToonSamples",
+            @"Assets/ToonSamples/^(?!.*SubScene\.unity$).*\.unity$",
 #endif
         }
     )]
@@ -83,14 +84,15 @@ public class UTSGraphicsTestsXR {
 public class UTSGraphicsTestsNonXR  {
     [UnityTest]
     [SceneGraphicsTest(
+        //Regex to exclude ECS sub-scenes
         scenePaths: new string[] {
-            "Assets/Scenes",
+            @"Assets/Scenes/^(?!.*SubScene\.unity$).*\.unity$",
 #if UTS_TEST_USE_HDRP
-            "Assets/ToonSamplesHDRP",
+            @"Assets/ToonSamplesHDRP/^(?!.*SubScene\.unity$).*\.unity$",
 #elif UTS_TEST_USE_URP
-            "Assets/ToonSamplesURP",
+            @"Assets/ToonSamplesURP/^(?!.*SubScene\.unity$).*\.unity$",
 #else
-            "Assets/ToonSamples",
+            @"Assets/ToonSamples/^(?!.*SubScene\.unity$).*\.unity$",
 #endif
         }
     )]
