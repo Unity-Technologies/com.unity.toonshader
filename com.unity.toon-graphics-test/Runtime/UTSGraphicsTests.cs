@@ -37,7 +37,7 @@ public class UTSGraphicsTestsXR {
             Assert.Ignore();
         }
 
-        string sceneFileName = Path.GetFileNameWithoutExtension(testCase.FullName);
+        string sceneFileName = Path.GetFileNameWithoutExtension(testCase.ScenePath);
 
 #if UTS_TEST_USE_HDRP && UNITY_STANDALONE_OSX 
 
