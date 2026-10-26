@@ -20,11 +20,11 @@ public class UTSGraphicsTestsXR {
         scenePaths: new string[] {
             @"Assets/Scenes/^(?!.*SubScene\.unity$).*\.unity$",
 #if UTS_TEST_USE_HDRP
-            @"Assets/ToonSamplesHDRP/^(?!.*SubScene\.unity$).*\.unity$",
+            "Assets/ToonSamplesHDRP",
 #elif UTS_TEST_USE_URP
-            @"Assets/ToonSamplesURP/^(?!.*SubScene\.unity$).*\.unity$",
+            "Assets/ToonSamplesURP",
 #else
-            @"Assets/ToonSamples/^(?!.*SubScene\.unity$).*\.unity$",
+            "Assets/ToonSamples",
 #endif
         }
     )]
@@ -88,11 +88,11 @@ public class UTSGraphicsTestsNonXR  {
         scenePaths: new string[] {
             @"Assets/Scenes/^(?!.*SubScene\.unity$).*\.unity$",
 #if UTS_TEST_USE_HDRP
-            @"Assets/ToonSamplesHDRP/^(?!.*SubScene\.unity$).*\.unity$",
+            "Assets/ToonSamplesHDRP",
 #elif UTS_TEST_USE_URP
-            @"Assets/ToonSamplesURP/^(?!.*SubScene\.unity$).*\.unity$",
+            "Assets/ToonSamplesURP",
 #else
-            @"Assets/ToonSamples/^(?!.*SubScene\.unity$).*\.unity$",
+            "Assets/ToonSamples",
 #endif
         }
     )]
