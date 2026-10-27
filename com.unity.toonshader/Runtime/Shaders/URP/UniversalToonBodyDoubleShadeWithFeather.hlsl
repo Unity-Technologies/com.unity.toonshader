@@ -486,7 +486,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 
     //Final Composition
     finalColor = SATURATE_IF_SDR(finalColor);
-    float envLightIntensity = min(Intensity(envColor.rgb), 1);
+    const float envLightIntensity = min(Intensity(envColor.rgb), 1);
     
 #if defined(_SCREEN_SPACE_IRRADIANCE)
     // Surface Cache GI: apply the bounce as indirect diffuse on the surface color, like URP Lit, so the
