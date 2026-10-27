@@ -388,12 +388,6 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     float3 matCapColorFinal = lerp(matCapColorOnMultiplyMode, matCapColorOnAddMode, _Is_BlendAddToMatCap);
     float3 finalColor = lerp(_RimLight_var, matCapColorFinal, _MatCap); // Final Composition before Emissive
     //
-    //v.2.0.6: GI_Intensity with Intensity Multiplier Filter
-
-    float3 envLightColor = envColor.rgb;
-
-    float envLightIntensity = min(Intensity(envLightColor), 1);
-
 
     const half4 shadowMask = half4(1.0, 1.0, 1.0, 1.0);
     float3 pointLightColor = 0;
@@ -492,13 +486,14 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 
     //Final Composition
     finalColor = SATURATE_IF_SDR(finalColor);
+    float envLightIntensity = min(Intensity(envColor.rgb), 1);
     
 #if defined(_SCREEN_SPACE_IRRADIANCE)
     // Surface Cache GI: apply the bounce as indirect diffuse on the surface color, like URP Lit, so the
     // character picks up the scene's colored bounce light.
     const float3 giColor = baseAlbedo * inputData.bakedGI * surfaceData.occlusion * _GI_Intensity;
 #else
-    const float3 giColor = envLightColor * envLightIntensity * _GI_Intensity * smoothstep(1, 0, envLightIntensity / 2);
+    const float3 giColor = envColor.rgb * envLightIntensity * _GI_Intensity * smoothstep(1, 0, envLightIntensity / 2);
 #endif
     
     finalColor += giColor + emissive;
