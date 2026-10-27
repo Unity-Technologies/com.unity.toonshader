@@ -71,7 +71,7 @@ _BumpScale ("Normal Scale", Range(0, 1)) = 1
 //v.2.0.4.4
 [Toggle(_)] _Set_SystemShadowsToBase ("Set_SystemShadowsToBase", Float ) = 1
 _Tweak_SystemShadowsLevel ("Tweak_SystemShadowsLevel", Range(-0.5, 0.5)) = 0
-_CastShadowStrength ("Cast Shadow Strength", Range(0, 1)) = 0
+_SystemShadowsToLightColor ("System Shadows To Light Color", Range(0, 1)) = 0
 
 // Shading Properties
 //v.2.0.6

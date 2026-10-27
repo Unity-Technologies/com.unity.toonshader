@@ -786,9 +786,9 @@ namespace UnityEditor.Rendering.Toon {
                 label: "System Shadow Level", tooltip: "Define the appearance of self-shadows and other received shadows that blend with the toon shader.",
                 propName: "_Tweak_SystemShadowsLevel", defaultValue: 0.0f, min: -0.5f, max: 0.5f);
 
-            public static readonly RangeProperty castShadowStrengthText = new RangeProperty(
-                label: "Cast Shadow Strength", tooltip: "How much shadows received from other objects dim the main light. 0 only switches to the Shade Colors (original behavior); 1 removes direct light in cast shadows, as on URP Lit.",
-                propName: "_CastShadowStrength", defaultValue: 0.0f, min: 0, max: 1);
+            public static readonly RangeProperty systemShadowsToLightColorText = new RangeProperty(
+                label: "System Shadows To Light Color", tooltip: "How much shadows received from other objects dim the main light, in addition to the Shade Colors they already select. 0 keeps the original behavior, where a received shadow changes the colors but not the light.",
+                propName: "_SystemShadowsToLightColor", defaultValue: 0.0f, min: 0, max: 1);
 
             public static readonly RangeProperty shaderPropBaseColorText = new RangeProperty(
                 label: "Base Color Step", tooltip: "Sets the boundary between the Base Color and the Shade Colors.",
@@ -1488,7 +1488,7 @@ namespace UnityEditor.Rendering.Toon {
             {
                 EditorGUI.indentLevel++;
                 GUI_RangeProperty(material, Styles.tweakSystemShadowLevelText);
-                GUI_RangeProperty(material, Styles.castShadowStrengthText);
+                GUI_RangeProperty(material, Styles.systemShadowsToLightColorText);
 
                 EditorGUI.indentLevel--;
                 EditorGUILayout.Space();

@@ -247,10 +247,10 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 
     float3 lightColor = lerp(max(defaultLightColor, originalLightColor),
         max(defaultLightColor, saturate(originalLightColor)), _Is_Filter_LightColor);
-    // Cast Shadow Strength: shadows received from the scene also dim the main light (as on URP Lit),
-    // instead of only switching to the shade colours, which are still lit by the full light colour.
-    // 0 keeps the original Toon behaviour.
-    lightColor *= lerp(1.0, saturate(shadowAttenuation), _CastShadowStrength);
+    // System Shadows To Light Color: received shadows also dim the main light, on top of the ramp
+    // response they already drive through shadowAtt. 0 keeps the original Toon behavior, where a
+    // received shadow only selects the shade colors and leaves the light at full strength.
+    lightColor *= lerp(1.0, saturate(shadowAttenuation), _SystemShadowsToLightColor);
 
 
 #endif
