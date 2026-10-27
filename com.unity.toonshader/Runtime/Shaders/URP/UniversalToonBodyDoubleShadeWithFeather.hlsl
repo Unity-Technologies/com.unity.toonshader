@@ -494,7 +494,7 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     finalColor = SATURATE_IF_SDR(finalColor);
     
 #if defined(_SCREEN_SPACE_IRRADIANCE)
-    // Surface Cache GI: apply the bounce as indirect diffuse on the surface colour, like URP Lit, so the
+    // Surface Cache GI: apply the bounce as indirect diffuse on the surface color, like URP Lit, so the
     // character picks up the scene's colored bounce light.
     const float3 giColor = baseAlbedo * inputData.bakedGI * surfaceData.occlusion * _GI_Intensity;
 #else
