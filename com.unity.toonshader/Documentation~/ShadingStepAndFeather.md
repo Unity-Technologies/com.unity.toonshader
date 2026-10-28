@@ -8,6 +8,7 @@ The **Unity Toon Shader** allows you to control the position of area boundaries,
 * [1st/2nd Shading Feather](#1st2nd-shading-feather)
 * [Receive Shadows](#receive-shadows)
   * [System Shadow Level](#system-shadow-level)
+  * [System Shadows To Light Color](#system-shadows-to-light-color)
 * [Point Light Settings](#point-light-settings)
   * [Step Offset](#step-offset)
   * [Filter Point Light Highlights](#filter-point-light-highlights)
@@ -41,9 +42,19 @@ Determine if the material reflects shadows.
 
 
 #### System Shadow Level
-Define the appearance of self-shadows and other received shadows that blend with the Too Shader.
+Define the appearance of self-shadows and other received shadows that blend with the Toon Shader.
 
 <video title="The same chibi-style character. The face starts with only a shadow on the chin, then the shadows grow. The hair casts shadows onto the face, then the whole face is in shadow." src="images/SystemShadowLevel.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video>
+
+
+#### System Shadows To Light Color
+Dims the main light where the material receives shadows, in addition to switching to the Shade Colors. At 0
+the light is unchanged; at 1 it is removed wherever a shadow fully occludes it.
+
+This parameter only affects the Universal Render Pipeline.
+
+> **Note:** Raising this parameter can make [shadow acne](Troubleshooting.md#shadow-acne) more visible, and
+> **System Shadow Level** does not reduce it. Set it back to 0 if acne appears.
 
 
 ## Point Light Settings

@@ -48,5 +48,8 @@ There are several approaches to address shadow acne in URP:
 
 2. Disable [Receive shadows](ShadingStepAndFeather.md#receive-shadows) entirely on affected materials
 3. Adjust the **System Shadow Level** parameter to reduce the intensity of system shadows
+4. Set [System Shadows To Light Color](ShadingStepAndFeather.md#system-shadows-to-light-color) back to 0.
+   It dims the main light using the shadow value directly, so raising it reintroduces acne that
+   **System Shadow Level** cannot reduce.
 
 
