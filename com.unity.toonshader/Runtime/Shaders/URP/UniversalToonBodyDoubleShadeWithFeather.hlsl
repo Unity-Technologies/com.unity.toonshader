@@ -247,6 +247,8 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
 
     float3 lightColor = lerp(max(defaultLightColor, originalLightColor),
         max(defaultLightColor, saturate(originalLightColor)), _Is_Filter_LightColor);
+    
+    lightColor *= lerp(1.0, saturate(shadowAttenuation), _SystemShadowsToLightColor * _Set_SystemShadowsToBase);
 
 
 #endif
