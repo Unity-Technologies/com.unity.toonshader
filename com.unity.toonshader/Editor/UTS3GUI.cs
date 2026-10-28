@@ -787,7 +787,7 @@ namespace UnityEditor.Rendering.Toon {
                 propName: "_Tweak_SystemShadowsLevel", defaultValue: 0.0f, min: -0.5f, max: 0.5f);
 
             public static readonly RangeProperty systemShadowsToLightColorText = new RangeProperty(
-                label: "System Shadows To Light Color", tooltip: "How much shadows received from other objects dim the main light, in addition to the Shade Colors they already select. 0 keeps the original behavior, where a received shadow changes the colors but not the light.",
+                label: "System Shadows To Light Color", tooltip: "How much shadows received from other objects dim the main light, on top of selecting the Shade Colors. At 0 the light is not dimmed; at 1 it is removed where the shadow fully occludes.",
                 propName: "_SystemShadowsToLightColor", defaultValue: 0.0f, min: 0, max: 1);
 
             public static readonly RangeProperty shaderPropBaseColorText = new RangeProperty(
