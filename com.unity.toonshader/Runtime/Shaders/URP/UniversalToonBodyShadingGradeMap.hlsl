@@ -263,7 +263,9 @@ void frag(VertexOutput i, out float4 finalRGBA : SV_Target0
     // System Shadows To Light Color: received shadows also dim the main light, on top of the ramp
     // response they already drive through shadowAtt. 0 keeps the original Toon behavior, where a
     // received shadow only selects the shade colors and leaves the light at full strength.
-    lightColor *= lerp(1.0, saturate(shadowAttenuation), _SystemShadowsToLightColor);
+    // Gated by _Set_SystemShadowsToBase so that unchecking Receive Shadows turns off both axes:
+    // the inspector greys this slider out with that toggle, so the shader must honour it too.
+    lightColor *= lerp(1.0, saturate(shadowAttenuation), _SystemShadowsToLightColor * _Set_SystemShadowsToBase);
 
 
 #ifdef _IS_PASS_FWDBASE
