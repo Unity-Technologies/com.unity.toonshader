@@ -47,15 +47,10 @@ Define the appearance of self-shadows and other received shadows that blend with
 <video title="The same chibi-style character. The face starts with only a shadow on the chin, then the shadows grow. The hair casts shadows onto the face, then the whole face is in shadow." src="images/SystemShadowLevel.mp4" width="auto" height="auto" autoplay="true" loop="true" controls></video>
 
 
-#### System Shadows To Light Color
-Dims the main light where the material receives shadows, in addition to switching to the Shade Colors. At 0
-the light is unchanged; at 1 it is removed wherever a shadow fully occludes it.
-
-This parameter only affects the Universal Render Pipeline.
-
-> **Note:** Raising this parameter can make [shadow acne](Troubleshooting.md#shadow-acne) more visible, and
-> **System Shadow Level** does not reduce it. Set it back to 0 if acne appears.
-
+#### System Shadows To Light Color (affects URP only)
+Dims the main light where the material receives shadows, in addition to switching to the Shade Colors. 
+* 0: the light is unchanged
+* 1: the light is dimmed wherever a shadow fully occludes it.
 
 ## Point Light Settings
 
