@@ -57,7 +57,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.rider": {
-      "version": "3.0.39",
+      "version": "3.0.40",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -66,12 +66,10 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.visualstudio": {
-      "version": "2.0.27",
+      "version": "2.0.29",
       "depth": 0,
       "source": "registry",
-      "dependencies": {
-        "com.unity.test-framework": "1.1.33"
-      },
+      "dependencies": {},
       "url": "https://packages.unity.com"
     },
     "com.unity.inputsystem": {
@@ -232,6 +230,12 @@
       "dependencies": {
         "com.unity.testframework.graphics": "8.12.0-exp.2"
       }
+    },
+    "com.unity.toon-reference-images": {
+      "version": "file:../../../com.unity.toon-reference-images",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {}
     },
     "com.unity.toonshader": {
       "version": "file:../../../com.unity.toonshader",
