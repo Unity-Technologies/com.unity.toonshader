@@ -47,6 +47,8 @@ There are several approaches to address shadow acne in URP:
    [Universal Render Pipeline documentation](https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@latest).
 
 2. Disable [Receive shadows](ShadingStepAndFeather.md#receive-shadows) entirely on affected materials
-3. Adjust the **System Shadow Level** parameter to reduce the intensity of system shadows
+3. Adjust [System Shadow Level](ShadingStepAndFeather.md#system-shadow-level) to reduce the intensity of system shadows
+4. Set [System Shadows To Light Color](ShadingStepAndFeather.md#system-shadows-to-light-color-urp-only) back to 0.
+   It dims the main light using the shadow value directly, so raising it may reintroduce shadow acne.
 
 
