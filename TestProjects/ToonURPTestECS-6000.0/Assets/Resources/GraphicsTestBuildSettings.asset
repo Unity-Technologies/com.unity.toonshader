@@ -38,8 +38,8 @@ MonoBehaviour:
   m_HeatmapColorScheme: 2
   m_MaxConcurrentImageOptimizations: 16
   m_PlatformSchemata:
-  - name: Default
-    rootPath: Assets/ReferenceImages
+  - name: ReferenceImages
+    rootPath: Packages/com.unity.toon-reference-images/URP
     nodes:
     - ColorSpace
     - RuntimePlatform
@@ -52,10 +52,6 @@ MonoBehaviour:
       mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;UnityEngine.Rendering.GraphicsDeviceType,
       UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;UnityEngine.TestTools.Graphics.Platforms.XrDevice,
       UnityEngine.TestTools.Graphics, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - name: Default Base
-    rootPath: Assets/ReferenceImagesBase
-    nodes: []
-    typeString: 
   m_BuildPlatformSchemata:
   - name: Default
     rootPath: Assets/ReferenceImages
