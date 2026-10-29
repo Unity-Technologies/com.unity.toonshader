@@ -79,8 +79,8 @@ MonoBehaviour:
   m_BuildPlatformNames:
   - referenceimages-linear-windowseditor-vulkan-none
   m_SceneLists:
-  - {fileID: 820810438422381951}
---- !u!114 &820810438422381951
+  - {fileID: 1407276981658653004}
+--- !u!114 &1407276981658653004
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,7 +119,7 @@ MonoBehaviour:
   - Assets/ToonSamplesURP/Scenes/UnityChan_Firefly/UnityChan_Firefly.unity
   - Assets/ToonSamplesURP/Scenes/UnityChan_LightCulling/UnityChan_LightCulling.unity
   id:
-    typeName: Unity.ToonShader.GraphicsTest.UTSGraphicsTestsNonXR
+    typeName: Unity.ToonShader.GraphicsTest.UTSGraphicsTestsXR
     methodName: Run
     parameterTypeNames:
     - UnityEngine.TestTools.Graphics.SceneGraphicsTestCase
