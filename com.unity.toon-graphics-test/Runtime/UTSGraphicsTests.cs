@@ -58,15 +58,9 @@ public class UTSGraphicsTestsXR {
         XRUtility.EnableXRInEditor();
         TestContentLoader.Reset(); //reset loaded images
 
-        const string XR_DEVICE = "MockHMDLoader";
-
-        //Manually load the reference image for XR. Ex: URP/Linear/WindowsEditor/Vulkan/None/AngelRing.png
+        //Check
         Assert.IsNotNull(testCase.ReferenceImage);
-        string imagePath = testCase.ReferenceImage.AssetPath;
-        string imageFileName = Path.GetFileName(imagePath);
-        string imageFolderName = Path.GetDirectoryName(Path.GetDirectoryName(imagePath));
-        Assert.IsNotNull(imageFolderName);
-        string xrImagePath = Path.Combine(imageFolderName, XR_DEVICE,imageFileName);
+        string xrImagePath = testCase.ReferenceImage.AssetPath;
         Assert.IsTrue(File.Exists(xrImagePath),$"XR Reference image not found at: {xrImagePath}");
         
         yield return UTSGraphicsTests.RunInternal(testCase, isXR:true);
