@@ -44,7 +44,6 @@
         logs:
             paths:
               -  "**/test-results/**"
-              -  "TestProjects/{{ project_name }}/Assets/ActualImages/**"
               -  "TestProjects/{{ project_name }}/Logs/*.log"
 {% endfor %}
 {% endfor %}
@@ -83,7 +82,6 @@
         logs:
             paths:
               -  "**/test-results/**"
-              -  "TestProjects/{{ project_name }}/Assets/ActualImages/**"
 {% endfor %}
 {% endfor %}
 
