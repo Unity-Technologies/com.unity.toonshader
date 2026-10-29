@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-7984602981471150146
+--- !u!114 &-3975555768545541457
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -13,9 +13,32 @@ MonoBehaviour:
   m_Name: Run
   m_EditorClassIdentifier: 
   scenePaths:
+  - Assets/Scenes/MetaverseOutlineLighting/OutlineLighting01_HDRISky.unity
+  - Assets/Scenes/MetaverseOutlineLighting/OutlineLighting02_GradientSky.unity
   - Assets/ToonSamplesHDRP/Scenes/AngelRing/AngelRing.unity
+  - Assets/ToonSamplesHDRP/Scenes/BoxProjection/BoxProjection.unity
+  - Assets/ToonSamplesHDRP/Scenes/ClippingMatteControlSample/ClippingMatteControlSample.unity
+  - Assets/ToonSamplesHDRP/Scenes/Cube_HardEdge/Cube_HardEdge.unity
+  - Assets/ToonSamplesHDRP/Scenes/EmissiveAnimation/EmissiveAnimation.unity
+  - Assets/ToonSamplesHDRP/Scenes/KageBall/KageBall.unity
+  - Assets/ToonSamplesHDRP/Scenes/LightAndShadows/LightAndShadows.unity
+  - Assets/ToonSamplesHDRP/Scenes/LightAndShadows_BakedLight/LightAndShadows_BakedLight.unity
+  - Assets/ToonSamplesHDRP/Scenes/MatCapMask/MatCapMask.unity
+  - Assets/ToonSamplesHDRP/Scenes/Mirror/MirrorTest.unity
+  - Assets/ToonSamplesHDRP/Scenes/NormalMap/NormalMap.unity
+  - Assets/ToonSamplesHDRP/Scenes/PointLightTest/PointLightTest.unity
+  - Assets/ToonSamplesHDRP/Scenes/SceneLights Hi-Cut_Filter Test/SceneLights Hi-Cut_Filter
+    Test.unity
+  - Assets/ToonSamplesHDRP/Scenes/ShaderBall/ShaderBall.unity
+  - Assets/ToonSamplesHDRP/Scenes/ShaderBall_LightCulling/ShaderBall_LightCulling.unity
+  - Assets/ToonSamplesHDRP/Scenes/UnityChan/UnityChan.unity
+  - Assets/ToonSamplesHDRP/Scenes/UnityChan_CelLook/UnityChan_CelLook.unity
+  - Assets/ToonSamplesHDRP/Scenes/UnityChan_CelLook_Tess/UnityChan_CelLook_Tess.unity
+  - Assets/ToonSamplesHDRP/Scenes/UnityChan_Emissive/UnityChan_Emissive.unity
+  - Assets/ToonSamplesHDRP/Scenes/UnityChan_Firefly/UnityChan_Firefly.unity
+  - Assets/ToonSamplesHDRP/Scenes/UnityChan_LightCulling/UnityChan_LightCulling.unity
   id:
-    typeName: Unity.ToonShader.GraphicsTest.UTSGraphicsTestsNonXR
+    typeName: Unity.ToonShader.GraphicsTest.UTSGraphicsTestsXR
     methodName: Run
     parameterTypeNames:
     - UnityEngine.TestTools.Graphics.SceneGraphicsTestCase
@@ -33,6 +56,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AutoBuildTestCases: 1
   m_TestContentBundlePaths: []
+  m_TestContentBundlePlatforms: []
+  m_TestDataBundles: []
   m_ImageResultsPath: 
   m_SaveActualImages: 0
   m_OverrideIgnoreAttributes: 0
@@ -64,6 +89,10 @@ MonoBehaviour:
   - Assets/Scenes/MetaverseOutlineLighting/OutlineLighting02_GradientSky.unity
   - Assets/ToonSamplesHDRP/Scenes/ClippingMatteControlSample/ClippingMatteControlSample.unity
   m_PreviousScenesEnabled: 0101010101010101010101010101010101010101010101
+  m_HasPreviousGraphicsApis: 0
+  m_PreviousUseDefaultGraphicsApis: 0
+  m_PreviousGraphicsApis: 
+  m_PreviousGraphicsApisBuildTarget: 0
   m_ReloadDomainWhenEditingTestSceneAssets: 1
   m_AutoOptimizeReferenceImages: 0
   m_EnableShaderStripping: 1
@@ -86,8 +115,8 @@ MonoBehaviour:
       UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;UnityEngine.TestTools.Graphics.Platforms.XrDevice,
       UnityEngine.TestTools.Graphics, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   m_BuildPlatformSchemata:
-  - name: Default
-    rootPath: Assets/ReferenceImages
+  - name: ReferenceImages
+    rootPath: Packages/com.unity.toon-reference-images/HDRP
     nodes:
     - ColorSpace
     - RuntimePlatform
@@ -100,12 +129,50 @@ MonoBehaviour:
       mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;UnityEngine.Rendering.GraphicsDeviceType,
       UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;UnityEngine.TestTools.Graphics.Platforms.XrDevice,
       UnityEngine.TestTools.Graphics, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - name: Default Base
-    rootPath: Assets/ReferenceImagesBase
-    nodes: []
-    typeString: 
   m_BuildPlatformNames:
-  - default-linear-windowseditor-vulkan-none
-  - default-base-
+  - referenceimages-linear-windowseditor-vulkan-none
   m_SceneLists:
-  - {fileID: -7984602981471150146}
+  - {fileID: 6549090124093442677}
+  - {fileID: -3975555768545541457}
+--- !u!114 &6549090124093442677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afc2435270e0c4dad876e4878f1c336d, type: 3}
+  m_Name: Run
+  m_EditorClassIdentifier: 
+  scenePaths:
+  - Assets/Scenes/MetaverseOutlineLighting/OutlineLighting01_HDRISky.unity
+  - Assets/Scenes/MetaverseOutlineLighting/OutlineLighting02_GradientSky.unity
+  - Assets/ToonSamplesHDRP/Scenes/AngelRing/AngelRing.unity
+  - Assets/ToonSamplesHDRP/Scenes/BoxProjection/BoxProjection.unity
+  - Assets/ToonSamplesHDRP/Scenes/ClippingMatteControlSample/ClippingMatteControlSample.unity
+  - Assets/ToonSamplesHDRP/Scenes/Cube_HardEdge/Cube_HardEdge.unity
+  - Assets/ToonSamplesHDRP/Scenes/EmissiveAnimation/EmissiveAnimation.unity
+  - Assets/ToonSamplesHDRP/Scenes/KageBall/KageBall.unity
+  - Assets/ToonSamplesHDRP/Scenes/LightAndShadows/LightAndShadows.unity
+  - Assets/ToonSamplesHDRP/Scenes/LightAndShadows_BakedLight/LightAndShadows_BakedLight.unity
+  - Assets/ToonSamplesHDRP/Scenes/MatCapMask/MatCapMask.unity
+  - Assets/ToonSamplesHDRP/Scenes/Mirror/MirrorTest.unity
+  - Assets/ToonSamplesHDRP/Scenes/NormalMap/NormalMap.unity
+  - Assets/ToonSamplesHDRP/Scenes/PointLightTest/PointLightTest.unity
+  - Assets/ToonSamplesHDRP/Scenes/SceneLights Hi-Cut_Filter Test/SceneLights Hi-Cut_Filter
+    Test.unity
+  - Assets/ToonSamplesHDRP/Scenes/ShaderBall/ShaderBall.unity
+  - Assets/ToonSamplesHDRP/Scenes/ShaderBall_LightCulling/ShaderBall_LightCulling.unity
+  - Assets/ToonSamplesHDRP/Scenes/UnityChan/UnityChan.unity
+  - Assets/ToonSamplesHDRP/Scenes/UnityChan_CelLook/UnityChan_CelLook.unity
+  - Assets/ToonSamplesHDRP/Scenes/UnityChan_CelLook_Tess/UnityChan_CelLook_Tess.unity
+  - Assets/ToonSamplesHDRP/Scenes/UnityChan_Emissive/UnityChan_Emissive.unity
+  - Assets/ToonSamplesHDRP/Scenes/UnityChan_Firefly/UnityChan_Firefly.unity
+  - Assets/ToonSamplesHDRP/Scenes/UnityChan_LightCulling/UnityChan_LightCulling.unity
+  id:
+    typeName: Unity.ToonShader.GraphicsTest.UTSGraphicsTestsNonXR
+    methodName: Run
+    parameterTypeNames:
+    - UnityEngine.TestTools.Graphics.SceneGraphicsTestCase

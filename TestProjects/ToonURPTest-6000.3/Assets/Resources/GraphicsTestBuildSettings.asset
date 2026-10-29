@@ -1,5 +1,24 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-1380640264129981017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afc2435270e0c4dad876e4878f1c336d, type: 3}
+  m_Name: Run
+  m_EditorClassIdentifier: UnityEngine.TestTools.Graphics::UnityEngine.TestTools.Graphics.SceneList
+  scenePaths:
+  - Assets/ToonSamplesURP/Scenes/AngelRing/AngelRing.unity
+  id:
+    typeName: Unity.ToonShader.GraphicsTest.UTSGraphicsTestsNonXR
+    methodName: Run
+    parameterTypeNames:
+    - UnityEngine.TestTools.Graphics.SceneGraphicsTestCase
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14,10 +33,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.TestTools.Graphics::UnityEngine.TestTools.Graphics.GraphicsTestBuildSettings
   m_AutoBuildTestCases: 1
   m_TestContentBundlePaths: []
+  m_TestContentBundlePlatforms: []
+  m_TestDataBundles: []
   m_ImageResultsPath: 
   m_SaveActualImages: 0
   m_OverrideIgnoreAttributes: 0
   m_ShaderWarningsAsErrors: 0
+  m_ClearBuildSettingsScenesOnRebuild: 1
   m_PreviousScenesPaths:
   - Assets/ToonSamplesURP/Scenes/AngelRing/AngelRing.unity
   - Assets/ToonSamplesURP/Scenes/BoxProjection/BoxProjection.unity
@@ -46,6 +68,10 @@ MonoBehaviour:
   - Assets/Scenes/110_RenderShadowLayer/110_RenderShadowLayer.unity
   - Assets/ToonSamplesURP/Scenes/LightAndShadows/LightAndShadows.unity
   m_PreviousScenesEnabled: 01010101010101010101010101010101010101010101010101
+  m_HasPreviousGraphicsApis: 0
+  m_PreviousUseDefaultGraphicsApis: 0
+  m_PreviousGraphicsApis: 
+  m_PreviousGraphicsApisBuildTarget: 0
   m_ReloadDomainWhenEditingTestSceneAssets: 1
   m_AutoOptimizeReferenceImages: 0
   m_EnableShaderStripping: 1
@@ -68,8 +94,8 @@ MonoBehaviour:
       UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;UnityEngine.TestTools.Graphics.Platforms.XrDevice,
       UnityEngine.TestTools.Graphics, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   m_BuildPlatformSchemata:
-  - name: Default
-    rootPath: Assets/ReferenceImages
+  - name: ReferenceImages
+    rootPath: Packages/com.unity.toon-reference-images/URP
     nodes:
     - ColorSpace
     - RuntimePlatform
@@ -82,31 +108,7 @@ MonoBehaviour:
       mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;UnityEngine.Rendering.GraphicsDeviceType,
       UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;UnityEngine.TestTools.Graphics.Platforms.XrDevice,
       UnityEngine.TestTools.Graphics, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - name: Default Base
-    rootPath: Assets/ReferenceImagesBase
-    nodes: []
-    typeString: 
   m_BuildPlatformNames:
-  - default-linear-windowseditor-vulkan-none
-  - default-base-
+  - referenceimages-linear-windowseditor-vulkan-mockhmdloader
   m_SceneLists:
-  - {fileID: 4886013794541669728}
---- !u!114 &4886013794541669728
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afc2435270e0c4dad876e4878f1c336d, type: 3}
-  m_Name: Run
-  m_EditorClassIdentifier: UnityEngine.TestTools.Graphics::UnityEngine.TestTools.Graphics.SceneList
-  scenePaths:
-  - Assets/ToonSamplesURP/Scenes/AngelRing/AngelRing.unity
-  id:
-    typeName: Unity.ToonShader.GraphicsTest.UTSGraphicsTestsNonXR
-    methodName: Run
-    parameterTypeNames:
-    - UnityEngine.TestTools.Graphics.SceneGraphicsTestCase
+  - {fileID: -1380640264129981017}
