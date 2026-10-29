@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf2edee5c58d82540a51f03df9d42094, type: 3}
   m_Name: UTS2URPPipelineAsset
   m_EditorClassIdentifier: 
-  k_AssetVersion: 14
-  k_AssetPreviousVersion: 14
+  k_AssetVersion: 15
+  k_AssetPreviousVersion: 15
   m_RendererType: 1
   m_RendererData: {fileID: 0}
   m_RendererDataList:
@@ -31,6 +31,12 @@ MonoBehaviour:
   m_MSAA: 4
   m_RenderScale: 1
   m_UpscalingFilter: 0
+  m_ScalingMode: 0
+  m_SelectedUpscalerName: 
+  m_UpscalerPriority:
+  - upscalerId: unity.auto
+    upscalerName: Auto (Bilinear or Nearest-Neighbor)
+  m_UpscalerOptions: []
   m_FsrOverrideSharpness: 0
   m_FsrSharpness: 0.92
   m_EnableLODCrossFade: 1
