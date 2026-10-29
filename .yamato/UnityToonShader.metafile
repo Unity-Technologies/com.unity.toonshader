@@ -95,6 +95,7 @@ osx_test_projects:
     unity_editors:
       - version: 6000.0
       - version: 6000.3
+      - version: 6000.6
   - project_prefix: ToonURPTestECS
     unity_editors:
       - version: 6000.0
