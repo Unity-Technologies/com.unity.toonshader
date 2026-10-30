@@ -1,0 +1,125 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ac8020f36911b4458ec9257ceb20861, type: 3}
+  m_Name: GraphicsTestBuildSettings
+  m_EditorClassIdentifier: UnityEngine.TestTools.Graphics::UnityEngine.TestTools.Graphics.GraphicsTestBuildSettings
+  m_AutoBuildTestCases: 1
+  m_TestContentBundlePaths: []
+  m_TestContentBundlePlatforms: []
+  m_TestDataBundles: []
+  m_ImageResultsPath: 
+  m_SaveActualImages: 0
+  m_OverrideIgnoreAttributes: 0
+  m_ShaderWarningsAsErrors: 0
+  m_ClearBuildSettingsScenesOnRebuild: 1
+  m_PreviousScenesPaths:
+  - Assets/ToonSamplesURP/Scenes/AngelRing/AngelRing.unity
+  - Assets/ToonSamplesURP/Scenes/BoxProjection/BoxProjection.unity
+  - Assets/ToonSamplesURP/Scenes/Cube_HardEdge/Cube_HardEdge.unity
+  - Assets/ToonSamplesURP/Scenes/EmissiveAnimation/EmissiveAnimation.unity
+  - Assets/ToonSamplesURP/Scenes/LightAndShadows_BakedLight/LightAndShadows_BakedLight.unity
+  - Assets/ToonSamplesURP/Scenes/MatCapMask/MatCapMask.unity
+  - Assets/ToonSamplesURP/Scenes/Mirror/MirrorTest.unity
+  - Assets/ToonSamplesURP/Scenes/NormalMap/NormalMap.unity
+  - Assets/ToonSamplesURP/Scenes/PointLightTest/PointLightTest.unity
+  - Assets/ToonSamplesURP/Scenes/KageBall/KageBall.unity
+  - Assets/ToonSamplesURP/Scenes/SceneLights Hi-Cut_Filter Test/SceneLights Hi-Cut_Filter Test.unity
+  - Assets/ToonSamplesURP/Scenes/ShaderBall/ShaderBall.unity
+  - Assets/ToonSamplesURP/Scenes/UnityChan/UnityChan.unity
+  - Assets/ToonSamplesURP/Scenes/UnityChan_CelLook/UnityChan_CelLook.unity
+  - Assets/ToonSamplesURP/Scenes/UnityChan_Emissive/UnityChan_Emissive.unity
+  - Assets/ToonSamplesURP/Scenes/UnityChan_Firefly/UnityChan_Firefly.unity
+  - Assets/ToonSamplesURP/Scenes/UnityChan_LightCulling/UnityChan_LightCulling.unity
+  - Assets/Scenes/MetaverseOutlineLighting/OutlineLighting03_Color.unity
+  - Assets/Scenes/MetaverseOutlineLighting/OutlineLighting02_Gradient.unity
+  - Assets/Scenes/MetaverseOutlineLighting/OutlineLighting01_Skybox.unity
+  - Assets/Scenes/BallsAndPlanesSSS/BallsAndPlanesSSS.unity
+  - Assets/Scenes/110_RenderShadowLayer/110_RenderShadowLayer.unity
+  - Assets/ToonSamplesURP/Scenes/LightAndShadows/LightAndShadows.unity
+  m_PreviousScenesEnabled: 0101010101010101010101010101010101010101010101y
+  m_HasPreviousGraphicsApis: 0
+  m_PreviousUseDefaultGraphicsApis: 0
+  m_PreviousGraphicsApis: 
+  m_PreviousGraphicsApisBuildTarget: 0
+  m_ReloadDomainWhenEditingTestSceneAssets: 1
+  m_AutoOptimizeReferenceImages: 0
+  m_EnableShaderStripping: 1
+  m_ShouldCleanUpAfterBuild: 0
+  m_HeatmapColorScheme: 2
+  m_MaxConcurrentImageOptimizations: 16
+  m_PlatformSchemata:
+  - name: ReferenceImages
+    rootPath: Packages/com.unity.toon-reference-images/URP
+    nodes:
+    - ColorSpace
+    - RuntimePlatform
+    - Architecture
+    - GraphicsDeviceType
+    - XrDevice
+    typeString: UnityEngine.ColorSpace, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;UnityEngine.RuntimePlatform, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;System.Runtime.InteropServices.Architecture, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;UnityEngine.Rendering.GraphicsDeviceType, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;UnityEngine.TestTools.Graphics.Platforms.XrDevice, UnityEngine.TestTools.Graphics, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_BuildPlatformSchemata:
+  - name: ReferenceImages
+    rootPath: Packages/com.unity.toon-reference-images/URP
+    nodes:
+    - ColorSpace
+    - RuntimePlatform
+    - Architecture
+    - GraphicsDeviceType
+    - XrDevice
+    typeString: UnityEngine.ColorSpace, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;UnityEngine.RuntimePlatform, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;System.Runtime.InteropServices.Architecture, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;UnityEngine.Rendering.GraphicsDeviceType, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;UnityEngine.TestTools.Graphics.Platforms.XrDevice, UnityEngine.TestTools.Graphics, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_BuildPlatformNames:
+  - referenceimages-linear-windowseditor-vulkan-none
+  m_SceneLists:
+  - {fileID: 1407276981658653004}
+--- !u!114 &1407276981658653004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afc2435270e0c4dad876e4878f1c336d, type: 3}
+  m_Name: Run
+  m_EditorClassIdentifier: UnityEngine.TestTools.Graphics::UnityEngine.TestTools.Graphics.SceneList
+  scenePaths:
+  - Assets/Scenes/105_RenderLayerWithDecal/105_RenderLayerWithDecal.unity
+  - Assets/Scenes/110_RenderShadowLayer/110_RenderShadowLayer.unity
+  - Assets/Scenes/BallsAndPlanesSSS/BallsAndPlanesSSS.unity
+  - Assets/Scenes/Fog/100_Fog.unity
+  - Assets/Scenes/MetaverseOutlineLighting/OutlineLighting01_Skybox.unity
+  - Assets/Scenes/MetaverseOutlineLighting/OutlineLighting02_Gradient.unity
+  - Assets/Scenes/MetaverseOutlineLighting/OutlineLighting03_Color.unity
+  - Assets/ToonSamplesURP/Scenes/AngelRing/AngelRing.unity
+  - Assets/ToonSamplesURP/Scenes/BoxProjection/BoxProjection.unity
+  - Assets/ToonSamplesURP/Scenes/Cube_HardEdge/Cube_HardEdge.unity
+  - Assets/ToonSamplesURP/Scenes/EmissiveAnimation/EmissiveAnimation.unity
+  - Assets/ToonSamplesURP/Scenes/KageBall/KageBall.unity
+  - Assets/ToonSamplesURP/Scenes/LightAndShadows/LightAndShadows.unity
+  - Assets/ToonSamplesURP/Scenes/LightAndShadows_BakedLight/LightAndShadows_BakedLight.unity
+  - Assets/ToonSamplesURP/Scenes/MatCapMask/MatCapMask.unity
+  - Assets/ToonSamplesURP/Scenes/Mirror/MirrorTest.unity
+  - Assets/ToonSamplesURP/Scenes/NormalMap/NormalMap.unity
+  - Assets/ToonSamplesURP/Scenes/PointLightTest/PointLightTest.unity
+  - Assets/ToonSamplesURP/Scenes/SceneLights Hi-Cut_Filter Test/SceneLights Hi-Cut_Filter Test.unity
+  - Assets/ToonSamplesURP/Scenes/ShaderBall/ShaderBall.unity
+  - Assets/ToonSamplesURP/Scenes/UnityChan/UnityChan.unity
+  - Assets/ToonSamplesURP/Scenes/UnityChan_CelLook/UnityChan_CelLook.unity
+  - Assets/ToonSamplesURP/Scenes/UnityChan_Emissive/UnityChan_Emissive.unity
+  - Assets/ToonSamplesURP/Scenes/UnityChan_Firefly/UnityChan_Firefly.unity
+  - Assets/ToonSamplesURP/Scenes/UnityChan_LightCulling/UnityChan_LightCulling.unity
+  id:
+    typeName: Unity.ToonShader.GraphicsTest.UTSGraphicsTestsXR
+    methodName: Run
+    parameterTypeNames:
+    - UnityEngine.TestTools.Graphics.SceneGraphicsTestCase

@@ -3,7 +3,8 @@
 --- !u!129 &1
 PlayerSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 29
+  m_BuildProfilePlayerSettings: {fileID: 0}
+  serializedVersion: 32
   productGUID: db1c8ac582e10614ba35e902f22bb8fb
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
@@ -45,6 +46,7 @@ PlayerSettings:
   defaultScreenHeight: 768
   defaultScreenWidthWeb: 960
   defaultScreenHeightWeb: 600
+  webProgressiveAssetLoading: 0
   m_StereoRenderingPath: 0
   m_ActiveColorSpace: 1
   unsupportedMSAAFallback: 0
@@ -54,7 +56,7 @@ PlayerSettings:
   mipStripping: 0
   numberOfMipsStripped: 0
   numberOfMipsStrippedPerMipmapLimitGroup: {}
-  m_StackTraceTypes: 010000000100000001000000010000000100000001000000
+  m_StackTraceTypes: 010000000100000001000000010000000100000001000000i
   iosShowActivityIndicatorOnLoading: -1
   androidShowActivityIndicatorOnLoading: -1
   iosUseCustomAppBackgroundBehavior: 0
@@ -73,7 +75,15 @@ PlayerSettings:
   androidRenderOutsideSafeArea: 1
   androidUseSwappy: 0
   androidRequestedVisibleInsets: 0
+  m_AndroidWindowInsets:
+    2:
+      overlapping: 0
+      appearance: 0
+    1:
+      overlapping: 0
+      appearance: 0
   androidSystemBarsBehavior: 2
+  androidSystemBarsBackground: 0
   androidDisplayOptions: 1
   androidBlitType: 0
   androidResizeableActivity: 0
@@ -162,7 +172,7 @@ PlayerSettings:
   allowHDRDisplaySupport: 0
   useHDRDisplay: 0
   hdrBitDepth: 0
-  m_ColorGamuts: 00000000
+  m_ColorGamuts: 00000000i
   targetPixelDensity: 30
   resolutionScalingMode: 0
   resetResolutionOnWindowResize: 0
@@ -180,6 +190,7 @@ PlayerSettings:
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 26
   AndroidTargetSdkVersion: 0
+  AndroidCompileSdkVersion: 0
   AndroidPreferredInstallLocation: 1
   AndroidPreferredDataLocation: 1
   aotOptions: 
@@ -196,11 +207,11 @@ PlayerSettings:
   VertexChannelCompressionMask: 4054
   iPhoneSdkVersion: 988
   iOSSimulatorArchitecture: 0
-  iOSTargetOSVersionString: 15.0
+  iOSTargetOSVersionString: 16.0
   tvOSSdkVersion: 0
   tvOSSimulatorArchitecture: 0
   tvOSRequireExtendedGameController: 0
-  tvOSTargetOSVersionString: 15.0
+  tvOSTargetOSVersionString: 16.0
   VisionOSSdkVersion: 0
   VisionOSTargetOSVersionString: 1.0
   xcodeProjectType: 0
@@ -256,7 +267,6 @@ PlayerSettings:
   VisionOSManualSigningProvisioningProfileType: 0
   appleEnableAutomaticSigning: 0
   iOSRequireARKit: 0
-  iOSAutomaticallyDetectAndAddCapabilities: 1
   appleEnableProMotion: 0
   shaderPrecisionModel: 0
   clonedFromGUID: 00000000000000000000000000000000
@@ -283,10 +293,10 @@ PlayerSettings:
   androidAppCategory: 3
   useAndroidAppCategory: 1
   androidAppCategoryOther: 
-  AndroidEnableTango: 0
   androidEnableBanner: 1
   androidUseLowAccuracyLocation: 0
   androidUseCustomKeystore: 0
+  androidRenderServiceUseVirtualDisplay: 0
   m_AndroidBanners:
   - width: 320
     height: 180
@@ -298,6 +308,12 @@ PlayerSettings:
   AndroidAppBundleSizeToValidate: 150
   AndroidReportGooglePlayAppDependencies: 1
   androidSymbolsSizeThreshold: 800
+  androidIconSourceType: 0
+  androidAdaptiveIconVectorDrawableBackground: {fileID: 0}
+  androidAdaptiveIconVectorDrawableForeground: {fileID: 0}
+  androidAdaptiveIconVectorDrawableMonochrome: {fileID: 0}
+  androidAdaptiveBannerVectorDrawableBackground: {fileID: 0}
+  androidAdaptiveBannerVectorDrawableForeground: {fileID: 0}
   m_BuildTargetIcons: []
   m_BuildTargetPlatformIcons:
   - m_BuildTarget: iPhone
@@ -490,18 +506,22 @@ PlayerSettings:
       m_Kind: 0
       m_SubKind: 
   m_BuildTargetBatching: []
+  m_UseLegacyStaticBatchingDefault: 1
   m_BuildTargetShaderSettings: []
   m_BuildTargetGraphicsJobs: []
   m_BuildTargetGraphicsJobMode: []
   m_BuildTargetGraphicsAPIs:
   - m_BuildTarget: WindowsStandaloneSupport
-    m_APIs: 1500000002000000
+    m_APIs: 1500000002000000i
+    m_UGKFlags: 0000000000000000i
     m_Automatic: 0
   - m_BuildTarget: iOSSupport
-    m_APIs: 10000000
+    m_APIs: 10000000i
+    m_UGKFlags: 00000000i
     m_Automatic: 1
   - m_BuildTarget: AndroidPlayer
-    m_APIs: 0b000000
+    m_APIs: 0b000000i
+    m_UGKFlags: 00000000i
     m_Automatic: 0
   m_DefaultShaderChunkSizeInMB: 16
   m_DefaultShaderChunkCount: 0
@@ -678,6 +698,10 @@ PlayerSettings:
   switchUpgradedPlayerSettingsToNMETA: 0
   switchCaStoreSource: 0
   switchCaStoreFilePath: 
+  switchStorageMode: 0
+  switchStorageMounts: []
+  switchPersistentDataPathMountName: 
+  switchTemporaryCachePathMountName: 
   ps4NPAgeRating: 12
   ps4NPTitleSecret: 
   ps4NPTrophyPackPath: 
@@ -768,7 +792,7 @@ PlayerSettings:
   webGLModulesDirectory: 
   webGLTemplate: APPLICATION:Default
   webGLAnalyzeBuildSize: 0
-  webGLUseEmbeddedResources: 0
+  webGLUseEmbeddedResources: 1
   webGLCompressionFormat: 0
   webGLWasmArithmeticExceptions: 0
   webGLLinkerTarget: 1
@@ -813,10 +837,12 @@ PlayerSettings:
   scriptingRuntimeVersion: 1
   gcIncremental: 0
   gcWBarrierValidation: 0
+  managedCodeVariant: {}
   apiCompatibilityLevelPerPlatform: {}
   editorAssembliesCompatibilityLevel: 1
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
+  windowsCopyVCRuntime: 1
   metroPackageName: UTS2_Project~
   metroPackageVersion: 
   metroCertificatePath: 
@@ -892,7 +918,7 @@ PlayerSettings:
   qnxGraphicConfPath: 
   apiCompatibilityLevel: 6
   captureStartupLogs: {}
-  activeInputHandler: 1
+  activeInputHandler: 2
   windowsGamepadBackendHint: 0
   enableDirectStorage: 0
   cloudProjectId: 
@@ -910,4 +936,5 @@ PlayerSettings:
   androidVulkanAllowFilterList: []
   androidVulkanDeviceFilterListAsset: {fileID: 0}
   d3d12DeviceFilterListAsset: {fileID: 0}
+  webGPUDeviceFilterListAsset: {fileID: 0}
   allowedHttpConnections: 3
