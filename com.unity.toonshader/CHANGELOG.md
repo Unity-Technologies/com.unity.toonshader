@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.16.0-preview] - 2026-10-30
+
+### Added
+* feat: support the URP Deferred renderer (#886)
+* feat: experimental support for Surface Cache Global Illumination in URP (#889)
+* feat: add a URP Meta pass for lightmap baking and Surface GI (#888)
+* feat: add _SystemShadowsToLightColor property to dim the main light using shadows (#892)
+* doc: System Shadows To Light Color parameter (URP only) (#893)
+
+### Changed
+* sample: update URP materials (#895)
+* sample: auto-upgrade meta files (#878)
+* doc: normalize heading levels in Shading Step and Feather page (#896)
+
+### Fixed
+* fix: compile error in Unity 6.7 (#880)
+
 ## [0.15.1-preview] - 2026-08-25
 
 ### Fixed
