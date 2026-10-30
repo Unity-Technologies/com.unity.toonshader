@@ -42,7 +42,9 @@ VertexOutput vert(VertexInput v) {
     //end
     float Set_Outline_Width = (_Outline_Width * 0.001 * smoothstep(_Farthest_Distance, _Nearest_Distance,
         distance(objPos.rgb, _WorldSpaceCameraPos)) * _Outline_Sampler_var.rgb).r;
+#ifndef _UTS_OUTLINE_FORCE_VISIBLE
     Set_Outline_Width *= (1.0f - _ZOverDrawMode);
+#endif
     //v.2.0.7.5
     float4 _ClipCameraPos = mul(UNITY_MATRIX_VP, float4(_WorldSpaceCameraPos.xyz, 1));
     //v.2.0.7
@@ -70,10 +72,12 @@ VertexOutput vert(VertexInput v) {
 
 float4 frag(VertexOutput i) : SV_Target {
     //v.2.0.5
+#ifndef _UTS_OUTLINE_FORCE_VISIBLE
     if (_ZOverDrawMode > 0.99f)
     {
         return float4(1.0f, 1.0f, 1.0f, 1.0f); // but nothing should be drawn except Z value as colormask is set to 0
     }
+#endif
     _Color = _BaseColor;
     float4 objPos = mul(GetObjectToWorldMatrix(), float4(0, 0, 0, 1));
     //v.2.0.9
