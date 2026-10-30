@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.16.1-preview] - 2026-10-31
+
+### Fixed
+* internal: CI
+
 ## [0.16.0-preview] - 2026-10-30
 
 ### Added
