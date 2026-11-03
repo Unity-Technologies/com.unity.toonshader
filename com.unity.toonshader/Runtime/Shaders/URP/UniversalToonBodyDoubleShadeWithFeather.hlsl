@@ -75,7 +75,15 @@ float3 ProcessAdditionalLight(
 )
 {
     Light additionalLight = GetAdditionalLight(lightIndex, positionWS, shadowMask);
-
+    
+#ifdef _LIGHT_LAYERS
+     if (!IsMatchingLightLayer(additionalLight.layerMask, meshRenderingLayers))
+     {
+         return float3(0.0, 0.0, 0.0); 
+     }
+#endif    
+    
+        
     half3 additionalLightColor = GetLightColor(
         additionalLight
 #ifdef _LIGHT_LAYERS
