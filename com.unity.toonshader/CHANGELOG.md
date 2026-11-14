@@ -3,6 +3,7 @@
 ## [0.16.1-preview] - 2026-10-31
 
 ### Fixed
+* fix: allow Outline foldout in inspector when transparent mode is enabled (#811)
 * internal: CI
 
 ## [0.16.0-preview] - 2026-10-30
