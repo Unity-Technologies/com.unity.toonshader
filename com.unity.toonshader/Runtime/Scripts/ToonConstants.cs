@@ -96,6 +96,9 @@ internal static class ToonConstants {
     //Doc: Use this LightMode tag value to draw an extra Pass when rendering objects.
     internal const string SHADER_LIGHT_MODE_NAME_FOR_OUTLINE = "SRPDefaultUnlit";
 
+    //URP draws the outline of transparent materials in this pass.
+    internal const string SHADER_LIGHT_MODE_NAME_FOR_TRANSPARENT_OUTLINE = "UniversalForward";
+
     
     internal const string GBUFFER_PASS_NAME = "GBuffer";
 
