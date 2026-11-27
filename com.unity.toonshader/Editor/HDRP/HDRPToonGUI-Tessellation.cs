@@ -122,7 +122,12 @@ namespace UnityEditor.Rendering.Toon
             DrawDelayedFloatProperty(tessellationFactorMinDistance, TessellationStyles.tessellationFactorMinDistanceText);
             DrawDelayedFloatProperty(tessellationFactorMaxDistance, TessellationStyles.tessellationFactorMaxDistanceText);
             // clamp min distance to be below max distance
-            tessellationFactorMinDistance.floatValue = Math.Min(tessellationFactorMaxDistance.floatValue, tessellationFactorMinDistance.floatValue);
+            // Only write when needed: assigning floatValue writes to all selected materials.
+            if (!tessellationFactorMinDistance.hasMixedValue && !tessellationFactorMaxDistance.hasMixedValue
+                && tessellationFactorMinDistance.floatValue > tessellationFactorMaxDistance.floatValue)
+            {
+                tessellationFactorMinDistance.floatValue = tessellationFactorMaxDistance.floatValue;
+            }
             m_MaterialEditor.ShaderProperty(tessellationFactorTriangleSize, TessellationStyles.tessellationFactorTriangleSizeText);
             if ((TessellationMode)tessellationMode.floatValue == TessellationMode.Phong)
             {
