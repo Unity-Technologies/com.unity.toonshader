@@ -368,6 +368,9 @@ namespace UnityEditor.Rendering.Toon {
         //------------------------------------------------------
         protected MaterialEditor m_MaterialEditor;
 
+        // All materials currently selected in the inspector. m_MaterialEditor.target is m_Materials[0].
+        protected Material[] m_Materials = Array.Empty<Material>();
+
 
         internal static void UpdateVersionInMaterial(Material material) {
             MaterialSetInt(material, ShaderPropIsUnityToonShader, 1);
@@ -1127,8 +1130,12 @@ namespace UnityEditor.Rendering.Toon {
                 m_FirstTimeApply = false;
             }
 
+            m_Materials = GetTargetMaterials(materialEditor);
+
             FindProperties(props);
-            UpdateVersionInMaterial(material);
+            foreach (Material m in m_Materials) {
+                UpdateVersionInMaterial(m);
+            }
 
             m_autoRenderQueue = MaterialGetInt(material, ShaderPropAutoRenderQueue);
             transparencyEnabled = (UTS_TransparentMode)MaterialGetInt(material, ShaderPropTransparentEnabled);
@@ -1180,7 +1187,23 @@ namespace UnityEditor.Rendering.Toon {
             // select UTS technique here.
             DoPopup(Styles.workflowModeText, utsTechnique, UtsModeNames);
             m_WorkflowMode = (UTS_Mode)MaterialGetInt(material, ShaderPropUtsTechniqe);
-            switch (m_WorkflowMode) {
+
+            ShaderPropertiesGUI(materialEditor, material, props);
+
+            // Derived settings (keywords, tags, render queue, synced properties) depend on each material's own
+            // property values, so they are applied to every selected material individually.
+            foreach (Material m in m_Materials) {
+                ApplyMaterialSettings(m);
+            }
+
+            if (EditorGUI.EndChangeCheck()) {
+                m_MaterialEditor.PropertiesChanged();
+            }
+        } // End of OnGUI()
+
+        void ApplyMaterialSettings(Material material) {
+            UTS_Mode workflowMode = (UTS_Mode)MaterialGetInt(material, ShaderPropUtsTechniqe);
+            switch (workflowMode) {
                 case UTS_Mode.ThreeColorToon:
                     material.DisableKeyword(ShaderDefineSHADINGGRADEMAP);
                     break;
@@ -1189,22 +1212,22 @@ namespace UnityEditor.Rendering.Toon {
                     break;
             }
 
-            SetupTransparentModeForOutline(material, transparencyEnabled == UTS_TransparentMode.On);
+            bool isTransparent = (UTS_TransparentMode)MaterialGetInt(material, ShaderPropTransparentEnabled) == UTS_TransparentMode.On;
+            ApplyTransparentMode(material, workflowMode, isTransparent);
+            SetupTransparentModeForOutline(material, isTransparent);
 
-            ShaderPropertiesGUI(materialEditor, material, props);
+            SyncBaseColor(material);
+            SyncShadingStepAndFeather(material, workflowMode);
+            ApplyOutlineMode(material);
 
             ApplyRenderingPerChennelsSetting(material);
-            ApplyClippingMode(material);
+            ApplyClippingMode(material, workflowMode);
             ApplyStencilMode(material);
             ApplyAngelRing(material);
             ApplyTessellation(material);
             ApplyMatCapMode(material);
-            ApplyQueueAndRenderType(m_WorkflowMode, material);
-
-            if (EditorGUI.EndChangeCheck()) {
-                m_MaterialEditor.PropertiesChanged();
-            }
-        } // End of OnGUI()
+            ApplyQueueAndRenderType(workflowMode, material, isTransparent);
+        }
 
 
         internal static int MaterialGetInt(Material material, string prop) {
@@ -1215,18 +1238,80 @@ namespace UnityEditor.Rendering.Toon {
             material.SetFloat(prop, value);
         }
 
+//----------------------------------------------------------------------------------------------------------------------
+        // Multi-material editing helpers.
+        // The inspector displays the values of the first selected material (m_MaterialEditor.target), shows the
+        // "mixed value" indicator when the selected materials differ, and writes changes to all selected materials.
+
+        static Material[] GetTargetMaterials(MaterialEditor materialEditor) {
+            UnityEngine.Object[] targets = materialEditor.targets;
+            var materials = new System.Collections.Generic.List<Material>(targets.Length);
+            foreach (UnityEngine.Object t in targets) {
+                if (t is Material m)
+                    materials.Add(m);
+            }
+            return materials.ToArray();
+        }
+
+        bool HasMixedFloat(string prop) {
+            if (m_Materials.Length <= 1)
+                return false;
+            float v = m_Materials[0].GetFloat(prop);
+            for (int i = 1; i < m_Materials.Length; ++i) {
+                if (m_Materials[i].GetFloat(prop) != v)
+                    return true;
+            }
+            return false;
+        }
+
+        bool HasMixedColor(string prop) {
+            if (m_Materials.Length <= 1)
+                return false;
+            Color v = m_Materials[0].GetColor(prop);
+            for (int i = 1; i < m_Materials.Length; ++i) {
+                if (m_Materials[i].GetColor(prop) != v)
+                    return true;
+            }
+            return false;
+        }
+
+        void SetFloatToAll(string prop, float value) {
+            foreach (Material m in m_Materials) {
+                m.SetFloat(prop, value);
+            }
+        }
+
+        void SetIntToAll(string prop, int value) {
+            SetFloatToAll(prop, value);
+        }
+
+        void SetColorToAll(string prop, Color value) {
+            foreach (Material m in m_Materials) {
+                m.SetColor(prop, value);
+            }
+        }
+
         bool GUI_ToggleShaderKeyword(Material material, string label, string keyword) {
             var isEnabled = material.IsKeywordEnabled(keyword);
 
+            bool isMixed = false;
+            foreach (Material m in m_Materials) {
+                isMixed |= m.IsKeywordEnabled(keyword) != isEnabled;
+            }
+
+            EditorGUI.showMixedValue = isMixed;
             EditorGUI.BeginChangeCheck();
             var ret = EditorGUILayout.Toggle(label, isEnabled);
+            EditorGUI.showMixedValue = false;
             if (EditorGUI.EndChangeCheck()) {
                 m_MaterialEditor.RegisterPropertyChangeUndo(label);
-                if (ret == false) {
-                    material.DisableKeyword(keyword);
-                }
-                else {
-                    material.EnableKeyword(keyword);
+                foreach (Material m in m_Materials) {
+                    if (ret == false) {
+                        m.DisableKeyword(keyword);
+                    }
+                    else {
+                        m.EnableKeyword(keyword);
+                    }
                 }
             }
 
@@ -1236,12 +1321,14 @@ namespace UnityEditor.Rendering.Toon {
 
         float GUI_FloatProperty(Material material, FloatProperty floatProp) {
             float ret = material.GetFloat(floatProp.m_propertyName);
+            EditorGUI.showMixedValue = HasMixedFloat(floatProp.m_propertyName);
             EditorGUI.BeginChangeCheck();
             ret = EditorGUILayout.FloatField(floatProp.m_GuiContent, ret);
+            EditorGUI.showMixedValue = false;
 
             if (EditorGUI.EndChangeCheck()) {
                 m_MaterialEditor.RegisterPropertyChangeUndo(floatProp.m_GuiContent.text);
-                material.SetFloat(floatProp.m_propertyName, ret);
+                SetFloatToAll(floatProp.m_propertyName, ret);
             }
 
             return ret;
@@ -1249,13 +1336,15 @@ namespace UnityEditor.Rendering.Toon {
 
         Color GUI_ColorProperty(Material material, ColorProperty colorProp) {
             Color ret = material.GetColor(colorProp.m_propertyName);
+            EditorGUI.showMixedValue = HasMixedColor(colorProp.m_propertyName);
             EditorGUI.BeginChangeCheck();
 
             ret = EditorGUILayout.ColorField(colorProp.m_GuiContent, ret, showEyedropper: true, showAlpha: true, hdr: colorProp.m_isHDR);
+            EditorGUI.showMixedValue = false;
 
             if (EditorGUI.EndChangeCheck()) {
                 m_MaterialEditor.RegisterPropertyChangeUndo(colorProp.m_GuiContent.text);
-                material.SetColor(colorProp.m_propertyName, ret);
+                SetColorToAll(colorProp.m_propertyName, ret);
             }
 
             return ret;
@@ -1267,23 +1356,27 @@ namespace UnityEditor.Rendering.Toon {
 
         float GUI_RangeProperty(Material material, GUIContent guiContent, string propName, float min, float max) {
             float ret = material.GetFloat(propName);
+            EditorGUI.showMixedValue = HasMixedFloat(propName);
             EditorGUI.BeginChangeCheck();
             ret = EditorGUILayout.Slider(guiContent, ret, min, max);
+            EditorGUI.showMixedValue = false;
 
             if (EditorGUI.EndChangeCheck()) {
                 m_MaterialEditor.RegisterPropertyChangeUndo(guiContent.text);
-                material.SetFloat(propName, ret);
+                SetFloatToAll(propName, ret);
             }
 
             return ret;
         }
 
         bool GUI_Toggle(Material material, GUIContent guiContent, string prop, bool value) {
+            EditorGUI.showMixedValue = HasMixedFloat(prop);
             EditorGUI.BeginChangeCheck();
             var ret = EditorGUILayout.Toggle(guiContent, value);
+            EditorGUI.showMixedValue = false;
             if (EditorGUI.EndChangeCheck()) {
                 m_MaterialEditor.RegisterPropertyChangeUndo(guiContent.text);
-                MaterialSetInt(material, prop, ret ? 1 : 0);
+                SetIntToAll(prop, ret ? 1 : 0);
             }
 
             return ret;
@@ -1299,7 +1392,21 @@ namespace UnityEditor.Rendering.Toon {
             EditorGUILayout.EndHorizontal();
             EditorGUI.indentLevel++;
             EditorGUI.BeginDisabledGroup(m_autoRenderQueue == 1);
-            m_renderQueue = (int)EditorGUILayout.IntField(Styles.renderQueueText, material.renderQueue);
+            bool isRenderQueueMixed = false;
+            foreach (Material m in m_Materials) {
+                isRenderQueueMixed |= m.renderQueue != material.renderQueue;
+            }
+
+            EditorGUI.showMixedValue = isRenderQueueMixed;
+            EditorGUI.BeginChangeCheck();
+            m_renderQueue = EditorGUILayout.IntField(Styles.renderQueueText, material.renderQueue);
+            EditorGUI.showMixedValue = false;
+            if (EditorGUI.EndChangeCheck()) {
+                m_MaterialEditor.RegisterPropertyChangeUndo(Styles.renderQueueText.text);
+                foreach (Material m in m_Materials) {
+                    m.renderQueue = m_renderQueue;
+                }
+            }
             EditorGUI.EndDisabledGroup();
             EditorGUI.indentLevel--;
         }
@@ -1320,31 +1427,28 @@ namespace UnityEditor.Rendering.Toon {
             }
 
             //GUI description with EnumPopup.
+            EditorGUI.showMixedValue = HasMixedFloat(_CullMode);
+            EditorGUI.BeginChangeCheck();
             m_cullingMode = (CullingMode)EditorGUILayout.EnumPopup(Styles.cullingModeText, m_cullingMode);
-            //If the value changes, write to the material.
-            if (_CullMode_Setting != (int)m_cullingMode) {
-                switch (m_cullingMode) {
-                    case CullingMode.Off:
-                        MaterialSetInt(material, _CullMode, 0);
-                        break;
-                    case CullingMode.Frontface:
-                        MaterialSetInt(material, _CullMode, 1);
-                        break;
-                    default:
-                        MaterialSetInt(material, _CullMode, 2);
-                        break;
-                }
+            EditorGUI.showMixedValue = false;
+            //If the value changes, write to the materials.
+            if (EditorGUI.EndChangeCheck()) {
+                m_MaterialEditor.RegisterPropertyChangeUndo(Styles.cullingModeText.text);
+                SetIntToAll(_CullMode, (int)m_cullingMode);
             }
         }
 
         void GUI_Tranparent(Material material) {
-            const string _ZWriteMode = "_ZWriteMode";
-            const string _ZOverDrawMode = "_ZOverDrawMode";
             DoPopup(Styles.transparentModeText, transparentMode, System.Enum.GetNames(typeof(UTS_TransparentMode)));
             transparencyEnabled = (UTS_TransparentMode)MaterialGetInt(material, ShaderPropTransparentEnabled);
+        }
 
-            if (transparencyEnabled == UTS_TransparentMode.On) {
-                if (MaterialGetInt(material, ShaderPropUtsTechniqe) == (int)UTS_Mode.ThreeColorToon) {
+        static void ApplyTransparentMode(Material material, UTS_Mode workflowMode, bool isTransparent) {
+            const string _ZWriteMode = "_ZWriteMode";
+            const string _ZOverDrawMode = "_ZOverDrawMode";
+
+            if (isTransparent) {
+                if (workflowMode == UTS_Mode.ThreeColorToon) {
                     MaterialSetInt(material, ShaderPropClippingMode, (int)UTS_ClippingMode.TransClippingMode);
                 }
                 else {
@@ -1362,19 +1466,19 @@ namespace UnityEditor.Rendering.Toon {
         }
 
         void GUI_StencilMode(Material material) {
-            const string kStencilValue = "Stencil Value";
-
             DoPopup(Styles.stencilmodeModeText, stencilMode, StencilModeNames);
 
 
             EditorGUI.indentLevel++;
             int currentStencilValue = stencilNumberSetting;
             EditorGUI.BeginDisabledGroup((UTS_StencilMode)MaterialGetInt(material, ShaderPropStencilMode) == UTS_StencilMode.Off);
+            EditorGUI.showMixedValue = HasMixedFloat(ShaderPropStencilNo);
             EditorGUI.BeginChangeCheck();
             currentStencilValue = EditorGUILayout.IntSlider(Styles.stencilVauleText, stencilNumberSetting, 0, 255);
+            EditorGUI.showMixedValue = false;
             if (EditorGUI.EndChangeCheck()) {
-                Undo.RecordObject(material, "Changed " + kStencilValue);
-                MaterialSetInt(material, ShaderPropStencilNo, currentStencilValue);
+                m_MaterialEditor.RegisterPropertyChangeUndo(Styles.stencilVauleText.text);
+                SetIntToAll(ShaderPropStencilNo, currentStencilValue);
             }
 
             EditorGUI.EndDisabledGroup();
@@ -1398,11 +1502,6 @@ namespace UnityEditor.Rendering.Toon {
 
         void GUI_BasicThreeColors(Material material) {
             m_MaterialEditor.TexturePropertySingleLine(Styles.baseColorText, mainTex, baseColor);
-            //v.2.0.7 Synchronize _Color to _BaseColor. [TODO-sin: 2025-11-28] Verify this
-            if (material.HasProperty("_Color")) {
-                material.SetColor("_Color", material.GetColor(ToonConstants.SHADER_PROP_BASE_COLOR));
-            }
-            //
 
             EditorGUI.indentLevel += 2;
             var applyTo1st = GUI_Toggle(material, Styles.applyTo1stShademapText, ToonConstants.SHADER_PROP_USE_BASE_AS_1ST,
@@ -1506,14 +1605,6 @@ namespace UnityEditor.Rendering.Toon {
                     GUI_RangeProperty(material, Styles.shaderPropBaseFeatherText);
                     GUI_RangeProperty(material, Styles.shaderPropShadeColorStepText);
                     GUI_RangeProperty(material, Styles.shaderProp1st2nd_Shades_FeatherText);
-
-
-                    //Sharing variables with ShadingGradeMap method.
-
-                    material.SetFloat(ToonConstants.SHADER_PROP_TOON3D_1ST_SHADE_COLOR_STEP, material.GetFloat(ToonConstants.SHADER_PROP_TOON3D_BASE_COLOR_STEP));
-                    material.SetFloat(ToonConstants.SHADER_PROP_TOON3D_1ST_SHADE_COLOR_FEATHER, material.GetFloat(ToonConstants.SHADER_PROP_TOON3D_BASE_SHADE_FEATHER));
-                    material.SetFloat(ShaderProp2nd_ShadeColor_Step, material.GetFloat(ShaderPropShadeColor_Step));
-                    material.SetFloat(ShaderProp2nd_ShadeColor_Feather, material.GetFloat(ShaderProp1st2nd_Shades_Feather));
                 }
                 else if (mode == (int)UTS_Mode.ShadingGradeMap) {
                     //SGM
@@ -1523,12 +1614,6 @@ namespace UnityEditor.Rendering.Toon {
                     GUI_RangeProperty(material, Styles.shaderProp1st_ShadeColor_FeatherText);
                     GUI_RangeProperty(material, Styles.shaderProp2nd_ShadeColor_StepText);
                     GUI_RangeProperty(material, Styles.shaderProp2nd_ShadeColor_FeatherText);
-
-                    //Share variables with DoubleWithFeather method.
-                    material.SetFloat(ToonConstants.SHADER_PROP_TOON3D_BASE_COLOR_STEP, material.GetFloat(ToonConstants.SHADER_PROP_TOON3D_1ST_SHADE_COLOR_STEP));
-                    material.SetFloat(ToonConstants.SHADER_PROP_TOON3D_BASE_SHADE_FEATHER, material.GetFloat(ToonConstants.SHADER_PROP_TOON3D_1ST_SHADE_COLOR_FEATHER));
-                    material.SetFloat(ShaderPropShadeColor_Step, material.GetFloat(ShaderProp2nd_ShadeColor_Step));
-                    material.SetFloat(ShaderProp1st2nd_Shades_Feather, material.GetFloat(ShaderProp2nd_ShadeColor_Feather));
                 }
                 else {
                     // OutlineObj.
@@ -1537,6 +1622,32 @@ namespace UnityEditor.Rendering.Toon {
             }
 
             EditorGUILayout.Space();
+        }
+
+        static void SyncBaseColor(Material material) {
+            //v.2.0.7 Synchronize _Color to _BaseColor. [TODO-sin: 2025-11-28] Verify this
+            if (material.HasProperty("_Color")) {
+                material.SetColor("_Color", material.GetColor(ToonConstants.SHADER_PROP_BASE_COLOR));
+            }
+        }
+
+        // The Standard and ShadingGradeMap modes expose different properties for the same step/feather settings.
+        // Keep them in sync, using the properties of the material's current mode as the source.
+        static void SyncShadingStepAndFeather(Material material, UTS_Mode workflowMode) {
+            switch (workflowMode) {
+                case UTS_Mode.ThreeColorToon:
+                    material.SetFloat(ToonConstants.SHADER_PROP_TOON3D_1ST_SHADE_COLOR_STEP, material.GetFloat(ToonConstants.SHADER_PROP_TOON3D_BASE_COLOR_STEP));
+                    material.SetFloat(ToonConstants.SHADER_PROP_TOON3D_1ST_SHADE_COLOR_FEATHER, material.GetFloat(ToonConstants.SHADER_PROP_TOON3D_BASE_SHADE_FEATHER));
+                    material.SetFloat(ShaderProp2nd_ShadeColor_Step, material.GetFloat(ShaderPropShadeColor_Step));
+                    material.SetFloat(ShaderProp2nd_ShadeColor_Feather, material.GetFloat(ShaderProp1st2nd_Shades_Feather));
+                    break;
+                case UTS_Mode.ShadingGradeMap:
+                    material.SetFloat(ToonConstants.SHADER_PROP_TOON3D_BASE_COLOR_STEP, material.GetFloat(ToonConstants.SHADER_PROP_TOON3D_1ST_SHADE_COLOR_STEP));
+                    material.SetFloat(ToonConstants.SHADER_PROP_TOON3D_BASE_SHADE_FEATHER, material.GetFloat(ToonConstants.SHADER_PROP_TOON3D_1ST_SHADE_COLOR_FEATHER));
+                    material.SetFloat(ShaderPropShadeColor_Step, material.GetFloat(ShaderProp2nd_ShadeColor_Step));
+                    material.SetFloat(ShaderProp1st2nd_Shades_Feather, material.GetFloat(ShaderProp2nd_ShadeColor_Feather));
+                    break;
+            }
         }
 
         void GUI_AdditionalLookdevs(Material material) {
@@ -1804,8 +1915,9 @@ namespace UnityEditor.Rendering.Toon {
             EditorGUI.EndDisabledGroup();
         }
 
-        void ApplyQueueAndRenderType(UTS_Mode technique, Material material) {
-            if (m_autoRenderQueue == 1) {
+        static void ApplyQueueAndRenderType(UTS_Mode technique, Material material, bool isTransparent) {
+            bool isAutoRenderQueue = MaterialGetInt(material, ShaderPropAutoRenderQueue) == 1;
+            if (isAutoRenderQueue) {
                 material.renderQueue = -1; //  (int)UnityEngine.Rendering.RenderQueue.Geometry;
             }
 
@@ -1819,7 +1931,7 @@ namespace UnityEditor.Rendering.Toon {
             var renderType = OPAQUE;
             var ignoreProjection = DONT_IGNOREPROJECTION;
 
-            if (transparencyEnabled == UTS_TransparentMode.On) {
+            if (isTransparent) {
                 renderType = TRANSPARENT;
                 ignoreProjection = DO_IGNOREPROJECTION;
             }
@@ -1848,23 +1960,21 @@ namespace UnityEditor.Rendering.Toon {
                 }
             }
 
-            if (m_autoRenderQueue == 1) {
-                SetRenderQueueAuto(material);
-            }
-            else {
-                material.renderQueue = m_renderQueue;
+            // When the render queue is not automatic, it is set directly by the Render Queue field in GUI_SetRenderQueue()
+            if (isAutoRenderQueue) {
+                SetRenderQueueAuto(material, isTransparent);
             }
 
             material.SetOverrideTag(RENDERTYPE, renderType);
             material.SetOverrideTag(IGNOREPROJECTION, ignoreProjection);
         }
 
-        void SetRenderQueueAuto(Material material) {
+        static void SetRenderQueueAuto(Material material, bool isTransparent) {
             const int transparent = (int)UnityEngine.Rendering.RenderQueue.Transparent;
             const int alphaTest = (int)UnityEngine.Rendering.RenderQueue.AlphaTest;
             const int alphaTestMinusOne = (int)UnityEngine.Rendering.RenderQueue.AlphaTest - 1;
 
-            if (transparencyEnabled == UTS_TransparentMode.On) {
+            if (isTransparent) {
                 material.renderQueue = transparent;
                 return;
             }
@@ -1901,7 +2011,7 @@ namespace UnityEditor.Rendering.Toon {
             }
         }
 
-        void ApplyMatCapMode(Material material) {
+        static void ApplyMatCapMode(Material material) {
             if (MaterialGetInt(material, ShaderPropClippingMode) == 0) {
                 if (material.GetFloat(ShaderPropMatCap) == 1)
                     material.EnableKeyword(ShaderPropMatCap);
@@ -1914,7 +2024,7 @@ namespace UnityEditor.Rendering.Toon {
         }
 
 
-        void ApplyAngelRing(Material material) {
+        static void ApplyAngelRing(Material material) {
             int angelRingEnabled = MaterialGetInt(material, ShaderPropAngelRing);
             if (angelRingEnabled == 0) {
                 material.DisableKeyword(ShaderDefineANGELRING_ON);
@@ -1923,7 +2033,7 @@ namespace UnityEditor.Rendering.Toon {
             }
         }
 
-        void ApplyStencilMode(Material material) {
+        static void ApplyStencilMode(Material material) {
             UTS_StencilMode mode = (UTS_StencilMode)(MaterialGetInt(material, ShaderPropStencilMode));
             switch (mode) {
                 case UTS_StencilMode.Off:
@@ -1945,8 +2055,8 @@ namespace UnityEditor.Rendering.Toon {
             }
         }
 
-        void ApplyClippingMode(Material material) {
-            if (!isShadingGrademap) {
+        static void ApplyClippingMode(Material material, UTS_Mode workflowMode) {
+            if (workflowMode != UTS_Mode.ShadingGradeMap) {
                 material.DisableKeyword(ShaderDefineIS_TRANSCLIPPING_OFF);
                 material.DisableKeyword(ShaderDefineIS_TRANSCLIPPING_ON);
 
@@ -2005,20 +2115,24 @@ namespace UnityEditor.Rendering.Toon {
 
             EditorGUILayout.Space();
 
+            EditorGUI.showMixedValue = HasMixedFloat("_EMISSIVE");
             EditorGUI.BeginChangeCheck();
 
             var ret = EditorGUILayout.Toggle(Styles.emissionAnimationText, m_emissionMode != EmissionMode.SimpleEmissive);
+            EditorGUI.showMixedValue = false;
             if (EditorGUI.EndChangeCheck()) {
                 m_MaterialEditor.RegisterPropertyChangeUndo(Styles.emissionAnimationText.text);
-                if (ret) {
-                    material.SetFloat("_EMISSIVE", 1);
-                    material.EnableKeyword("_EMISSIVE_ANIMATION");
-                    material.DisableKeyword("_EMISSIVE_SIMPLE");
-                }
-                else {
-                    material.SetFloat("_EMISSIVE", 0);
-                    material.EnableKeyword("_EMISSIVE_SIMPLE");
-                    material.DisableKeyword("_EMISSIVE_ANIMATION");
+                foreach (Material m in m_Materials) {
+                    if (ret) {
+                        m.SetFloat("_EMISSIVE", 1);
+                        m.EnableKeyword("_EMISSIVE_ANIMATION");
+                        m.DisableKeyword("_EMISSIVE_SIMPLE");
+                    }
+                    else {
+                        m.SetFloat("_EMISSIVE", 0);
+                        m.EnableKeyword("_EMISSIVE_SIMPLE");
+                        m.DisableKeyword("_EMISSIVE_ANIMATION");
+                    }
                 }
             }
 
@@ -2030,11 +2144,13 @@ namespace UnityEditor.Rendering.Toon {
                 GUI_FloatProperty(material, Styles.baseSpeedText);
                 if (!_SimpleUI) {
                     int mode = MaterialGetInt(material, ShaderPropIs_ViewCoord_Scroll);
+                    EditorGUI.showMixedValue = HasMixedFloat(ShaderPropIs_ViewCoord_Scroll);
                     EditorGUI.BeginChangeCheck();
                     mode = EditorGUILayout.Popup(Styles.emissiveScrollAnimationModeText, (int)mode, EmissiveScrollMode);
+                    EditorGUI.showMixedValue = false;
                     if (EditorGUI.EndChangeCheck()) {
                         m_MaterialEditor.RegisterPropertyChangeUndo(Styles.emissiveScrollAnimationModeText.text);
-                        MaterialSetInt(material, ShaderPropIs_ViewCoord_Scroll, mode);
+                        SetIntToAll(ShaderPropIs_ViewCoord_Scroll, mode);
                     }
                 }
 
@@ -2120,20 +2236,33 @@ namespace UnityEditor.Rendering.Toon {
             bool isOutlineEnabled = !material.IsKeywordEnabled(kDisableOutlineKeyword);
 #endif
 
+            bool isOutlineEnabledMixed = false;
+            foreach (Material m in m_Materials) {
+#if URP_IS_INSTALLED_FOR_UTS || HDRP_IS_INSTALLED_FOR_UTS
+                isOutlineEnabledMixed |= m.GetShaderPassEnabled(ToonConstants.SHADER_LIGHT_MODE_NAME_FOR_OUTLINE) != isOutlineEnabled;
+#else
+                isOutlineEnabledMixed |= !m.IsKeywordEnabled(kDisableOutlineKeyword) != isOutlineEnabled;
+#endif
+            }
+
+            EditorGUI.showMixedValue = isOutlineEnabledMixed;
             EditorGUI.BeginChangeCheck();
             const string OUTLINE_LABEL = "Outline";
             isOutlineEnabled = EditorGUILayout.Toggle(OUTLINE_LABEL, isOutlineEnabled);
+            EditorGUI.showMixedValue = false;
             if (EditorGUI.EndChangeCheck()) {
                 m_MaterialEditor.RegisterPropertyChangeUndo(OUTLINE_LABEL);
+                foreach (Material m in m_Materials) {
 #if URP_IS_INSTALLED_FOR_UTS || HDRP_IS_INSTALLED_FOR_UTS
-                material.SetShaderPassEnabled(ToonConstants.SHADER_LIGHT_MODE_NAME_FOR_OUTLINE, isOutlineEnabled);
+                    m.SetShaderPassEnabled(ToonConstants.SHADER_LIGHT_MODE_NAME_FOR_OUTLINE, isOutlineEnabled);
 #else
-                if (isOutlineEnabled) {
-                    material.DisableKeyword(kDisableOutlineKeyword);
-                } else {
-                    material.EnableKeyword(kDisableOutlineKeyword);
-                }
+                    if (isOutlineEnabled) {
+                        m.DisableKeyword(kDisableOutlineKeyword);
+                    } else {
+                        m.EnableKeyword(kDisableOutlineKeyword);
+                    }
 #endif
+                }
             }
 
             EditorGUI.indentLevel++;
@@ -2152,18 +2281,14 @@ namespace UnityEditor.Rendering.Toon {
             }
 
             //GUI description with EnumPopup.
+            EditorGUI.showMixedValue = HasMixedFloat(ToonConstants.SHADER_PROP_TOON3D_OUTLINE);
+            EditorGUI.BeginChangeCheck();
             m_outlineMode = (OutlineMode)EditorGUILayout.EnumPopup(Styles.outlineModeText, m_outlineMode);
-            //If the value changes, write to the material.
-            if (m_outlineMode == OutlineMode.NormalDirection) {
-                material.SetFloat(ToonConstants.SHADER_PROP_TOON3D_OUTLINE, 0);
-                //The keywords on the UTCS_Outline.cginc side are also toggled around.
-                material.EnableKeyword("_OUTLINE_NML");
-                material.DisableKeyword("_OUTLINE_POS");
-            }
-            else if (m_outlineMode == OutlineMode.PositionScaling) {
-                material.SetFloat(ToonConstants.SHADER_PROP_TOON3D_OUTLINE, 1);
-                material.EnableKeyword("_OUTLINE_POS");
-                material.DisableKeyword("_OUTLINE_NML");
+            EditorGUI.showMixedValue = false;
+            //If the value changes, write to the materials. Keywords are applied in ApplyOutlineMode().
+            if (EditorGUI.EndChangeCheck()) {
+                m_MaterialEditor.RegisterPropertyChangeUndo(Styles.outlineModeText.text);
+                SetFloatToAll(ToonConstants.SHADER_PROP_TOON3D_OUTLINE, (float)m_outlineMode);
             }
 
             GUI_FloatProperty(material, Styles.outlineWidthText);
@@ -2207,6 +2332,21 @@ namespace UnityEditor.Rendering.Toon {
             EditorGUI.indentLevel--;
 
             EditorGUILayout.Space();
+        }
+
+        static void ApplyOutlineMode(Material material) {
+            if (!material.HasProperty(ToonConstants.SHADER_PROP_TOON3D_OUTLINE))
+                return;
+
+            //The keywords on the UTCS_Outline.cginc side are also toggled around.
+            if (MaterialGetInt(material, ToonConstants.SHADER_PROP_TOON3D_OUTLINE) == (int)OutlineMode.PositionScaling) {
+                material.EnableKeyword("_OUTLINE_POS");
+                material.DisableKeyword("_OUTLINE_NML");
+            }
+            else {
+                material.EnableKeyword("_OUTLINE_NML");
+                material.DisableKeyword("_OUTLINE_POS");
+            }
         }
 
         void GUI_Tessellation(Material material) {
@@ -2253,19 +2393,23 @@ namespace UnityEditor.Rendering.Toon {
             var prop = ShaderPropIs_Filter_LightColor;
 
             var value = MaterialGetInt(material, prop);
+            EditorGUI.showMixedValue = HasMixedFloat(prop);
             var ret = EditorGUILayout.Toggle(Styles.limitLightIntensityText.text, value != 0);
+            EditorGUI.showMixedValue = false;
             if (EditorGUI.EndChangeCheck()) {
                 var boolValue = ret ? 1 : 0;
                 m_MaterialEditor.RegisterPropertyChangeUndo(Styles.limitLightIntensityText.text);
-                MaterialSetInt(material, prop, boolValue);
-                if (boolValue != 0) {
-                    MaterialSetInt(material, ShaderPropIs_Filter_LightColor, boolValue);
-                    MaterialSetInt(material, ShaderPropIsLightColor_Base, boolValue);
-                    MaterialSetInt(material, ShaderPropIs_LightColor_1st_Shade, boolValue);
-                    MaterialSetInt(material, ShaderPropIs_LightColor_2nd_Shade, boolValue);
-                    if (material.HasProperty(ToonConstants.SHADER_PROP_TOON3D_OUTLINE)) //If OUTLINE is available.
-                    {
-                        MaterialSetInt(material, ToonConstants.SHADER_PROP_TOON3D_IS_LIGHT_COLOR_OUTLINE, boolValue);
+                foreach (Material m in m_Materials) {
+                    MaterialSetInt(m, prop, boolValue);
+                    if (boolValue != 0) {
+                        MaterialSetInt(m, ShaderPropIs_Filter_LightColor, boolValue);
+                        MaterialSetInt(m, ShaderPropIsLightColor_Base, boolValue);
+                        MaterialSetInt(m, ShaderPropIs_LightColor_1st_Shade, boolValue);
+                        MaterialSetInt(m, ShaderPropIs_LightColor_2nd_Shade, boolValue);
+                        if (m.HasProperty(ToonConstants.SHADER_PROP_TOON3D_OUTLINE)) //If OUTLINE is available.
+                        {
+                            MaterialSetInt(m, ToonConstants.SHADER_PROP_TOON3D_IS_LIGHT_COLOR_OUTLINE, boolValue);
+                        }
                     }
                 }
             }
