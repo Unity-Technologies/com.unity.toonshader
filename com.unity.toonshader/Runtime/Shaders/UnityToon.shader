@@ -1,4 +1,4 @@
-//Auto-generated on Tue Oct 27 15:35:15 UTC 2026
+//Auto-generated on Fri Nov 27 10:58:18 UTC 2026
 Shader "Toon/Toon" {
     Properties
     {
@@ -1184,6 +1184,52 @@ Shader "Toon/Toon" {
             #pragma multi_compile _IS_OUTLINE_CLIPPING_NO _IS_OUTLINE_CLIPPING_YES
             #pragma multi_compile _OUTLINE_NML _OUTLINE_POS
             // Outline is implemented in UniversalToonOutline.hlsl.
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+
+            //--------------------------------------
+            // GPU Instancing
+            #pragma multi_compile_instancing
+        #if UNITY_VERSION >= 202230 // Requires Universal RP 14.0.7
+            #include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DOTS.hlsl"
+        #else
+            #pragma multi_compile _ DOTS_INSTANCING_ON
+        #endif
+
+#ifdef UNIVERSAL_PIPELINE_CORE_INCLUDED
+            #include "URP/UniversalToonInput.hlsl"
+            #include "URP/UniversalToonHead.hlsl"
+            #include "URP/UniversalToonOutline.hlsl"
+#endif
+            ENDHLSL
+        }
+
+        // Transparent materials use the Outline pass above as a depth pre-pass, so their outline is drawn here.
+        // URP draws SRPDefaultUnlit, then UniversalForward, then UniversalForwardOnly for each object.
+        Pass {
+            Name "OutlineTransparent"
+            Tags {
+                "LightMode" = "UniversalForward"
+            }
+            Cull Front
+            Blend SrcAlpha OneMinusSrcAlpha
+            Stencil
+            {
+                Ref[_StencilNo]
+                Comp[_StencilComp]
+                Pass[_StencilOpPass]
+                Fail[_StencilOpFail]
+
+            }
+
+            HLSLPROGRAM
+            #pragma target 2.0
+            #pragma vertex vert
+            #pragma fragment frag
+
+            #pragma multi_compile _IS_OUTLINE_CLIPPING_NO _IS_OUTLINE_CLIPPING_YES
+            #pragma multi_compile _OUTLINE_NML _OUTLINE_POS
+            #define _UTS_OUTLINE_FOR_TRANSPARENT
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 

@@ -2098,6 +2098,10 @@ namespace UnityEditor.Rendering.Toon {
             const string OUTLINE_COLOR_MASK = "_SPRDefaultUnlitColorMask";
             const string OUTLINE_CULL_MODE = "_SRPDefaultUnlitColMode";
 
+#if URP_IS_INSTALLED_FOR_UTS
+            material.SetShaderPassEnabled(ToonConstants.SHADER_LIGHT_MODE_NAME_FOR_TRANSPARENT_OUTLINE, isTransparent);
+#endif
+
             if (isTransparent) {
 #if URP_IS_INSTALLED_FOR_UTS || HDRP_IS_INSTALLED_FOR_UTS
                 material.SetShaderPassEnabled(ToonConstants.SHADER_LIGHT_MODE_NAME_FOR_OUTLINE, true);
